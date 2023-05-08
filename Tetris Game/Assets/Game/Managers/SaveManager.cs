@@ -11,7 +11,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         if (!saveData.saveGenerated)
         {
-            //"Save Generated".LogW();
+            "Save Generated".LogW();
             saveData.saveGenerated = true;
 
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;
@@ -21,11 +21,11 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.resourceInventory = new int[resourceCount];
         }
 
-        Meta.OnConvert = (@enum) => { return (int)Enum.Parse(typeof(MetaResource.Type), @enum.ToString()); };
-        Meta.OnLoad = (index) => { return saveData.resourceInventory[index]; };
-        Meta.OnSave = (index, amount) => { saveData.resourceInventory[index] = amount; };
+        //Meta.OnConvert = (@enum) => { return (int)Enum.Parse(typeof(MetaResource.Type), @enum.ToString()); };
+        //Meta.OnLoad = (index) => { return saveData.resourceInventory[index]; };
+        //Meta.OnSave = (index, amount) => { saveData.resourceInventory[index] = amount; };
 
-        Meta.THIS.SetUp(() => { return Enum.GetNames(typeof(MetaResource.Type)); });
+        //Meta.THIS.SetUp(() => { return Enum.GetNames(typeof(MetaResource.Type)); });
     }
     void Update()
     {
