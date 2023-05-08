@@ -1,0 +1,4 @@
+public $staticMod class $className
+{
+$varDec
+}
