@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd35f3c0f919fe04c998e148273f9009, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  selectedColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
-  unselectedColor: {r: 0, g: 0, b: 0, a: 1}
+  pawns: 0100000002000000030000000400000005000000
+  forwardEase: 3
+  forwardDelay: 0.15
+  forwardDuration: 0.25
+  sidewayDuration: 0.25
+  sidewayEase: 3

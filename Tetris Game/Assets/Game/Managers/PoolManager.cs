@@ -77,11 +77,15 @@ public static class PoolManagerExtenstions
     }
     public static void Despawn(this GameObject gameObject)
     {
-        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), gameObject.name.Replace(" ", "_")), gameObject);
+        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), gameObject.name.Replace(" ", "_").Replace("-", "_")), gameObject);
     }
     public static void Despawn(this MonoBehaviour mono)
     {
-        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), mono.gameObject.name.Replace(" ", "_")), mono.gameObject);
+        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), mono.gameObject.name.Replace(" ", "_").Replace("-", "_")), mono.gameObject);
+    }
+    public static void Despawn(this MonoBehaviour mono, Pool key)
+    {
+        PoolManager.Despawn(key, mono.gameObject);
     }
     public static void Despawn(this int key, GameObject gameObject)
     {

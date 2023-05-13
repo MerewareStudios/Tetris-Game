@@ -58,6 +58,10 @@ namespace Internal.Core
         public static void Log(this object obj)
         {
             Debug.Log(obj.ToString());
+        } 
+        public static float Map(float x, float in_min, float in_max, float out_min, float out_max)
+        {
+            return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }
         public static void Show(this GameObject gameObject, bool state, float duration = 0.25f, float magnitude = 1.0f)
         {
