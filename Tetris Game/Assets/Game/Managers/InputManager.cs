@@ -27,11 +27,19 @@ public class InputManager : Singleton<InputManager>
         if (Map.THIS.currentBlock != null)
         {
             //Map.THIS.currentBlock.Move(Block.Direction.RIGHT);
-            Map.THIS.currentBlock.QueueDirection(Block.Direction.FORWARD);
+            //Map.THIS.currentBlock.QueueDirection(Block.Direction.FORWARD);
+            Map.THIS.currentBlock.ByPassTime(0.0f);
         }
     }
     public void SwipeDown()
     {
 
+    }
+    public void OnClick()
+    {
+        if (Map.THIS.currentBlock != null)
+        {
+            Map.THIS.currentBlock.Rotate();
+        }
     }
 }

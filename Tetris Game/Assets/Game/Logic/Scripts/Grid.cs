@@ -37,7 +37,7 @@ namespace Game
 
         
        
-        private void CheckRows()
+        private IEnumerator CheckRows()
         {
             for (int h = 0; h < pawns.GetLength(1); h++)
             {
@@ -52,10 +52,21 @@ namespace Game
                 }
                 if (lineFull)
                 {
-                    StartCoroutine(Tetris(h));
-                    return;
+                    if (h == pawns.GetLength(1) - 1)
+                    {
+                        yield return StartCoroutine(GoToWar(h));
+                    }
+                    else
+                    {
+                        yield return StartCoroutine(Tetris(h));
+                    }
+                    yield break;
                 }
             }
+
+            yield return new WaitForEndOfFrame();
+
+            Map.THIS.SpawnRandomBlock();
         }
 
         public void Submit(Block block)
@@ -67,36 +78,58 @@ namespace Game
                 pawns[index.x, index.y] = pawn;
             }
             block.Deconstruct(this.transform);
-            CheckRows();
+            Map.THIS.currentBlock = null;
+            StartCoroutine(CheckRows());
         }
         private IEnumerator Tetris(int lineIndex)
         {
             for (int w = 0; w < pawns.GetLength(0); w++)
             {
-                Pawn pawn = pawns[w, lineIndex];
-                pawn.Light();
+                int column = w;
+                Pawn movingPawn = pawns[column, lineIndex];
+                movingPawn.Tetris();
 
                 int endLine = FindFurthestStoppingPoint(w, lineIndex);
 
 
-                pawns[w, lineIndex] = null;
-                Pawn stationaryPawn = pawns[w, endLine];
-                //pawns[w, endLine] = pawn;
+                pawns[column, lineIndex] = null;
+                Pawn stationaryPawn = pawns[column, endLine];
 
-                Vector3 targetPos = pawn.transform.position + Vector3.forward * (endLine - lineIndex);
+                Vector3 targetPos = movingPawn.transform.position + Vector3.forward * (endLine - lineIndex);
 
-                pawn.transform.DOMove(targetPos, 0.25f).SetEase(Ease.Linear)
+                movingPawn.transform.DOMove(targetPos, 0.25f).SetEase(Ease.Linear).SetDelay(GameManager.THIS.Constants.afterTetrisForwardDelay)
                     .onComplete = () =>
                         {
-                            Pawn newPawn = Merge(stationaryPawn, pawn);
-                            //pawns[w, endLine] = newPawn;
+                            Pawn newPawn = Merge(stationaryPawn, movingPawn);
+                            pawns[column, endLine] = newPawn;
                         };
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(GameManager.THIS.Constants.afterTetrisFallDelay + GameManager.THIS.Constants.afterTetrisForwardDelay);
 
             Fall(lineIndex);
         }
+        private IEnumerator GoToWar(int lineIndex)
+        {
+            for (int w = 0; w < pawns.GetLength(0); w++)
+            {
+                int column = w;
+                Pawn fighterPawn = pawns[column, lineIndex];
+                pawns[column, lineIndex] = null;
+                fighterPawn.Fight();
 
+                Vector3 targetPos = fighterPawn.transform.position + Vector3.forward;
+
+                fighterPawn.transform.DOMove(targetPos, 0.25f).SetEase(Ease.Linear).SetDelay(GameManager.THIS.Constants.afterWarFightDelay)
+                    .onComplete = () =>
+                    {
+
+                    };
+            }
+
+            yield return new WaitForSeconds(GameManager.THIS.Constants.afterWarFallDelay + GameManager.THIS.Constants.afterWarFightDelay);
+
+            Fall(lineIndex);
+        }
         private Pawn Merge(Pawn stationaryPawn, Pawn movingPawn)
         {
             if (stationaryPawn == null)
@@ -106,11 +139,14 @@ namespace Game
             }
             int mergeLevel = stationaryPawn.level + movingPawn.level;
 
-            //stationaryPawn.Despawn();
+            Pool pawnType = GameManager.THIS.Constants.pawns[mergeLevel - 1];
+            Pawn newPawn = pawnType.Spawn<Pawn>(this.transform);
+            newPawn.transform.position = stationaryPawn.transform.position;
+
+            stationaryPawn.Despawn();
             movingPawn.Despawn();
 
-            Pool pawnType = GameManager.THIS.Constants.pawns[mergeLevel - 1];
-            return pawnType.Spawn<Pawn>();
+            return newPawn;
         }
 
 
@@ -142,8 +178,6 @@ namespace Game
         }
         private void Fall(int startLine)
         {
-            //PrintPawns();
-
             int startIndex = startLine - 1;
 
             for (int i = startIndex; i >= 0; i--)
@@ -167,12 +201,13 @@ namespace Game
 
                         pawns[w, endIndex] = pawn;
                     }
-
                 }
             }
+
+            StartCoroutine(CheckRows());
         }
 
-      
+
         public bool CheckMotion(CheckIndexFunction rule, Block block)
         {
             foreach (var pawn in block.pawns)

@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: 225575594}
   - component: {fileID: 225575593}
   - component: {fileID: 225575592}
+  - component: {fileID: 225575596}
   m_Layer: 0
   m_Name: Touch
   m_TagString: Untagged
@@ -585,6 +586,55 @@ MonoBehaviour:
   ignoreStartedOverGui: 0
   ignoreIsOverGui: 0
   requiredSelectable: {fileID: 0}
+--- !u!114 &225575596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225575589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c1c71d8ad5da9438de3b2e5990763f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreStartedOverGui: 1
+  ignoreIsOverGui: 0
+  requiredSelectable: {fileID: 0}
+  requiredTapCount: 0
+  requiredTapInterval: 0
+  onFinger:
+    m_PersistentCalls:
+      m_Calls: []
+  onCount:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1754314601}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ScreenDepth:
+    Conversion: 0
+    Camera: {fileID: 0}
+    Object: {fileID: 0}
+    Layers:
+      serializedVersion: 2
+      m_Bits: 0
+    Distance: 10
+  onWorld:
+    m_PersistentCalls:
+      m_Calls: []
+  onScreen:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &228455765
 GameObject:
   m_ObjectHideFlags: 0

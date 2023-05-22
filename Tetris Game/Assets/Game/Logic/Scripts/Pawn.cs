@@ -14,16 +14,23 @@ namespace Game
 
         void Awake()
         {
-            levelText.text = level.ToString();    
+            levelText.text = level.ToString();
         }
-
+        public void Res()
+        {
+            meshRenderer.SetColor(Map.THIS.MPB_PAWN, "_BaseColor", Color.gray, 0);
+        }
         public void Mark()
         {
             meshRenderer.SetColor(Map.THIS.MPB_PAWN, "_BaseColor", Color.gray, 0);
         }
-        public void Light()
+        public void Tetris()
         {
             meshRenderer.SetColor(Map.THIS.MPB_PAWN, "_BaseColor", Color.green, 0);
+        }
+        public void Fight()
+        {
+            meshRenderer.SetColor(Map.THIS.MPB_PAWN, "_BaseColor", Color.yellow, 0);
         }
     }
 }

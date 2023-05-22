@@ -33,26 +33,22 @@ namespace Game
         public void BlockPlaced()
         {
             currentBlock.Mark();
-
             grid.Submit(currentBlock);
-
-            currentBlock = null;
-
-            SpawnRandomBlock();
         }
 
-        private void SpawnRandomBlock()
+        public void SpawnRandomBlock()
         {
-            //Spawn((Block.Type)Random.Range(0, System.Enum.GetValues(typeof(Block.Type)).Length));
-            Spawn(Block.Type.T);
+            Spawn((Block.Type)Random.Range(0, System.Enum.GetValues(typeof(Block.Type)).Length));
+            //Spawn(Block.Type.S);
         }
 
         public void Spawn(Block.Type blockType)
         {
             currentBlock = blockPrefabData[((int)blockType)].block.Spawn<Block>(this.transform);
+            currentBlock.transform.position = spawnPos + currentBlock.offset;
             currentBlock.transform.localRotation = Quaternion.identity;
             currentBlock.transform.localScale = Vector3.one;
-            currentBlock.OnSpawn(spawnPos);
+            currentBlock.OnSpawn();
         }
 
         [System.Serializable]

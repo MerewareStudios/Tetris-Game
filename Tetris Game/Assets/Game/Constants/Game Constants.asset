@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Game Constants
   m_EditorClassIdentifier: 
   pawns: 0100000002000000030000000400000005000000
-  forwardEase: 3
-  forwardDelay: 0.15
-  forwardDuration: 0.25
-  sidewayDuration: 0.25
-  sidewayEase: 3
+  forwardDelay: 0.4
+  afterMovementDelay: 0.65
+  forwardMovementDuration: 0.125
+  sideMovementDuration: 0.075
+  afterTetrisForwardDelay: 1
+  afterTetrisFallDelay: 1
+  afterWarFallDelay: 1
+  afterWarFightDelay: 1

@@ -10,13 +10,17 @@ namespace Game
 {
     public class Block : MonoBehaviour
     {
+        [SerializeField] public Vector3 offset;
         [System.NonSerialized] public List<Pawn> pawns = new();
         [SerializeField] public List<Transform> pawnTargets;
+        [SerializeField] public Transform rotatePivot;
         [System.NonSerialized] private Coroutine motionRoutine;
         [System.NonSerialized] private Vector3 targetPosition;
-        [System.NonSerialized] private bool moving = false;
         [System.NonSerialized] private Direction queueDirection;
-        [System.NonSerialized] private float forwardStamp;
+        [System.NonSerialized] private float moveTimeStamp;
+
+        private bool Moving { get; set; }
+        private bool Rotating { get; set; }
 
         private void OnDrawGizmos()
         {
@@ -31,11 +35,11 @@ namespace Game
         {
             foreach (var target in pawnTargets)
             {
-                Pawn pawn = Pool.Pawn___Level_1.Spawn<Pawn>(this.transform);
+                Pawn pawn = Pool.Pawn___Level_1.Spawn<Pawn>(this.rotatePivot);
                 pawn.transform.position = target.position;
                 pawn.transform.localScale = Vector3.one;
                 pawn.transform.localRotation = Quaternion.identity;
-
+                pawn.Res();
                 pawns.Add(pawn);
             }
         }
@@ -49,13 +53,12 @@ namespace Game
             this.Despawn();
         }
 
-        public void OnSpawn(Vector3 spawnPosition)
+        public void OnSpawn()
         {
             Construct();
 
-            forwardStamp = Time.time - GameManager.THIS.Constants.forwardDelay;
+            moveTimeStamp = Time.time - GameManager.THIS.Constants.forwardDelay;
 
-            transform.position = spawnPosition;
             targetPosition = transform.position;
             motionRoutine = StartCoroutine(MotionRoutine());
 
@@ -63,16 +66,15 @@ namespace Game
             {
                 while (true)
                 {
-                    while (moving)
+                    while (Moving || Rotating)
                     {
                         yield return null;
                     }
-                    if (Time.time - forwardStamp >= GameManager.THIS.Constants.forwardDelay)
+                    if (Time.time - moveTimeStamp >= GameManager.THIS.Constants.forwardDelay)
                     {
-                        //ReplenishMoveForward();
                         if (!CheckPlacement())
                         {
-                            Move(Direction.FORWARD);
+                            Move(Direction.FORWARD, false, GameManager.THIS.Constants.forwardMovementDuration);
                         }
                     }
                     yield return null;
@@ -80,9 +82,13 @@ namespace Game
             }
         }
 
-        public void ReplenishMoveForward()
+        public void StampTime()
         {
-            forwardStamp = Time.time;
+            moveTimeStamp = Time.time;
+        }
+        public void ByPassTime(float drag)
+        {
+            moveTimeStamp = Time.time - GameManager.THIS.Constants.forwardDelay + drag;
         }
 
         private void Stop()
@@ -95,59 +101,81 @@ namespace Game
         }
         
 
-        public void Move(Direction direction)
+        public void Move(Direction direction, bool useAfterMovementDelay, float duration)
         {
-            if (Map.THIS.grid.CheckMotion(Direction2Rule(direction), this) && !moving)
+            if (Map.THIS.grid.CheckMotion(Direction2Rule(direction), this) && !Moving)
             {
                 targetPosition += Direction2Position(direction);
                 
                 queueDirection = Direction.NONE;
-                MoveToTargetPosition(GameManager.THIS.Constants.sidewayDuration, GameManager.THIS.Constants.sidewayEase, () =>
+                MoveToTargetPosition(duration, Ease.Linear, () =>
                     {
                         if (direction.Equals(Direction.FORWARD))
                         {
-                            ReplenishMoveForward();
+                            StampTime();
                         }
-                        MovementEnd();
+                        MovementEnd(useAfterMovementDelay);
                     });
             }
         }
 
         public void QueueDirection(Direction direction)
         {
-            if (!moving)
+            if (!Moving)
             {
-                Move(direction);
+                Move(direction, true, GameManager.THIS.Constants.sideMovementDuration);
                 queueDirection = Direction.NONE;
                 return;
             }
             queueDirection = direction;
         }
 
+        public void Rotate()
+        {
+            if (Moving)
+            {
+                return;
+            }
+            if (Rotating)
+            {
+                return;
+            }
+            Rotating = true;
+            this.rotatePivot.DOKill();
+            this.rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.25f, RotateMode.WorldAxisAdd)
+                .SetRelative(true)
+                .SetEase(Ease.OutSine)
+                .onComplete += 
+                    () => 
+                    {
+                        Rotating = false;
+                        ByPassTime(0.3f);
+                    };
+        }
+
         private void MoveToTargetPosition(float duration, Ease ease, System.Action OnMoveComplete = null)
         {
-            moving = true;
+            Moving = true;
             transform.DOKill();
             transform.DOMove(targetPosition, duration).SetEase(ease)
                .onComplete += () =>
                {
-                    moving = false;
+                    Moving = false;
                     OnMoveComplete.Invoke();
                };
         }
 
-        private void MovementEnd()
+        private void MovementEnd(bool useAfterMovementDelay)
         {
-            if (Time.time - forwardStamp >= GameManager.THIS.Constants.forwardDelay)
-            {
-                queueDirection = Direction.NONE;
-            }
+            float delay = useAfterMovementDelay ? GameManager.THIS.Constants.afterMovementDelay : GameManager.THIS.Constants.forwardDelay;
+            ByPassTime(delay);
+
             if (queueDirection.Equals(Direction.NONE))
             {
                 return;
             }
 
-            Move(queueDirection);
+            Move(queueDirection, true, GameManager.THIS.Constants.sideMovementDuration);
         }
         private bool CheckPlacement()
         {
