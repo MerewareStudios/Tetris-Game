@@ -12,12 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd35f3c0f919fe04c998e148273f9009, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  pawns: 0100000002000000030000000400000005000000
-  forwardDelay: 0.4
-  afterMovementDelay: 0.65
-  forwardMovementDuration: 0.125
-  sideMovementDuration: 0.075
-  afterTetrisForwardDelay: 1
-  afterTetrisFallDelay: 1
-  afterWarFallDelay: 1
-  afterWarFightDelay: 1
+  placeColorHighlight: {r: 0.63820994, g: 1, b: 0.20188677, a: 1}
+  placeColorDefault: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
+  segmentPlaceLayer:
+    serializedVersion: 2
+    m_Bits: 512

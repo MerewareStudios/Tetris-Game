@@ -1,11 +1,11 @@
 public enum Pool
 {
     Grid_Node = 0,
-    Pawn___Level_1 = 1,
-    Pawn___Level_2 = 2,
-    Pawn___Level_3 = 3,
-    Pawn___Level_4 = 4,
-    Pawn___Level_5 = 5,
+    Segment___Level_1 = 1,
+    Segment___Level_2 = 2,
+    Segment___Level_3 = 3,
+    Segment___Level_4 = 4,
+    Segment___Level_5 = 5,
     I_Block = 6,
     J_Block = 7,
     L_Block = 8,

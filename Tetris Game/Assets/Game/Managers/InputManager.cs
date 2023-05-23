@@ -2,44 +2,43 @@ using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class InputManager : Singleton<InputManager>
 {
-    public void SwipeLeft()
+    [SerializeField] private float tapInterval = 0.1f; 
+    [System.NonSerialized] private float touchBegin; 
+    [Header("Events")] 
+    [SerializeField] private UnityEvent<Vector3> OnTap; 
+    [SerializeField] private UnityEvent<Vector3> OnMove; 
+    [SerializeField] private UnityEvent<Vector3> OnRelease; 
+    private void Update()
     {
-        if (Map.THIS.currentBlock != null)
+        if (Input.touchCount > 0)
         {
-            //Map.THIS.currentBlock.Move(Block.Direction.LEFT);
-            Map.THIS.currentBlock.QueueDirection(Block.Direction.LEFT);
-        }
-    }
-    public void SwipeRight()
-    {
-        if (Map.THIS.currentBlock != null)
-        {
-            //Map.THIS.currentBlock.Move(Block.Direction.RIGHT);
-            Map.THIS.currentBlock.QueueDirection(Block.Direction.RIGHT);
-        }
-    }
-    public void SwipeUp()
-    {
-        if (Map.THIS.currentBlock != null)
-        {
-            //Map.THIS.currentBlock.Move(Block.Direction.RIGHT);
-            //Map.THIS.currentBlock.QueueDirection(Block.Direction.FORWARD);
-            Map.THIS.currentBlock.ByPassTime(0.0f);
-        }
-    }
-    public void SwipeDown()
-    {
+            Touch touch = Input.GetTouch(0);
 
-    }
-    public void OnClick()
-    {
-        if (Map.THIS.currentBlock != null)
-        {
-            Map.THIS.currentBlock.Rotate();
+            if (touch.phase == TouchPhase.Began)
+            {
+                touchBegin = Time.time;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                if (Time.time - touchBegin <= tapInterval)
+                {
+                    OnTap?.Invoke(touch.position);
+                }
+                OnRelease?.Invoke(touch.position);
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                OnMove?.Invoke(touch.position);
+            }
         }
     }
+
 }
