@@ -498,6 +498,10 @@ namespace Internal.Core
         {
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
+        public static T Random<T>(this T[] list)
+        {
+            return list[UnityEngine.Random.Range(0, list.Length)];
+        }
         public static T RandomRemove<T>(this List<T> list)
         {
             int randomIndex = UnityEngine.Random.Range(0, list.Count);

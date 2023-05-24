@@ -12,7 +12,11 @@ namespace Game
     {
         [SerializeField] private List<Transform> segmentTransforms;
         [System.NonSerialized] private List<Segment> segments = new();
-        [SerializeField] private Vector3 spawnerOffset;
+        [SerializeField] public Vector3 spawnerOffset;
+        [System.NonSerialized] private Tween motionTween;
+        [System.NonSerialized] private bool busy = false;
+
+        public bool CanMoveForward{get; set;}
 
         public void Construct()
         {
@@ -26,10 +30,47 @@ namespace Game
                 segment.transform.position = s.position;
                 segment.transform.localRotation = Quaternion.identity;
                 segment.transform.localScale = Vector3.one;
-
+                segment.parentBlock = this;
                 segments.Add(segment);
             }
+
+            CanMoveForward = false;
         }
+
+        public void Deconstruct()
+        {
+            foreach (var segment in segments)
+            {
+                segment.Mover = false;
+                segment.parentBlock = null;
+            }
+            segments.Clear();
+            this.Despawn();
+        }
+
+        public bool SubmitToPlaces()
+        {
+            foreach (var segment in segments)
+            {
+                if (!segment.CanSubmit)
+                {
+                    return false;
+                }
+            }
+            foreach (var segment in segments)
+            {
+                segment.Submit();
+            }
+            return true;
+        }
+
+        //public void Dehighlight()
+        //{
+        //    foreach (var segment in segments)
+        //    {
+        //        segment.Dehighlight();
+        //    }
+        //}
 
         public void Check()
         {
@@ -37,6 +78,41 @@ namespace Game
             {
                 segment.Check();
             }
+        }
+
+        public void Rotate()
+        {
+            if (busy)
+            {
+                return;
+            }
+            busy = true;
+
+            motionTween?.Kill();
+            motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.2f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Ease.Linear);
+            motionTween.onUpdate += () => 
+                {
+                    foreach (var segment in segments)
+                    {
+                        segment.transform.rotation = Quaternion.identity;
+                    }
+                };
+            motionTween.onComplete += () =>
+            {
+                busy = false;
+            };
+        }
+
+        public void Mount()
+        {
+            busy = true;
+
+            motionTween?.Kill();
+            motionTween = transform.DOLocalMove(spawnerOffset, GameManager.THIS.Constants.segmentDenyDuration).SetEase(GameManager.THIS.Constants.segmentDenyEase);
+            motionTween.onComplete += () =>
+            {
+                busy = false;
+            };
         }
 
         private void OnDrawGizmos()
@@ -57,14 +133,6 @@ namespace Game
             S,
             T,
             Z
-        }
-        public enum Direction
-        {
-            NONE,
-            FORWARD,
-            BACKWARD,
-            LEFT,
-            RIGHT
         }
     }
 }

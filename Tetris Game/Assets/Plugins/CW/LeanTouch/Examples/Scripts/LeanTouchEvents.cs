@@ -11,10 +11,10 @@ namespace Lean.Touch
 		protected virtual void OnEnable()
 		{
 			// Hook into the events we need
-			LeanTouch.OnFingerDown   += HandleFingerDown;
+			LeanTouch.OnFingerDown += HandleFingerDown;
 			LeanTouch.OnFingerUpdate += HandleFingerUpdate;
-			LeanTouch.OnFingerUp     += HandleFingerUp;
-			LeanTouch.OnFingerTap    += HandleFingerTap;
+			LeanTouch.OnFingerUp += HandleFingerUp;
+			LeanTouch.OnFingerTap += HandleFingerTap;
 			LeanTouch.OnFingerSwipe  += HandleFingerSwipe;
 			LeanTouch.OnGesture      += HandleGesture;
 		}

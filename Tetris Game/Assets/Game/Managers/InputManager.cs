@@ -1,5 +1,6 @@
 using Game;
 using Internal.Core;
+using Lean.Touch;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -11,11 +12,15 @@ using UnityEngine.UIElements;
 public class InputManager : Singleton<InputManager>
 {
     [SerializeField] private float tapInterval = 0.1f; 
+    [SerializeField] private float moveThreshold = 10f; 
     [System.NonSerialized] private float touchBegin; 
+    [System.NonSerialized] private Vector2 beginPosition; 
+    [System.NonSerialized] private bool Moving = false; 
     [Header("Events")] 
     [SerializeField] private UnityEvent<Vector3> OnTap; 
     [SerializeField] private UnityEvent<Vector3> OnMove; 
-    [SerializeField] private UnityEvent<Vector3> OnRelease; 
+    [SerializeField] private UnityEvent<Vector3> OnRelease;
+
     private void Update()
     {
         if (Input.touchCount > 0)
@@ -24,6 +29,7 @@ public class InputManager : Singleton<InputManager>
 
             if (touch.phase == TouchPhase.Began)
             {
+                beginPosition = touch.position;
                 touchBegin = Time.time;
             }
             else if (touch.phase == TouchPhase.Ended)
@@ -33,10 +39,15 @@ public class InputManager : Singleton<InputManager>
                     OnTap?.Invoke(touch.position);
                 }
                 OnRelease?.Invoke(touch.position);
+                Moving = false;
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-                OnMove?.Invoke(touch.position);
+                if (Moving || (beginPosition - touch.position).magnitude > moveThreshold)
+                {
+                    Moving = true;
+                    OnMove?.Invoke(touch.position);
+                }
             }
         }
     }

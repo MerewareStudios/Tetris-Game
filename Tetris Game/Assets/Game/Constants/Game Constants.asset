@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd35f3c0f919fe04c998e148273f9009, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
+  tickInterval: 0.3
+  blocks: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000
   placeColorHighlight: {r: 0.63820994, g: 1, b: 0.20188677, a: 1}
+  placeColorDeny: {r: 1, g: 0.28661826, b: 0.19999999, a: 1}
   placeColorDefault: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
   segmentPlaceLayer:
     serializedVersion: 2
     m_Bits: 512
+  segmentAcceptEase: 1
+  segmentAcceptDuration: 0.15
+  segmentDenyEase: 6
+  segmentDenyDuration: 0.35

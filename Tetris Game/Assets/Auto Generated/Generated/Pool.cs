@@ -1,6 +1,6 @@
 public enum Pool
 {
-    Grid_Node = 0,
+    Place = 0,
     Segment___Level_1 = 1,
     Segment___Level_2 = 2,
     Segment___Level_3 = 3,
@@ -11,7 +11,12 @@ public enum Pool
     L_Block = 8,
     O_Block = 9,
     S_Block = 10,
-    T_Block = 11,
-    Z_Block = 12,
+    Short_J_Block = 11,
+    Short_L_Block = 12,
+    Single_Block = 13,
+    T_Block = 14,
+    Tree_I_Block = 15,
+    Two_I_Block = 16,
+    Z_Block = 17,
 
 }

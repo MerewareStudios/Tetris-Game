@@ -1,25 +1,40 @@
 using Internal.Core;
+using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 namespace Game
 {
     public class Map : Singleton<Map>
     {
-        [SerializeField] private List<Place> places;
-        [System.NonSerialized] private Dictionary<Transform, Place> placeDic = new();
+        //[SerializeField] private List<Place> places;
+        [SerializeField] private Grid grid;
+        [System.NonSerialized] private List<Segment> segments = new();
 
-        void Awake()
+        IEnumerator Start()
         {
-            foreach (Place place in places)
+            grid.Construct();
+
+            while (true)
             {
-                placeDic.Add(place.transform, place);
+                grid.Tick();
+                yield return new WaitForSeconds(GameManager.THIS.Constants.tickInterval);
             }
         }
-
         public Place GetPlace(Transform pt)
         {
-            return placeDic[pt];
+            return grid.placeDic[pt];
+        }
+
+        public void AddSegment(Segment segment)
+        {
+            segments.Add(segment);
+        }
+
+        public void Dehighlight()
+        {
+            grid.Dehighlight();
         }
     }
 }

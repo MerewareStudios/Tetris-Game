@@ -7,5 +7,8 @@ public  const int Player = 3;
 public  const int Water = 4;
 public  const int UI = 5;
 public  const int Spawner = 6;
+public  const int Grid = 7;
+public  const int Gridcheck = 8;
+public  const int Place = 9;
 
 }
