@@ -1,9 +1,13 @@
 using Internal.Core;
+using TMPro;
 using UnityEngine;
 
 public class ApplicationManager : Singleton<ApplicationManager>
 {
     [SerializeField] public int targetFrameRate = 60;
+    [SerializeField] public TextMeshProUGUI fpsText;
+    [System.NonSerialized] public int fps;
+    [System.NonSerialized] public float fpsTimestamp;
     static Setting HAPTIC;
     public static Setting SOUND;
 
@@ -29,6 +33,16 @@ public class ApplicationManager : Singleton<ApplicationManager>
     //    }
     //}
 
+    void Update()
+    {
+        fps++;
+        if (Time.time - fpsTimestamp > 1.0f)
+        {
+            fpsText.text = fps.ToString();
+            fps = 0;
+            fpsTimestamp = Time.time;
+        }
+    }
 
     public class Setting
     {
