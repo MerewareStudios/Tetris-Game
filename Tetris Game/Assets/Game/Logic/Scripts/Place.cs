@@ -54,6 +54,15 @@ namespace Game
                       OnAcceptComplete();
                   };
         }
+        public void AcceptImmidiate(Segment segment)
+        {
+            Transform segmentT = segment.transform;
+            segmentT.parent = this.segmentParent;
+            segmentT.localPosition = Vector3.zero;
+            segmentT.localRotation = Quaternion.identity;
+            segmentT.localScale = Vector3.one;
+            this.currentSegment = segment;
+        }
         public void Clear()
         {
             currentSegment = null;

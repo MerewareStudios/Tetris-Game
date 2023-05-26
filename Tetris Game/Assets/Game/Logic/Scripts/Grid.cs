@@ -14,6 +14,7 @@ namespace Game
     {
         [System.NonSerialized] public Place[,] places;
         [System.NonSerialized] public Dictionary<Transform, Place> placeDic = new();
+        [System.NonSerialized] public int TickIndex = 0;
         [SerializeField] private Vector2Int size;
 
         public void Construct()
@@ -35,12 +36,13 @@ namespace Game
         public void Tick()
         {
             Debug.LogWarning("Tick");
+            TickIndex++;
 
             Call<Place>(places, (place) =>
             {
                 if (place.currentSegment != null)
                 {
-                    place.currentSegment.UpdateParentBlockStats();
+                    place.currentSegment.UpdateParentBlockStats(TickIndex);
                 }
             });
             Call<Place>(places, (place) =>
@@ -69,6 +71,16 @@ namespace Game
                 }
             }
         }
+        private void Call<T>(T[,] array, System.Action<T, int, int> action)
+        {
+            for (int i = 0; i < size.x; i++)
+            {
+                for (int j = 0; j < size.y; j++)
+                {
+                    action.Invoke(array[i, j], i, j);
+                }
+            }
+        }
         public List<int> CheckTetris()
         {
             List<int> tetrisLines = new();
@@ -93,11 +105,27 @@ namespace Game
 
         public void ClearLine(int lineIndex)
         {
+            List<int> indexes = new();
+            int highestTick = 1;
+
             for (int i = 0; i < size.x; i++)
             {
                 Place place = places[i, lineIndex];
+
+                if (place.currentSegment.tick == highestTick)
+                {
+                    indexes.Add(i);
+                }
+                else if(place.currentSegment.tick > highestTick)
+                {
+                    highestTick = place.currentSegment.tick;
+                    indexes.Clear();
+                    indexes.Add(i);
+                }
+
                 place.Deconstruct(true);
             }
+            SpawnSegment(indexes.Random(), lineIndex, Pool.Segment___Level_2);
         }
 
         public void ClearLines(List<int> lines)
@@ -110,7 +138,22 @@ namespace Game
 
         public void MoveFromLine(int startLine)
         {
+            Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
+            {
+                if (place.currentSegment != null && verticalIndex >= startLine)
+                {
+                    place.currentSegment.Mover = true;
+                }
+            });
+        }
 
+        private void SpawnSegment(int x, int y, Pool type)
+        {
+            Place place = places[x, y];
+            Segment segment = type.Spawn<Segment>(this.transform);
+            segment.currentPlace = place;
+            segment.Mover = true;
+            place.AcceptImmidiate(segment);
         }
     }
 }

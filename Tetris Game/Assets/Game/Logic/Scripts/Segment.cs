@@ -7,6 +7,7 @@ namespace Game
         [System.NonSerialized] public Block parentBlock;
         [System.NonSerialized] public Place currentPlace;
         [System.NonSerialized] public Place forwardPlace;
+        [System.NonSerialized] public int tick;
         [SerializeField] public bool Mover = false;
 
         public void Deconstruct()
@@ -64,9 +65,10 @@ namespace Game
             this.currentPlace.Accept(this);
             this.Mover = true;
         }
-        public void UpdateParentBlockStats()
+        public void UpdateParentBlockStats(int tick)
         {
-            if (!Mover || parentBlock == null)
+            this.tick = tick;
+            if (!Mover)
             {
                 return;
             }
@@ -76,16 +78,16 @@ namespace Game
             bool state = (forwardPlace == null) || (forwardPlace.currentSegment != null && !forwardPlace.currentSegment.Mover);
             if (state)
             {
-                parentBlock.Deconstruct();
+                if (parentBlock != null)
+                {
+                    parentBlock.Deconstruct();
+                }
+                Mover = false;
             }
         }
         public void MoveForward()
         {
             if (!Mover)
-            {
-                return;
-            }
-            if (parentBlock == null)
             {
                 return;
             }

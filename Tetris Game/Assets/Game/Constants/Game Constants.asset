@@ -23,4 +23,4 @@ MonoBehaviour:
   segmentAcceptEase: 1
   segmentAcceptDuration: 0.15
   segmentDenyEase: 6
-  segmentDenyDuration: 0.35
+  segmentDenyDuration: 0.15

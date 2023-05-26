@@ -11,6 +11,7 @@ namespace Game
         //[SerializeField] private List<Place> places;
         [SerializeField] private Grid grid;
         [System.NonSerialized] private List<Segment> segments = new();
+        [System.NonSerialized] public int Tick = 0;
 
         IEnumerator Start()
         {
@@ -22,6 +23,11 @@ namespace Game
                 yield return new WaitForSeconds(GameManager.THIS.Constants.tickInterval);
                 List<int> tetrisLines = grid.CheckTetris();
                 grid.ClearLines(tetrisLines);
+                yield return new WaitForSeconds(0.25f);
+                if (tetrisLines.Count > 0)
+                {
+                    grid.MoveFromLine(tetrisLines[0]);
+                }
                 yield return new WaitForSeconds(0.25f);
             }
         }
