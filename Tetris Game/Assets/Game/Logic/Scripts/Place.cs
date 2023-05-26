@@ -11,7 +11,7 @@ namespace Game
     {
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] public Transform segmentParent;
-        [System.NonSerialized] public Segment currentSegment;
+        [SerializeField] public Segment currentSegment;
 
         void Start()
         {
@@ -61,6 +61,19 @@ namespace Game
         private void OnAcceptComplete()
         {
             //Map.THIS.AddSegment(this.currentSegment);
+        }
+
+        public void Deconstruct(bool disjoint)
+        {
+            if (currentSegment != null)
+            {
+                if (disjoint)
+                {
+                    currentSegment.DisjointParentBlock();
+                }
+                currentSegment.Deconstruct();
+            }
+            currentSegment = null;
         }
     }
 }

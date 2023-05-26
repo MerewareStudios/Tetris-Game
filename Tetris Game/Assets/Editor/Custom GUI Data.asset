@@ -44,7 +44,7 @@ MonoBehaviour:
     texturePadding: 0.975
     removeCharacter: 1
     textColor: {r: 1, g: 1, b: 1, a: 1}
-    backgroundColor: {r: 0.38679248, g: 0.01970449, b: 0.055190943, a: 1}
+    backgroundColor: {r: 1, g: 0, b: 0.29279137, a: 1}
     fontStyle: 1
     textAnchor: 4
     fontSize: 15

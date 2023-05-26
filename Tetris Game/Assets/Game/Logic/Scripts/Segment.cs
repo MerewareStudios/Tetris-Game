@@ -9,6 +9,21 @@ namespace Game
         [System.NonSerialized] public Place forwardPlace;
         [SerializeField] public bool Mover = false;
 
+        public void Deconstruct()
+        {
+            parentBlock = null;
+            currentPlace = null;
+            forwardPlace = null;
+            Mover = false;
+            this.Despawn();
+        }
+        public void DisjointParentBlock()
+        {
+            if (parentBlock != null)
+            {
+                parentBlock.Deconstruct();
+            }
+        }
         public bool CanSubmit
         {
             get 

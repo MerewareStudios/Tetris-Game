@@ -20,6 +20,9 @@ namespace Game
             {
                 grid.Tick();
                 yield return new WaitForSeconds(GameManager.THIS.Constants.tickInterval);
+                List<int> tetrisLines = grid.CheckTetris();
+                grid.ClearLines(tetrisLines);
+                yield return new WaitForSeconds(0.25f);
             }
         }
         public Place GetPlace(Transform pt)

@@ -65,13 +65,52 @@ namespace Game
             {
                 for (int j = 0; j < size.y; j++)
                 {
-                    //if (places[i, j].currentSegment != null)
-                    //{
-                        action.Invoke(array[i, j]);
-                    //}
+                    action.Invoke(array[i, j]);
                 }
             }
         }
+        public List<int> CheckTetris()
+        {
+            List<int> tetrisLines = new();
+            for (int j = 0; j < size.y; j++)
+            {
+                bool tetris = true;
+                for (int i = 0; i < size.x; i++)
+                {
+                    if(!places[i, j].Occupied)
+                    {
+                        tetris = false;
+                        break;
+                    }
+                }
+                if (tetris)
+                {
+                    tetrisLines.Add(j);
+                }
+            }
+            return tetrisLines;
+        }
 
+        public void ClearLine(int lineIndex)
+        {
+            for (int i = 0; i < size.x; i++)
+            {
+                Place place = places[i, lineIndex];
+                place.Deconstruct(true);
+            }
+        }
+
+        public void ClearLines(List<int> lines)
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                ClearLine(lines[i]);
+            }
+        }
+
+        public void MoveFromLine(int startLine)
+        {
+
+        }
     }
 }
