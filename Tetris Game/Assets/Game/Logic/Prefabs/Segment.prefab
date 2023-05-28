@@ -303,6 +303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc7c759ef77f5743b89c765b65ca9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 6565000914859241780}
+  level: 1
+  levelText: {fileID: 3425361800007087709}
+  tick: 0
+  mover: 0
+  freeForward: 0
 --- !u!65 &7805852433792231133
 BoxCollider:
   m_ObjectHideFlags: 0

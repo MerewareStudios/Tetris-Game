@@ -1,3 +1,5 @@
+using Internal.Core;
+using TMPro;
 using UnityEngine;
 
 namespace Game
@@ -7,23 +9,74 @@ namespace Game
         [System.NonSerialized] public Block parentBlock;
         [System.NonSerialized] public Place currentPlace;
         [System.NonSerialized] public Place forwardPlace;
-        [System.NonSerialized] public int tick;
+        [System.NonSerialized] private bool highlightRegardless = false;
+        [SerializeField] public MeshRenderer meshRenderer;
+        [SerializeField] public int level = 1;
+        [SerializeField] public TextMeshPro levelText;
+        [SerializeField] public int tick;
         [SerializeField] public bool Mover = false;
+        [SerializeField] private int freeForward = 0;
 
-        public void Deconstruct()
+        public void SetDeckColor()
         {
-            parentBlock = null;
-            currentPlace = null;
-            forwardPlace = null;
-            Mover = false;
-            this.Despawn();
+            meshRenderer.SetColor(GameManager.MPB_SEGMENT, "_BaseColor", GameManager.THIS.Constants.segmentDeck);
         }
-        public void DisjointParentBlock()
+        public void SetMergeColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_SEGMENT, "_BaseColor", GameManager.THIS.Constants.segmentMerge);
+        }
+        public void SetFreeMoverColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_SEGMENT, "_BaseColor", GameManager.THIS.Constants.segmentFreeMover);
+        }
+        public void SetMoverColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_SEGMENT, "_BaseColor", GameManager.THIS.Constants.segmentMover);
+        }
+        public void SetSteadyColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_SEGMENT, "_BaseColor", GameManager.THIS.Constants.segmentSteady);
+        }
+
+        public bool FreeMover
+        {
+            get
+            {
+                return freeForward > 0;
+            }
+        }
+        public int FreeForward
+        {
+            set
+            {
+                freeForward = value;
+                //Color color = (value > 0) ? GameManager.THIS.Constants.segmentFreeMover : GameManager.THIS.Constants.segmentSteady;
+                //meshRenderer.SetColor(GameManager.MPB_SEGMENT, "_BaseColor", color);
+            }
+            get
+            {
+                return freeForward;
+            }
+        }
+
+
+        public void SetLevel(int level)
+        {
+            this.level = level;
+            levelText.text = level.ToString();
+        }
+
+        public void Disjoint()
         {
             if (parentBlock != null)
             {
                 parentBlock.Deconstruct();
             }
+            currentPlace = null;
+            forwardPlace = null;
+            Mover = false;
+            FreeForward = 0;
+            //this.Despawn();
         }
         public bool CanSubmit
         {
@@ -32,7 +85,11 @@ namespace Game
                 return this.currentPlace != null && !this.currentPlace.Occupied;    
             }
         }
-
+        public void AddFreeMove(int count)
+        {
+            SetFreeMoverColor();
+            FreeForward += count;
+        }
         public Place Check()
         {
             currentPlace = null;
@@ -62,20 +119,21 @@ namespace Game
         }
         public void Submit()
         {
+            SetMoverColor();
             this.currentPlace.Accept(this);
             this.Mover = true;
         }
         public void UpdateParentBlockStats(int tick)
         {
-            this.tick = tick;
-            if (!Mover)
+            if (FreeForward <= 0 && !Mover)
             {
                 return;
             }
+            this.tick = tick;
 
             forwardPlace = CheckPlace(transform.position + Vector3.forward);
 
-            bool state = (forwardPlace == null) || (forwardPlace.currentSegment != null && !forwardPlace.currentSegment.Mover);
+            bool state = (forwardPlace == null) || (forwardPlace.currentSegment != null && !forwardPlace.currentSegment.Mover && !forwardPlace.currentSegment.FreeMover);
             if (state)
             {
                 if (parentBlock != null)
@@ -83,13 +141,36 @@ namespace Game
                     parentBlock.Deconstruct();
                 }
                 Mover = false;
+                if (FreeMover)
+                {
+                    highlightRegardless = true;
+                }
+                FreeForward = 0;
             }
         }
         public void MoveForward()
         {
-            if (!Mover)
+            if (!Mover && !FreeMover)
             {
+                if (highlightRegardless)
+                {
+                    SetFreeMoverColor();
+                    highlightRegardless = false;
+                    return;
+                }
+                SetSteadyColor();
                 return;
+            }
+
+            if (FreeMover)
+            {
+                SetFreeMoverColor();
+                Mover = false;
+                FreeForward--;
+            }
+            else
+            {
+                SetMoverColor();
             }
             if (this.currentPlace != null)
             {

@@ -27,10 +27,12 @@ namespace Game
             foreach (var s in segmentTransforms)
             {
                 Segment segment = Pool.Segment___Level_1.Spawn<Segment>(this.transform);
+                segment.SetLevel(1);
                 segment.transform.position = s.position;
                 segment.transform.localRotation = Quaternion.identity;
                 segment.transform.localScale = Vector3.one;
                 segment.parentBlock = this;
+                segment.SetDeckColor();
                 segments.Add(segment);
             }
 
@@ -63,14 +65,6 @@ namespace Game
             }
             return true;
         }
-
-        //public void Dehighlight()
-        //{
-        //    foreach (var segment in segments)
-        //    {
-        //        segment.Dehighlight();
-        //    }
-        //}
 
         public void Check()
         {

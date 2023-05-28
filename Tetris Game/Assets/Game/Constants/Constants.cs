@@ -10,6 +10,12 @@ namespace Internal.Core
     {
         public float tickInterval = 0.15f;
         public Pool[] blocks;
+        [Header("Segment Colors")]
+        public Color segmentDeck;
+        public Color segmentMover;
+        public Color segmentSteady;
+        public Color segmentFreeMover;
+        public Color segmentMerge;
         [Header("Colors")]
         public Color placeColorHighlight;
         public Color placeColorDeny;

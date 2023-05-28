@@ -66,7 +66,6 @@ public class Spawner : MonoBehaviour
             else
             {
                 Map.THIS.Dehighlight();
-
                 currentBlock.Mount();
             }
         }

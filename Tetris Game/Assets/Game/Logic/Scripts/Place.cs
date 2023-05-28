@@ -69,18 +69,15 @@ namespace Game
         }
         private void OnAcceptComplete()
         {
+            //currentSegment.UpdateColor();
             //Map.THIS.AddSegment(this.currentSegment);
         }
 
-        public void Deconstruct(bool disjoint)
+        public void Disjoint()
         {
             if (currentSegment != null)
             {
-                if (disjoint)
-                {
-                    currentSegment.DisjointParentBlock();
-                }
-                currentSegment.Deconstruct();
+                currentSegment.Disjoint();
             }
             currentSegment = null;
         }

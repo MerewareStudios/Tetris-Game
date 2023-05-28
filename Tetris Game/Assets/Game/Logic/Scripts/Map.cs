@@ -8,10 +8,18 @@ namespace Game
 {
     public class Map : Singleton<Map>
     {
-        //[SerializeField] private List<Place> places;
         [SerializeField] private Grid grid;
         [System.NonSerialized] private List<Segment> segments = new();
         [System.NonSerialized] public int Tick = 0;
+        [System.NonSerialized] public int FreeForward = 0;
+
+        public bool HasFreeForward
+        {
+            get
+            {
+                return FreeForward > 0;
+            }
+        }
 
         IEnumerator Start()
         {
@@ -20,15 +28,20 @@ namespace Game
             while (true)
             {
                 grid.Tick();
-                yield return new WaitForSeconds(GameManager.THIS.Constants.tickInterval);
                 List<int> tetrisLines = grid.CheckTetris();
-                grid.ClearLines(tetrisLines);
-                yield return new WaitForSeconds(0.25f);
+                grid.MergeLines(tetrisLines);
                 if (tetrisLines.Count > 0)
                 {
-                    grid.MoveFromLine(tetrisLines[0]);
+                    yield return new WaitForSeconds(1.0f);
                 }
-                yield return new WaitForSeconds(0.25f);
+                if (tetrisLines.Count > 0)
+                {
+                    yield return new WaitForSeconds(0.15f);
+                    grid.MoveFromLine(tetrisLines[0], tetrisLines.Count);
+                    yield return new WaitForSeconds(0.75f);
+
+                }
+                yield return new WaitForSeconds(GameManager.THIS.Constants.tickInterval);
             }
         }
         public Place GetPlace(Transform pt)
