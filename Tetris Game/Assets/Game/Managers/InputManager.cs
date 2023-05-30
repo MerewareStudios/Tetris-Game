@@ -17,9 +17,10 @@ public class InputManager : Singleton<InputManager>
     [System.NonSerialized] private Vector2 beginPosition; 
     [System.NonSerialized] private bool Moving = false; 
     [Header("Events")] 
+    [SerializeField] private UnityEvent<Vector3> OnDown; 
     [SerializeField] private UnityEvent<Vector3> OnTap; 
     [SerializeField] private UnityEvent<Vector3> OnMove; 
-    [SerializeField] private UnityEvent<Vector3> OnRelease;
+    [SerializeField] private UnityEvent OnRelease;
 
     private void Update()
     {
@@ -31,6 +32,7 @@ public class InputManager : Singleton<InputManager>
             {
                 beginPosition = touch.position;
                 touchBegin = Time.time;
+                OnDown?.Invoke(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
@@ -38,7 +40,7 @@ public class InputManager : Singleton<InputManager>
                 {
                     OnTap?.Invoke(touch.position);
                 }
-                OnRelease?.Invoke(touch.position);
+                OnRelease?.Invoke();
                 Moving = false;
             }
             else if (touch.phase == TouchPhase.Moved)

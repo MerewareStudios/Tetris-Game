@@ -11,7 +11,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         if (!saveData.saveGenerated)
         {
-            "Save Generated".LogW();
+            //"Save Generated".LogW();
             saveData.saveGenerated = true;
 
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;

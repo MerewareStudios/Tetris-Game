@@ -14,9 +14,9 @@ namespace Game
     {
         [System.NonSerialized] public Place[,] places;
         [System.NonSerialized] public Dictionary<Transform, Place> placeDic = new();
-        [SerializeField] public Line line;
-        [SerializeField] public int TickIndex = 0;
-        [SerializeField] private Vector2Int size;
+        [System.NonSerialized] public int TickIndex = 0;
+        [SerializeField] public Vector2Int size;
+        [System.NonSerialized] public bool[] frontBlockers;
 
         public void Construct()
         {
@@ -28,29 +28,48 @@ namespace Game
                     Place place = Pool.Place.Spawn<Place>(this.transform);
                     place.transform.localPosition = new Vector3(i, 0.0f, -j);
                     places[i, j] = place;
-
+                    place.index = new Vector2Int(i, j);
                     placeDic.Add(place.transform, place);
                 }
             }
+            frontBlockers = new bool[size.x];
+            frontBlockers.Fill(false);
         }
 
-        public void Tick()
+        public bool IsFrontFree(int frontIndex)
         {
-            Debug.LogWarning("Tick");
+            return frontBlockers[frontIndex];
+        }
+        public void SetFrontFree(int frontIndex, bool state)
+        {
+            frontBlockers[frontIndex] = state;
+        }
+        public void SetAllFrontFree(bool state)
+        {
+            for (int i = 0; i < frontBlockers.Length; i++)
+            {
+                frontBlockers[i] = state;
+            }
+        }
+        public void Move(float moveDuration)
+        {
             TickIndex++;
 
             Call<Place>(places, (place) =>
             {
-                if (place.currentSegment != null)
+                if (place.Current)
                 {
-                    place.currentSegment.UpdateParentBlockStats(TickIndex);
+                    place.Current.MoveForward(place, TickIndex, moveDuration);
                 }
             });
+        }
+        public void CheckSteady()
+        {
             Call<Place>(places, (place) =>
             {
-                if (place.currentSegment != null)
+                if (place.Current)
                 {
-                    place.currentSegment.MoveForward();
+                    place.Current.CheckSteady(place);
                 }
             });
         }
@@ -58,10 +77,9 @@ namespace Game
         {
             Call<Place>(places, (place) => 
                 {
-                    place.Highlight = false;
+                    place.MarkDefault();
                 });
         }
-
         private void Call<T>(T[,] array, System.Action<T> action)
         {
             for (int i = 0; i < size.x; i++)
@@ -82,6 +100,9 @@ namespace Game
                 }
             }
         }
+        public Place GetPlace(int x, int y) => places[x, y];
+        public Place GetPlace(Vector2Int index) => places[index.x, index.y];
+
         public List<int> CheckTetris()
         {
             List<int> tetrisLines = new();
@@ -90,7 +111,7 @@ namespace Game
                 bool tetris = true;
                 for (int i = 0; i < size.x; i++)
                 {
-                    if(!places[i, j].Occupied || places[i, j].currentSegment.parentBlock != null)
+                    if(!places[i, j].Occupied || places[i, j].Current.Connected || places[i, j].Current.MoveUntilForward)
                     {
                         tetris = false;
                         break;
@@ -104,81 +125,76 @@ namespace Game
             return tetrisLines;
         }
 
-        public void MergeLine(int lineIndex)
+        public void MergeLine(int lineIndex, float duration)
         {
             List<int> indexes = new();
-            List<Segment> segments = new();
-            int highestTick = 1;
+            List<Pawn> segments = new();
+            int highestTick = -1;
 
             int totalLevel = 0;
 
             for (int i = 0; i < size.x; i++)
             {
                 Place place = places[i, lineIndex];
-                segments.Add(place.currentSegment);
+                segments.Add(place.Current);
 
-                totalLevel += place.currentSegment.level;
+                totalLevel += place.Current.level;
 
-                if (place.currentSegment.tick == highestTick)
+                if (place.Current.movedAtTick == highestTick)
                 {
                     indexes.Add(i);
                 }
-                else if(place.currentSegment.tick > highestTick)
+                else if(place.Current.movedAtTick > highestTick)
                 {
-                    highestTick = place.currentSegment.tick;
+                    highestTick = place.Current.movedAtTick;
                     indexes.Clear();
                     indexes.Add(i);
                 }
-                place.Disjoint();
+                place.Current = null;
             }
 
             Place spawnPlace = places[indexes.Random(), lineIndex];
             foreach (var segment in segments)
             {
-                segment.SetMergeColor();
-                segment.transform.DOMove(spawnPlace.segmentParent.position, 0.2f).SetDelay(0.25f)
+                segment.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.0f)
                     .onComplete += () =>
                     {
                         segment.Despawn();
                     };
             }
 
-            //Segment segmentSpawned = SpawnSegment(spawnPlace, Pool.Segment___Level_2);
-            Segment segmentSpawned = SpawnSegment(spawnPlace, totalLevel);
+            Pawn pawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
+            pawn.MarkSteadyColor();
+            spawnPlace.AcceptImmidiate(pawn);
 
-            segmentSpawned.transform.DOKill();
-            segmentSpawned.transform.localScale = Vector3.zero;
-            segmentSpawned.transform.DOScale(Vector3.one, 0.25f).SetDelay(0.5f).SetEase(Ease.OutBack);
+
+            pawn.transform.DOKill();
+            pawn.transform.localScale = Vector3.zero;
+            pawn.transform.DOScale(Vector3.one, 0.2f).SetDelay(duration).SetEase(Ease.OutBack, 2.0f);
         }
 
-        public void MergeLines(List<int> lines)
+        public void MergeLines(List<int> lines, float duration)
         {
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i]);
+                MergeLine(lines[i], duration);
             }
         }
 
-        public void MoveFromLine(int startLine, int freeForwardCount)
+        public void MarkNewMovers(int startLine, int freeForwardCount)
         {
+            SetAllFrontFree(true);
+
+            Map.THIS.FreeMoveIndex = startLine;
             Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
             {
-                if (place.currentSegment != null && place.currentSegment.parentBlock == null && verticalIndex >= startLine)
+
+                if (place.Current != null && !place.Current.Connected && verticalIndex >= startLine)
                 {
-                    place.currentSegment.AddFreeMove(freeForwardCount);
+                    place.Current.MoveUntilForward = true;
+                    //place.Current.MarkMoverColor();
                 }
             });
-        }
-
-        private Segment SpawnSegment(Place place, int level)
-        {
-            Segment segment = Pool.Segment___Level_1.Spawn<Segment>(this.transform);
-            segment.SetLevel(level);
-            segment.currentPlace = place;
-            segment.Mover = true;
-            place.AcceptImmidiate(segment);
-
-            return segment;
         }
     }
 }

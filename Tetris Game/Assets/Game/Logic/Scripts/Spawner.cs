@@ -1,99 +1,154 @@
 using DG.Tweening;
 using Game;
 using Internal.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Spawner : MonoBehaviour
+public class Spawner : Singleton<Spawner>
 {
+    [Header("Layers")]
     [SerializeField] private LayerMask spawnerLayer;
     [SerializeField] private LayerMask gridcheckLayer;
+    [Header("Locations")]
     [SerializeField] private Transform modelPivot;
-    [SerializeField] private Vector3 downDistance;
-    [SerializeField] private Vector3 touchDistance;
-    [SerializeField] private Transform blockParent;
-    [SerializeField] private Block currentBlock;
-    [SerializeField] private float forwardDistance;
-    [System.NonSerialized] private bool Moved = false;
+    [SerializeField] private Transform spawnedBlockLocation;
+    [Header("Input")]
+    [SerializeField] private Vector3 distanceFromDraggingFinger;
 
+    [System.NonSerialized] private Block currentBlock;
+    [System.NonSerialized] private bool GrabbedBlock = false;
+    [System.NonSerialized] private Coroutine moveRoutine = null;
+    [System.NonSerialized] private bool moving = false;
+    [System.NonSerialized] private Vector3 finalPosition;
+
+    #region Mono
     void Start()
     {
-        Spawn();    
+        currentBlock = SpawnBlock();    
     }
+    #endregion
 
-    public void ScreenTap(Vector3 screenPosition)
+    #region User Input
+    public bool IsTouchingSpawner(Vector3 screenPosition)
     {
         Vector3 touchWorld = CameraManager.THIS.gameCamera.ScreenToWorldPoint(screenPosition);
         Vector3 direction = CameraManager.THIS.gameCamera.transform.forward;
         if (Physics.Raycast(touchWorld, direction, 100.0f, spawnerLayer))
         {
-            Tap();
+            return true;
+        }
+        return false;
+    }
+    public void ScreenDown(Vector3 screenPosition)
+    {
+        if (IsTouchingSpawner(screenPosition) && currentBlock != null)
+        {
+            GrabbedBlock = true;
+            moveRoutine = StartCoroutine(MoveRoutine());
+            Debug.LogWarning("Down On Spawner");
+        }
+    }
+    public void ScreenTap(Vector3 screenPosition)
+    {
+        if (GrabbedBlock)
+        {
+            Debug.LogWarning("Tap On Spawner");
+            AnimateTap();
+            currentBlock.Rotate();
         }
     }
     public void Move(Vector3 touchPosition)
     {
-        Vector3 touchWorld = CameraManager.THIS.gameCamera.ScreenToWorldPoint(touchPosition);
-        Vector3 direction = CameraManager.THIS.gameCamera.transform.forward * forwardDistance;
-        Vector3 finalPosition = touchWorld + direction;
-
-        if (Physics.Raycast(touchWorld, direction, out RaycastHit hit, 100.0f, gridcheckLayer))
+        if (!GrabbedBlock)
         {
-            finalPosition = hit.point;
+            return;
         }
 
-        currentBlock.transform.position = finalPosition + touchDistance;
+        finalPosition = spawnedBlockLocation.position;
+
+        if (Physics.Raycast(CameraManager.THIS.gameCamera.ScreenToWorldPoint(touchPosition), CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridcheckLayer))
+        {
+            finalPosition = hit.point + distanceFromDraggingFinger;
+        }
+
+        moving = true;
+
 
         Map.THIS.Dehighlight();
-        currentBlock.Check();
-
-        Moved = true;
+        Map.THIS.HighlightPawnOnGrid(currentBlock);
     }
-    public void Release(Vector3 touchPosition)
+    public void Release()
     {
-        if (!Moved)
+        if (moveRoutine != null)
+        {
+            moving = false;
+            StopCoroutine(moveRoutine);
+            moveRoutine = null;
+        }
+        if (!GrabbedBlock || currentBlock == null)
         {
             return;
         }
-        if (currentBlock != null)
-        {
-            if (currentBlock.SubmitToPlaces())
-            {
-                currentBlock = null;
-                Spawn();
-            }
-            else
-            {
-                Map.THIS.Dehighlight();
-                currentBlock.Mount();
-            }
-        }
-        Moved = false;
-    }
+        GrabbedBlock = false;
+        Map.THIS.Dehighlight();
 
-    private void Tap()
-    {
-        if (Moved)
+        if (Map.THIS.CanPlaceBlockOnGrid(currentBlock))
         {
+            Map.THIS.PlaceBlockOnGrid(currentBlock);
+            currentBlock = SpawnBlock();
             return;
         }
 
+        Mount();
+    }
+    #endregion
+
+    private void Mount()
+    {
+        currentBlock.Move(spawnedBlockLocation.position + currentBlock.spawnerOffset, 0.2f, Ease.Linear);
+    }
+
+    private IEnumerator MoveRoutine()
+    {
+        while (true)
+        {
+            if (moving)
+            {
+                currentBlock.transform.position = Vector3.Lerp(currentBlock.transform.position, finalPosition, Time.deltaTime * 22.0f);
+            }
+            yield return null;
+        }
+    }
+
+    private void AnimateTap()
+    {
         modelPivot.DOKill();
         modelPivot.localPosition = Vector3.zero;
-        modelPivot.DOPunchPosition(downDistance, 0.25f, 1, 1);
-
-        if (currentBlock != null)
-        {
-            currentBlock.Rotate();
-        }
+        modelPivot.DOPunchPosition(Vector3.down * 0.35f, 0.25f, 1, 1);
     }
-   
 
-    private void Spawn()
+    #region Spawn
+    public Block SpawnBlock()
     {
         Pool pool = GameManager.THIS.Constants.blocks.Random<Pool>();
-        currentBlock = pool.Spawn<Block>(blockParent);
-        currentBlock.Construct();
+        Block block = pool.Spawn<Block>(spawnedBlockLocation);
+        block.transform.localPosition = block.spawnerOffset;
+        block.transform.localScale = Vector3.one;
+        block.transform.localRotation = Quaternion.identity;
+        block.Construct();
+        return block;
     }
+    public Pawn SpawnPawn(Transform parent, Vector3 position, int level)
+    {
+        Pawn pawn = Pool.Pawn.Spawn<Pawn>(parent);
+        pawn.transform.position = position;
+        pawn.transform.localRotation = Quaternion.identity;
+        pawn.transform.localScale = Vector3.one;
+        pawn.Construct(level);
+        return pawn;
+    }
+    #endregion
 }

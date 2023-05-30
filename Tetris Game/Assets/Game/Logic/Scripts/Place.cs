@@ -3,6 +3,7 @@ using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Game
@@ -11,75 +12,42 @@ namespace Game
     {
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] public Transform segmentParent;
-        [SerializeField] public Segment currentSegment;
+        [System.NonSerialized] public Vector2Int index;
+        public Pawn Current { get; set; }
+        public bool Occupied { get{ return Current != null; } }
+        public void MarkFree()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorHighlight);
+        }
+        public void MarkOccupied()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorDeny);
+        }
+        public void MarkDefault()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorDefault);
+        }
 
         void Start()
         {
-            Highlight = false;
+            MarkDefault();
+        }
+        public void Accept(Pawn pawn, float duration, System.Action OnAccept = null)
+        {
+            pawn.transform.parent = segmentParent;
+            pawn.Move(segmentParent.position, duration, Ease.Linear, () =>
+            {
+                this.Current = pawn;
+                MarkDefault();
+                OnAccept?.Invoke();
+                pawn.CheckSteady(this);
+            });
+        }
+        public void AcceptImmidiate(Pawn pawn)
+        {
+            pawn.Move(segmentParent, segmentParent.position);
+            this.Current = pawn;
         }
 
-        public bool Highlight
-        {
-            set 
-            { 
-                Color color = value ? GameManager.THIS.Constants.placeColorHighlight : GameManager.THIS.Constants.placeColorDefault;
-                meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", color);    
-            }
-        }
-        public bool Deny
-        {
-            set
-            {
-                Color color = value ? GameManager.THIS.Constants.placeColorDeny : GameManager.THIS.Constants.placeColorDefault;
-                meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", color);
-            }
-        }
-        public bool Occupied
-        {
-            get
-            {
-                return currentSegment != null;
-            }
-        }
-        public void Accept(Segment segment)
-        {
-            Transform segmentT = segment.transform;
-            segmentT.parent = this.segmentParent;
-            segmentT.DOKill();
-            segmentT.DOLocalMove(Vector3.zero, GameManager.THIS.Constants.segmentAcceptDuration).SetEase(GameManager.THIS.Constants.segmentAcceptEase)
-                 .onComplete += () =>
-                  {
-                      Highlight = false;
-                      this.currentSegment = segment;
-                      OnAcceptComplete();
-                  };
-        }
-        public void AcceptImmidiate(Segment segment)
-        {
-            Transform segmentT = segment.transform;
-            segmentT.parent = this.segmentParent;
-            segmentT.localPosition = Vector3.zero;
-            segmentT.localRotation = Quaternion.identity;
-            segmentT.localScale = Vector3.one;
-            this.currentSegment = segment;
-        }
-        public void Clear()
-        {
-            currentSegment = null;
-        }
-        private void OnAcceptComplete()
-        {
-            //currentSegment.UpdateColor();
-            //Map.THIS.AddSegment(this.currentSegment);
-        }
-
-        public void Disjoint()
-        {
-            if (currentSegment != null)
-            {
-                currentSegment.Disjoint();
-            }
-            currentSegment = null;
-        }
     }
 }

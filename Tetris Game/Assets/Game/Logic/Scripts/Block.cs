@@ -10,67 +10,44 @@ namespace Game
 {
     public class Block : MonoBehaviour
     {
+        // Block has a general property of always moving forward with child blocks
+        // If any of the child block is blocked by a forward pawn/obstacle it is placed and seperated 
+
+        [SerializeField] private bool ghostBlock = false;
         [SerializeField] private List<Transform> segmentTransforms;
-        [System.NonSerialized] private List<Segment> segments = new();
+        [System.NonSerialized] public List<Pawn> pawns = new();
         [SerializeField] public Vector3 spawnerOffset;
         [System.NonSerialized] private Tween motionTween;
         [System.NonSerialized] private bool busy = false;
 
-        public bool CanMoveForward{get; set;}
+        public int PawnCount { get { return pawns.Count; } }
+
 
         public void Construct()
         {
-            this.transform.localPosition = spawnerOffset;
-            this.transform.localScale = Vector3.one;
-            this.transform.localRotation = Quaternion.identity;
-
-            foreach (var s in segmentTransforms)
+            foreach (var target in segmentTransforms)
             {
-                Segment segment = Pool.Segment___Level_1.Spawn<Segment>(this.transform);
-                segment.SetLevel(1);
-                segment.transform.position = s.position;
-                segment.transform.localRotation = Quaternion.identity;
-                segment.transform.localScale = Vector3.one;
-                segment.parentBlock = this;
-                segment.SetDeckColor();
-                segments.Add(segment);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1);
+                pawn.MarkSpawnColor();
+                pawn.parentBlock = this;
+                pawns.Add(pawn);
             }
-
-            CanMoveForward = false;
         }
-
-        public void Deconstruct()
+        public void Add(Pawn pawn)
         {
-            foreach (var segment in segments)
-            {
-                segment.Mover = false;
-                segment.parentBlock = null;
-            }
-            segments.Clear();
-            this.Despawn();
+            pawns.Add(pawn);
+            pawn.parentBlock = this;
         }
-
-        public bool SubmitToPlaces()
+        public void Detach()
         {
-            foreach (var segment in segments)
+            foreach (var pawn in pawns)
             {
-                if (!segment.CanSubmit)
-                {
-                    return false;
-                }
+                pawn.parentBlock = null;
             }
-            foreach (var segment in segments)
+            pawns.Clear();
+            if (!ghostBlock)
             {
-                segment.Submit();
-            }
-            return true;
-        }
-
-        public void Check()
-        {
-            foreach (var segment in segments)
-            {
-                segment.Check();
+                this.Despawn();
             }
         }
 
@@ -86,7 +63,7 @@ namespace Game
             motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.2f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Ease.Linear);
             motionTween.onUpdate += () => 
                 {
-                    foreach (var segment in segments)
+                    foreach (var segment in pawns)
                     {
                         segment.transform.rotation = Quaternion.identity;
                     }
@@ -96,37 +73,21 @@ namespace Game
                 busy = false;
             };
         }
-
-        public void Mount()
+        public void Move(Vector3 position, float duration, Ease ease)
         {
+            if (busy)
+            {
+                return;
+            }
             busy = true;
 
             motionTween?.Kill();
-            motionTween = transform.DOLocalMove(spawnerOffset, GameManager.THIS.Constants.segmentDenyDuration).SetEase(GameManager.THIS.Constants.segmentDenyEase);
+            motionTween = transform.DOMove(position, duration).SetEase(ease);
             motionTween.onComplete += () =>
             {
                 busy = false;
             };
         }
 
-        private void OnDrawGizmos()
-        {
-            foreach (var s in segmentTransforms)
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawCube(s.transform.position, Vector3.one * 0.95f * transform.localScale.x);
-            }
-        }
-
-        public enum Type
-        {
-            I,
-            J,
-            L,
-            O,
-            S,
-            T,
-            Z
-        }
     }
 }

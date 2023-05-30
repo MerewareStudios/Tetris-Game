@@ -5,11 +5,11 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] public Constants Constants;
     [SerializeField] public static MaterialPropertyBlock MPB_PLACE;
-    [SerializeField] public static MaterialPropertyBlock MPB_SEGMENT;
+    [SerializeField] public static MaterialPropertyBlock MPB_PAWN;
 
     void Awake()
     {
         MPB_PLACE = new();
-        MPB_SEGMENT = new();
+        MPB_PAWN = new();
     }
 }

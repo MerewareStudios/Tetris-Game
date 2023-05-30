@@ -8,8 +8,8 @@ namespace Game
 {
     public class Line : MonoBehaviour
     {
-        [System.NonSerialized] private List<Segment> segments = new();
-        public void Accept(Segment segment)
+        [System.NonSerialized] private List<Pawn> segments = new();
+        public void Accept(Pawn segment)
         {
             segments.Add(segment);
 

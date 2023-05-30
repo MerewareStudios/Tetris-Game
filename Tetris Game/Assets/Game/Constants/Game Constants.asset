@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Game Constants
   m_EditorClassIdentifier: 
   tickInterval: 0.3
-  blocks: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000
+  blocks: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000
+  spawnColor: {r: 0.23978826, g: 0.44922358, b: 0.774, a: 1}
+  moverColor: {r: 0.30980393, g: 0.5803922, b: 1, a: 1}
+  steadyColor: {r: 0.32, g: 0.32, b: 0.32, a: 1}
   placeColorHighlight: {r: 0.63820994, g: 1, b: 0.20188677, a: 1}
   placeColorDeny: {r: 1, g: 0.28661826, b: 0.19999999, a: 1}
   placeColorDefault: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
