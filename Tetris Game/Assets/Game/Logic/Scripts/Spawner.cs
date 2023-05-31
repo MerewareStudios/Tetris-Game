@@ -48,14 +48,12 @@ public class Spawner : Singleton<Spawner>
         {
             GrabbedBlock = true;
             moveRoutine = StartCoroutine(MoveRoutine());
-            Debug.LogWarning("Down On Spawner");
         }
     }
     public void ScreenTap(Vector3 screenPosition)
     {
         if (GrabbedBlock)
         {
-            Debug.LogWarning("Tap On Spawner");
             AnimateTap();
             currentBlock.Rotate();
         }
@@ -108,7 +106,7 @@ public class Spawner : Singleton<Spawner>
 
     private void Mount()
     {
-        currentBlock.Move(spawnedBlockLocation.position + currentBlock.spawnerOffset, 0.2f, Ease.Linear);
+        currentBlock.Move(spawnedBlockLocation.position + currentBlock.spawnerOffset, 25.0f, Ease.OutQuad, true);
     }
 
     private IEnumerator MoveRoutine()

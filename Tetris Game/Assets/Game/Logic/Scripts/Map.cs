@@ -11,22 +11,41 @@ namespace Game
     {
         [SerializeField] public Grid grid;
         [SerializeField] private Vector3 indexOffset;
+        [SerializeField] public Line line;
         [System.NonSerialized] private List<Pawn> segments = new();
         [System.NonSerialized] public int Tick = 0;
         [System.NonSerialized] public int FreeMoveIndex = 99;
+        [System.NonSerialized] public Coroutine shootRoutine = null;
 
+
+        IEnumerator ShootRoutine()
+        {
+            while (true)
+            {
+                grid.Shoot();
+                yield return new WaitForSeconds(0.75f);
+            }
+        }
         IEnumerator Start()
         {
+            line.Construct(grid.size.x);
             grid.Construct();
+            shootRoutine = StartCoroutine(ShootRoutine());
 
             while (true)
             {
                 grid.Move(0.25f);
                 FreeMoveIndex = 99;
-                yield return new WaitForSeconds(0.35f);
+                yield return new WaitForSeconds(0.3f);
                 grid.CheckSteady();
 
                 List<int> tetrisLines = grid.CheckTetris();
+
+                if (tetrisLines.Count > 0)
+                {   
+                    yield return new WaitForSeconds(0.15f);
+                }
+
                 grid.MergeLines(tetrisLines, 0.2f);
 
                 if (tetrisLines.Count > 0)
@@ -34,9 +53,8 @@ namespace Game
                     grid.MarkNewMovers(tetrisLines[0], tetrisLines.Count);
                     yield return new WaitForSeconds(0.35f);
                 }
-
-                yield return new WaitForSeconds(0.05f);
                 
+                yield return new WaitForSeconds(0.15f);
             }
         }
         public Place GetPlace(Transform pt)
@@ -74,17 +92,23 @@ namespace Game
         }
         public bool CanPlacePawnOnGrid(Pawn pawn)
         {
-            Vector2Int? index = Pos2Index(pawn.transform.position);
-            if (index == null)
+            (Place place, bool canPlace) = Project(pawn);
+            if (place == null)
             {
                 return false;
             }
-            Place place = grid.GetPlace((Vector2Int)index);
-            if (place.Occupied)
-            {
-                return false;
-            }
-            return true;
+            return canPlace;
+            // Vector2Int? index = Pos2Index(pawn.transform.position);
+            // if (index == null)
+            // {
+            //     return false;
+            // }
+            // Place place = grid.GetPlace((Vector2Int)index);
+            // if (place.Occupied)
+            // {
+            //     return false;
+            // }
+            // return true;
         }
        
         public void HighlightPawnOnGrid(Block block)
@@ -94,6 +118,10 @@ namespace Game
             foreach (var pawn in block.pawns)
             {
                 (Place place, bool canPlace) = Project(pawn);
+                if (place == null)
+                {
+                    return;
+                }
                 if (place != null)
                 {
                     places.Add(place);
@@ -117,6 +145,10 @@ namespace Game
             }
             Place place = grid.GetPlace((Vector2Int)index);
             if (place.Occupied)
+            {
+                return (place, false);
+            }
+            if (grid.HasForwardPawnAtColumn((Vector2Int)index))
             {
                 return (place, false);
             }

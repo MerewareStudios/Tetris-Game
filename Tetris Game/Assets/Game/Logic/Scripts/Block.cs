@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using System.Collections;
@@ -22,11 +23,20 @@ namespace Game
 
         public int PawnCount { get { return pawns.Count; } }
 
+        private void OnDrawGizmos()
+        {
+            foreach (var segmentTransform in segmentTransforms)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawCube(segmentTransform.position, Vector3.one * 1f);
+            }
+        }
 
         public void Construct()
         {
             foreach (var target in segmentTransforms)
             {
+                //Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, Random.Range(1, 6));
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1);
                 pawn.MarkSpawnColor();
                 pawn.parentBlock = this;
@@ -60,7 +70,7 @@ namespace Game
             busy = true;
 
             motionTween?.Kill();
-            motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.2f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Ease.Linear);
+            motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), GameManager.THIS.Constants.rotationDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(GameManager.THIS.Constants.rotationEase);
             motionTween.onUpdate += () => 
                 {
                     foreach (var segment in pawns)
@@ -73,7 +83,7 @@ namespace Game
                 busy = false;
             };
         }
-        public void Move(Vector3 position, float duration, Ease ease)
+        public void Move(Vector3 position, float duration, Ease ease, bool speedBased = false)
         {
             if (busy)
             {
@@ -82,7 +92,7 @@ namespace Game
             busy = true;
 
             motionTween?.Kill();
-            motionTween = transform.DOMove(position, duration).SetEase(ease);
+            motionTween = transform.DOMove(position, duration).SetEase(ease).SetSpeedBased(speedBased);
             motionTween.onComplete += () =>
             {
                 busy = false;

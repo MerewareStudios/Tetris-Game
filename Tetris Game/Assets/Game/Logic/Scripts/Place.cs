@@ -40,7 +40,7 @@ namespace Game
                 this.Current = pawn;
                 MarkDefault();
                 OnAccept?.Invoke();
-                pawn.CheckSteady(this);
+                pawn.CheckSteady(this, false);
             });
         }
         public void AcceptImmidiate(Pawn pawn)

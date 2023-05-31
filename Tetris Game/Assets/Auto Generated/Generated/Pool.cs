@@ -14,5 +14,10 @@ public enum Pool
     Tree_I_Block = 11,
     Two_I_Block = 12,
     Z_Block = 13,
+    Half_2_X_Block_Left = 14,
+    Half_2_X_Block_Right = 15,
+    Half_3_X_Block_Left = 16,
+    Half_3_X_Block_Right = 17,
+    Tree_I_Empty_Block = 18,
 
 }

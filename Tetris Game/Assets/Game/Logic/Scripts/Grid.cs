@@ -4,8 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.HableCurve;
 
 
 namespace Game
@@ -17,6 +17,7 @@ namespace Game
         [System.NonSerialized] public int TickIndex = 0;
         [SerializeField] public Vector2Int size;
         [System.NonSerialized] public bool[] frontBlockers;
+        [System.NonSerialized] public Pawn biggestPawn = null;
 
         public void Construct()
         {
@@ -69,7 +70,7 @@ namespace Game
             {
                 if (place.Current)
                 {
-                    place.Current.CheckSteady(place);
+                    place.Current.CheckSteady(place, true);
                 }
             });
         }
@@ -98,6 +99,20 @@ namespace Game
                 {
                     action.Invoke(array[i, j], i, j);
                 }
+            }
+        }
+        private void CallRow<T>(T[,] array, int lineIndex, System.Action<T, int> action)
+        {
+            for (int i = 0; i < size.x; i++)
+            {
+                action.Invoke(array[i, lineIndex], i);
+            }
+        } 
+        private void CallColumn<T>(T[,] array, int columnIndex, System.Action<T, int> action)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                action.Invoke(array[columnIndex, j], j);
             }
         }
         public Place GetPlace(int x, int y) => places[x, y];
@@ -138,7 +153,7 @@ namespace Game
                 Place place = places[i, lineIndex];
                 segments.Add(place.Current);
 
-                totalLevel += place.Current.level;
+                totalLevel += place.Current.Level;
 
                 if (place.Current.movedAtTick == highestTick)
                 {
@@ -162,15 +177,12 @@ namespace Game
                         segment.Despawn();
                     };
             }
-
+           
             Pawn pawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
             pawn.MarkSteadyColor();
             spawnPlace.AcceptImmidiate(pawn);
 
-
-            pawn.transform.DOKill();
-            pawn.transform.localScale = Vector3.zero;
-            pawn.transform.DOScale(Vector3.one, 0.2f).SetDelay(duration).SetEase(Ease.OutBack, 2.0f);
+            pawn.AnimatedShow(duration, () => pawn.CanShoot = true);
         }
 
         public void MergeLines(List<int> lines, float duration)
@@ -196,5 +208,44 @@ namespace Game
                 }
             });
         }
+
+        public void Shoot()
+        {
+            CallRow<Place>(places, 0, (place, verticalIndex) =>
+            {
+                if (place.Current != null && place.Current.CanShoot && place.Current.Level > 1)
+                {
+                    Pawn enemyPawn = Map.THIS.line.GetPawn(verticalIndex);
+                    Pawn currentPawn = place.Current;
+                    if (enemyPawn.Level > 0)
+                    {
+                        currentPawn.Level--;
+                        currentPawn.PunchScale(-0.2f);
+
+                        enemyPawn.Level--;
+                        enemyPawn.PunchScale(0.2f);
+
+                        if (enemyPawn.Level == 0)
+                        {
+                            enemyPawn.Hide();
+                        }
+                    }
+                }
+            });
+        }
+        public bool HasForwardPawnAtColumn(Vector2Int index)
+        {
+            
+            for (int j = 0; j < size.y; j++)
+            {
+                Place place = places[index.x, j];
+                if (index.y <= j && place.Current != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

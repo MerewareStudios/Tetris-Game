@@ -11,19 +11,34 @@ namespace Game
     {
         [SerializeField] public MeshRenderer meshRenderer;
         [SerializeField] public TextMeshPro levelText;
+        [SerializeField] public Transform modelPivot;
 
         [System.NonSerialized] public Block parentBlock;
-        [System.NonSerialized] public int level = 1;
+        [System.NonSerialized] private int level = 1;
         [System.NonSerialized] public int movedAtTick = -1;
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool MoveUntilForward = false;
+        [System.NonSerialized] public bool CanShoot = false;
         public bool Connected { get { return parentBlock != null; } }
+        public int Level 
+        { 
+            get 
+            { 
+                return this.level;
+            }
+            set
+            {
+                this.level = value;
+                levelText.text = this.level.ToString();
+            }
+        }
 
         public void Construct(int level)
         {
-            this.level = level;
-            levelText.text = level.ToString();
+            Level = level;
             movedAtTick = -1;
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
         }
 
         public void Move(Vector3 position, float duration, Ease ease, System.Action OnComplete = null)
@@ -54,8 +69,41 @@ namespace Game
         {
             meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", GameManager.THIS.Constants.steadyColor);
         }
+        public void MarkEnemyColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", GameManager.THIS.Constants.enemyColor);
+        }
+        public void MarkBiggestColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", GameManager.THIS.Constants.bigColor);
+        }
         #endregion
-
+        public void AnimatedShow(float delay, System.Action OnComplete)
+        {
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.zero;
+            modelPivot.DOScale(Vector3.one, 0.25f).SetDelay(delay).SetEase(Ease.OutBack, 2.0f)
+                .onComplete += () => 
+                {
+                    OnComplete?.Invoke();    
+                };
+        }
+        public void PunchScale(float magnitude)
+        {
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
+            modelPivot.DOPunchScale(Vector3.one * magnitude, 0.25f);
+        }
+        public void Hide(System.Action OnComplete = null)
+        {
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
+            modelPivot.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack)
+                .onComplete += () => 
+                { 
+                    OnComplete?.Invoke();    
+                };
+        }
 
         public void MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
@@ -67,12 +115,14 @@ namespace Game
             }
             this.movedAtTick = tick;
             Mover = true;
+            CanShoot = false;
             forwardPlace.Accept(this, moveDuration, () =>
             {
                 checkerPlace.Current = null;
+                CanShoot = true;
             });
         }
-        public void CheckSteady(Place checkerPlace)
+        public void CheckSteady(Place checkerPlace, bool markColor)
         {
             (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
 
@@ -83,7 +133,10 @@ namespace Game
                     Map.THIS.grid.SetFrontFree(checkerPlace.index.x, false);
                 }
                 MoveUntilForward = false;
-                MarkSteadyColor();
+                if (markColor)
+                {
+                    MarkSteadyColor();
+                }
                 if (Connected)
                 {
                     parentBlock.Detach();
@@ -104,10 +157,6 @@ namespace Game
             }
             if (MoveUntilForward && Map.THIS.grid.IsFrontFree(checkerPlace.index.x))
             {
-                //if ()
-                //{
-                    //return (forwardPlace, true);
-                //}
                 return (forwardPlace, false);
             }
             if (!Connected)

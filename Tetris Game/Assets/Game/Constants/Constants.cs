@@ -10,20 +10,15 @@ namespace Internal.Core
     {
         public float tickInterval = 0.15f;
         public Pool[] blocks;
-        [Header("Pawn")]
-        public Color spawnColor;
+        [Header("Pawn")] public Color spawnColor;
         public Color moverColor;
         public Color steadyColor;
-        [Header("Colors")]
-        public Color placeColorHighlight;
+        public Color enemyColor;
+        public Color bigColor;
+        [Header("Colors")] public Color placeColorHighlight;
         public Color placeColorDeny;
         public Color placeColorDefault;
-        [Header("Layers")]
-        public LayerMask segmentPlaceLayer;
-        [Header("Animations")]
-        public Ease segmentAcceptEase = Ease.OutSine;
-        public float segmentAcceptDuration = 0.35f;
-        public Ease segmentDenyEase = Ease.OutSine;
-        public float segmentDenyDuration = 0.35f;
+        [Header("Spawner")] public float rotationDuration = 0.15f;
+        public Ease rotationEase;
     }
 }
