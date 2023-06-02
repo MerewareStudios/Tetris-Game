@@ -15,6 +15,15 @@ namespace Game
         [System.NonSerialized] public Vector2Int index;
         public Pawn Current { get; set; }
         public bool Occupied { get{ return Current != null; } }
+        
+        public void Deconstruct()
+        {
+            if (Current != null)
+            {
+                Current.Deconstruct();
+            }
+        }
+        
         public void MarkFree()
         {
             meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorHighlight);

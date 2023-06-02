@@ -17,7 +17,6 @@ namespace Game
         [System.NonSerialized] public int TickIndex = 0;
         [SerializeField] public Vector2Int size;
         [System.NonSerialized] public bool[] frontBlockers;
-        [System.NonSerialized] public Pawn biggestPawn = null;
 
         public void Construct()
         {
@@ -36,7 +35,13 @@ namespace Game
             frontBlockers = new bool[size.x];
             frontBlockers.Fill(false);
         }
-
+        public void Deconstruct()
+        {
+            Call<Place>(places, (place) =>
+            {
+                place.Deconstruct();
+            });
+        }
         public bool IsFrontFree(int frontIndex)
         {
             return frontBlockers[frontIndex];
@@ -147,6 +152,7 @@ namespace Game
             int highestTick = -1;
 
             int totalLevel = 0;
+            
 
             for (int i = 0; i < size.x; i++)
             {
@@ -178,11 +184,13 @@ namespace Game
                     };
             }
            
-            Pawn pawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
-            pawn.MarkSteadyColor();
-            spawnPlace.AcceptImmidiate(pawn);
+            Pawn newPawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
+            newPawn.MarkSteadyColor();
+            spawnPlace.AcceptImmidiate(newPawn);
 
-            pawn.AnimatedShow(duration, () => pawn.CanShoot = true);
+            newPawn.AnimatedShow(duration, () => newPawn.CanShoot = true);
+            
+            LevelManager.THIS.CheckWinCondition(newPawn);
         }
 
         public void MergeLines(List<int> lines, float duration)
@@ -204,7 +212,6 @@ namespace Game
                 if (place.Current != null && !place.Current.Connected && verticalIndex >= startLine)
                 {
                     place.Current.MoveUntilForward = true;
-                    //place.Current.MarkMoverColor();
                 }
             });
         }

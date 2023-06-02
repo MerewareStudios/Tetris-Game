@@ -1,10 +1,5 @@
-using System;
 using DG.Tweening;
-using Internal.Core;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using TMPro;
 using UnityEngine;
 
 namespace Game
@@ -14,7 +9,6 @@ namespace Game
         // Block has a general property of always moving forward with child blocks
         // If any of the child block is blocked by a forward pawn/obstacle it is placed and seperated 
 
-        [SerializeField] private bool ghostBlock = false;
         [SerializeField] private List<Transform> segmentTransforms;
         [System.NonSerialized] public List<Pawn> pawns = new();
         [SerializeField] public Vector3 spawnerOffset;
@@ -37,11 +31,23 @@ namespace Game
             foreach (var target in segmentTransforms)
             {
                 //Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, Random.Range(1, 6));
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, Random.Range(1, 3));
                 pawn.MarkSpawnColor();
                 pawn.parentBlock = this;
+                pawn.Show();
                 pawns.Add(pawn);
             }
+        }
+        public void Deconstruct()
+        {
+            foreach (var pawn in pawns)
+            {
+                pawn.Deconstruct();
+            }
+            motionTween?.Kill();
+            busy = false;
+            pawns.Clear();
+            this.Despawn();
         }
         public void Add(Pawn pawn)
         {
@@ -55,10 +61,6 @@ namespace Game
                 pawn.parentBlock = null;
             }
             pawns.Clear();
-            if (!ghostBlock)
-            {
-                this.Despawn();
-            }
         }
 
         public void Rotate()

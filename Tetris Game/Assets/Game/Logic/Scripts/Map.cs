@@ -16,24 +16,38 @@ namespace Game
         [System.NonSerialized] public int Tick = 0;
         [System.NonSerialized] public int FreeMoveIndex = 99;
         [System.NonSerialized] public Coroutine shootRoutine = null;
+        [System.NonSerialized] public Coroutine mainRoutine = null;
 
-
-        IEnumerator ShootRoutine()
+        void Start()
         {
-            while (true)
-            {
-                grid.Shoot();
-                yield return new WaitForSeconds(0.75f);
-            }
-        }
-        IEnumerator Start()
-        {
-            line.Construct(grid.size.x);
             grid.Construct();
+        }
+
+        public void Begin()
+        {
+            mainRoutine = StartCoroutine(MainLoop());
+        }
+
+        IEnumerator MainLoop()
+        {
             shootRoutine = StartCoroutine(ShootRoutine());
 
+            IEnumerator ShootRoutine()
+            {
+                while (true)
+                {
+                    grid.Shoot();
+                    yield return new WaitForSeconds(1.0f);
+                }
+            }
+            
             while (true)
             {
+                if (LevelManager.THIS.Wictory)
+                {
+                    LevelManager.THIS.OnWictory();
+                    yield break;
+                }
                 grid.Move(0.25f);
                 FreeMoveIndex = 99;
                 yield return new WaitForSeconds(0.3f);
@@ -57,6 +71,22 @@ namespace Game
                 yield return new WaitForSeconds(0.15f);
             }
         }
+        
+        public void Deconstruct()
+        {
+            if (shootRoutine != null)
+            {
+                StopCoroutine(shootRoutine);
+                shootRoutine = null;
+            }
+            if (mainRoutine != null)
+            {
+                StopCoroutine(mainRoutine);
+                mainRoutine = null;
+            }
+            grid.Deconstruct();
+        }
+        
         public Place GetPlace(Transform pt)
         {
             return grid.placeDic[pt];

@@ -24,12 +24,17 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private bool moving = false;
     [System.NonSerialized] private Vector3 finalPosition;
 
-    #region Mono
-    void Start()
+    public void Begin()
     {
         currentBlock = SpawnBlock();    
     }
-    #endregion
+    public void Deconstruct()
+    {
+        while (spawnedBlocks.Count > 0)
+        {
+            DespawnBlock(spawnedBlocks[^1]);   
+        }
+    }
 
     #region User Input
     public bool IsTouchingSpawner(Vector3 screenPosition)
@@ -52,9 +57,9 @@ public class Spawner : Singleton<Spawner>
     }
     public void ScreenTap(Vector3 screenPosition)
     {
+        AnimateTap();
         if (GrabbedBlock)
         {
-            AnimateTap();
             currentBlock.Rotate();
         }
     }
@@ -129,6 +134,8 @@ public class Spawner : Singleton<Spawner>
     }
 
     #region Spawn
+
+    private List<Block> spawnedBlocks = new();
     public Block SpawnBlock()
     {
         Pool pool = GameManager.THIS.Constants.blocks.Random<Pool>();
@@ -137,7 +144,13 @@ public class Spawner : Singleton<Spawner>
         block.transform.localScale = Vector3.one;
         block.transform.localRotation = Quaternion.identity;
         block.Construct();
+        spawnedBlocks.Add(block);
         return block;
+    } 
+    public void DespawnBlock(Block block)
+    {
+        block.Deconstruct();
+        spawnedBlocks.Remove(block);
     }
     public Pawn SpawnPawn(Transform parent, Vector3 position, int level)
     {

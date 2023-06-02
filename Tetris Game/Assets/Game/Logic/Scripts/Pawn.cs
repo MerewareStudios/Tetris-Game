@@ -40,7 +40,14 @@ namespace Game
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
         }
-
+        public void Deconstruct()
+        {
+            parentBlock = null;
+            Mover = false;
+            MoveUntilForward = false;
+            CanShoot = false;
+            this.Despawn();
+        }
         public void Move(Vector3 position, float duration, Ease ease, System.Action OnComplete = null)
         {
             transform.DOKill();
@@ -98,11 +105,17 @@ namespace Game
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
-            modelPivot.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack)
+            modelPivot.DOScale(Vector3.zero, 0.25f).SetEase(Ease.Linear)
                 .onComplete += () => 
                 { 
                     OnComplete?.Invoke();    
                 };
+        }  
+        public void Show()
+        {
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.zero;
+            modelPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
         }
 
         public void MoveForward(Place checkerPlace, int tick, float moveDuration)
