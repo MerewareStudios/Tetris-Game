@@ -43,11 +43,6 @@ namespace Game
             
             while (true)
             {
-                if (LevelManager.THIS.Wictory)
-                {
-                    LevelManager.THIS.OnWictory();
-                    yield break;
-                }
                 grid.Move(0.25f);
                 FreeMoveIndex = 99;
                 yield return new WaitForSeconds(0.3f);
@@ -163,9 +158,20 @@ namespace Game
             }
             foreach (var place in places)
             {
-                if (canPlaceAll) place.MarkFree(); else place.MarkOccupied(); 
+                if (canPlaceAll)
+                {
+                    place.MarkFree();
+                    
+                    // grid.HighlightPrediction(place);
+                }
+                else
+                {
+                    place.MarkOccupied();
+                } 
+                
             }
         }
+        
         public (Place, bool) Project(Pawn pawn)
         {
             Vector2Int? index = Pos2Index(pawn.transform.position);

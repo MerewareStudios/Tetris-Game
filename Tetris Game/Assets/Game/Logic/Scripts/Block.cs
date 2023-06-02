@@ -30,8 +30,8 @@ namespace Game
         {
             foreach (var target in segmentTransforms)
             {
-                //Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, Random.Range(1, 6));
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, Random.Range(1, 3));
+                // Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, Random.Range(1, 6));
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1);
                 pawn.MarkSpawnColor();
                 pawn.parentBlock = this;
                 pawn.Show();

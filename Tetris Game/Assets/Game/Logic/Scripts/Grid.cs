@@ -189,8 +189,6 @@ namespace Game
             spawnPlace.AcceptImmidiate(newPawn);
 
             newPawn.AnimatedShow(duration, () => newPawn.CanShoot = true);
-            
-            LevelManager.THIS.CheckWinCondition(newPawn);
         }
 
         public void MergeLines(List<int> lines, float duration)
@@ -218,27 +216,37 @@ namespace Game
 
         public void Shoot()
         {
+            Pawn enemyPawn = Map.THIS.line.pawnBig;
+            int totalDamageTaken = 0;
             CallRow<Place>(places, 0, (place, verticalIndex) =>
             {
-                if (place.Current != null && place.Current.CanShoot && place.Current.Level > 1)
+                if (enemyPawn.Level > 0 && place.Current != null && place.Current.CanShoot && place.Current.Level > 1)
                 {
-                    Pawn enemyPawn = Map.THIS.line.GetPawn(verticalIndex);
                     Pawn currentPawn = place.Current;
                     if (enemyPawn.Level > 0)
                     {
-                        currentPawn.Level--;
+                        int damage = 1;
+                        currentPawn.Level -= damage;
                         currentPawn.PunchScale(-0.2f);
-
-                        enemyPawn.Level--;
-                        enemyPawn.PunchScale(0.2f);
-
-                        if (enemyPawn.Level == 0)
-                        {
-                            enemyPawn.Hide();
-                        }
+                       
+                        enemyPawn.Level-=damage;
+                        enemyPawn.PunchScale(-0.2f);
+                        
+                        totalDamageTaken += damage;
                     }
                 }
             });
+            if (enemyPawn.Level <= 0)
+            {
+                LevelManager.THIS.OnWictory();
+            }
+
+            if (totalDamageTaken == 0)
+            {
+                enemyPawn.Level++;
+                enemyPawn.PunchScale(0.2f);
+            }
+            
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {
@@ -253,6 +261,27 @@ namespace Game
             }
             return false;
         }
+        public void HighlightPrediction(Place place)
+        {
+            // Place prevPlace = null;
+            for (int j = size.y-1; j >= 0; j--)
+            {
+                Place checkPlace = places[place.index.x, j];
+                if (!checkPlace.Occupied)
+                {
+                    checkPlace.MarkFree();
+                    // prevPlace = checkPlace;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
+            // if (prevPlace != null)
+            // {
+            //     prevPlace.MarkFree();
+            // }
+        }
     }
 }
