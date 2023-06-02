@@ -217,7 +217,7 @@ namespace Game
         public void Shoot()
         {
             Pawn enemyPawn = Map.THIS.line.pawnBig;
-            int totalDamageTaken = 0;
+            int totalHealthGiven = 0;
             CallRow<Place>(places, 0, (place, verticalIndex) =>
             {
                 if (enemyPawn.Level > 0 && place.Current != null && place.Current.CanShoot && place.Current.Level > 1)
@@ -229,24 +229,29 @@ namespace Game
                         currentPawn.Level -= damage;
                         currentPawn.PunchScale(-0.2f);
                        
-                        enemyPawn.Level-=damage;
-                        enemyPawn.PunchScale(-0.2f);
                         
-                        totalDamageTaken += damage;
+                        
+                        totalHealthGiven += damage;
                     }
                 }
             });
+            
+            if (totalHealthGiven == 0)
+            {
+                enemyPawn.Level++;
+                enemyPawn.PunchScale(0.2f);
+                return;
+            }
+            
+            totalHealthGiven.Log();
+            
+            enemyPawn.Level -= totalHealthGiven;
+            enemyPawn.PunchScale(-0.2f);
+            
             if (enemyPawn.Level <= 0)
             {
                 LevelManager.THIS.OnWictory();
             }
-
-            if (totalDamageTaken == 0)
-            {
-                enemyPawn.Level++;
-                enemyPawn.PunchScale(0.2f);
-            }
-            
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {
