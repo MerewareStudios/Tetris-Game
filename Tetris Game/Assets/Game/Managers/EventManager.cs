@@ -62,7 +62,7 @@ public class EventManager : Singleton<EventManager>
         }
     }
 }
-public static class EventManagerExtenstions
+public static class EventManagerExtensions
 {
     public static void LogEvent(this object obj)
     {

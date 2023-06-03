@@ -20,5 +20,11 @@ namespace Internal.Core
         public Color placeColorDefault;
         [Header("Spawner")] public float rotationDuration = 0.15f;
         public Ease rotationEase;
+        [Header("Level")]
+        public int enemyStartingHealth = 0;
+        public int enemyFinishingHealth = 0;
+        [Range(-1, 1)] public int gainSign;
+        public float enemyHealthGainInterval;
+        public int enemyHealthAdditionPerInterval;
     }
 }

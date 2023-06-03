@@ -32,7 +32,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         saveData.playTime += Time.deltaTime;
     }
 }
-public static class SaveManagerExtenstions
+public static class SaveManagerExtensions
 {
     public static bool IsNotComplete(this ONBOARDING onboardingStep)
     {

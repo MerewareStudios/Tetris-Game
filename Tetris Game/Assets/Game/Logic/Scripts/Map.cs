@@ -101,7 +101,7 @@ namespace Game
             foreach (var pawn in block.pawns)
             {
                 pawn.MarkMoverColor();
-                Pawn2Place(pawn).Accept(pawn, 0.2f);
+                Pawn2Place(pawn).Accept(pawn, 0.1f);
             }
         }
         public bool CanPlaceBlockOnGrid(Block block)

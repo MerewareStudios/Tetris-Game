@@ -18,6 +18,8 @@ public class Spawner : Singleton<Spawner>
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
 
+    [SerializeField] private float horSense = 1.5f;
+
     [System.NonSerialized] private Block currentBlock;
     [System.NonSerialized] private bool GrabbedBlock = false;
     [System.NonSerialized] private Coroutine moveRoutine = null;
@@ -72,7 +74,13 @@ public class Spawner : Singleton<Spawner>
 
         finalPosition = spawnedBlockLocation.position;
 
-        if (Physics.Raycast(CameraManager.THIS.gameCamera.ScreenToWorldPoint(touchPosition), CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridcheckLayer))
+        Vector2 viewPortTouch = CameraManager.THIS.gameCamera.ScreenToViewportPoint(touchPosition);
+        float distanceMultiplier = (Mathf.Abs(viewPortTouch.x - 0.5f) + 1.0f) * horSense;
+
+        Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(touchPosition);
+        worldPosition.x *= distanceMultiplier;
+
+        if (Physics.Raycast(worldPosition, CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridcheckLayer))
         {
             finalPosition = hit.point + distanceFromDraggingFinger;
         }

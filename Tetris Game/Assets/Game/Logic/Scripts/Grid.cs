@@ -183,6 +183,8 @@ namespace Game
                         segment.Despawn();
                     };
             }
+            
+            SaveManager
            
             Pawn newPawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
             newPawn.MarkSteadyColor();
@@ -217,38 +219,38 @@ namespace Game
         public void Shoot()
         {
             Pawn enemyPawn = Map.THIS.line.pawnBig;
-            int totalHealthGiven = 0;
+            int totalOnTable = 0;
             CallRow<Place>(places, 0, (place, verticalIndex) =>
             {
-                if (enemyPawn.Level > 0 && place.Current != null && place.Current.CanShoot && place.Current.Level > 1)
+                if (place.Current && place.Current.CanShoot && place.Current.Level > 1)
                 {
                     Pawn currentPawn = place.Current;
-                    if (enemyPawn.Level > 0)
-                    {
-                        int damage = 1;
-                        currentPawn.Level -= damage;
-                        currentPawn.PunchScale(-0.2f);
-                       
-                        
-                        
-                        totalHealthGiven += damage;
-                    }
+                    int damage = 1;
+                    currentPawn.Level -= damage;
+                    currentPawn.PunchScale(-0.2f);
+                   
+                    totalOnTable += damage;
                 }
             });
-            
-            if (totalHealthGiven == 0)
+
+            if (totalOnTable == 0)
             {
-                enemyPawn.Level++;
-                enemyPawn.PunchScale(0.2f);
+                int prevHealth = enemyPawn.Level;
+                int enemyLevel = enemyPawn.Level + GameManager.THIS.Constants.enemyHealthAdditionPerInterval;
+                enemyLevel = Mathf.Clamp(enemyLevel, 0, int.MaxValue);
+                enemyPawn.Level = enemyLevel;
+                if (prevHealth != enemyPawn.Level)
+                {
+                    enemyPawn.PunchScale(0.2f);
+                }
                 return;
             }
             
-            totalHealthGiven.Log();
             
-            enemyPawn.Level -= totalHealthGiven;
+            enemyPawn.Level += totalOnTable * GameManager.THIS.Constants.gainSign;
             enemyPawn.PunchScale(-0.2f);
             
-            if (enemyPawn.Level <= 0)
+            if (Mathf.Abs(enemyPawn.Level - GameManager.THIS.Constants.enemyFinishingHealth) <= 0)
             {
                 LevelManager.THIS.OnWictory();
             }

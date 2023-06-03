@@ -10,8 +10,8 @@ namespace Game
 {
     public class Place : MonoBehaviour
     {
-        [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] public Transform segmentParent;
+        [SerializeField] public SpriteRenderer SpriteRenderer;
         [System.NonSerialized] public Vector2Int index;
         public Pawn Current { get; set; }
         public bool Occupied { get{ return Current != null; } }
@@ -26,15 +26,15 @@ namespace Game
         
         public void MarkFree()
         {
-            meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorHighlight);
+            SpriteRenderer.color = GameManager.THIS.Constants.placeColorHighlight;
         }
         public void MarkOccupied()
         {
-            meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorDeny);
+            SpriteRenderer.color = GameManager.THIS.Constants.placeColorDeny;
         }
         public void MarkDefault()
         {
-            meshRenderer.SetColor(GameManager.MPB_PLACE, "_BaseColor", GameManager.THIS.Constants.placeColorDefault);
+            SpriteRenderer.color = GameManager.THIS.Constants.placeColorDefault;
         }
 
         void Start()

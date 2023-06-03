@@ -49,7 +49,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadLevel()
     {
-        Map.THIS.line.Construct(Map.THIS.grid.size.x, 150);
+        Map.THIS.line.Construct(Map.THIS.grid.size.x, GameManager.THIS.Constants.enemyStartingHealth);
         Map.THIS.Begin();
         Spawner.THIS.Begin();
     }

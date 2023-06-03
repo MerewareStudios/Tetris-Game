@@ -119,7 +119,7 @@ public class Meta : Singleton<Meta>
     }
 }
 
-public static class MetaExtenstions
+public static class MetaExtensions
 {
     public static bool Transaction(this System.Enum @meta, int amount)
     {

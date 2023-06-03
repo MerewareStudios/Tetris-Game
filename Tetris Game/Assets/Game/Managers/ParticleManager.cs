@@ -82,7 +82,7 @@ public class ParticleManager : Singleton<ParticleManager>
         [SerializeField] public ParticleSystemStopAction particleSystemStopAction;
     }
 }
-public static class ParticleManagerExtenstions
+public static class ParticleManagerExtensions
 {
     public static ParticleSystem Emit(this Particle key, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {

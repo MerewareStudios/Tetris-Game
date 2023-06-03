@@ -57,7 +57,7 @@ public class PoolManager : Singleton<PoolManager>
     }
 }
 
-public static class PoolManagerExtenstions
+public static class PoolManagerExtensions
 {
     public static GameObject Spawn(this Pool key, Transform parent = null)
     {
