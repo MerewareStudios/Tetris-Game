@@ -21,6 +21,10 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.resourceInventory = new int[resourceCount];
         }
 
+        
+        ScoreBoard.OnLoad = () => { return saveData.score; };
+        ScoreBoard.OnSave = (value) => { saveData.score = value; };
+        
         //Meta.OnConvert = (@enum) => { return (int)Enum.Parse(typeof(MetaResource.Type), @enum.ToString()); };
         //Meta.OnLoad = (index) => { return saveData.resourceInventory[index]; };
         //Meta.OnSave = (index, amount) => { saveData.resourceInventory[index] = amount; };
@@ -53,6 +57,7 @@ public partial class SaveData
     [SerializeField] public bool[] onboardingList;
     [SerializeField] public float playTime;
     [SerializeField] public int[] resourceInventory;
+    [SerializeField] public int score;
 }
 
 public enum ONBOARDING

@@ -26,7 +26,7 @@ public class LevelManager : Singleton<LevelManager>
 
     void Start()
     {
-        DOVirtual.DelayedCall(1.0f, LoadLevel);
+        DOVirtual.DelayedCall(0.5f, LoadLevel);
     }
 
     // public void CheckWinCondition(Pawn pawn)
@@ -42,14 +42,12 @@ public class LevelManager : Singleton<LevelManager>
     {
         Spawner.THIS.Deconstruct();
         Map.THIS.Deconstruct();
-        Map.THIS.line.Deconstruct();
         // winnerPawn = null;
         LoadLevel();
     }
 
     public void LoadLevel()
     {
-        Map.THIS.line.Construct(Map.THIS.grid.size.x, GameManager.THIS.Constants.enemyStartingHealth);
         Map.THIS.Begin();
         Spawner.THIS.Begin();
     }

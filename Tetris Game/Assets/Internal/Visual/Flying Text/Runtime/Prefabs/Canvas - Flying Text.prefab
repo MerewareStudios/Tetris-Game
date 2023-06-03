@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de8c79de746dce49a749621a73d3023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 9149620456318271637}
+  worldCamera: {fileID: 0}
 --- !u!223 &9149620456318271637
 Canvas:
   m_ObjectHideFlags: 0

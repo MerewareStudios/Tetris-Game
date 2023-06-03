@@ -5,28 +5,38 @@ using UnityEngine;
 
 public class FlyingText : Singleton<FlyingText>
 {
-    [System.NonSerialized] public Canvas canvas;
+    [SerializeField] public Canvas canvas;
+    [SerializeField] public Camera worldCamera;
     public delegate TextMeshProUGUI GetInstance();
-    public GetInstance GetInstanceAction;
+    public System.Action<MonoBehaviour> ReturnInstance;
+    public GetInstance OnGetInstance;
     
-    public void ShowWorld(Vector3 worldPosition)
+    public void FlyWorld(string str, Vector3 worldPosition, float delay = 0.0f)
     {
-        TextMeshProUGUI text = GetInstanceAction.Invoke();
-        text.transform.position = canvas.worldCamera.WorldToScreenPoint(worldPosition);
+        TextMeshProUGUI text = OnGetInstance.Invoke();
+        text.text = str;
         
-        text.transform.DOKill();
-        text.transform.localScale = Vector3.zero;
-        text.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
-    }
-}
-public static class FlyingTextExtensions
-{
-    public static void Fly(this string value, Vector3 worldPosition)
-    {
-        FlyingText.THIS.ShowWorld(worldPosition);
-    }
-    public static void Fly(this int value, Vector3 worldPosition)
-    {
-        FlyingText.THIS.ShowWorld(worldPosition);
+        RectTransform rectTransform = text.rectTransform;
+        rectTransform.SetParent(this.transform);
+        rectTransform.position = canvas.worldCamera.ScreenToWorldPoint(worldCamera.WorldToScreenPoint(worldPosition));
+        
+        rectTransform.DOKill();
+        rectTransform.localScale = Vector3.zero;
+
+        text.color = Color.white;
+
+        float scaleUpDuration = 0.175f;
+        float fadeDuration = 0.25f;
+        
+        Tween scaleTween = rectTransform.DOScale(Vector3.one, scaleUpDuration).SetEase(Ease.Linear).SetDelay(delay);
+        Tween upTween = rectTransform.DOMove(Vector3.up * 0.625f, fadeDuration).SetRelative(true).SetEase(Ease.OutSine).SetDelay(0.0f);
+        Tween fadeTween = text.DOFade(0.0f, fadeDuration).SetEase(Ease.OutQuint).SetDelay(0.175f);
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(scaleTween);
+        sequence.Append(upTween);
+        sequence.Join(fadeTween);
+
+        sequence.onComplete += () => ReturnInstance.Invoke(text);
     }
 }

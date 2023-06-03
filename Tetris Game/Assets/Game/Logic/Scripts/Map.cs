@@ -11,12 +11,13 @@ namespace Game
     {
         [SerializeField] public Grid grid;
         [SerializeField] private Vector3 indexOffset;
-        [SerializeField] public Line line;
         [System.NonSerialized] private List<Pawn> segments = new();
         [System.NonSerialized] public int Tick = 0;
         [System.NonSerialized] public int FreeMoveIndex = 99;
         [System.NonSerialized] public Coroutine shootRoutine = null;
         [System.NonSerialized] public Coroutine mainRoutine = null;
+        [System.NonSerialized] private bool canShoot = true;
+        [System.NonSerialized] private float prevShoot = 0.0f;
 
         void Start()
         {
@@ -36,8 +37,16 @@ namespace Game
             {
                 while (true)
                 {
-                    grid.Shoot();
-                    yield return new WaitForSeconds(1.0f);
+                    if (Time.time - prevShoot > 1.0f)
+                    {
+                        if (canShoot)
+                        {
+                            grid.Shoot();
+                            prevShoot = Time.time;
+                        }
+                    }
+
+                    yield return null;
                 }
             }
             
@@ -52,18 +61,16 @@ namespace Game
 
                 if (tetrisLines.Count > 0)
                 {   
-                    yield return new WaitForSeconds(0.15f);
-                }
+                    canShoot = false;
+                    
+                    grid.MergeLines(tetrisLines, 0.2f);
 
-                grid.MergeLines(tetrisLines, 0.2f);
-
-                if (tetrisLines.Count > 0)
-                {
                     grid.MarkNewMovers(tetrisLines[0], tetrisLines.Count);
-                    yield return new WaitForSeconds(0.35f);
+                    yield return new WaitForSeconds(0.75f);
                 }
                 
                 yield return new WaitForSeconds(0.15f);
+                canShoot = true;
             }
         }
         

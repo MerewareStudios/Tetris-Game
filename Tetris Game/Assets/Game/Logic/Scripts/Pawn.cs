@@ -29,7 +29,7 @@ namespace Game
             set
             {
                 this.level = value;
-                levelText.text = this.level.ToString();
+                levelText.text = value == 1 ? "AMMO".ToTMProKey() : level.ToString();
             }
         }
 

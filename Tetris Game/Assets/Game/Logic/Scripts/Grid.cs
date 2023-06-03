@@ -145,7 +145,7 @@ namespace Game
             return tetrisLines;
         }
 
-        public void MergeLine(int lineIndex, float duration)
+        public int MergeLine(int lineIndex, float duration)
         {
             List<int> indexes = new();
             List<Pawn> segments = new();
@@ -157,6 +157,9 @@ namespace Game
             for (int i = 0; i < size.x; i++)
             {
                 Place place = places[i, lineIndex];
+                
+                Particle.Square.Emit(1, place.segmentParent.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                
                 segments.Add(place.Current);
 
                 totalLevel += place.Current.Level;
@@ -177,27 +180,50 @@ namespace Game
             Place spawnPlace = places[indexes.Random(), lineIndex];
             foreach (var segment in segments)
             {
-                segment.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.0f)
+                segment.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
                     .onComplete += () =>
                     {
                         segment.Despawn();
                     };
             }
             
-            SaveManager
            
             Pawn newPawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
             newPawn.MarkSteadyColor();
             spawnPlace.AcceptImmidiate(newPawn);
 
-            newPawn.AnimatedShow(duration, () => newPawn.CanShoot = true);
+            newPawn.AnimatedShow(0.6f, () => newPawn.CanShoot = true);
+            
+            UIManager.THIS.ft_TF2.FlyWorld("+" + totalLevel, newPawn.transform.position + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);
+            Particle.Portal_Blue.Play(newPawn.transform.position + Vector3.up * 0.05f,
+                Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
+
+
+            return totalLevel;
         }
 
         public void MergeLines(List<int> lines, float duration)
         {
+            int[] points = new int[lines.Count];
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i], duration);
+                points[i] = MergeLine(lines[i], duration);
+            }
+
+            int totalPoint = 0;           
+
+            foreach (var point in points)
+            {
+                totalPoint += point;
+            }
+
+            if (totalPoint > 0)
+            {
+                int addition = totalPoint;
+                DOVirtual.DelayedCall(0.3f, () =>
+                {
+                    ScoreBoard.THIS.Score += addition;
+                });
             }
         }
 
@@ -218,8 +244,8 @@ namespace Game
 
         public void Shoot()
         {
-            Pawn enemyPawn = Map.THIS.line.pawnBig;
-            int totalOnTable = 0;
+            // Pawn enemyPawn = Map.THIS.line.pawnBig;
+            // int totalOnTable = 0;
             CallRow<Place>(places, 0, (place, verticalIndex) =>
             {
                 if (place.Current && place.Current.CanShoot && place.Current.Level > 1)
@@ -229,31 +255,31 @@ namespace Game
                     currentPawn.Level -= damage;
                     currentPawn.PunchScale(-0.2f);
                    
-                    totalOnTable += damage;
+                    // totalOnTable += damage;
                 }
             });
 
-            if (totalOnTable == 0)
-            {
-                int prevHealth = enemyPawn.Level;
-                int enemyLevel = enemyPawn.Level + GameManager.THIS.Constants.enemyHealthAdditionPerInterval;
-                enemyLevel = Mathf.Clamp(enemyLevel, 0, int.MaxValue);
-                enemyPawn.Level = enemyLevel;
-                if (prevHealth != enemyPawn.Level)
-                {
-                    enemyPawn.PunchScale(0.2f);
-                }
-                return;
-            }
+            // if (totalOnTable == 0)
+            // {
+            //     int prevHealth = enemyPawn.Level;
+            //     int enemyLevel = enemyPawn.Level + GameManager.THIS.Constants.enemyHealthAdditionPerInterval;
+            //     enemyLevel = Mathf.Clamp(enemyLevel, 0, int.MaxValue);
+            //     enemyPawn.Level = enemyLevel;
+            //     if (prevHealth != enemyPawn.Level)
+            //     {
+            //         enemyPawn.PunchScale(0.2f);
+            //     }
+            //     return;
+            // }
             
             
-            enemyPawn.Level += totalOnTable * GameManager.THIS.Constants.gainSign;
-            enemyPawn.PunchScale(-0.2f);
+            // enemyPawn.Level += totalOnTable * GameManager.THIS.Constants.gainSign;
+            // enemyPawn.PunchScale(-0.2f);
             
-            if (Mathf.Abs(enemyPawn.Level - GameManager.THIS.Constants.enemyFinishingHealth) <= 0)
-            {
-                LevelManager.THIS.OnWictory();
-            }
+            // if (Mathf.Abs(enemyPawn.Level - GameManager.THIS.Constants.enemyFinishingHealth) <= 0)
+            // {
+            //     LevelManager.THIS.OnWictory();
+            // }
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {

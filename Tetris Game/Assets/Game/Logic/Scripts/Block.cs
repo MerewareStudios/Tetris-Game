@@ -61,6 +61,7 @@ namespace Game
                 pawn.parentBlock = null;
             }
             pawns.Clear();
+            this.Despawn();
         }
 
         public void Rotate()
