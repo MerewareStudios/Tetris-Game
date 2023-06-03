@@ -60,7 +60,13 @@ namespace Game
                 List<int> tetrisLines = grid.CheckTetris();
 
                 if (tetrisLines.Count > 0)
-                {   
+                {
+                    if (tetrisLines.Count > 1)
+                    {
+                        UIManager.THIS.ft_Combo.FlyScreen("x" + tetrisLines.Count, Vector3.zero, 0.0f);
+                        yield return new WaitForSeconds(0.4f);
+                    }
+
                     canShoot = false;
                     
                     grid.MergeLines(tetrisLines, 0.2f);

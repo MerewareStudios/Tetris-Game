@@ -20,5 +20,7 @@ public enum Pool
     Half_3_X_Block_Right = 17,
     Tree_I_Empty_Block = 18,
     Flying_Text___TF2 = 19,
+    Flying_Text___Combo = 20,
+    Enemy = 21,
 
 }

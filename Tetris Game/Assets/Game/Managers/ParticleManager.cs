@@ -42,7 +42,7 @@ public class ParticleManager : Singleton<ParticleManager>
 
         return particleSystem;
     }
-    public static ParticleSystem Emit(Particle key, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
+    public static ParticleSystem Emit(Particle key, int amount, Color? color = null, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {
         int index = ((int)key);
         ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
@@ -58,6 +58,12 @@ public class ParticleManager : Singleton<ParticleManager>
         pTransform.rotation = rotation;
         pTransform.localScale = scale == null ? Vector3.one : (Vector3)scale;
 
+        var main = particleSystem.main;
+
+        if (color != null)
+        {
+            main.startColor = (Color)color;
+        }
         particleSystem.Emit(amount);
 
         return particleSystem;
@@ -86,7 +92,11 @@ public static class ParticleManagerExtensions
 {
     public static ParticleSystem Emit(this Particle key, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {
-        return ParticleManager.Emit(key, amount, position, rotation, scale);
+        return ParticleManager.Emit(key, amount, null, position, rotation, scale);
+    }
+    public static ParticleSystem Emit(this Particle key, int amount, Color color, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
+    {
+        return ParticleManager.Emit(key, amount, color, position, rotation, scale);
     }
     public static void EmitAll(this Particle[] keys, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {

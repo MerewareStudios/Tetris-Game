@@ -145,7 +145,7 @@ namespace Game
             return tetrisLines;
         }
 
-        public int MergeLine(int lineIndex, float duration)
+        public int MergeLine(int lineIndex, float duration, int multiplier)
         {
             List<int> indexes = new();
             List<Pawn> segments = new();
@@ -158,11 +158,17 @@ namespace Game
             {
                 Place place = places[i, lineIndex];
                 
-                Particle.Square.Emit(1, place.segmentParent.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
                 
                 segments.Add(place.Current);
 
-                totalLevel += place.Current.Level;
+                
+
+                int additive = place.Current.Level;
+                if (additive == 1)
+                {
+                    additive *= multiplier;
+                }
+                totalLevel += additive;
 
                 if (place.Current.movedAtTick == highestTick)
                 {
@@ -180,6 +186,9 @@ namespace Game
             Place spawnPlace = places[indexes.Random(), lineIndex];
             foreach (var segment in segments)
             {
+                Color color = multiplier == 1 ? GameManager.THIS.Constants.singleColor : GameManager.THIS.Constants.comboColor;
+                Particle.Square.Emit(1, color, segment.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                
                 segment.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
                     .onComplete += () =>
                     {
@@ -207,7 +216,7 @@ namespace Game
             int[] points = new int[lines.Count];
             for (int i = 0; i < lines.Count; i++)
             {
-                points[i] = MergeLine(lines[i], duration);
+                points[i] = MergeLine(lines[i], duration, lines.Count);
             }
 
             int totalPoint = 0;           
@@ -244,42 +253,24 @@ namespace Game
 
         public void Shoot()
         {
-            // Pawn enemyPawn = Map.THIS.line.pawnBig;
-            // int totalOnTable = 0;
+            int totalAmmo = 0;
             CallRow<Place>(places, 0, (place, verticalIndex) =>
             {
                 if (place.Current && place.Current.CanShoot && place.Current.Level > 1)
                 {
                     Pawn currentPawn = place.Current;
-                    int damage = 1;
-                    currentPawn.Level -= damage;
+                    int ammo = 1;
+                    currentPawn.Level -= ammo;
                     currentPawn.PunchScale(-0.2f);
-                   
-                    // totalOnTable += damage;
+
+                    totalAmmo += ammo;
                 }
             });
 
-            // if (totalOnTable == 0)
-            // {
-            //     int prevHealth = enemyPawn.Level;
-            //     int enemyLevel = enemyPawn.Level + GameManager.THIS.Constants.enemyHealthAdditionPerInterval;
-            //     enemyLevel = Mathf.Clamp(enemyLevel, 0, int.MaxValue);
-            //     enemyPawn.Level = enemyLevel;
-            //     if (prevHealth != enemyPawn.Level)
-            //     {
-            //         enemyPawn.PunchScale(0.2f);
-            //     }
-            //     return;
-            // }
-            
-            
-            // enemyPawn.Level += totalOnTable * GameManager.THIS.Constants.gainSign;
-            // enemyPawn.PunchScale(-0.2f);
-            
-            // if (Mathf.Abs(enemyPawn.Level - GameManager.THIS.Constants.enemyFinishingHealth) <= 0)
-            // {
-            //     LevelManager.THIS.OnWictory();
-            // }
+            if (totalAmmo > 0)
+            {
+                FireArea.THIS.Shoot();
+            }
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {
@@ -296,25 +287,18 @@ namespace Game
         }
         public void HighlightPrediction(Place place)
         {
-            // Place prevPlace = null;
             for (int j = size.y-1; j >= 0; j--)
             {
                 Place checkPlace = places[place.index.x, j];
                 if (!checkPlace.Occupied)
                 {
                     checkPlace.MarkFree();
-                    // prevPlace = checkPlace;
                 }
                 else
                 {
                     break;
                 }
             }
-
-            // if (prevPlace != null)
-            // {
-            //     prevPlace.MarkFree();
-            // }
         }
     }
 }

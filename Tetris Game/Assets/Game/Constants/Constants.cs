@@ -26,5 +26,8 @@ namespace Internal.Core
         [Range(-1, 1)] public int gainSign;
         public float enemyHealthGainInterval;
         public int enemyHealthAdditionPerInterval;
+        [Header("Combo")]
+        public Color singleColor;
+        public Color comboColor;
     }
 }
