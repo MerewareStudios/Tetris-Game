@@ -2766,7 +2766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc0cc4d2c899dd4ba341494ce538f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tapInterval: 0.3
+  tapInterval: 0.25
   moveThreshold: 40
   OnDown:
     m_PersistentCalls:

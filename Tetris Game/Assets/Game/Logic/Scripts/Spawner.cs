@@ -59,6 +59,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void ScreenTap(Vector3 screenPosition)
     {
+        Debug.Log("tap");
         AnimateTap();
         if (GrabbedBlock)
         {

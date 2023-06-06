@@ -1,13 +1,6 @@
-using Game;
 using Internal.Core;
-using Lean.Touch;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -36,7 +29,7 @@ public class InputManager : Singleton<InputManager>
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                if (Time.time - touchBegin <= tapInterval)
+                if (Time.time - touchBegin <= tapInterval && !Moving)
                 {
                     OnTap?.Invoke(touch.position);
                 }
