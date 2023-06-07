@@ -9,6 +9,7 @@ namespace Game
         // Block has a general property of always moving forward with child blocks
         // If any of the child block is blocked by a forward pawn/obstacle it is placed and seperated 
 
+        [SerializeField] private int[] Widths;
         [SerializeField] private List<Transform> segmentTransforms;
         [System.NonSerialized] public List<Pawn> pawns = new();
         [SerializeField] public Vector3 spawnerOffset;
@@ -16,6 +17,27 @@ namespace Game
         [System.NonSerialized] private bool busy = false;
 
         public int PawnCount { get { return pawns.Count; } }
+
+        public int Width
+        {
+            get
+            {
+                int rotIndex = Mathf.FloorToInt(transform.eulerAngles.y / 90.0f);
+                rotIndex %= 2;
+                return Mathf.Clamp(Widths[rotIndex], 1, int.MaxValue);
+                // return Widths[rotIndex] + 1;
+            }
+        }
+        public int NextWidth
+        {
+            get
+            {
+                int rotIndex = Mathf.FloorToInt((transform.eulerAngles.y + 90.0f) / 90.0f);
+                rotIndex %= 2;
+                return Mathf.Clamp(Widths[rotIndex], 1, int.MaxValue);
+                // return Widths[rotIndex] + 1;
+            }
+        }
 
         private void OnDrawGizmos()
         {
@@ -64,7 +86,7 @@ namespace Game
             this.Despawn();
         }
 
-        public void Rotate()
+        public void Rotate(System.Action OnComplete = null)
         {
             if (busy)
             {
@@ -84,6 +106,7 @@ namespace Game
             motionTween.onComplete += () =>
             {
                 busy = false;
+                OnComplete?.Invoke();   
             };
         }
         public void Move(Vector3 position, float duration, Ease ease, bool speedBased = false)

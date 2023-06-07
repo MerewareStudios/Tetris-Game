@@ -13,9 +13,32 @@ namespace Game
         [SerializeField] public Transform segmentParent;
         [SerializeField] public SpriteRenderer SpriteRenderer;
         [System.NonSerialized] public Vector2Int index;
+        [System.NonSerialized] private bool puffed = true;
+        [System.NonSerialized] private Color targetColor;
         public Pawn Current { get; set; }
         public bool Occupied { get{ return Current != null; } }
-        
+
+        public bool Fade
+        {
+            set
+            {
+                if (puffed == value)
+                {
+                    return;
+                }
+                puffed = value;
+                
+                targetColor.a = value ? 0.25f : 1.0f;
+                DoColor();
+            }
+        }
+
+        public void Construct()
+        {
+            targetColor = GameManager.THIS.Constants.placeColorDefault;
+            targetColor.a = 0.25f;
+            SpriteRenderer.color = targetColor;
+        }
         public void Deconstruct()
         {
             if (Current != null)
@@ -26,15 +49,31 @@ namespace Game
         
         public void MarkFree()
         {
-            SpriteRenderer.color = GameManager.THIS.Constants.placeColorHighlight;
+            SetTargetColorRGB(GameManager.THIS.Constants.placeColorHighlight);
+            DoColor();
         }
         public void MarkOccupied()
         {
-            SpriteRenderer.color = GameManager.THIS.Constants.placeColorDeny;
+            SetTargetColorRGB(GameManager.THIS.Constants.placeColorDeny);
+            DoColor();
         }
         public void MarkDefault()
         {
-            SpriteRenderer.color = GameManager.THIS.Constants.placeColorDefault;
+            SetTargetColorRGB(GameManager.THIS.Constants.placeColorDefault);
+            DoColor();
+        }
+
+        private void SetTargetColorRGB(Color color)
+        {
+            targetColor.r = color.r;
+            targetColor.g = color.g;
+            targetColor.b = color.b;
+        }
+
+        private void DoColor()
+        {
+            SpriteRenderer.DOKill();
+            SpriteRenderer.DOColor(targetColor, 0.1f);
         }
 
         void Start()

@@ -28,7 +28,8 @@ public class Spawner : Singleton<Spawner>
 
     public void Begin()
     {
-        currentBlock = SpawnBlock();    
+        currentBlock = SpawnBlock();  
+        Map.THIS.grid.PuffLastLines(currentBlock.Width);
     }
     public void Deconstruct()
     {
@@ -59,11 +60,14 @@ public class Spawner : Singleton<Spawner>
     }
     public void ScreenTap(Vector3 screenPosition)
     {
-        Debug.Log("tap");
         AnimateTap();
         if (GrabbedBlock)
         {
-            currentBlock.Rotate();
+            Map.THIS.grid.PuffLastLines(currentBlock.NextWidth);
+
+            currentBlock.Rotate(() =>
+            {
+            });
         }
     }
     public void Move(Vector3 touchPosition)
@@ -110,7 +114,9 @@ public class Spawner : Singleton<Spawner>
         if (Map.THIS.CanPlaceBlockOnGrid(currentBlock))
         {
             Map.THIS.PlaceBlockOnGrid(currentBlock);
+
             currentBlock = SpawnBlock();
+            Map.THIS.grid.PuffLastLines(currentBlock.Width);
             return;
         }
 

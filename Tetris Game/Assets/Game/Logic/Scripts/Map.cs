@@ -95,16 +95,6 @@ namespace Game
             grid.Deconstruct();
         }
         
-        public Place GetPlace(Transform pt)
-        {
-            return grid.placeDic[pt];
-        }
-
-        public void AddSegment(Pawn segment)
-        {
-            segments.Add(segment);
-        }
-
         public void Dehighlight()
         {
             grid.Dehighlight();
@@ -136,23 +126,10 @@ namespace Game
                 return false;
             }
             return canPlace;
-            // Vector2Int? index = Pos2Index(pawn.transform.position);
-            // if (index == null)
-            // {
-            //     return false;
-            // }
-            // Place place = grid.GetPlace((Vector2Int)index);
-            // if (place.Occupied)
-            // {
-            //     return false;
-            // }
-            // return true;
         }
        
         public void HighlightPawnOnGrid(Block block)
         {
-            bool canPlaceAll = true;
-            List<Place> places = new();
             foreach (var pawn in block.pawns)
             {
                 (Place place, bool canPlace) = Project(pawn);
@@ -160,28 +137,14 @@ namespace Game
                 {
                     return;
                 }
-                if (place != null)
-                {
-                    places.Add(place);
-                }
-                if (!canPlace)
-                {
-                    canPlaceAll = false;
-                }
-            }
-            foreach (var place in places)
-            {
-                if (canPlaceAll)
+                if (canPlace)
                 {
                     place.MarkFree();
-                    
-                    // grid.HighlightPrediction(place);
                 }
                 else
                 {
                     place.MarkOccupied();
                 } 
-                
             }
         }
         
@@ -192,12 +155,18 @@ namespace Game
             {
                 return (null, false);
             }
-            Place place = grid.GetPlace((Vector2Int)index);
+            Vector2Int ind = (Vector2Int)index;
+            Place place = grid.GetPlace(ind);
+            
+            if (grid.size.y - pawn.parentBlock.Width > ind.y)
+            {
+                return (place, false);
+            }
             if (place.Occupied)
             {
                 return (place, false);
             }
-            if (grid.HasForwardPawnAtColumn((Vector2Int)index))
+            if (grid.HasForwardPawnAtColumn(ind))
             {
                 return (place, false);
             }

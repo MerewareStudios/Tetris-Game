@@ -60,8 +60,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9051132528881304172}
   - {fileID: 6010941947294837523}
+  - {fileID: 9051132528881304172}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4e34c76b476724e8977422fc266fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   segmentParent: {fileID: 9051132528881304172}
   SpriteRenderer: {fileID: 1531483249039237173}
 --- !u!1 &6829905093641429848
@@ -154,7 +153,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: abeddf3a163cfa447b7f701cf9de43ef, type: 3}
-  m_Color: {r: 0.14901963, g: 0.2394659, b: 0.43137255, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

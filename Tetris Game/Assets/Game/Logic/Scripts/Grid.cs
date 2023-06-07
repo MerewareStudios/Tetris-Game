@@ -13,7 +13,6 @@ namespace Game
     public class Grid : MonoBehaviour
     {
         [System.NonSerialized] public Place[,] places;
-        [System.NonSerialized] public Dictionary<Transform, Place> placeDic = new();
         [System.NonSerialized] public int TickIndex = 0;
         [SerializeField] public Vector2Int size;
         [System.NonSerialized] public bool[] frontBlockers;
@@ -26,10 +25,10 @@ namespace Game
                 for(int j = 0; j < size.y; j++)
                 {
                     Place place = Pool.Place.Spawn<Place>(this.transform);
+                    place.Construct();
                     place.transform.localPosition = new Vector3(i, 0.0f, -j);
                     places[i, j] = place;
                     place.index = new Vector2Int(i, j);
-                    placeDic.Add(place.transform, place);
                 }
             }
             frontBlockers = new bool[size.x];
@@ -244,7 +243,7 @@ namespace Game
             Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
             {
 
-                if (place.Current != null && !place.Current.Connected && verticalIndex >= startLine)
+                if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
                 {
                     place.Current.MoveUntilForward = true;
                 }
@@ -254,7 +253,7 @@ namespace Game
         public void Shoot()
         {
             int totalAmmo = 0;
-            CallRow<Place>(places, 0, (place, verticalIndex) =>
+            CallRow<Place>(places, 0, (place, horizontalIndex) =>
             {
                 if (place.Current && place.Current.CanShoot && place.Current.Level > 1)
                 {
@@ -285,20 +284,14 @@ namespace Game
             }
             return false;
         }
-        public void HighlightPrediction(Place place)
+        
+        public void PuffLastLines(int index)
         {
-            for (int j = size.y-1; j >= 0; j--)
+            Debug.Log("Puff");
+            Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
             {
-                Place checkPlace = places[place.index.x, j];
-                if (!checkPlace.Occupied)
-                {
-                    checkPlace.MarkFree();
-                }
-                else
-                {
-                    break;
-                }
-            }
+                place.Fade = (verticalIndex < size.y - index);
+            });
         }
     }
 }
