@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private float turnRate = 6.0f;
-    [System.NonSerialized] private int ammo = 0;
     [System.NonSerialized] public static int SHOOT_HASH = Animator.StringToHash("Shoot");
     [System.NonSerialized] public Vector2 thisPosition;
     [System.NonSerialized] private float currentAngle = 0.0f;
@@ -19,11 +19,6 @@ public class Turret : MonoBehaviour
     {
         var position = transform.position;
         thisPosition = new Vector2(position.x, position.z);
-    }
-
-    public void AddAmmo(int amount)
-    {
-        ammo += amount;
     }
 
     public void SetTarget(Enemy enemy)
@@ -76,7 +71,7 @@ public class Turret : MonoBehaviour
         var targetPosition = currentEnemyTransform.position;
         Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - thisPosition;
         float angle = -Vector2.SignedAngle(Vector2.up, direction);
-        currentAngle = Mathf.Lerp(currentAngle, angle, Time.deltaTime * turnRate);
+        currentAngle = Mathf.MoveTowardsAngle(currentAngle, angle, Time.deltaTime * turnRate);
 
         transform.eulerAngles = new Vector3(0.0f, currentAngle, 0.0f);
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9093105665275382364
+--- !u!1 &3671845157777580187
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3281416120017880918}
-  - component: {fileID: 2743428124077307634}
-  - component: {fileID: 2645298452084701575}
+  - component: {fileID: 8529126431991707016}
+  - component: {fileID: 7107356427277081511}
+  - component: {fileID: 6569109144383279566}
   m_Layer: 0
   m_Name: Flying Text - Combo
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3281416120017880918
+--- !u!224 &8529126431991707016
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093105665275382364}
+  m_GameObject: {fileID: 3671845157777580187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,21 +38,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2743428124077307634
+--- !u!222 &7107356427277081511
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093105665275382364}
+  m_GameObject: {fileID: 3671845157777580187}
   m_CullTransparentMesh: 1
---- !u!114 &2645298452084701575
+--- !u!114 &6569109144383279566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093105665275382364}
+  m_GameObject: {fileID: 3671845157777580187}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: x2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ced6159a23a31bd4f82d2970cc291cd5, type: 2}
-  m_sharedMaterial: {fileID: 8284041397407234908, guid: ced6159a23a31bd4f82d2970cc291cd5,
+  m_fontAsset: {fileID: 11400000, guid: 0c5a2c2fac13504418901149aba69f05, type: 2}
+  m_sharedMaterial: {fileID: 8496784244068540345, guid: 0c5a2c2fac13504418901149aba69f05,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

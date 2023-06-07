@@ -252,7 +252,7 @@ namespace Game
             });
         }
 
-        public void Shoot()
+        public void GiveBullet()
         {
             int totalAmmo = 0;
             CallRow<Place>(places, 0, (place, horizontalIndex) =>
@@ -271,6 +271,7 @@ namespace Game
             if (totalAmmo > 0)
             {
                 FireArea.THIS.Shoot();
+                // FireArea.THIS._turret.AmmoTransaction(totalAmmo);
             }
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)

@@ -19,6 +19,7 @@ namespace Game
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool MoveUntilForward = false;
         [System.NonSerialized] public bool CanShoot = false;
+        [System.NonSerialized] public static Vector3 bulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         public bool Connected { get { return parentBlock != null; } }
         public int Level 
         { 
@@ -100,6 +101,9 @@ namespace Game
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOPunchScale(Vector3.one * magnitude, 0.25f);
+
+            Particle.Bullet.Emit(1, transform.position + bulletPsUp);
+            Particle.Ring.Emit(1, transform.position + bulletPsUp);
         }
         public void Hide(System.Action OnComplete = null)
         {

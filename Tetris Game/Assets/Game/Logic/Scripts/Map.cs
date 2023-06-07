@@ -37,11 +37,11 @@ namespace Game
             {
                 while (true)
                 {
-                    if (Time.time - prevShoot > 1.0f)
+                    if (Time.time - prevShoot > 0.5f)
                     {
                         if (canShoot)
                         {
-                            grid.Shoot();
+                            grid.GiveBullet();
                             prevShoot = Time.time;
                         }
                     }

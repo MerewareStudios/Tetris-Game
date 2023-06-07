@@ -13,7 +13,6 @@ namespace Game
         [SerializeField] public Transform segmentParent;
         [SerializeField] public SpriteRenderer SpriteRenderer;
         [System.NonSerialized] public Vector2Int index;
-        [System.NonSerialized] private bool puffed = true;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
         [System.NonSerialized] private bool _merger = false;
         public Pawn Current { get; set; }
