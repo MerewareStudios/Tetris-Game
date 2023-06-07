@@ -139,11 +139,11 @@ namespace Game
                 }
                 if (canPlace)
                 {
-                    place.MarkFree();
+                    place.SetColor(Place.PlaceType.FREE);
                 }
                 else
                 {
-                    place.MarkOccupied();
+                    place.SetColor(Place.PlaceType.OCCUPIED);
                 } 
             }
         }

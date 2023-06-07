@@ -15,10 +15,11 @@ namespace Internal.Core
         public Color steadyColor;
         public Color enemyColor;
         public Color bigColor;
-        [Header("Colors")] public Color placeColorHighlight;
-        public Color placeColorDeny;
-        public Color placeColorDefault;
-        [Header("Spawner")] public float rotationDuration = 0.15f;
+        [Header("Colors")] 
+        public Color[] placeColors;
+        public Color mergerColor;
+        [Header("Spawner")] 
+        public float rotationDuration = 0.15f;
         public Ease rotationEase;
         [Header("Level")]
         public int enemyStartingHealth = 0;

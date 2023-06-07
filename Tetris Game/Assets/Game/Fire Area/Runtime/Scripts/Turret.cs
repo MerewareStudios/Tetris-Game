@@ -55,7 +55,7 @@ public class Turret : MonoBehaviour
         currentEnemy = null;
         currentEnemyTransform = null;
     }
-    
+
     public void Shoot()
     {
         if (!currentEnemy)

@@ -29,7 +29,6 @@ public class Spawner : Singleton<Spawner>
     public void Begin()
     {
         currentBlock = SpawnBlock();  
-        Map.THIS.grid.PuffLastLines(currentBlock.Width);
     }
     public void Deconstruct()
     {
@@ -63,7 +62,7 @@ public class Spawner : Singleton<Spawner>
         AnimateTap();
         if (GrabbedBlock)
         {
-            Map.THIS.grid.PuffLastLines(currentBlock.NextWidth);
+            // Map.THIS.grid.PuffLastLines(currentBlock.NextWidth);
 
             currentBlock.Rotate(() =>
             {
@@ -116,7 +115,7 @@ public class Spawner : Singleton<Spawner>
             Map.THIS.PlaceBlockOnGrid(currentBlock);
 
             currentBlock = SpawnBlock();
-            Map.THIS.grid.PuffLastLines(currentBlock.Width);
+            // Map.THIS.grid.PuffLastLines(currentBlock.Width);
             return;
         }
 

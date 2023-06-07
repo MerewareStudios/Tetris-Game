@@ -19,9 +19,11 @@ MonoBehaviour:
   steadyColor: {r: 0.32, g: 0.32, b: 0.32, a: 1}
   enemyColor: {r: 1, g: 0.37254903, b: 0.30980393, a: 1}
   bigColor: {r: 1, g: 0.4509804, b: 0.18039216, a: 1}
-  placeColorHighlight: {r: 0.63820994, g: 1, b: 0.20188677, a: 1}
-  placeColorDeny: {r: 1, g: 0.28661826, b: 0.19999999, a: 1}
-  placeColorDefault: {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
+  placeColors:
+  - {r: 0.21960786, g: 0.48235297, b: 0.8941177, a: 1}
+  - {r: 1, g: 0.28627452, b: 0.2, a: 1}
+  - {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
+  mergerColor: {r: 0.3803922, g: 1, b: 0.532918, a: 1}
   rotationDuration: 0.15
   rotationEase: 3
   enemyStartingHealth: 0

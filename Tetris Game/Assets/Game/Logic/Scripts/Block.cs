@@ -9,7 +9,7 @@ namespace Game
         // Block has a general property of always moving forward with child blocks
         // If any of the child block is blocked by a forward pawn/obstacle it is placed and seperated 
 
-        [SerializeField] private int[] Widths;
+        [SerializeField] private int width;
         [SerializeField] private List<Transform> segmentTransforms;
         [System.NonSerialized] public List<Pawn> pawns = new();
         [SerializeField] public Vector3 spawnerOffset;
@@ -22,22 +22,24 @@ namespace Game
         {
             get
             {
-                int rotIndex = Mathf.FloorToInt(transform.eulerAngles.y / 90.0f);
-                rotIndex %= 2;
-                return Mathf.Clamp(Widths[rotIndex], 1, int.MaxValue);
+                // return 4;
+                // int rotIndex = Mathf.FloorToInt(transform.eulerAngles.y / 90.0f);
+                // rotIndex %= 2;
+                // return Mathf.Clamp(Widths[rotIndex], 1, int.MaxValue);
                 // return Widths[rotIndex] + 1;
+                return width;
             }
         }
-        public int NextWidth
-        {
-            get
-            {
-                int rotIndex = Mathf.FloorToInt((transform.eulerAngles.y + 90.0f) / 90.0f);
-                rotIndex %= 2;
-                return Mathf.Clamp(Widths[rotIndex], 1, int.MaxValue);
-                // return Widths[rotIndex] + 1;
-            }
-        }
+        // public int NextWidth
+        // {
+        //     get
+        //     {
+        //         int rotIndex = Mathf.FloorToInt((transform.eulerAngles.y + 90.0f) / 90.0f);
+        //         rotIndex %= 2;
+        //         return Mathf.Clamp(Widths[rotIndex], 1, int.MaxValue);
+        //         // return Widths[rotIndex] + 1;
+        //     }
+        // }
 
         private void OnDrawGizmos()
         {

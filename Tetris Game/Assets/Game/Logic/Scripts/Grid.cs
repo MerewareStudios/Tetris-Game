@@ -31,6 +31,8 @@ namespace Game
                     place.index = new Vector2Int(i, j);
                 }
             }
+            Map.THIS.grid.MarkMerger(0);
+            
             frontBlockers = new bool[size.x];
             frontBlockers.Fill(false);
         }
@@ -82,7 +84,7 @@ namespace Game
         {
             Call<Place>(places, (place) => 
                 {
-                    place.MarkDefault();
+                    place.SetColor(Place.PlaceType.EMPTY);
                 });
         }
         private void Call<T>(T[,] array, System.Action<T> action)
@@ -285,12 +287,11 @@ namespace Game
             return false;
         }
         
-        public void PuffLastLines(int index)
+        public void MarkMerger(int index)
         {
-            Debug.Log("Puff");
             Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
             {
-                place.Fade = (verticalIndex < size.y - index);
+                place.Merger = (verticalIndex == index);
             });
         }
     }
