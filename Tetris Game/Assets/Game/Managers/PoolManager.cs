@@ -17,9 +17,10 @@ public class PoolManager : Singleton<PoolManager>
         for (int i = 0; i < pools.Count; i++)
         {
             PoolData poolData = pools[i];
-            GameObject gameObject = new GameObject(poolData.gameObject.name + " Pool");
-            gameObject.transform.SetParent(this.transform);
-            LeanGameObjectPool leanGameObjectPool = gameObject.AddComponent<LeanGameObjectPool>();
+            GameObject go = new GameObject(poolData.gameObject.name + " Pool");
+            go.hideFlags = HideFlags.HideInHierarchy;
+            go.transform.SetParent(this.transform);
+            LeanGameObjectPool leanGameObjectPool = go.AddComponent<LeanGameObjectPool>();
             leanGameObjectPool.Prefab = poolData.gameObject;
             leanGameObjectPool.Notification = LeanGameObjectPool.NotificationType.None;
             leanGameObjectPool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
@@ -79,6 +80,10 @@ public static class PoolManagerExtensions
     {
         PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), gameObject.name.Replace(" ", "_").Replace("-", "_")), gameObject);
     }
+    public static void Despawn(this Transform transform)
+    {
+        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), transform.name.Replace(" ", "_").Replace("-", "_")), transform.gameObject);
+    }
     public static void Despawn(this MonoBehaviour mono)
     {
         PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), mono.gameObject.name.Replace(" ", "_").Replace("-", "_")), mono.gameObject);
@@ -100,3 +105,25 @@ public static class PoolManagerExtensions
         return (Pool)System.Enum.Parse(typeof(Pool), name);
     }
 }
+
+#if UNITY_EDITOR
+namespace  Game.Editor
+{
+    using UnityEditor;
+    using Internal.Core;
+
+    [CustomEditor(typeof(PoolManager))]
+    [CanEditMultipleObjects]
+    public class PoolManagerGUI : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")) == true)
+            {
+                AutoGenerate.GeneratePool();
+            }
+            DrawDefaultInspector();
+        }
+    }
+}
+#endif

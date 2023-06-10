@@ -1,15 +1,20 @@
+using DG.Tweening;
+using Game;
 using Internal.Core;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] public Constants Constants;
-    [SerializeField] public static MaterialPropertyBlock MPB_PLACE;
-    [SerializeField] public static MaterialPropertyBlock MPB_PAWN;
-
+    [System.NonSerialized] public static MaterialPropertyBlock MPB_PAWN;
+    [System.NonSerialized] public static bool GAME_OVER = true;
+    
     void Awake()
     {
-        MPB_PLACE = new();
         MPB_PAWN = new();
+    }
+    
+    void Start()
+    {
+        DOVirtual.DelayedCall(0.5f, LevelManager.THIS.LoadLevel);
     }
 }

@@ -22,5 +22,6 @@ public enum Pool
     Flying_Text___TF2 = 19,
     Flying_Text___Combo = 20,
     Enemy = 21,
+    Bullet = 22,
 
 }

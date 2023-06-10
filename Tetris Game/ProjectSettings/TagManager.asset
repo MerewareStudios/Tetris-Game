@@ -50,7 +50,7 @@ TagManager:
   - name: World
     uniqueID: 4035922891
     locked: 0
-  - name: Joystick
+  - name: Status
     uniqueID: 1198038041
     locked: 0
   - name: Menu

@@ -1,10 +1,14 @@
 using System;
 using Internal.Core;
+using Internal.Visuals;
 using TMPro;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+   [Header("Counters")]
+   [SerializeField] public Counter healthCounter;
+   [Header("Flying Text")]
    [SerializeField] public FlyingText ft_TF2;
    [SerializeField] public FlyingText ft_Combo;
 

@@ -5,5 +5,6 @@ public enum Particle
     BloodExplosion = 2,
     Bullet = 3,
     Ring = 4,
+    Kamikaze = 5,
 
 }

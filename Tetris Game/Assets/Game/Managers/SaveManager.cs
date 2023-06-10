@@ -1,5 +1,6 @@
 using Internal.Core;
 using System;
+using Game;
 using UnityEngine;
 
 public class SaveManager : SaveManagerBase<SaveManager>
@@ -17,19 +18,13 @@ public class SaveManager : SaveManagerBase<SaveManager>
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;
             saveData.onboardingList = new bool[onboardingCount].Fill(true);
 
-            int resourceCount = System.Enum.GetValues(typeof(MetaResource.Type)).Length;
-            saveData.resourceInventory = new int[resourceCount];
+            saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
         }
 
-        
         ScoreBoard.OnLoad = () => { return saveData.score; };
         ScoreBoard.OnSave = (value) => { saveData.score = value; };
-        
-        //Meta.OnConvert = (@enum) => { return (int)Enum.Parse(typeof(MetaResource.Type), @enum.ToString()); };
-        //Meta.OnLoad = (index) => { return saveData.resourceInventory[index]; };
-        //Meta.OnSave = (index, amount) => { saveData.resourceInventory[index] = amount; };
 
-        //Meta.THIS.SetUp(() => { return Enum.GetNames(typeof(MetaResource.Type)); });
+        Warzone.THIS.Player._Data = saveData.playerData;
     }
     void Update()
     {
@@ -56,8 +51,8 @@ public partial class SaveData
     [SerializeField] public bool saveGenerated = false;
     [SerializeField] public bool[] onboardingList;
     [SerializeField] public float playTime;
-    [SerializeField] public int[] resourceInventory;
     [SerializeField] public int score;
+    [SerializeField] public Player.Data playerData;
 }
 
 public enum ONBOARDING
