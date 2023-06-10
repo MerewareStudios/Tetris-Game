@@ -570,9 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79538f93d607eb74d989750eb73eec97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 5866666020112239370}
-  turnRate: 160
-  muzzle: {fileID: 1639797371}
 --- !u!1 &349259215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1191,7 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
-  - gameObject: {fileID: 2473039387215947283, guid: fcecc75eb693b7948a549a0dcaa1a477,
+  - gameObject: {fileID: 6409661743272111104, guid: fcecc75eb693b7948a549a0dcaa1a477,
       type: 3}
     preload: 0
     capacity: 250

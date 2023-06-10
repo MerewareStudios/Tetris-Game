@@ -13,6 +13,10 @@ public class ApplicationManager : Singleton<ApplicationManager>
 
     public virtual void Awake()
     {
+#if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
+     Debug.unityLogger.logEnabled = false; 
+#endif
+        
         Application.targetFrameRate = targetFrameRate;
 #if UNITY_EDITOR
         Application.runInBackground = true;
