@@ -11,6 +11,7 @@ namespace Game
         [SerializeField] public MeshRenderer meshRenderer;
         [SerializeField] public TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
+        [TextArea][SerializeField] public string str;
 
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Block ParentBlock;
@@ -150,9 +151,11 @@ namespace Game
                 _mover = false;
                 return;
             }
+            
             this.MovedAtTick = tick;
             _mover = true;
             CanShoot = false;
+            
             forwardPlace.Accept(this, moveDuration, () =>
             {
                 checkerPlace.Current = null;
@@ -162,52 +165,60 @@ namespace Game
         public void CheckSteady(Place checkerPlace, bool markColor)
         {
             (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
+            Debug.Log("check steady " + ((bool)forwardPlace) + " " + shouldStay);
 
-            if (shouldStay)
+            if (!shouldStay)
             {
-                if (MoveUntilForward)
+                return;
+            }
+            
+            if (MoveUntilForward)
+            {
+                Map.THIS.grid.SetFrontFree(checkerPlace.index.x, false);
+                MoveUntilForward = false;
+            }
+            if (markColor)
+            {
+                if (Merger)
                 {
-                    Map.THIS.grid.SetFrontFree(checkerPlace.index.x, false);
-                    MoveUntilForward = false;
+                    MarkMergeColor();
                 }
-                if (markColor)
+                else
                 {
-                    if (Merger)
-                    {
-                        MarkMergeColor();
-                    }
-                    else
-                    {
-                        MarkSteadyColor();
-                    }
-                }
-                if (Connected)
-                {
-                    ParentBlock.Detach();
+                    MarkSteadyColor();
                 }
             }
+            if (Connected)
+            {
+                ParentBlock.Detach();
+            }
         }
-        public (Place, bool) ShouldStay(Place checkerPlace)
+        private (Place, bool) ShouldStay(Place checkerPlace)
         {
             Place forwardPlace = Map.THIS.GetForwardPlace(checkerPlace);
 
             if (!forwardPlace)
             {
+                str = "forward place is null, should stay";
                 return (null, true);
             }
-            if (forwardPlace.Occupied && !forwardPlace.Current.Connected && !forwardPlace.Current._mover)
+            if (forwardPlace.Occupied && !forwardPlace.Current._mover)
             {
+                str = "forward place is occupied, forward not marked mover, should stay";
                 return (forwardPlace, true);
             }
             if (MoveUntilForward && Map.THIS.grid.IsFrontFree(checkerPlace.index.x))
             {
+                str = "move until forward, front free, should move";
                 return (forwardPlace, false);
             }
             if (!Connected)
             {
+                str = "self not connected to a block, should stay";
                 return (forwardPlace, true);
             }
 
+            str = "move regardless, connected to block, should move";
             return (forwardPlace, false);
         }
     }

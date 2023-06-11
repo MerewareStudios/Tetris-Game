@@ -16,7 +16,7 @@ namespace Game
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
         [System.NonSerialized] private bool _merger = false;
         public Pawn Current { get; set; }
-        public bool Occupied { get{ return Current; } }
+        public bool Occupied => Current;
 
         public bool Merger
         {
