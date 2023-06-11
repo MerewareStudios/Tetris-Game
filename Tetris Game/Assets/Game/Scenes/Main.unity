@@ -584,7 +584,7 @@ MonoBehaviour:
   spawnerLayer:
     serializedVersion: 2
     m_Bits: 64
-  gridcheckLayer:
+  gridCheckLayer:
     serializedVersion: 2
     m_Bits: 256
   modelPivot: {fileID: 1847584227}
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a473c96d2ba73459bbd97278c3e00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 6, y: 7}
+  Size: {x: 6, y: 7}
 --- !u!1 &1310369798
 GameObject:
   m_ObjectHideFlags: 0
@@ -3014,6 +3014,11 @@ PrefabInstance:
       propertyPath: muzzle
       value: 
       objectReference: {fileID: 1639797371}
+    - target: {fileID: 397908684506922155, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: turnRate
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 397908684506922155, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
       propertyPath: _animator

@@ -36,10 +36,6 @@ public class Spawner : Singleton<Spawner>
         while (_spawnedBlocks.Count > 0)
         {
             Block block = _spawnedBlocks[^1];
-            if (!block.PlacedOnGrid)
-            {
-                block.DeconstructChildren();
-            }
             block.Deconstruct();
             RemoveBlock(block);   
         }
@@ -151,7 +147,8 @@ public class Spawner : Singleton<Spawner>
     private List<Block> _spawnedBlocks = new();
     private Block SpawnBlock()
     {
-        Pool pool = Const.THIS.blocks.Random<Pool>();
+        // Pool pool = Const.THIS.blocks.Random<Pool>();
+        Pool pool = Pool.Two_I_Block;
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;

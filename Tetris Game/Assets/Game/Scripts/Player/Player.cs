@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using UnityEngine;
@@ -16,27 +17,26 @@ namespace Game
 
         [System.NonSerialized] private Data _data;
         [System.NonSerialized] public System.Action OnDeath = null;
-        [System.NonSerialized] private List<Enemy> enemyTargets = new();
 
-        [System.NonSerialized] private Vector2 selfPosition;
-        [System.NonSerialized] private float currentAngle = 0.0f;
+        [System.NonSerialized] private Vector2 _selfPosition;
+        [System.NonSerialized] private float _currentAngle = 0.0f;
         
-        [System.NonSerialized] public static int SHOOT_HASH = Animator.StringToHash("Shoot");
+        [System.NonSerialized] private static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
 
 #region  Mono
 
         void Update()
         {
-            if (enemyTargets.Count == 0)
+            if (Warzone.THIS.Enemies.Count == 0)
             {
                 return;
             }
-            var targetPosition = enemyTargets[0].transform.position;
-            Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - selfPosition;
+            var targetPosition = Warzone.THIS.Enemies[0].transform.position;
+            Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
             float angle = -Vector2.SignedAngle(Vector2.up, direction);
-            currentAngle = Mathf.MoveTowardsAngle(currentAngle, angle, Time.deltaTime * turnRate);
+            _currentAngle = Mathf.MoveTowardsAngle(_currentAngle, angle, Time.deltaTime * turnRate);
 
-            transform.eulerAngles = new Vector3(0.0f, currentAngle, 0.0f);
+            transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
         }
 
 #endregion
@@ -46,7 +46,7 @@ namespace Game
             set
             {
                 _data = value;
-                selfPosition = new Vector2(transform.position.x, transform.position.z);
+                _selfPosition = new Vector2(transform.position.x, transform.position.z);
                 UIManager.THIS.healthCounter.Value(_data.CurrentHealth, _data.MaxHealth);
             }
             get => _data;
@@ -68,23 +68,11 @@ namespace Game
 
         public void Shoot(int bulletCount)
         {
-            int addedEnemyCount = Mathf.Clamp(bulletCount - enemyTargets.Count, 0, int.MaxValue);
+            int shootCount = Mathf.Min(bulletCount, Warzone.THIS.Enemies.Count);
             
-            
-            for (int i = 0; i < addedEnemyCount; i++)
+            for (int i = 0; i < shootCount; i++)
             {
-                Enemy enemy = Warzone.THIS.DequeEnemy();
-                if (!enemy)
-                {
-                    bulletCount--;
-                    continue;
-                }
-                AddEnemyTarget(enemy);
-            }
-
-            for (int i = 0; i < bulletCount; i++)
-            {
-                Shoot(enemyTargets[i]);
+                Shoot(Warzone.THIS.Enemies[i]);
             }
         }
         
@@ -93,6 +81,12 @@ namespace Game
             _animator.SetTrigger(SHOOT_HASH);
 
             Transform enemyTransform = enemy.transform;
+            Vector3 targetPosition = enemyTransform.position;
+
+            enemy.OnRemoved += () =>
+            {
+                enemyTransform = null;
+            };
             
             Transform bullet = Pool.Bullet.Spawn().transform;
             bullet.DOKill();
@@ -100,31 +94,28 @@ namespace Game
             Tween bulletTween = bullet.DOJump(enemyTransform.position, 2.0f, 1, 0.5f).SetEase(Ease.Linear);
             bulletTween.onUpdate += () =>
             {
-                bulletTween.SetTarget(enemyTransform.position);
+                if (enemyTransform)
+                {
+                    targetPosition = enemyTransform.position;
+                }
+                bulletTween.SetTarget(targetPosition);
             };
             bulletTween.onComplete += () =>
             {
-                enemy._DamageTaken = 1;
+                if (enemyTransform)
+                {
+                    enemy._DamageTaken = 1;
+                }
                 bullet.Despawn();
             };
         }
 
-        public void AddEnemyTarget(Enemy enemy)
+        public void Deconstruct()
         {
-            if (enemyTargets.Contains(enemy))
-            {
-                return;
-            }
-            enemyTargets.Add(enemy);
-        }
-        
-        public void RemoveEnemyTarget(Enemy enemy)
-        {
-            if (!enemyTargets.Contains(enemy))
-            {
-                return;
-            }
-            enemyTargets.Remove(enemy);
+            this.enabled = false;
+
+            _currentAngle = 0.0f;
+            transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
         }
         
         [System.Serializable]

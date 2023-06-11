@@ -26,19 +26,20 @@ namespace Game
             }
         }
 
-        public void DeconstructChildren()
-        {
-            foreach (var pawn in Pawns)
-            {
-                pawn.Deconstruct();
-            }
-        }
         public void Deconstruct()
         {
+            if (!PlacedOnGrid)
+            {
+                foreach (var pawn in Pawns)
+                {
+                    pawn.Deconstruct();
+                }
+            }
             _motionTween?.Kill();
             _busy = false;
             Pawns.Clear();
             PlacedOnGrid = false;
+            
             this.Despawn();
         }
         public void Detach()

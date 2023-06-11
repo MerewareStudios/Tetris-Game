@@ -16,7 +16,7 @@ namespace  Game
         [SerializeField] private float spawnInterval = 2.0f;
         //Routines
         [System.NonSerialized] private Coroutine spawnRoutine = null;
-        [System.NonSerialized] private Queue<Enemy> enemyQueue = new();
+        [System.NonSerialized] public readonly List<Enemy> Enemies = new();
 
     #region Warzone
         void Awake()
@@ -36,13 +36,11 @@ namespace  Game
         }
         public void EnemyKamikaze(Enemy enemy)
         {
-            this.Player._DamageTaken = enemy.Damage;
-            this.Player.RemoveEnemyTarget(enemy);
             enemy.Kamikaze();
+            this.Player._DamageTaken = enemy.Damage;
         } 
         public void EnemyKilled(Enemy enemy)
         {
-            this.Player.RemoveEnemyTarget(enemy);
             enemy.Kill();
         }
         public void StartSpawning()
@@ -55,12 +53,12 @@ namespace  Game
                 while (true)
                 {
                     yield return new WaitForSeconds(spawnInterval);
-                    Enemy enemy = SpawnEnemy();
-                    enemyQueue.Enqueue(enemy);
+                    Enemies.Add(SpawnEnemy());
                 }
             }
         }
-        public void StopSpawning()
+
+        private void StopSpawning()
         {
             if (spawnRoutine != null)
             {
@@ -77,13 +75,19 @@ namespace  Game
 
         public Enemy DequeEnemy()
         {
-            if (enemyQueue.Count == 0)
+            if (Enemies.Count == 0)
             {
                 return null;
             }
-            return enemyQueue.Dequeue();
+
+            Enemy enemy = Enemies[0];
+            Enemies.RemoveAt(0);
+            return enemy;
         }
-        
+        public void RemoveEnemy(Enemy enemy)
+        {
+            Enemies.Remove(enemy);
+        }
         private Vector3 RandomSpawnPosition()
         {
             return new Vector3(Random.Range(-spawnWidth, spawnWidth), 0.0f, Zone.startLine);
@@ -95,6 +99,13 @@ namespace  Game
         public void Deconstruct()
         {
             StopSpawning();
+            Player.Deconstruct();
+            foreach (var enemy in Enemies)
+            {
+                enemy.Deconstruct();
+
+            }
+            Enemies.Clear();
         }
 
     #endregion

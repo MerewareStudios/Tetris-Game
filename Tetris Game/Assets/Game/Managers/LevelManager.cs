@@ -14,10 +14,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         Debug.Log("Game Over");
         GameManager.GAME_OVER = true;
-        // Spawner.THIS.Deconstruct();
-        // Map.THIS.Deconstruct();
-        // Warzone.THIS.Deconstruct();
-        // LoadLevel();
+        GameManager.THIS.Deconstruct();
     }
 
     public void LoadLevel()

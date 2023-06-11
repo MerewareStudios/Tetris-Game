@@ -1,12 +1,7 @@
 using DG.Tweening;
 using Internal.Core;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Game
@@ -195,7 +190,7 @@ namespace Game
                 pawn.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
                     .onComplete += () =>
                     {
-                        pawn.Despawn();
+                        pawn.Deconstruct();
                     };
             }
             

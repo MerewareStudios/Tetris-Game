@@ -13,6 +13,7 @@ namespace  Game
         [SerializeField] public float Speed = 1.0f;
         // Self references
         [System.NonSerialized] private Transform _thisTransform;
+        [System.NonSerialized] public System.Action OnRemoved = null;
 
     #region  Mono
         private void Awake()
@@ -54,15 +55,24 @@ namespace  Game
             _thisTransform.DOKill();
             Particle.Kamikaze.Play(_thisTransform.position);
             CameraManager.THIS.Shake();
-            this.Despawn();
+            Warzone.THIS.RemoveEnemy(this);
+            OnRemoved?.Invoke();
+            this.Deconstruct();
         }
         public void Kill()
         {
             _thisTransform.DOKill();
             Particle.BloodExplosion.Play(transform.position);
-            this.Despawn();
+            Warzone.THIS.RemoveEnemy(this);
+            this.Deconstruct();
         }
     #endregion
+
+        public void Deconstruct()
+        {
+            OnRemoved = null;
+            this.Despawn();
+        }
         
     }
 }

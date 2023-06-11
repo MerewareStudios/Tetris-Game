@@ -22,6 +22,11 @@ public class PoolManager : Singleton<PoolManager>
             go.transform.SetParent(this.transform);
             LeanGameObjectPool leanGameObjectPool = go.AddComponent<LeanGameObjectPool>();
             leanGameObjectPool.Prefab = poolData.gameObject;
+        #if UNITY_EDITOR
+            leanGameObjectPool.Warnings = true;
+        #else
+            leanGameObjectPool.Warnings = false;
+        #endif
             leanGameObjectPool.Notification = LeanGameObjectPool.NotificationType.None;
             leanGameObjectPool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
             leanGameObjectPool.Preload = poolData.preload;

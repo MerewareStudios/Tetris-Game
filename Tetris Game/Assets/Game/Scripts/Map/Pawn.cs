@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using TMPro;
@@ -24,6 +25,11 @@ namespace Game
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
         public bool Connected => ParentBlock;
+
+        void Awake()
+        {
+            _thisTransform = transform;
+        }
 
         public int Level 
         { 
