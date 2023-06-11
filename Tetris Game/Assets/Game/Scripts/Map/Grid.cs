@@ -6,23 +6,25 @@ using System.Security.Cryptography;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Game
 {
     public class Grid : MonoBehaviour
     {
-        [System.NonSerialized] public Place[,] places;
-        [System.NonSerialized] public int TickIndex = 0;
-        [SerializeField] public Vector2Int size;
-        [System.NonSerialized] public bool[] frontBlockers;
+        [SerializeField] public Vector2Int Size;
+        
+        [System.NonSerialized] private Place[,] places;
+        [System.NonSerialized] private int _tickIndex = 0;
+        [System.NonSerialized] private bool[] _frontBlockers;
 
         public void Construct()
         {
-            places = new Place[size.x, size.y];
-            for (int i = 0; i < size.x; i++)
+            places = new Place[Size.x, Size.y];
+            for (int i = 0; i < Size.x; i++)
             {
-                for(int j = 0; j < size.y; j++)
+                for(int j = 0; j < Size.y; j++)
                 {
                     Place place = Pool.Place.Spawn<Place>(this.transform);
                     place.Construct();
@@ -33,8 +35,8 @@ namespace Game
             }
             Map.THIS.grid.MarkMerger(0);
             
-            frontBlockers = new bool[size.x];
-            frontBlockers.Fill(false);
+            _frontBlockers = new bool[Size.x];
+            _frontBlockers.Fill(false);
         }
         public void Deconstruct()
         {
@@ -45,28 +47,28 @@ namespace Game
         }
         public bool IsFrontFree(int frontIndex)
         {
-            return frontBlockers[frontIndex];
+            return _frontBlockers[frontIndex];
         }
         public void SetFrontFree(int frontIndex, bool state)
         {
-            frontBlockers[frontIndex] = state;
+            _frontBlockers[frontIndex] = state;
         }
         public void SetAllFrontFree(bool state)
         {
-            for (int i = 0; i < frontBlockers.Length; i++)
+            for (int i = 0; i < _frontBlockers.Length; i++)
             {
-                frontBlockers[i] = state;
+                _frontBlockers[i] = state;
             }
         }
         public void Move(float moveDuration)
         {
-            TickIndex++;
+            _tickIndex++;
 
             Call<Place>(places, (place) =>
             {
                 if (place.Current)
                 {
-                    place.Current.MoveForward(place, TickIndex, moveDuration);
+                    place.Current.MoveForward(place, _tickIndex, moveDuration);
                 }
             });
         }
@@ -89,9 +91,9 @@ namespace Game
         }
         private void Call<T>(T[,] array, System.Action<T> action)
         {
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < Size.x; i++)
             {
-                for (int j = 0; j < size.y; j++)
+                for (int j = 0; j < Size.y; j++)
                 {
                     action.Invoke(array[i, j]);
                 }
@@ -99,9 +101,9 @@ namespace Game
         }
         private void Call<T>(T[,] array, System.Action<T, int, int> action)
         {
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < Size.x; i++)
             {
-                for (int j = 0; j < size.y; j++)
+                for (int j = 0; j < Size.y; j++)
                 {
                     action.Invoke(array[i, j], i, j);
                 }
@@ -109,14 +111,14 @@ namespace Game
         }
         private void CallRow<T>(T[,] array, int lineIndex, System.Action<T, int> action)
         {
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < Size.x; i++)
             {
                 action.Invoke(array[i, lineIndex], i);
             }
         } 
         private void CallColumn<T>(T[,] array, int columnIndex, System.Action<T, int> action)
         {
-            for (int j = 0; j < size.y; j++)
+            for (int j = 0; j < Size.y; j++)
             {
                 action.Invoke(array[columnIndex, j], j);
             }
@@ -127,10 +129,10 @@ namespace Game
         public List<int> CheckTetris()
         {
             List<int> tetrisLines = new();
-            for (int j = 0; j < size.y; j++)
+            for (int j = 0; j < Size.y; j++)
             {
                 bool tetris = true;
-                for (int i = 0; i < size.x; i++)
+                for (int i = 0; i < Size.x; i++)
                 {
                     if(!places[i, j].Occupied || places[i, j].Current.Connected || places[i, j].Current.MoveUntilForward)
                     {
@@ -155,7 +157,7 @@ namespace Game
             int totalLevel = 0;
             
 
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < Size.x; i++)
             {
                 Place place = places[i, lineIndex];
                 
@@ -171,13 +173,13 @@ namespace Game
                 }
                 totalLevel += additive;
 
-                if (place.Current.movedAtTick == highestTick)
+                if (place.Current.MovedAtTick == highestTick)
                 {
                     indexes.Add(i);
                 }
-                else if(place.Current.movedAtTick > highestTick)
+                else if(place.Current.MovedAtTick > highestTick)
                 {
-                    highestTick = place.Current.movedAtTick;
+                    highestTick = place.Current.MovedAtTick;
                     indexes.Clear();
                     indexes.Add(i);
                 }
@@ -254,7 +256,7 @@ namespace Game
         
         public void MarkNewMovers(int x, int y)
         {
-            frontBlockers[x] = true;
+            _frontBlockers[x] = true;
 
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
@@ -302,7 +304,7 @@ namespace Game
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {
             
-            for (int j = 0; j < size.y; j++)
+            for (int j = 0; j < Size.y; j++)
             {
                 Place place = places[index.x, j];
                 if (index.y <= j && place.Current != null)

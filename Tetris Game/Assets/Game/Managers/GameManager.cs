@@ -15,6 +15,15 @@ public class GameManager : Singleton<GameManager>
     
     void Start()
     {
-        DOVirtual.DelayedCall(0.5f, LevelManager.THIS.LoadLevel);
+        Map.THIS.Construct();
+        LevelManager.THIS.LoadLevel();
+    }
+    
+    
+    public void Deconstruct()
+    {
+        Spawner.THIS.Deconstruct();
+        Map.THIS.Deconstruct();
+        Warzone.THIS.Deconstruct();
     }
 }

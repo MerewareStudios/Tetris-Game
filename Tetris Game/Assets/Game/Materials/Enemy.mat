@@ -21,23 +21,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Enemy
-  m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - TCP2_MOBILE
-  - TCP2_REFLECTIONS_FRESNEL
-  - TCP2_RIM_LIGHTING_LIGHTMASK
-  - TCP2_SHADOW_LIGHT_COLOR
-  - TCP2_SPECULAR
-  m_InvalidKeywords:
-  - TCP2_UV_NORMALS_FULL
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -141,6 +135,7 @@ Material:
     - _FresnelMin: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
+    - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
@@ -176,9 +171,12 @@ Material:
     - _RimMax: 1
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
+    - _Shininess: 0
     - _SingleIndirectColor: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.701
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
+    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
     - _SpecularRoughness: 0.49

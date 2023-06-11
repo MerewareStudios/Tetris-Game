@@ -1,8 +1,6 @@
 using DG.Tweening;
 using Internal.Core;
-using RootMotion.Demos;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game
@@ -13,58 +11,58 @@ namespace Game
         [SerializeField] public TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
 
-        [System.NonSerialized] public Block parentBlock;
-        [System.NonSerialized] private int level = 1;
-        [System.NonSerialized] public int movedAtTick = -1;
-        [System.NonSerialized] public bool Mover = false;
-        [SerializeField] public bool MoveUntilForward = false;
-        [SerializeField] public bool UpcomingMover = false;
+        [System.NonSerialized] private Transform _thisTransform;
+        [System.NonSerialized] public Block ParentBlock;
+        [System.NonSerialized] private int _level = 1;
+        [System.NonSerialized] public int MovedAtTick = -1;
+        [System.NonSerialized] private bool _mover = false;
+        [System.NonSerialized] public bool MoveUntilForward = false;
+        [System.NonSerialized] public bool UpcomingMover = false;
         [System.NonSerialized] public bool CanShoot = false;
         [System.NonSerialized] public bool Merger = false;
-        [System.NonSerialized] public static Vector3 bulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
-        public bool Connected { get { return parentBlock != null; } }
+        
+        [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
+        
+        public bool Connected => ParentBlock;
+
         public int Level 
         { 
-            get 
-            { 
-                return this.level;
-            }
+            get => this._level;
             set
             {
-                this.level = value;
-                levelText.text = value <= 1 ? "AMMO".ToTMProKey() : level.ToString();
+                this._level = value;
+                levelText.text = value <= 1 ? "AMMO".ToTMProKey() : _level.ToString();
             }
         }
-
-        public void Construct(int level)
-        {
-            Level = level;
-            movedAtTick = -1;
-            modelPivot.DOKill();
-            modelPivot.localScale = Vector3.one;
-            Merger = false;
-        }
+        
         public void Deconstruct()
         {
-            parentBlock = null;
-            Mover = false;
+            _thisTransform.DOKill();
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
+
+            ParentBlock = null;
+            _mover = false;
             MoveUntilForward = false;
             CanShoot = false;
+            Merger = false;
+            UpcomingMover = false;
+            MovedAtTick = -1;
             this.Despawn();
         }
-        public void Move(Vector3 position, float duration, Ease ease, System.Action OnComplete = null)
+        public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
-            transform.DOKill();
-            transform.DOMove(position, duration).SetEase(ease)
+            _thisTransform.DOKill();
+            _thisTransform.DOMove(position, duration).SetEase(ease)
                 .onComplete += () =>
                 {
-                    OnComplete?.Invoke();
+                    complete?.Invoke();
                 };
         }
         public void Move(Transform parent, Vector3 position)
         {
-            transform.parent = parent;
-            transform.position = position;
+            _thisTransform.parent = parent;
+            _thisTransform.position = position;
         }
 
         #region Colors
@@ -93,14 +91,14 @@ namespace Game
             meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
         }
         #endregion
-        public void AnimatedShow(float delay, System.Action OnComplete)
+        public void AnimatedShow(float delay, System.Action complete)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
             modelPivot.DOScale(Vector3.one, 0.25f).SetDelay(delay).SetEase(Ease.OutBack, 2.0f)
                 .onComplete += () => 
                 {
-                    OnComplete?.Invoke();    
+                    complete?.Invoke();    
                 };
         }
         public void PunchScale(float magnitude)
@@ -109,20 +107,22 @@ namespace Game
             modelPivot.localScale = Vector3.one;
             modelPivot.DOPunchScale(Vector3.one * magnitude, 0.25f);
 
-            Particle.Bullet.Emit(1, transform.position + bulletPsUp);
-            Particle.Ring.Emit(1, transform.position + bulletPsUp);
+            Particle.Bullet.Emit(1, _thisTransform.position + BulletPsUp);
+            Particle.Ring.Emit(1, _thisTransform.position + BulletPsUp);
         }
-        public void Hide(System.Action OnComplete = null)
+        public void Hide(System.Action complete = null)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.zero, 0.1f).SetEase(Ease.Linear)
                 .onComplete += () => 
                 { 
-                    OnComplete?.Invoke();    
+                    complete?.Invoke();    
                 };
-            Particle.Bullet.Emit(1, transform.position + bulletPsUp);
-            Particle.Ring.Emit(1, transform.position + bulletPsUp);
+            
+            Vector3 emitPosition = _thisTransform.position + BulletPsUp;
+            Particle.Bullet.Emit(1, emitPosition);
+            Particle.Ring.Emit(1, emitPosition);
         }  
         public void Show()
         {
@@ -141,11 +141,11 @@ namespace Game
             (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
             if (shouldStay)
             {
-                Mover = false;
+                _mover = false;
                 return;
             }
-            this.movedAtTick = tick;
-            Mover = true;
+            this.MovedAtTick = tick;
+            _mover = true;
             CanShoot = false;
             forwardPlace.Accept(this, moveDuration, () =>
             {
@@ -177,7 +177,7 @@ namespace Game
                 }
                 if (Connected)
                 {
-                    parentBlock.Detach();
+                    ParentBlock.Detach();
                 }
             }
         }
@@ -185,11 +185,11 @@ namespace Game
         {
             Place forwardPlace = Map.THIS.GetForwardPlace(checkerPlace);
 
-            if (forwardPlace == null)
+            if (!forwardPlace)
             {
                 return (null, true);
             }
-            if (forwardPlace.Occupied && !forwardPlace.Current.Connected && !forwardPlace.Current.Mover)
+            if (forwardPlace.Occupied && !forwardPlace.Current.Connected && !forwardPlace.Current._mover)
             {
                 return (forwardPlace, true);
             }

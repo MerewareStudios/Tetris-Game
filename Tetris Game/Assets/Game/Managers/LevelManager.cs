@@ -6,14 +6,6 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public void OnWictory()
-    {
-        Spawner.THIS.Deconstruct();
-        Map.THIS.Deconstruct();
-        Warzone.THIS.Deconstruct();
-        LoadLevel();
-    }
-    
     public void GameOver()
     {
         if (GameManager.GAME_OVER)

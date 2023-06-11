@@ -6,12 +6,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
     [SerializeField] private LayerMask spawnerLayer;
-    [SerializeField] private LayerMask gridcheckLayer;
+    [SerializeField] private LayerMask gridCheckLayer;
     [Header("Locations")]
     [SerializeField] private Transform modelPivot;
     [SerializeField] private Transform spawnedBlockLocation;
@@ -20,59 +21,62 @@ public class Spawner : Singleton<Spawner>
 
     [SerializeField] private float horSense = 1.5f;
 
-    [System.NonSerialized] private Block currentBlock;
-    [System.NonSerialized] private bool GrabbedBlock = false;
-    [System.NonSerialized] private Coroutine moveRoutine = null;
-    [System.NonSerialized] private bool moving = false;
-    [System.NonSerialized] private Vector3 finalPosition;
+    [System.NonSerialized] private Block _currentBlock;
+    [System.NonSerialized] private bool _grabbedBlock = false;
+    [System.NonSerialized] private Coroutine _moveRoutine = null;
+    [System.NonSerialized] private bool _moving = false;
+    [System.NonSerialized] private Vector3 _finalPosition;
 
     public void Begin()
     {
-        currentBlock = SpawnBlock();  
+        _currentBlock = SpawnBlock();  
     }
     public void Deconstruct()
     {
-        while (spawnedBlocks.Count > 0)
+        while (_spawnedBlocks.Count > 0)
         {
-            DespawnBlock(spawnedBlocks[^1]);   
+            Block block = _spawnedBlocks[^1];
+            if (!block.PlacedOnGrid)
+            {
+                block.DeconstructChildren();
+            }
+            block.Deconstruct();
+            RemoveBlock(block);   
         }
     }
 
     #region User Input
-    public bool IsTouchingSpawner(Vector3 screenPosition)
+    private bool IsTouchingSpawner(Vector3 screenPosition)
     {
         Vector3 touchWorld = CameraManager.THIS.gameCamera.ScreenToWorldPoint(screenPosition);
         Vector3 direction = CameraManager.THIS.gameCamera.transform.forward;
-        if (Physics.Raycast(touchWorld, direction, 100.0f, spawnerLayer))
-        {
-            return true;
-        }
-        return false;
+        return Physics.Raycast(touchWorld, direction, 100.0f, spawnerLayer);
     }
     public void ScreenDown(Vector3 screenPosition)
     {
-        if (IsTouchingSpawner(screenPosition) && currentBlock != null)
+        if (!IsTouchingSpawner(screenPosition) || !_currentBlock)
         {
-            GrabbedBlock = true;
-            moveRoutine = StartCoroutine(MoveRoutine());
+            return;
         }
+        _grabbedBlock = true;
+        _moveRoutine = StartCoroutine(MoveRoutine());
     }
     public void ScreenTap(Vector3 screenPosition)
     {
         AnimateTap();
-        if (GrabbedBlock)
+        if (_grabbedBlock)
         {
-            currentBlock.Rotate();
+            _currentBlock.Rotate();
         }
     }
     public void Move(Vector3 touchPosition)
     {
-        if (!GrabbedBlock)
+        if (!_grabbedBlock)
         {
             return;
         }
 
-        finalPosition = spawnedBlockLocation.position;
+        _finalPosition = spawnedBlockLocation.position;
 
         Vector2 viewPortTouch = CameraManager.THIS.gameCamera.ScreenToViewportPoint(touchPosition);
         float distanceMultiplier = (Mathf.Abs(viewPortTouch.x - 0.5f) + 1.0f) * horSense;
@@ -80,38 +84,37 @@ public class Spawner : Singleton<Spawner>
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(touchPosition);
         worldPosition.x *= distanceMultiplier;
 
-        if (Physics.Raycast(worldPosition, CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridcheckLayer))
+        if (Physics.Raycast(worldPosition, CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridCheckLayer))
         {
-            finalPosition = hit.point + distanceFromDraggingFinger;
+            _finalPosition = hit.point + distanceFromDraggingFinger;
         }
 
-        moving = true;
+        _moving = true;
 
 
         Map.THIS.Dehighlight();
-        Map.THIS.HighlightPawnOnGrid(currentBlock);
+        Map.THIS.HighlightPawnOnGrid(_currentBlock);
     }
     public void Release()
     {
-        if (moveRoutine != null)
+        if (_moveRoutine != null)
         {
-            moving = false;
-            StopCoroutine(moveRoutine);
-            moveRoutine = null;
+            _moving = false;
+            StopCoroutine(_moveRoutine);
+            _moveRoutine = null;
         }
-        if (!GrabbedBlock || currentBlock == null)
+        if (!_grabbedBlock || _currentBlock == null)
         {
             return;
         }
-        GrabbedBlock = false;
+        _grabbedBlock = false;
         Map.THIS.Dehighlight();
 
-        if (Map.THIS.CanPlaceBlockOnGrid(currentBlock))
+        if (Map.THIS.CanPlaceBlockOnGrid(_currentBlock))
         {
-            Map.THIS.PlaceBlockOnGrid(currentBlock);
+            Map.THIS.PlaceBlockOnGrid(_currentBlock);
 
-            currentBlock = SpawnBlock();
-            // Map.THIS.grid.PuffLastLines(currentBlock.Width);
+            _currentBlock = SpawnBlock();
             return;
         }
 
@@ -121,16 +124,16 @@ public class Spawner : Singleton<Spawner>
 
     private void Mount()
     {
-        currentBlock.Move(spawnedBlockLocation.position + currentBlock.spawnerOffset, 25.0f, Ease.OutQuad, true);
+        _currentBlock.Move(spawnedBlockLocation.position + _currentBlock.spawnerOffset, 25.0f, Ease.OutQuad, true);
     }
 
     private IEnumerator MoveRoutine()
     {
         while (true)
         {
-            if (moving)
+            if (_moving)
             {
-                currentBlock.transform.position = Vector3.Lerp(currentBlock.transform.position, finalPosition, Time.deltaTime * 22.0f);
+                _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 22.0f);
             }
             yield return null;
         }
@@ -145,30 +148,31 @@ public class Spawner : Singleton<Spawner>
 
     #region Spawn
 
-    private List<Block> spawnedBlocks = new();
-    public Block SpawnBlock()
+    private List<Block> _spawnedBlocks = new();
+    private Block SpawnBlock()
     {
         Pool pool = Const.THIS.blocks.Random<Pool>();
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
-        block.transform.localPosition = block.spawnerOffset;
-        block.transform.localScale = Vector3.one;
-        block.transform.localRotation = Quaternion.identity;
+        Transform blockTransform = block.transform;
+        blockTransform.localScale = Vector3.one;
+        blockTransform.localPosition = block.spawnerOffset;
+        blockTransform.localRotation = Quaternion.identity;
         block.Construct();
-        spawnedBlocks.Add(block);
+        _spawnedBlocks.Add(block);
         return block;
     } 
-    public void DespawnBlock(Block block)
+    public void RemoveBlock(Block block)
     {
-        block.Deconstruct();
-        spawnedBlocks.Remove(block);
+        _spawnedBlocks.Remove(block);
     }
     public Pawn SpawnPawn(Transform parent, Vector3 position, int level)
     {
         Pawn pawn = Pool.Pawn.Spawn<Pawn>(parent);
-        pawn.transform.position = position;
-        pawn.transform.localRotation = Quaternion.identity;
-        pawn.transform.localScale = Vector3.one;
-        pawn.Construct(level);
+        Transform pawnTransform = pawn.transform;
+        pawnTransform.position = position;
+        pawnTransform.localRotation = Quaternion.identity;
+        pawnTransform.localScale = Vector3.one;
+        pawn.Level = level;
         return pawn;
     }
     #endregion

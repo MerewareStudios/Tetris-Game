@@ -11,35 +11,38 @@ namespace Game
     {
         [SerializeField] public Grid grid;
         [SerializeField] private Vector3 indexOffset;
-        [System.NonSerialized] public Coroutine shootRoutine = null;
-        [System.NonSerialized] public Coroutine mainRoutine = null;
-        [System.NonSerialized] private bool canShoot = true;
-        [System.NonSerialized] private float prevShoot = 0.0f;
+        [System.NonSerialized] private Coroutine _shootRoutine = null;
+        [System.NonSerialized] private Coroutine _mainRoutine = null;
+        [System.NonSerialized] private bool _canShoot = true;
+        [System.NonSerialized] private float _prevShoot = 0.0f;
 
-        void Start()
+        public void Construct()
         {
             grid.Construct();
         }
 
         public void Begin()
         {
-            mainRoutine = StartCoroutine(MainLoop());
+            _mainRoutine = StartCoroutine(MainLoop());
         }
 
         IEnumerator MainLoop()
         {
-            shootRoutine = StartCoroutine(ShootRoutine());
+            _shootRoutine = StartCoroutine(ShootRoutine());
 
+            _prevShoot = Time.time;
+            _canShoot = true;
+            
             IEnumerator ShootRoutine()
             {
                 while (true)
                 {
-                    if (Time.time - prevShoot > 1.5f)
+                    if (Time.time - _prevShoot > 1.5f)
                     {
-                        if (canShoot)
+                        if (_canShoot)
                         {
                             grid.GiveBullet();
-                            prevShoot = Time.time;
+                            _prevShoot = Time.time;
                         }
                     }
 
@@ -63,7 +66,7 @@ namespace Game
                         yield return new WaitForSeconds(0.4f);
                     }
 
-                    canShoot = false;
+                    _canShoot = false;
                     
                     grid.MergeLines(tetrisLines, 0.2f);
 
@@ -72,21 +75,21 @@ namespace Game
                 }
                 
                 yield return new WaitForSeconds(0.15f);
-                canShoot = true;
+                _canShoot = true;
             }
         }
         
         public void Deconstruct()
         {
-            if (shootRoutine != null)
+            if (_shootRoutine != null)
             {
-                StopCoroutine(shootRoutine);
-                shootRoutine = null;
+                StopCoroutine(_shootRoutine);
+                _shootRoutine = null;
             }
-            if (mainRoutine != null)
+            if (_mainRoutine != null)
             {
-                StopCoroutine(mainRoutine);
-                mainRoutine = null;
+                StopCoroutine(_mainRoutine);
+                _mainRoutine = null;
             }
             grid.Deconstruct();
         }
@@ -97,7 +100,8 @@ namespace Game
         }
         public void PlaceBlockOnGrid(Block block)
         {
-            foreach (var pawn in block.pawns)
+            block.PlacedOnGrid = true;
+            foreach (var pawn in block.Pawns)
             {
                 pawn.MarkMoverColor();
                 Pawn2Place(pawn).Accept(pawn, 0.1f);
@@ -105,7 +109,7 @@ namespace Game
         }
         public bool CanPlaceBlockOnGrid(Block block)
         {
-            foreach (var pawn in block.pawns)
+            foreach (var pawn in block.Pawns)
             {
                 if (!CanPlacePawnOnGrid(pawn))
                 {
@@ -114,7 +118,7 @@ namespace Game
             }
             return true;
         }
-        public bool CanPlacePawnOnGrid(Pawn pawn)
+        private bool CanPlacePawnOnGrid(Pawn pawn)
         {
             (Place place, bool canPlace) = Project(pawn);
             if (place == null)
@@ -126,7 +130,7 @@ namespace Game
        
         public void HighlightPawnOnGrid(Block block)
         {
-            foreach (var pawn in block.pawns)
+            foreach (var pawn in block.Pawns)
             {
                 (Place place, bool canPlace) = Project(pawn);
                 if (place == null)
@@ -144,7 +148,7 @@ namespace Game
             }
         }
         
-        public (Place, bool) Project(Pawn pawn)
+        private (Place, bool) Project(Pawn pawn)
         {
             Vector2Int? index = Pos2Index(pawn.transform.position);
             if (index == null)
@@ -154,7 +158,7 @@ namespace Game
             Vector2Int ind = (Vector2Int)index;
             Place place = grid.GetPlace(ind);
             
-            if (grid.size.y - pawn.parentBlock.Width > ind.y)
+            if (grid.Size.y - pawn.ParentBlock.width > ind.y)
             {
                 return (place, false);
             }
@@ -169,7 +173,7 @@ namespace Game
             return (place, true);
         }
 
-        public Place Pawn2Place(Pawn pawn)
+        private Place Pawn2Place(Pawn pawn)
         {
             Vector2Int? index = Pos2Index(pawn.transform.position);
             if (index != null)
@@ -179,12 +183,12 @@ namespace Game
             return null;
         }
 
-        public Vector2Int? Pos2Index(Vector3 position)
+        private Vector2Int? Pos2Index(Vector3 position)
         {
             Vector3 posDif = position - transform.position + indexOffset;
             Vector2 posFin = new Vector2(posDif.x, -posDif.z);
             Vector2Int? index = null;
-            if (posFin.x >= 0.0f && posFin.x < grid.size.x && posFin.y >= 0.0f && posFin.y < grid.size.y)
+            if (posFin.x >= 0.0f && posFin.x < grid.Size.x && posFin.y >= 0.0f && posFin.y < grid.Size.y)
             {
                 index = new Vector2Int((int)posFin.x, (int)posFin.y);
             }
