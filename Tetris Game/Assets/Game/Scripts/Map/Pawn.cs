@@ -2,7 +2,9 @@ using System;
 using DG.Tweening;
 using Internal.Core;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 namespace Game
 {
@@ -15,13 +17,13 @@ namespace Game
 
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Block ParentBlock;
-        [System.NonSerialized] private int _level = 1;
-        [System.NonSerialized] public int MovedAtTick = -1;
-        [System.NonSerialized] private bool _mover = false;
-        [System.NonSerialized] public bool MoveUntilForward = false;
-        [System.NonSerialized] public bool UpcomingMover = false;
-        [System.NonSerialized] public bool CanShoot = false;
-        [System.NonSerialized] public bool Merger = false;
+        [System.NonSerialized] private int _amount = 1;
+        // [System.NonSerialized] public int MovedAtTick = -1;
+        // [System.NonSerialized] private bool _mover = false;
+        // [System.NonSerialized] public bool MoveUntilForward = false;
+        // [System.NonSerialized] public bool UpcomingMover = false;
+        // [System.NonSerialized] public bool CanShoot = false;
+        // [System.NonSerialized] public bool Merger = false;
         
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
@@ -32,13 +34,13 @@ namespace Game
             _thisTransform = transform;
         }
 
-        public int Level 
+        public int Amount 
         { 
-            get => this._level;
+            get => this._amount;
             set
             {
-                this._level = value;
-                levelText.text = value <= 1 ? "AMMO".ToTMProKey() : _level.ToString();
+                this._amount = value;
+                levelText.text = value <= 1 ? "AMMO".ToTMProKey() : _amount.ToString();
             }
         }
         
@@ -49,12 +51,14 @@ namespace Game
             modelPivot.localScale = Vector3.one;
 
             ParentBlock = null;
-            _mover = false;
-            MoveUntilForward = false;
-            CanShoot = false;
-            Merger = false;
-            UpcomingMover = false;
-            MovedAtTick = -1;
+
+            MOVER = false;
+            // _mover = false;
+            // MoveUntilForward = false;
+            // CanShoot = false;
+            // Merger = false;
+            // UpcomingMover = false;
+            // MovedAtTick = -1;
             this.Despawn();
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
@@ -66,38 +70,38 @@ namespace Game
                     complete?.Invoke();
                 };
         }
-        public void Move(Transform parent, Vector3 position)
+        public void Set(Transform parent, Vector3 position)
         {
             _thisTransform.parent = parent;
             _thisTransform.position = position;
         }
 
-        #region Colors
-        public void MarkSpawnColor()
-        {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.spawnColor);
-        }
-        public void MarkMoverColor()
-        {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.moverColor);
-        }
-        public void MarkSteadyColor()
-        {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.steadyColor);
-        }
-        public void MarkMergeColor()
-        {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
-        }
-        public void MarkEnemyColor()
-        {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.enemyColor);
-        }
-        public void MarkBiggestColor()
-        {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
-        }
-        #endregion
+        // #region Colors
+        // public void MarkSpawnColor()
+        // {
+        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.spawnColor);
+        // }
+        // public void MarkMoverColor()
+        // {
+        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.moverColor);
+        // }
+        // public void MarkSteadyColor()
+        // {
+        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.steadyColor);
+        // }
+        // public void MarkMergeColor()
+        // {
+        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
+        // }
+        // public void MarkEnemyColor()
+        // {
+        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.enemyColor);
+        // }
+        // public void MarkBiggestColor()
+        // {
+        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
+        // }
+        // #endregion
         public void AnimatedShow(float delay, System.Action complete)
         {
             modelPivot.DOKill();
@@ -138,88 +142,106 @@ namespace Game
             modelPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
         }
 
-        public void MoveForward(Place checkerPlace, int tick, float moveDuration)
+
+        [System.NonSerialized] public bool MOVER = false;
+        
+        public void MoveForward(Place checkerPlace, float moveDuration)
         {
-            if (UpcomingMover)
+            if (!MOVER)
             {
-                MoveUntilForward = true;
-                UpcomingMover = false;
-            }
-            (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
-            if (shouldStay)
-            {
-                _mover = false;
                 return;
             }
+            // if (UpcomingMover)
+            // {
+            //     MoveUntilForward = true;
+            //     UpcomingMover = false;
+            // }
+            // (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
+            // if (shouldStay)
+            // {
+            //     _mover = false;
+            //     return;
+            // }
+            //
+            // this.MovedAtTick = tick;
+            // _mover = true;
+            // CanShoot = false;
+            //
             
-            this.MovedAtTick = tick;
-            _mover = true;
-            CanShoot = false;
-            
+
+            Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
             forwardPlace.Accept(this, moveDuration, () =>
             {
-                checkerPlace.Current = null;
-                CanShoot = true;
+                // CanShoot = true;
             });
-        }
-        public void CheckSteady(Place checkerPlace, bool markColor)
-        {
-            (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
-            Debug.Log("check steady " + ((bool)forwardPlace) + " " + shouldStay);
-
-            if (!shouldStay)
-            {
-                return;
-            }
             
-            if (MoveUntilForward)
-            {
-                Map.THIS.grid.SetFrontFree(checkerPlace.index.x, false);
-                MoveUntilForward = false;
-            }
-            if (markColor)
-            {
-                if (Merger)
-                {
-                    MarkMergeColor();
-                }
-                else
-                {
-                    MarkSteadyColor();
-                }
-            }
-            if (Connected)
-            {
-                ParentBlock.Detach();
-            }
+            checkerPlace.Current = null;
         }
-        private (Place, bool) ShouldStay(Place checkerPlace)
+        public void CheckSteady(Place checkerPlace)
         {
-            Place forwardPlace = Map.THIS.GetForwardPlace(checkerPlace);
+            Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
 
             if (!forwardPlace)
             {
-                str = "forward place is null, should stay";
-                return (null, true);
+                MOVER = false;
+                return;
             }
-            if (forwardPlace.Occupied && !forwardPlace.Current._mover)
-            {
-                str = "forward place is occupied, forward not marked mover, should stay";
-                return (forwardPlace, true);
-            }
-            if (MoveUntilForward && Map.THIS.grid.IsFrontFree(checkerPlace.index.x))
-            {
-                str = "move until forward, front free, should move";
-                return (forwardPlace, false);
-            }
-            if (!Connected)
-            {
-                str = "self not connected to a block, should stay";
-                return (forwardPlace, true);
-            }
-
-            str = "move regardless, connected to block, should move";
-            return (forwardPlace, false);
+            // (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
+            // Debug.Log("check steady " + ((bool)forwardPlace) + " " + shouldStay);
+            //
+            // if (!shouldStay)
+            // {
+            //     return;
+            // }
+            //
+            // if (MoveUntilForward)
+            // {
+            //     Map.THIS.grid.SetFrontFree(checkerPlace.index.x, false);
+            //     MoveUntilForward = false;
+            // }
+            // if (markColor)
+            // {
+            //     if (Merger)
+            //     {
+            //         MarkMergeColor();
+            //     }
+            //     else
+            //     {
+            //         MarkSteadyColor();
+            //     }
+            // }
+            // if (Connected)
+            // {
+            //     ParentBlock.Detach();
+            // }
         }
+        // private (Place, bool) ShouldStay(Place checkerPlace)
+        // {
+            // Place forwardPlace = Map.THIS.GetForwardPlace(checkerPlace);
+            //
+            // if (!forwardPlace)
+            // {
+            //     str = "forward place is null, should stay";
+            //     return (null, true);
+            // }
+            // if (forwardPlace.Occupied && !forwardPlace.Current._mover)
+            // {
+            //     str = "forward place is occupied, forward not marked mover, should stay";
+            //     return (forwardPlace, true);
+            // }
+            // if (MoveUntilForward && Map.THIS.grid.IsFrontFree(checkerPlace.index.x))
+            // {
+            //     str = "move until forward, front free, should move";
+            //     return (forwardPlace, false);
+            // }
+            // if (!Connected)
+            // {
+            //     str = "self not connected to a block, should stay";
+            //     return (forwardPlace, true);
+            // }
+            //
+            // str = "move regardless, connected to block, should move";
+            // return (null, false);
+        // }
     }
 }

@@ -10,9 +10,7 @@ public class Const : SSingleton<Const>
     [Header("Defaults")]
     [Header("Defaults/Player")] [SerializeField]
     public Player.Data DefaultPlayerData;
-    
     [Header("-----")]
-    
     public float tickInterval = 0.15f;
     public Pool[] blocks;
     [Header("Pawn")] public Color spawnColor;
@@ -28,12 +26,6 @@ public class Const : SSingleton<Const>
     public float jumpDuration = 0.15f;
     public Vector3 jumpPower;
     public Ease rotationEase;
-    [Header("Level")]
-    public int enemyStartingHealth = 0;
-    public int enemyFinishingHealth = 0;
-    [Range(-1, 1)] public int gainSign;
-    public float enemyHealthGainInterval;
-    public int enemyHealthAdditionPerInterval;
     [Header("Combo")]
     public Color singleColor;
     public Color comboColor;

@@ -299,7 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67567341362dbe64c96f6c6df753c7af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 1297467599}
   indexOffset: {x: 3, y: 0, z: -5.5}
 --- !u!1 &309379014
 GameObject:
@@ -2023,6 +2022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a473c96d2ba73459bbd97278c3e00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indexOffset: {x: 3, y: 0, z: -5.5}
   Size: {x: 6, y: 7}
 --- !u!1 &1310369798
 GameObject:

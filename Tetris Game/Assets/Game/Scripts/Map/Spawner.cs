@@ -88,8 +88,8 @@ public class Spawner : Singleton<Spawner>
         _moving = true;
 
 
-        Map.THIS.Dehighlight();
-        Map.THIS.HighlightPawnOnGrid(_currentBlock);
+        Board.THIS.Dehighlight();
+        Board.THIS.HighlightPawnOnGrid(_currentBlock);
     }
     public void Release()
     {
@@ -104,11 +104,11 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         _grabbedBlock = false;
-        Map.THIS.Dehighlight();
+        Board.THIS.Dehighlight();
 
-        if (Map.THIS.CanPlaceBlockOnGrid(_currentBlock))
+        if (Board.THIS.CanPlace(_currentBlock))
         {
-            Map.THIS.PlaceBlockOnGrid(_currentBlock);
+            Board.THIS.Place(_currentBlock);
 
             _currentBlock = SpawnBlock();
             return;
@@ -169,7 +169,7 @@ public class Spawner : Singleton<Spawner>
         pawnTransform.position = position;
         pawnTransform.localRotation = Quaternion.identity;
         pawnTransform.localScale = Vector3.one;
-        pawn.Level = level;
+        pawn.Amount = level;
         return pawn;
     }
     #endregion

@@ -20,7 +20,7 @@ public class LevelManager : Singleton<LevelManager>
     public void LoadLevel()
     {
         GameManager.GAME_OVER = false;
-        Map.THIS.Begin();
+        Map.THIS.StartMainLoop();
         Spawner.THIS.Begin();
         Warzone.THIS.StartSpawning();
     }

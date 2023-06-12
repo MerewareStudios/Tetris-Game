@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     
     void Start()
     {
-        Map.THIS.Construct();
+        Board.THIS.Construct();
         LevelManager.THIS.LoadLevel();
     }
     
@@ -24,6 +24,7 @@ public class GameManager : Singleton<GameManager>
     {
         Spawner.THIS.Deconstruct();
         Map.THIS.Deconstruct();
+        Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
     }
 }

@@ -38,7 +38,7 @@ namespace Game
         }
         public void Deconstruct()
         {
-            if (Current)
+            if (Occupied)
             {
                 Current.Deconstruct();
             }
@@ -68,21 +68,22 @@ namespace Game
             SpriteRenderer.DOColor(color, 0.125f);
         }
 
-        public void Accept(Pawn pawn, float duration, System.Action OnAccept = null)
+        public void Accept(Pawn pawn, float duration, System.Action OnComplete = null)
         {
+            this.Current = pawn;
+            pawn.CheckSteady(this);
+
             pawn.transform.parent = segmentParent;
             pawn.Move(segmentParent.position, duration, Ease.Linear, () =>
             {
-                this.Current = pawn;
-                SetColor(PlaceType.EMPTY);
-                OnAccept?.Invoke();
-                pawn.CheckSteady(this, false);
+                // SetColor(PlaceType.EMPTY);
+                OnComplete?.Invoke();
             });
         }
-        public void AcceptImmidiate(Pawn pawn)
+        public void AcceptNow(Pawn pawn)
         {
-            pawn.Move(segmentParent, segmentParent.position);
             this.Current = pawn;
+            pawn.Set(segmentParent, segmentParent.position);
         }
 
         public enum PlaceType

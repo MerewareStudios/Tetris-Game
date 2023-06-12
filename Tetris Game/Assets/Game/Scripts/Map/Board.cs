@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Grid : MonoBehaviour
+    public class Board : Singleton<Board>
     {
+        [SerializeField] private Vector3 indexOffset;
         [SerializeField] public Vector2Int Size;
-        
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tickIndex = 0;
         [System.NonSerialized] private bool[] _frontBlockers;
@@ -28,7 +28,7 @@ namespace Game
                     place.index = new Vector2Int(i, j);
                 }
             }
-            Map.THIS.grid.MarkMerger(0);
+            MarkMerger(0);
             
             _frontBlockers = new bool[Size.x];
             _frontBlockers.Fill(false);
@@ -55,7 +55,7 @@ namespace Game
                 _frontBlockers[i] = state;
             }
         }
-        public void Move(float moveDuration)
+        public void MoveAll(float moveDuration)
         {
             _tickIndex++;
 
@@ -63,7 +63,7 @@ namespace Game
             {
                 if (place.Current)
                 {
-                    place.Current.MoveForward(place, _tickIndex, moveDuration);
+                    place.Current.MoveForward(place, moveDuration);
                 }
             });
         }
@@ -73,7 +73,7 @@ namespace Game
             {
                 if (place.Current)
                 {
-                    place.Current.CheckSteady(place, true);
+                    place.Current.CheckSteady(place);
                 }
             });
         }
@@ -81,7 +81,7 @@ namespace Game
         {
             Call<Place>(places, (place) => 
                 {
-                    place.SetColor(Place.PlaceType.EMPTY);
+                    place.SetColor(Game.Place.PlaceType.EMPTY);
                 });
         }
         private void Call<T>(T[,] array, System.Action<T> action)
@@ -129,11 +129,11 @@ namespace Game
                 bool tetris = true;
                 for (int i = 0; i < Size.x; i++)
                 {
-                    if(!places[i, j].Occupied || places[i, j].Current.Connected || places[i, j].Current.MoveUntilForward)
-                    {
-                        tetris = false;
-                        break;
-                    }
+                    // if(!places[i, j].Occupied || places[i, j].Current.Connected || places[i, j].Current.MoveUntilForward)
+                    // {
+                    //     tetris = false;
+                    //     break;
+                    // }
                 }
                 if (tetris)
                 {
@@ -159,25 +159,23 @@ namespace Game
                 
                 pawns.Add(place.Current);
 
-                
-
-                int additive = place.Current.Level;
+                int additive = place.Current.Amount;
                 if (additive == 1)
                 {
                     additive *= multiplier;
                 }
                 totalLevel += additive;
 
-                if (place.Current.MovedAtTick == highestTick)
-                {
-                    indexes.Add(i);
-                }
-                else if(place.Current.MovedAtTick > highestTick)
-                {
-                    highestTick = place.Current.MovedAtTick;
-                    indexes.Clear();
-                    indexes.Add(i);
-                }
+                // if (place.Current.MovedAtTick == highestTick)
+                // {
+                //     indexes.Add(i);
+                // }
+                // else if(place.Current.MovedAtTick > highestTick)
+                // {
+                //     highestTick = place.Current.MovedAtTick;
+                //     indexes.Clear();
+                //     indexes.Add(i);
+                // }
                 place.Current = null;
             }
 
@@ -196,11 +194,11 @@ namespace Game
             
            
             Pawn newPawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
-            newPawn.MarkMergeColor();
-            spawnPlace.AcceptImmidiate(newPawn);
+            // newPawn.MarkMergeColor();
+            spawnPlace.AcceptNow(newPawn);
 
-            newPawn.AnimatedShow(0.6f, () => newPawn.CanShoot = true);
-            newPawn.Merger = true;
+            // newPawn.AnimatedShow(0.6f, () => newPawn.CanShoot = true);
+            // newPawn.Merger = true;
             
             UIManager.THIS.ft_TF2.FlyWorld("+" + totalLevel, newPawn.transform.position + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);
             Particle.Portal_Blue.Play(newPawn.transform.position + Vector3.up * 0.05f,
@@ -244,7 +242,7 @@ namespace Game
 
                 if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
                 {
-                    place.Current.MoveUntilForward = true;
+                    // place.Current.MoveUntilForward = true;
                 }
             });
         }
@@ -258,7 +256,7 @@ namespace Game
 
                 if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
-                    place.Current.UpcomingMover = true;
+                    // place.Current.UpcomingMover = true;
                     // UnityEditor.EditorApplication.isPaused = true;
                 }
             });
@@ -269,26 +267,26 @@ namespace Game
             int totalAmmo = 0;
             CallRow<Place>(places, 0, (place, horizontalIndex) =>
             {
-                if (place.Current && place.Current.CanShoot && place.Current.Merger)
-                {
-                    Pawn currentPawn = place.Current;
-                    int ammo = 1;
-                    currentPawn.Level -= ammo;
-                    if (currentPawn.Level > 0)
-                    {
-                        currentPawn.PunchScale(-0.2f);
-                    }
-                    else
-                    {
-                        place.Current = null;
-                        
-                        currentPawn.Hide(currentPawn.Despawn);
-                        
-                        MarkNewMovers(place.index.x, place.index.y);
-                    }
-
-                    totalAmmo += ammo;
-                }
+                // if (place.Current && place.Current.CanShoot && place.Current.Merger)
+                // {
+                //     Pawn currentPawn = place.Current;
+                //     int ammo = 1;
+                //     currentPawn.Amount -= ammo;
+                //     if (currentPawn.Amount > 0)
+                //     {
+                //         currentPawn.PunchScale(-0.2f);
+                //     }
+                //     else
+                //     {
+                //         place.Current = null;
+                //         
+                //         currentPawn.Hide(currentPawn.Despawn);
+                //         
+                //         MarkNewMovers(place.index.x, place.index.y);
+                //     }
+                //
+                //     totalAmmo += ammo;
+                // }
             });
 
             if (totalAmmo > 0)
@@ -317,5 +315,109 @@ namespace Game
                 place.Merger = (verticalIndex == index);
             });
         }
+        
+        
+        
+        
+        
+        
+        public void Place(Block block)
+        {
+            block.PlacedOnGrid = true;
+            foreach (var pawn in block.Pawns)
+            {
+                // pawn.MarkMoverColor();
+                GetPlace(pawn).Accept(pawn, 0.1f);
+            }
+        }
+        private Place GetPlace(Pawn pawn)
+        {
+            Vector2Int? index = Pos2Index(pawn.transform.position);
+            if (index != null)
+            {
+                return GetPlace((Vector2Int)index);
+            }
+            return null;
+        }
+        private Vector2Int? Pos2Index(Vector3 position)
+        {
+            Vector3 posDif = position - transform.position + indexOffset;
+            Vector2 posFin = new Vector2(posDif.x, -posDif.z);
+            Vector2Int? index = null;
+            if (posFin.x >= 0.0f && posFin.x < Size.x && posFin.y >= 0.0f && posFin.y < Size.y)
+            {
+                index = new Vector2Int((int)posFin.x, (int)posFin.y);
+            }
+            return index;
+        }
+        private (Place, bool) Project(Pawn pawn)
+        {
+            Vector2Int? index = Pos2Index(pawn.transform.position);
+            if (index == null)
+            {
+                return (null, false);
+            }
+            Vector2Int ind = (Vector2Int)index;
+            Place place = GetPlace(ind);
+            
+            if (Size.y - pawn.ParentBlock.width > ind.y)
+            {
+                return (place, false);
+            }
+            if (place.Occupied)
+            {
+                return (place, false);
+            }
+            if (HasForwardPawnAtColumn(ind))
+            {
+                return (place, false);
+            }
+            return (place, true);
+        }
+        public Place GetForwardPlace(Place place)
+        {
+            Place forwardPlace = null;
+
+            Vector2Int index = place.index;
+            index.y--;
+            if (index.y >= 0)
+            {
+                forwardPlace = GetPlace(index);
+            }
+            return forwardPlace;
+        }
+        public void HighlightPawnOnGrid(Block block)
+        {
+            foreach (var pawn in block.Pawns)
+            {
+                (Place place, bool canPlace) = Project(pawn);
+                if (place == null)
+                {
+                    return;
+                }
+                place.SetColor(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
+            }
+        }
+        private bool CanPlacePawnOnGrid(Pawn pawn)
+        {
+            (Place place, bool canPlace) = Project(pawn);
+            if (place == null)
+            {
+                return false;
+            }
+            return canPlace;
+        }
+        public bool CanPlace(Block block)
+        {
+            foreach (var pawn in block.Pawns)
+            {
+                if (!CanPlacePawnOnGrid(pawn))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
     }
 }
