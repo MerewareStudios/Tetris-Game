@@ -8,20 +8,31 @@ public class LevelManager : Singleton<LevelManager>
 {
     public void GameOver()
     {
-        if (GameManager.GAME_OVER)
+        if (!GameManager.PLAYING)
         {
             return;
         }
-        Debug.Log("Game Over");
-        GameManager.GAME_OVER = true;
+        SaveManager.THIS.SaveHighScore();
+        
+        GameManager.PLAYING = false;
         GameManager.THIS.Deconstruct();
     }
 
     public void LoadLevel()
     {
-        GameManager.GAME_OVER = false;
+        GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         Spawner.THIS.Begin();
-        Warzone.THIS.StartSpawning();
+
+        Warzone.THIS.LevelData = SaveManager.THIS.saveData.level.GetLevelSo();
+        Warzone.THIS.Begin();
+    }
+    
+    public void ReLoadLevel()
+    {
+        GameManager.THIS.Deconstruct();
+        ScoreBoard.THIS.Score = 0;
+        Warzone.THIS.Reset();
+        LoadLevel();
     }
 }

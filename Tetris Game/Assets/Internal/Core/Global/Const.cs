@@ -7,20 +7,22 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]
 public class Const : SSingleton<Const>
 {
+    public LevelSo[] Levels;
     [Header("Defaults")]
     [Header("Defaults/Player")] [SerializeField]
     public Player.Data DefaultPlayerData;
+    [Header("Defaults/Gun")] [SerializeField]
+    public GunSo[] GunSos;
     [Header("-----")]
     public float tickInterval = 0.15f;
     public Pool[] blocks;
-    [Header("Pawn")] public Color spawnColor;
-    public Color moverColor;
+    [Header("Pawn")] 
+    public Color defaultColor;
     public Color steadyColor;
-    public Color enemyColor;
-    public Color bigColor;
+    public Color mergerColor;
     [Header("Colors")] 
     public Color[] placeColors;
-    public Color mergerColor;
+    public Color mergerPlaceColor;
     [Header("Spawner")] 
     public float rotationDuration = 0.15f;
     public float jumpDuration = 0.15f;

@@ -23,5 +23,6 @@ public enum Pool
     Flying_Text___Combo = 20,
     Enemy = 21,
     Bullet = 22,
+    Gun_1 = 23,
 
 }

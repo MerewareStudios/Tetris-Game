@@ -20,10 +20,7 @@ namespace Game
 
         public bool Merger
         {
-            get
-            {
-                return _merger;
-            }
+            get => _merger;
             set
             {
                 _merger = value;
@@ -41,6 +38,7 @@ namespace Game
             if (Occupied)
             {
                 Current.Deconstruct();
+                Current = null;
             }
         }
 
@@ -56,7 +54,7 @@ namespace Game
             Color color = Const.THIS.placeColors[(int)placeType];
             if (placeType.Equals(PlaceType.EMPTY) && Merger)
             {
-                color = Const.THIS.mergerColor;
+                color = Const.THIS.mergerPlaceColor;
             }
 
             DoColor(color);
@@ -71,12 +69,10 @@ namespace Game
         public void Accept(Pawn pawn, float duration, System.Action OnComplete = null)
         {
             this.Current = pawn;
-            pawn.CheckSteady(this);
 
             pawn.transform.parent = segmentParent;
             pawn.Move(segmentParent.position, duration, Ease.Linear, () =>
             {
-                // SetColor(PlaceType.EMPTY);
                 OnComplete?.Invoke();
             });
         }

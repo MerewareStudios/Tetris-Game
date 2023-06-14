@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2298bad192dff947a79014fe035571f, type: 3}
+  m_Name: Gun 3
+  m_EditorClassIdentifier: 
+  prefab: 23
+  holsterTransformData:
+    localPosition: {x: -0.041, y: 0.079, z: 0.042}
+    localEulerAngles: {x: 345.3343, y: 167.60696, z: 273.18408}
+    localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
+  defaultData:
+    type: 0
+    shootInterval: 0.5
+    prevShoot: 0
+    maxShootPerTrigger: 1

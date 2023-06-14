@@ -17,13 +17,9 @@ public class ScoreBoard : Singleton<ScoreBoard>
 
     public int Score
     {
-        get
-        {
-            return OnLoad.Invoke();
-        }
+        get => OnLoad.Invoke();
         set
         {
-            // int prev = OnLoad.Invoke();
             OnSave.Invoke(value);
 
             scoreText.text = value.ToString();

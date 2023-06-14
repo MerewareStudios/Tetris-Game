@@ -19,8 +19,8 @@ namespace Game
             foreach (var target in segmentTransforms)
             {
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1);
-                // pawn.MarkSpawnColor();
                 pawn.ParentBlock = this;
+                pawn.MarkDefaultColor();
                 pawn.Show();
                 Pawns.Add(pawn);
             }
@@ -47,6 +47,8 @@ namespace Game
             foreach (var pawn in Pawns)
             {
                 pawn.ParentBlock = null;
+                pawn.MOVER = false;
+                pawn.MarkSteadyColor();
             }
             Spawner.THIS.RemoveBlock(this);
 

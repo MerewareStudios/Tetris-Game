@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [System.NonSerialized] public static MaterialPropertyBlock MPB_PAWN;
-    [System.NonSerialized] public static bool GAME_OVER = true;
+    [System.NonSerialized] public static bool PLAYING = false;
     
     void Awake()
     {

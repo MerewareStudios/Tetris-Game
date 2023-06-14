@@ -30,6 +30,14 @@ public class SaveManager : SaveManagerBase<SaveManager>
     {
         saveData.playTime += Time.deltaTime;
     }
+
+    public void SaveHighScore()
+    {
+        if (saveData.highScore > saveData.score)
+        {
+            saveData.highScore = saveData.score;
+        }
+    }
 }
 public static class SaveManagerExtensions
 {
@@ -52,6 +60,8 @@ public partial class SaveData
     [SerializeField] public bool[] onboardingList;
     [SerializeField] public float playTime;
     [SerializeField] public int score;
+    [SerializeField] public int highScore;
+    [SerializeField] public int level = 1;
     [SerializeField] public Player.Data playerData;
 }
 

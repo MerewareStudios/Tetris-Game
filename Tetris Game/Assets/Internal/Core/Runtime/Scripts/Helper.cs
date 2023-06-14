@@ -25,6 +25,14 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static float Random(this Vector2 minMaxCurve)
+        {
+            return UnityEngine.Random.Range(minMaxCurve.x, minMaxCurve.y);
+        }
+        public static float Random(this ParticleSystem.MinMaxCurve minMaxCurve)
+        {
+            return minMaxCurve.Evaluate(UnityEngine.Random.Range(0.0f, 1.0f));
+        }
         public static void SetChildLayers(this GameObject gameObject, int layer)
         {
             gameObject.layer = layer;
@@ -320,6 +328,13 @@ namespace Internal.Core
         public static Color GetRandomColor()
         {
             return new Color(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
+        }
+        public static void Random(System.Action action)
+        {
+            if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f)
+            {
+                action.Invoke();
+            }
         }
         public static void Mimic(this Camera targetCamera, Camera copyFrom)
         {

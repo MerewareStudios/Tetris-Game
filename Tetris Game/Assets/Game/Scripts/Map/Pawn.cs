@@ -13,17 +13,12 @@ namespace Game
         [SerializeField] public MeshRenderer meshRenderer;
         [SerializeField] public TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
-        [TextArea][SerializeField] public string str;
 
+        [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Block ParentBlock;
         [System.NonSerialized] private int _amount = 1;
-        // [System.NonSerialized] public int MovedAtTick = -1;
-        // [System.NonSerialized] private bool _mover = false;
-        // [System.NonSerialized] public bool MoveUntilForward = false;
-        // [System.NonSerialized] public bool UpcomingMover = false;
-        // [System.NonSerialized] public bool CanShoot = false;
-        // [System.NonSerialized] public bool Merger = false;
+        [System.NonSerialized] public int Tick;
         
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
@@ -40,32 +35,27 @@ namespace Game
             set
             {
                 this._amount = value;
-                levelText.text = value <= 1 ? "AMMO".ToTMProKey() : _amount.ToString();
+                levelText.text = value <= 1 ? (SHOOTER ? _amount.ToString() : "AMMO".ToTMProKey()) : _amount.ToString();
             }
         }
         
         public void Deconstruct()
         {
-            _thisTransform.DOKill();
+            _moveTween?.Kill();
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
 
             ParentBlock = null;
 
-            MOVER = false;
-            // _mover = false;
-            // MoveUntilForward = false;
-            // CanShoot = false;
-            // Merger = false;
-            // UpcomingMover = false;
-            // MovedAtTick = -1;
+            SHOOTER = false;
+            
             this.Despawn();
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
-            _thisTransform.DOKill();
-            _thisTransform.DOMove(position, duration).SetEase(ease)
-                .onComplete += () =>
+            _moveTween?.Kill();
+            _moveTween = _thisTransform.DOMove(position, duration).SetEase(ease);
+            _moveTween.onComplete += () =>
                 {
                     complete?.Invoke();
                 };
@@ -76,22 +66,22 @@ namespace Game
             _thisTransform.position = position;
         }
 
-        // #region Colors
-        // public void MarkSpawnColor()
-        // {
-        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.spawnColor);
-        // }
+        #region Colors
+        public void MarkDefaultColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.defaultColor);
+        }
+        public void MarkSteadyColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.steadyColor);
+        }
+        public void MarkMergerColor()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.mergerColor);
+        }
         // public void MarkMoverColor()
         // {
         //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.moverColor);
-        // }
-        // public void MarkSteadyColor()
-        // {
-        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.steadyColor);
-        // }
-        // public void MarkMergeColor()
-        // {
-        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
         // }
         // public void MarkEnemyColor()
         // {
@@ -101,7 +91,7 @@ namespace Game
         // {
         //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
         // }
-        // #endregion
+        #endregion
         public void AnimatedShow(float delay, System.Action complete)
         {
             modelPivot.DOKill();
@@ -144,104 +134,64 @@ namespace Game
 
 
         [System.NonSerialized] public bool MOVER = false;
+        [System.NonSerialized] public bool BUSY = false;
+        [System.NonSerialized] public bool SHOOTER = false;
         
-        public void MoveForward(Place checkerPlace, float moveDuration)
+        public void MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
+            if (BUSY)
+            {
+                return;
+            }
             if (!MOVER)
             {
                 return;
             }
-            // if (UpcomingMover)
-            // {
-            //     MoveUntilForward = true;
-            //     UpcomingMover = false;
-            // }
-            // (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
-            // if (shouldStay)
-            // {
-            //     _mover = false;
-            //     return;
-            // }
-            //
-            // this.MovedAtTick = tick;
-            // _mover = true;
-            // CanShoot = false;
-            //
             
-
+            Tick = tick;
+            
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-            forwardPlace.Accept(this, moveDuration, () =>
-            {
-                // CanShoot = true;
-            });
+            forwardPlace.Accept(this, moveDuration);
             
             checkerPlace.Current = null;
         }
-        public void CheckSteady(Place checkerPlace)
+
+        public void Check(Place checkerPlace)
+        {
+            if (BUSY)
+            {
+                return;
+            }
+            CheckSteady(checkerPlace);
+            CheckDetach();
+        }
+        private void CheckSteady(Place checkerPlace)
         {
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
 
-            if (!forwardPlace)
+            if (!forwardPlace) // if at the edge of the map
             {
                 MOVER = false;
                 return;
             }
-            // (Place forwardPlace, bool shouldStay) = ShouldStay(checkerPlace);
-            // Debug.Log("check steady " + ((bool)forwardPlace) + " " + shouldStay);
-            //
-            // if (!shouldStay)
-            // {
-            //     return;
-            // }
-            //
-            // if (MoveUntilForward)
-            // {
-            //     Map.THIS.grid.SetFrontFree(checkerPlace.index.x, false);
-            //     MoveUntilForward = false;
-            // }
-            // if (markColor)
-            // {
-            //     if (Merger)
-            //     {
-            //         MarkMergeColor();
-            //     }
-            //     else
-            //     {
-            //         MarkSteadyColor();
-            //     }
-            // }
-            // if (Connected)
-            // {
-            //     ParentBlock.Detach();
-            // }
+
+            if (forwardPlace.Occupied && !forwardPlace.Current.MOVER) // if front is occupied and no intent of moving
+            {
+                MOVER = false;
+                return;
+            }
         }
-        // private (Place, bool) ShouldStay(Place checkerPlace)
-        // {
-            // Place forwardPlace = Map.THIS.GetForwardPlace(checkerPlace);
-            //
-            // if (!forwardPlace)
-            // {
-            //     str = "forward place is null, should stay";
-            //     return (null, true);
-            // }
-            // if (forwardPlace.Occupied && !forwardPlace.Current._mover)
-            // {
-            //     str = "forward place is occupied, forward not marked mover, should stay";
-            //     return (forwardPlace, true);
-            // }
-            // if (MoveUntilForward && Map.THIS.grid.IsFrontFree(checkerPlace.index.x))
-            // {
-            //     str = "move until forward, front free, should move";
-            //     return (forwardPlace, false);
-            // }
-            // if (!Connected)
-            // {
-            //     str = "self not connected to a block, should stay";
-            //     return (forwardPlace, true);
-            // }
-            //
-            // str = "move regardless, connected to block, should move";
-            // return (null, false);
-        // }
+
+        private void CheckDetach()
+        {
+            if (MOVER)
+            {
+                return;
+            }
+            if (Connected)
+            {
+                ParentBlock.Detach();
+            }
+        }
     }
 }

@@ -12,29 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
+  Levels:
+  - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   DefaultPlayerData:
-    CurrentHealth: 1
-    MaxHealth: 1
+    time: 0
+    currentHealth: 1
+    maxHealth: 1
+    gunData:
+      type: 0
+      shootInterval: 1
+      prevShoot: 0
+      maxShootPerTrigger: 1
+  GunSos:
+  - {fileID: 11400000, guid: d1c79da0ce1ea5147a9a36b9d8ee8a88, type: 2}
+  - {fileID: 11400000, guid: 5501d1ba9d774814a91727e3efef8f7b, type: 2}
+  - {fileID: 11400000, guid: 7e7ba5da3a5133b469a7306c289efe67, type: 2}
+  - {fileID: 11400000, guid: e8a3f88ed85fa5c4190de756478a6f68, type: 2}
+  - {fileID: 11400000, guid: cadf184367c68b6488c4410340ae412d, type: 2}
   tickInterval: 0.3
   blocks: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000012000000
-  spawnColor: {r: 0.21960784, g: 0.48235294, b: 0.89411765, a: 1}
-  moverColor: {r: 0.21960784, g: 0.48235294, b: 0.89411765, a: 1}
-  steadyColor: {r: 0.32156864, g: 0.32156864, b: 0.32156864, a: 1}
-  enemyColor: {r: 1, g: 0.37254903, b: 0.30980393, a: 1}
-  bigColor: {r: 1, g: 0.37254903, b: 0.30980393, a: 1}
+  defaultColor: {r: 0.20300001, g: 0.5397007, b: 1, a: 1}
+  steadyColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}
   placeColors:
   - {r: 0.21960786, g: 0.48235297, b: 0.8941177, a: 1}
   - {r: 1, g: 0.28627452, b: 0.2, a: 1}
   - {r: 0.15100001, g: 0.15100001, b: 0.15100001, a: 1}
-  mergerColor: {r: 0.38039216, g: 1, b: 0.53333336, a: 1}
+  mergerPlaceColor: {r: 0.3803922, g: 0.6423908, b: 1, a: 1}
   rotationDuration: 0.15
   jumpDuration: 0.1875
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
-  enemyStartingHealth: 0
-  enemyFinishingHealth: 100
-  gainSign: 0
-  enemyHealthGainInterval: 0
-  enemyHealthAdditionPerInterval: -1
   singleColor: {r: 0.25490198, g: 0.54901963, b: 0.95686275, a: 1}
   comboColor: {r: 1, g: 0.4509804, b: 0.18039216, a: 1}

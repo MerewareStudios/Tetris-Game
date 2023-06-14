@@ -1,23 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Internal.Core;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace  Game
 {
     public class Warzone : Singleton<Warzone>
     {
+        [Header("Level")]
+        [System.NonSerialized] public LevelSo LevelData;
         [Header("Players")]
         [SerializeField] public Player Player;
         [Header("Zones")]
         [SerializeField] public Area Zone;
-        [Header("Spawn")]
-        [SerializeField] private float spawnWidth = 2.5f;
-        [SerializeField] private float spawnInterval = 2.0f;
         //Routines
         [System.NonSerialized] private Coroutine spawnRoutine = null;
         [System.NonSerialized] public readonly List<Enemy> Enemies = new();
 
+        
     #region Warzone
         void Awake()
         {
@@ -29,11 +31,6 @@ namespace  Game
     #endregion
 
     #region Warzone
-
-        public void PlayerAttack(int bulletCount)
-        {
-            this.Player.Shoot(bulletCount);
-        }
         public void EnemyKamikaze(Enemy enemy)
         {
             enemy.Kamikaze();
@@ -43,19 +40,35 @@ namespace  Game
         {
             enemy.Kill();
         }
-        public void StartSpawning()
+        
+        public void Reset()
+        {
+            Player.Reset();
+        }
+        public void Begin()
         {
             StopSpawning();
             spawnRoutine = StartCoroutine(SpawnRoutine());
             
             IEnumerator SpawnRoutine()
             {
+                float time = 0.0f;
+                
+                yield return new WaitForSeconds(LevelData.spawnDelay);
+                
                 while (true)
                 {
-                    yield return new WaitForSeconds(spawnInterval);
+                    float step = time / LevelData.totalDuration;
+                    
+                    
                     Enemies.Add(SpawnEnemy());
+
+                    time += Time.deltaTime;
+                    yield return null;
                 }
             }
+            
+            Player.Begin();
         }
 
         private void StopSpawning()
@@ -90,7 +103,7 @@ namespace  Game
         }
         private Vector3 RandomSpawnPosition()
         {
-            return new Vector3(Random.Range(-spawnWidth, spawnWidth), 0.0f, Zone.startLine);
+            return new Vector3(Random.Range(-LevelData.spawnWidth, LevelData.spawnWidth), 0.0f, Zone.startLine);
         }
     #endregion
 
@@ -123,3 +136,36 @@ namespace  Game
         }
     }
 }
+
+// namespace  Level
+// {
+//     [System.Serializable]
+//     public class Data : ICloneable
+//     {
+//         
+//
+//                 
+//         public Data()
+//         {
+//             this.spawnDelay = 0.0f;
+//             this.totalHealth = 0;
+//             this.maxMerge = 1;
+//             this.speed = 1.0f;
+//             this.spawnWidth = 2.5f;
+//         }
+//         public Data(Data data)
+//         {
+//             this.spawnDelay = data.spawnDelay;
+//             this.totalHealth = data.totalHealth;
+//             this.maxMerge = data.maxMerge;
+//             this.speed = data.speed;
+//             // this.spawnInterval = data.spawnInterval;
+//             // this.time = data.time;
+//         }
+//
+//         public object Clone()
+//         {
+//             return new Data(this);
+//         }
+//     } 
+// }

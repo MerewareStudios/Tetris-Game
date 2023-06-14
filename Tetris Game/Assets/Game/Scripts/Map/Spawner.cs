@@ -26,6 +26,7 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Coroutine _moveRoutine = null;
     [System.NonSerialized] private bool _moving = false;
     [System.NonSerialized] private Vector3 _finalPosition;
+    [System.NonSerialized] private Tween delayedTween;
 
     public void Begin()
     {
@@ -39,6 +40,7 @@ public class Spawner : Singleton<Spawner>
             block.Deconstruct();
             RemoveBlock(block);   
         }
+        delayedTween?.Kill();
     }
 
     #region User Input
@@ -93,6 +95,10 @@ public class Spawner : Singleton<Spawner>
     }
     public void Release()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
         if (_moveRoutine != null)
         {
             _moving = false;
@@ -110,7 +116,13 @@ public class Spawner : Singleton<Spawner>
         {
             Board.THIS.Place(_currentBlock);
 
-            _currentBlock = SpawnBlock();
+            _currentBlock = null;
+            
+            delayedTween?.Kill();
+            delayedTween = DOVirtual.DelayedCall(0.08f, () =>
+            {
+                _currentBlock = SpawnBlock();
+            });
             return;
         }
 
@@ -147,8 +159,7 @@ public class Spawner : Singleton<Spawner>
     private List<Block> _spawnedBlocks = new();
     private Block SpawnBlock()
     {
-        // Pool pool = Const.THIS.blocks.Random<Pool>();
-        Pool pool = Pool.Two_I_Block;
+        Pool pool = Const.THIS.blocks.Random<Pool>();
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;

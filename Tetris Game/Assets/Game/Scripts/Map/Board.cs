@@ -11,8 +11,7 @@ namespace Game
         [SerializeField] private Vector3 indexOffset;
         [SerializeField] public Vector2Int Size;
         [System.NonSerialized] private Place[,] places;
-        [System.NonSerialized] private int _tickIndex = 0;
-        [System.NonSerialized] private bool[] _frontBlockers;
+        [System.NonSerialized] private int _tick = 0;
 
         public void Construct()
         {
@@ -29,9 +28,6 @@ namespace Game
                 }
             }
             MarkMerger(0);
-            
-            _frontBlockers = new bool[Size.x];
-            _frontBlockers.Fill(false);
         }
         public void Deconstruct()
         {
@@ -40,40 +36,25 @@ namespace Game
                 place.Deconstruct();
             });
         }
-        public bool IsFrontFree(int frontIndex)
-        {
-            return _frontBlockers[frontIndex];
-        }
-        public void SetFrontFree(int frontIndex, bool state)
-        {
-            _frontBlockers[frontIndex] = state;
-        }
-        public void SetAllFrontFree(bool state)
-        {
-            for (int i = 0; i < _frontBlockers.Length; i++)
-            {
-                _frontBlockers[i] = state;
-            }
-        }
         public void MoveAll(float moveDuration)
         {
-            _tickIndex++;
+            _tick++;
 
             Call<Place>(places, (place) =>
             {
                 if (place.Current)
                 {
-                    place.Current.MoveForward(place, moveDuration);
+                    place.Current.MoveForward(place, _tick, moveDuration);
                 }
             });
         }
-        public void CheckSteady()
+        public void CheckAll()
         {
             Call<Place>(places, (place) =>
             {
                 if (place.Current)
                 {
-                    place.Current.CheckSteady(place);
+                    place.Current.Check(place);
                 }
             });
         }
@@ -118,7 +99,6 @@ namespace Game
                 action.Invoke(array[columnIndex, j], j);
             }
         }
-        public Place GetPlace(int x, int y) => places[x, y];
         public Place GetPlace(Vector2Int index) => places[index.x, index.y];
 
         public List<int> CheckTetris()
@@ -129,11 +109,11 @@ namespace Game
                 bool tetris = true;
                 for (int i = 0; i < Size.x; i++)
                 {
-                    // if(!places[i, j].Occupied || places[i, j].Current.Connected || places[i, j].Current.MoveUntilForward)
-                    // {
-                    //     tetris = false;
-                    //     break;
-                    // }
+                    if(!places[i, j].Occupied || places[i, j].Current.MOVER)
+                    {
+                        tetris = false;
+                        break;
+                    }
                 }
                 if (tetris)
                 {
@@ -143,156 +123,134 @@ namespace Game
             return tetrisLines;
         }
 
-        public int MergeLine(int lineIndex, float duration, int multiplier)
+        
+
+        private void SpawnMergedPawn(Place place, int level)
         {
-            List<int> indexes = new();
-            List<Pawn> pawns = new();
-            int highestTick = -1;
-
-            int totalLevel = 0;
+            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, place.transform.position, level);
+            Vector3 mergedPawnPosition = mergedPawn.transform.position;
             
+            place.AcceptNow(mergedPawn);
 
-            for (int i = 0; i < Size.x; i++)
-            {
-                Place place = places[i, lineIndex];
-                
-                
-                pawns.Add(place.Current);
-
-                int additive = place.Current.Amount;
-                if (additive == 1)
-                {
-                    additive *= multiplier;
-                }
-                totalLevel += additive;
-
-                // if (place.Current.MovedAtTick == highestTick)
-                // {
-                //     indexes.Add(i);
-                // }
-                // else if(place.Current.MovedAtTick > highestTick)
-                // {
-                //     highestTick = place.Current.MovedAtTick;
-                //     indexes.Clear();
-                //     indexes.Add(i);
-                // }
-                place.Current = null;
-            }
-
-            Place spawnPlace = places[indexes.Random(), lineIndex];
-            foreach (var pawn in pawns)
-            {
-                Color color = multiplier == 1 ? Const.THIS.singleColor : Const.THIS.comboColor;
-                Particle.Square.Emit(1, color, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
-                
-                pawn.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
-                    .onComplete += () =>
-                    {
-                        pawn.Deconstruct();
-                    };
-            }
+            mergedPawn.MarkMergerColor();
+            mergedPawn.AnimatedShow(0.6f, () => mergedPawn.SHOOTER = true);
             
-           
-            Pawn newPawn = Spawner.THIS.SpawnPawn(null, spawnPlace.transform.position, totalLevel);
-            // newPawn.MarkMergeColor();
-            spawnPlace.AcceptNow(newPawn);
-
-            // newPawn.AnimatedShow(0.6f, () => newPawn.CanShoot = true);
-            // newPawn.Merger = true;
-            
-            UIManager.THIS.ft_TF2.FlyWorld("+" + totalLevel, newPawn.transform.position + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);
-            Particle.Portal_Blue.Play(newPawn.transform.position + Vector3.up * 0.05f,
-                Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
-
-
-            return totalLevel;
+            UIManager.THIS.ft_TF2.FlyWorld("+" + level, mergedPawnPosition + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);
+            Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
         }
 
         public void MergeLines(List<int> lines, float duration)
         {
-            int[] points = new int[lines.Count];
             for (int i = 0; i < lines.Count; i++)
             {
-                points[i] = MergeLine(lines[i], duration, lines.Count);
+                MergeLine(lines[i], lines.Count, duration);
             }
-
-            int totalPoint = 0;           
-
-            foreach (var point in points)
+            
+            void MergeLine(int lineIndex, int multiplier, float duration)
             {
-                totalPoint += point;
-            }
+                List<Pawn> pawns = new();
 
-            if (totalPoint > 0)
-            {
-                int addition = totalPoint;
-                DOVirtual.DelayedCall(0.3f, () =>
+                int totalPoint = 0;
+                int highestTick = int.MinValue;
+                int mergeIndex = 0;
+
+                for (int i = 0; i < Size.x; i++)
                 {
-                    ScoreBoard.THIS.Score += addition;
-                });
+                    int index = i;
+                    Place place = places[index, lineIndex];
+
+                    if (!place.Current)
+                    {
+                        continue;
+                    }
+                
+                    pawns.Add(place.Current);
+
+                    int point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
+                    totalPoint += point;
+
+                    if (place.Current.Tick > highestTick)
+                    {
+                        highestTick = place.Current.Tick;
+                        mergeIndex = index;
+                    }
+                    else if(place.Current.Tick == highestTick)
+                    {
+                        Helper.Random(() => mergeIndex = index);
+                    }
+                    place.Current = null;
+                }
+
+                Place spawnPlace = places[mergeIndex, lineIndex];
+                foreach (var pawn in pawns)
+                {
+                    Color color = multiplier == 1 ? Const.THIS.singleColor : Const.THIS.comboColor;
+                    Particle.Square.Emit(1, color, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                
+                    pawn.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
+                        .onComplete += () =>
+                    {
+                        pawn.Deconstruct();
+                    };
+                }
+
+                SpawnMergedPawn(spawnPlace, totalPoint);
+
+                ScoreBoard.THIS.Score += totalPoint;
             }
         }
 
-        public void MarkNewMovers(int startLine)
+        public void MarkAllMover(int startLine)
         {
-            SetAllFrontFree(true);
-
             Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
             {
-
                 if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
                 {
-                    // place.Current.MoveUntilForward = true;
+                    place.Current.MOVER = true;
                 }
             });
         }
         
-        public void MarkNewMovers(int x, int y)
+        public void MarkMovers(int x, int y)
         {
-            _frontBlockers[x] = true;
-
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-
+        
                 if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
-                    // place.Current.UpcomingMover = true;
-                    // UnityEditor.EditorApplication.isPaused = true;
+                    place.Current.MOVER = true;
                 }
             });
         }
 
-        public void GiveBullet()
+        public int ConsumeBullet()
         {
             int totalAmmo = 0;
             CallRow<Place>(places, 0, (place, horizontalIndex) =>
             {
-                // if (place.Current && place.Current.CanShoot && place.Current.Merger)
-                // {
-                //     Pawn currentPawn = place.Current;
-                //     int ammo = 1;
-                //     currentPawn.Amount -= ammo;
-                //     if (currentPawn.Amount > 0)
-                //     {
-                //         currentPawn.PunchScale(-0.2f);
-                //     }
-                //     else
-                //     {
-                //         place.Current = null;
-                //         
-                //         currentPawn.Hide(currentPawn.Despawn);
-                //         
-                //         MarkNewMovers(place.index.x, place.index.y);
-                //     }
-                //
-                //     totalAmmo += ammo;
-                // }
+                if (place.Current && !place.Current.MOVER && place.Current.SHOOTER)
+                {
+                    Pawn currentPawn = place.Current;
+                    int ammo = 1;
+                    currentPawn.Amount -= ammo;
+                    if (currentPawn.Amount > 0)
+                    {
+                        currentPawn.PunchScale(-0.2f);
+                    }
+                    else
+                    {
+                        place.Current = null;
+                        
+                        currentPawn.Hide(currentPawn.Deconstruct);
+                        
+                        MarkMovers(place.index.x, place.index.y);
+                    }
+                
+                    totalAmmo += ammo;
+                }
             });
 
-            if (totalAmmo > 0)
-            {
-                Warzone.THIS.PlayerAttack(totalAmmo);
-            }
+            return totalAmmo;
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {
@@ -316,18 +274,23 @@ namespace Game
             });
         }
         
-        
-        
-        
-        
-        
         public void Place(Block block)
         {
             block.PlacedOnGrid = true;
-            foreach (var pawn in block.Pawns)
+            List<Pawn> temporary = new List<Pawn>(block.Pawns);
+            foreach (Pawn pawn in temporary)
             {
-                // pawn.MarkMoverColor();
-                GetPlace(pawn).Accept(pawn, 0.1f);
+                Pawn tempPawn = pawn;
+                Place place = GetPlace(tempPawn);
+                tempPawn.MOVER = true;
+                tempPawn.BUSY = true;
+
+                tempPawn.Tick = Board.THIS._tick;
+                place.Accept(tempPawn, 0.1f, () =>
+                {
+                    tempPawn.BUSY = false;
+                    place.Current.Check(place);
+                });
             }
         }
         private Place GetPlace(Pawn pawn)
@@ -395,6 +358,7 @@ namespace Game
                 {
                     return;
                 }
+
                 place.SetColor(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
             }
         }
