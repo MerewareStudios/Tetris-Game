@@ -10,15 +10,20 @@ namespace  Game
     public class Warzone : Singleton<Warzone>
     {
         [Header("Level")]
-        [System.NonSerialized] public LevelSo LevelData;
+        [System.NonSerialized] public Level.Data LevelData;
         [Header("Players")]
         [SerializeField] public Player Player;
         [Header("Zones")]
         [SerializeField] public Area Zone;
+        [SerializeField] public ParticleSystem bloodPS;
+        [System.NonSerialized] public ParticleSystem.MainModule psMain;
+        [System.NonSerialized] public ParticleSystem.ShapeModule psShape;
+        [System.NonSerialized] public Transform psTransform;
         //Routines
         [System.NonSerialized] private Coroutine spawnRoutine = null;
         [System.NonSerialized] public readonly List<Enemy> Enemies = new();
 
+        
         
     #region Warzone
         void Awake()
@@ -27,6 +32,10 @@ namespace  Game
             {
                 LevelManager.THIS.GameOver();
             };
+            
+            psMain = bloodPS.main;
+            psShape = bloodPS.shape;
+            psTransform = bloodPS.transform;
         }
     #endregion
 
@@ -34,7 +43,7 @@ namespace  Game
         public void EnemyKamikaze(Enemy enemy)
         {
             enemy.Kamikaze();
-            this.Player._DamageTaken = enemy.Damage;
+            this.Player._DamageTaken = enemy._Health;
         } 
         public void EnemyKilled(Enemy enemy)
         {
@@ -52,19 +61,29 @@ namespace  Game
             
             IEnumerator SpawnRoutine()
             {
-                float time = 0.0f;
                 
                 yield return new WaitForSeconds(LevelData.spawnDelay);
-                
-                while (true)
-                {
-                    float step = time / LevelData.totalDuration;
-                    
-                    
-                    Enemies.Add(SpawnEnemy());
 
-                    time += Time.deltaTime;
-                    yield return null;
+                int totalHealth = LevelData.totalHealth;
+                
+                while (totalHealth > 0)
+                {
+                    int health = 1;
+                    while (Helper.Possible(LevelData.mergeProbability)) //check
+                    {
+                        if (health >= LevelData.maxMerge)
+                        {
+                            break;
+                        }
+                        health++;
+                    }
+
+
+                    Enemies.Add(SpawnEnemy(health, LevelData.enemySpeed));
+
+                    totalHealth -= health;
+
+                    yield return new WaitForSeconds(LevelData.spawnInterval.Random());
                 }
             }
             
@@ -79,9 +98,10 @@ namespace  Game
                 spawnRoutine = null;
             }
         }
-        private Enemy SpawnEnemy()
+        private Enemy SpawnEnemy(int health, float speed)
         {
             Enemy enemy = Pool.Enemy.Spawn<Enemy>(this.transform);
+            enemy.Set(health, speed);
             enemy.OnSpawn(RandomSpawnPosition());
             return enemy;
         }
@@ -107,6 +127,16 @@ namespace  Game
         }
     #endregion
 
+        public void Emit(int amount, Vector3 position, Color color, float radius)
+        {
+            psTransform.position = position;
+
+            psMain.startColor = (Color)color;
+            psShape.radius = radius;
+        
+            bloodPS.Emit(amount);
+        }
+    
     #region IO
 
         public void Deconstruct()
@@ -137,35 +167,40 @@ namespace  Game
     }
 }
 
-// namespace  Level
-// {
-//     [System.Serializable]
-//     public class Data : ICloneable
-//     {
-//         
-//
-//                 
-//         public Data()
-//         {
-//             this.spawnDelay = 0.0f;
-//             this.totalHealth = 0;
-//             this.maxMerge = 1;
-//             this.speed = 1.0f;
-//             this.spawnWidth = 2.5f;
-//         }
-//         public Data(Data data)
-//         {
-//             this.spawnDelay = data.spawnDelay;
-//             this.totalHealth = data.totalHealth;
-//             this.maxMerge = data.maxMerge;
-//             this.speed = data.speed;
-//             // this.spawnInterval = data.spawnInterval;
-//             // this.time = data.time;
-//         }
-//
-//         public object Clone()
-//         {
-//             return new Data(this);
-//         }
-//     } 
-// }
+namespace  Level
+{
+    [System.Serializable]
+    public class Data : ICloneable
+    {
+        [SerializeField] public float spawnDelay = 0.0f; // delay of the spawn
+        [SerializeField] public int totalHealth = 100;
+        [Range(1, 5)] [SerializeField] public int maxMerge = 2;
+        [Range(0.0f, 0.9f)] [SerializeField] public float mergeProbability = 0.5f;
+        [SerializeField] public float enemySpeed = 1.0f;
+        [SerializeField] public float spawnWidth = 2.5f;
+        [SerializeField] public Vector2 spawnInterval;
+                
+        public Data()
+        {
+            this.spawnDelay = 0.0f;
+            this.totalHealth = 0;
+            this.maxMerge = 1;
+            this.enemySpeed = 1.0f;
+            this.spawnWidth = 2.5f;
+        }
+        public Data(Data data)
+        {
+            this.spawnDelay = data.spawnDelay;
+            this.totalHealth = data.totalHealth;
+            this.maxMerge = data.maxMerge;
+            this.enemySpeed = data.enemySpeed;
+            this.spawnWidth = data.spawnWidth;
+            this.spawnInterval = data.spawnInterval;
+        }
+
+        public object Clone()
+        {
+            return new Data(this);
+        }
+    } 
+}

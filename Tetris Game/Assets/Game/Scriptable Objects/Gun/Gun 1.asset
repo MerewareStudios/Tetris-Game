@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: 23
   holsterTransformData:
-    localPosition: {x: -0.041, y: 0.079, z: 0.042}
-    localEulerAngles: {x: 345.3343, y: 167.60696, z: 273.18408}
+    localPosition: {x: -0.054, y: 0.075, z: 0.042}
+    localEulerAngles: {x: 343.61597, y: 172.07562, z: 241.49704}
     localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
   defaultData:
     type: 0

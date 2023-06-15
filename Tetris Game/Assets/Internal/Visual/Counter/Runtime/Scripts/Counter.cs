@@ -17,12 +17,18 @@ namespace  Internal.Visuals
         public void Value(int current, float max)
         {
             text.text = current.ToString();
-            fill.fillAmount = current / max;
+            if (fill)
+            {
+                fill.fillAmount = current / max;
+            }
         }
         public void ValueAnimated(int current, float max)
         {
             text.text = current.ToString();
-            fill.fillAmount = current / max;
+            if (fill)
+            {
+                fill.fillAmount = current / max;
+            }
         }
     }
 }

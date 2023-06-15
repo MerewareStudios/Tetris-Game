@@ -14,10 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
+  enemyColors:
+  - {r: 1, g: 0.27679035, b: 0.18431371, a: 1}
+  - {r: 1, g: 0.47961238, b: 0.1830188, a: 1}
+  - {r: 1, g: 0.8564748, b: 0.18431371, a: 1}
+  - {r: 0.18431371, g: 1, b: 0.793827, a: 1}
+  - {r: 0.7459129, g: 0.18431371, b: 1, a: 1}
+  - {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   DefaultPlayerData:
     time: 0
     currentHealth: 1
     maxHealth: 1
+    turnRate: 6
     gunData:
       type: 0
       shootInterval: 1

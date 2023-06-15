@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 public class Const : SSingleton<Const>
 {
     public LevelSo[] Levels;
+    public Color[] enemyColors; // enemy colors
     [Header("Defaults")]
     [Header("Defaults/Player")] [SerializeField]
     public Player.Data DefaultPlayerData;
@@ -31,4 +32,12 @@ public class Const : SSingleton<Const>
     [Header("Combo")]
     public Color singleColor;
     public Color comboColor;
+}
+
+public static class ConstExtensions
+{
+    public static Color Health2Color(this int health)
+    {
+        return Const.THIS.enemyColors[health - 1];
+    } 
 }

@@ -2,15 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Internal.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace  Game
 {
     public class Enemy : MonoBehaviour
     {
+        [Header("Model")]
+        [SerializeField] public Transform modelPivot;
+        [SerializeField] private MeshRenderer meshRenderer;
         [Header("Stats")]
-        [SerializeField] public int Damage = 1;
-        [SerializeField] public float Speed = 1.0f;
+        [System.NonSerialized] private int health = 1;
+        [System.NonSerialized] private float speed = 1.0f;
         // Self references
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public System.Action OnRemoved = null;
@@ -22,7 +27,7 @@ namespace  Game
         }
         void Update()
         {
-            _thisTransform.position += _thisTransform.forward * (Time.deltaTime * Speed);
+            _thisTransform.position += _thisTransform.forward * (Time.deltaTime * _Speed);
             if (Warzone.THIS.Zone.IsOutside(_thisTransform))
             {
                 Warzone.THIS.EnemyKamikaze(this);
@@ -31,13 +36,47 @@ namespace  Game
     #endregion
 
     #region  Warzone
-    
+
+        public void Set(int healthValue, float speedValue)
+        {
+            _Health = healthValue;
+            _Speed = speedValue;
+        }
         public int _DamageTaken
         {
             set
             {
-                Warzone.THIS.EnemyKilled(this);
+                float radius = health * 0.1f;
+                Warzone.THIS.Emit(health * 5, transform.position, health.Health2Color(), radius);
+                _Health -= value;
+                if (_Health <= 0)
+                {
+
+                    Warzone.THIS.EnemyKilled(this);
+                }
             }
+        }
+        
+        public int _Health
+        {
+            set
+            {
+                health = value;
+                if (health > 0)
+                {
+                    modelPivot.localScale = Vector3.one * (1.0f + (health-1) * 0.75f);
+                    meshRenderer.SetColor(GameManager.MPB_ENEMY, "_BaseColor", health.Health2Color());
+                }
+            }
+            get => health;
+        }
+        public float _Speed
+        {
+            set
+            {
+                speed = value;
+            }
+            get => speed;
         }
     
         public void OnSpawn(Vector3 position)
@@ -62,7 +101,6 @@ namespace  Game
         public void Kill()
         {
             _thisTransform.DOKill();
-            Particle.BloodExplosion.Play(transform.position);
             Warzone.THIS.RemoveEnemy(this);
             this.Deconstruct();
         }

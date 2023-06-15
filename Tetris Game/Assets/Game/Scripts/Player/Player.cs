@@ -13,7 +13,6 @@ namespace Game
     {
         [Header("Motion Settings")]
         [SerializeField] private Animator _animator;
-        [SerializeField] private float turnRate = 6.0f;
         [SerializeField] private Transform holster;
         [System.NonSerialized] private Gun gun;
 
@@ -36,7 +35,7 @@ namespace Game
             var targetPosition = Warzone.THIS.Enemies[0].transform.position;
             Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
             float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
-            _currentAngle = Mathf.MoveTowardsAngle(_currentAngle, targetAngle, Time.deltaTime * turnRate);
+            _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate);
 
             transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 
@@ -91,45 +90,15 @@ namespace Game
         public void Shoot(int bulletCount)
         {
             int shootCount = Mathf.Min(bulletCount, Warzone.THIS.Enemies.Count);
-            
+
+            if (shootCount > 0)
+            {
+                _animator.SetTrigger(SHOOT_HASH);
+            }
             for (int i = 0; i < shootCount; i++)
             {
-                Shoot(Warzone.THIS.Enemies[i]);
+               gun.Shoot(Warzone.THIS.Enemies[i]);
             }
-        }
-        
-        public void Shoot(Enemy enemy)
-        {
-            _animator.SetTrigger(SHOOT_HASH);
-
-            Transform enemyTransform = enemy.transform;
-            Vector3 targetPosition = enemyTransform.position;
-
-            enemy.OnRemoved += () =>
-            {
-                enemyTransform = null;
-            };
-            
-            Transform bullet = Pool.Bullet.Spawn().transform;
-            bullet.DOKill();
-            bullet.transform.position = gun.muzzle.position;
-            Tween bulletTween = bullet.DOJump(enemyTransform.position, 2.0f, 1, 0.5f).SetEase(Ease.Linear);
-            bulletTween.onUpdate += () =>
-            {
-                if (enemyTransform)
-                {
-                    targetPosition = enemyTransform.position;
-                }
-                bulletTween.SetTarget(targetPosition);
-            };
-            bulletTween.onComplete += () =>
-            {
-                if (enemyTransform)
-                {
-                    enemy._DamageTaken = 1;
-                }
-                bullet.Despawn();
-            };
         }
 
         public void Deconstruct()
@@ -166,6 +135,7 @@ namespace Game
             [SerializeField] public float time;
             [SerializeField] public int currentHealth = 1;
             [SerializeField] public int maxHealth = 1;
+            [SerializeField] public float turnRate = 6.0f;
             [SerializeField] public Gun.Data gunData;
 
             
@@ -174,6 +144,7 @@ namespace Game
                 this.time = 0.0f;
                 this.currentHealth = 1;
                 this.maxHealth = 1;
+                this.turnRate = 6.0f;
                 this.gunData = null;
             }
             public Data(Data data)
@@ -181,6 +152,7 @@ namespace Game
                 this.time = data.time;
                 this.currentHealth = data.currentHealth;
                 this.maxHealth = data.maxHealth;
+                this.turnRate = data.turnRate;
                 this.gunData = data.gunData.Clone() as Gun.Data;
             }
 

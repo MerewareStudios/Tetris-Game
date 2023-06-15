@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using Game;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -18,6 +20,38 @@ public class Gun : MonoBehaviour
             transform.Set(_data.type.GetTransformData());
         }
         get => _data;
+    }
+    
+    public void Shoot(Enemy enemy)
+    {
+        Transform enemyTransform = enemy.transform;
+        Vector3 targetPosition = enemyTransform.position;
+
+        enemy.OnRemoved += () =>
+        {
+            enemyTransform = null;
+        };
+            
+        Transform bullet = Pool.Bullet.Spawn().transform;
+        bullet.DOKill();
+        bullet.transform.position = muzzle.position;
+        Tween bulletTween = bullet.DOJump(enemyTransform.position, 2.25f, 1, 0.45f).SetEase(Ease.Linear);
+        bulletTween.onUpdate += () =>
+        {
+            if (enemyTransform)
+            {
+                targetPosition = enemyTransform.position;
+            }
+            bulletTween.SetTarget(targetPosition);
+        };
+        bulletTween.onComplete += () =>
+        {
+            if (enemyTransform)
+            {
+                enemy._DamageTaken = 1;
+            }
+            bullet.Despawn();
+        };
     }
     
     [System.Serializable]
