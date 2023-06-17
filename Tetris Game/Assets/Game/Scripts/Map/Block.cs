@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,17 @@ namespace Game
         [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         [SerializeField] public Vector3 spawnerOffset;
         [System.NonSerialized] private Tween _motionTween;
-        [System.NonSerialized] private bool _busy = false;
+        [System.NonSerialized] public bool _busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
+
+        private void OnDrawGizmos()
+        {
+            foreach (var p in segmentTransforms)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawCube(p.position, Vector3.one * 0.9f);
+            }
+        }
 
         public void Construct()
         {
@@ -57,10 +67,6 @@ namespace Game
 
         public void Rotate()
         {
-            if (_busy)
-            {
-                return;
-            }
             _busy = true;
 
             _motionTween?.Kill();
@@ -79,10 +85,6 @@ namespace Game
         }
         public void Move(Vector3 position, float duration, Ease ease, bool speedBased = false)
         {
-            if (_busy)
-            {
-                return;
-            }
             _busy = true;
 
             _motionTween?.Kill();

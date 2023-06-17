@@ -151,18 +151,13 @@ namespace Internal.Core
             };
             return tween;
         }
-        public static Tween DoAlpha(this CanvasGroup canvasGroup, float targetAlpha, float duration, Ease ease, System.Action OnEnd = null)
+        public static Tween DoFade_IWI(this CanvasGroup canvasGroup, float targetAlpha, float duration, Ease ease, System.Action OnEnd = null)
         {
-            float value = 0.0f;
-            Tween tween = DOTween.To((x) => value = x, canvasGroup.alpha, targetAlpha, duration).SetEase(ease);
-            tween.onUpdate = () =>
-            {
-                canvasGroup.alpha = value;
-            };
+            Tween tween = canvasGroup.DOFade(targetAlpha, 0.35f).SetEase(ease);
             tween.onComplete = () =>
-            {
-                OnEnd?.Invoke();
-            };
+                {
+                    OnEnd?.Invoke();
+                };
             return tween;
         }
         public static string ToTMProKey(this string key)

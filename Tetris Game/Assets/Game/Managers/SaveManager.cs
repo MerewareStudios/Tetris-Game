@@ -1,6 +1,8 @@
 using Internal.Core;
 using System;
+using System.Collections.Generic;
 using Game;
+using Game.UI;
 using UnityEngine;
 
 public class SaveManager : SaveManagerBase<SaveManager>
@@ -19,24 +21,18 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.onboardingList = new bool[onboardingCount].Fill(true);
 
             saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
+            saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
         }
 
-        ScoreBoard.OnLoad = () => { return saveData.score; };
-        ScoreBoard.OnSave = (value) => { saveData.score = value; };
+        MoneyTransactor.THIS.Set(ref saveData.userData.moneyTransactionData);
+        ShopBar.THIS.Set(ref saveData.userData.shopFillTransactionData);
+        BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
 
         Warzone.THIS.Player._Data = saveData.playerData;
     }
     void Update()
     {
         saveData.playTime += Time.deltaTime;
-    }
-
-    public void SaveHighScore()
-    {
-        if (saveData.highScore > saveData.score)
-        {
-            saveData.highScore = saveData.score;
-        }
     }
 }
 public static class SaveManagerExtensions
@@ -53,17 +49,76 @@ public static class SaveManagerExtensions
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = true;
     }
+    
+    public static Pool RandomBlock(this Spawner spawner)
+    {
+        return SaveManager.THIS.saveData.userData.blockShopData.GetRandomBlock();
+    }
+    public static int CurrentLevel(this LevelManager levelManager)
+    {
+        return SaveManager.THIS.saveData.userData.level;
+    }
 }
 public partial class SaveData
 {
     [SerializeField] public bool saveGenerated = false;
     [SerializeField] public bool[] onboardingList;
     [SerializeField] public float playTime;
-    [SerializeField] public int score;
-    [SerializeField] public int highScore;
-    [SerializeField] public int level = 1;
     [SerializeField] public Player.Data playerData;
+    [SerializeField] public User.Data userData;
+
 }
+
+namespace User
+{
+    [System.Serializable]
+    public class TransactionData<T> : ICloneable
+    {
+        [SerializeField] public T value;
+
+        public TransactionData()
+        {
+            value = default(T);
+        }
+        public TransactionData(TransactionData<T> transaction)
+        {
+            this.value = transaction.value;
+        }
+        public object Clone()
+        {
+            return new User.TransactionData<T>(this);
+        }
+    } 
+    
+    [System.Serializable]
+    public class Data : ICloneable
+    {
+        [SerializeField] public int level = 1;
+        [SerializeField] public TransactionData<int> moneyTransactionData = new();
+        [SerializeField] public TransactionData<float> shopFillTransactionData = new();
+        [SerializeField] public BlockMenu.BlockShopData blockShopData;
+
+        
+        public Data()
+        {
+            
+        }
+        public Data(Data data)
+        {
+            level = data.level;
+            moneyTransactionData = data.moneyTransactionData.Clone() as TransactionData<int>;
+            shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
+            blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
+        }
+       
+
+        public object Clone()
+        {
+            return new User.Data(this);
+        }
+    } 
+}
+
 
 public enum ONBOARDING
 {

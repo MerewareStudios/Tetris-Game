@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 {
-    [System.NonSerialized] public SaveData saveData;
+    [SerializeField] public SaveData saveData;
     [SerializeField] public bool DELETE_AT_START;
 
     virtual public void Awake()

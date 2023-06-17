@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
-  enemyColors:
-  - {r: 1, g: 0.27679035, b: 0.18431371, a: 1}
-  - {r: 1, g: 0.47961238, b: 0.1830188, a: 1}
-  - {r: 1, g: 0.8564748, b: 0.18431371, a: 1}
-  - {r: 0.18431371, g: 1, b: 0.793827, a: 1}
-  - {r: 0.7459129, g: 0.18431371, b: 1, a: 1}
-  - {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
+  Guns:
+  - {fileID: 11400000, guid: d1c79da0ce1ea5147a9a36b9d8ee8a88, type: 2}
+  - {fileID: 11400000, guid: 5501d1ba9d774814a91727e3efef8f7b, type: 2}
+  - {fileID: 11400000, guid: 7e7ba5da3a5133b469a7306c289efe67, type: 2}
+  - {fileID: 11400000, guid: e8a3f88ed85fa5c4190de756478a6f68, type: 2}
+  - {fileID: 11400000, guid: cadf184367c68b6488c4410340ae412d, type: 2}
   DefaultPlayerData:
     time: 0
     currentHealth: 1
@@ -28,17 +27,104 @@ MonoBehaviour:
     turnRate: 6
     gunData:
       type: 0
-      shootInterval: 1
+      shootInterval: 1.5
       prevShoot: 0
-      maxShootPerTrigger: 1
-  GunSos:
-  - {fileID: 11400000, guid: d1c79da0ce1ea5147a9a36b9d8ee8a88, type: 2}
-  - {fileID: 11400000, guid: 5501d1ba9d774814a91727e3efef8f7b, type: 2}
-  - {fileID: 11400000, guid: 7e7ba5da3a5133b469a7306c289efe67, type: 2}
-  - {fileID: 11400000, guid: e8a3f88ed85fa5c4190de756478a6f68, type: 2}
-  - {fileID: 11400000, guid: cadf184367c68b6488c4410340ae412d, type: 2}
-  tickInterval: 0.3
-  blocks: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000012000000
+      split: 1
+  DefaultUserData:
+    level: 1
+    moneyTransactionData:
+      value: 0
+    shopFillTransactionData:
+      value: 0
+    blockShopData:
+      blockDatas:
+      - blockType: 3
+        purchased: 1
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000010000000100000000000000
+        upgradeIndex: 0
+      - blockType: 4
+        purchased: 1
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000001000000
+        upgradeIndex: 0
+      - blockType: 6
+        purchased: 1
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000100000001000000010000000100000000000000
+        upgradeIndex: 0
+      - blockType: 13
+        purchased: 1
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000010000000100000000000000000000000100000001000000
+        upgradeIndex: 0
+      - blockType: 10
+        purchased: 1
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000001000000
+        upgradeIndex: 0
+      - blockType: 2
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000
+        upgradeIndex: 0
+      - blockType: 5
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000010000000100000000000000010000000100000000000000
+        upgradeIndex: 0
+      - blockType: 7
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000000000000
+        upgradeIndex: 0
+      - blockType: 8
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000001000000
+        upgradeIndex: 0
+      - blockType: 9
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000
+        upgradeIndex: 0
+      - blockType: 11
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000000000000
+        upgradeIndex: 0
+      - blockType: 12
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000000000000
+        upgradeIndex: 0
+      - blockType: 14
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000010000000000000000000000000000000100000000000000
+        upgradeIndex: 0
+      - blockType: 15
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000000000001000000000000000100000000000000
+        upgradeIndex: 0
+      - blockType: 18
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000
+        upgradeIndex: 0
+      - blockType: 16
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000000000000000000000000000010000000000000001000000010000000000000001000000
+        upgradeIndex: 0
+      - blockType: 17
+        purchased: 0
+        basePrice: 25
+        lookUp: 000000000000000000000000010000000000000001000000010000000000000001000000010000000000000001000000
+        upgradeIndex: 0
+      unlockedBlocks: 0300000004000000060000000d0000000a000000
+      lastIndex: 5
   defaultColor: {r: 0.20300001, g: 0.5397007, b: 1, a: 1}
   steadyColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
   mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}
@@ -47,9 +133,16 @@ MonoBehaviour:
   - {r: 1, g: 0.28627452, b: 0.2, a: 1}
   - {r: 0.15100001, g: 0.15100001, b: 0.15100001, a: 1}
   mergerPlaceColor: {r: 0.3803922, g: 0.6423908, b: 1, a: 1}
+  enemyColors:
+  - {r: 1, g: 0.27679035, b: 0.18431371, a: 1}
+  - {r: 1, g: 0.47961238, b: 0.1830188, a: 1}
+  - {r: 1, g: 0.8564748, b: 0.18431371, a: 1}
+  - {r: 0.18431371, g: 1, b: 0.793827, a: 1}
+  - {r: 0.7459129, g: 0.18431371, b: 1, a: 1}
+  - {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
+  singleColor: {r: 0.25490198, g: 0.54901963, b: 0.95686275, a: 1}
+  comboColor: {r: 1, g: 0.4509804, b: 0.18039216, a: 1}
   rotationDuration: 0.15
   jumpDuration: 0.1875
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
-  singleColor: {r: 0.25490198, g: 0.54901963, b: 0.95686275, a: 1}
-  comboColor: {r: 1, g: 0.4509804, b: 0.18039216, a: 1}

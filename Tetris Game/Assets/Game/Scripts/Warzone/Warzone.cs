@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.UI;
 using Internal.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -61,8 +62,10 @@ namespace  Game
             
             IEnumerator SpawnRoutine()
             {
+                yield return new WaitForSeconds(LevelData.spawnDelay - 3);
                 
-                yield return new WaitForSeconds(LevelData.spawnDelay);
+                Countdown.THIS.Count(3);
+                yield return new WaitForSeconds(3);
 
                 int totalHealth = LevelData.totalHealth;
                 

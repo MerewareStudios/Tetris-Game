@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Gun : MonoBehaviour
 {
@@ -60,13 +61,13 @@ public class Gun : MonoBehaviour
         [SerializeField] public Type type;
         [SerializeField] public float shootInterval = 0.5f;
         [SerializeField] public float prevShoot = 0.0f;
-        [SerializeField] public int maxShootPerTrigger = 1;
+        [SerializeField] public int split = 1;
 
             
         public Data()
         {
             this.shootInterval = 0.5f;
-            this.maxShootPerTrigger = 1;
+            this.split = 1;
             this.prevShoot = 0.0f;
         }
         public Data(Data data)
@@ -74,7 +75,7 @@ public class Gun : MonoBehaviour
             this.type = data.type;
             this.shootInterval = data.shootInterval;
             this.prevShoot = data.prevShoot;
-            this.maxShootPerTrigger = data.maxShootPerTrigger;
+            this.split = data.split;
         }
 
         public object Clone()

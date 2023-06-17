@@ -25,12 +25,12 @@ public static class GunSoExtension
 {
     public static Pool GetPrefab(this Gun.Type type)
     {
-        GunSo gunSo = Const.THIS.GunSos[(int)type];
+        GunSo gunSo = Const.THIS.Guns[(int)type];
         return gunSo.prefab;
     } 
     public static TransformData GetTransformData(this Gun.Type type)
     {
-        GunSo gunSo = Const.THIS.GunSos[(int)type];
+        GunSo gunSo = Const.THIS.Guns[(int)type];
         return gunSo.holsterTransformData;
     }
     public static void Set(this Transform transform, TransformData transformData)

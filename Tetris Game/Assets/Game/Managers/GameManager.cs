@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         Board.THIS.Construct();
-        // LevelManager.THIS.LoadLevel();
+        LevelManager.THIS.LoadLevel();
     }
     
     

@@ -24,13 +24,16 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
-    [System.NonSerialized] private bool _moving = false;
     [System.NonSerialized] private Vector3 _finalPosition;
     [System.NonSerialized] private Tween delayedTween;
+    [System.NonSerialized] private Tween assertionTween;
 
-    public void Begin()
+    public void Begin(float delay)
     {
-        _currentBlock = SpawnBlock();  
+        DOVirtual.DelayedCall(delay, () =>
+        {
+            _currentBlock = SpawnBlock();  
+        });
     }
     public void Deconstruct()
     {
@@ -50,58 +53,73 @@ public class Spawner : Singleton<Spawner>
         Vector3 direction = CameraManager.THIS.gameCamera.transform.forward;
         return Physics.Raycast(touchWorld, direction, 100.0f, spawnerLayer);
     }
-    public void ScreenDown(Vector3 screenPosition)
+    public void Input_OnDown()
     {
-        if (!IsTouchingSpawner(screenPosition) || !_currentBlock)
+        if (!IsTouchingSpawner(Input.mousePosition) || !_currentBlock)
         {
             return;
         }
-        _grabbedBlock = true;
-        _moveRoutine = StartCoroutine(MoveRoutine());
-    }
-    public void ScreenTap(Vector3 screenPosition)
-    {
-        AnimateTap();
-        if (_grabbedBlock)
+
+        assertionTween = DOVirtual.DelayedCall(0.15f, null);
+        assertionTween.onComplete += () =>
         {
+            _grabbedBlock = true;
+
+            UpdateTargetPosition();
+            
+            _moveRoutine = StartCoroutine(MoveRoutine());
+        };
+    }
+    public void Input_OnClick()
+    {
+        if (!IsTouchingSpawner(Input.mousePosition) || !_currentBlock || _grabbedBlock)
+        {
+            return;
+        }
+
+        if (!_currentBlock._busy)
+        {
+            AnimateTap();
             _currentBlock.Rotate();
         }
     }
-    public void Move(Vector3 touchPosition)
+    public void Input_OnDrag()
     {
+        assertionTween?.Kill(true);
         if (!_grabbedBlock)
         {
             return;
         }
 
-        _finalPosition = spawnedBlockLocation.position;
+        UpdateTargetPosition();
 
-        Vector2 viewPortTouch = CameraManager.THIS.gameCamera.ScreenToViewportPoint(touchPosition);
+
+        Board.THIS.Dehighlight();
+        Board.THIS.HighlightPawnOnGrid(_currentBlock);
+    }
+
+    private void UpdateTargetPosition()
+    {
+        Vector2 viewPortTouch = CameraManager.THIS.gameCamera.ScreenToViewportPoint(Input.mousePosition);
         float distanceMultiplier = (Mathf.Abs(viewPortTouch.x - 0.5f) + 1.0f) * horSense;
 
-        Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(touchPosition);
+        Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         worldPosition.x *= distanceMultiplier;
 
         if (Physics.Raycast(worldPosition, CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridCheckLayer))
         {
             _finalPosition = hit.point + distanceFromDraggingFinger;
         }
-
-        _moving = true;
-
-
-        Board.THIS.Dehighlight();
-        Board.THIS.HighlightPawnOnGrid(_currentBlock);
     }
-    public void Release()
+    public void Input_OnUp()
     {
         if (!GameManager.PLAYING)
         {
             return;
         }
+        assertionTween?.Kill();
         if (_moveRoutine != null)
         {
-            _moving = false;
             StopCoroutine(_moveRoutine);
             _moveRoutine = null;
         }
@@ -139,10 +157,7 @@ public class Spawner : Singleton<Spawner>
     {
         while (true)
         {
-            if (_moving)
-            {
-                _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 22.0f);
-            }
+            _currentBlock.transform.position = Vector3.Slerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 18.0f);
             yield return null;
         }
     }
@@ -159,7 +174,7 @@ public class Spawner : Singleton<Spawner>
     private List<Block> _spawnedBlocks = new();
     private Block SpawnBlock()
     {
-        Pool pool = Const.THIS.blocks.Random<Pool>();
+        Pool pool = this.RandomBlock();
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;

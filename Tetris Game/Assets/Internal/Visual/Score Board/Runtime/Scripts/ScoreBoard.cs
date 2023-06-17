@@ -15,18 +15,18 @@ public class ScoreBoard : Singleton<ScoreBoard>
     public delegate void Save(int amount);
     public static Save OnSave;
 
-    public int Score
-    {
-        get => OnLoad.Invoke();
-        set
-        {
-            OnSave.Invoke(value);
-
-            scoreText.text = value.ToString();
-            
-            Punch(0.25f);
-        }
-    }
+    // public int Score
+    // {
+    //     get => OnLoad.Invoke();
+    //     set
+    //     {
+    //         OnSave.Invoke(value);
+    //
+    //         scoreText.text = value.ToString();
+    //         
+    //         Punch(0.25f);
+    //     }
+    // }
 
     private void Punch(float amount)
     {

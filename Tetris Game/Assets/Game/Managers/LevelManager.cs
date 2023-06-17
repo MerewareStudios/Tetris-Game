@@ -12,7 +12,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             return;
         }
-        SaveManager.THIS.SaveHighScore();
+        // SaveManager.THIS.SaveHighScore();
         
         GameManager.PLAYING = false;
         GameManager.THIS.Deconstruct();
@@ -22,16 +22,16 @@ public class LevelManager : Singleton<LevelManager>
     {
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
-        Spawner.THIS.Begin();
+        Spawner.THIS.Begin(0.45f);
 
-        Warzone.THIS.LevelData = SaveManager.THIS.saveData.level.GetLevelSo();
+        Warzone.THIS.LevelData = this.CurrentLevel().GetLevelSo();
         Warzone.THIS.Begin();
     }
     
     public void ReLoadLevel()
     {
         GameManager.THIS.Deconstruct();
-        ScoreBoard.THIS.Score = 0;
+        // ScoreBoard.THIS.Score = 0;
         Warzone.THIS.Reset();
         LoadLevel();
     }

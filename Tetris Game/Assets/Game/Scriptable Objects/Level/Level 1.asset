@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   LevelData:
-    spawnDelay: 0
+    spawnDelay: 6
     totalHealth: 50
     maxMerge: 1
     mergeProbability: 0.096

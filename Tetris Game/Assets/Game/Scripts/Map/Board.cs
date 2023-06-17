@@ -135,6 +135,9 @@ namespace Game
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(0.6f, () => mergedPawn.SHOOTER = true);
             
+            ShopBar.THIS.Amount += level * 0.01f;
+
+            
             UIManager.THIS.ft_TF2.FlyWorld("+" + level, mergedPawnPosition + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);
             Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
         }
@@ -196,7 +199,7 @@ namespace Game
 
                 SpawnMergedPawn(spawnPlace, totalPoint);
 
-                ScoreBoard.THIS.Score += totalPoint;
+                // ScoreBoard.THIS.Score += totalPoint;
             }
         }
 
@@ -354,12 +357,10 @@ namespace Game
             foreach (var pawn in block.Pawns)
             {
                 (Place place, bool canPlace) = Project(pawn);
-                if (place == null)
+                if (place != null)
                 {
-                    return;
+                    place.SetColor(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
                 }
-
-                place.SetColor(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
             }
         }
         private bool CanPlacePawnOnGrid(Pawn pawn)
