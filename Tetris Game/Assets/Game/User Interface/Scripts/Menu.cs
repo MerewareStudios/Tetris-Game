@@ -17,6 +17,7 @@ namespace Game.UI
 
         public virtual Menu<T> Open()
         {
+            Time.timeScale = 0.0f;
             canvas.enabled = true;
             canvasGroup.alpha = 0.0f;
             _blocker.raycastTarget = true;
@@ -24,7 +25,7 @@ namespace Game.UI
             showTween = canvasGroup.DoFade_IWI(1.0f, 0.5f, Ease.InOutSine, () =>
             {
                 _blocker.raycastTarget = false;
-            });
+            }).SetUpdate(true);
             return this;
         }
         
@@ -32,10 +33,11 @@ namespace Game.UI
         {
             _blocker.raycastTarget = true;
             showTween?.Kill();
-            showTween = canvasGroup.DoFade_IWI(1.0f, 0.35f, Ease.InOutSine, () =>
+            showTween = canvasGroup.DoFade_IWI(0.0f, 0.25f, Ease.InOutSine, () =>
             {
                 canvas.enabled = false;  
-            });
+                Time.timeScale = 1.0f;
+            }).SetUpdate(true);
             return this;
         }
     }

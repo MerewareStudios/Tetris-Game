@@ -8,6 +8,7 @@ using UnityEngine;
 public class SaveManager : SaveManagerBase<SaveManager>
 {
     [SerializeField] public bool SKIP_ONBOARDING = true;
+
     public override void Awake()
     {
         base.Awake();
@@ -29,10 +30,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
 
         Warzone.THIS.Player._Data = saveData.playerData;
-    }
-    void Update()
-    {
-        saveData.playTime += Time.deltaTime;
     }
 }
 public static class SaveManagerExtensions

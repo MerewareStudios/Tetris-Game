@@ -8,8 +8,6 @@ using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
-   [Header("Menus")]
-   [SerializeField] public BlockMenu blockMenu;
    [Header("Counters")]
    [SerializeField] public Counter healthCounter;
    [Header("Flying Text")]
@@ -27,6 +25,7 @@ public class UIManager : Singleton<UIManager>
 
    public void OpenShop()
    {
-      blockMenu.Open();
+      // blockMenu.Open();
+      WeaponMenu.THIS.Open();
    }
 }

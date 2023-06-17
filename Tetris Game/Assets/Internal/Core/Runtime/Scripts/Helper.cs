@@ -153,7 +153,7 @@ namespace Internal.Core
         }
         public static Tween DoFade_IWI(this CanvasGroup canvasGroup, float targetAlpha, float duration, Ease ease, System.Action OnEnd = null)
         {
-            Tween tween = canvasGroup.DOFade(targetAlpha, 0.35f).SetEase(ease);
+            Tween tween = canvasGroup.DOFade(targetAlpha, duration).SetEase(ease);
             tween.onComplete = () =>
                 {
                     OnEnd?.Invoke();

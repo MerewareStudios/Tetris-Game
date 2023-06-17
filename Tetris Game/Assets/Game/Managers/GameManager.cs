@@ -8,7 +8,8 @@ public class GameManager : Singleton<GameManager>
     [System.NonSerialized] public static MaterialPropertyBlock MPB_PAWN;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_ENEMY;
     [System.NonSerialized] public static bool PLAYING = false;
-    
+    private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
+
     void Awake()
     {
         MPB_PAWN = new();
@@ -19,6 +20,12 @@ public class GameManager : Singleton<GameManager>
     {
         Board.THIS.Construct();
         LevelManager.THIS.LoadLevel();
+    }
+    
+    void Update()
+    {
+        SaveManager.THIS.saveData.playTime += Time.deltaTime;
+        Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
     }
     
     

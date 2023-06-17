@@ -35,6 +35,11 @@ namespace Game.UI
             return base.Open();
         }
 
+        public void OnClick_Close()
+        {
+            base.Close();
+        }
+
         private void Show()
         {
             int showIndex = _blockShopData.lastIndex;
@@ -61,7 +66,7 @@ namespace Game.UI
         {
             priceTextPivot.DOKill();
             priceTextPivot.localScale = Vector3.one;
-            priceTextPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1);
+            priceTextPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
         
         public void OnClick_ShowPrevious()

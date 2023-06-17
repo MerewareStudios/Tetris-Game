@@ -45,6 +45,6 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
     {
         animationPivot.DOKill();
         animationPivot.localScale = Vector3.one;
-        animationPivot.DOPunchScale(Vector3.one * amount, 0.35f, 1);
+        animationPivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);
     }
 }
