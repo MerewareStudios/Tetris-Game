@@ -25,18 +25,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986352202362760288}
-  m_LocalRotation: {x: 0, y: 0, z: -0.16200005, w: 0.9867908}
+  m_LocalRotation: {x: 0, y: 0, z: 0.16199994, w: 0.9867908}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8220688171497981974}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -18.646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18.646}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 130, y: 97}
-  m_SizeDelta: {x: 175, y: 175}
+  m_AnchoredPosition: {x: -126, y: 86}
+  m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3397928065826177917
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 96c75d6bfce4b7441a9d8a2c26b29b5e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8648528b33f9367438af35751b97017f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY
+  m_text: SPEND
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e21d9fa883341484f8393b51730ca170, type: 2}
   m_sharedMaterial: {fileID: -4918373443893110478, guid: e21d9fa883341484f8393b51730ca170,
@@ -170,8 +170,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 86.2
-  m_fontSizeBase: 86.2
+  m_fontSize: 77.26
+  m_fontSizeBase: 77.26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 0
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -29.5, z: 0, w: 0}
+  m_margin: {x: 0, y: -17.1, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -251,7 +251,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -293.99994, y: -467.99988}
-  m_SizeDelta: {x: 408.45, y: 194.6}
+  m_SizeDelta: {x: 352, y: 194.6}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3392748431072949303
 CanvasRenderer:
@@ -334,4 +334,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9088445916721556834}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Game.UI.BlockMenu, Assembly-CSharp
+        m_MethodName: PurchaseWithMoney
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
