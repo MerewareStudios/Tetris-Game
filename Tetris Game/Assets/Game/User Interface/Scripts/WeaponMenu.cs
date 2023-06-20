@@ -5,6 +5,7 @@ using DG.Tweening;
 using Internal.Core;
 using Internal.Visuals;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using User;
@@ -14,14 +15,15 @@ namespace Game.UI
 {
     public class WeaponMenu : Menu<WeaponMenu>
     {
-        [SerializeField] private RectTransform priceTextPivot;
-        [SerializeField] private TextMeshProUGUI priceText;
-        [SerializeField] private Image frame;
-        [SerializeField] private Color upgradeColor, purchaseColor;
-        [SerializeField] private TextMeshProUGUI upgradeText;
+        [Header("Stage Bars")]
+        [SerializeField] private StageBar stageBarFireRate;
+        [SerializeField] private StageBar stageBarSplitShot;
+        [SerializeField] private StageBar stageBarDamage;
+        [SerializeField] private Image gunImage;
+
         [System.NonSerialized] private WeaponShopData _weaponShopData;
-        [System.NonSerialized] private System.Action _purchaseAction = null;
-        // [System.NonSerialized] private BlockData _blockData;
+        [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
+        [System.NonSerialized] public System.Action<Gun.Data> OnGunDataChanged = null;
 
         public void Set(ref WeaponShopData _weaponShopData)
         {
@@ -41,89 +43,140 @@ namespace Game.UI
 
         private void Show()
         {
-            // int showIndex = _blockShopData.lastIndex;
-            // this._blockData = _blockShopData.blockDatas[showIndex];
+            int gunIndex = _weaponShopData.gunIndex;
             
-            // SetPrice(_blockData.basePrice);
+            _gunUpgradeData = Const.THIS.GunUpgradeData[gunIndex];
+            
+            SetSprite(_gunUpgradeData.sprite);
 
-            // frame.color = _blockData.purchased ? upgradeColor : purchaseColor;
-            // upgradeText.gameObject.SetActive(_blockData.purchased);
+            FillStageBar(_gunUpgradeData.stageData_Firerate, stageBarFireRate, _weaponShopData.fireRateIndex);
+            FillStageBar(_gunUpgradeData.stageData_Splitshot, stageBarSplitShot, _weaponShopData.splitShotIndex);
+            FillStageBar(_gunUpgradeData.stageData_Damage, stageBarDamage, _weaponShopData.damageIndex);
         }
 
-        public void OnClick_ShowNext()
+        private void FillStageBar<T>(StageBar.StageData<T>[] stageDatas, StageBar stageBar, int currentIndex)
         {
-            // _blockShopData.lastIndex++;
-            // if (_blockShopData.lastIndex >= _blockShopData.blockDatas.Count)
-            // {
-            //     _blockShopData.lastIndex = 0;
-            // }
-            Show();
+            StageBar.StageData<T> stageData = stageDatas[currentIndex];
+            
+            bool max = currentIndex >= stageDatas.Length - 1;
+            int price = max ? 0 : (stageData.purchaseType.Equals(PurchaseType.Ad) ? -1 : stageData.price);
+            
+            stageBar
+                .SetTopInfo(stageData.value.ToString())
+                .SetPurchaseType(stageData.purchaseType)
+                .SetPrice(price)
+                .SetBars(stageDatas.Length - 1, currentIndex)
+                .SetUsable(!max);
         }
         
-        private void PunchMoney(float amount)
+        public void SetSprite(Sprite sprite)
         {
-            priceTextPivot.DOKill();
-            priceTextPivot.localScale = Vector3.one;
-            priceTextPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
-        }
-        
-        public void OnClick_ShowPrevious()
-        {
-            // _blockShopData.lastIndex--;
-            // if (_blockShopData.lastIndex < 0)
-            // {
-            //     _blockShopData.lastIndex = _blockShopData.blockDatas.Count - 1;
-            // }
-            Show();
+            gunImage.sprite = sprite;
         }
 
-        private void SetPrice(int amount)
+        private void Upgrade(Gun.StatType statType)
         {
-            priceText.text = "COIN".ToTMProKey() + amount;
-            PunchMoney(0.15f);
-        }
-       
-
-        private void OnPurchase()
-        {
-            _purchaseAction?.Invoke();
-            // _ = _blockData.purchased ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
-            Show();
-        }
-
-        public void PurchaseWithMoney()
-        {
-            // if (MoneyTransactor.THIS.Transaction(_blockData.basePrice))
-            // {
-            //     OnPurchase();
-            // }
-        }
-        public void PurchaseWithAd()
-        {
-            Debug.LogWarning("Watch Ad - Not Implemented, price given");
-            if (true)
+            switch (statType)
             {
-                OnPurchase();
+                case Gun.StatType.Firerate:
+                    _weaponShopData.fireRateIndex++;
+                    break;
+                case Gun.StatType.Splitshot:
+                    _weaponShopData.splitShotIndex++;
+                    break;
+                case Gun.StatType.Damage:
+                    _weaponShopData.damageIndex++;
+                    break;
+            }
+
+            if (_gunUpgradeData.IsAllFull(_weaponShopData.fireRateIndex, _weaponShopData.splitShotIndex, _weaponShopData.damageIndex))
+            {
+                _weaponShopData.gunIndex++;
+                _weaponShopData.Refresh();
+            }
+
+            Gun.Type gunType = _gunUpgradeData.gunType;
+            float fireRate = _gunUpgradeData.stageData_Firerate[_weaponShopData.fireRateIndex].value;
+            int split = _gunUpgradeData.stageData_Splitshot[_weaponShopData.splitShotIndex].value;
+            int damage = _gunUpgradeData.stageData_Damage[_weaponShopData.damageIndex].value;
+
+            Gun.Data gunData = new(gunType, fireRate, split, damage);
+            
+            OnGunDataChanged?.Invoke(gunData);
+        }
+
+        private int GetPrice(Gun.StatType statType)
+        {
+            switch (statType)
+            {
+                case Gun.StatType.Firerate:
+                    return _gunUpgradeData.stageData_Firerate[_weaponShopData.fireRateIndex].price;
+                case Gun.StatType.Splitshot:
+                    return _gunUpgradeData.stageData_Splitshot[_weaponShopData.splitShotIndex].price;
+                case Gun.StatType.Damage:
+                    return _gunUpgradeData.stageData_Damage[_weaponShopData.damageIndex].price;
+            }
+
+            Debug.LogError("Stat type is missing");
+            return -1;
+        }
+        
+        private void OnPurchase(Gun.StatType statType)
+        {
+            Upgrade(statType);
+            Show();
+        }
+
+        public void OnClick_PurchaseWithMoney(int statType)
+        {
+            Gun.StatType type = (Gun.StatType)statType;
+
+            int price = GetPrice(type);
+            if (MoneyTransactor.THIS.Transaction(price))
+            {
+                OnPurchase(type);
             }
         }
         
-        
+        public void OnClick_PurchaseWithAd(int statType)
+        {
+            Gun.StatType type = (Gun.StatType)statType;
+
+            Debug.LogWarning("Watch Ad - Not Implemented, price given");
+            if (true)
+            {
+                OnPurchase(type);
+            }
+        }
+
+
         [System.Serializable]
         public class WeaponShopData : ICloneable
         {
-            // [SerializeField] public List<BlockData> blockDatas = new();
-            // [SerializeField] public List<Pool> unlockedBlocks = new();
-            // [SerializeField] public int lastIndex = 0;
+            [SerializeField] public int gunIndex;
+            [SerializeField] public int fireRateIndex;
+            [SerializeField] public int splitShotIndex;
+            [SerializeField] public int damageIndex;
 
             public WeaponShopData()
             {
                 
             }
-            public WeaponShopData(WeaponShopData blockShopData)
+            public WeaponShopData(WeaponShopData weaponShopData)
             {
-                // blockDatas.CopyFrom(blockShopData.blockDatas);
-                // unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
-                // lastIndex = blockShopData.lastIndex;
+                
+            }
+
+            public void Refresh()
+            {
+                fireRateIndex = 0;
+                splitShotIndex = 0;
+                damageIndex = 0;
+            }
+
+            public Gun.Data GetCurrentGunData()
+            {
+                return null;
             }
             
             public object Clone()
@@ -132,49 +185,6 @@ namespace Game.UI
             }
         } 
         
-        // [Serializable]
-        // public class BlockData : ICloneable
-        // {
-        //     [SerializeField] public Pool blockType;
-        //     [SerializeField] public bool purchased = false;
-        //     [SerializeField] public int basePrice;
-        //     [SerializeField] public int[] lookUp;
-        //     [SerializeField] public int upgradeIndex = -1;
-        //     
-        //     public BlockData()
-        //     {
-        //         
-        //     }
-        //     public BlockData(BlockData blockData)
-        //     {
-        //         this.purchased = blockData.purchased;
-        //         this.blockType = blockData.blockType;
-        //         this.basePrice = blockData.basePrice;
-        //         this.lookUp = blockData.lookUp.Clone() as int[];
-        //     }
-        //     public bool Upgrade()
-        //     {
-        //         for (int i = 0; i < lookUp.Length; i++)
-        //         {
-        //             if (lookUp[i] > 0 && i > upgradeIndex)
-        //             {
-        //                 lookUp[i]++;
-        //                 upgradeIndex = i;
-        //                 if (upgradeIndex >= lookUp.Length - 1)
-        //                 {
-        //                     upgradeIndex = -1;
-        //                 }
-        //                 return true;
-        //             }
-        //         }
-        //         upgradeIndex = -1;
-        //
-        //         return false;
-        //     }
-        //     public object Clone()
-        //     {
-        //         return new BlockData(this);
-        //     }
-        // }
+        
     }
 }

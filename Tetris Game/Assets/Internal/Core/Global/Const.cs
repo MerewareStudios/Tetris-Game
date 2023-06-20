@@ -17,6 +17,7 @@ public class Const : SSingleton<Const>
     [Header("Defaults")]
     public Player.Data DefaultPlayerData;
     public User.Data DefaultUserData;
+    public Gun.UpgradeData[] GunUpgradeData;
     
     [Header("Colors")] 
     public Color defaultColor;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DG.Tweening;
+using Game.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,6 +27,17 @@ namespace Game
 
 #region  Mono
 
+        void Start()
+        {
+            WeaponMenu.THIS.OnGunDataChanged += (newGunData) =>
+            {
+                newGunData.prevShoot = _GunData.prevShoot;
+                _GunData = newGunData;
+            };
+        }
+
+
+        private float prevShoot;
         void Update()
         {
             if (Warzone.THIS.Enemies.Count == 0)
@@ -41,11 +53,19 @@ namespace Game
 
             float angleDif = Mathf.Abs(_currentAngle - targetAngle);
 
-            if ((_Data.time - gun._Data.prevShoot > gun._Data.shootInterval) && angleDif <= 1.0f)
+            if ((_Data.time - gun._Data.prevShoot > gun._Data.fireRate) && angleDif <= 1.0f)
             {
-                int bulletCount = Board.THIS.ConsumeBullet();
+                int bulletCount = Board.THIS.ConsumeBullet(_data.gunData.split);
                 Shoot(bulletCount);
                 gun._Data.prevShoot = _Data.time;
+
+
+                float delay = Time.time - prevShoot;
+                if (delay < gun._Data.fireRate)
+                {
+                    Debug.Log(delay);
+                }
+                prevShoot = Time.time;
             }
 
             _Data.time += Time.deltaTime;
@@ -62,15 +82,26 @@ namespace Game
                 _selfPosition = new Vector2(pos.x, pos.z);
                 UIManager.THIS.healthCounter.Value(_data.currentHealth, _data.maxHealth);
 
+
+                _GunData = _data.gunData;
+            }
+            get => _data;
+        }
+        
+        public Gun.Data _GunData
+        {
+            set
+            {
+                _data.gunData = value;
                 if (gun)
                 {
                     gun.Despawn();
                 }
 
-                gun = _data.gunData.type.GetPrefab().Spawn<Gun>(holster);
+                gun = _data.gunData.gunType.GetPrefab().Spawn<Gun>(holster);
                 gun._Data = _data.gunData;
             }
-            get => _data;
+            get => _data.gunData;
         }
         
         public int _DamageTaken
@@ -80,7 +111,7 @@ namespace Game
                 _Data.currentHealth = Mathf.Clamp(_data.currentHealth - value, 0, _data.maxHealth);
                 UIManager.THIS.healthCounter.Value(_data.currentHealth, _data.maxHealth);
 
-                if (_Data.currentHealth == 0)
+                if (_Data.currentHealth <= 0)
                 {
                     OnDeath?.Invoke();
                 }

@@ -226,12 +226,12 @@ namespace Game
             });
         }
 
-        public int ConsumeBullet()
+        public int ConsumeBullet(int splitCount)
         {
             int totalAmmo = 0;
             CallRow<Place>(places, 0, (place, horizontalIndex) =>
             {
-                if (place.Current && !place.Current.MOVER && place.Current.SHOOTER)
+                if (splitCount > 0 && place.Current && !place.Current.MOVER && place.Current.SHOOTER)
                 {
                     Pawn currentPawn = place.Current;
                     int ammo = 1;
@@ -250,6 +250,7 @@ namespace Game
                     }
                 
                     totalAmmo += ammo;
+                    splitCount--;
                 }
             });
 

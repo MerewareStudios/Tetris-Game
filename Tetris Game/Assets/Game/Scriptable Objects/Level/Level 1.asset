@@ -16,7 +16,7 @@ MonoBehaviour:
     spawnDelay: 6
     totalHealth: 50
     maxMerge: 1
-    mergeProbability: 0.096
+    mergeProbability: 0
     enemySpeed: 0.1
     spawnWidth: 2.5
-    spawnInterval: {x: 1.25, y: 1.5}
+    spawnInterval: {x: 0.5, y: 1}

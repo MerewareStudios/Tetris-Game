@@ -24,12 +24,13 @@ MonoBehaviour:
     time: 0
     currentHealth: 1
     maxHealth: 1
-    turnRate: 6
+    turnRate: 12
     gunData:
-      type: 0
-      shootInterval: 1.5
+      gunType: 0
       prevShoot: 0
+      fireRate: 1
       split: 1
+      damage: 1
   DefaultUserData:
     level: 1
     moneyTransactionData:
@@ -125,6 +126,99 @@ MonoBehaviour:
         upgradeIndex: 0
       unlockedBlocks: 0300000004000000060000000d0000000a000000
       lastIndex: 5
+    waponShopData:
+      gunIndex: 0
+      fireRateIndex: 0
+      splitShotIndex: 0
+      damageIndex: 0
+  GunUpgradeData:
+  - gunType: 0
+    sprite: {fileID: 21300000, guid: fe865fda9640b704caec28070ed9bf72, type: 3}
+    stageData_Firerate:
+    - purchaseType: 1
+      value: 1
+      price: 0
+    - purchaseType: 0
+      value: 0.95
+      price: 10
+    - purchaseType: 0
+      value: 0.9
+      price: 15
+    stageData_Splitshot:
+    - purchaseType: 0
+      value: 1
+      price: 5
+    - purchaseType: 0
+      value: 2
+      price: 10
+    stageData_Damage:
+    - purchaseType: 0
+      value: 1
+      price: 5
+  - gunType: 1
+    sprite: {fileID: 21300000, guid: 1025e89981c54e349ac50e67cc58a432, type: 3}
+    stageData_Firerate:
+    - purchaseType: 1
+      value: 2
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    stageData_Splitshot:
+    - purchaseType: 0
+      value: 1
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    stageData_Damage:
+    - purchaseType: 0
+      value: 1
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+  - gunType: 1
+    sprite: {fileID: 21300000, guid: fed9751968c66f84fa5a234652125572, type: 3}
+    stageData_Firerate:
+    - purchaseType: 1
+      value: 2
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    stageData_Splitshot:
+    - purchaseType: 0
+      value: 1
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    stageData_Damage:
+    - purchaseType: 0
+      value: 1
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
+    - purchaseType: 0
+      value: 0
+      price: 0
   defaultColor: {r: 0.20300001, g: 0.5397007, b: 1, a: 1}
   steadyColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
   mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}

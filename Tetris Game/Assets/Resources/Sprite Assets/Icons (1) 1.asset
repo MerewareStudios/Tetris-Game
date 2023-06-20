@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: Icons (1)
+  m_Name: Icons (1) 1
   m_EditorClassIdentifier: 
   hashCode: 903910472
   material: {fileID: 1496604307541313997}
@@ -265,7 +265,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cb4ccaee0d7a9784fabcd1d2e5834104, type: 3}
+        m_Texture: {fileID: 2800000, guid: c25ddf5775af62342bb7c01e9170c539, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

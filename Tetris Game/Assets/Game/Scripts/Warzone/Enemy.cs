@@ -51,7 +51,6 @@ namespace  Game
                 _Health -= value;
                 if (_Health <= 0)
                 {
-
                     Warzone.THIS.EnemyKilled(this);
                 }
             }

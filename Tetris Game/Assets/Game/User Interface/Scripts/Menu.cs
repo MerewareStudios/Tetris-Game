@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -40,5 +41,14 @@ namespace Game.UI
             }).SetUpdate(true);
             return this;
         }
+        
+        
+    }
+    
+    [Serializable]
+    public enum PurchaseType
+    {
+        Money,
+        Ad,
     }
 }

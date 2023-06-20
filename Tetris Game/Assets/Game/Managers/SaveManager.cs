@@ -28,6 +28,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         MoneyTransactor.THIS.Set(ref saveData.userData.moneyTransactionData);
         ShopBar.THIS.Set(ref saveData.userData.shopFillTransactionData);
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
+        WeaponMenu.THIS.Set(ref saveData.userData.waponShopData);
 
         Warzone.THIS.Player._Data = saveData.playerData;
     }
@@ -94,6 +95,7 @@ namespace User
         [SerializeField] public TransactionData<int> moneyTransactionData = new();
         [SerializeField] public TransactionData<float> shopFillTransactionData = new();
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
+        [SerializeField] public WeaponMenu.WeaponShopData waponShopData;
 
         
         public Data()
@@ -106,6 +108,7 @@ namespace User
             moneyTransactionData = data.moneyTransactionData.Clone() as TransactionData<int>;
             shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
+            waponShopData = data.waponShopData.Clone() as WeaponMenu.WeaponShopData;
         }
        
 

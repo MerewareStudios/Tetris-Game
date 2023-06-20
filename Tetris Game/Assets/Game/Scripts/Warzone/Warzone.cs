@@ -177,7 +177,7 @@ namespace  Level
     {
         [SerializeField] public float spawnDelay = 0.0f; // delay of the spawn
         [SerializeField] public int totalHealth = 100;
-        [Range(1, 5)] [SerializeField] public int maxMerge = 2;
+        [Range(1, 6)] [SerializeField] public int maxMerge = 2;
         [Range(0.0f, 0.9f)] [SerializeField] public float mergeProbability = 0.5f;
         [SerializeField] public float enemySpeed = 1.0f;
         [SerializeField] public float spawnWidth = 2.5f;
