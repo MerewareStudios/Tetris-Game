@@ -20,9 +20,33 @@ namespace Game
         [System.NonSerialized] private int _amount = 1;
         [System.NonSerialized] public int Tick;
         
+        [System.NonSerialized] public bool MOVER = false;
+        [System.NonSerialized] public bool BUSY = false;
+        
+        [System.NonSerialized] public Pawn.Usage UsageType;
+        
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
         public bool Connected => ParentBlock;
+
+        public bool TextEnabled
+        {
+            set => levelText.enabled = value;
+        }
+
+        public enum Usage
+        {
+            Ammo,
+            Shooter,
+            ShooterIdle,
+            Heart,
+            Shield,
+            Vertical,
+            Horizontal,
+            Area,
+            Speed,
+        }
+        
 
         void Awake()
         {
@@ -35,8 +59,94 @@ namespace Game
             set
             {
                 this._amount = value;
-                levelText.text = value <= 1 ? (SHOOTER ? _amount.ToString() : "AMMO".ToTMProKey()) : _amount.ToString();
+                TextEnabled = true;
+                switch (UsageType)
+                {
+                    case Usage.Ammo:
+                        levelText.text = UsageType.ToString().ToTMProKey(_amount);
+                        break;
+                    case Usage.Shooter:
+                        levelText.text = _amount.ToString();
+                        break;
+                    case Usage.ShooterIdle:
+                        levelText.text = _amount.ToString();
+                        break;
+                    default:
+                        levelText.text = UsageType.ToString().ToTMProKey();
+                        break;
+                    // case Usage.Ammo:
+                    //     
+                    //     break;
+                    // case Usage.Hearth:
+                    //     
+                    //     break;
+                    // case Usage.Shield:
+                    //     
+                    //     break;
+                    // case Usage.Vertical:
+                    //     
+                    //     break;
+                    // case Usage.Horizontal:
+                    //     
+                    //     break;
+                    // case Usage.Area:
+                    //     
+                    //     break;
+                    // case Usage.Speed:
+                    //     
+                    //     break;
+                }
+                
+                // levelText.text = value <= 1 ? (SHOOTER ? _amount.ToString() : "AMMO".ToTMProKey()) : _amount.ToString();
             }
+        }
+
+        public void OnMerge()
+        {
+            UsageType = Pawn.Usage.Shooter;
+        }
+
+        public bool Unbox(float delay)
+        {
+            switch (UsageType)
+            {
+                case Usage.Ammo:
+                
+                    return true;
+                case Usage.Shooter:
+                
+                    return true;
+                case Usage.ShooterIdle:
+                    
+                    return true;
+                case Usage.Heart:
+                    TextEnabled = false;
+                    UIManager.THIS.ft_Icon.LerpHearth(levelText.transform.position, delay, 0.65f, endAction: () =>
+                    {
+                        Warzone.THIS.GiveHeart(_amount);
+                    });
+                    return false;
+                case Usage.Shield:
+                    TextEnabled = false;
+                    UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, 0.1f, 0.65f, endAction: () =>
+                    {
+                        Warzone.THIS.GiveShield(5.0f);
+                    });
+                    return false;
+                case Usage.Vertical:
+                    
+                case Usage.Horizontal:
+                    
+                    return false;
+                case Usage.Area:
+                    
+                    return false;
+                case Usage.Speed:
+                    
+                    return false;
+            }
+
+            return true;
         }
         
         public void Deconstruct()
@@ -47,7 +157,7 @@ namespace Game
 
             ParentBlock = null;
 
-            SHOOTER = false;
+            // SHOOTER = false;
             
             this.Despawn();
         }
@@ -92,7 +202,7 @@ namespace Game
         //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
         // }
         #endregion
-        public void AnimatedShow(float delay, System.Action complete)
+        public void AnimatedShow(float delay, System.Action complete = null)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
@@ -133,9 +243,7 @@ namespace Game
         }
 
 
-        [System.NonSerialized] public bool MOVER = false;
-        [System.NonSerialized] public bool BUSY = false;
-        [System.NonSerialized] public bool SHOOTER = false;
+
         
         public void MoveForward(Place checkerPlace, int tick, float moveDuration)
         {

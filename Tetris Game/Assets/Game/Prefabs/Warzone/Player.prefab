@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &893690963198883452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5552030829942023411}
+  m_Layer: 0
+  m_Name: Shiled Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5552030829942023411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893690963198883452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3900478727973480019}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1152286021564622067
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +61,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7750815909526555867}
+  - {fileID: 5552030829942023411}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,9 +77,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f91251cbd539ab448b9b3c97f2b7f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shield: {fileID: 0}
   _animator: {fileID: 1240445161471149592}
-  turnRate: 90
   holster: {fileID: 6218805647396707961}
+  shiledTarget: {fileID: 5552030829942023411}
+  _data:
+    time: 0
+    currentHealth: 1
+    maxHealth: 1
+    turnRate: 6
+    gunData:
+      gunType: 0
+      prevShoot: 0
+      fireRate: 0.5
+      split: 1
+      damage: 1
+    shieldData:
+      timeRemaining: 0.5
 --- !u!1001 &227018868375919224
 PrefabInstance:
   m_ObjectHideFlags: 0

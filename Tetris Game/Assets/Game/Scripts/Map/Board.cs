@@ -127,19 +127,23 @@ namespace Game
 
         private void SpawnMergedPawn(Place place, int level)
         {
-            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, place.transform.position, level);
-            Vector3 mergedPawnPosition = mergedPawn.transform.position;
+            Vector3 mergedPawnPosition = place.transform.position;
+            Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
+            if (level <= 0)
+            {
+                return;
+            }
+            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, mergedPawnPosition, level, Pawn.Usage.ShooterIdle);
             
             place.AcceptNow(mergedPawn);
 
             mergedPawn.MarkMergerColor();
-            mergedPawn.AnimatedShow(0.6f, () => mergedPawn.SHOOTER = true);
+            mergedPawn.AnimatedShow(0.6f, () => mergedPawn.OnMerge());
             
             ShopBar.THIS.Amount += level * 0.01f;
 
             
             UIManager.THIS.ft_TF2.FlyWorld("+" + level, mergedPawnPosition + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);
-            Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
         }
 
         public void MergeLines(List<int> lines, float duration)
@@ -157,6 +161,8 @@ namespace Game
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
 
+                float delay = 0.0f;
+
                 for (int i = 0; i < Size.x; i++)
                 {
                     int index = i;
@@ -169,8 +175,11 @@ namespace Game
                 
                     pawns.Add(place.Current);
 
-                    int point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
-                    totalPoint += point;
+                    if (place.Current.Unbox(delay += 0.025f))
+                    {
+                        int point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
+                        totalPoint += point;
+                    }
 
                     if (place.Current.Tick > highestTick)
                     {
@@ -179,7 +188,7 @@ namespace Game
                     }
                     else if(place.Current.Tick == highestTick)
                     {
-                        Helper.Random(() => mergeIndex = index);
+                        Helper.IsPossible(0.5f,() => mergeIndex = index);
                     }
                     place.Current = null;
                 }
@@ -198,8 +207,6 @@ namespace Game
                 }
 
                 SpawnMergedPawn(spawnPlace, totalPoint);
-
-                // ScoreBoard.THIS.Score += totalPoint;
             }
         }
 
@@ -231,7 +238,7 @@ namespace Game
             int totalAmmo = 0;
             CallRow<Place>(places, 0, (place, horizontalIndex) =>
             {
-                if (splitCount > 0 && place.Current && !place.Current.MOVER && place.Current.SHOOTER)
+                if (splitCount > 0 && place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                 {
                     Pawn currentPawn = place.Current;
                     int ammo = 1;

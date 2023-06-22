@@ -6,5 +6,6 @@ public enum Particle
     Ring = 3,
     Kamikaze = 4,
     Coin = 5,
+    Shield = 6,
 
 }

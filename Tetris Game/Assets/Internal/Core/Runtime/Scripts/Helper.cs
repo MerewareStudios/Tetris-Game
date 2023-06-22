@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -164,6 +165,15 @@ namespace Internal.Core
         {
             return "<sprite name=\"" + key + "\">";
         }
+        public static string ToTMProKey(this string key, int amount)
+        {
+            StringBuilder stringBuilder = new();
+            for (int i = 0; i < amount; i++)
+            {
+                stringBuilder.Append("<sprite name=\"" + key + "\">");
+            }
+            return stringBuilder.ToString();
+        }
         public static void SetAlpha(this Graphic graphics, float alpha)
         {
             Color color = graphics.color;
@@ -324,13 +334,7 @@ namespace Internal.Core
         {
             return new Color(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
         }
-        public static void Random(System.Action action)
-        {
-            if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f)
-            {
-                action.Invoke();
-            }
-        }
+        
         public static void Mimic(this Camera targetCamera, Camera copyFrom)
         {
             targetCamera.orthographic = copyFrom.orthographic;
@@ -463,14 +467,6 @@ namespace Internal.Core
             rawImage.rectTransform.sizeDelta = new Vector2(orgX, orgX / ratio);
         }
 
-        //public static Vector3 SplinePercent2Position(SplineComputer splineComputer, double percent)
-        //{
-        //    return splineComputer.Evaluate(percent).position;
-        //}
-        //public static SplineSample SplinePercent2Sample(SplineComputer splineComputer, double percent)
-        //{
-        //    return splineComputer.Evaluate(percent);
-        //}
         public static bool IsPossible(this float chance)
         {
             bool possible = UnityEngine.Random.Range(0.0f, 1.0f) < chance;
@@ -480,6 +476,13 @@ namespace Internal.Core
         {
             bool possible = UnityEngine.Random.Range(0.0f, max) < chance;
             return possible;
+        }
+        public static void IsPossible(float change, System.Action action)
+        {
+            if (Possible(change))
+            {
+                action.Invoke();
+            }
         }
         public static bool NotInRange(this List<Vector3> list, Vector3 position, float distance)
         {

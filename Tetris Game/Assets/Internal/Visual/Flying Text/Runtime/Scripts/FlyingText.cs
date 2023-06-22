@@ -68,4 +68,39 @@ public class FlyingText : MonoBehaviour
 
         sequence.onComplete += () => ReturnInstance.Invoke(text);
     }
+    
+    public void LerpScreen(string str, Vector3 screenStart, Vector3 screenEnd, float delay = 0.0f, float duration = 0.05f, System.Action endAction = null)
+    {
+        TextMeshProUGUI text = OnGetInstance.Invoke();
+        text.text = str;
+        //
+        RectTransform rectTransform = text.rectTransform;
+        rectTransform.SetParent(this.transform);
+        rectTransform.position = screenStart;
+        //
+        rectTransform.DOKill();
+        rectTransform.localScale = Vector3.one;
+        //
+        // text.color = Color.white;
+        //
+        // float scaleUpDuration = 0.25f;
+        // float fadeDuration = 0.2f;
+        //
+        // float scaleDuration = 0.25f;
+        // Tween scaleTween = rectTransform.DOScale(Vector3.one, scaleDuration).SetEase(Ease.InBack).SetDelay(delay);
+        Tween punchScale = rectTransform.DOScale(Vector3.one * 1.5f, 0.25f).SetEase(Ease.OutBack).SetDelay(delay);
+        Tween moveTween = rectTransform.DOMove(screenEnd, duration).SetEase(Ease.InBack).SetDelay(0.15f);
+        //
+        Sequence sequence = DOTween.Sequence();
+        // sequence.Append(scaleTween);
+        sequence.Append(punchScale);
+        sequence.Append(moveTween);
+        // sequence.Join(fadeTween);
+        //
+        sequence.onComplete += () =>
+        {
+            ReturnInstance.Invoke(text);
+            endAction?.Invoke();
+        };
+    }
 }

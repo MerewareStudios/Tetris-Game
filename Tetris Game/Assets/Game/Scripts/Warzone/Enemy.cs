@@ -92,7 +92,6 @@ namespace  Game
         {
             _thisTransform.DOKill();
             Particle.Kamikaze.Play(_thisTransform.position);
-            CameraManager.THIS.Shake();
             Warzone.THIS.RemoveEnemy(this);
             OnRemoved?.Invoke();
             this.Deconstruct();

@@ -21,8 +21,9 @@ public enum Pool
     Tree_I_Empty_Block = 18,
     Flying_Text___TF2 = 19,
     Flying_Text___Combo = 20,
-    Enemy = 21,
-    Bullet = 22,
-    Gun_1 = 23,
+    Flying_Text___Icon = 21,
+    Enemy = 22,
+    Bullet = 23,
+    Gun_1 = 24,
 
 }

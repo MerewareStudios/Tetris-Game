@@ -1,7 +1,9 @@
 using System;
 using DG.Tweening;
 using System.Collections.Generic;
+using Internal.Core;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -28,12 +30,19 @@ namespace Game
         {
             foreach (var target in segmentTransforms)
             {
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1);
+                Pawn.Usage usage = Pawn.Usage.Ammo;
+                Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, 1, usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();
                 Pawns.Add(pawn);
             }
+        }
+
+        private void OverrideUsage(out Pawn.Usage usage)
+        {
+            usage = Const.THIS.PowerUps.Random();
         }
 
         public void Deconstruct()

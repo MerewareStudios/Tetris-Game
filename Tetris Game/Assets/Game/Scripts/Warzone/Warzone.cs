@@ -44,6 +44,12 @@ namespace  Game
         public void EnemyKamikaze(Enemy enemy)
         {
             enemy.Kamikaze();
+            if (Player.shield._Data.timeRemaining > 0.0f)
+            {
+                Particle.Shield.Play(enemy.transform.position);
+                return;
+            }
+            CameraManager.THIS.Shake();
             this.Player._DamageTaken = enemy._Health;
         } 
         public void EnemyKilled(Enemy enemy)
@@ -167,8 +173,23 @@ namespace  Game
                 return transform.position.z < endLine;
             }
         }
+        
+    #region  Upgrades
+    
+        public void GiveHeart(int amount)
+        {
+            Player._HealthGained += amount;
+        }
+        public void GiveShield(float duration)
+        {
+            Player.shield._Protection += duration;
+        }
+
+    #endregion
     }
 }
+
+   
 
 namespace  Level
 {

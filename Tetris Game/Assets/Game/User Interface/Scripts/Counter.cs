@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace  Internal.Visuals
     {
 
         [SerializeField] private RectTransform animationPivot;
-        [SerializeField] private Image fill;
+        [SerializeField] public Image fill;
         [SerializeField] private TextMeshProUGUI text;
         
         public void Value(int current, float max)
@@ -19,10 +20,17 @@ namespace  Internal.Visuals
             text.text = current.ToString();
             fill.fillAmount = current / max;
         }
-        public void ValueAnimated(int current, float max)
+        public void ValueAnimated(int current, float max, float punch)
         {
-            text.text = current.ToString();
-            fill.fillAmount = current / max;
+            Value(current, max);
+            Punch(punch);
+        }
+
+        private void Punch(float amount)
+        {
+            animationPivot.DOKill();
+            animationPivot.localScale = Vector3.one;
+            animationPivot.DOPunchScale(Vector3.one * amount, 0.25f);
         }
     }
 }

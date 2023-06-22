@@ -12,9 +12,11 @@ namespace Game
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField] public Shield shield;
         [Header("Motion Settings")]
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform holster;
+        [SerializeField] public Transform shiledTarget;
         [System.NonSerialized] private Gun gun;
 
         [SerializeField] private Data _data;
@@ -84,6 +86,7 @@ namespace Game
 
 
                 _GunData = _data.gunData;
+                _ShieldData = _data.shieldData;
             }
             get => _data;
         }
@@ -104,6 +107,16 @@ namespace Game
             get => _data.gunData;
         }
         
+        public Shield.Data _ShieldData
+        {
+            set
+            {
+                _data.shieldData = value;
+                shield._Data = _data.shieldData;
+            }
+            get => _data.shieldData;
+        }
+        
         public int _DamageTaken
         {
             set
@@ -116,6 +129,15 @@ namespace Game
                     OnDeath?.Invoke();
                 }
             }
+        }
+        public int _HealthGained
+        {
+            set
+            {
+                _Data.currentHealth = value;
+                UIManager.THIS.healthCounter.ValueAnimated(_data.currentHealth, _data.maxHealth, 0.35f);
+            }
+            get => _Data.currentHealth;
         }
 
         public void Shoot(int bulletCount)
@@ -168,6 +190,7 @@ namespace Game
             [SerializeField] public int maxHealth = 1;
             [SerializeField] public float turnRate = 6.0f;
             [SerializeField] public Gun.Data gunData;
+            [SerializeField] public Shield.Data shieldData;
 
             
             public Data()
@@ -177,6 +200,7 @@ namespace Game
                 this.maxHealth = 1;
                 this.turnRate = 6.0f;
                 this.gunData = null;
+                this.shieldData = null;
             }
             public Data(Data data)
             {
@@ -185,6 +209,7 @@ namespace Game
                 this.maxHealth = data.maxHealth;
                 this.turnRate = data.turnRate;
                 this.gunData = data.gunData.Clone() as Gun.Data;
+                this.shieldData = data.shieldData.Clone() as Shield.Data;
             }
 
             public object Clone()

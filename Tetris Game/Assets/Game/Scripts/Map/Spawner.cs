@@ -188,13 +188,14 @@ public class Spawner : Singleton<Spawner>
     {
         _spawnedBlocks.Remove(block);
     }
-    public Pawn SpawnPawn(Transform parent, Vector3 position, int level)
+    public Pawn SpawnPawn(Transform parent, Vector3 position, int level, Pawn.Usage usageType)
     {
         Pawn pawn = Pool.Pawn.Spawn<Pawn>(parent);
         Transform pawnTransform = pawn.transform;
         pawnTransform.position = position;
         pawnTransform.localRotation = Quaternion.identity;
         pawnTransform.localScale = Vector3.one;
+        pawn.UsageType = usageType;
         pawn.Amount = level;
         return pawn;
     }
