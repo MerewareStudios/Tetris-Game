@@ -8,11 +8,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Internal.Core;
 
 public class StageBar : MonoBehaviour
 {
-    [TextArea][SerializeField] private String topTag;
-    [TextArea][SerializeField] private String prefix;
+    [SerializeField] private StatDisplay.Type statType;
     [SerializeField] private TextMeshProUGUI topInfoText;
     [SerializeField] private Color[] barColors; // Empty, Locked, Upgraded
     [SerializeField] private Image[] images;
@@ -24,7 +24,7 @@ public class StageBar : MonoBehaviour
     public StageBar SetTopInfo(string value)
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(topTag).Append(prefix).Append(value);
+        stringBuilder.Append(statType.ToString().ToUpper()).Append("\n").Append(statType.ToTMProKey()).Append(value);
         topInfoText.text = stringBuilder.ToString();
         return this;
     }

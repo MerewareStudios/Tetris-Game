@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Internal.Core;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer frontLineMR;
     [SerializeField] private ParticleSystem zonePs;
     [SerializeField] private Vector3 targetShowScale;
     [SerializeField] private Vector3 targetHideScale;
@@ -23,9 +25,13 @@ public class Shield : MonoBehaviour
                 zonePs.Play();
                 zonePs.transform.DOKill();
                 zonePs.transform.DOScale(targetShowScale, 0.35f).SetEase(Ease.OutBack);
+                
+                frontLineMR.SetGradient(0.0f, 1.0f, 0.5f, GameManager.MPB_FRONT, "_BaseColor", Const.THIS.frontLineGradient);
             }
             else
             {
+                frontLineMR.SetGradient(1.0f, 0.0f, 0.5f, GameManager.MPB_FRONT, "_BaseColor", Const.THIS.frontLineGradient);
+
                 zonePs.transform.DOKill();
                 zonePs.transform.DOScale(targetHideScale, 0.35f).SetEase(Ease.InBack).onComplete += () =>
                 {
@@ -70,16 +76,20 @@ public class Shield : MonoBehaviour
         {
             Enabled = true;
         }
+        
+        StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, Mathf.CeilToInt(_data.timeRemaining), true, true);
 
         delayTween?.Kill();
         delayTween = DOVirtual.DelayedCall(_data.timeRemaining, () =>
         {
             Enabled = false;
             _Data.timeRemaining = 0.0f;
+            StatDisplayArranger.THIS.Hide(StatDisplay.Type.Shield);
         });
         delayTween.onUpdate += () =>
         {
             _Data.timeRemaining -= Time.deltaTime;
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, Mathf.CeilToInt(_data.timeRemaining));
         };
     }
 

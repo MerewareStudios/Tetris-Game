@@ -9,8 +9,6 @@ using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
-   [Header("Counters")]
-   [SerializeField] public Counter healthCounter;
    [Header("Flying Text")]
    [SerializeField] public FlyingText ft_TF2;
    [SerializeField] public FlyingText ft_Combo;
@@ -42,7 +40,7 @@ public static class UIManagerExtensions
       Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
       Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
 
-      Vector3 screenEnd = UIManager.THIS.healthCounter.fill.rectTransform.position;
+      Vector3 screenEnd = StatDisplayArranger.THIS.ScreenPosition(StatDisplay.Type.Health);
       
       flyingText.LerpScreen("Heart".ToTMProKey(), screenStart, screenEnd, delay, duration, endAction);
    }

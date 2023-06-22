@@ -39,7 +39,6 @@ namespace Game
         }
 
 
-        private float prevShoot;
         void Update()
         {
             if (Warzone.THIS.Enemies.Count == 0)
@@ -60,14 +59,6 @@ namespace Game
                 int bulletCount = Board.THIS.ConsumeBullet(_data.gunData.split);
                 Shoot(bulletCount);
                 gun._Data.prevShoot = _Data.time;
-
-
-                float delay = Time.time - prevShoot;
-                if (delay < gun._Data.fireRate)
-                {
-                    Debug.Log(delay);
-                }
-                prevShoot = Time.time;
             }
 
             _Data.time += Time.deltaTime;
@@ -82,8 +73,7 @@ namespace Game
                 _data = value;
                 var pos = transform.position;
                 _selfPosition = new Vector2(pos.x, pos.z);
-                UIManager.THIS.healthCounter.Value(_data.currentHealth, _data.maxHealth);
-
+                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth);
 
                 _GunData = _data.gunData;
                 _ShieldData = _data.shieldData;
@@ -122,8 +112,8 @@ namespace Game
             set
             {
                 _Data.currentHealth = Mathf.Clamp(_data.currentHealth - value, 0, _data.maxHealth);
-                UIManager.THIS.healthCounter.Value(_data.currentHealth, _data.maxHealth);
-
+                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth);
+                
                 if (_Data.currentHealth <= 0)
                 {
                     OnDeath?.Invoke();
@@ -135,7 +125,7 @@ namespace Game
             set
             {
                 _Data.currentHealth = value;
-                UIManager.THIS.healthCounter.ValueAnimated(_data.currentHealth, _data.maxHealth, 0.35f);
+                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, true);
             }
             get => _Data.currentHealth;
         }

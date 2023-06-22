@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
     [System.NonSerialized] public static MaterialPropertyBlock MPB_PAWN;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_ENEMY;
+    [System.NonSerialized] public static MaterialPropertyBlock MPB_FRONT;
     [System.NonSerialized] public static bool PLAYING = false;
     private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
 
@@ -14,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     {
         MPB_PAWN = new();
         MPB_ENEMY = new();
+        MPB_FRONT = new();
     }
     
     void Start()

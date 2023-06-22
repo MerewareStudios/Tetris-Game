@@ -165,6 +165,10 @@ namespace Internal.Core
         {
             return "<sprite name=\"" + key + "\">";
         }
+        public static string ToTMProKey(this Enum eEnum)
+        {
+            return ToTMProKey(eEnum.ToString());
+        }
         public static string ToTMProKey(this string key, int amount)
         {
             StringBuilder stringBuilder = new();
@@ -421,6 +425,17 @@ namespace Internal.Core
             velocity.y = Mathf.Sin(a);
 
             return velocity * vI;
+        }
+        public static Tween SetGradient(this Renderer renderer, float fromValue, float toValue, float duration, MaterialPropertyBlock mpb, string key, Gradient gradient, int matIndex = 0)
+        {
+            float timeStep = 0.0f;
+            Tween tween = DOTween.To((x) => timeStep = x, fromValue, toValue, duration);
+            tween.onUpdate = () =>
+            {
+                renderer.SetColor(mpb, key, gradient.Evaluate(timeStep));
+            };
+            
+            return tween;
         }
         public static void SetFloat(this Renderer renderer, MaterialPropertyBlock mpb, string key, float value)
         {

@@ -29,6 +29,7 @@ public class Const : SSingleton<Const>
     public Color[] enemyColors; // enemy colors
     public Color singleColor;
     public Color comboColor;
+    public Gradient frontLineGradient;
     
     [Header("Values")] 
     public float rotationDuration = 0.15f;

@@ -1719,7 +1719,7 @@ PrefabInstance:
     - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
       propertyPath: prefix
-      value: '<sprite name="AMMO"> '
+      value: '<sprite name="Splitshot"> '
       objectReference: {fileID: 0}
     - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
@@ -1727,6 +1727,11 @@ PrefabInstance:
       value: 'SPLITSHOT
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: statType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3499355384162248556, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
@@ -2464,7 +2469,7 @@ PrefabInstance:
     - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
       propertyPath: prefix
-      value: '<sprite name="AMMO"> '
+      value: '<sprite name="Damage"> '
       objectReference: {fileID: 0}
     - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
@@ -2472,6 +2477,11 @@ PrefabInstance:
       value: 'DAMAGE
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: statType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3499355384162248556, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
@@ -3182,7 +3192,17 @@ PrefabInstance:
     - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
       propertyPath: prefix
-      value: '<sprite name="AMMO"> '
+      value: '<sprite name="Firerate"> '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: topTag
+      value: FIRERATE
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165058539210231992, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: statType
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3499355384162248556, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}

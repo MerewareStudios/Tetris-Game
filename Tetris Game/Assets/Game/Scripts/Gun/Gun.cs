@@ -19,6 +19,10 @@ public class Gun : MonoBehaviour
             _data = value;
             
             transform.Set(_data.gunType.GetTransformData());
+            
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Damage, _data.damage);
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Splitshot, _data.split);
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Firerate, (int)((_data.fireRate) * 100));
         }
         get => _data;
     }

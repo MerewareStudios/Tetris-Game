@@ -74,30 +74,7 @@ namespace Game
                     default:
                         levelText.text = UsageType.ToString().ToTMProKey();
                         break;
-                    // case Usage.Ammo:
-                    //     
-                    //     break;
-                    // case Usage.Hearth:
-                    //     
-                    //     break;
-                    // case Usage.Shield:
-                    //     
-                    //     break;
-                    // case Usage.Vertical:
-                    //     
-                    //     break;
-                    // case Usage.Horizontal:
-                    //     
-                    //     break;
-                    // case Usage.Area:
-                    //     
-                    //     break;
-                    // case Usage.Speed:
-                    //     
-                    //     break;
                 }
-                
-                // levelText.text = value <= 1 ? (SHOOTER ? _amount.ToString() : "AMMO".ToTMProKey()) : _amount.ToString();
             }
         }
 
@@ -128,7 +105,7 @@ namespace Game
                     return false;
                 case Usage.Shield:
                     TextEnabled = false;
-                    UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, 0.1f, 0.65f, endAction: () =>
+                    UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
                     {
                         Warzone.THIS.GiveShield(5.0f);
                     });
