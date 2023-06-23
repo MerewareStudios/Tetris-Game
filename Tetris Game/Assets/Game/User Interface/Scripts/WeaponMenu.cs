@@ -46,17 +46,21 @@ namespace Game.UI
             int gunIndex = _weaponShopData.gunIndex;
             
             _gunUpgradeData = Const.THIS.GunUpgradeData[gunIndex];
+            _gunUpgradeData.Init();
             
             SetSprite(_gunUpgradeData.sprite);
 
-            FillStageBar(_gunUpgradeData.stageData_Firerate, stageBarFireRate, _weaponShopData.fireRateIndex);
-            FillStageBar(_gunUpgradeData.stageData_Splitshot, stageBarSplitShot, _weaponShopData.splitShotIndex);
-            FillStageBar(_gunUpgradeData.stageData_Damage, stageBarDamage, _weaponShopData.damageIndex);
+            FillStageBar(Gun.StatType.Firerate, stageBarFireRate);
+            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot);
+            FillStageBar(Gun.StatType.Damage, stageBarDamage);
         }
 
-        private void FillStageBar<T>(StageBar.StageData<T>[] stageDatas, StageBar stageBar, int currentIndex)
+        private void FillStageBar(Gun.StatType statType, StageBar stageBar)
         {
-            StageBar.StageData<T> stageData = stageDatas[currentIndex];
+            int currentIndex = _weaponShopData.GetIndex(statType);
+
+            StageBar.StageData<int>[] stageDatas = _gunUpgradeData.stageDatas[(int)statType];
+            StageBar.StageData<int> stageData = stageDatas[currentIndex];
             
             bool max = currentIndex >= stageDatas.Length - 1;
             int price = max ? 0 : (stageData.purchaseType.Equals(PurchaseType.Ad) ? -1 : stageData.price);
@@ -69,58 +73,34 @@ namespace Game.UI
                 .SetUsable(!max);
         }
         
-        public void SetSprite(Sprite sprite)
+        private void SetSprite(Sprite sprite)
         {
             gunImage.sprite = sprite;
         }
 
         private void Upgrade(Gun.StatType statType)
         {
-            switch (statType)
-            {
-                case Gun.StatType.Firerate:
-                    _weaponShopData.fireRateIndex++;
-                    break;
-                case Gun.StatType.Splitshot:
-                    _weaponShopData.splitShotIndex++;
-                    break;
-                case Gun.StatType.Damage:
-                    _weaponShopData.damageIndex++;
-                    break;
-            }
+            _weaponShopData.AddIndex(statType, 1);
 
-            if (_gunUpgradeData.IsAllFull(_weaponShopData.fireRateIndex, _weaponShopData.splitShotIndex, _weaponShopData.damageIndex))
+            if (_gunUpgradeData.IsAllFull(_weaponShopData.upgradeIndexes))
             {
                 _weaponShopData.gunIndex++;
                 _weaponShopData.Refresh();
             }
 
-            Gun.Type gunType = _gunUpgradeData.gunType;
-            float fireRate = _gunUpgradeData.stageData_Firerate[_weaponShopData.fireRateIndex].value;
-            int split = _gunUpgradeData.stageData_Splitshot[_weaponShopData.splitShotIndex].value;
-            int damage = _gunUpgradeData.stageData_Damage[_weaponShopData.damageIndex].value;
-
-            Gun.Data gunData = new(gunType, fireRate, split, damage);
-            
-            OnGunDataChanged?.Invoke(gunData);
+            OnGunDataChanged?.Invoke(GetCurrentGunData());
         }
 
-        private int GetPrice(Gun.StatType statType)
+        private Gun.Data GetCurrentGunData()
         {
-            switch (statType)
-            {
-                case Gun.StatType.Firerate:
-                    return _gunUpgradeData.stageData_Firerate[_weaponShopData.fireRateIndex].price;
-                case Gun.StatType.Splitshot:
-                    return _gunUpgradeData.stageData_Splitshot[_weaponShopData.splitShotIndex].price;
-                case Gun.StatType.Damage:
-                    return _gunUpgradeData.stageData_Damage[_weaponShopData.damageIndex].price;
-            }
+            Gun.Type gunType = _gunUpgradeData.gunType;
+            int fireRate = _gunUpgradeData.Value(Gun.StatType.Firerate, _weaponShopData.GetIndex(Gun.StatType.Firerate));
+            int split = _gunUpgradeData.Value(Gun.StatType.Splitshot, _weaponShopData.GetIndex(Gun.StatType.Splitshot));
+            int damage = _gunUpgradeData.Value(Gun.StatType.Damage, _weaponShopData.GetIndex(Gun.StatType.Damage));
 
-            Debug.LogError("Stat type is missing");
-            return -1;
+            return new Gun.Data(gunType, fireRate, split, damage);
         }
-        
+
         private void OnPurchase(Gun.StatType statType)
         {
             Upgrade(statType);
@@ -131,7 +111,8 @@ namespace Game.UI
         {
             Gun.StatType type = (Gun.StatType)statType;
 
-            int price = GetPrice(type);
+            
+            int price = _gunUpgradeData.Price(type, _weaponShopData.GetIndex(type));
             if (MoneyTransactor.THIS.Transaction(price))
             {
                 OnPurchase(type);
@@ -154,24 +135,31 @@ namespace Game.UI
         public class WeaponShopData : ICloneable
         {
             [SerializeField] public int gunIndex;
-            [SerializeField] public int fireRateIndex;
-            [SerializeField] public int splitShotIndex;
-            [SerializeField] public int damageIndex;
+            [SerializeField] public int[] upgradeIndexes = new int[3];
 
             public WeaponShopData()
             {
                 
             }
+            public int GetIndex(Gun.StatType statType)
+            {
+                return upgradeIndexes[(int)statType];
+            }
+            public void AddIndex(Gun.StatType statType, int amount)
+            {
+                upgradeIndexes[(int)statType] += amount;
+            }
             public WeaponShopData(WeaponShopData weaponShopData)
             {
-                
+                upgradeIndexes = weaponShopData.upgradeIndexes.Clone() as int[];
             }
 
             public void Refresh()
             {
-                fireRateIndex = 0;
-                splitShotIndex = 0;
-                damageIndex = 0;
+                for (int i = 0; i < upgradeIndexes.Length; i++)
+                {
+                    upgradeIndexes[i] = 0;
+                }
             }
 
             public Gun.Data GetCurrentGunData()

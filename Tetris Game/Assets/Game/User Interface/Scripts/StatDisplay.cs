@@ -56,6 +56,10 @@ public class StatDisplay : MonoBehaviour
     
     public void Hide()
     {
+        if (!this.gameObject.activeSelf)
+        {
+            return;
+        }
         _currentValue = -1;
         animationPivot.DOKill();
         animationPivot.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutBack).onComplete += () =>
