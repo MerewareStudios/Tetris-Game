@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public FlyingText ft_TF2;
    [SerializeField] public FlyingText ft_Combo;
    [SerializeField] public FlyingText ft_Icon;
+   [System.NonSerialized] public static string COIN_TEXT = "<sprite name=\"Coin\">";
 
    void Awake()
    {
@@ -28,13 +29,18 @@ public class UIManager : Singleton<UIManager>
 
    public void OpenShop()
    {
-      // blockMenu.Open();
-      WeaponMenu.THIS.Open();
+      MenuNavigator.THIS.Open();
    }
+
+   
 }
 
 public static class UIManagerExtensions
 {
+   public static string CoinAmount(this int amount)
+   {
+      return UIManager.COIN_TEXT + amount;
+   }
    public static void LerpHearth(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
    {
       Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);

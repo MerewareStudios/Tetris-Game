@@ -50,7 +50,7 @@ public class ShopBar : Transactor<ShopBar, float>
         set
         {
             fillTween?.Kill();
-            fillTween = fill.DOFillAmount(value, 0.25f).SetEase(Ease.OutCirc);
+            fillTween = fill.DOFillAmount(value, 0.25f).SetEase(Ease.OutCirc).SetUpdate(true);
         }
     }
 
@@ -73,12 +73,12 @@ public class ShopBar : Transactor<ShopBar, float>
         prompt.gameObject.SetActive(true);
         prompt.localScale = Vector3.one;
         prompt.DOKill();
-        prompt.DOLocalMoveY(25.0f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        prompt.DOLocalMoveY(25.0f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetUpdate(true);
     }
     public void HidePrompt()
     {
         prompt.DOKill();
-        prompt.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).onComplete += () =>
+        prompt.DOScale(Vector3.zero, 0.25f).SetUpdate(true).SetEase(Ease.InBack).onComplete += () =>
         {
             prompt.gameObject.SetActive(false);
         };

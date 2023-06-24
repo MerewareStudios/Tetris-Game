@@ -19,7 +19,7 @@ namespace Game
         [SerializeField] public Transform shiledTarget;
         [System.NonSerialized] private Gun gun;
 
-        [SerializeField] private Data _data;
+        [System.NonSerialized] private Data _data;
         [System.NonSerialized] public System.Action OnDeath = null;
 
         [System.NonSerialized] private Vector2 _selfPosition;

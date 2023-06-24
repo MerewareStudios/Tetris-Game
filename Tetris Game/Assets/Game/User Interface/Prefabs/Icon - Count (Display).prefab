@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name="COIN">0
+  m_text: <sprite name="Coin">0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40f8700cc7cd42d4ea5761bebe2256fa, type: 2}
   m_sharedMaterial: {fileID: 4338417768516384067, guid: 40f8700cc7cd42d4ea5761bebe2256fa,
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 21
-    m_Right: 46
+    m_Left: 48
+    m_Right: 48
     m_Top: 20
     m_Bottom: 19
   m_ChildAlignment: 4

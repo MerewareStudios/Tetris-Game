@@ -13,7 +13,7 @@ using User;
 
 namespace Game.UI
 {
-    public class WeaponMenu : Menu<WeaponMenu>
+    public class WeaponMenu : Menu<WeaponMenu>, IMenu
     {
         [Header("Stage Bars")]
         [SerializeField] private StageBar stageBarFireRate;
@@ -30,15 +30,22 @@ namespace Game.UI
             this._weaponShopData = _weaponShopData;
         }
 
-        public override Menu<WeaponMenu> Open()
+        public new bool Open(float duration = 0.5f)
         {
+            if (base.Open(duration))
+            {
+                return true;
+            }
             Show();
-            return base.Open();
+            return false;
         }
 
         public void OnClick_Close()
         {
-            base.Close();
+            if (base.Close())
+            {
+                return;
+            }
         }
 
         private void Show()

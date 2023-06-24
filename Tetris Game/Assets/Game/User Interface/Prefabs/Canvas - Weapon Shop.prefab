@@ -615,10 +615,10 @@ RectTransform:
   - {fileID: 5385938008340288703}
   - {fileID: 2605643203528322503}
   - {fileID: 120656510903619237}
-  - {fileID: 5869349512634406938}
   - {fileID: 5849914462447657882}
   - {fileID: 398919174150901203}
   - {fileID: 8934265408659944128}
+  - {fileID: 5869349512634406938}
   m_Father: {fileID: 9118741302088271387}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: cdc78e9ee0b2b5a41932eea26cc4b62b, type: 2}
-  m_Color: {r: 0, g: 0.8611059, b: 1, a: 1}
+  m_Color: {r: 0.4392157, g: 0.7019608, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -797,7 +797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5869349512634406938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1043,6 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d6f15c9c0fb28458b2cd5815cc6830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentContainer: {fileID: 9118741302088271387}
   canvas: {fileID: 1764179146799194572}
   canvasGroup: {fileID: 3260775144644934614}
   _blocker: {fileID: 1847163080739300171}

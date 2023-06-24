@@ -8,7 +8,6 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private RectTransform animationPivot;
-    [SerializeField] private string iconKey;
 
     public override void Set(ref User.TransactionData<int> transactionData)
     {
@@ -23,7 +22,7 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
         {
             base.TransactionData.value = value;
 
-            text.text = iconKey + value;
+            text.text = value.CoinAmount();
             
             Punch(0.15f);
         }

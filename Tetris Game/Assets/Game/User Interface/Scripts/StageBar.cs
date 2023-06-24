@@ -41,7 +41,7 @@ public class StageBar : MonoBehaviour
             priceText.text = "AD".ToTMProKey() + " FREE";
             return this;
         }
-        priceText.text = "COIN".ToTMProKey() + amount;
+        priceText.text = amount.CoinAmount();
         return this;
     }
     

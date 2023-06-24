@@ -9,40 +9,55 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class Menu<T> : Singleton<T> where T : MonoBehaviour
+    public class Menu<T> : Singleton<T>, IMenu where T : MonoBehaviour
     {
+        [SerializeField] private RectTransform parentContainer;
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Image _blocker;
         [System.NonSerialized] private Tween showTween;
+        [System.NonSerialized] protected bool Visible = false;
 
-        public virtual Menu<T> Open()
+        public bool Open(float duration = 0.5f)
         {
-            Time.timeScale = 0.0f;
+            if (Visible)
+            {
+                return true;
+            }
+            Visible = true;
             canvas.enabled = true;
             canvasGroup.alpha = 0.0f;
             _blocker.raycastTarget = true;
             showTween?.Kill();
-            showTween = canvasGroup.DoFade_IWI(1.0f, 0.5f, Ease.InOutSine, () =>
+            showTween = canvasGroup.DoFade_IWI(1.0f, duration, Ease.InOutSine, () =>
             {
                 _blocker.raycastTarget = false;
             }).SetUpdate(true);
-            return this;
+
+            return false;
         }
         
-        public virtual Menu<T> Close()
+        public bool Close(float duration = 0.25f, float delay = 0.0f)
         {
+            if (!Visible)
+            {
+                return true;
+            }
+            Visible = false;
+            
             _blocker.raycastTarget = true;
             showTween?.Kill();
-            showTween = canvasGroup.DoFade_IWI(0.0f, 0.25f, Ease.InOutSine, () =>
+            showTween = canvasGroup.DoFade_IWI(0.0f, duration, Ease.InOutSine, () =>
             {
                 canvas.enabled = false;  
-                Time.timeScale = 1.0f;
-            }).SetUpdate(true);
-            return this;
+            }).SetDelay(delay).SetUpdate(true);
+
+            return false;
         }
-        
-        
+        public RectTransform GetParentContainer()
+        {
+            return this.parentContainer;
+        }
     }
     
     [Serializable]
@@ -50,5 +65,12 @@ namespace Game.UI
     {
         Money,
         Ad,
+    }
+
+    public interface IMenu
+    {
+        bool Open(float duration = 0.25f);
+        bool Close(float duration = 0.5f, float delay = 0.0f);
+        RectTransform GetParentContainer();
     }
 }

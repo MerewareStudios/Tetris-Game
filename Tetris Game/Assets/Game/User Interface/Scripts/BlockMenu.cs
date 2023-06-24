@@ -12,7 +12,7 @@ using User;
 
 namespace Game.UI
 {
-    public class BlockMenu : Menu<BlockMenu>
+    public class BlockMenu : Menu<BlockMenu>, IMenu
     {
         [SerializeField] private BlockVisualGrid blockVisualGrid;
         [SerializeField] private RectTransform priceTextPivot;
@@ -29,15 +29,22 @@ namespace Game.UI
             this._blockShopData = blockShopData;
         }
 
-        public override Menu<BlockMenu> Open()
+        public new bool Open(float duration = 0.5f)
         {
+            if (base.Open(duration))
+            {
+                return true;
+            }
             Show();
-            return base.Open();
+            return false;
         }
 
         public void OnClick_Close()
         {
-            base.Close();
+            if (base.Close())
+            {
+                return;
+            }
         }
 
         private void Show()
@@ -81,7 +88,7 @@ namespace Game.UI
 
         private void SetPrice(int amount)
         {
-            priceText.text = "COIN".ToTMProKey() + amount;
+            priceText.text = amount.CoinAmount();
             PunchMoney(0.15f);
         }
         private void SetLookUp(int[] table)

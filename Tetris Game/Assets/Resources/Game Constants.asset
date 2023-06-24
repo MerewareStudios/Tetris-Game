@@ -129,11 +129,9 @@ MonoBehaviour:
         upgradeIndex: 0
       unlockedBlocks: 0300000004000000060000000d0000000a000000
       lastIndex: 5
-    waponShopData:
+    weaponShopData:
       gunIndex: 0
-      fireRateIndex: 0
-      splitShotIndex: 0
-      damageIndex: 0
+      upgradeIndexes: 000000000000000000000000
   GunUpgradeData:
   - gunType: 0
     sprite: {fileID: 21300000, guid: fe865fda9640b704caec28070ed9bf72, type: 3}
@@ -142,10 +140,10 @@ MonoBehaviour:
       value: 1
       price: 0
     - purchaseType: 0
-      value: 0.95
+      value: 2
       price: 10
     - purchaseType: 0
-      value: 0.9
+      value: 3
       price: 15
     stageData_Splitshot:
     - purchaseType: 0

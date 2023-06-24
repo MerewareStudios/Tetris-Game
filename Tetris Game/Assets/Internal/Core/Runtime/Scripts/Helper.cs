@@ -26,6 +26,19 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static int LoopIndex(this int index, int count)
+        {
+            if (index >= count)
+            {
+                return 0;
+            }
+
+            if (index < 0)
+            {
+                return count - 1;
+            }
+            return index;
+        }
         public static float Random(this Vector2 minMaxCurve)
         {
             return UnityEngine.Random.Range(minMaxCurve.x, minMaxCurve.y);

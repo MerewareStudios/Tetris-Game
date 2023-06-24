@@ -31,6 +31,8 @@ public class SaveManager : SaveManagerBase<SaveManager>
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
 
         Warzone.THIS.Player._Data = saveData.playerData;
+
+        MenuNavigator.THIS._Data = saveData.userData.menuNavData;
     }
 }
 public static class SaveManagerExtensions
@@ -96,6 +98,7 @@ namespace User
         [SerializeField] public TransactionData<float> shopFillTransactionData = new();
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
+        [SerializeField] public MenuNavigator.Data menuNavData;
 
         
         public Data()
@@ -109,6 +112,7 @@ namespace User
             shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
+            menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
         }
        
 
