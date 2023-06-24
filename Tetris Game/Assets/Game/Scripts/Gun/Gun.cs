@@ -51,8 +51,14 @@ public class Gun : MonoBehaviour
         };
             
         Transform bullet = Pool.Bullet.Spawn().transform;
+        
+        TrailRenderer trail = Pool.Trail.Spawn<TrailRenderer>(bullet);
+        
         bullet.DOKill();
         bullet.transform.position = muzzle.position;
+        
+        trail.Clear();
+        
         Tween bulletTween = bullet.DOJump(enemyTransform.position, 2.25f, 1, 0.45f).SetEase(Ease.Linear);
         bulletTween.onUpdate += () =>
         {
@@ -69,6 +75,7 @@ public class Gun : MonoBehaviour
                 enemy._DamageTaken = _Data.damage;
             }
             bullet.Despawn();
+            trail.gameObject.Despawn();
         };
     }
     

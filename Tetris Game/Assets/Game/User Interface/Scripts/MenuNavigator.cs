@@ -24,13 +24,20 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         {
             return;
         }
+
+        Time.timeScale = 0.0f;
+        MoneyTransactor.THIS.Scale(2.0f);
         OpenLastMenu();
     }
     
     public new void Close()
     {
-        base.Close();
-        
+        if (base.Close())
+        {
+            return;
+        }
+        Time.timeScale = 1.0f;
+        MoneyTransactor.THIS.Scale(1.0f);
         _menus[_data.lastIndex].Close(0.2f);
     }
 

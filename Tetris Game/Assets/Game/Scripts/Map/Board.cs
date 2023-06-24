@@ -140,7 +140,7 @@ namespace Game
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(0.6f, () => mergedPawn.OnMerge());
             
-            ShopBar.THIS.Amount += level * 0.01f;
+            ShopBar.THIS.Amount += Mathf.Clamp(level, 0, 5) * 0.075f;
 
             
             UIManager.THIS.ft_TF2.FlyWorld("+" + level, mergedPawnPosition + new Vector3(-0.1f, 0.2f, 0.0f), 0.3f);

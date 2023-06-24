@@ -112,7 +112,7 @@ RectTransform:
   - {fileID: 5026918077167447952}
   - {fileID: 8084546879530759957}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -281,14 +281,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: cdc78e9ee0b2b5a41932eea26cc4b62b, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a33eb3c4590830e42bf59ec3da96195a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5aef79ce841d7e48b64179ae58368b3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -843,7 +843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 442}
+  m_AnchoredPosition: {x: 0, y: 581.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &6048870006262614845
@@ -977,7 +977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6270161328461959788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -995,7 +995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -188.82007}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 250}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &9223329109320652743
@@ -1077,7 +1077,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 31}
+  m_AnchoredPosition: {x: 0, y: 190}
   m_SizeDelta: {x: 750, y: 996.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4961736298628404287
@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.84313726}
+  m_Color: {r: 0.21960786, g: 0.47058827, b: 0.7960785, a: 0.03529412}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -1135,7 +1135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4342737546162628699
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1153,8 +1153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -176}
-  m_SizeDelta: {x: -200, y: 250}
+  m_AnchoredPosition: {x: 0, y: -37}
+  m_SizeDelta: {x: -400, y: 250}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2856546002865806834
 CanvasRenderer:
@@ -1213,12 +1213,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 182.7
+  m_fontSize: 118
   m_fontSizeBase: 170.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 187.7
+  m_fontSizeMax: 118
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1612,16 +1612,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411573605849364793, guid: f9b796be9064b45459da16f8e5562d5f,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411573605849364793, guid: f9b796be9064b45459da16f8e5562d5f,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5411573605849364793, guid: f9b796be9064b45459da16f8e5562d5f,
         type: 3}
@@ -2086,16 +2076,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411573605849364793, guid: f9b796be9064b45459da16f8e5562d5f,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411573605849364793, guid: f9b796be9064b45459da16f8e5562d5f,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5411573605849364793, guid: f9b796be9064b45459da16f8e5562d5f,
         type: 3}

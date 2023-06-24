@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 10c6f2ec81e64f34a87eaaa6ddb3a1b0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0b83a6040a0a2be46a293c42d752083c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 10c6f2ec81e64f34a87eaaa6ddb3a1b0, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 0b83a6040a0a2be46a293c42d752083c, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -144,15 +144,15 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 10
-    m_Scale: 1
-    m_Name: Atlas_10
-    m_HashCode: 1874333045
+    m_Scale: 2.18
+    m_Name: Cash
+    m_HashCode: 2445305
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11
-    m_Scale: 1
-    m_Name: Atlas_11
-    m_HashCode: 1874333044
+    m_Scale: 1.82
+    m_Name: XP
+    m_HashCode: 2824
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 12
@@ -252,9 +252,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -56.4
+      m_HorizontalBearingX: -63.7
       m_HorizontalBearingY: 157.4
-      m_HorizontalAdvance: 108.5
+      m_HorizontalAdvance: 117.7
     m_GlyphRect:
       m_X: 256
       m_Y: 1024
@@ -396,9 +396,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -25.16
+      m_HorizontalBearingY: 174.1
+      m_HorizontalAdvance: 215.6
     m_GlyphRect:
       m_X: 0
       m_Y: 512
@@ -412,9 +412,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -19.7
+      m_HorizontalBearingY: 189.73
+      m_HorizontalAdvance: 215.6
     m_GlyphRect:
       m_X: 256
       m_Y: 512

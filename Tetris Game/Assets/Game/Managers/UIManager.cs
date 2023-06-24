@@ -13,6 +13,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public FlyingText ft_TF2;
    [SerializeField] public FlyingText ft_Combo;
    [SerializeField] public FlyingText ft_Icon;
+   [Header("Level")]
+   [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string COIN_TEXT = "<sprite name=\"Coin\">";
 
    void Awake()
@@ -59,5 +61,14 @@ public static class UIManagerExtensions
       Vector3 screenEnd = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPortPlayer);
       
       flyingText.LerpScreen("Shield".ToTMProKey(), screenStart, screenEnd, delay, duration, endAction);
+   }
+   public static void LerpXP(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
+   {
+      Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
+      Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
+
+      Vector3 screenEnd = ShopBar.THIS.fill.transform.position;
+      
+      flyingText.LerpScreen("XP".ToTMProKey(), screenStart, screenEnd, delay, duration, endAction);
    }
 }

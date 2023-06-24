@@ -8,9 +8,12 @@ using UnityEngine.UI;
 
 public class ShopBar : Transactor<ShopBar, float>
 {
-    [SerializeField] private Image fill;
+    [SerializeField] public bool GodMode = true;
+    [SerializeField] public Image fill;
+    [SerializeField] private RectTransform animationPivot;
     [SerializeField] private RectTransform prompt;
     [SerializeField] private UnityEvent OnClickAction;
+    [SerializeField] private ParticleSystem particleSystem;
     [System.NonSerialized] private Tween fillTween;
     
     public override void Set(ref User.TransactionData<float> transactionData)
@@ -36,6 +39,8 @@ public class ShopBar : Transactor<ShopBar, float>
             
             base.TransactionData.value = Mathf.Clamp(value, 0.0f, 1.0f);
             
+            PunchScale(0.3f);
+            
             if (base.TransactionData.value >= 1.0f)
             {
                 ShowPrompt();
@@ -44,7 +49,12 @@ public class ShopBar : Transactor<ShopBar, float>
             Fill = base.TransactionData.value;
         }
     }
-    
+    private void PunchScale(float magnitude)
+    {
+        animationPivot.DOKill();
+        animationPivot.localScale = Vector3.one;
+        animationPivot.DOPunchScale(Vector3.one * magnitude, 0.25f, 1);
+    }
     public float Fill
     {
         set
@@ -56,10 +66,10 @@ public class ShopBar : Transactor<ShopBar, float>
 
     public void User_OnClick()
     {
-        // if (base.TransactionData.value < 1.0f)
-        // {
-        //     return;
-        // }
+        if (!GodMode && base.TransactionData.value < 1.0f)
+        {
+            return;
+        }
         HidePrompt();
         
         base.TransactionData.value = 0.0f;
@@ -70,6 +80,7 @@ public class ShopBar : Transactor<ShopBar, float>
     
     public void ShowPrompt()
     {
+        particleSystem.Play();
         prompt.gameObject.SetActive(true);
         prompt.localScale = Vector3.one;
         prompt.DOKill();
@@ -77,6 +88,7 @@ public class ShopBar : Transactor<ShopBar, float>
     }
     public void HidePrompt()
     {
+        particleSystem.Stop();
         prompt.DOKill();
         prompt.DOScale(Vector3.zero, 0.25f).SetUpdate(true).SetEase(Ease.InBack).onComplete += () =>
         {

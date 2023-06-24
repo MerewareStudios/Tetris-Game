@@ -24,7 +24,10 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.Begin(0.45f);
 
-        Warzone.THIS.LevelData = this.CurrentLevel().GetLevelSo();
+        int currentLevel = this.CurrentLevel();
+        UIManager.THIS.levelText.text = "Wave " + currentLevel;
+
+        Warzone.THIS.LevelData = currentLevel.GetLevelSo();
         Warzone.THIS.Begin();
     }
     

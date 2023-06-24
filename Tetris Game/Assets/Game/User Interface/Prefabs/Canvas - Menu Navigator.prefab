@@ -110,11 +110,11 @@ RectTransform:
   m_Father: {fileID: 7080997428550010539}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 275.9}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &4598036580835286480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,15 +128,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 52
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 300}
-  m_Spacing: {x: 42.3, y: 0}
+  m_Spacing: {x: 24.3, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &6204998555229513884
@@ -541,7 +541,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 52a10896cdd311441a0942b11de5be6c,
+      objectReference: {fileID: 21300000, guid: d20fc4c36ddc3c04c936f23bc951d28a,
         type: 3}
     - target: {fileID: 2420655517445886242, guid: 594f9050c1d57534f97238a02df544e6,
         type: 3}
@@ -698,8 +698,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b30fa139eee34664997f0b91e0c500a5,
+      objectReference: {fileID: 21300000, guid: 6b56a375cefe81b49a7d78a14dc22d84,
         type: 3}
+    - target: {fileID: 2293918634727772104, guid: 594f9050c1d57534f97238a02df544e6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98791474
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293918634727772104, guid: 594f9050c1d57534f97238a02df544e6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.15499847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293918634727772104, guid: 594f9050c1d57534f97238a02df544e6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 17.833
+      objectReference: {fileID: 0}
     - target: {fileID: 2420655517445886242, guid: 594f9050c1d57534f97238a02df544e6,
         type: 3}
       propertyPath: m_Pivot.x

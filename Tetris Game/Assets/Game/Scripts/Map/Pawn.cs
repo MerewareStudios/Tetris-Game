@@ -88,7 +88,7 @@ namespace Game
             switch (UsageType)
             {
                 case Usage.Ammo:
-                
+                    
                     return true;
                 case Usage.Shooter:
                 
@@ -193,7 +193,7 @@ namespace Game
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
-            modelPivot.DOPunchScale(Vector3.one * magnitude, 0.25f);
+            modelPivot.DOPunchScale(Vector3.one * magnitude, 0.25f, 1);
 
             Particle.Bullet.Emit(1, _thisTransform.position + BulletPsUp);
             Particle.Ring.Emit(1, _thisTransform.position + BulletPsUp);

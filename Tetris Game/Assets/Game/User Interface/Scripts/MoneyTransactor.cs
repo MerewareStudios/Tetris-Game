@@ -8,6 +8,7 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private RectTransform animationPivot;
+    [SerializeField] private RectTransform scalePivot;
 
     public override void Set(ref User.TransactionData<int> transactionData)
     {
@@ -45,5 +46,11 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
         animationPivot.DOKill();
         animationPivot.localScale = Vector3.one;
         animationPivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);
+    }
+    
+    public void Scale(float amount)
+    {
+        scalePivot.DOKill();
+        scalePivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
     }
 }

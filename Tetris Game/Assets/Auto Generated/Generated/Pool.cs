@@ -25,5 +25,6 @@ public enum Pool
     Enemy = 22,
     Bullet = 23,
     Gun_1 = 24,
+    Trail = 25,
 
 }
