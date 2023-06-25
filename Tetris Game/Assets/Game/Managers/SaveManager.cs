@@ -58,6 +58,11 @@ public static class SaveManagerExtensions
     {
         return SaveManager.THIS.saveData.userData.level;
     }
+    
+    public static int MaxMerge(this Board board)
+    {
+        return SaveManager.THIS.saveData.userData.blockShopData.maxMerge;
+    }
 }
 public partial class SaveData
 {

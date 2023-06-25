@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class ShopBar : Transactor<ShopBar, float>
 {
-    [SerializeField] public bool GodMode = true;
     [SerializeField] public Image fill;
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private RectTransform prompt;
@@ -66,16 +65,22 @@ public class ShopBar : Transactor<ShopBar, float>
 
     public void User_OnClick()
     {
-        if (!GodMode && base.TransactionData.value < 1.0f)
+        if (base.TransactionData.value < 1.0f)
         {
             return;
         }
+        OnClickAction?.Invoke();
+        
+        particleSystem.Stop();
+        // ConsumeFill();
+    }
+
+    public void ConsumeFill()
+    {
         HidePrompt();
         
         base.TransactionData.value = 0.0f;
         Fill = base.TransactionData.value;
-        
-        OnClickAction?.Invoke();
     }
     
     public void ShowPrompt()
@@ -88,7 +93,6 @@ public class ShopBar : Transactor<ShopBar, float>
     }
     public void HidePrompt()
     {
-        particleSystem.Stop();
         prompt.DOKill();
         prompt.DOScale(Vector3.zero, 0.25f).SetUpdate(true).SetEase(Ease.InBack).onComplete += () =>
         {

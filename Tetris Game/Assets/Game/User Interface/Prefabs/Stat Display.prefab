@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 8621940542384692413}
+  timerFill: {fileID: 4525604175237771387}
   text: {fileID: 5589712506038250000}
   animationPivot: {fileID: 8532883571765585179}
   punchPivot: {fileID: 5383759070824765287}
@@ -106,7 +107,7 @@ GameObject:
   - component: {fileID: 6475198995778647195}
   - component: {fileID: 4525604175237771387}
   m_Layer: 5
-  m_Name: Dash
+  m_Name: Timer Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,13 +162,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d438d7dfdc9501b4db48485eba0a4ef3, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 1
+  m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.01
 --- !u!1 &6088375794889691715

@@ -1,81 +1,83 @@
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TickManager : Singleton<TickManager>
 {
-	// [SerializeField] private float tickInternal = 0.1f;
-	// [System.NonSerialized] private List<ITickable> tickables = new();
-	// [System.NonSerialized] private Coroutine commonTickRoutine = null;
-	// [System.NonSerialized] private List<CustomTickable> customTickables = new();
- //
- //    public bool Running
- //    {
- //        get { return commonTickRoutine != null; }
- //    }
- //
- //    private void StopTicking()
- //    {
- //        if (commonTickRoutine != null)
- //        {
- //            StopCoroutine(commonTickRoutine);
- //            commonTickRoutine = null;
- //        }
- //    }
- //    private void StartTicking()
- //    {
- //        commonTickRoutine = StartCoroutine(TickRoutine());
- //    }
- //
- //    private IEnumerator TickRoutine()
- //    {
- //        while (true)
- //        {
- //            for (int i = 0; i < tickables.Count; i++)
- //            {
- //                tickables[i].OnTick();
- //            }
- //            yield return new WaitForSeconds(tickInternal);
- //        }
- //    }
- //
- //    public void AddTickable(ITickable tickable)
-	// {
-	// 	tickables.Add(tickable);
- //
- //        if (!Running)
- //        {
- //            StartTicking();
- //        }
-	// }
- //    public void RemoveTickable(ITickable tickable)
- //    {
- //        if (tickables.Contains(tickable))
- //        {
- //            tickables.Remove(tickable);
- //
- //            if (tickables.Count == 0)
- //            {
- //                StopTicking();
- //            }
- //        }
- //    }
- //
- //    public void AddCustomTickable(CustomTickable customTickable)
- //    {
- //        customTickables.Add(customTickable);
- //        customTickable.Start();
- //    }
- //    public void RemoveCustomTickable(CustomTickable customTickable)
- //    {
- //        if (customTickables.Contains(customTickable))
- //        {
- //            customTickable?.Stop();
- //            tickables.Remove(customTickable);
- //        }
- //    }
- //
+	[System.NonSerialized] private readonly Dictionary<float, Ticker> _tickers = new();
+	
+	public interface ITickable
+	{
+		float TickInterval { get; }
+		public void OnTick();
+	}
+
+	public void AddTickable(ITickable tickable)
+	{
+		if (!_tickers.ContainsKey(tickable.TickInterval))
+		{
+			Ticker ticker = new(tickable.TickInterval);
+			ticker.Add(tickable);
+			
+			_tickers.Add(tickable.TickInterval, ticker);
+		}
+
+		_tickers[tickable.TickInterval].Add(tickable);
+	}
+	public void RemoveTickable(ITickable tickable)
+	{
+		_tickers[tickable.TickInterval].Remove(tickable);
+	}
+
+	private class Ticker
+	{
+		private readonly List<ITickable> _tickables = new();
+		private float interval;
+		private Coroutine _coroutine = null;
+
+		public void Add(ITickable tickable)
+		{
+			if (_tickables.Contains(tickable))
+			{
+				return;
+			}
+			
+			_tickables.Add(tickable);
+
+			if (_coroutine == null)
+			{
+				TickManager.THIS.StartCoroutine(TickRoutine());
+			}
+		}
+		
+		public void Remove(ITickable tickable)
+		{
+			_tickables.Remove(tickable);
+		}
+		
+		public Ticker(float interval)
+		{
+			this.interval = interval;
+		}
+			
+		IEnumerator TickRoutine()
+		{
+			while (_tickables.Count > 0)
+			{
+				foreach (var tickable in _tickables.ToList())
+				{
+					tickable.OnTick();
+				}
+
+				yield return new WaitForSeconds(interval);
+			}
+
+			_coroutine = null;
+		}
+	}
+	
  //    public static TickManager operator +(TickManager tickManager, ITickable tickable)
  //    {
  //        tickManager.AddTickable(tickable);
@@ -97,80 +99,4 @@ public class TickManager : Singleton<TickManager>
  //        return tickManager;
  //    }
  //
-     // public interface ITimedEvent
-     // {
-     //     public void OnFinish();
-     // }
-     //
-     // public class TimedEvent : ITimedEvent
-     // {
-	    //  public float duration;
-	    //  private Coroutine coroutine;
-	    //  public System.Action OnFinish;
-     //
-	    //  public TimedEvent(float duration, System.Action OnFinish)
-	    //  {
-		   //   this.duration = duration;
-		   //   this.OnFinish = OnFinish;
-	    //  }
-     //
-	    //  private IEnumerator TimedRoutine()
-	    //  {
-		   //   while (true)
-		   //   {
-			  //    yield return new WaitForSeconds(this.tickInternal);
-			  //    OnTick();
-		   //   }
-	    //  }
-	    //  public void Start()
-	    //  {
-		   //   coroutine = TickManager.THIS.StartCoroutine(TickRoutine());
-	    //  }
-	    //  public void Stop()
-	    //  {
-		   //   if (coroutine != null)
-		   //   {
-			  //    TickManager.THIS.StopCoroutine(coroutine);
-			  //    coroutine = null;
-		   //   }
-	    //  }
-     // }
-     
-     // public class CustomTickable : ITickable
-     // {
-     //     public float tickInternal;
-     //     private Coroutine coroutine;
-     //     public System.Action OnTickAction;
-     //
-     //     public CustomTickable(float tickInterval, System.Action OnTickAction)
-     //     {
-     //         this.tickInternal = tickInterval;
-     //         this.OnTickAction = OnTickAction;
-     //     }
-     //
-     //     public void OnTick()
-     //     {
-     //         OnTickAction?.Invoke();
-     //     }
-     //     private IEnumerator TickRoutine()
-     //     {
-     //         while (true)
-     //         {
-     //             yield return new WaitForSeconds(this.tickInternal);
-     //             OnTick();
-     //         }
-     //     }
-     //     public void Start()
-     //     {
-     //         coroutine = TickManager.THIS.StartCoroutine(TickRoutine());
-     //     }
-     //     public void Stop()
-     //     {
-     //         if (coroutine != null)
-     //         {
-     //             TickManager.THIS.StopCoroutine(coroutine);
-     //             coroutine = null;
-     //         }
-     //     }
-     // }
 }

@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game;
 using Internal.Core;
 using UnityEngine;
 
 public class StatDisplayArranger : Singleton<StatDisplayArranger>
 {
     [SerializeField] private List<StatDisplay> _statDisplays;
+    [System.NonSerialized] public const float UpdateInterval = 0.05f;
 
-    public void Show(StatDisplay.Type statType, int value, bool punch = false, bool setFront = false)
+    public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false, bool setFront = false)
     {
-        _statDisplays[(int)statType].Show(value, punch, setFront);
+        _statDisplays[(int)statType].Show(value, timePercent, punch, setFront);
     }
     public void Hide(StatDisplay.Type statType)
     {
@@ -20,5 +23,13 @@ public class StatDisplayArranger : Singleton<StatDisplayArranger>
     {
         return _statDisplays[(int)statType].animationPivot.position;
 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Warzone.THIS.GiveShield(1, 5.0f);
+        }
     }
 }

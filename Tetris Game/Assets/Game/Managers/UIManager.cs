@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 public class UIManager : Singleton<UIManager>
 {
    [Header("Flying Text")]
-   [SerializeField] public FlyingText ft_TF2;
+   [SerializeField] public FlyingText ft_Level;
    [SerializeField] public FlyingText ft_Combo;
    [SerializeField] public FlyingText ft_Icon;
    [Header("Level")]
@@ -19,8 +19,8 @@ public class UIManager : Singleton<UIManager>
 
    void Awake()
    {
-      ft_TF2.OnGetInstance = () => Pool.Flying_Text___TF2.Spawn<TextMeshProUGUI>();
-      ft_TF2.ReturnInstance = (mono) => { mono.Despawn(); };
+      ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();
+      ft_Level.ReturnInstance = (mono) => { mono.Despawn(); };
       
       ft_Combo.OnGetInstance = () => Pool.Flying_Text___Combo.Spawn<TextMeshProUGUI>();
       ft_Combo.ReturnInstance = (mono) => { mono.Despawn(); };

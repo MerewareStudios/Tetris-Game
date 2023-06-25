@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
+  - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
+  - {fileID: 11400000, guid: 81ae3b7e858fba3498105c8db42c8fd7, type: 2}
+  - {fileID: 11400000, guid: 1a6c8bbb07eab624c993a71821b94f2f, type: 2}
+  - {fileID: 11400000, guid: bedc89a67c5a39c45b160b4ae55f9dd5, type: 2}
   Guns:
   - {fileID: 11400000, guid: d1c79da0ce1ea5147a9a36b9d8ee8a88, type: 2}
   - {fileID: 11400000, guid: 5501d1ba9d774814a91727e3efef8f7b, type: 2}
@@ -33,7 +37,9 @@ MonoBehaviour:
       split: 1
       damage: 1
     shieldData:
-      timeRemaining: 0
+      startTick: 0
+      endTick: 0
+      amount: 0
   DefaultUserData:
     level: 1
     moneyTransactionData:
@@ -129,6 +135,7 @@ MonoBehaviour:
         upgradeIndex: 0
       unlockedBlocks: 0300000004000000060000000d0000000a000000
       lastIndex: 5
+      maxMerge: 7
     weaponShopData:
       gunIndex: 0
       upgradeIndexes: 000000000000000000000000

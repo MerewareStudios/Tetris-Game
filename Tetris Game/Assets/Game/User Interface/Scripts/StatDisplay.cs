@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class StatDisplay : MonoBehaviour
 {
     [SerializeField] private Image image;
+    [SerializeField] private Image timerFill;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] public Transform animationPivot;
     [SerializeField] private Transform punchPivot;
@@ -32,12 +33,15 @@ public class StatDisplay : MonoBehaviour
         return false;
     }
 
-    public void Show(int value, bool punch, bool setFront)
+    public void Show(int value, float timePercent, bool punch, bool setFront)
     {
         if (punch)
         {
             Punch();
         }
+
+        timerFill.fillAmount = timePercent;
+        
         if (SetValue(value))
         {
             return;
@@ -62,7 +66,7 @@ public class StatDisplay : MonoBehaviour
         }
         _currentValue = -1;
         animationPivot.DOKill();
-        animationPivot.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutBack).onComplete += () =>
+        animationPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).onComplete += () =>
         {
             this.gameObject.SetActive(false);
         };

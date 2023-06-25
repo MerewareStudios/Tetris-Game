@@ -125,7 +125,7 @@ namespace Game
             set
             {
                 _Data.currentHealth = value;
-                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, true);
+                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, 1.0f, true);
             }
             get => _Data.currentHealth;
         }

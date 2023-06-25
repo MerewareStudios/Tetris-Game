@@ -19,7 +19,7 @@ public enum Pool
     Tree_I_Double_Empty = 16,
     Tree_I_Triple_Empty = 17,
     Tree_I_Empty_Block = 18,
-    Flying_Text___TF2 = 19,
+    Flying_Text___Level = 19,
     Flying_Text___Combo = 20,
     Flying_Text___Icon = 21,
     Enemy = 22,
