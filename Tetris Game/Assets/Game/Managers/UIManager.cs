@@ -29,6 +29,11 @@ public class UIManager : Singleton<UIManager>
       ft_Icon.ReturnInstance = (mono) => { mono.Despawn(); };
    }
 
+   private void Start()
+   {
+      EndLevelScreen.THIS.Open();
+   }
+
    public void OpenShop()
    {
       MenuNavigator.THIS.Open();
