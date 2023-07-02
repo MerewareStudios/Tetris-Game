@@ -26,6 +26,11 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static Color SetAlpha(this Color color, float alpha)
+        {
+            color.a = alpha;
+            return color;
+        }
         public static int LoopIndex(this int index, int count)
         {
             if (index >= count)
@@ -176,7 +181,7 @@ namespace Internal.Core
         }
         public static string ToTMProKey(this string key)
         {
-            return "<sprite name=\"" + key + "\">";
+            return "<sprite name=" + key + ">";
         }
         public static string ToTMProKey(this Enum eEnum)
         {
@@ -187,7 +192,7 @@ namespace Internal.Core
             StringBuilder stringBuilder = new();
             for (int i = 0; i < amount; i++)
             {
-                stringBuilder.Append("<sprite name=\"" + key + "\">");
+                stringBuilder.Append("<sprite name=" + key + ">");
             }
             return stringBuilder.ToString();
         }

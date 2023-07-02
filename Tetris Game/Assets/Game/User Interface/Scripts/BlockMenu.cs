@@ -107,7 +107,7 @@ namespace Game.UI
 
         public void PurchaseWithMoney()
         {
-            if (MoneyTransactor.THIS.Transaction(_blockData.basePrice))
+            if (MoneyTransactor.THIS.Transaction(-_blockData.basePrice))
             {
                 OnPurchase();
             }

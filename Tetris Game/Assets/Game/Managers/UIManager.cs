@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
@@ -13,9 +14,10 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public FlyingText ft_Level;
    [SerializeField] public FlyingText ft_Combo;
    [SerializeField] public FlyingText ft_Icon;
+   [SerializeField] public FlyingText ft_Icon_MenuOnTop;
    [Header("Level")]
    [SerializeField] public TextMeshProUGUI levelText;
-   [System.NonSerialized] public static string COIN_TEXT = "<sprite name=\"Coin\">";
+   [System.NonSerialized] public static string COIN_TEXT = "<sprite name=Coin>";
 
    void Awake()
    {
@@ -27,11 +29,21 @@ public class UIManager : Singleton<UIManager>
       
       ft_Icon.OnGetInstance = () => Pool.Flying_Text___Icon.Spawn<TextMeshProUGUI>();
       ft_Icon.ReturnInstance = (mono) => { mono.Despawn(); };
+      
+      ft_Icon_MenuOnTop.OnGetInstance = () => Pool.Flying_Text___Icon.Spawn<TextMeshProUGUI>();
+      ft_Icon_MenuOnTop.ReturnInstance = (mono) => { mono.Despawn(); };
    }
 
-   private void Start()
+   private void Update()
    {
-      EndLevelScreen.THIS.Open();
+      if (Input.GetKeyDown(KeyCode.E))
+      {
+         EndLevelScreen.THIS.Open();
+      }
+      if (Input.GetKeyDown(KeyCode.R))
+      {
+         EndLevelScreen.THIS.Close();
+      }
    }
 
    public void OpenShop()
@@ -55,7 +67,7 @@ public static class UIManagerExtensions
 
       Vector3 screenEnd = StatDisplayArranger.THIS.ScreenPosition(StatDisplay.Type.Health);
       
-      flyingText.LerpScreen("Heart".ToTMProKey(), screenStart, screenEnd, delay, duration, endAction);
+      flyingText.LerpScreen("Heart".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
    }
    public static void LerpShield(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
    {
@@ -65,7 +77,7 @@ public static class UIManagerExtensions
       Vector3 viewPortPlayer = CameraManager.THIS.gameCamera.WorldToViewportPoint(Warzone.THIS.Player.shiledTarget.position);
       Vector3 screenEnd = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPortPlayer);
       
-      flyingText.LerpScreen("Shield".ToTMProKey(), screenStart, screenEnd, delay, duration, endAction);
+      flyingText.LerpScreen("Shield".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
    }
    public static void LerpXP(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
    {
@@ -74,6 +86,10 @@ public static class UIManagerExtensions
 
       Vector3 screenEnd = ShopBar.THIS.fill.transform.position;
       
-      flyingText.LerpScreen("XP".ToTMProKey(), screenStart, screenEnd, delay, duration, endAction);
+      flyingText.LerpScreen("XP".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
+   }
+   public static Sequence DragCoin(Vector3 screenStart, Vector3 screenDrag, Vector3 screenEnd, float duration = 0.0f, System.Action endAction = null)
+   {
+      return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(UIManager.COIN_TEXT, screenStart, screenDrag, screenEnd, duration, true, endAction);
    }
 }

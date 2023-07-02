@@ -7,6 +7,7 @@ using UnityEngine;
 public class MoneyTransactor : Transactor<MoneyTransactor, int>
 {
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] public RectTransform IconPivot;
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private RectTransform scalePivot;
 
@@ -22,22 +23,19 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
         set
         {
             base.TransactionData.value = value;
-
             text.text = value.CoinAmount();
-            
-            Punch(0.15f);
         }
     }
 
     public bool Transaction(int amount)
     {
-        if (base.TransactionData.value < amount)
+        if (amount < 0 && base.TransactionData.value < -amount)
         {
             Punch(-0.15f);
             return false;
         }
-
-        Amount -= amount;
+        Punch(0.15f * Mathf.Sign(amount));
+        Amount += amount;
         return true;
     }
 
