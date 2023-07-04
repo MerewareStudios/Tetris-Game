@@ -30,12 +30,24 @@ public class Const : SSingleton<Const>
     public Color singleColor;
     public Color comboColor;
     public Gradient frontLineGradient;
+    public Color piggyExplodeColor;
+    
+    [Header("Visuals")] 
+    public DirectionRadiusPair[] rewardDirectionRadiusPair;
     
     [Header("Values")] 
     public float rotationDuration = 0.15f;
     public float jumpDuration = 0.15f;
     public Vector3 jumpPower;
     public Ease rotationEase;
+    public Ease piggyExplodeEase;
+    
+    [Serializable]
+    public struct DirectionRadiusPair
+    {
+        [SerializeField] public Vector3 dir;
+        [SerializeField] public float radius;
+    }
 }
 
 public static class ConstExtensions
@@ -44,4 +56,12 @@ public static class ConstExtensions
     {
         return Const.THIS.enemyColors[health - 1];
     } 
+    public static Vector3 Direction(this int rewardCount)
+    {
+        return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].dir;
+    } 
+    public static float Radius(this int rewardCount)
+    {
+        return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].radius;
+    }
 }

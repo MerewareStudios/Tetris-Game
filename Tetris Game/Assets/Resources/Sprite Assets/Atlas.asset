@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0b83a6040a0a2be46a293c42d752083c, type: 3}
+        m_Texture: {fileID: 2800000, guid: a4cec9c35169df241954606e9a7920d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 0b83a6040a0a2be46a293c42d752083c, type: 3}
+  spriteSheet: {fileID: 2800000, guid: a4cec9c35169df241954606e9a7920d3, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -156,21 +156,21 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 12
-    m_Scale: 1
-    m_Name: Atlas_12
-    m_HashCode: 1874333047
+    m_Scale: 1.3
+    m_Name: Gems
+    m_HashCode: 2584508
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 13
-    m_Scale: 1
-    m_Name: Atlas_13
-    m_HashCode: 1874333046
+    m_Scale: 1.3
+    m_Name: Gem
+    m_HashCode: 78319
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 14
-    m_Scale: 1
-    m_Name: Atlas_14
-    m_HashCode: 1874333041
+    m_Scale: 1.4
+    m_Name: Coins
+    m_HashCode: 80886904
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 15
@@ -301,7 +301,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 199.58
+      m_HorizontalBearingY: 226.82
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 1024
@@ -317,7 +317,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 201.99
+      m_HorizontalBearingY: 224.3
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 0
@@ -396,8 +396,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -25.16
-      m_HorizontalBearingY: 174.1
+      m_HorizontalBearingX: -18.3
+      m_HorizontalBearingY: 184.9
       m_HorizontalAdvance: 215.6
     m_GlyphRect:
       m_X: 0
@@ -428,9 +428,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -18.3
+      m_HorizontalBearingY: 217.6
+      m_HorizontalAdvance: 215.6
     m_GlyphRect:
       m_X: 512
       m_Y: 512
@@ -444,9 +444,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -18.3
+      m_HorizontalBearingY: 207.6
+      m_HorizontalAdvance: 215.6
     m_GlyphRect:
       m_X: 768
       m_Y: 512
@@ -460,9 +460,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -31.29
+      m_HorizontalBearingY: 215.6
+      m_HorizontalAdvance: 215.6
     m_GlyphRect:
       m_X: 1024
       m_Y: 512

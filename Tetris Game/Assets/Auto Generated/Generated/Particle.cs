@@ -7,5 +7,6 @@ public enum Particle
     Kamikaze = 4,
     Coin = 5,
     Shield = 6,
+    Piggy_Break_Ps = 7,
 
 }
