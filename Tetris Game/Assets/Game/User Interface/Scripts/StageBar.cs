@@ -45,7 +45,7 @@ public class StageBar : MonoBehaviour
         return this;
     }
     
-    public StageBar SetPurchaseType(Game.UI.PurchaseType purchaseType)
+    public StageBar SetPurchaseType(Const.PurchaseType purchaseType)
     {
         for (int i = 0; i < purchaseButtons.Length; i++)
         {
@@ -101,7 +101,7 @@ public class StageBar : MonoBehaviour
     [Serializable]
     public class StageData<T> : ICloneable
     {
-        [SerializeField] public Game.UI.PurchaseType purchaseType;
+        [SerializeField] public Const.PurchaseType purchaseType;
         [SerializeField] public T value;
         [SerializeField] public int price;
             

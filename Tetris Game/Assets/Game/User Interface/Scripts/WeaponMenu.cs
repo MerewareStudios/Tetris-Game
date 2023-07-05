@@ -70,7 +70,7 @@ namespace Game.UI
             StageBar.StageData<int> stageData = stageDatas[currentIndex];
             
             bool max = currentIndex >= stageDatas.Length - 1;
-            int price = max ? 0 : (stageData.purchaseType.Equals(PurchaseType.Ad) ? -1 : stageData.price);
+            int price = max ? 0 : (stageData.purchaseType.Equals(Const.PurchaseType.Ad) ? -1 : stageData.price);
             
             stageBar
                 .SetTopInfo(stageData.value.ToString())

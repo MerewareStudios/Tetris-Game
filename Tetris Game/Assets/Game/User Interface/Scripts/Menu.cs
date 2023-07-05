@@ -60,12 +60,7 @@ namespace Game.UI
         }
     }
     
-    [Serializable]
-    public enum PurchaseType
-    {
-        Money,
-        Ad,
-    }
+    
 
     public interface IMenu
     {

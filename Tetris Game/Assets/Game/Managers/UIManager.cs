@@ -24,6 +24,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string COIN_TEXT = "<sprite name=Coin>";
 
+   
+   
    void Awake()
    {
       ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();

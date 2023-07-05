@@ -48,6 +48,13 @@ public class Const : SSingleton<Const>
         [SerializeField] public Vector3 dir;
         [SerializeField] public float radius;
     }
+    [Serializable]
+    public enum PurchaseType
+    {
+        Coin,
+        Gem,
+        Ad,
+    }
 }
 
 public static class ConstExtensions

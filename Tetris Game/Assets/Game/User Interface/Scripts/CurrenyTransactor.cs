@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Internal.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,7 +13,7 @@ public class CurrenyTransactor : Transactor<CurrenyTransactor, int>
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Vector3 defaultAnchor;
     [SerializeField] private Vector3 scaledAnchor;
-    [SerializeField] private string iconKey;
+    [SerializeField] private Const.PurchaseType purchase;
 
     public override void Set(ref User.TransactionData<int> transactionData)
     {
@@ -26,7 +27,7 @@ public class CurrenyTransactor : Transactor<CurrenyTransactor, int>
         set
         {
             base.TransactionData.value = value;
-            text.text = iconKey + value;
+            text.text = purchase.ToTMProKey() + value;
         }
     }
 

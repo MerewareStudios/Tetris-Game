@@ -2255,6 +2255,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
+      propertyPath: purchase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
       propertyPath: scaledAnchor.x
       value: 18
       objectReference: {fileID: 0}
@@ -2283,6 +2288,11 @@ PrefabInstance:
       propertyPath: defaultAnchor.y
       value: -399.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6831134548334045991, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 309379018}
     - target: {fileID: 7424643266812777287, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6787,6 +6797,11 @@ PrefabInstance:
       propertyPath: defaultAnchor.y
       value: -247.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6831134548334045991, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 309379018}
     - target: {fileID: 7424643266812777287, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_Pivot.x

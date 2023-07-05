@@ -181,17 +181,6 @@ public class Gun : MonoBehaviour
 
             return true;
         }
-        // public UpgradeData(UpgradeData gunUpgradeData)
-        // {
-        //     // stageDatas.CopyFrom(gunUpgradeData.stageDatas);
-        //     stageData_Firerate = gunUpgradeData.stageData_Firerate as StageBar.StageData<int>[];
-        //     stageData_Splitshot = gunUpgradeData.stageData_Splitshot as StageBar.StageData<int>[];
-        //     stageData_Damage = gunUpgradeData.stageData_Damage as StageBar.StageData<int>[];
-        //     
-        //     stageDatas.Add(stageData_Firerate);
-        //     stageDatas.Add(stageData_Splitshot);
-        //     stageDatas.Add(stageData_Damage);
-        // }
         public void Init()
         {
             stageDatas.Clear();
@@ -199,9 +188,5 @@ public class Gun : MonoBehaviour
             stageDatas.Add(stageData_Splitshot);
             stageDatas.Add(stageData_Damage);  
         }
-        // public object Clone()
-        // {
-        //     return new UpgradeData(this);
-        // }
     }
 }
