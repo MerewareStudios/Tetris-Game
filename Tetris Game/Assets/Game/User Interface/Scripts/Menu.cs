@@ -9,6 +9,12 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    public enum MenuType
+    {
+        Block,
+        Weapon,
+        Upgrade
+    }
     public class Menu<T> : Singleton<T>, IMenu where T : MonoBehaviour
     {
         [SerializeField] private RectTransform parentContainer;
@@ -59,7 +65,7 @@ namespace Game.UI
             return this.parentContainer;
         }
     }
-    
+
     
 
     public interface IMenu

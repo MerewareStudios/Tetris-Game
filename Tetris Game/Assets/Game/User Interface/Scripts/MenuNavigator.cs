@@ -16,6 +16,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     {
         _menus.Add(BlockMenu.THIS);
         _menus.Add(WeaponMenu.THIS);
+        _menus.Add(UpgradeMenu.THIS);
     }
 
     public new void Open(float duration = 1.0f)
@@ -27,7 +28,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
         Time.timeScale = 0.0f;
         
-        UIManager.THIS.ScaleTransactors(2.0f, true);
+        UIManager.THIS.ScaleTransactors(1.5f, true);
         OpenLastMenu();
     }
     
@@ -39,51 +40,43 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         }
         Time.timeScale = 1.0f;
         UIManager.THIS.ScaleTransactors(1.0f);
-        _menus[_data.lastIndex].Close(0.2f);
+        _menus[(int)_data.lastMenuType].Close(0.2f);
     }
 
-    private void OpenLastMenu()
+    private void OpenLastMenu(float duration = 0.25f)
     {
-        _menus[_data.lastIndex].Open(0.25f);
-
-        for (int i = 0; i < tabs.Count; i++)
-        {
-            if (i == _data.lastIndex)
-            {
-                tabs[i].Show();
-            }
-            else
-            {
-                tabs[i].Hide();
-            }
-        }
+        int lastMenuIndex = (int)_data.lastMenuType;
+        _menus[lastMenuIndex].GetParentContainer().SetAsLastSibling();
+        _menus[lastMenuIndex].Open(duration);
+        tabs[lastMenuIndex].Show();
     }
     
     public void OnTab_BlockMenu()
     {
-        _data.lastIndex = 0;
-        
-        _menus[_data.lastIndex].GetParentContainer().SetAsLastSibling();
-        _menus[_data.lastIndex].Open(0.1f);
-        _menus[1].Close(0.1f, 0.1f);
-        
-        tabs[_data.lastIndex].Show();
-        tabs[1].Hide();
+        OpenTabMenu(MenuType.Block);
     }
-    
     public void OnTab_WeaponMenu()
     {
-        _data.lastIndex = 1;
-
-        _menus[_data.lastIndex].GetParentContainer().SetAsLastSibling();
-        _menus[_data.lastIndex].Open(0.1f);
-        _menus[0].Close(0.1f, 0.1f);
-        
-        tabs[_data.lastIndex].Show();
-        tabs[0].Hide();
+        OpenTabMenu(MenuType.Weapon);
     }
-    
-    
+    public void OnTab_UpgradeMenu()
+    {
+        OpenTabMenu(MenuType.Upgrade);
+    }
+
+    private void OpenTabMenu(MenuType menuTypeNext)
+    {
+        if (_data.lastMenuType.Equals(menuTypeNext))
+        {
+            return;
+        }
+        int index = (int)_data.lastMenuType;
+        _menus[index].Close(0.1f, 0.1f);
+        tabs[index].Hide();
+
+        _data.lastMenuType = menuTypeNext;
+        OpenLastMenu(0.1f);
+    }
     
     public Data _Data
     {
@@ -98,7 +91,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [System.Serializable]
     public class Data : ICloneable
     {
-        [SerializeField] public int lastIndex = 0;
+        [SerializeField] public Game.UI.MenuType lastMenuType;
 
         public Data()
         {
@@ -106,7 +99,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         }
         public Data(Data data)
         {
-            lastIndex = data.lastIndex;
+            lastMenuType = data.lastMenuType;
         }   
         public object Clone()
         {

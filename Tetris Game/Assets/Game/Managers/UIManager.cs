@@ -49,7 +49,7 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.R))
       {
-         EndLevelScreen.THIS.Close();
+         OpenShop();
       }
    }
 

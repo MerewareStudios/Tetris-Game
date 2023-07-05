@@ -212,7 +212,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     {
         Time.timeScale = 0.0f;
 
-        UIManager.THIS.ScaleTransactors(2.0f, true);
+        UIManager.THIS.ScaleTransactors(1.5f, true);
 
         _PiggyData = _piggyData;
         
