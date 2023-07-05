@@ -26,7 +26,8 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         }
 
         Time.timeScale = 0.0f;
-        MoneyTransactor.THIS.Scale(2.0f);
+        
+        UIManager.THIS.ScaleTransactors(2.0f, true);
         OpenLastMenu();
     }
     
@@ -37,7 +38,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
             return;
         }
         Time.timeScale = 1.0f;
-        MoneyTransactor.THIS.Scale(1.0f);
+        UIManager.THIS.ScaleTransactors(1.0f);
         _menus[_data.lastIndex].Close(0.2f);
     }
 

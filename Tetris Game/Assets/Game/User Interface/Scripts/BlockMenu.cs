@@ -102,12 +102,12 @@ namespace Game.UI
             _ = _blockData.purchased ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
             Show();
             
-            ShopBar.THIS.ConsumeFill();
+            UIManager.THIS.shopBar.ConsumeFill();
         }
 
         public void PurchaseWithMoney()
         {
-            if (MoneyTransactor.THIS.Transaction(-_blockData.basePrice))
+            if (UIManager.THIS.currenyTransactorCoin.Transaction(-_blockData.basePrice))
             {
                 OnPurchase();
             }

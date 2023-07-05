@@ -10,6 +10,11 @@ using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
+   [FormerlySerializedAs("currenyTransactorMoney")]
+   [Header("Transactor")]
+   [SerializeField] public CurrenyTransactor currenyTransactorCoin;
+   [FormerlySerializedAs("currenyTransactorDiamond")] [SerializeField] public CurrenyTransactor currenyTransactorGem;
+   [SerializeField] public ShopBar shopBar;
    [Header("Flying Text")]
    [SerializeField] public FlyingText ft_Level;
    [SerializeField] public FlyingText ft_Combo;
@@ -51,7 +56,11 @@ public class UIManager : Singleton<UIManager>
       MenuNavigator.THIS.Open();
    }
 
-   
+   public void ScaleTransactors(float scale, bool distance = false)
+   {
+      currenyTransactorCoin.Scale(scale, distance);
+      currenyTransactorGem.Scale(scale, distance);
+   }
 }
 
 public static class UIManagerExtensions
@@ -84,7 +93,7 @@ public static class UIManagerExtensions
       Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
       Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
 
-      Vector3 screenEnd = ShopBar.THIS.fill.transform.position;
+      Vector3 screenEnd = UIManager.THIS.shopBar.fill.transform.position;
       
       flyingText.LerpScreen("XP".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
    }
@@ -92,4 +101,5 @@ public static class UIManagerExtensions
    {
       return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(UIManager.COIN_TEXT, screenStart, screenDrag, screenEnd, duration, true, endAction);
    }
+   
 }

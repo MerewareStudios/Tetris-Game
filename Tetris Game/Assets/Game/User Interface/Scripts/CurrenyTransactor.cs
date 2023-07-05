@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class MoneyTransactor : Transactor<MoneyTransactor, int>
+public class CurrenyTransactor : Transactor<CurrenyTransactor, int>
 {
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] public RectTransform IconPivot;
-    [SerializeField] private RectTransform animationPivot;
-    [SerializeField] private RectTransform scalePivot;
+    [SerializeField] public RectTransform iconPivot;
+    [SerializeField] private RectTransform pivot;
+    [SerializeField] private Vector3 defaultAnchor;
+    [SerializeField] private Vector3 scaledAnchor;
+    [SerializeField] private string iconKey;
 
     public override void Set(ref User.TransactionData<int> transactionData)
     {
@@ -23,7 +26,7 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
         set
         {
             base.TransactionData.value = value;
-            text.text = value.CoinAmount();
+            text.text = iconKey + value;
         }
     }
 
@@ -41,14 +44,15 @@ public class MoneyTransactor : Transactor<MoneyTransactor, int>
 
     private void Punch(float amount)
     {
-        animationPivot.DOKill();
-        animationPivot.localScale = Vector3.one;
-        animationPivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);
+        pivot.DOKill();
+        pivot.localScale = Vector3.one;
+        pivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);
     }
     
-    public void Scale(float amount)
+    public void Scale(float amount, bool useScaledAnchor)
     {
-        scalePivot.DOKill();
-        scalePivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
+        pivot.DOKill();
+        pivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
+        pivot.DOAnchorPos(useScaledAnchor ? scaledAnchor : defaultAnchor, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
     }
 }

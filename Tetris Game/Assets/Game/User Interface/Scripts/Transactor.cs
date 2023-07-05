@@ -5,7 +5,7 @@ using Internal.Core;
 using TMPro;
 using UnityEngine;
 
-public class Transactor<T, TYPE> : Singleton<T> where T : MonoBehaviour
+public class Transactor<T, TYPE> : MonoBehaviour where T : MonoBehaviour
 {
     [System.NonSerialized] protected User.TransactionData<TYPE> TransactionData;
 

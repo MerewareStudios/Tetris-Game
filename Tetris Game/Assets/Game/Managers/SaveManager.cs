@@ -25,8 +25,10 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
         }
 
-        MoneyTransactor.THIS.Set(ref saveData.userData.moneyTransactionData);
-        ShopBar.THIS.Set(ref saveData.userData.shopFillTransactionData);
+        UIManager.THIS.currenyTransactorCoin.Set(ref saveData.userData.moneyTransactionData);
+        UIManager.THIS.currenyTransactorGem.Set(ref saveData.userData.diamondTransactionData);
+        UIManager.THIS.shopBar.Set(ref saveData.userData.shopFillTransactionData);
+        
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
         EndLevelScreen.THIS._PiggyData = saveData.userData.piggyData;
@@ -101,6 +103,7 @@ namespace User
     {
         [SerializeField] public int level = 1;
         [SerializeField] public TransactionData<int> moneyTransactionData = new();
+        [SerializeField] public TransactionData<int> diamondTransactionData = new();
         [SerializeField] public TransactionData<float> shopFillTransactionData = new();
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
@@ -116,6 +119,7 @@ namespace User
         {
             level = data.level;
             moneyTransactionData = data.moneyTransactionData.Clone() as TransactionData<int>;
+            diamondTransactionData = data.diamondTransactionData.Clone() as TransactionData<int>;
             shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;

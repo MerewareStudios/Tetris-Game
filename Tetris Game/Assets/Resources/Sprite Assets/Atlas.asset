@@ -162,7 +162,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 13
-    m_Scale: 1.3
+    m_Scale: 1.5
     m_Name: Gem
     m_HashCode: 78319
   - m_ElementType: 2
@@ -444,9 +444,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -18.3
-      m_HorizontalBearingY: 207.6
-      m_HorizontalAdvance: 215.6
+      m_HorizontalBearingX: -4.7
+      m_HorizontalBearingY: 189.05
+      m_HorizontalAdvance: 251.5
     m_GlyphRect:
       m_X: 768
       m_Y: 512

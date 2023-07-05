@@ -43,7 +43,7 @@ MonoBehaviour:
   DefaultUserData:
     level: 1
     moneyTransactionData:
-      value: 200
+      value: 0
     shopFillTransactionData:
       value: 0
     blockShopData:
@@ -325,3 +325,4 @@ MonoBehaviour:
   jumpDuration: 0.1875
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
+  piggyExplodeEase: 12

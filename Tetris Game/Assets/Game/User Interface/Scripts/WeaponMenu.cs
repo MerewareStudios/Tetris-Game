@@ -113,7 +113,7 @@ namespace Game.UI
             Upgrade(statType);
             Show();
             
-            ShopBar.THIS.ConsumeFill();
+            UIManager.THIS.shopBar.ConsumeFill();
         }
 
         public void OnClick_PurchaseWithMoney(int statType)
@@ -121,7 +121,7 @@ namespace Game.UI
             Gun.StatType type = (Gun.StatType)statType;
 
             int price = _gunUpgradeData.Price(type, _weaponShopData.GetIndex(type));
-            if (MoneyTransactor.THIS.Transaction(-price))
+            if (UIManager.THIS.currenyTransactorCoin.Transaction(-price))
             {
                 OnPurchase(type);
             }
