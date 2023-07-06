@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 3260775144644934614}
   - component: {fileID: 2410118695960397201}
   m_Layer: 5
-  m_Name: Canvas - Weapon Shop
+  m_Name: Canvas - Weapon Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

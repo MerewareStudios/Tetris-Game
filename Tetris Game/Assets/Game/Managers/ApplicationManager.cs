@@ -40,11 +40,11 @@ public class ApplicationManager : Singleton<ApplicationManager>
     void Update()
     {
         fps++;
-        if (Time.time - fpsTimestamp > 1.0f)
+        if (Time.realtimeSinceStartup - fpsTimestamp > 1.0f)
         {
             fpsText.text = fps.ToString();
             fps = 0;
-            fpsTimestamp = Time.time;
+            fpsTimestamp = Time.realtimeSinceStartup;
         }
     }
 

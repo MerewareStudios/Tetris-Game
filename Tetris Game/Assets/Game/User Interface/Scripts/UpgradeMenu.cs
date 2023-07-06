@@ -1,15 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using Internal.Core;
-using Internal.Visuals;
 using JetBrains.Annotations;
-using TMPro;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UI;
-using User;
 
 
 namespace Game.UI
@@ -47,6 +37,17 @@ namespace Game.UI
             
         }
 
+        [Serializable]
+        public enum UpgradeType
+        {
+            Heart,
+            Shield,
+            MaxStack,
+            SupplyLine,
+            Agility,
+            Luck,
+            FreeUpgrade,
+        }
 
         [System.Serializable]
         public class UpgradeShopData : ICloneable

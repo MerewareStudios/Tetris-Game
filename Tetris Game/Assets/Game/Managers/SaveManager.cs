@@ -64,7 +64,7 @@ public static class SaveManagerExtensions
     
     public static int MaxMerge(this Board board)
     {
-        return SaveManager.THIS.saveData.userData.blockShopData.maxMerge;
+        return SaveManager.THIS.saveData.userData.maxMerge;
     }
 }
 public partial class SaveData
@@ -109,6 +109,7 @@ namespace User
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
         [SerializeField] public EndLevelScreen.PiggyData piggyData;
+        [SerializeField] public int maxMerge = 6;
 
         
         public Data()
@@ -125,6 +126,7 @@ namespace User
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
             piggyData = data.piggyData.Clone() as EndLevelScreen.PiggyData;
+            maxMerge = data.maxMerge;
         }
        
 

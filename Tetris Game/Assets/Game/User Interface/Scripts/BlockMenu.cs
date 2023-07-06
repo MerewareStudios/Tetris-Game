@@ -128,7 +128,6 @@ namespace Game.UI
             [SerializeField] public List<BlockData> blockDatas = new();
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
-            [SerializeField] public int maxMerge = 6;
 
             public BlockShopData()
             {
@@ -139,7 +138,6 @@ namespace Game.UI
                 blockDatas.CopyFrom(blockShopData.blockDatas);
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
-                maxMerge = blockShopData.maxMerge;
             }
             
             public Pool GetRandomBlock()
