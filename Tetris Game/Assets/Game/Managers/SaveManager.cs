@@ -32,6 +32,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
         EndLevelScreen.THIS._PiggyData = saveData.userData.piggyData;
+        UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
 
@@ -109,6 +110,7 @@ namespace User
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
         [SerializeField] public EndLevelScreen.PiggyData piggyData;
+        [SerializeField] public UpgradeMenu.Data upgradeMenuData;
         [SerializeField] public int maxMerge = 6;
 
         
@@ -126,6 +128,7 @@ namespace User
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
             piggyData = data.piggyData.Clone() as EndLevelScreen.PiggyData;
+            upgradeMenuData = data.upgradeMenuData.Clone() as UpgradeMenu.Data;
             maxMerge = data.maxMerge;
         }
        

@@ -31,6 +31,8 @@ public class Const : SSingleton<Const>
     public Color comboColor;
     public Gradient frontLineGradient;
     public Color piggyExplodeColor;
+    [Header("Images")] 
+    public Sprite[] purchaseOptionSprites;
     
     [Header("Visuals")] 
     public DirectionRadiusPair[] rewardDirectionRadiusPair;

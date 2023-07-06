@@ -23,6 +23,8 @@ public class UIManager : Singleton<UIManager>
    [Header("Level")]
    [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string COIN_TEXT = "<sprite name=Coin>";
+   [System.NonSerialized] public static string GEM_TEXT = "<sprite name=Gem>";
+   [System.NonSerialized] public static string AD_TEXT = "<sprite name=AD>";
 
    
    
@@ -71,6 +73,8 @@ public static class UIManagerExtensions
    {
       return UIManager.COIN_TEXT + amount;
    }
+ 
+   
    public static void LerpHearth(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
    {
       Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);

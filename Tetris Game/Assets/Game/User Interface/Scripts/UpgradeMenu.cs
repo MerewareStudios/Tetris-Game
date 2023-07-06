@@ -1,17 +1,26 @@
 using System;
+using System.Collections.Generic;
+using Internal.Core;
 using JetBrains.Annotations;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Game.UI
 {
     public class UpgradeMenu : Menu<UpgradeMenu>, IMenu
     {
-        // [Header("Stage Bars")]
-        [System.NonSerialized] [CanBeNull] private UpgradeShopData _upgradeShopData;
+        [Header("Purchase Options")]
+        [SerializeField] private PurchaseOption[] purchaseOptions;
+        [System.NonSerialized] private Data _data;
 
-        public void Set(ref UpgradeShopData upgradeShopData)
+        public Data _Data
         {
-            this._upgradeShopData = upgradeShopData;
+            set
+            {
+                _data = value;
+            }
+            get => _data;
         }
 
         public new bool Open(float duration = 0.5f)
@@ -34,6 +43,16 @@ namespace Game.UI
 
         private void Show()
         {
+            for (int i = 0; i < purchaseOptions.Length; i++)
+            {
+                PurchaseOption purchaseOption = purchaseOptions[i];
+                PurchaseData purchaseData = _Data.purchaseData[i];
+                purchaseOption.SetPurchase(purchaseData.purchaseType, purchaseData.gainCount);
+            }
+        }
+
+        public void OnClick_Purchase(int purchaseIndex)
+        {
             
         }
 
@@ -45,29 +64,52 @@ namespace Game.UI
             MaxStack,
             SupplyLine,
             Agility,
-            Luck,
             FreeUpgrade,
         }
 
         [System.Serializable]
-        public class UpgradeShopData : ICloneable
+        public class Data : ICloneable
         {
-
-            public UpgradeShopData()
+            [SerializeField] public List<PurchaseData> purchaseData = new();
+            public Data()
             {
                 
             }
-            public UpgradeShopData(UpgradeShopData upgradeShopData)
+            public Data(Data data)
             {
-                
+                purchaseData.CopyFrom(data.purchaseData);   
             }
 
             public object Clone()
             {
-                return new UpgradeShopData(this);
+                return new Data(this);
             }
         } 
-        
+        [System.Serializable]
+        public class PurchaseData : ICloneable
+        {
+            [SerializeField] public UpgradeType upgradeType;
+            [SerializeField] public Const.PurchaseType purchaseType;
+            [SerializeField] public int priceAmount;
+            [SerializeField] public int gainCount;
+            [SerializeField] public int purchaseCount = 0;
+            public PurchaseData()
+            {
+                
+            }
+            public PurchaseData(PurchaseData purchaseData)
+            {
+                this.upgradeType = purchaseData.upgradeType;
+                this.purchaseType = purchaseData.purchaseType;
+                this.priceAmount = purchaseData.priceAmount;
+                this.gainCount = purchaseData.gainCount;
+            }
+
+            public object Clone()
+            {
+                return new PurchaseData(this);
+            }
+        } 
         
     }
 }
