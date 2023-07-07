@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 883697966121431314}
   - component: {fileID: 3722881595414553395}
   - component: {fileID: 856002422718885476}
+  - component: {fileID: 2584947442089114917}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -76,6 +77,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2584947442089114917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392723109473506340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1857481073855112645
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +190,8 @@ MonoBehaviour:
   priceText: {fileID: 5352291481845325070}
   purchaseButtonText: {fileID: 7494774903088002455}
   purchaseButton: {fileID: 484956058521525871}
+  detailedInfoText: {fileID: 2776447128923121542}
+  detailedInfo: HAVE +{0}<sprite name="Heart">
 --- !u!1 &4143858369179198316
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 331.75, y: -36}
+  m_AnchoredPosition: {x: 331.75, y: -28.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5807671850965983391
@@ -454,16 +472,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: MEDKIT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1db166619d5ba4bb2bf9a4cc03164a61, type: 2}
-  m_sharedMaterial: {fileID: 8418395759820322320, guid: 1db166619d5ba4bb2bf9a4cc03164a61,
+  m_fontAsset: {fileID: 11400000, guid: 7659f6d6ec9b642db8be29bc45fe97cc, type: 2}
+  m_sharedMaterial: {fileID: 8690591861142563998, guid: 7659f6d6ec9b642db8be29bc45fe97cc,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287561298
-  m_fontColor: {r: 0.32156864, g: 0.99607843, b: 0.5581634, a: 1}
+    rgba: 4286316288
+  m_fontColor: {r: 0, g: 1, b: 0.4811151, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -633,8 +651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 331.75, y: 4}
-  m_SizeDelta: {x: 430.7, y: 200}
+  m_AnchoredPosition: {x: 331.75, y: -0}
+  m_SizeDelta: {x: 430.7, y: 205.7}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8240707948303753357
 CanvasRenderer:
@@ -664,9 +682,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Have +10
+  m_text: 'Have
 
-    <sprite name="Heart">
+    +10 <sprite name="Heart">
 
 '
   m_isRightToLeft: 0
@@ -696,15 +714,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 77.5
+  m_fontSize: 53.4
   m_fontSizeBase: 68.28
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 78.1
+  m_fontSizeMax: 53.4
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -776,7 +794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -22.5, y: -67}
+  m_AnchoredPosition: {x: -8, y: -67}
   m_SizeDelta: {x: 403.88, y: 152.3}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7929889243969615011
@@ -878,7 +896,7 @@ PrefabInstance:
     - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.15686275
+      value: 0.47058824
       objectReference: {fileID: 0}
     - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -903,7 +921,7 @@ PrefabInstance:
     - target: {fileID: 1264050432624455652, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_Padding.m_Bottom
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -1048,7 +1066,7 @@ PrefabInstance:
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 117
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}

@@ -171,34 +171,40 @@ MonoBehaviour:
       purchaseData:
       - upgradeType: 0
         purchaseType: 0
-        priceAmount: 25
-        gainCount: 0
-        purchaseCount: 0
+        price: 50
+        gain: 10
+        purchaseInstance: 0
+        maxPurchase: 0
       - upgradeType: 1
         purchaseType: 1
-        priceAmount: 25
-        gainCount: 0
-        purchaseCount: 0
+        price: 25
+        gain: 20
+        purchaseInstance: 0
+        maxPurchase: 0
       - upgradeType: 2
         purchaseType: 2
-        priceAmount: 0
-        gainCount: 0
-        purchaseCount: 0
+        price: 0
+        gain: 7
+        purchaseInstance: 0
+        maxPurchase: 0
       - upgradeType: 3
         purchaseType: 1
-        priceAmount: 25
-        gainCount: 0
-        purchaseCount: 0
+        price: 0
+        gain: 0
+        purchaseInstance: 0
+        maxPurchase: 0
       - upgradeType: 4
         purchaseType: 0
-        priceAmount: 100
-        gainCount: 0
-        purchaseCount: 0
+        price: 0
+        gain: 0
+        purchaseInstance: 0
+        maxPurchase: 0
       - upgradeType: 5
         purchaseType: 2
-        priceAmount: 0
-        gainCount: 0
-        purchaseCount: 0
+        price: 0
+        gain: 3
+        purchaseInstance: 0
+        maxPurchase: 0
     maxMerge: 6
   GunUpgradeData:
   - gunType: 0
@@ -292,7 +298,7 @@ MonoBehaviour:
   steadyColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
   mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}
   placeColors:
-  - {r: 0.21960786, g: 0.48235297, b: 0.8941177, a: 1}
+  - {r: 0, g: 1, b: 0.38431373, a: 1}
   - {r: 1, g: 0.28627452, b: 0.2, a: 1}
   - {r: 0.15100001, g: 0.15100001, b: 0.15100001, a: 1}
   mergerPlaceColor: {r: 0.3803922, g: 0.6423908, b: 1, a: 1}

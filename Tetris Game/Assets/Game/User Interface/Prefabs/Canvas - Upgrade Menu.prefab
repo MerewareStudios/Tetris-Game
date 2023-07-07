@@ -519,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 786263843213746941, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_text
-      value: PROTECTION
+      value: ARMOR
       objectReference: {fileID: 0}
     - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
@@ -596,6 +596,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: detailedInfo
+      value: '<size=%50>GET PROTECTION
+
+        <size=%100>{0}<sprite name="Shield">'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -781,14 +788,29 @@ PrefabInstance:
     - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 75bcd0b7eff514a1b963792ac5ce380c,
+      objectReference: {fileID: 21300000, guid: e0679f078f8f3494987f3272a0ad4dae,
         type: 3}
+    - target: {fileID: 883697966121431314, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 235
+      objectReference: {fileID: 0}
+    - target: {fileID: 883697966121431314, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 235
+      objectReference: {fileID: 0}
+    - target: {fileID: 883697966121431314, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 950471704952077782, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -848,6 +870,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: detailedInfo
+      value: '<size=%50>STACK UP TO
+
+        <size=%100>{0}<sprite name="Ammo">'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1080,6 +1109,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: detailedInfo
+      value: '<size=%50>HEAL
+
+        <size=%100>{0}<sprite name="Heart">'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1260,6 +1296,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: SUPPLY LINE
+      objectReference: {fileID: 0}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: abeddf3a163cfa447b7f701cf9de43ef,
+        type: 3}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.3842082
+      objectReference: {fileID: 0}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 950471704952077782, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
@@ -1502,6 +1564,12 @@ PrefabInstance:
       propertyPath: m_text
       value: AGILITY
       objectReference: {fileID: 0}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb873b07dc75243c1942d89018500c32,
+        type: 3}
     - target: {fileID: 950471704952077782, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1741,8 +1809,14 @@ PrefabInstance:
     - target: {fileID: 786263843213746941, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_text
-      value: FREE UPGRADE
+      value: PIGGY LEVEL
       objectReference: {fileID: 0}
+    - target: {fileID: 856002422718885476, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5debbcb0f081bf142aa14a298fe744c5,
+        type: 3}
     - target: {fileID: 950471704952077782, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1802,6 +1876,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: detailedInfo
+      value: '<size=%50>STACK UP TO
+
+        <size=%100>{0}<sprite name="Piggy">'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

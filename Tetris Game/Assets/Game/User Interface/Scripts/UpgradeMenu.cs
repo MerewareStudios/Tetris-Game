@@ -47,7 +47,9 @@ namespace Game.UI
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
                 PurchaseData purchaseData = _Data.purchaseData[i];
-                purchaseOption.SetPurchase(purchaseData.purchaseType, purchaseData.gainCount);
+                purchaseOption
+                    .SetPurchase(purchaseData.purchaseType, purchaseData.price)
+                    .SetDetailedInfo(purchaseData.gain);
             }
         }
 
@@ -64,7 +66,7 @@ namespace Game.UI
             MaxStack,
             SupplyLine,
             Agility,
-            FreeUpgrade,
+            PiggyLevel,
         }
 
         [System.Serializable]
@@ -90,9 +92,10 @@ namespace Game.UI
         {
             [SerializeField] public UpgradeType upgradeType;
             [SerializeField] public Const.PurchaseType purchaseType;
-            [SerializeField] public int priceAmount;
-            [SerializeField] public int gainCount;
-            [SerializeField] public int purchaseCount = 0;
+            [SerializeField] public int price;
+            [SerializeField] public int gain;
+            [SerializeField] public int purchaseInstance = 0;
+            [SerializeField] public int maxPurchase = 0;
             public PurchaseData()
             {
                 
@@ -101,8 +104,10 @@ namespace Game.UI
             {
                 this.upgradeType = purchaseData.upgradeType;
                 this.purchaseType = purchaseData.purchaseType;
-                this.priceAmount = purchaseData.priceAmount;
-                this.gainCount = purchaseData.gainCount;
+                this.price = purchaseData.price;
+                this.gain = purchaseData.gain;
+                this.purchaseInstance = purchaseData.purchaseInstance;
+                this.maxPurchase = purchaseData.maxPurchase;
             }
 
             public object Clone()

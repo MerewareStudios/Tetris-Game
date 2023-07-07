@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,18 +10,20 @@ public class PurchaseOption : MonoBehaviour
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private TextMeshProUGUI purchaseButtonText;
     [SerializeField] private Button purchaseButton;
+    [SerializeField] private TextMeshProUGUI detailedInfoText;
+    [TextArea] [SerializeField] private string detailedInfo;
 
-    public void SetPurchase(Const.PurchaseType purchaseType, int priceAmount)
+    public PurchaseOption SetPurchase(Const.PurchaseType purchaseType, int price)
     {
         switch (purchaseType)
         {
             case Const.PurchaseType.Coin:
-                priceText.text = UIManager.COIN_TEXT + priceAmount;
+                priceText.text = UIManager.COIN_TEXT + price;
                 purchaseButtonText.text = "PURCHASE";
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[0];
                 break;
             case Const.PurchaseType.Gem:
-                priceText.text = UIManager.GEM_TEXT + priceAmount;
+                priceText.text = UIManager.GEM_TEXT + price;
                 purchaseButtonText.text = "PURCHASE";
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[1];
                 break;
@@ -30,6 +33,12 @@ public class PurchaseOption : MonoBehaviour
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[2];
                 break;
         }
-    }
 
+        return this;
+    }
+    public PurchaseOption SetDetailedInfo(int gain)
+    {
+        detailedInfoText.text = string.Format(detailedInfo, gain);
+        return this;
+    }
 }
