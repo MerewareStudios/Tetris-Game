@@ -65,7 +65,7 @@ namespace Game.UI
             Shield,
             MaxStack,
             SupplyLine,
-            Agility,
+            Hole,
             PiggyLevel,
         }
 

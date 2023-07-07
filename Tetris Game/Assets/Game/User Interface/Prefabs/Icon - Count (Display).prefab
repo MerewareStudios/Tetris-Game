@@ -69,8 +69,7 @@ MonoBehaviour:
   m_text: <sprite name="Coin">0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40f8700cc7cd42d4ea5761bebe2256fa, type: 2}
-  m_sharedMaterial: {fileID: 4338417768516384067, guid: 40f8700cc7cd42d4ea5761bebe2256fa,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 4c8589fcb4a5e594ab7b1b23e9914251, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

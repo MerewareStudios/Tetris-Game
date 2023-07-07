@@ -28,6 +28,7 @@ namespace Game
                 }
             }
             MarkMerger(0);
+            MarkIgnite(0);
         }
         public void Deconstruct()
         {
@@ -282,6 +283,14 @@ namespace Game
             Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
             {
                 place.Merger = (verticalIndex == index);
+            });
+        }
+        
+        public void MarkIgnite(int index)
+        {
+            Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
+            {
+                place.Ignite = (verticalIndex == index);
             });
         }
         

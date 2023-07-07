@@ -21,11 +21,15 @@ public class PurchaseOption : MonoBehaviour
                 priceText.text = UIManager.COIN_TEXT + price;
                 purchaseButtonText.text = "PURCHASE";
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[0];
+                priceText.color = Const.THIS.coinTextColor;
+                priceText.fontSharedMaterial = Const.THIS.coinTextMaterial;
                 break;
             case Const.PurchaseType.Gem:
                 priceText.text = UIManager.GEM_TEXT + price;
                 purchaseButtonText.text = "PURCHASE";
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[1];
+                priceText.color = Const.THIS.gemTextColor;
+                priceText.fontSharedMaterial = Const.THIS.gemTextMaterial;
                 break;
             case Const.PurchaseType.Ad:
                 priceText.text = UIManager.AD_TEXT;

@@ -31,6 +31,11 @@ public class Const : SSingleton<Const>
     public Color comboColor;
     public Gradient frontLineGradient;
     public Color piggyExplodeColor;
+    [Header("Meta Settings")] 
+    public Color coinTextColor;
+    public Material coinTextMaterial;
+    public Color gemTextColor;
+    public Material gemTextMaterial;
     [Header("Images")] 
     public Sprite[] purchaseOptionSprites;
     
