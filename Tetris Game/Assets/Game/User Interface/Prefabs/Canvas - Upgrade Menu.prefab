@@ -893,6 +893,11 @@ PrefabInstance:
 
         <size=100>{0}<sprite name=Ammo>'
       objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: purchaseInfo
+      value: <size=100%>MAX STACK <size=125%>{0}<sprite name=Ammo>
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -44,6 +44,16 @@ namespace Game
             get => _Data.maxStack;
         }
         
+        public int SupplyLine
+        {
+            set
+            {
+                _Data.supplyLine = value;
+                MarkIgnite(_Data.supplyLine);
+            }
+            get => _Data.supplyLine;
+        }
+        
         public void Construct()
         {
             places = new Place[Size.x, Size.y];
@@ -59,7 +69,8 @@ namespace Game
                 }
             }
             MarkMerger(0);
-            MarkIgnite(0);
+
+            SupplyLine = _Data.supplyLine;
         }
         public void Deconstruct()
         {
@@ -311,17 +322,18 @@ namespace Game
         
         public void MarkMerger(int index)
         {
-            Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
+            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
                 place.Merger = (verticalIndex == index);
             });
         }
         
-        public void MarkIgnite(int index)
+        public void MarkIgnite(int lastIndex)
         {
-            Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
+            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-                place.Ignite = (verticalIndex == index);
+                int linearIndex = verticalIndex * Size.x + horizontalIndex;
+                place.Ignite = linearIndex < lastIndex;
             });
         }
         
@@ -438,6 +450,8 @@ namespace Game
         {
             [SerializeField] public int defaultStack = 6;
             [SerializeField] public int maxStack = 6;
+            [SerializeField] public int defaultSupplyLine = 6;
+            [SerializeField] public int supplyLine = 6;
             
             public Data()
             {
@@ -445,7 +459,10 @@ namespace Game
             }
             public Data(Data data)
             {
+                this.defaultStack = data.defaultStack;
                 this.maxStack = data.maxStack;
+                this.defaultSupplyLine = data.defaultSupplyLine;
+                this.supplyLine = data.supplyLine;
             }
 
             public object Clone()

@@ -42,7 +42,11 @@ MonoBehaviour:
       amount: 0
   DefaultUserData:
     level: 1
-    maxMerge: 6
+    boardData:
+      defaultStack: 6
+      maxStack: 6
+      defaultSupplyLine: 7
+      supplyLine: 7
     coinTransactionData:
       value: 500
     gemTransactionData:
@@ -176,36 +180,42 @@ MonoBehaviour:
         gain: 10
         purchaseInstance: 0
         maxPurchase: 0
+        increasePerUse: 0
       - upgradeType: 1
         purchaseType: 1
         price: 25
         gain: 20
         purchaseInstance: 0
         maxPurchase: 0
+        increasePerUse: 0
       - upgradeType: 2
         purchaseType: 2
         price: 0
         gain: 7
         purchaseInstance: 0
         maxPurchase: 0
+        increasePerUse: 1
       - upgradeType: 3
         purchaseType: 1
         price: 50
         gain: 2
         purchaseInstance: 0
         maxPurchase: 0
+        increasePerUse: 0
       - upgradeType: 4
         purchaseType: 0
         price: 250
         gain: 30
         purchaseInstance: 0
         maxPurchase: 0
+        increasePerUse: 0
       - upgradeType: 5
         purchaseType: 2
         price: 0
         gain: 4
         purchaseInstance: 0
         maxPurchase: 0
+        increasePerUse: 0
   GunUpgradeData:
   - gunType: 0
     sprite: {fileID: 21300000, guid: 94d71f0de6a1c034096ea62a51761703, type: 3}

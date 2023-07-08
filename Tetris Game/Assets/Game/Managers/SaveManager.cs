@@ -41,6 +41,11 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
     }
+
+    void Start()
+    {
+        
+    }
 }
 public static class SaveManagerExtensions
 {

@@ -96,7 +96,9 @@ namespace Game.UI
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
+            purchaseData.gain += purchaseData.increasePerUse;
+            Debug.Log(purchaseData.gain);
             Show();
         }
 
@@ -138,6 +140,7 @@ namespace Game.UI
             [SerializeField] public int gain;
             [SerializeField] public int purchaseInstance = 0;
             [SerializeField] public int maxPurchase = 0;
+            [SerializeField] public int increasePerUse = 0;
             public PurchaseData()
             {
                 
@@ -150,6 +153,7 @@ namespace Game.UI
                 this.gain = purchaseData.gain;
                 this.purchaseInstance = purchaseData.purchaseInstance;
                 this.maxPurchase = purchaseData.maxPurchase;
+                this.increasePerUse = purchaseData.increasePerUse;
             }
 
             public object Clone()
