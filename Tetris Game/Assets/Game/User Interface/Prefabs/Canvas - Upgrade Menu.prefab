@@ -567,6 +567,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077539207170651419, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 32709
+      objectReference: {fileID: 0}
     - target: {fileID: 9148890033157303476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -600,9 +605,14 @@ PrefabInstance:
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: detailedInfo
-      value: '<size=%50>GET PROTECTION
+      value: '<size=50>GET PROTECTION
 
-        <size=%100>{0}<sprite name="Shield">'
+        <size=100>{0}<sprite name=Shield>'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: purchaseInfo
+      value: <size=100%>PURCHASED +<size=125%>{0}<sprite name=Shield>
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -841,6 +851,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077539207170651419, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 32709
+      objectReference: {fileID: 0}
     - target: {fileID: 9148890033157303476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -874,9 +889,9 @@ PrefabInstance:
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: detailedInfo
-      value: '<size=%50>STACK UP TO
+      value: '<size=50>STACK UP TO
 
-        <size=%100>{0}<sprite name="Ammo">'
+        <size=100>{0}<sprite name=Ammo>'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1079,6 +1094,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077539207170651419, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 32709
+      objectReference: {fileID: 0}
     - target: {fileID: 9148890033157303476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1112,9 +1132,14 @@ PrefabInstance:
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: detailedInfo
-      value: '<size=%50>HEAL
+      value: '<size=50>HEAL
 
-        <size=%100>{0}<sprite name="Heart">'
+        <size=100>{0}<sprite name=Heart>'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: purchaseInfo
+      value: <size=100%>PURCHASED +<size=125%>{0}<sprite name=Heart>
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1353,6 +1378,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077539207170651419, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 32709
+      objectReference: {fileID: 0}
     - target: {fileID: 9148890033157303476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1386,7 +1416,7 @@ PrefabInstance:
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: detailedInfo
-      value: "<size=%50>RETRIEVE AMMO \n<size=%100>LINE {0}"
+      value: "<size=50>RETRIEVE AMMO \n<size=100>LINE {0}"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1615,6 +1645,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077539207170651419, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 32709
+      objectReference: {fileID: 0}
     - target: {fileID: 9148890033157303476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1648,9 +1683,9 @@ PrefabInstance:
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: detailedInfo
-      value: '<size=%50>SPAWN A HOLE
+      value: '<size=50>SPAWN A HOLE
 
-        <size=%100>{0}sec'
+        <size=100>{0}sec'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1869,6 +1904,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6077539207170651419, guid: 4f17b34b5fd4ea844b777baf067aa606,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 32709
+      objectReference: {fileID: 0}
     - target: {fileID: 9148890033157303476, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1902,9 +1942,9 @@ PrefabInstance:
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: detailedInfo
-      value: '<size=%50>STACK UP TO
+      value: '<size=50>STACK UP TO
 
-        <size=%100>{0}<sprite name="Piggy">'
+        <size=100>{0}<sprite name=Piggy>'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

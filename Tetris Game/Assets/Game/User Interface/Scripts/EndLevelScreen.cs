@@ -156,13 +156,13 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     }
     private void InvestAnimation(int amount)
     {
-        UIManager.THIS.currenyTransactorCoin.Transaction(-amount);
+        Wallet.COIN.Transaction(-amount);
         int maxCoin = 6;
         
         int count = Mathf.Min(amount, maxCoin);
         float posDif = 0.3f;
             
-        Vector3 screenStart = UIManager.THIS.currenyTransactorCoin.iconPivot.position;
+        Vector3 screenStart = Wallet.COIN.iconPivot.position;
         Vector3 screenEnd = _coinTarget.position;
         Vector3 screenDrag = screenStart;
         screenDrag.x = screenEnd.x;
@@ -196,13 +196,14 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
         Show();
         return false;
     }
-    public new void Close()
+    public new bool Close(float duration = 0.25f, float delay = 0.0f)
     {
         if (base.Close())
         {
-            return;
+            return true;
         }
         Hide();
+        return false;
     }
     private void CloseAction()
     {
@@ -216,7 +217,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
 
         _PiggyData = _piggyData;
         
-        bool investForFree = UIManager.THIS.currenyTransactorCoin.Amount == 0;
+        bool investForFree = Wallet.COIN.Amount == 0;
         
         ShowScreen(true, false, false);
         ShowOptionButtons(true, !_PiggyData.RewardsWaiting && !investForFree && !_PiggyData.MaxRewardsReached, !_PiggyData.RewardsWaiting && investForFree && !_PiggyData.MaxRewardsReached, _PiggyData.RewardsWaiting, _PiggyData.MaxRewardsReached);
@@ -243,7 +244,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
         investButton.SetActive(investState);
         if (investState)
         {
-            investmentAmountText.text = InvestWithStrategy(UIManager.THIS.currenyTransactorCoin.Amount).CoinAmount();
+            investmentAmountText.text = InvestWithStrategy(Wallet.COIN.Amount).CoinAmount();
         }
         investFreeButton.SetActive(investFreeState);
         if (investFreeState)
@@ -274,7 +275,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     }
     public void Option_Invest()
     {
-        InvestCoins(InvestWithStrategy(UIManager.THIS.currenyTransactorCoin.Amount));
+        InvestCoins(InvestWithStrategy(Wallet.COIN.Amount));
     }
     
     public void Option_InvestFree()

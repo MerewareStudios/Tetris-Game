@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Game;
 using Game.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SaveManager : SaveManagerBase<SaveManager>
 {
@@ -25,8 +26,9 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
         }
 
-        UIManager.THIS.currenyTransactorCoin.Set(ref saveData.userData.moneyTransactionData);
-        UIManager.THIS.currenyTransactorGem.Set(ref saveData.userData.diamondTransactionData);
+        Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
+        Wallet.GEM.Set(ref saveData.userData.gemTransactionData);
+        
         UIManager.THIS.shopBar.Set(ref saveData.userData.shopFillTransactionData);
         
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
@@ -35,6 +37,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
+        Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
     }
@@ -61,11 +64,6 @@ public static class SaveManagerExtensions
     public static int CurrentLevel(this LevelManager levelManager)
     {
         return SaveManager.THIS.saveData.userData.level;
-    }
-    
-    public static int MaxMerge(this Board board)
-    {
-        return SaveManager.THIS.saveData.userData.maxMerge;
     }
 }
 public partial class SaveData
@@ -103,15 +101,15 @@ namespace User
     public class Data : ICloneable
     {
         [SerializeField] public int level = 1;
-        [SerializeField] public TransactionData<int> moneyTransactionData = new();
-        [SerializeField] public TransactionData<int> diamondTransactionData = new();
+        [SerializeField] public Board.Data boardData;
+        [SerializeField] public TransactionData<int> coinTransactionData = new();
+        [SerializeField] public TransactionData<int> gemTransactionData = new();
         [SerializeField] public TransactionData<float> shopFillTransactionData = new();
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
         [SerializeField] public EndLevelScreen.PiggyData piggyData;
         [SerializeField] public UpgradeMenu.Data upgradeMenuData;
-        [SerializeField] public int maxMerge = 6;
 
         
         public Data()
@@ -121,15 +119,15 @@ namespace User
         public Data(Data data)
         {
             level = data.level;
-            moneyTransactionData = data.moneyTransactionData.Clone() as TransactionData<int>;
-            diamondTransactionData = data.diamondTransactionData.Clone() as TransactionData<int>;
+            boardData = data.boardData.Clone() as Board.Data;
+            coinTransactionData = data.coinTransactionData.Clone() as TransactionData<int>;
+            gemTransactionData = data.gemTransactionData.Clone() as TransactionData<int>;
             shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
             piggyData = data.piggyData.Clone() as EndLevelScreen.PiggyData;
             upgradeMenuData = data.upgradeMenuData.Clone() as UpgradeMenu.Data;
-            maxMerge = data.maxMerge;
         }
        
 

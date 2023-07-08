@@ -46,16 +46,58 @@ namespace Game.UI
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
+
                 PurchaseData purchaseData = _Data.purchaseData[i];
+                bool hasFunds = Wallet.HasFunds(purchaseData.purchaseType, purchaseData.price);
                 purchaseOption
-                    .SetPurchase(purchaseData.purchaseType, purchaseData.price)
+                    .SetPurchase(purchaseData.purchaseType, purchaseData.price, hasFunds)
                     .SetDetailedInfo(purchaseData.gain);
             }
         }
 
         public void OnClick_Purchase(int purchaseIndex)
         {
+            PurchaseOption purchaseOption = purchaseOptions[purchaseIndex];
+            PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
             
+            
+            
+            bool transactionSuccessful = Wallet.Transaction(purchaseData.purchaseType, -purchaseData.price);
+            
+            purchaseOptions[purchaseIndex].PunchColor(transactionSuccessful ? Const.THIS.acceptedFrameColor : Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
+            purchaseOptions[purchaseIndex].Punch(transactionSuccessful ? new Vector3(0.0f, 30.0f) :  new Vector3(-50.0f, 0.0f));
+
+            if (!transactionSuccessful)
+            {
+                Toast.Show(UIManager.NO_FUNDS_TEXT, 2.25f);
+                return;
+            }
+            
+            Toast.Show(purchaseOption.GetPurchaseInfo(purchaseData.gain), 0.5f);
+            
+            UpgradeType upgradeType = (UpgradeType)purchaseIndex;
+            switch (upgradeType)
+            {
+                case UpgradeType.Heart:
+                    Warzone.THIS.GiveHeart(purchaseData.gain);
+                    break;
+                case UpgradeType.Shield:
+                    Warzone.THIS.GiveShield(purchaseData.gain, 15.0f);
+                    break;
+                case UpgradeType.MaxStack:
+                    Board.THIS.MaxStack = purchaseData.gain;
+                    break;
+                case UpgradeType.SupplyLine:
+                    break;
+                case UpgradeType.Hole:
+                    break;
+                case UpgradeType.PiggyLevel:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            Show();
         }
 
         [Serializable]

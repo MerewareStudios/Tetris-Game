@@ -8,7 +8,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Internal.Core;
 
 public class StageBar : MonoBehaviour
 {

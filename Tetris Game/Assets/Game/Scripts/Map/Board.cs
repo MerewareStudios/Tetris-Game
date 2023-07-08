@@ -1,6 +1,8 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using System.Collections.Generic;
+using Game.UI;
 using UnityEngine;
 
 
@@ -13,6 +15,35 @@ namespace Game
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tick = 0;
 
+        [System.NonSerialized] private Data _data;
+
+        public Data _Data
+        {
+            set
+            {
+                _data = value;
+                MaxStack = _data.maxStack;
+            }
+            get => _data;
+        }
+
+        public int MaxStack
+        {
+            set
+            {
+                _Data.maxStack = value;
+                if (_Data.maxStack != _Data.defaultStack)
+                {
+                    StatDisplayArranger.THIS.Show(StatDisplay.Type.MaxStack, _data.maxStack);
+                }
+                else
+                {
+                    StatDisplayArranger.THIS.Hide(StatDisplay.Type.MaxStack);
+                }
+            }
+            get => _Data.maxStack;
+        }
+        
         public void Construct()
         {
             places = new Place[Size.x, Size.y];
@@ -206,7 +237,7 @@ namespace Game
                     };
                 }
 
-                totalPoint = Mathf.Clamp(totalPoint, 0, this.MaxMerge());
+                totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
                 SpawnMergedPawn(spawnPlace, totalPoint);
             }
         }
@@ -399,6 +430,28 @@ namespace Game
                 }
             }
             return true;
+        }
+        
+        
+        [System.Serializable]
+        public class Data : ICloneable
+        {
+            [SerializeField] public int defaultStack = 6;
+            [SerializeField] public int maxStack = 6;
+            
+            public Data()
+            {
+                
+            }
+            public Data(Data data)
+            {
+                this.maxStack = data.maxStack;
+            }
+
+            public object Clone()
+            {
+                return new Data(this);
+            }
         }
         
     }

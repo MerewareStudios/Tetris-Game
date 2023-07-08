@@ -4,6 +4,7 @@ using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ShopBar : Transactor<ShopBar, float>
@@ -12,7 +13,7 @@ public class ShopBar : Transactor<ShopBar, float>
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private RectTransform prompt;
     [SerializeField] private UnityEvent OnClickAction;
-    [SerializeField] private ParticleSystem particleSystem;
+    [FormerlySerializedAs("particleSystem")] [SerializeField] private ParticleSystem effectPS;
     [System.NonSerialized] private Tween fillTween;
     
     public override void Set(ref User.TransactionData<float> transactionData)
@@ -71,7 +72,7 @@ public class ShopBar : Transactor<ShopBar, float>
         }
         OnClickAction?.Invoke();
         
-        particleSystem.Stop();
+        effectPS.Stop();
         // ConsumeFill();
     }
 
@@ -85,7 +86,7 @@ public class ShopBar : Transactor<ShopBar, float>
     
     public void ShowPrompt()
     {
-        particleSystem.Play();
+        effectPS.Play();
         prompt.gameObject.SetActive(true);
         prompt.localScale = Vector3.one;
         prompt.DOKill();

@@ -38,6 +38,10 @@ public class Const : SSingleton<Const>
     public Material gemTextMaterial;
     [Header("Images")] 
     public Sprite[] purchaseOptionSprites;
+    [Header("Purchase Option")] 
+    public Color defaultFrameColor;
+    public Color acceptedFrameColor;
+    public Color deniedFrameColor;
     
     [Header("Visuals")] 
     public DirectionRadiusPair[] rewardDirectionRadiusPair;

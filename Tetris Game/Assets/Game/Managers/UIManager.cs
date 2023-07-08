@@ -10,10 +10,7 @@ using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
-   [FormerlySerializedAs("currenyTransactorMoney")]
-   [Header("Transactor")]
-   [SerializeField] public CurrenyTransactor currenyTransactorCoin;
-   [FormerlySerializedAs("currenyTransactorDiamond")] [SerializeField] public CurrenyTransactor currenyTransactorGem;
+   
    [SerializeField] public ShopBar shopBar;
    [Header("Flying Text")]
    [SerializeField] public FlyingText ft_Level;
@@ -25,6 +22,7 @@ public class UIManager : Singleton<UIManager>
    [System.NonSerialized] public static string COIN_TEXT = "<sprite name=Coin>";
    [System.NonSerialized] public static string GEM_TEXT = "<sprite name=Gem>";
    [System.NonSerialized] public static string AD_TEXT = "<sprite name=AD>";
+   [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
 
    
    
@@ -62,8 +60,8 @@ public class UIManager : Singleton<UIManager>
 
    public void ScaleTransactors(float scale, bool distance = false)
    {
-      currenyTransactorCoin.Scale(scale, distance);
-      currenyTransactorGem.Scale(scale, distance);
+      Wallet.COIN.Scale(scale, distance);
+      Wallet.GEM.Scale(scale, distance);
    }
 }
 

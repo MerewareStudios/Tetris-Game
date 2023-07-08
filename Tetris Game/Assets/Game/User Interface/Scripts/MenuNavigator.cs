@@ -32,15 +32,21 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         OpenLastMenu();
     }
     
-    public new void Close()
+    public new bool Close(float duration = 0.25f, float delay = 0.0f)
     {
         if (base.Close())
         {
-            return;
+            return true;
         }
         Time.timeScale = 1.0f;
         UIManager.THIS.ScaleTransactors(1.0f);
         _menus[(int)_data.lastMenuType].Close(0.2f);
+        return false;
+    }
+    
+    public void OnClick_Close()
+    {
+        this.Close();
     }
 
     private void OpenLastMenu(float duration = 0.25f)

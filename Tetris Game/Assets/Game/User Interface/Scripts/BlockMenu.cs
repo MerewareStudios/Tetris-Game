@@ -107,7 +107,7 @@ namespace Game.UI
 
         public void PurchaseWithMoney()
         {
-            if (UIManager.THIS.currenyTransactorCoin.Transaction(-_blockData.basePrice))
+            if (Wallet.COIN.Transaction(-_blockData.basePrice))
             {
                 OnPurchase();
             }

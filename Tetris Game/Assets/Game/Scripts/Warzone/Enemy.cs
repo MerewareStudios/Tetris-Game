@@ -100,7 +100,7 @@ namespace  Game
         {
             _thisTransform.DOKill();
             Warzone.THIS.RemoveEnemy(this);
-            UIManager.THIS.currenyTransactorCoin.Transaction(1);
+            Wallet.COIN.Transaction(1);
             Particle.Coin.Emit(1, transform.position + new Vector3(0.0f, 0.25f, 0.0f));
             this.Deconstruct();
         }

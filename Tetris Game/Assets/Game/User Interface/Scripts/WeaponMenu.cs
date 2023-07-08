@@ -121,7 +121,7 @@ namespace Game.UI
             Gun.StatType type = (Gun.StatType)statType;
 
             int price = _gunUpgradeData.Price(type, _weaponShopData.GetIndex(type));
-            if (UIManager.THIS.currenyTransactorCoin.Transaction(-price))
+            if (Wallet.COIN.Transaction(-price))
             {
                 OnPurchase(type);
             }
