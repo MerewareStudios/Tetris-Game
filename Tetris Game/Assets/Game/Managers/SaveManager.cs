@@ -33,7 +33,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
-        EndLevelScreen.THIS._PiggyData = saveData.userData.piggyData;
+        PiggyMenu.THIS._Data = saveData.userData.piggyData;
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
@@ -113,7 +113,7 @@ namespace User
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
-        [SerializeField] public EndLevelScreen.PiggyData piggyData;
+        [SerializeField] public PiggyMenu.Data piggyData;
         [SerializeField] public UpgradeMenu.Data upgradeMenuData;
 
         
@@ -131,7 +131,7 @@ namespace User
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
-            piggyData = data.piggyData.Clone() as EndLevelScreen.PiggyData;
+            piggyData = data.piggyData.Clone() as PiggyMenu.Data;
             upgradeMenuData = data.upgradeMenuData.Clone() as UpgradeMenu.Data;
         }
        

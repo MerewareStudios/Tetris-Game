@@ -26,7 +26,7 @@ public class RewardButton : MonoBehaviour
         OnClickAction?.Invoke();
     }
 
-    public void ShowReward(EndLevelScreen.PiggyReward piggyReward)
+    public void ShowReward(PiggyMenu.PiggyReward piggyReward)
     {
         ActionButton.image.raycastTarget = false;
 

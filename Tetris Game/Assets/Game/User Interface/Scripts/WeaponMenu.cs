@@ -70,12 +70,12 @@ namespace Game.UI
             StageBar.StageData<int> stageData = stageDatas[currentIndex];
             
             bool max = currentIndex >= stageDatas.Length - 1;
-            int price = max ? 0 : (stageData.purchaseType.Equals(Const.PurchaseType.Ad) ? -1 : stageData.price);
+            int? price = max ? null : (stageData.purchaseType.Equals(Const.PurchaseType.Ad) ? -3 : stageData.price);
             
             stageBar
                 .SetTopInfo(stageData.value.ToString())
                 .SetPurchaseType(stageData.purchaseType)
-                .SetPrice(price)
+                .SetPrice(stageData.purchaseType, price)
                 .SetBars(stageDatas.Length - 1, currentIndex)
                 .SetUsable(!max);
         }

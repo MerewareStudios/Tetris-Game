@@ -45,7 +45,7 @@ public class UIManager : Singleton<UIManager>
    {
       if (Input.GetKeyDown(KeyCode.E))
       {
-         EndLevelScreen.THIS.Open();
+         PiggyMenu.THIS.Open();
       }
       if (Input.GetKeyDown(KeyCode.R))
       {

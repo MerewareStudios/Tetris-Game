@@ -26,14 +26,14 @@ public class PurchaseOption : MonoBehaviour
         {
             case Const.PurchaseType.Coin:
                 priceText.text = UIManager.COIN_TEXT + price;
-                purchaseButtonText.text = able2Purchase ? "PURCHASE" : UIManager.NO_FUNDS_TEXT;
+                purchaseButtonText.text = able2Purchase ? "SPEND" : UIManager.NO_FUNDS_TEXT;
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[0];
                 priceText.color = Const.THIS.coinTextColor;
                 priceText.fontSharedMaterial = Const.THIS.coinTextMaterial;
                 break;
             case Const.PurchaseType.Gem:
                 priceText.text = UIManager.GEM_TEXT + price;
-                purchaseButtonText.text = able2Purchase ? "PURCHASE" : UIManager.NO_FUNDS_TEXT;
+                purchaseButtonText.text = able2Purchase ? "SPEND" : UIManager.NO_FUNDS_TEXT;
                 purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[1];
                 priceText.color = Const.THIS.gemTextColor;
                 priceText.fontSharedMaterial = Const.THIS.gemTextMaterial;

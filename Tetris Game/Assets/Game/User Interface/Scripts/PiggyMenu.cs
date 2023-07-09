@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
+public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
     [Header("End Level Screen")]
     [Header("Bars")]
@@ -29,28 +29,28 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     [Header("Animation")]
     [SerializeField] private DOTweenAnimation piggyJumpAnimation;
     
-    [System.NonSerialized] private PiggyData _piggyData;
+    [System.NonSerialized] private Data _data;
 
 
     #region Fields
-    public PiggyData _PiggyData
+    public Data _Data
     {
         set
         {
-            _piggyData = value;
+            _data = value;
             
             PiggyLevel = value.piggyLevel;
             _markedProgressPiggy._Progress = value.PiggyPercent;
             MoneyCount = value.moneyCurrent;
         }
-        get => _piggyData;
+        get => _data;
     }
     private int PiggyLevel
     {
         set
         {
-            _PiggyData.piggyLevel = Mathf.Clamp(value, 0, _PiggyData.maxPiggyLevel);
-            pigLevelText.text = (_PiggyData.piggyLevel == _PiggyData.maxPiggyLevel) ? "MAX" : _piggyData.piggyLevel.ToString();
+            _Data.piggyLevel = Mathf.Clamp(value, 0, _Data.maxPiggyLevel);
+            pigLevelText.text = (_Data.piggyLevel == _Data.maxPiggyLevel) ? "MAX" : _data.piggyLevel.ToString();
 
             RectTransform rectTransformPiggyCount = pigLevelText.rectTransform;
             
@@ -60,12 +60,17 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
             
             PunchPiggyIcon();
         }
-        get => _PiggyData.piggyLevel;
+        get => _Data.piggyLevel;
+    }
+    public int MaxPiggyLevel
+    {
+        set => _Data.maxPiggyLevel = value;
+        get => _Data.maxPiggyLevel;
     }
     private int MoneyCount
     {
         set => moneyCountText.text = value.CoinAmount();
-        get => _PiggyData.moneyCurrent;
+        get => _Data.moneyCurrent;
     }
     #endregion
     #region Animations
@@ -88,15 +93,15 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
             button.gameObject.SetActive(false);
         }
 
-        List<Vector3> positions = CircleLayoutGroup.GetPoints(_rewardsCenter.position, _PiggyData.RewardCount,  _PiggyData.RewardCount.Direction(), _PiggyData.RewardCount.Radius());
+        List<Vector3> positions = CircleLayoutGroup.GetPoints(_rewardsCenter.position, _Data.RewardCount,  _Data.RewardCount.Direction(), _Data.RewardCount.Radius());
 
-        for (int i = 0; i < _PiggyData.RewardCount; i++)
+        for (int i = 0; i < _Data.RewardCount; i++)
         {
             RewardButton rewardButton = piggyRewardButtons[i];
-            PiggyReward piggyReward = _PiggyData.rewards[i];
+            PiggyReward piggyReward = _Data.rewards[i];
             rewardButton.OnClick(() =>
             {
-                _PiggyData.rewards.Remove(piggyReward);
+                _Data.rewards.Remove(piggyReward);
                 rewardButton.ShowReward(piggyReward);
 
             }).Show(_rewardsCenter.position, positions[i], i * 0.1f);
@@ -106,25 +111,25 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     #region Invest
     private void AddMoney(int count, float delay = 0.0f)
     {
-        _PiggyData.moneyCurrent += count;
-        int excess = Mathf.Clamp(_PiggyData.moneyCurrent - _PiggyData.moneyCapacity, 0, int.MaxValue);
+        _Data.moneyCurrent += count;
+        int excess = Mathf.Clamp(_Data.moneyCurrent - _Data.moneyCapacity, 0, int.MaxValue);
 
         float percentChange = count / 100.0f;
 
-        _PiggyData.moneyCurrent = Mathf.Clamp(_PiggyData.moneyCurrent, 0, _PiggyData.moneyCapacity);
-        _markedProgressPiggy.ProgressAnimated(_piggyData.PiggyPercent, Mathf.Clamp(percentChange, 0.2f, 0.8f), delay, Ease.OutQuad, 
+        _Data.moneyCurrent = Mathf.Clamp(_Data.moneyCurrent, 0, _Data.moneyCapacity);
+        _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, Mathf.Clamp(percentChange, 0.2f, 0.8f), delay, Ease.OutQuad, 
             
-            (value) => MoneyCount = _PiggyData.Percent2Money(value) , 
+            (value) => MoneyCount = _Data.Percent2Money(value) , 
             
             () =>
             {
-                if (_PiggyData.IsFull)
+                if (_Data.IsFull)
                 {
                     PiggyLevel++;
 
-                    _PiggyData.moneyCurrent = 0;
+                    _Data.moneyCurrent = 0;
 
-                    _markedProgressPiggy.ProgressAnimated(_piggyData.PiggyPercent, 0.2f, 0.25f, Ease.Linear,null, () =>
+                    _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.2f, 0.25f, Ease.Linear,null, () =>
                     {
                         MoneyCount = 0;
                         if (excess > 0)
@@ -133,14 +138,14 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
                         }
                         else
                         {
-                            ShowPiggyScreenButtons(_PiggyData.piggyLevel > 0, true);
+                            ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
                         }
 
                     });
                 }
                 else
                 {
-                    ShowPiggyScreenButtons(_PiggyData.piggyLevel > 0, true);
+                    ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
                 }
             });
     }
@@ -215,12 +220,12 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
 
         UIManager.THIS.ScaleTransactors(1.5f, true);
 
-        _PiggyData = _piggyData;
+        _Data = _data;
         
         bool investForFree = Wallet.COIN.Amount == 0;
         
         ShowScreen(true, false, false);
-        ShowOptionButtons(true, !_PiggyData.RewardsWaiting && !investForFree && !_PiggyData.MaxRewardsReached, !_PiggyData.RewardsWaiting && investForFree && !_PiggyData.MaxRewardsReached, _PiggyData.RewardsWaiting, _PiggyData.MaxRewardsReached);
+        ShowOptionButtons(true, !_Data.RewardsWaiting && !investForFree && !_Data.MaxRewardsReached, !_Data.RewardsWaiting && investForFree && !_Data.MaxRewardsReached, _Data.RewardsWaiting, _Data.MaxRewardsReached);
     }
     public void Hide()
     {
@@ -249,7 +254,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
         investFreeButton.SetActive(investFreeState);
         if (investFreeState)
         {
-            freeInvestmentAmountText.text = _PiggyData.freeInvestmentAmount.CoinAmount();
+            freeInvestmentAmountText.text = _Data.freeInvestmentAmount.CoinAmount();
         }
         justOpenButton.SetActive(justOpenState);
         openRewardsButton.SetActive(rewardState);
@@ -281,7 +286,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     public void Option_InvestFree()
     {
         Debug.LogWarning("Watch Ad - Not Implemented, invest");
-        InvestCoins(_PiggyData.freeInvestmentAmount);
+        InvestCoins(_Data.freeInvestmentAmount);
     }
     public void Option_JustOpen()
     {
@@ -331,13 +336,13 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
     }
     public void OnClick_Break()
     {
-        _PiggyData.GenerateRewards();
+        _Data.GenerateRewards();
         DisplayRewards();
     }
     #endregion
     #region Classes
         [System.Serializable]
-        public class PiggyData : ICloneable
+        public class Data : ICloneable
         {
             [SerializeField] public int piggyLevel;
             [SerializeField] public int maxPiggyLevel = 9;
@@ -346,19 +351,19 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
             [SerializeField] public int freeInvestmentAmount = 25;
             [SerializeField] public List<PiggyReward> rewards = new();
 
-            public PiggyData()
+            public Data()
             {
                     
             }
             
-            public PiggyData(PiggyData piggyData)
+            public Data(Data data)
             {
-                this.piggyLevel = piggyData.piggyLevel;
-                this.maxPiggyLevel = piggyData.maxPiggyLevel;
-                this.moneyCurrent = piggyData.moneyCurrent;
-                this.moneyCapacity = piggyData.moneyCapacity;
-                this.freeInvestmentAmount = piggyData.freeInvestmentAmount;
-                this.rewards.CopyFrom(piggyData.rewards);
+                this.piggyLevel = data.piggyLevel;
+                this.maxPiggyLevel = data.maxPiggyLevel;
+                this.moneyCurrent = data.moneyCurrent;
+                this.moneyCapacity = data.moneyCapacity;
+                this.freeInvestmentAmount = data.freeInvestmentAmount;
+                this.rewards.CopyFrom(data.rewards);
             }
 
             
@@ -379,7 +384,7 @@ public class EndLevelScreen : Menu<EndLevelScreen>, IMenu
 
             public object Clone()
             {
-                return new PiggyData(this);
+                return new Data(this);
             }
         } 
         [System.Serializable]

@@ -28,16 +28,19 @@ public class StageBar : MonoBehaviour
         return this;
     }
  
-    public StageBar SetPrice(int amount)
+    public StageBar SetPrice(Const.PurchaseType purchaseType, int? price)
     {
-        if (amount == 0)
+        if (price == null)
         {
             priceText.text = "MAX";
             return this;
         }
-        if (amount == -1)
+
+        int amount = (int)price;
+        
+        if (amount == -3)
         {
-            priceText.text = "AD".ToTMProKey() + " FREE";
+            priceText.text = UIManager.AD_TEXT;
             return this;
         }
         priceText.text = amount.CoinAmount();
@@ -46,11 +49,11 @@ public class StageBar : MonoBehaviour
     
     public StageBar SetPurchaseType(Const.PurchaseType purchaseType)
     {
-        for (int i = 0; i < purchaseButtons.Length; i++)
+        foreach (var t in purchaseButtons)
         {
-            Button button = purchaseButtons[i];
-            button.gameObject.SetActive((int)purchaseType == i);
+            t.gameObject.SetActive(false);
         }
+        purchaseButtons[(int)purchaseType].gameObject.SetActive(true);
 
         return this;
     }

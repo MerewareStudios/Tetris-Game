@@ -16,25 +16,26 @@ namespace Game
         [SerializeField] private SpriteRenderer igniteSprite;
         [System.NonSerialized] public Vector2Int index;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
-        [System.NonSerialized] private bool _merger = false;
+        [System.NonSerialized] private bool _supplier = false;
         public Pawn Current { get; set; }
         public bool Occupied => Current;
 
-        public bool Ignite
-        {
-            set
-            {
-                igniteSprite.enabled = value;
-            }
-        }
+        // public bool Ignite
+        // {
+        //     set
+        //     {
+        //         igniteSprite.enabled = value;
+        //     }
+        // }
 
-        public bool Merger
+        public bool Supplier
         {
-            get => _merger;
+            get => _supplier;
             set
             {
-                _merger = value;
-                SetColor(PlaceType.EMPTY);
+                _supplier = value;
+                igniteSprite.enabled = value;
+                SetColor(PlaceType.EMPTY, true);
             }
         }
 
@@ -52,9 +53,9 @@ namespace Game
             }
         }
 
-        public void SetColor(PlaceType placeType)
+        public void SetColor(PlaceType placeType, bool force = false)
         {
-            if (this._placeType.Equals(placeType))
+            if (!force && this._placeType.Equals(placeType))
             {
                 return;
             }
@@ -62,7 +63,7 @@ namespace Game
             this._placeType = placeType;
 
             Color color = Const.THIS.placeColors[(int)placeType];
-            if (placeType.Equals(PlaceType.EMPTY) && Merger)
+            if (placeType.Equals(PlaceType.EMPTY) && Supplier)
             {
                 color = Const.THIS.mergerPlaceColor;
             }

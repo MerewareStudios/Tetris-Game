@@ -88,17 +88,19 @@ namespace Game.UI
                     Board.THIS.MaxStack = purchaseData.gain;
                     break;
                 case UpgradeType.SupplyLine:
+                    Board.THIS.SupplyLine = purchaseData.gain;
                     break;
                 case UpgradeType.Hole:
                     break;
-                case UpgradeType.PiggyLevel:
+                case UpgradeType.MaxPiggyLevel:
+                    PiggyMenu.THIS.MaxPiggyLevel = purchaseData.gain;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             purchaseData.gain += purchaseData.increasePerUse;
-            Debug.Log(purchaseData.gain);
+            purchaseData.purchaseInstance++;
             Show();
         }
 
@@ -110,7 +112,7 @@ namespace Game.UI
             MaxStack,
             SupplyLine,
             Hole,
-            PiggyLevel,
+            MaxPiggyLevel,
         }
 
         [System.Serializable]

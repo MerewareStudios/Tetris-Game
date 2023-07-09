@@ -49,7 +49,7 @@ namespace Game
             set
             {
                 _Data.supplyLine = value;
-                MarkIgnite(_Data.supplyLine);
+                MarkSupplier(_Data.supplyLine);
             }
             get => _Data.supplyLine;
         }
@@ -68,7 +68,7 @@ namespace Game
                     place.index = new Vector2Int(i, j);
                 }
             }
-            MarkMerger(0);
+            // MarkMerger(0);
 
             SupplyLine = _Data.supplyLine;
         }
@@ -320,20 +320,20 @@ namespace Game
             return false;
         }
         
-        public void MarkMerger(int index)
-        {
-            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
-            {
-                place.Merger = (verticalIndex == index);
-            });
-        }
+        // public void MarkMerger(int index)
+        // {
+        //     Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+        //     {
+        //         place.Supplier = (verticalIndex == index);
+        //     });
+        // }
         
-        public void MarkIgnite(int lastIndex)
+        public void MarkSupplier(int lastIndex)
         {
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
                 int linearIndex = verticalIndex * Size.x + horizontalIndex;
-                place.Ignite = linearIndex < lastIndex;
+                place.Supplier = linearIndex < lastIndex;
             });
         }
         
