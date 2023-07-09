@@ -28,22 +28,16 @@ public class StageBar : MonoBehaviour
         return this;
     }
  
-    public StageBar SetPrice(Const.PurchaseType purchaseType, int? price)
+    public StageBar SetPrice(Const.PurchaseType purchaseType, int amount, bool max)
     {
-        if (price == null)
+        SetUsable(!max);
+        if (max)
         {
-            priceText.text = "MAX";
+            priceText.StampMax();
             return this;
         }
-
-        int amount = (int)price;
-        
-        if (amount == -3)
-        {
-            priceText.text = UIManager.AD_TEXT;
-            return this;
-        }
-        priceText.text = amount.CoinAmount();
+        priceText.Stamp(purchaseType, amount);
+        SetPurchaseType(purchaseType);
         return this;
     }
     
@@ -79,7 +73,7 @@ public class StageBar : MonoBehaviour
         return this;
     }
     
-    public StageBar SetUsable(bool usable)
+    private StageBar SetUsable(bool usable)
     {
         buttonParent.SetActive(usable);
         return this;

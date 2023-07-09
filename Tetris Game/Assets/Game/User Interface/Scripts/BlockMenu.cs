@@ -88,7 +88,7 @@ namespace Game.UI
 
         private void SetPrice(int amount)
         {
-            priceText.text = amount.CoinAmount();
+            priceText.Stamp(Const.PurchaseType.Coin, amount);
             PunchMoney(0.15f);
         }
         private void SetLookUp(int[] table)

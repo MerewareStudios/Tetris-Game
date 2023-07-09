@@ -70,14 +70,11 @@ namespace Game.UI
             StageBar.StageData<int> stageData = stageDatas[currentIndex];
             
             bool max = currentIndex >= stageDatas.Length - 1;
-            int? price = max ? null : (stageData.purchaseType.Equals(Const.PurchaseType.Ad) ? -3 : stageData.price);
-            
+
             stageBar
                 .SetTopInfo(stageData.value.ToString())
-                .SetPurchaseType(stageData.purchaseType)
-                .SetPrice(stageData.purchaseType, price)
-                .SetBars(stageDatas.Length - 1, currentIndex)
-                .SetUsable(!max);
+                .SetPrice(stageData.purchaseType, stageData.price, max)
+                .SetBars(stageDatas.Length - 1, currentIndex);
         }
         
         private void SetSprite(Sprite sprite)
@@ -116,29 +113,17 @@ namespace Game.UI
             UIManager.THIS.shopBar.ConsumeFill();
         }
 
-        public void OnClick_PurchaseWithMoney(int statType)
+        public void OnClick_Purchase(int statType)
         {
             Gun.StatType type = (Gun.StatType)statType;
+            StageBar.StageData<int> stageData = _gunUpgradeData.GetStageData(type, _weaponShopData.GetIndex(type));
 
-            int price = _gunUpgradeData.Price(type, _weaponShopData.GetIndex(type));
-            if (Wallet.COIN.Transaction(-price))
+            if (Wallet.Transaction(stageData.purchaseType, -stageData.price))
             {
                 OnPurchase(type);
             }
         }
         
-        public void OnClick_PurchaseWithAd(int statType)
-        {
-            Gun.StatType type = (Gun.StatType)statType;
-
-            Debug.LogWarning("Watch Ad - Not Implemented, price given");
-            if (true)
-            {
-                OnPurchase(type);
-            }
-        }
-
-
         [System.Serializable]
         public class WeaponShopData : ICloneable
         {

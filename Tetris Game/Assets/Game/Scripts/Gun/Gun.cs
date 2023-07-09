@@ -149,6 +149,11 @@ public class Gun : MonoBehaviour
         [SerializeField] public StageBar.StageData<int>[] stageData_Damage;
         [System.NonSerialized] public List<StageBar.StageData<int>[]> stageDatas = new();
             
+        public StageBar.StageData<int> GetStageData(Gun.StatType statType, int atLevel)
+        {
+            int index = (int)statType;
+            return stageDatas[index][atLevel];
+        }
         public int Value(Gun.StatType statType, int atLevel)
         {
             int index = (int)statType;

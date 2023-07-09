@@ -22,29 +22,7 @@ public class PurchaseOption : MonoBehaviour
     public PurchaseOption SetPurchase(Const.PurchaseType purchaseType, int price, bool able2Purchase)
     {
         SetButtonVisible(able2Purchase);
-        switch (purchaseType)
-        {
-            case Const.PurchaseType.Coin:
-                priceText.text = UIManager.COIN_TEXT + price;
-                purchaseButtonText.text = able2Purchase ? "SPEND" : UIManager.NO_FUNDS_TEXT;
-                purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[0];
-                priceText.color = Const.THIS.coinTextColor;
-                priceText.fontSharedMaterial = Const.THIS.coinTextMaterial;
-                break;
-            case Const.PurchaseType.Gem:
-                priceText.text = UIManager.GEM_TEXT + price;
-                purchaseButtonText.text = able2Purchase ? "SPEND" : UIManager.NO_FUNDS_TEXT;
-                purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[1];
-                priceText.color = Const.THIS.gemTextColor;
-                priceText.fontSharedMaterial = Const.THIS.gemTextMaterial;
-                break;
-            case Const.PurchaseType.Ad:
-                priceText.text = UIManager.AD_TEXT;
-                purchaseButtonText.text = "FREE";
-                purchaseButton.image.sprite = Const.THIS.purchaseOptionSprites[2];
-                break;
-        }
-
+        Const.SetPriceStamp(priceText, purchaseButton, purchaseButtonText, able2Purchase, purchaseType, price);
         return this;
     }
     public PurchaseOption SetDetailedInfo(int gain)

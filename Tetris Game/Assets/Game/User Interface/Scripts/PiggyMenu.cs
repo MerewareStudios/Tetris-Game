@@ -69,7 +69,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     private int MoneyCount
     {
-        set => moneyCountText.text = value.CoinAmount();
+        set => moneyCountText.Stamp(Const.PurchaseType.Gem, value);
         get => _Data.moneyCurrent;
     }
     #endregion
@@ -249,12 +249,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         investButton.SetActive(investState);
         if (investState)
         {
-            investmentAmountText.text = InvestWithStrategy(Wallet.COIN.Amount).CoinAmount();
+            int investmentAmount = InvestWithStrategy(Wallet.COIN.Amount);
+            investmentAmountText.Stamp(Const.PurchaseType.Coin, investmentAmount);
         }
         investFreeButton.SetActive(investFreeState);
         if (investFreeState)
         {
-            freeInvestmentAmountText.text = _Data.freeInvestmentAmount.CoinAmount();
+            freeInvestmentAmountText.Stamp(Const.PurchaseType.Coin, _Data.freeInvestmentAmount);
         }
         justOpenButton.SetActive(justOpenState);
         openRewardsButton.SetActive(rewardState);

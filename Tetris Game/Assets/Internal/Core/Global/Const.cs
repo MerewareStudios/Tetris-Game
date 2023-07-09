@@ -2,8 +2,11 @@ using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
+using Internal.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]
@@ -32,10 +35,8 @@ public class Const : SSingleton<Const>
     public Gradient frontLineGradient;
     public Color piggyExplodeColor;
     [Header("Meta Settings")] 
-    public Color coinTextColor;
-    public Material coinTextMaterial;
-    public Color gemTextColor;
-    public Material gemTextMaterial;
+    public Material[] metaTextMaterials;
+    public Color[] metaTextColors;
     [Header("Images")] 
     public Sprite[] purchaseOptionSprites;
     [Header("Purchase Option")] 
@@ -66,6 +67,36 @@ public class Const : SSingleton<Const>
         Gem,
         Ad,
     }
+
+    public static void SetPriceStamp(TextMeshProUGUI priceText, PurchaseType purchaseType, int amount)
+    {
+        int enumInt = (int)purchaseType;
+        
+        priceText.text = purchaseType.ToTMProKey() + (amount == 0 ? "" : amount);
+        priceText.color = Const.THIS.metaTextColors[enumInt];
+        priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+    }
+    public static void SetMaxStamp(TextMeshProUGUI priceText, PurchaseType purchaseType)
+    {
+        int enumInt = (int)purchaseType;
+        
+        priceText.text = "MAX";
+        priceText.color = Const.THIS.metaTextColors[enumInt];
+        priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+    }
+    public static void SetPriceStamp(TextMeshProUGUI priceText, Button button, TextMeshProUGUI purchaseButtonText, bool able2Purchase, PurchaseType purchaseType, int amount)
+    {
+        int enumInt = (int)purchaseType;
+        
+        priceText.text = purchaseType.ToTMProKey() + (amount == 0 ? "" : amount);
+        priceText.color = Const.THIS.metaTextColors[enumInt];
+        priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+        
+        purchaseButtonText.text = able2Purchase ? (purchaseType.Equals(PurchaseType.Ad) ? "FREE" :  "SPEND") : UIManager.NO_FUNDS_TEXT;
+
+        
+        button.image.sprite = Const.THIS.purchaseOptionSprites[enumInt];
+    }
 }
 
 public static class ConstExtensions
@@ -81,5 +112,14 @@ public static class ConstExtensions
     public static float Radius(this int rewardCount)
     {
         return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].radius;
+    }
+    
+    public static void Stamp(this TextMeshProUGUI priceText, Const.PurchaseType purchaseType, int amount)
+    {
+        Const.SetPriceStamp(priceText, purchaseType, amount);
+    }
+    public static void StampMax(this TextMeshProUGUI priceText)
+    {
+        Const.SetMaxStamp(priceText, Const.PurchaseType.Ad);
     }
 }

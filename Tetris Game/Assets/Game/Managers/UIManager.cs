@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -19,12 +20,9 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public FlyingText ft_Icon_MenuOnTop;
    [Header("Level")]
    [SerializeField] public TextMeshProUGUI levelText;
-   [System.NonSerialized] public static string COIN_TEXT = "<sprite name=Coin>";
-   [System.NonSerialized] public static string GEM_TEXT = "<sprite name=Gem>";
-   [System.NonSerialized] public static string AD_TEXT = "<sprite name=AD>";
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
 
-   
+   // Make them info list
    
    void Awake()
    {
@@ -67,12 +65,6 @@ public class UIManager : Singleton<UIManager>
 
 public static class UIManagerExtensions
 {
-   public static string CoinAmount(this int amount)
-   {
-      return UIManager.COIN_TEXT + amount;
-   }
- 
-   
    public static void LerpHearth(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
    {
       Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
@@ -103,7 +95,7 @@ public static class UIManagerExtensions
    }
    public static Sequence DragCoin(Vector3 screenStart, Vector3 screenDrag, Vector3 screenEnd, float duration = 0.0f, System.Action endAction = null)
    {
-      return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(UIManager.COIN_TEXT, screenStart, screenDrag, screenEnd, duration, true, endAction);
+      return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
    }
    
 }
