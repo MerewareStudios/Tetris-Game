@@ -6,6 +6,7 @@ using Internal.Core;
 using Internal.Visuals;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using User;
 
@@ -185,7 +186,7 @@ namespace Game.UI
             [SerializeField] public Const.PurchaseType purchaseType;
             [SerializeField] public int basePrice;
             [SerializeField] public int[] lookUp;
-            [SerializeField] public int upgradeIndex = -1;
+            [SerializeField] public int trackIndex = 0;
             
             public BlockData()
             {
@@ -198,26 +199,23 @@ namespace Game.UI
                 this.purchaseType = blockData.purchaseType;
                 this.basePrice = blockData.basePrice;
                 this.lookUp = blockData.lookUp.Clone() as int[];
-                this.upgradeIndex = blockData.upgradeIndex;
+                this.trackIndex = blockData.trackIndex;
             }
             public bool Upgrade()
             {
-                for (int i = 0; i < lookUp.Length; i++)
+                if (trackIndex >= lookUp.Length)
                 {
-                    if (lookUp[i] > 0 && i > upgradeIndex)
-                    {
-                        lookUp[i]++;
-                        upgradeIndex = i;
-                        if (upgradeIndex >= lookUp.Length - 1)
-                        {
-                            upgradeIndex = -1;
-                        }
-                        return true;
-                    }
+                    trackIndex = 0;
                 }
-                upgradeIndex = -1;
-
-                return false;
+                if (lookUp[trackIndex] <= 0)
+                {
+                    trackIndex++;
+                    Upgrade();
+                    return false;
+                }
+                lookUp[trackIndex]++;
+                trackIndex++;
+                return true;
             }
             public object Clone()
             {
