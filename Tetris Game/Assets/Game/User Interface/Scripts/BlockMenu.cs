@@ -144,6 +144,7 @@ namespace Game.UI
             [SerializeField] public List<BlockData> blockDatas = new();
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
+            [System.NonSerialized] public Dictionary<Pool, BlockData> blockDataDic;
 
             public BlockShopData()
             {
@@ -155,19 +156,33 @@ namespace Game.UI
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
             }
-            
+
+            private void FillDic()
+            {
+                blockDataDic = new Dictionary<Pool, BlockData>();
+                foreach (var blockData in blockDatas)
+                {
+                    blockDataDic.Add(blockData.blockType, blockData);
+                }
+            }
             public Pool GetRandomBlock()
             {
                 return unlockedBlocks.Random<Pool>();
             }
-
+            public int[] LookUps(Pool pool)
+            {
+                if (blockDataDic == null)
+                {
+                    FillDic();
+                }
+                return blockDataDic[pool].lookUp;
+            }
             public bool AddUnlockedBlock(BlockData blockData)
             {
-                if (!unlockedBlocks.Contains(blockData.blockType))
-                {
-                    unlockedBlocks.Add(blockData.blockType);
-                    blockData.purchased = true;
-                }
+                if (unlockedBlocks.Contains(blockData.blockType)) return false;
+                
+                unlockedBlocks.Add(blockData.blockType);
+                blockData.purchased = true;
 
                 return true;
             }

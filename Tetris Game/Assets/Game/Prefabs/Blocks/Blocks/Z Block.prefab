@@ -270,26 +270,46 @@ PrefabInstance:
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.size
-      value: 4
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[0]
       value: 
-      objectReference: {fileID: 947788582043715059}
+      objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[1]
       value: 
-      objectReference: {fileID: 7022464079037469361}
+      objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[2]
       value: 
-      objectReference: {fileID: 7022464080611591285}
+      objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: segmentTransforms.Array.data[6]
+      value: 
+      objectReference: {fileID: 7022464080611591285}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: segmentTransforms.Array.data[7]
+      value: 
+      objectReference: {fileID: 7022464079037469361}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: segmentTransforms.Array.data[10]
+      value: 
+      objectReference: {fileID: 947788582043715059}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: segmentTransforms.Array.data[11]
       value: 
       objectReference: {fileID: 7022464079809388383}
     - target: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
@@ -303,7 +323,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 947788582043715059}
+      addedObject: {fileID: 7022464080611591285}
     - targetCorrespondingSourceObject: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       insertIndex: -1
@@ -311,7 +331,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7022464080611591285}
+      addedObject: {fileID: 947788582043715059}
     - targetCorrespondingSourceObject: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       insertIndex: -1

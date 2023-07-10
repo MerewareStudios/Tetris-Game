@@ -218,28 +218,38 @@ PrefabInstance:
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.size
-      value: 2
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[0]
       value: 
-      objectReference: {fileID: 2983879590994168244}
+      objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[1]
       value: 
-      objectReference: {fileID: 2983879591832863834}
+      objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[2]
       value: 
-      objectReference: {fileID: 2983879591832863834}
+      objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: segmentTransforms.Array.data[3]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: segmentTransforms.Array.data[9]
+      value: 
       objectReference: {fileID: 2983879591832863834}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: segmentTransforms.Array.data[11]
+      value: 
+      objectReference: {fileID: 2983879590994168244}
     - target: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: m_RootOrder
@@ -251,11 +261,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2983879590994168244}
+      addedObject: {fileID: 2983879591832863834}
     - targetCorrespondingSourceObject: {fileID: 4197755259040299475, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2983879591832863834}
+      addedObject: {fileID: 2983879590994168244}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23153b00d3c37384595d5351cbef9741, type: 3}
 --- !u!4 &8246113602379607271 stripped

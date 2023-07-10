@@ -77,7 +77,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
 
-        if (!_currentBlock._busy)
+        if (!_currentBlock.Busy)
         {
             AnimateTap();
             _currentBlock.Rotate();
@@ -180,7 +180,7 @@ public class Spawner : Singleton<Spawner>
         blockTransform.localScale = Vector3.one;
         blockTransform.localPosition = block.spawnerOffset;
         blockTransform.localRotation = Quaternion.identity;
-        block.Construct();
+        block.Construct(pool);
         _spawnedBlocks.Add(block);
         return block;
     } 

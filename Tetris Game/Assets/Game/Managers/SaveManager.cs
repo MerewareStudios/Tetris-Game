@@ -61,10 +61,13 @@ public static class SaveManagerExtensions
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = true;
     }
-    
     public static Pool RandomBlock(this Spawner spawner)
     {
         return SaveManager.THIS.saveData.userData.blockShopData.GetRandomBlock();
+    }
+    public static int[] GetLookUp(this Block block, Pool pool)
+    {
+        return SaveManager.THIS.saveData.userData.blockShopData.LookUps(pool);
     }
     public static int CurrentLevel(this LevelManager levelManager)
     {
