@@ -48,95 +48,112 @@ MonoBehaviour:
       defaultSupplyLine: 6
       supplyLine: 6
     coinTransactionData:
-      value: 500
+      value: 250
     gemTransactionData:
-      value: 500
+      value: 250
     shopFillTransactionData:
       value: 0
     blockShopData:
       blockDatas:
       - blockType: 3
         purchased: 1
-        basePrice: 25
+        purchaseType: 2
+        basePrice: 0
         lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000010000000100000000000000
         upgradeIndex: 0
       - blockType: 4
         purchased: 1
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000001000000
         upgradeIndex: 0
       - blockType: 6
         purchased: 1
+        purchaseType: 1
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000100000001000000010000000100000000000000
         upgradeIndex: 0
       - blockType: 13
         purchased: 1
-        basePrice: 25
+        purchaseType: 2
+        basePrice: 0
         lookUp: 000000000000000000000000000000000000000000000000010000000100000000000000000000000100000001000000
         upgradeIndex: 0
       - blockType: 10
         purchased: 1
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000001000000
         upgradeIndex: 0
       - blockType: 2
         purchased: 0
-        basePrice: 25
+        purchaseType: 1
+        basePrice: 5
         lookUp: 000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000
         upgradeIndex: 0
       - blockType: 5
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000010000000100000000000000010000000100000000000000
         upgradeIndex: 0
       - blockType: 7
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000000000000
         upgradeIndex: 0
       - blockType: 8
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000001000000
         upgradeIndex: 0
       - blockType: 9
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000
         upgradeIndex: 0
       - blockType: 11
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000000000000
         upgradeIndex: 0
       - blockType: 12
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000000000000
         upgradeIndex: 0
       - blockType: 14
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000010000000000000000000000000000000100000000000000
         upgradeIndex: 0
       - blockType: 15
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000000000001000000000000000100000000000000
         upgradeIndex: 0
       - blockType: 18
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000
         upgradeIndex: 0
       - blockType: 16
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000000000000000000000000000010000000000000001000000010000000000000001000000
         upgradeIndex: 0
       - blockType: 17
         purchased: 0
+        purchaseType: 0
         basePrice: 25
         lookUp: 000000000000000000000000010000000000000001000000010000000000000001000000010000000000000001000000
         upgradeIndex: 0
@@ -148,7 +165,7 @@ MonoBehaviour:
     menuNavData:
       lastMenuType: 0
     piggyData:
-      piggyLevel: 3
+      piggyLevel: 0
       maxPiggyLevel: 3
       moneyCurrent: 0
       moneyCapacity: 100

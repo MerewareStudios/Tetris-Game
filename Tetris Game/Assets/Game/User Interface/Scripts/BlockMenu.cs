@@ -20,6 +20,8 @@ namespace Game.UI
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
         [SerializeField] private TextMeshProUGUI upgradeText;
+        [SerializeField] private Button[] purchaseButtons;
+        [SerializeField] private TextMeshProUGUI noFundsText;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private System.Action _purchaseAction = null;
         [System.NonSerialized] private BlockData _blockData;
@@ -52,7 +54,7 @@ namespace Game.UI
             int showIndex = _blockShopData.lastIndex;
             this._blockData = _blockShopData.blockDatas[showIndex];
             
-            SetPrice(_blockData.basePrice);
+            SetPrice(_blockData.purchaseType, _blockData.basePrice);
             SetLookUp(_blockData.lookUp);
 
             frame.color = _blockData.purchased ? upgradeColor : purchaseColor;
@@ -67,6 +69,18 @@ namespace Game.UI
                 _blockShopData.lastIndex = 0;
             }
             Show();
+        }
+        
+        public void SetPurchaseButtons(Const.PurchaseType purchaseType, bool able2Purchase)
+        {
+            noFundsText.gameObject.SetActive(false);
+            foreach (var t in purchaseButtons)
+            {
+                t.gameObject.SetActive(false);
+            }
+            
+            purchaseButtons[(int)purchaseType].gameObject.SetActive(able2Purchase);
+            noFundsText.gameObject.SetActive(!able2Purchase);
         }
         
         private void PunchMoney(float amount)
@@ -86,9 +100,12 @@ namespace Game.UI
             Show();
         }
 
-        private void SetPrice(int amount)
+        private void SetPrice(Const.PurchaseType purchaseType, int price)
         {
-            priceText.Stamp(Const.PurchaseType.Coin, amount);
+            bool hasFunds = Wallet.HasFunds(purchaseType, price);
+
+            SetPurchaseButtons(purchaseType, hasFunds);
+            priceText.Stamp(purchaseType, price);
             PunchMoney(0.15f);
         }
         private void SetLookUp(int[] table)
@@ -99,23 +116,21 @@ namespace Game.UI
         private void OnPurchase()
         {
             _purchaseAction?.Invoke();
-            _ = _blockData.purchased ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
+
+            bool purchasedBefore = _blockData.purchased;
+            
+            _ = purchasedBefore ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
+            
+            Toast.Show(purchasedBefore ? "BLOCK UPGRADED" : "BLOCK ADDED", 0.5f);
+            
             Show();
             
             UIManager.THIS.shopBar.ConsumeFill();
         }
 
-        public void PurchaseWithMoney()
+        public void OnClick_Purchase()
         {
-            if (Wallet.COIN.Transaction(-_blockData.basePrice))
-            {
-                OnPurchase();
-            }
-        }
-        public void PurchaseWithAd()
-        {
-            Debug.LogWarning("Watch Ad - Not Implemented, price given");
-            if (true)
+            if (Wallet.Transaction(_blockData.purchaseType, -_blockData.basePrice))
             {
                 OnPurchase();
             }
@@ -167,6 +182,7 @@ namespace Game.UI
         {
             [SerializeField] public Pool blockType;
             [SerializeField] public bool purchased = false;
+            [SerializeField] public Const.PurchaseType purchaseType;
             [SerializeField] public int basePrice;
             [SerializeField] public int[] lookUp;
             [SerializeField] public int upgradeIndex = -1;
@@ -177,10 +193,12 @@ namespace Game.UI
             }
             public BlockData(BlockData blockData)
             {
-                this.purchased = blockData.purchased;
                 this.blockType = blockData.blockType;
+                this.purchased = blockData.purchased;
+                this.purchaseType = blockData.purchaseType;
                 this.basePrice = blockData.basePrice;
                 this.lookUp = blockData.lookUp.Clone() as int[];
+                this.upgradeIndex = blockData.upgradeIndex;
             }
             public bool Upgrade()
             {

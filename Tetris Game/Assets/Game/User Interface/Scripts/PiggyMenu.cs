@@ -69,7 +69,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     private int MoneyCount
     {
-        set => moneyCountText.Stamp(Const.PurchaseType.Gem, value);
+        set => moneyCountText.Stamp(Const.PurchaseType.Coin, value);
         get => _Data.moneyCurrent;
     }
     #endregion
