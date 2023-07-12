@@ -2,7 +2,6 @@ using System;
 using DG.Tweening;
 using Internal.Core;
 using System.Collections.Generic;
-using Game.UI;
 using UnityEngine;
 
 
@@ -27,15 +26,6 @@ namespace Game
             get => _data;
         }
         
-        // public int PlaceCount
-        // {
-        //     get => Size.x * Size.y;
-        // }
-        // public int SaturatedPawnCount
-        // {
-        //     get => (int)(PlaceCount * _Data.pawnSat / 100.0f);
-        // }
-
         public int MaxStack
         {
             set
@@ -77,7 +67,6 @@ namespace Game
                     place.index = new Vector2Int(i, j);
                 }
             }
-            // MarkMerger(0);
 
             SupplyLine = _Data.supplyLine;
         }
@@ -92,8 +81,6 @@ namespace Game
         {
             _tick++;
 
-            // bool borderPawnExists = false;
-
             int steadyPawnCount = 0;
 
             Call<Place>(places, (place) =>
@@ -102,7 +89,6 @@ namespace Game
                 
                 bool mover = place.Current.MoveForward(place, _tick, moveDuration);
 
-                // if (!borderPawnExists && place.IsBorderPlace)
                 if (!mover)
                 {
                     steadyPawnCount++;
@@ -170,15 +156,30 @@ namespace Game
             for (int j = 0; j < Size.y; j++)
             {
                 bool tetris = true;
+                bool forceMerger = false;
                 for (int i = 0; i < Size.x; i++)
                 {
-                    if(!places[i, j].Occupied || places[i, j].Current.MOVER)
+                    
+                    if (!places[i, j].Occupied)
                     {
                         tetris = false;
+                        continue;
+                    }
+
+                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.HorMerge))
+                    {
+                        forceMerger = true;
                         break;
                     }
+
+                    if (places[i, j].Current.MOVER)
+                    {
+                        tetris = false;
+                        continue;
+                    }
+                    
                 }
-                if (tetris)
+                if (tetris || forceMerger)
                 {
                     tetrisLines.Add(j);
                 }
@@ -212,8 +213,6 @@ namespace Game
         {
             for (int i = 0; i < lines.Count; i++)
             {
-                Debug.Log(i);
-
                 MergeLine(lines[i], lines.Count, duration);
             }
             
@@ -341,14 +340,6 @@ namespace Game
             }
             return false;
         }
-        
-        // public void MarkMerger(int index)
-        // {
-        //     Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
-        //     {
-        //         place.Supplier = (verticalIndex == index);
-        //     });
-        // }
         
         public void MarkSupplier(int lastIndex)
         {

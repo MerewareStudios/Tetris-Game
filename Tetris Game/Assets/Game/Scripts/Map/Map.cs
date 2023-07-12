@@ -10,7 +10,6 @@ namespace Game
     public class Map : Singleton<Map>
     {
         [System.NonSerialized] private Coroutine _mainRoutine = null;
-        // [System.NonSerialized] private readonly List<int> _requestedTetrisLines = new();
 
         public void StartMainLoop()
         {
@@ -24,7 +23,7 @@ namespace Game
                     yield return new WaitForSeconds(0.3f);
                     Board.THIS.CheckAll();
                     List<int> tetrisLines = Board.THIS.CheckTetris();
-                    // MergeRequestedLines(tetrisLines);
+                    
                     if (tetrisLines.Count > 0)
                     {
                         if (tetrisLines.Count > 1)
@@ -43,34 +42,6 @@ namespace Game
                 }
             }
         }
-
-        // private void AddRequestedMerge(int lineIndex)
-        // {
-        //     if (_requestedTetrisLines.Contains(lineIndex)) return;
-        //     _requestedTetrisLines.Add(lineIndex);
-        // }
-        //
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.Q))
-        //     {
-        //         AddRequestedMerge(0);
-        //     }
-        // }
-        //
-        // private void MergeRequestedLines(List<int> tetrisLines)
-        // {
-        //     if (_requestedTetrisLines.Count == 0) return;
-        //
-        //     foreach (var line in _requestedTetrisLines)
-        //     {
-        //         if (!tetrisLines.Contains(line))
-        //         {
-        //             tetrisLines.Add(line);
-        //         }
-        //     }            
-        //     _requestedTetrisLines.Clear();
-        // }
 
         public void Deconstruct()
         {

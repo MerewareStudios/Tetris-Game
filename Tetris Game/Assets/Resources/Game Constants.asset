@@ -200,7 +200,6 @@ MonoBehaviour:
         maxPurchase: 0
         increasePerUse: 1
   DefaultAdData:
-    loanBarInterval: 30
     loanBarStamp: 0
   GunUpgradeData:
   - gunType: 0
@@ -377,3 +376,5 @@ MonoBehaviour:
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
   piggyExplodeEase: 12
+  loanBarInterval: 30
+  loanBarProtectionInterval: 5

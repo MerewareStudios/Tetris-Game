@@ -262,7 +262,13 @@ namespace Game
                 return;
             }
 
-            if (forwardPlace.Occupied && !forwardPlace.Current.MOVER) // if front is occupied and no intent of moving
+            if (forwardPlace.Occupied && !forwardPlace.Current.MOVER) // if front place is occupied and not a mover
+            {
+                MOVER = false;
+                return;
+            }
+            
+            if (UsageType.Equals(Usage.HorMerge))
             {
                 MOVER = false;
                 return;
