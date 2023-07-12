@@ -708,6 +708,7 @@ MonoBehaviour:
   - {fileID: 6666957586002756635, guid: ff00d35ab9848b942847ff923b2397be, type: 3}
   - {fileID: 8842786536726778492, guid: af604a8c9f4d6804c8851edf088b6169, type: 3}
   - {fileID: 2882704853452454927, guid: 4b0eb94cf50c22445bb346383d666b7d, type: 3}
+  - {fileID: 1915668213165803795, guid: 05e48b05d632c494e93e02b85b28511c, type: 3}
 --- !u!1 &349259215
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,7 +3442,6 @@ MonoBehaviour:
       upgradeMenuData:
         purchaseData: []
     adData:
-      loanBarInterval: 0
       loanBarStamp: 0
     baseInfo: SAVE END
   DELETE_AT_START: 1

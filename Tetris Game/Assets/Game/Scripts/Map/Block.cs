@@ -17,6 +17,7 @@ namespace Game
         [System.NonSerialized] private Tween _motionTween;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
+        [System.NonSerialized] public bool FreeBlock = false;
 
         private void OnDrawGizmos()
         {
@@ -38,6 +39,8 @@ namespace Game
 
         public void Construct(Pool pool)
         {
+            FreeBlock = false;
+            
             int[] lookUps = this.GetLookUp(pool);
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
@@ -56,6 +59,8 @@ namespace Game
         
         public void Construct(Pool pool, Pawn.Usage usage) 
         {
+            FreeBlock = true;
+
             int[] lookUps = this.GetLookUp(pool);
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
@@ -67,6 +72,14 @@ namespace Game
                 pawn.MarkDefaultColor();
                 pawn.Show();
                 Pawns.Add(pawn);
+            }
+        }
+
+        public void OnPickUp()
+        {
+            if (FreeBlock)
+            {
+                Board.THIS.ShowAvailablePlaces();
             }
         }
 

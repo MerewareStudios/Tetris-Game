@@ -33,6 +33,7 @@ namespace Game
         {
             set => levelText.enabled = value;
         }
+        public bool CanPlaceAnywhere => UsageType.Equals(Usage.HorMerge);
 
         public enum Usage
         {

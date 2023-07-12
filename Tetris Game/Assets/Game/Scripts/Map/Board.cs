@@ -277,7 +277,7 @@ namespace Game
 
         public void MarkAllMover(int startLine)
         {
-            Call<Place>(places, (place, horizonalIndex, verticalIndex) =>
+            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
                 if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
                 {
@@ -408,7 +408,7 @@ namespace Game
             Vector2Int ind = (Vector2Int)index;
             Place place = GetPlace(ind);
             
-            if (Size.y - pawn.ParentBlock.width > ind.y)
+            if (Size.y - pawn.ParentBlock.width > ind.y && !pawn.CanPlaceAnywhere)
             {
                 return (place, false);
             }
@@ -416,7 +416,7 @@ namespace Game
             {
                 return (place, false);
             }
-            if (HasForwardPawnAtColumn(ind))
+            if (HasForwardPawnAtColumn(ind) && !pawn.CanPlaceAnywhere)
             {
                 return (place, false);
             }
@@ -464,6 +464,16 @@ namespace Game
                 }
             }
             return true;
+        }
+
+        public void ShowAvailablePlaces()
+        {
+            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+            {
+                if (place.Current) return;
+
+                Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+            });
         }
         
         

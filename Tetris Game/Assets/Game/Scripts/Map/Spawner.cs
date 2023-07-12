@@ -156,6 +156,10 @@ public class Spawner : Singleton<Spawner>
 
     private IEnumerator MoveRoutine()
     {
+        if (_currentBlock)
+        {
+            _currentBlock.OnPickUp();
+        }
         while (true)
         {
             _currentBlock.transform.position = Vector3.Slerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 18.0f);

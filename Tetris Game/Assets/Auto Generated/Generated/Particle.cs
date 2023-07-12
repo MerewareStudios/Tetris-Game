@@ -8,5 +8,6 @@ public enum Particle
     Coin = 5,
     Shield = 6,
     Piggy_Break_Ps = 7,
+    Green_Zone = 8,
 
 }
