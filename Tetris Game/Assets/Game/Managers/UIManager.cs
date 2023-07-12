@@ -11,8 +11,8 @@ using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
-   
    [SerializeField] public ShopBar shopBar;
+   [SerializeField] public LoanBar loanBar;
    [Header("Flying Text")]
    [SerializeField] public FlyingText ft_Level;
    [SerializeField] public FlyingText ft_Combo;
@@ -37,6 +37,11 @@ public class UIManager : Singleton<UIManager>
       
       ft_Icon_MenuOnTop.OnGetInstance = () => Pool.Flying_Text___Icon.Spawn<TextMeshProUGUI>();
       ft_Icon_MenuOnTop.ReturnInstance = (mono) => { mono.Despawn(); };
+   }
+
+   void Start()
+   {
+      loanBar.gameObject.SetActive(false);
    }
 
    private void Update()

@@ -19,14 +19,8 @@ namespace Game
         [System.NonSerialized] private bool _supplier = false;
         public Pawn Current { get; set; }
         public bool Occupied => Current;
+        public bool IsBorderPlace => index.y == Board.THIS.Size.y - 1;
 
-        // public bool Ignite
-        // {
-        //     set
-        //     {
-        //         igniteSprite.enabled = value;
-        //     }
-        // }
 
         public bool Supplier
         {

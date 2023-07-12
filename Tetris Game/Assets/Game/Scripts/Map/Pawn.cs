@@ -42,7 +42,7 @@ namespace Game
             Heart,
             Shield,
             Vertical,
-            Horizontal,
+            HorMerge,
             Area,
             Speed,
         }
@@ -112,7 +112,7 @@ namespace Game
                     return false;
                 case Usage.Vertical:
                     
-                case Usage.Horizontal:
+                case Usage.HorMerge:
                     
                     return false;
                 case Usage.Area:
@@ -222,15 +222,15 @@ namespace Game
 
 
         
-        public void MoveForward(Place checkerPlace, int tick, float moveDuration)
+        public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
             if (BUSY)
             {
-                return;
+                return true;
             }
             if (!MOVER)
             {
-                return;
+                return false;
             }
             
             Tick = tick;
@@ -239,6 +239,7 @@ namespace Game
             forwardPlace.Accept(this, moveDuration);
             
             checkerPlace.Current = null;
+            return true;
         }
 
         public void Check(Place checkerPlace)

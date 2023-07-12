@@ -139,8 +139,9 @@ public class Spawner : Singleton<Spawner>
             delayedTween?.Kill();
             delayedTween = DOVirtual.DelayedCall(0.08f, () =>
             {
-                _currentBlock = SpawnBlock();
+                _currentBlock = SpawnBlock(); // spawn the next block with delay
             });
+            Warzone.THIS.Begin();
             return;
         }
 
@@ -184,6 +185,23 @@ public class Spawner : Singleton<Spawner>
         _spawnedBlocks.Add(block);
         return block;
     } 
+    private Block SpawnBlock(Pool pool, Pawn.Usage usage)
+    {
+        Block block = pool.Spawn<Block>(spawnedBlockLocation);
+        Transform blockTransform = block.transform;
+        blockTransform.localScale = Vector3.one;
+        blockTransform.localPosition = block.spawnerOffset;
+        blockTransform.localRotation = Quaternion.identity;
+        block.Construct(pool, usage);
+        _spawnedBlocks.Add(block);
+        return block;
+    }
+
+    public void InterchangeBlock(Pool pool, Pawn.Usage usage)
+    {
+        Deconstruct();  
+        _currentBlock = SpawnBlock(pool, usage);
+    }
     public void RemoveBlock(Block block)
     {
         _spawnedBlocks.Remove(block);

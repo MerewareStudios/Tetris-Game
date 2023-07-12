@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 92cfc47ffcd8e414e8fdff97d14c8fe0, type: 3}
+        m_Texture: {fileID: 2800000, guid: e125056b33f6e3c49b26496765969df2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: Atlas
+  m_Name: Atlas UI
   m_EditorClassIdentifier: 
   hashCode: 74389739
   material: {fileID: -6716019222029847091}
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 92cfc47ffcd8e414e8fdff97d14c8fe0, type: 3}
+  spriteSheet: {fileID: 2800000, guid: e125056b33f6e3c49b26496765969df2, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -181,8 +181,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 16
     m_Scale: 1
-    m_Name: Atlas_16
-    m_HashCode: 1874333043
+    m_Name: HorMerge
+    m_HashCode: -1954127219
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 17

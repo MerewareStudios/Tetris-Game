@@ -58,8 +58,10 @@ namespace Game.UI
             SetPrice(_blockData.purchaseType, _blockData.basePrice);
             SetLookUp(_blockData.lookUp);
 
-            frame.color = _blockData.purchased ? upgradeColor : purchaseColor;
-            upgradeText.gameObject.SetActive(_blockData.purchased);
+            bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
+            
+            frame.color = purchasedBlock ? upgradeColor : purchaseColor;
+            upgradeText.gameObject.SetActive(purchasedBlock);
         }
 
         public void OnClick_ShowNext()
@@ -118,7 +120,7 @@ namespace Game.UI
         {
             _purchaseAction?.Invoke();
 
-            bool purchasedBefore = _blockData.purchased;
+            bool purchasedBefore =  _blockShopData.HaveBlock(_blockData.blockType);
             
             _ = purchasedBefore ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
             
@@ -179,12 +181,16 @@ namespace Game.UI
             }
             public bool AddUnlockedBlock(BlockData blockData)
             {
-                if (unlockedBlocks.Contains(blockData.blockType)) return false;
+                if (HaveBlock(blockData.blockType)) return false;
                 
                 unlockedBlocks.Add(blockData.blockType);
-                blockData.purchased = true;
 
                 return true;
+            }
+
+            public bool HaveBlock(Pool pool)
+            {
+                return unlockedBlocks.Contains(pool);
             }
             
             public object Clone()
@@ -197,7 +203,6 @@ namespace Game.UI
         public class BlockData : ICloneable
         {
             [SerializeField] public Pool blockType;
-            [SerializeField] public bool purchased = false;
             [SerializeField] public Const.PurchaseType purchaseType;
             [SerializeField] public int basePrice;
             [SerializeField] public int[] lookUp;
@@ -210,7 +215,6 @@ namespace Game.UI
             public BlockData(BlockData blockData)
             {
                 this.blockType = blockData.blockType;
-                this.purchased = blockData.purchased;
                 this.purchaseType = blockData.purchaseType;
                 this.basePrice = blockData.basePrice;
                 this.lookUp = blockData.lookUp.Clone() as int[];

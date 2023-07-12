@@ -23,6 +23,7 @@ namespace  Game
         //Routines
         [System.NonSerialized] private Coroutine spawnRoutine = null;
         [System.NonSerialized] public readonly List<Enemy> Enemies = new();
+        [System.NonSerialized] private bool _busy = false;
 
         
         
@@ -65,15 +66,22 @@ namespace  Game
         }
         public void Begin()
         {
+            if (_busy)
+            {
+                return;
+            }
+
+            _busy = true;
+            
             StopSpawning();
             spawnRoutine = StartCoroutine(SpawnRoutine());
             
             IEnumerator SpawnRoutine()
             {
-                yield return new WaitForSeconds(LevelData.spawnDelay - 3);
+                // yield return new WaitForSeconds(LevelData.spawnDelay - 3);
                 
-                Countdown.THIS.Count(3);
-                yield return new WaitForSeconds(3);
+                Countdown.THIS.Count((int)LevelData.spawnDelay);
+                yield return new WaitForSeconds(LevelData.spawnDelay);
 
                 int totalHealth = LevelData.totalHealth;
                 
@@ -160,6 +168,7 @@ namespace  Game
 
             }
             Enemies.Clear();
+            _busy = false;
         }
 
     #endregion

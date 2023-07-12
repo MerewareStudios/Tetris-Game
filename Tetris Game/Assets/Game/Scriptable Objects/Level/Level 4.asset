@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Level 4
   m_EditorClassIdentifier: 
   LevelData:
-    spawnDelay: 6
+    spawnDelay: 5
     totalHealth: 50
     maxMerge: 1
     mergeProbability: 0
     enemySpeed: 0.1
-    spawnWidth: 2.5
+    spawnWidth: 2.25
     spawnInterval: {x: 0.5, y: 1}

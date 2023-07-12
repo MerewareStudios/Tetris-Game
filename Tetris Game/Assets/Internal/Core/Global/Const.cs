@@ -3,6 +3,7 @@ using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
+using IWI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -21,6 +22,7 @@ public class Const : SSingleton<Const>
     [Header("Defaults")]
     public Player.Data DefaultPlayerData;
     public User.Data DefaultUserData;
+    public AdManager.Data DefaultAdData;
     public Gun.UpgradeData[] GunUpgradeData;
     
     [Header("Colors")] 
@@ -53,6 +55,10 @@ public class Const : SSingleton<Const>
     public Vector3 jumpPower;
     public Ease rotationEase;
     public Ease piggyExplodeEase;
+
+    [Header("Time")]
+    public float loanBarInterval = 30.0f;
+    public float loanBarProtectionInterval = 10.0f;
     
     [Serializable]
     public struct DirectionRadiusPair

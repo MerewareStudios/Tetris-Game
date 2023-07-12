@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Game;
 using Game.UI;
+using IWI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,10 +25,13 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
             saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
+            saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
         }
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.GEM.Set(ref saveData.userData.gemTransactionData);
+
+        AdManager.THIS._Data = saveData.adData;
         
         UIManager.THIS.shopBar.Set(ref saveData.userData.shopFillTransactionData);
         
@@ -40,6 +44,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
+        
     }
 
     void Start()
@@ -81,6 +86,7 @@ public partial class SaveData
     [SerializeField] public float playTime;
     [SerializeField] public Player.Data playerData;
     [SerializeField] public User.Data userData;
+    [SerializeField] public AdManager.Data adData;
 
 }
 

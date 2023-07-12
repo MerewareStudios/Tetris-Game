@@ -26,6 +26,15 @@ namespace Game
             }
             get => _data;
         }
+        
+        // public int PlaceCount
+        // {
+        //     get => Size.x * Size.y;
+        // }
+        // public int SaturatedPawnCount
+        // {
+        //     get => (int)(PlaceCount * _Data.pawnSat / 100.0f);
+        // }
 
         public int MaxStack
         {
@@ -83,13 +92,24 @@ namespace Game
         {
             _tick++;
 
+            // bool borderPawnExists = false;
+
+            int steadyPawnCount = 0;
+
             Call<Place>(places, (place) =>
             {
-                if (place.Current)
+                if (!place.Current) return;
+                
+                bool mover = place.Current.MoveForward(place, _tick, moveDuration);
+
+                // if (!borderPawnExists && place.IsBorderPlace)
+                if (!mover)
                 {
-                    place.Current.MoveForward(place, _tick, moveDuration);
+                    steadyPawnCount++;
                 }
             });
+
+            _ = (steadyPawnCount > _Data.pawnSat) ? UIManager.THIS.loanBar.Show() : UIManager.THIS.loanBar.Hide();
         }
         public void CheckAll()
         {
@@ -192,6 +212,8 @@ namespace Game
         {
             for (int i = 0; i < lines.Count; i++)
             {
+                Debug.Log(i);
+
                 MergeLine(lines[i], lines.Count, duration);
             }
             
@@ -452,6 +474,7 @@ namespace Game
             [SerializeField] public int maxStack = 6;
             [SerializeField] public int defaultSupplyLine = 6;
             [SerializeField] public int supplyLine = 6;
+            [SerializeField] public int pawnSat = 75;
             
             public Data()
             {
@@ -463,6 +486,7 @@ namespace Game
                 this.maxStack = data.maxStack;
                 this.defaultSupplyLine = data.defaultSupplyLine;
                 this.supplyLine = data.supplyLine;
+                this.pawnSat = data.pawnSat;
             }
 
             public object Clone()

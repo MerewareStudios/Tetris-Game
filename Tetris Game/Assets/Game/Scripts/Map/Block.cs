@@ -53,6 +53,22 @@ namespace Game
                 Pawns.Add(pawn);
             }
         }
+        
+        public void Construct(Pool pool, Pawn.Usage usage) 
+        {
+            int[] lookUps = this.GetLookUp(pool);
+            for (int i = 0; i < segmentTransforms.Count; i++)
+            {
+                Transform target = segmentTransforms[i];
+                if (!target) continue;
+                
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, lookUps[i], usage);
+                pawn.ParentBlock = this;
+                pawn.MarkDefaultColor();
+                pawn.Show();
+                Pawns.Add(pawn);
+            }
+        }
 
         private void OverrideUsage(out Pawn.Usage usage)
         {

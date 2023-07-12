@@ -28,7 +28,7 @@ public class LevelManager : Singleton<LevelManager>
         UIManager.THIS.levelText.text = "Wave " + currentLevel;
 
         Warzone.THIS.LevelData = currentLevel.GetLevelSo();
-        Warzone.THIS.Begin();
+        // Warzone.THIS.Begin();
     }
     
     public void ReLoadLevel()
