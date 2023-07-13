@@ -15,7 +15,7 @@ public class LevelManager : Singleton<LevelManager>
         // SaveManager.THIS.SaveHighScore();
         
         GameManager.PLAYING = false;
-        GameManager.THIS.Deconstruct();
+        GameManager.THIS.DeconstructForFail();
     }
 
     public void LoadLevel()
@@ -28,14 +28,17 @@ public class LevelManager : Singleton<LevelManager>
         UIManager.THIS.levelText.text = "Wave " + currentLevel;
 
         Warzone.THIS.LevelData = currentLevel.GetLevelSo();
-        // Warzone.THIS.Begin();
     }
     
-    public void ReLoadLevel()
+
+    public void CheckVictory()
     {
-        GameManager.THIS.Deconstruct();
-        // ScoreBoard.THIS.Score = 0;
-        Warzone.THIS.Reset();
-        LoadLevel();
+        if (Warzone.THIS.IsWarzoneCleared)
+        {
+            GameManager.PLAYING = false;
+            GameManager.THIS.DeconstructForVictory();
+            
+            Debug.Log("Victory");
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Game.UI;
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace  Game
@@ -21,11 +22,13 @@ namespace  Game
         [System.NonSerialized] public ParticleSystem.ShapeModule psShape;
         [System.NonSerialized] public Transform psTransform;
         //Routines
-        [System.NonSerialized] private Coroutine spawnRoutine = null;
+        [System.NonSerialized] private Coroutine _spawnRoutine = null;
         [System.NonSerialized] public readonly List<Enemy> Enemies = new();
         [System.NonSerialized] private bool _busy = false;
 
-        
+        public bool Spawning => _spawnRoutine != null;
+        public bool HasEnemy => Enemies.Count > 0;
+        public bool IsWarzoneCleared => !Spawning && !HasEnemy;
         
     #region Warzone
         void Awake()
@@ -74,16 +77,14 @@ namespace  Game
             _busy = true;
             
             StopSpawning();
-            spawnRoutine = StartCoroutine(SpawnRoutine());
+            _spawnRoutine = StartCoroutine(SpawnRoutine());
             
             IEnumerator SpawnRoutine()
             {
-                // yield return new WaitForSeconds(LevelData.spawnDelay - 3);
-                
                 Countdown.THIS.Count((int)LevelData.spawnDelay);
                 yield return new WaitForSeconds(LevelData.spawnDelay);
 
-                int totalHealth = LevelData.totalHealth;
+                int totalHealth = LevelData.totalEnemyHealth;
                 
                 while (totalHealth > 0)
                 {
@@ -104,6 +105,9 @@ namespace  Game
 
                     yield return new WaitForSeconds(LevelData.spawnInterval.Random());
                 }
+
+                _spawnRoutine = null;
+                LevelManager.THIS.CheckVictory();
             }
             
             Player.Begin();
@@ -111,10 +115,10 @@ namespace  Game
 
         private void StopSpawning()
         {
-            if (spawnRoutine != null)
+            if (_spawnRoutine != null)
             {
-                StopCoroutine(spawnRoutine);
-                spawnRoutine = null;
+                StopCoroutine(_spawnRoutine);
+                _spawnRoutine = null;
             }
         }
         private Enemy SpawnEnemy(int health, float speed)
@@ -139,6 +143,7 @@ namespace  Game
         public void RemoveEnemy(Enemy enemy)
         {
             Enemies.Remove(enemy);
+            LevelManager.THIS.CheckVictory();
         }
         private Vector3 RandomSpawnPosition()
         {
@@ -208,7 +213,7 @@ namespace  Level
     public class Data : ICloneable
     {
         [SerializeField] public float spawnDelay = 0.0f; // delay of the spawn
-        [SerializeField] public int totalHealth = 100;
+        [SerializeField] public int totalEnemyHealth = 100;
         [Range(1, 6)] [SerializeField] public int maxMerge = 2;
         [Range(0.0f, 0.9f)] [SerializeField] public float mergeProbability = 0.5f;
         [SerializeField] public float enemySpeed = 1.0f;
@@ -218,7 +223,7 @@ namespace  Level
         public Data()
         {
             this.spawnDelay = 0.0f;
-            this.totalHealth = 0;
+            this.totalEnemyHealth = 0;
             this.maxMerge = 1;
             this.enemySpeed = 1.0f;
             this.spawnWidth = 2.5f;
@@ -226,7 +231,7 @@ namespace  Level
         public Data(Data data)
         {
             this.spawnDelay = data.spawnDelay;
-            this.totalHealth = data.totalHealth;
+            this.totalEnemyHealth = data.totalEnemyHealth;
             this.maxMerge = data.maxMerge;
             this.enemySpeed = data.enemySpeed;
             this.spawnWidth = data.spawnWidth;
