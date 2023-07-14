@@ -154,6 +154,22 @@ namespace Game
                 Wallet.COIN.Transaction(1);
             });
         }
+        public void OnFail()
+        {
+            _moveTween?.Kill();
+            modelPivot.DOKill();
+            
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
+            modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
+                .onComplete += Deconstruct;
+
+            
+            UIManagerExtensions.EarnCoinWorld(levelText.transform.position, 1.25f, () =>
+            {
+                Wallet.COIN.Transaction(1);
+            });
+        }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
             _moveTween?.Kill();

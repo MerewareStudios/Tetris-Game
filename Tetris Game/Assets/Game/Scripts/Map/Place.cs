@@ -55,7 +55,14 @@ namespace Game
                 Current = null;
             }
         }
-
+        public void OnFail()
+        {
+            if (Occupied)
+            {
+                Current.OnFail();
+                Current = null;
+            }
+        }
         public void SetColor(PlaceType placeType, bool force = false)
         {
             if (!force && this._placeType.Equals(placeType))

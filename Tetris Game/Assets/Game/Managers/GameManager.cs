@@ -53,5 +53,11 @@ public class GameManager : Singleton<GameManager>
         Board.THIS.OnVictory();
         Warzone.THIS.OnVictory();
     }
-   
+    public void OnFail()
+    {
+        Spawner.THIS.Deconstruct();
+        Map.THIS.Deconstruct();
+        Board.THIS.OnFail();
+        Warzone.THIS.OnFail();
+    }
 }

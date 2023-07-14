@@ -34,9 +34,11 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            GameManager.PLAYING = false;
-            GameManager.THIS.OnVictory();
-            SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, Const.PurchaseType.Coin, 125);
+            OnVictory();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            OnFail();
         }
     }
 
@@ -44,9 +46,21 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (Warzone.THIS.IsWarzoneCleared)
         {
-            GameManager.PLAYING = false;
-            GameManager.THIS.OnVictory();
-            SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, Const.PurchaseType.Coin, 125);
+            OnVictory();
         }
+    }
+
+    private void OnVictory()
+    {
+        GameManager.PLAYING = false;
+        GameManager.THIS.OnVictory();
+        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, Const.PurchaseType.Coin, 125);
+    }
+    
+    private void OnFail()
+    {
+        GameManager.PLAYING = false;
+        GameManager.THIS.OnFail();
+        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.75f, Const.PurchaseType.Coin, 125);
     }
 }

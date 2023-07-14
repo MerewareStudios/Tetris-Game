@@ -188,6 +188,18 @@ namespace  Game
             _busy = false;
         }
         
+        public void OnFail()
+        {
+            StopSpawning();
+            Player.OnFail();
+            foreach (var enemy in Enemies)
+            {
+                enemy.Deconstruct();
+            }
+            Enemies.Clear();
+            _busy = false;
+        }
+        
     #endregion
 
         [System.Serializable]

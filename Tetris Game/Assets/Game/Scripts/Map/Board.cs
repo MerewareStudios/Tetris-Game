@@ -84,6 +84,13 @@ namespace Game
                 place.OnVictory();
             });
         }
+        public void OnFail()
+        {
+            Call<Place>(places, (place) =>
+            {
+                place.OnFail();
+            });
+        }
         public void MoveAll(float moveDuration)
         {
             _tick++;

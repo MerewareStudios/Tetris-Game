@@ -27,6 +27,7 @@ namespace Game
         
         [System.NonSerialized] private static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
         [System.NonSerialized] private static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
+        [System.NonSerialized] private static readonly int DEATH_HASH = Animator.StringToHash("Death");
 
 #region  Mono
 
@@ -164,7 +165,11 @@ namespace Game
             this.enabled = false;
             _animator.SetTrigger(VICTORY_HASH);
         }
-        
+        public void OnFail()
+        {
+            this.enabled = false;
+            _animator.SetTrigger(DEATH_HASH);
+        }
         public void Begin()
         {
             this.enabled = true;
