@@ -135,9 +135,24 @@ namespace Game
 
             ParentBlock = null;
 
-            // SHOOTER = false;
-            
             this.Despawn();
+        }
+        
+        public void OnVictory()
+        {
+            _moveTween?.Kill();
+            modelPivot.DOKill();
+            
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
+            modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
+                .onComplete += Deconstruct;
+
+            
+            UIManagerExtensions.EarnCoinWorld(levelText.transform.position, 1.25f, () =>
+            {
+                Wallet.COIN.Transaction(1);
+            });
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
@@ -167,18 +182,6 @@ namespace Game
         {
             meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.mergerColor);
         }
-        // public void MarkMoverColor()
-        // {
-        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.moverColor);
-        // }
-        // public void MarkEnemyColor()
-        // {
-        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.enemyColor);
-        // }
-        // public void MarkBiggestColor()
-        // {
-        //     meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.bigColor);
-        // }
         #endregion
         public void AnimatedShow(float delay, System.Action complete = null)
         {

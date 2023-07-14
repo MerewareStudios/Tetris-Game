@@ -917,52 +917,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7617613697915735363}
     m_Modifications:
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 75e3eed89f4c445c18126fbb6d66222e,
-        type: 3}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.61960787
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264050432624455652, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Padding.m_Top
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264050432624455652, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264050432624455652, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Padding.m_Right
-      value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_text
-      value: <sprite name="Coin">100
-      objectReference: {fileID: 0}
     - target: {fileID: 3443715328819109847, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_AnchorMax.y

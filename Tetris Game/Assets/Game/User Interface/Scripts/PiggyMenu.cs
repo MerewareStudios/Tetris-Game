@@ -13,14 +13,17 @@ using Random = UnityEngine.Random;
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
     [Header("End Level Screen")]
+    [Header("Pivots")]
+    [SerializeField] private RectTransform leftPivot;
+    [SerializeField] private RectTransform rightPivot;
     [Header("Bars")]
     [SerializeField] private MarkedProgress _markedProgressPiggy;
     [Header("Buttons")]
     [SerializeField] private RewardButton[] piggyRewardButtons;
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI pigLevelText;
-    [SerializeField] private TextMeshProUGUI moneyCountText;
-    [SerializeField] private TextMeshProUGUI investmentAmountText;
+    [SerializeField] private CurrencyDisplay piggyCurrencyDisplay;
+    [SerializeField] private CurrencyDisplay investmentCurrencyDisplay;
     [SerializeField] private TextMeshProUGUI freeInvestmentAmountText;
     [Header("Pivots")]
     [SerializeField] private RectTransform _rectTransformPiggyIcon;
@@ -69,7 +72,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     private int MoneyCount
     {
-        set => moneyCountText.Stamp(Const.PurchaseType.Coin, value);
+        set => piggyCurrencyDisplay.Display(Const.PurchaseType.Coin, value);
         get => _Data.moneyCurrent;
     }
     #endregion
@@ -245,12 +248,20 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void ShowOptionButtons(bool keepState, bool investState, bool investFreeState, bool rewardState, bool justOpenState)
     {
+        leftPivot.DOKill();
+        leftPivot.localRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+        leftPivot.DOLocalRotate(Vector3.zero, 0.4f).SetDelay(0.1f).SetEase(Ease.OutBack, 0.5f).SetUpdate(true);
+        
+        rightPivot.DOKill();
+        rightPivot.localRotation = Quaternion.Euler(0.0f, 0.0f, -90.0f);
+        rightPivot.DOLocalRotate(Vector3.zero, 0.4f).SetDelay(0.4f).SetEase(Ease.OutBack, 0.5f).SetUpdate(true);
+        
         keepButton.SetActive(keepState);
         investButton.SetActive(investState);
         if (investState)
         {
             int investmentAmount = InvestWithStrategy(Wallet.COIN.Amount);
-            investmentAmountText.Stamp(Const.PurchaseType.Coin, investmentAmount);
+            investmentCurrencyDisplay.Display(Const.PurchaseType.Coin, investmentAmount);
         }
         investFreeButton.SetActive(investFreeState);
         if (investFreeState)
@@ -292,8 +303,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void Option_JustOpen()
     {
         OnClick_Break();
-        // ShowScreen(false, true, false);
-        // ShowPiggyScreenButtons(_PiggyData.piggyLevel > 0, true);
     }
     public void Option_OpenRewards()
     {

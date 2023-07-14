@@ -46,12 +46,12 @@ public class GameManager : Singleton<GameManager>
         Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
     }
-    public void DeconstructForVictory()
+    public void OnVictory()
     {
         Spawner.THIS.Deconstruct();
         Map.THIS.Deconstruct();
-        Board.THIS.Deconstruct();
-        Warzone.THIS.Deconstruct();
+        Board.THIS.OnVictory();
+        Warzone.THIS.OnVictory();
     }
    
 }

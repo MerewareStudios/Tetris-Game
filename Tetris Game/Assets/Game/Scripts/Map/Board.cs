@@ -77,6 +77,13 @@ namespace Game
                 place.Deconstruct();
             });
         }
+        public void OnVictory()
+        {
+            Call<Place>(places, (place) =>
+            {
+                place.OnVictory();
+            });
+        }
         public void MoveAll(float moveDuration)
         {
             _tick++;

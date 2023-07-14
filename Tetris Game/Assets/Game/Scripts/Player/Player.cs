@@ -26,6 +26,7 @@ namespace Game
         [System.NonSerialized] private float _currentAngle = 0.0f;
         
         [System.NonSerialized] private static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
+        [System.NonSerialized] private static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
 
 #region  Mono
 
@@ -156,6 +157,12 @@ namespace Game
                 gun.Despawn();
                 gun = null;
             }
+        }
+        
+        public void OnVictory()
+        {
+            this.enabled = false;
+            _animator.SetTrigger(VICTORY_HASH);
         }
         
         public void Begin()

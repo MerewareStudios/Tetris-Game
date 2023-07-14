@@ -13,6 +13,8 @@ public class Wallet : Singleton<Wallet>
 
     public static CurrencyTransactor COIN => Wallet.THIS.coin;
     public static CurrencyTransactor GEM => Wallet.THIS.gem;
+    
+    public static Vector3 CoinIconPosition => Wallet.THIS.coin.currencyDisplay.iconPivot.position;
 
     public static bool HasFunds(Const.PurchaseType purchaseType, int amount)
     {

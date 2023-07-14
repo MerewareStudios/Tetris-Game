@@ -176,6 +176,18 @@ namespace  Game
             _busy = false;
         }
 
+        public void OnVictory()
+        {
+            StopSpawning();
+            Player.OnVictory();
+            foreach (var enemy in Enemies)
+            {
+                enemy.Deconstruct();
+            }
+            Enemies.Clear();
+            _busy = false;
+        }
+        
     #endregion
 
         [System.Serializable]

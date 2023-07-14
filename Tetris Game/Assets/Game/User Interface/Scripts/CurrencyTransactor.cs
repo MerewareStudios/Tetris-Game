@@ -8,8 +8,7 @@ using UnityEngine.Serialization;
 
 public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 {
-    [SerializeField] private Const.PurchaseType purchase;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] public CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform iconPivot;
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Vector3 defaultAnchor;
@@ -28,7 +27,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
         set
         {
             base.TransactionData.value = value;
-            text.text = purchase.ToTMProKey() + value;
+            currencyDisplay.Display(value);
         }
     }
 

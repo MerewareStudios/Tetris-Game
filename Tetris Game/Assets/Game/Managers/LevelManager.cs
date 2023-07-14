@@ -29,16 +29,24 @@ public class LevelManager : Singleton<LevelManager>
 
         Warzone.THIS.LevelData = currentLevel.GetLevelSo();
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            GameManager.PLAYING = false;
+            GameManager.THIS.OnVictory();
+            SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, Const.PurchaseType.Coin, 125);
+        }
+    }
 
     public void CheckVictory()
     {
         if (Warzone.THIS.IsWarzoneCleared)
         {
             GameManager.PLAYING = false;
-            GameManager.THIS.DeconstructForVictory();
-            
-            Debug.Log("Victory");
+            GameManager.THIS.OnVictory();
+            SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, Const.PurchaseType.Coin, 125);
         }
     }
 }

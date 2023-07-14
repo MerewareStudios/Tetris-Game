@@ -11,6 +11,7 @@ using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
+   [Header("Bars")]
    [SerializeField] public ShopBar shopBar;
    [SerializeField] public LoanBar loanBar;
    [Header("Flying Text")]
@@ -23,8 +24,8 @@ public class UIManager : Singleton<UIManager>
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
 
    // Make them info list
-   
-   void Awake()
+
+    void Awake()
    {
       ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();
       ft_Level.ReturnInstance = (mono) => { mono.Despawn(); };
@@ -102,5 +103,23 @@ public static class UIManagerExtensions
    {
       return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
    }
+   public static void EarnCoinWorld(Vector3 worldStart, float scale, System.Action endAction = null)
+   {
+      Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
+      Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
+
+      // Vector3 screenEnd = Wallet.CoinIconPosition;
+
+      EarnCoinScreen(screenStart, scale, endAction);
+      
+      
+      // UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenEnd, true, endAction);
+   }
    
+   public static void EarnCoinScreen(Vector3 screenStart, float scale, System.Action endAction = null)
+   {
+      Vector3 screenEnd = Wallet.CoinIconPosition;
+      
+      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
+   }
 }

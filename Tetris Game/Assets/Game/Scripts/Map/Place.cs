@@ -46,6 +46,15 @@ namespace Game
                 Current = null;
             }
         }
+        
+        public void OnVictory()
+        {
+            if (Occupied)
+            {
+                Current.OnVictory();
+                Current = null;
+            }
+        }
 
         public void SetColor(PlaceType placeType, bool force = false)
         {

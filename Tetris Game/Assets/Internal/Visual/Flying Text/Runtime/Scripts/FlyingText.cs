@@ -130,4 +130,32 @@ public class FlyingText : MonoBehaviour
 
         return sequence;
     }
+    
+    public Sequence CurrencyLerp(string str, Vector3 screenStart, Vector3 screenEnd, float scale, bool timeIndependent = false, System.Action endAction = null)
+    {
+        TextMeshProUGUI text = OnGetInstance.Invoke();
+        text.text = str;
+        
+        RectTransform rectTransform = text.rectTransform;
+        rectTransform.SetParent(this.transform);
+        rectTransform.position = screenStart;
+        rectTransform.DOKill();
+        rectTransform.localScale = Vector3.zero;
+
+        Tween scaleUp = rectTransform.DOScale(Vector3.one * scale, 0.15f).SetEase(Ease.OutCubic).SetUpdate(timeIndependent);
+        Tween moveTween = rectTransform.DOMove(screenEnd, 0.5f).SetEase(Ease.InBack).SetUpdate(timeIndependent).SetDelay(0.2f);
+        Tween scaleDown = rectTransform.DOScale(Vector3.one * 0.75f, 0.5f).SetEase(Ease.InBack).SetUpdate(timeIndependent);
+        
+        Sequence sequence = DOTween.Sequence().SetUpdate(timeIndependent);
+        sequence.Append(scaleUp);
+        sequence.Append(moveTween);
+        sequence.Join(scaleDown);
+        sequence.onComplete += () =>
+        {
+            ReturnInstance.Invoke(text);
+            endAction?.Invoke();
+        };
+
+        return sequence;
+    }
 }
