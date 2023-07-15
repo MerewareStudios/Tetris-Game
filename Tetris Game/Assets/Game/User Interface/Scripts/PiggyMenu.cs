@@ -5,6 +5,7 @@ using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
+using Random = System.Random;
 
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
@@ -383,10 +384,60 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             
             public void GenerateRewards()
             {
-                for (int i = 0; i < piggyLevel; i++)
-                {
-                    rewards.Add(new PiggyReward());
-                }
+                float probability = 1.0f;
+
+                if (piggyLevel < 1) return;
+                
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.Gem, UnityEngine.Random.Range(5, 26)));
+
+                
+                if (piggyLevel < 2) return;
+                
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.Coin, UnityEngine.Random.Range(5, 26)));
+                
+                
+                if (piggyLevel < 3) return;
+                
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.Shield, UnityEngine.Random.Range(5, 16)));
+                
+                
+                if (piggyLevel < 4) return;
+                
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.Heart, UnityEngine.Random.Range(5, 11)));
+                
+                
+                if (piggyLevel < 5) return;
+                
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.Ad, UnityEngine.Random.Range(1, 3)));
+                
+                
+                if (piggyLevel < 6) return;
+                
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.MaxStack, 1));
+                
+                if (piggyLevel < 7) return;
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
+                
+                if (piggyLevel < 8) return;
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
+                
+                if (piggyLevel < 9) return;
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.PiggyLevel, 1));
+                
+                if (piggyLevel < 10) return;
+                
+                rewards.Add(new PiggyReward(PiggyReward.Type.Hole, 1));
+                
+                rewards.Shuffle();
             }
 
             public float PiggyPercent => moneyCurrent / (float)moneyCapacity;
@@ -401,8 +452,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 return new Data(this);
             }
         } 
-        [System.Serializable]
-        public class PiggyReward : ICloneable
+    [System.Serializable]
+    public class PiggyReward : ICloneable
     {
         [SerializeField] public Type type;
         [SerializeField] public int amount;
@@ -416,7 +467,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             this.type = piggyReward.type;
             this.amount = piggyReward.amount;
         }
-        
+        public PiggyReward(PiggyReward.Type type, int amount)
+        {
+            this.type = type;
+            this.amount = amount;
+        }
 
         public object Clone()
         {
@@ -425,18 +480,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         public enum Type
         {
-            Coins,
-            Gems,
+            Coin,
+            Gem,
+            Ad,
             Shield,
             Heart,
-            Splitshot,
-            Damage,
-            Firerate,
-            Agility,
-            FreeUpgrade,
-            Block,
-            Luck,
             MaxStack,
+            SupplyLine,
+            PiggyLevel,
+            Hole,
         }
     } 
     #endregion

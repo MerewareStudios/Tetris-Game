@@ -26,6 +26,18 @@ namespace Internal.Core
 
     public static class Helper
     {
+        private static System.Random rnd = new System.Random();
+
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rnd.Next(n + 1);
+                (list[k], list[n]) = (list[n], list[k]);
+            }
+        }
         public static Color SetAlpha(this Color color, float alpha)
         {
             color.a = alpha;
