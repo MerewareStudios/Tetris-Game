@@ -22,9 +22,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private RewardButton[] piggyRewardButtons;
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI pigLevelText;
+    [Header("Curreny Displays")]
     [SerializeField] private CurrencyDisplay piggyCurrencyDisplay;
     [SerializeField] private CurrencyDisplay investmentCurrencyDisplay;
-    [SerializeField] private TextMeshProUGUI freeInvestmentAmountText;
+    [SerializeField] private CurrencyDisplay freeInvestmentCurrencyDisplay;
     [Header("Pivots")]
     [SerializeField] private RectTransform _rectTransformPiggyIcon;
     [SerializeField] private RectTransform _coinTarget;
@@ -72,7 +73,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     private int MoneyCount
     {
-        set => piggyCurrencyDisplay.Display(Const.PurchaseType.Coin, value);
+        set => piggyCurrencyDisplay.Display(Const.CurrencyType.Coin, value);
         get => _Data.moneyCurrent;
     }
     #endregion
@@ -152,25 +153,25 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 }
             });
     }
-    private void InvestCoins(int investAmount, float delay = 0.25f)
+    private void InvestCoins(Const.Currency currency, float delay = 0.25f)
     {
         ShowScreen(false, true, false);
         ShowPiggyScreenButtons(false, false);
         
         DOVirtual.DelayedCall(delay, () =>
         {
-            InvestAnimation(investAmount);
+            InvestAnimation(currency);
         });
     }
-    private void InvestAnimation(int amount)
+    private void InvestAnimation(Const.Currency currency)
     {
-        Wallet.COIN.Transaction(-amount);
+        Wallet.Transaction(currency);
         int maxCoin = 6;
         
-        int count = Mathf.Min(amount, maxCoin);
+        int count = Mathf.Min(currency.amount, maxCoin);
         float posDif = 0.3f;
             
-        Vector3 screenStart = Wallet.COIN.iconPivot.position;
+        Vector3 screenStart = Wallet.IconPosition(currency.type);
         Vector3 screenEnd = _coinTarget.position;
         Vector3 screenDrag = screenStart;
         screenDrag.x = screenEnd.x;
@@ -187,7 +188,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     
                 if (index == count - 1)
                 {
-                    AddMoney(amount, 0.0f);
+                    AddMoney(currency.amount, 0.0f);
                 }
 
             })).SetDelay(i * 0.125f);
@@ -216,12 +217,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private void CloseAction()
     {
         this.Close();
+        GameManager.THIS.Play();
     }
     private void Show()
     {
-        Time.timeScale = 0.0f;
+        UIManager.MenuMode(true);
 
-        UIManager.THIS.ScaleTransactors(1.5f, true);
+        Wallet.ScaleTransactors(1.5f, true);
 
         _Data = _data;
         
@@ -232,10 +234,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void Hide()
     {
-        Time.timeScale = 1.0f;
+        UIManager.MenuMode(false);
         piggyJumpAnimation.DOKill();
         
-        UIManager.THIS.ScaleTransactors(1.0f);
+        Wallet.ScaleTransactors(1.0f);
     }
     #endregion
     #region Option Buttons
@@ -260,31 +262,31 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         investButton.SetActive(investState);
         if (investState)
         {
-            int investmentAmount = InvestWithStrategy(Wallet.COIN.Amount);
-            investmentCurrencyDisplay.Display(Const.PurchaseType.Coin, investmentAmount);
+            Const.Currency investmentAmount = InvestWithStrategy(Wallet.COIN.Currency);
+            investmentCurrencyDisplay.Display(investmentAmount);
         }
         investFreeButton.SetActive(investFreeState);
         if (investFreeState)
         {
-            freeInvestmentAmountText.Stamp(Const.PurchaseType.Coin, _Data.freeInvestmentAmount);
+            freeInvestmentCurrencyDisplay.Display(_Data.freeInvestment);
         }
         justOpenButton.SetActive(justOpenState);
         openRewardsButton.SetActive(rewardState);
     }
-    private int InvestWithStrategy(int amount)
+    private Const.Currency InvestWithStrategy(Const.Currency currency)
     {
-        if (amount <= 3)
+        if (currency.amount <= 3)
         {
-            return amount;
+            return currency;
         }
-        amount = Mathf.FloorToInt(amount * 0.5f);
-        if (amount % 2 == 1)
+        currency.amount = Mathf.FloorToInt(currency.amount * 0.5f);
+        if (currency.amount % 2 == 1)
         {
-            amount++;
+            currency.amount++;
         }
 
-        amount = Mathf.Clamp(amount, 1, 50);
-        return amount;
+        currency.amount = Mathf.Clamp(currency.amount, 1, 50);
+        return currency;
     }
     public void Option_Keep()
     {
@@ -292,13 +294,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void Option_Invest()
     {
-        InvestCoins(InvestWithStrategy(Wallet.COIN.Amount));
+        InvestCoins(InvestWithStrategy(Wallet.COIN.Currency));
     }
     
     public void Option_InvestFree()
     {
         Debug.LogWarning("Watch Ad - Not Implemented, invest");
-        InvestCoins(_Data.freeInvestmentAmount);
+        InvestCoins(_Data.freeInvestment);
     }
     public void Option_JustOpen()
     {
@@ -358,7 +360,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             [SerializeField] public int maxPiggyLevel = 9;
             [SerializeField] public int moneyCurrent;
             [SerializeField] public int moneyCapacity;
-            [SerializeField] public int freeInvestmentAmount = 25;
+            [SerializeField] public Const.Currency freeInvestment;
             [SerializeField] public List<PiggyReward> rewards = new();
 
             public Data()
@@ -372,7 +374,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 this.maxPiggyLevel = data.maxPiggyLevel;
                 this.moneyCurrent = data.moneyCurrent;
                 this.moneyCapacity = data.moneyCapacity;
-                this.freeInvestmentAmount = data.freeInvestmentAmount;
+                this.freeInvestment = data.freeInvestment;
                 this.rewards.CopyFrom(data.rewards);
             }
 

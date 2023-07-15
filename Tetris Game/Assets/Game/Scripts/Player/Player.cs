@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using Game.UI;
+using Internal.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,11 +25,15 @@ namespace Game
 
         [System.NonSerialized] private Vector2 _selfPosition;
         [System.NonSerialized] private float _currentAngle = 0.0f;
+        [System.NonSerialized] private bool shouldGetUp = false;
         
         [System.NonSerialized] private static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
         [System.NonSerialized] private static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
         [System.NonSerialized] private static readonly int DEATH_HASH = Animator.StringToHash("Death");
+        [System.NonSerialized] private static readonly int GETUP_HASH = Animator.StringToHash("GetUp");
 
+
+        // public static int RANDOM_DEATH_HASH => DEATH_HASHES.Random(); 
 #region  Mono
 
         void Start()
@@ -169,13 +174,25 @@ namespace Game
         {
             this.enabled = false;
             _animator.SetTrigger(DEATH_HASH);
+            shouldGetUp = true;
         }
         public void Begin()
         {
-            this.enabled = true;
+            // this.enabled = true;
 
-            _currentAngle = 0.0f;
-            transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
+            // _currentAngle = 0.0f;
+            // transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
+
+            transform.DORotate(Vector3.zero, 0.5f).onComplete += () =>
+            {
+                this.enabled = true;
+            };
+
+            if (shouldGetUp)
+            {
+                _animator.SetTrigger(GETUP_HASH);
+                shouldGetUp = false;
+            }
         }
         
         public void Reset()

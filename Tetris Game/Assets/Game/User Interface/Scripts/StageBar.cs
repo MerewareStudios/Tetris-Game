@@ -15,7 +15,7 @@ public class StageBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI topInfoText;
     [SerializeField] private Color[] barColors; // Empty, Locked, Upgraded
     [SerializeField] private Image[] images;
-    [SerializeField] private TextMeshProUGUI priceText;
+    [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
     [SerializeField] private Button[] purchaseButtons;
     [SerializeField] private GameObject buttonParent;
 
@@ -28,26 +28,26 @@ public class StageBar : MonoBehaviour
         return this;
     }
  
-    public StageBar SetPrice(Const.PurchaseType purchaseType, int amount, bool max)
+    public StageBar SetPrice(Const.Currency currency, bool max)
     {
         SetUsable(!max);
         if (max)
         {
-            priceText.StampMax();
+            priceCurrencyDisplay.DisplayMax();
             return this;
         }
-        priceText.Stamp(purchaseType, amount);
-        SetPurchaseType(purchaseType);
+        priceCurrencyDisplay.Display(currency);
+        SetPurchaseType(currency.type);
         return this;
     }
     
-    public StageBar SetPurchaseType(Const.PurchaseType purchaseType)
+    public StageBar SetPurchaseType(Const.CurrencyType currencyType)
     {
         foreach (var t in purchaseButtons)
         {
             t.gameObject.SetActive(false);
         }
-        purchaseButtons[(int)purchaseType].gameObject.SetActive(true);
+        purchaseButtons[(int)currencyType].gameObject.SetActive(true);
 
         return this;
     }
@@ -97,9 +97,8 @@ public class StageBar : MonoBehaviour
     [Serializable]
     public class StageData<T> : ICloneable
     {
-        [SerializeField] public Const.PurchaseType purchaseType;
+        [SerializeField] public Const.Currency currency;
         [SerializeField] public T value;
-        [SerializeField] public int price;
             
         public StageData()
         {

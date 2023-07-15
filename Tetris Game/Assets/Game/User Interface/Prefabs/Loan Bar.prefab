@@ -168,6 +168,7 @@ MonoBehaviour:
   scalePivot: {fileID: 8507637744784485602}
   button: {fileID: 7431092399924912094}
   currencyText: {fileID: 1830996475369750106}
+  textUpdateUpdateInterval: 1
 --- !u!114 &7431092399924912094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,17 +372,17 @@ PrefabInstance:
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.51540506
+      value: 0.79784703
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.51540506
+      value: 0.79784703
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.51540506
+      value: 0.79784703
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -426,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 130
+      value: 152
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}

@@ -30,6 +30,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.GEM.Set(ref saveData.userData.gemTransactionData);
+        Wallet.AD.Set(ref saveData.userData.gemTransactionData);
 
         AdManager.THIS._Data = saveData.adData;
         
@@ -78,6 +79,10 @@ public static class SaveManagerExtensions
     {
         return SaveManager.THIS.saveData.userData.level;
     }
+    public static int NextLevel(this LevelManager levelManager)
+    {
+        return SaveManager.THIS.saveData.userData.level;
+    }
 }
 public partial class SaveData
 {
@@ -118,6 +123,7 @@ namespace User
         [SerializeField] public Board.Data boardData;
         [SerializeField] public TransactionData<int> coinTransactionData = new();
         [SerializeField] public TransactionData<int> gemTransactionData = new();
+        [SerializeField] public TransactionData<int> adTransactionData = new();
         [SerializeField] public TransactionData<float> shopFillTransactionData = new();
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
@@ -134,8 +140,11 @@ namespace User
         {
             level = data.level;
             boardData = data.boardData.Clone() as Board.Data;
+            
             coinTransactionData = data.coinTransactionData.Clone() as TransactionData<int>;
             gemTransactionData = data.gemTransactionData.Clone() as TransactionData<int>;
+            adTransactionData = data.adTransactionData.Clone() as TransactionData<int>;
+            
             shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;

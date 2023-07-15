@@ -73,7 +73,7 @@ namespace Game.UI
 
             stageBar
                 .SetTopInfo(stageData.value.ToString())
-                .SetPrice(stageData.purchaseType, stageData.price, max)
+                .SetPrice(stageData.currency, max)
                 .SetBars(stageDatas.Length - 1, currentIndex);
         }
         
@@ -118,7 +118,7 @@ namespace Game.UI
             Gun.StatType type = (Gun.StatType)statType;
             StageBar.StageData<int> stageData = _gunUpgradeData.GetStageData(type, _weaponShopData.GetIndex(type));
 
-            if (Wallet.Transaction(stageData.purchaseType, -stageData.price))
+            if (Wallet.Transaction(stageData.currency))
             {
                 OnPurchase(type);
             }

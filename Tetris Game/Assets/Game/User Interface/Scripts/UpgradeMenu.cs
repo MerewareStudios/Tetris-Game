@@ -48,9 +48,9 @@ namespace Game.UI
                 PurchaseOption purchaseOption = purchaseOptions[i];
 
                 PurchaseData purchaseData = _Data.purchaseData[i];
-                bool hasFunds = Wallet.HasFunds(purchaseData.purchaseType, purchaseData.price);
+                bool hasFunds = Wallet.HasFunds(purchaseData.currency);
                 purchaseOption
-                    .SetPurchase(purchaseData.purchaseType, purchaseData.price, hasFunds)
+                    .SetPurchase(purchaseData.currency, hasFunds)
                     .SetDetailedInfo(purchaseData.gain);
             }
         }
@@ -62,7 +62,7 @@ namespace Game.UI
             
             
             
-            bool transactionSuccessful = Wallet.Transaction(purchaseData.purchaseType, -purchaseData.price);
+            bool transactionSuccessful = Wallet.Transaction(purchaseData.currency);
             
             purchaseOptions[purchaseIndex].PunchColor(transactionSuccessful ? Const.THIS.acceptedFrameColor : Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
             purchaseOptions[purchaseIndex].Punch(transactionSuccessful ? new Vector3(0.0f, 30.0f) :  new Vector3(-50.0f, 0.0f));
@@ -137,8 +137,7 @@ namespace Game.UI
         public class PurchaseData : ICloneable
         {
             [SerializeField] public UpgradeType upgradeType;
-            [SerializeField] public Const.PurchaseType purchaseType;
-            [SerializeField] public int price;
+            [SerializeField] public Const.Currency currency;
             [SerializeField] public int gain;
             [SerializeField] public int purchaseInstance = 0;
             [SerializeField] public int maxPurchase = 0;
@@ -150,8 +149,7 @@ namespace Game.UI
             public PurchaseData(PurchaseData purchaseData)
             {
                 this.upgradeType = purchaseData.upgradeType;
-                this.purchaseType = purchaseData.purchaseType;
-                this.price = purchaseData.price;
+                this.currency = purchaseData.currency;
                 this.gain = purchaseData.gain;
                 this.purchaseInstance = purchaseData.purchaseInstance;
                 this.maxPurchase = purchaseData.maxPurchase;

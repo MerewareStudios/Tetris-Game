@@ -42,7 +42,7 @@ public class SlashScreen : Singleton<SlashScreen>
         [SerializeField] public bool failImageActive;
     }
     
-    public void Show(State state, float delay, Const.PurchaseType purchaseType, int rewardAmount)
+    public void Show(State state, float delay, Const.Currency currency)
     {
         ResetSelf();
         SlashAnimationSettings slashAnimationSettings = null;
@@ -55,7 +55,7 @@ public class SlashScreen : Singleton<SlashScreen>
                 slashAnimationSettings = animationSettingsFail;
                 break;
         }
-        Show(slashAnimationSettings, delay, purchaseType, rewardAmount);
+        Show(slashAnimationSettings, delay, currency);
     }
     
     private void ResetSelf()
@@ -77,9 +77,9 @@ public class SlashScreen : Singleton<SlashScreen>
         centerImage.rectTransform.sizeDelta = new Vector2(distance, centerMinHeight);
     }
 
-    private void Show(SlashAnimationSettings animationSettings, float delay, Const.PurchaseType purchaseType, int rewardAmount)
+    private void Show(SlashAnimationSettings animationSettings, float delay, Const.Currency currency)
     {
-        currencyDisplay.Display(purchaseType, rewardAmount);
+        currencyDisplay.Display(currency);
         
         canvas.enabled = true;
         
@@ -113,7 +113,7 @@ public class SlashScreen : Singleton<SlashScreen>
             Hide(animationSettingsHide, 0.1f);
             UIManagerExtensions.EarnCoinScreen(currencyDisplay.iconPivot.position, 1.75f, () =>
             {
-                Wallet.COIN.Transaction(rewardAmount);
+                Wallet.Transaction(currency);
                 
                 PiggyMenu.THIS.Open(0.225f);
             });

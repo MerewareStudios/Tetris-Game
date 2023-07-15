@@ -22,6 +22,11 @@ public class UIManager : Singleton<UIManager>
    [Header("Level")]
    [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
+   [System.NonSerialized] public static bool MENU_OPEN = false;
+   [Header("Transactors")]
+   [SerializeField] public CurrencyTransactor coin;
+   [SerializeField] public CurrencyTransactor gem;
+   [SerializeField] public CurrencyTransactor ad;
 
    // Make them info list
 
@@ -62,10 +67,12 @@ public class UIManager : Singleton<UIManager>
       MenuNavigator.THIS.Open();
    }
 
-   public void ScaleTransactors(float scale, bool distance = false)
+   
+
+   public static void MenuMode(bool value)
    {
-      Wallet.COIN.Scale(scale, distance);
-      Wallet.GEM.Scale(scale, distance);
+      MENU_OPEN = value;
+      Time.timeScale = value ? 0.0f : 1.0f;
    }
 }
 
@@ -101,7 +108,7 @@ public static class UIManagerExtensions
    }
    public static Sequence DragCoin(Vector3 screenStart, Vector3 screenDrag, Vector3 screenEnd, float duration = 0.0f, System.Action endAction = null)
    {
-      return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
+      return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.CurrencyType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
    }
    public static void EarnCoinWorld(Vector3 worldStart, float scale, System.Action endAction = null)
    {
@@ -118,8 +125,8 @@ public static class UIManagerExtensions
    
    public static void EarnCoinScreen(Vector3 screenStart, float scale, System.Action endAction = null)
    {
-      Vector3 screenEnd = Wallet.CoinIconPosition;
+      Vector3 screenEnd = Wallet.IconPosition(Const.CurrencyType.Coin);
       
-      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
+      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(Const.CurrencyType.Coin.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
    }
 }

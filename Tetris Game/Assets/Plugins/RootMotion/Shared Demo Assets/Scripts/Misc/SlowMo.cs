@@ -13,7 +13,8 @@ namespace RootMotion.Demos {
         public bool mouse1;
         public float slowMoTimeScale = 0.3f;
 
-        void Update () {
+        void Update () 
+        {
 			Time.timeScale = IsSlowMotion()? slowMoTimeScale: 1f;
 		}
 

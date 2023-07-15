@@ -51,7 +51,7 @@ public class LoanBar : MonoBehaviour
         if (Time.time - _textUpdateTimeStamp > textUpdateUpdateInterval)
         {
             int secondsLeft = AdManager.THIS._Data.LoanBarSecondsLeft;
-            currencyText.text = secondsLeft > 0 ? secondsLeft.ToString() : Const.PurchaseType.Ad.ToTMProKey();
+            currencyText.text = secondsLeft > 0 ? secondsLeft.ToString() : Const.CurrencyType.Ad.ToTMProKey();
 
             _textUpdateTimeStamp = Time.time;
         }

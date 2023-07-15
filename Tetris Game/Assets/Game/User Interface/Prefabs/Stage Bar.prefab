@@ -563,7 +563,7 @@ MonoBehaviour:
   - {fileID: 2361862082220948906}
   - {fileID: 7001561181163775290}
   - {fileID: 6136923523434913749}
-  priceText: {fileID: 7597732675912253693}
+  priceCurrencyDisplay: {fileID: 4296801499655385681}
   purchaseButtons:
   - {fileID: 1365851800155390988}
   - {fileID: 1365851800155390988}
@@ -1968,42 +1968,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5323864363724207465}
     m_Modifications:
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c0674a7cedf5549858d78f9a7e05aa20,
-        type: 3}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1264050432624455652, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Padding.m_Bottom
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_text
-      value: <sprite name="Coin">0
-      objectReference: {fileID: 0}
     - target: {fileID: 3443715328819109847, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2037,7 +2001,7 @@ PrefabInstance:
     - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_Name
-      value: Money - Count (Display) (1)
+      value: Currency Display
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -2083,21 +2047,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.81232786
-      objectReference: {fileID: 0}
-    - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.81232786
-      objectReference: {fileID: 0}
-    - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.81232786
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -2170,16 +2119,16 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8217471696022204048}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7597732675912253693 stripped
+--- !u!114 &4296801499655385681 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
+  m_CorrespondingSourceObject: {fileID: 5308368243460267201, guid: d4d4a673d730ef248bac2359c69182e2,
     type: 3}
   m_PrefabInstance: {fileID: 8217471696022204048}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: a863a1b8798e37d4d92f9172c609dd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8494160885126503317

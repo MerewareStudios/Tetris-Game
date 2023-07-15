@@ -8,8 +8,8 @@ using UnityEngine.Serialization;
 
 public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 {
+    [SerializeField] private Const.CurrencyType currencyType;
     [SerializeField] public CurrencyDisplay currencyDisplay;
-    [SerializeField] public RectTransform iconPivot;
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Vector3 defaultAnchor;
     [SerializeField] private Vector3 scaledAnchor;
@@ -23,12 +23,17 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     
     public int Amount
     {
-        get => base.TransactionData.value;
+        get =>  base.TransactionData.value;
         set
         {
             base.TransactionData.value = value;
-            currencyDisplay.Display(value);
+            currencyDisplay.Display(currencyType, value);
         }
+    }
+    
+    public Const.Currency Currency
+    {
+        get => new Const.Currency(currencyType, base.TransactionData.value);
     }
 
     public bool Transaction(int amount)

@@ -162,7 +162,7 @@ public class Gun : MonoBehaviour
         public int Price(Gun.StatType statType, int atLevel)
         {
             int index = (int)statType;
-            return stageDatas[index][atLevel].price;
+            return stageDatas[index][atLevel].currency.amount;
         }
         public bool IsFull(Gun.StatType statType, int atIndex)
         {

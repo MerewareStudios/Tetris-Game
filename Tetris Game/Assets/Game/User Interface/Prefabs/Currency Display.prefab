@@ -246,7 +246,7 @@ MonoBehaviour:
     m_Left: 48
     m_Right: 48
     m_Top: 20
-    m_Bottom: 19
+    m_Bottom: 20
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1

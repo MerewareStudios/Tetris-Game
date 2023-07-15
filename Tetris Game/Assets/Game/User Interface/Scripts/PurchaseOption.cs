@@ -11,7 +11,7 @@ public class PurchaseOption : MonoBehaviour
 {
     [SerializeField] private Button purchaseButton;
     [SerializeField] private RectTransform animationPivot;
-    [SerializeField] private TextMeshProUGUI priceText;
+    [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
     [SerializeField] private TextMeshProUGUI purchaseButtonText;
     [SerializeField] private TextMeshProUGUI detailedInfoText;
     [SerializeField] private Image frameOutline;
@@ -19,10 +19,11 @@ public class PurchaseOption : MonoBehaviour
     [TextArea] [SerializeField] private string purchaseInfo;
     [System.NonSerialized] private Sequence _colorSequence;
 
-    public PurchaseOption SetPurchase(Const.PurchaseType purchaseType, int price, bool able2Purchase)
+    public PurchaseOption SetPurchase(Const.Currency currency, bool able2Purchase)
     {
         SetButtonVisible(able2Purchase);
-        Const.SetPriceStamp(priceText, purchaseButton, purchaseButtonText, able2Purchase, purchaseType, price);
+        priceCurrencyDisplay.Display(currency);
+        // Const.SetPriceStamp(priceText, purchaseButton, purchaseButtonText, able2Purchase, currencyData);
         return this;
     }
     public PurchaseOption SetDetailedInfo(int gain)

@@ -5,57 +5,44 @@ using Internal.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Wallet : Singleton<Wallet>
+public static class Wallet
 {
-    [Header("Transactors")]
-    [SerializeField] public CurrencyTransactor coin;
-    [SerializeField] public CurrencyTransactor gem;
-
-    public static CurrencyTransactor COIN => Wallet.THIS.coin;
-    public static CurrencyTransactor GEM => Wallet.THIS.gem;
+    public static CurrencyTransactor COIN => UIManager.THIS.coin;
+    public static CurrencyTransactor GEM => UIManager.THIS.gem;
+    public static CurrencyTransactor AD => UIManager.THIS.ad;
     
-    public static Vector3 CoinIconPosition => Wallet.THIS.coin.currencyDisplay.iconPivot.position;
-
-    public static bool HasFunds(Const.PurchaseType purchaseType, int amount)
+    private static readonly CurrencyTransactor[] CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
+    
+    public static Vector3 IconPosition(Const.CurrencyType currencyType)
     {
-        CurrencyTransactor currencyTransactor = null;
-        switch (purchaseType)
-        {
-            case Const.PurchaseType.Coin:
-                currencyTransactor = Wallet.COIN;
-                break;
-            case Const.PurchaseType.Gem:
-                currencyTransactor = Wallet.GEM;
-                break;
-            case Const.PurchaseType.Ad:
-                currencyTransactor = null;
-                break;
-        }
+        CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currencyType];
+
+        return currencyTransactor.currencyDisplay.iconPivot.position;
+    }
+    
+    public static bool HasFunds(Const.Currency currency)
+    {
+        CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
         if (currencyTransactor)
         {
-            return currencyTransactor.Amount >= amount;
+            return currencyTransactor.Amount >= currency.amount;
         }
 
         return true;
     }
     
-    public static bool Transaction(Const.PurchaseType purchaseType, int amount)
+    public static bool Transaction(Const.Currency currency)
     {
-        CurrencyTransactor currencyTransactor = null;
-        switch (purchaseType)
-        {
-            case Const.PurchaseType.Coin:
-                currencyTransactor = Wallet.COIN;
-                break;
-            case Const.PurchaseType.Gem:
-                currencyTransactor = Wallet.GEM;
-                break;
-            case Const.PurchaseType.Ad:
-                currencyTransactor = null;
-                break;
-        }
+        CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
-        return !currencyTransactor || currencyTransactor.Transaction(amount);
+        return !currencyTransactor || currencyTransactor.Transaction(currency.amount);
+    }
+    
+    public static void ScaleTransactors(float scale, bool distance = false)
+    {
+        COIN.Scale(scale, distance);
+        GEM.Scale(scale, distance);
+        AD.Scale(scale, distance);
     }
 }

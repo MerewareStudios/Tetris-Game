@@ -17,7 +17,7 @@ namespace Game.UI
     {
         [SerializeField] private BlockVisualGrid blockVisualGrid;
         [SerializeField] private RectTransform priceTextPivot;
-        [SerializeField] private TextMeshProUGUI priceText;
+        [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
         [SerializeField] private TextMeshProUGUI upgradeText;
@@ -55,7 +55,7 @@ namespace Game.UI
             int showIndex = _blockShopData.lastIndex;
             this._blockData = _blockShopData.blockDatas[showIndex];
             
-            SetPrice(_blockData.purchaseType, _blockData.basePrice);
+            SetPrice(_blockData.currency);
             SetLookUp(_blockData.lookUp);
 
             bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
@@ -74,7 +74,7 @@ namespace Game.UI
             Show();
         }
         
-        public void SetPurchaseButtons(Const.PurchaseType purchaseType, bool able2Purchase)
+        public void SetPurchaseButtons(Const.CurrencyType currencyType, bool able2Purchase)
         {
             noFundsText.gameObject.SetActive(false);
             foreach (var t in purchaseButtons)
@@ -82,7 +82,7 @@ namespace Game.UI
                 t.gameObject.SetActive(false);
             }
             
-            purchaseButtons[(int)purchaseType].gameObject.SetActive(able2Purchase);
+            purchaseButtons[(int)currencyType].gameObject.SetActive(able2Purchase);
             noFundsText.gameObject.SetActive(!able2Purchase);
         }
         
@@ -103,12 +103,12 @@ namespace Game.UI
             Show();
         }
 
-        private void SetPrice(Const.PurchaseType purchaseType, int price)
+        private void SetPrice(Const.Currency currency)
         {
-            bool hasFunds = Wallet.HasFunds(purchaseType, price);
+            bool hasFunds = Wallet.HasFunds(currency);
 
-            SetPurchaseButtons(purchaseType, hasFunds);
-            priceText.Stamp(purchaseType, price);
+            SetPurchaseButtons(currency.type, hasFunds);
+            currencyDisplay.Display(currency);
             PunchMoney(0.15f);
         }
         private void SetLookUp(int[] table)
@@ -133,7 +133,7 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
-            if (Wallet.Transaction(_blockData.purchaseType, -_blockData.basePrice))
+            if (Wallet.Transaction(_blockData.currency))
             {
                 OnPurchase();
             }
@@ -203,8 +203,7 @@ namespace Game.UI
         public class BlockData : ICloneable
         {
             [SerializeField] public Pool blockType;
-            [SerializeField] public Const.PurchaseType purchaseType;
-            [SerializeField] public int basePrice;
+            [SerializeField] public Const.Currency currency;
             [SerializeField] public int[] lookUp;
             [SerializeField] public int trackIndex = 0;
             
@@ -215,8 +214,7 @@ namespace Game.UI
             public BlockData(BlockData blockData)
             {
                 this.blockType = blockData.blockType;
-                this.purchaseType = blockData.purchaseType;
-                this.basePrice = blockData.basePrice;
+                this.currency = blockData.currency;
                 this.lookUp = blockData.lookUp.Clone() as int[];
                 this.trackIndex = blockData.trackIndex;
             }

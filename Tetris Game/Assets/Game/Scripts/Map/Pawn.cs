@@ -151,7 +151,7 @@ namespace Game
             
             UIManagerExtensions.EarnCoinWorld(levelText.transform.position, 1.25f, () =>
             {
-                Wallet.COIN.Transaction(1);
+                Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
             });
         }
         public void OnFail()
@@ -165,10 +165,10 @@ namespace Game
                 .onComplete += Deconstruct;
 
             
-            UIManagerExtensions.EarnCoinWorld(levelText.transform.position, 1.25f, () =>
-            {
-                Wallet.COIN.Transaction(1);
-            });
+            // UIManagerExtensions.EarnCoinWorld(levelText.transform.position, 1.25f, () =>
+            // {
+            //     Wallet.COIN.Transaction(1);
+            // });
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {

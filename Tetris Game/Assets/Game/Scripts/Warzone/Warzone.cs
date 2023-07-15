@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Game.UI;
 using Internal.Core;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace  Game
         {
             this.Player.OnDeath += () =>
             {
-                LevelManager.THIS.GameOver();
+                LevelManager.THIS.CheckFail();
             };
             
             psMain = bloodPS.main;
@@ -109,7 +110,10 @@ namespace  Game
                 _spawnRoutine = null;
                 LevelManager.THIS.CheckVictory();
             }
-            
+        }
+
+        public void OnLevelLoad()
+        {
             Player.Begin();
         }
 
@@ -192,12 +196,25 @@ namespace  Game
         {
             StopSpawning();
             Player.OnFail();
+            
+            _busy = false;
+            
+            int enemyCount = Enemies.Count;
+
+            if (enemyCount <= 0)
+            {
+                return;
+            }
+            
+            float delayIncrease = 1.0f / enemyCount;
+            float delay = 0.0f;
             foreach (var enemy in Enemies)
             {
-                enemy.Deconstruct();
+                enemy.enabled = false;
+                DOVirtual.DelayedCall(delay, enemy.KamikazeDeconstruct);
+                delay += delayIncrease;
             }
             Enemies.Clear();
-            _busy = false;
         }
         
     #endregion

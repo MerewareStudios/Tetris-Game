@@ -22,13 +22,21 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         Board.THIS.Construct();
+        Play();
+    }
+
+    public void Play()
+    {
         LevelManager.THIS.LoadLevel();
     }
     
     void Update()
     {
         SaveManager.THIS.saveData.playTime += Time.deltaTime;
-        Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
+        if (UIManager.MENU_OPEN)
+        {
+            Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
+        }
     }
     
     
@@ -39,13 +47,7 @@ public class GameManager : Singleton<GameManager>
         Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
     }
-    public void DeconstructForFail()
-    {
-        Spawner.THIS.Deconstruct();
-        Map.THIS.Deconstruct();
-        Board.THIS.Deconstruct();
-        Warzone.THIS.Deconstruct();
-    }
+   
     public void OnVictory()
     {
         Spawner.THIS.Deconstruct();

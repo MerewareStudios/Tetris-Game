@@ -6,28 +6,16 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public void GameOver()
-    {
-        if (!GameManager.PLAYING)
-        {
-            return;
-        }
-        // SaveManager.THIS.SaveHighScore();
-        
-        GameManager.PLAYING = false;
-        GameManager.THIS.DeconstructForFail();
-    }
-
     public void LoadLevel()
     {
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         Spawner.THIS.Begin(0.45f);
 
-        int currentLevel = this.CurrentLevel();
-        UIManager.THIS.levelText.text = "Wave " + currentLevel;
+        UIManager.THIS.levelText.text = "level " + this.CurrentLevel();
 
-        Warzone.THIS.LevelData = currentLevel.GetLevelSo();
+        Warzone.THIS.LevelData = this.CurrentLevel().GetLevelSo();
+        Warzone.THIS.OnLevelLoad();
     }
 
     private void Update()
@@ -49,18 +37,36 @@ public class LevelManager : Singleton<LevelManager>
             OnVictory();
         }
     }
+    
+    public void CheckFail()
+    {
+        OnFail();
+    }
 
     private void OnVictory()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
+        
         GameManager.PLAYING = false;
         GameManager.THIS.OnVictory();
-        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, Const.PurchaseType.Coin, 125);
+
+        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, this.CurrentLevel().GetVictoryReward());
+        
+        this.NextLevel();
     }
     
     private void OnFail()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
+        
         GameManager.PLAYING = false;
         GameManager.THIS.OnFail();
-        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.75f, Const.PurchaseType.Coin, 125);
+        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, this.CurrentLevel().GetFailReward());
     }
 }

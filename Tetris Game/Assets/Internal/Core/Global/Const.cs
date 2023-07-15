@@ -66,43 +66,65 @@ public class Const : SSingleton<Const>
         [SerializeField] public Vector3 dir;
         [SerializeField] public float radius;
     }
+    
     [Serializable]
-    public enum PurchaseType
+    public struct Currency
+    {
+        [SerializeField] public CurrencyType type;
+        [SerializeField] public int amount;
+
+        public Currency(CurrencyType type, int amount)
+        {
+            this.type = type;
+            this.amount = amount;
+        }
+    }
+    
+    [Serializable]
+    public enum CurrencyType
     {
         Coin,
         Gem,
         Ad,
     }
 
-    public static void SetPriceStamp(TextMeshProUGUI priceText, PurchaseType purchaseType, int amount)
+    public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)
     {
-        int enumInt = (int)purchaseType;
-        
-        priceText.text = purchaseType.ToTMProKey() + (amount == 0 ? "" : amount);
-        priceText.color = Const.THIS.metaTextColors[enumInt];
-        priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
-    }
-    public static void SetMaxStamp(TextMeshProUGUI priceText, PurchaseType purchaseType)
-    {
-        int enumInt = (int)purchaseType;
-        
-        priceText.text = "MAX";
-        priceText.color = Const.THIS.metaTextColors[enumInt];
-        priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
-    }
-    public static void SetPriceStamp(TextMeshProUGUI priceText, Button button, TextMeshProUGUI purchaseButtonText, bool able2Purchase, PurchaseType purchaseType, int amount)
-    {
-        int enumInt = (int)purchaseType;
-        
-        priceText.text = purchaseType.ToTMProKey() + (amount == 0 ? "" : amount);
-        priceText.color = Const.THIS.metaTextColors[enumInt];
-        priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
-        
-        purchaseButtonText.text = able2Purchase ? (purchaseType.Equals(PurchaseType.Ad) ? "FREE" :  "SPEND") : UIManager.NO_FUNDS_TEXT;
+        int enumInt = (int)overridenCurrencyType;
 
-        
-        button.image.sprite = Const.THIS.purchaseOptionSprites[enumInt];
+        text.color = Const.THIS.metaTextColors[enumInt];
+        text.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
     }
+
+    // public static void SetPriceStamp(TextMeshProUGUI priceText, CurrencyData currencyData)
+    // {
+    //     int enumInt = (int)currencyData.type;
+    //     
+    //     priceText.text = currencyData.type.ToTMProKey() + (amount == 0 ? "" : amount);
+    //     priceText.color = Const.THIS.metaTextColors[enumInt];
+    //     priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+    // }
+    // public static void SetMaxStamp(TextMeshProUGUI priceText, Currency currency)
+    // {
+    //     int enumInt = (int)currency;
+    //     
+    //     priceText.text = "MAX";
+    //     priceText.color = Const.THIS.metaTextColors[enumInt];
+    //     priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+    // }
+    // public static void SetPriceStamp(TextMeshProUGUI priceText, Button button, TextMeshProUGUI purchaseButtonText, bool able2Purchase, Currency currency, int amount)
+    // {
+    //     int enumInt = (int)currency;
+    //     
+    //     priceText.text = currency.ToTMProKey() + (amount == 0 ? "" : amount);
+    //     priceText.color = Const.THIS.metaTextColors[enumInt];
+    //     priceText.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+    //     
+    //     purchaseButtonText.text = able2Purchase ? (currency.Equals(Currency.Ad) ? "FREE" :  "SPEND") : UIManager.NO_FUNDS_TEXT;
+    //
+    //     
+    //     button.image.sprite = Const.THIS.purchaseOptionSprites[enumInt];
+    // }
 }
 
 public static class ConstExtensions
@@ -120,12 +142,12 @@ public static class ConstExtensions
         return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].radius;
     }
     
-    public static void Stamp(this TextMeshProUGUI priceText, Const.PurchaseType purchaseType, int amount)
-    {
-        Const.SetPriceStamp(priceText, purchaseType, amount);
-    }
-    public static void StampMax(this TextMeshProUGUI priceText)
-    {
-        Const.SetMaxStamp(priceText, Const.PurchaseType.Ad);
-    }
+    // public static void Stamp(this TextMeshProUGUI priceText, Const.Currency currency, int amount)
+    // {
+    //     Const.SetPriceStamp(priceText, currency, amount);
+    // }
+    // public static void StampMax(this TextMeshProUGUI priceText)
+    // {
+    //     Const.SetMaxStamp(priceText, Const.Currency.Ad);
+    // }
 }

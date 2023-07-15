@@ -87,13 +87,20 @@ namespace  Game
 
             _thisTransform.localScale = Vector3.zero;
             _thisTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
+
+            this.enabled = true;
         }
         public void Kamikaze()
         {
-            _thisTransform.DOKill();
-            Particle.Kamikaze.Play(_thisTransform.position);
             Warzone.THIS.RemoveEnemy(this);
             OnRemoved?.Invoke();
+            KamikazeDeconstruct();
+        }
+
+        public void KamikazeDeconstruct()
+        {
+            _thisTransform.DOKill();
+            Particle.Kamikaze.Play(_thisTransform.position);
             this.Deconstruct();
         }
         public void Kill()

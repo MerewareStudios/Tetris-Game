@@ -90,7 +90,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
-    m_Scale: 5.24
+    m_Scale: 3.19
     m_Name: Ad
     m_HashCode: 2053
   - m_ElementType: 2
@@ -253,8 +253,8 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: -69.04
-      m_HorizontalBearingY: 157.4
-      m_HorizontalAdvance: 117.7
+      m_HorizontalBearingY: 164.1
+      m_HorizontalAdvance: 118.3
     m_GlyphRect:
       m_X: 256
       m_Y: 1024

@@ -3,20 +3,34 @@ using System.Collections.Generic;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CurrencyDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] public RectTransform iconPivot;
-    [SerializeField] private Const.PurchaseType purchaseType;
+    [System.NonSerialized] private Const.CurrencyType currencyType;
 
-    public void Display(int amount)
+    public void Display(Const.Currency overridenCurrency)
     {
-        text.text = purchaseType.ToTMProKey() + amount;
+        text.text = overridenCurrency.type.ToTMProKey() + overridenCurrency.amount;
+        UpdateVisual(overridenCurrency.type);
     }
-    
-    public void Display(Const.PurchaseType overridenPurchaseType, int amount)
+    public void Display(Const.CurrencyType type, int amount)
     {
-        text.text = overridenPurchaseType.ToTMProKey() + amount;
+        text.text = type.ToTMProKey() + amount;
+        UpdateVisual(type);
+    }
+
+    private void UpdateVisual(Const.CurrencyType overridenCurrencyType)
+    {
+        if (this.currencyType.Equals(overridenCurrencyType)) return;
+        
+        this.currencyType = overridenCurrencyType;
+        Const.THIS.SetCurrencyColor(text, overridenCurrencyType);
+    }
+    public void DisplayMax()
+    {
+        text.text = "MAX";
     }
 }

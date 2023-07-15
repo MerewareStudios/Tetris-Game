@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelData:
     spawnDelay: 5
-    totalEnemyHealth: 10
+    totalEnemyHealth: 100
     maxMerge: 1
     mergeProbability: 0
     enemySpeed: 0.1
