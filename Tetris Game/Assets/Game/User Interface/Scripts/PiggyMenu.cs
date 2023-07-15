@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
@@ -153,12 +149,12 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 }
             });
     }
-    private void InvestCoins(Const.Currency currency, float delay = 0.25f)
+    private void InvestCoins(Const.Currency currency)
     {
         ShowScreen(false, true, false);
         ShowPiggyScreenButtons(false, false);
         
-        DOVirtual.DelayedCall(delay, () =>
+        DOVirtual.DelayedCall(0.4f, () =>
         {
             InvestAnimation(currency);
         });
@@ -321,9 +317,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     {
         optionsScreen.SetActive(optionsState);
         piggyBankScreen.SetActive(piggyState);
+
+        
         if (piggyState)
         {
             piggyJumpAnimation.CreateTween(false, true);
+            
+            piggyBankScreen.transform.DOKill();
+            piggyBankScreen.transform.localPosition = Vector3.down * 2000.0f;
+            piggyBankScreen.transform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
         }
         else
         {

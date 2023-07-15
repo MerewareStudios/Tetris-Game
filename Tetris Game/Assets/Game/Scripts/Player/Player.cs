@@ -127,6 +127,13 @@ namespace Game
                 }
             }
         }
+        public void ReplenishHealth()
+        {
+            if (_Data.currentHealth >= _Data.maxHealth) return;
+            
+            _Data.currentHealth = _Data.maxHealth;
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, punch : true);
+        }
         public int _HealthGained
         {
             set
@@ -178,12 +185,9 @@ namespace Game
         }
         public void Begin()
         {
-            // this.enabled = true;
+            ReplenishHealth();
 
-            // _currentAngle = 0.0f;
-            // transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
-
-            transform.DORotate(Vector3.zero, 0.5f).onComplete += () =>
+            transform.DORotate(Vector3.zero, 1.25f).onComplete += () =>
             {
                 this.enabled = true;
             };

@@ -10,8 +10,8 @@ public static class Wallet
     public static CurrencyTransactor COIN => UIManager.THIS.coin;
     public static CurrencyTransactor GEM => UIManager.THIS.gem;
     public static CurrencyTransactor AD => UIManager.THIS.ad;
-    
-    private static readonly CurrencyTransactor[] CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
+
+    public static CurrencyTransactor[] CurrencyTransactors;
     
     public static Vector3 IconPosition(Const.CurrencyType currencyType)
     {

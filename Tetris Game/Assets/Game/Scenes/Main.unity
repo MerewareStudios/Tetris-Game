@@ -814,6 +814,7 @@ RectTransform:
   - {fileID: 7975325183267406942}
   - {fileID: 558060384}
   - {fileID: 2672698325750406878}
+  - {fileID: 1949803181}
   m_Father: {fileID: 1734323378}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2253,6 +2254,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -399.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3188301439773104405, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5194051224641895439, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -2286,7 +2292,7 @@ PrefabInstance:
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: scaledAnchor.x
-      value: 18
+      value: 66
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
@@ -2296,7 +2302,7 @@ PrefabInstance:
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: scaledAnchor.z
-      value: -496.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
@@ -2880,7 +2886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -15, y: -166}
+  m_AnchoredPosition: {x: -25, y: -166}
   m_SizeDelta: {x: 191.91003, y: 109.95996}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1061177085
@@ -2913,8 +2919,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2550136832
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.59607846}
+    rgba: 687865855
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.15686275}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2937,12 +2943,12 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 97
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -8.41
-  m_wordSpacing: 0
+  m_characterSpacing: 0.89
+  m_wordSpacing: -8.17
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -4958,7 +4964,6 @@ Transform:
   - {fileID: 384570875}
   - {fileID: 1330264491}
   - {fileID: 423991629}
-  - {fileID: 1949803181}
   - {fileID: 2805158992112432995}
   - {fileID: 2198614826665659772}
   - {fileID: 1247870328}
@@ -5356,7 +5361,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1734323378}
+    m_TransformParent: {fileID: 384570875}
     m_Modifications:
     - target: {fileID: 1090680421728255138, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
@@ -6221,12 +6226,12 @@ PrefabInstance:
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: scaledAnchor.x
-      value: 18
+      value: 66
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: scaledAnchor.y
-      value: -478
+      value: -665
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
@@ -6246,7 +6251,7 @@ PrefabInstance:
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: defaultAnchor.y
-      value: -399.25
+      value: -551.25
       objectReference: {fileID: 0}
     - target: {fileID: 6831134548334045991, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
@@ -7807,6 +7812,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -247.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3188301439773104405, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5194051224641895439, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -7830,7 +7840,7 @@ PrefabInstance:
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: scaledAnchor.x
-      value: 18
+      value: 66
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}

@@ -32,6 +32,8 @@ public class UIManager : Singleton<UIManager>
 
     void Awake()
    {
+      Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
+      
       ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();
       ft_Level.ReturnInstance = (mono) => { mono.Despawn(); };
       
@@ -110,23 +112,18 @@ public static class UIManagerExtensions
    {
       return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.CurrencyType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
    }
-   public static void EarnCoinWorld(Vector3 worldStart, float scale, System.Action endAction = null)
+   public static void EarnCurrencyWorld(Const.CurrencyType currencyType, Vector3 worldStart, float scale, System.Action endAction = null)
    {
       Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
       Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
 
-      // Vector3 screenEnd = Wallet.CoinIconPosition;
-
-      EarnCoinScreen(screenStart, scale, endAction);
-      
-      
-      // UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(Const.PurchaseType.Coin.ToTMProKey(), screenStart, screenEnd, true, endAction);
+      EarnCurrencyScreen(currencyType, screenStart, scale, endAction);
    }
    
-   public static void EarnCoinScreen(Vector3 screenStart, float scale, System.Action endAction = null)
+   public static void EarnCurrencyScreen(Const.CurrencyType currencyType, Vector3 screenStart, float scale, System.Action endAction = null)
    {
-      Vector3 screenEnd = Wallet.IconPosition(Const.CurrencyType.Coin);
+      Vector3 screenEnd = Wallet.IconPosition(currencyType);
       
-      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(Const.CurrencyType.Coin.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
+      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
    }
 }
