@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game;
 using Game.UI;
 using Internal.Core;
 using TMPro;
@@ -65,9 +66,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public int MaxPiggyLevel
     {
-        set => _Data.maxPiggyLevel = value;
+        set
+        {
+            int newValue = Mathf.Clamp(value, 0, 9);
+            _Data.maxPiggyLevel = newValue;
+        }
         get => _Data.maxPiggyLevel;
     }
+
     private int MoneyCount
     {
         set => piggyCurrencyDisplay.Display(Const.CurrencyType.Coin, value);
@@ -105,9 +111,16 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 _Data.rewards.Remove(piggyReward);
                 rewardButton.ShowReward(piggyReward);
 
+                if (_Data.rewards.Count <= 0)
+                {
+                    DOVirtual.DelayedCall(1.25f, CloseAction).SetUpdate(true);
+                }
+
             }).Show(_rewardsCenter.position, positions[i], i * 0.1f);
         }
     }
+
+    
     #endregion
     #region Invest
     private void AddMoney(int count, float delay = 0.0f)
@@ -352,6 +365,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_Break()
     {
         _Data.GenerateRewards();
+        _Data.rewards.Shuffle();
         DisplayRewards();
     }
     #endregion
@@ -387,57 +401,23 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 float probability = 1.0f;
 
                 if (piggyLevel < 1) return;
-                
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.Gem, UnityEngine.Random.Range(5, 26)));
-
-                
                 if (piggyLevel < 2) return;
-                
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.Coin, UnityEngine.Random.Range(5, 26)));
-                
-                
                 if (piggyLevel < 3) return;
-                
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.Shield, UnityEngine.Random.Range(5, 16)));
-                
-                
                 if (piggyLevel < 4) return;
-                
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.Heart, UnityEngine.Random.Range(5, 11)));
-                
-                
                 if (piggyLevel < 5) return;
-                
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.Ad, UnityEngine.Random.Range(1, 3)));
-                
-                
                 if (piggyLevel < 6) return;
-                
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.MaxStack, 1));
-                
                 if (piggyLevel < 7) return;
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
-                
                 if (piggyLevel < 8) return;
-                
-                rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
-                
-                if (piggyLevel < 9) return;
-                
                 rewards.Add(new PiggyReward(PiggyReward.Type.PiggyLevel, 1));
-                
-                if (piggyLevel < 10) return;
-                
+                if (piggyLevel < 9) return;
                 rewards.Add(new PiggyReward(PiggyReward.Type.Hole, 1));
-                
-                rewards.Shuffle();
             }
 
             public float PiggyPercent => moneyCurrent / (float)moneyCapacity;
@@ -472,6 +452,47 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             this.type = type;
             this.amount = amount;
         }
+        
+        public void GiveReward()
+        {
+            switch (type)
+            {
+                case PiggyReward.Type.Coin:
+                    Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, amount));
+                    break;
+                case PiggyReward.Type.Gem:
+                    Wallet.Transaction(new Const.Currency(Const.CurrencyType.Gem, amount));
+                    break;
+                case PiggyReward.Type.Ad:
+                    Wallet.Transaction(new Const.Currency(Const.CurrencyType.Ad, amount));
+                    break;
+                case PiggyReward.Type.Shield:
+                    Warzone.THIS.GiveShield(amount, 15.0f);
+                    break;
+                case PiggyReward.Type.Heart:
+                    Warzone.THIS.GiveHeart(amount);
+                    break;
+                case PiggyReward.Type.Medkit:
+                    Warzone.THIS.GiveHeart(amount * 10);
+                    break;
+                case PiggyReward.Type.Protection:
+                    Warzone.THIS.GiveShield(amount * 10, 15.0f);
+                    break;
+                case PiggyReward.Type.MaxStack:
+                    Board.THIS.MaxStack += amount;
+                    break;
+                case PiggyReward.Type.SupplyLine:
+                    Board.THIS.SupplyLine += amount;
+                    break;
+                case PiggyReward.Type.PiggyLevel:
+                    PiggyMenu.THIS.MaxPiggyLevel += amount;
+                    break;
+                case PiggyReward.Type.Hole:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
         public object Clone()
         {
@@ -485,6 +506,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Ad,
             Shield,
             Heart,
+            Medkit,
+            Protection,
             MaxStack,
             SupplyLine,
             PiggyLevel,

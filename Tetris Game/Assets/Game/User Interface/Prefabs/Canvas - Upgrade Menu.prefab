@@ -2394,12 +2394,12 @@ PrefabInstance:
       propertyPath: detailedInfo
       value: '<size=50>STACK UP TO
 
-        <size=100>{0}<sprite name=Piggy>'
+        <size=100>{0}<sprite name=PiggyLevel>'
       objectReference: {fileID: 0}
     - target: {fileID: 9210005232359059380, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: purchaseInfo
-      value: <size=100%>UPGRADED <size=125%>{0}<sprite name=Piggy>
+      value: <size=100%>UPGRADED <size=125%>{0}<sprite name=PiggyLevel>
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

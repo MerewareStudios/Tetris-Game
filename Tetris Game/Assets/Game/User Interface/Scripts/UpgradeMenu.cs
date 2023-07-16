@@ -93,7 +93,7 @@ namespace Game.UI
                 case UpgradeType.Hole:
                     break;
                 case UpgradeType.MaxPiggyLevel:
-                    PiggyMenu.THIS.MaxPiggyLevel = purchaseData.gain;
+                    PiggyMenu.THIS.MaxPiggyLevel++;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

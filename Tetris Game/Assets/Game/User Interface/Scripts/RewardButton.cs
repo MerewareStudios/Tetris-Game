@@ -36,6 +36,8 @@ public class RewardButton : MonoBehaviour
         piggyIcon.DOColor(Const.THIS.piggyExplodeColor, 0.25f).SetUpdate(true);
         piggyIcon.rectTransform.DOScale(Vector3.one * 1.25f, 0.25f).SetEase(Const.THIS.piggyExplodeEase).SetUpdate(true).onComplete += () =>
         {
+            piggyReward.GiveReward();
+            
             Particle.Piggy_Break_Ps.Emit(100, piggyIcon.rectTransform.position);
         
             piggyIcon.enabled = false;

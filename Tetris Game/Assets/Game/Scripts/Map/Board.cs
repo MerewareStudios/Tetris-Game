@@ -47,7 +47,12 @@ namespace Game
         {
             set
             {
-                _Data.supplyLine = value;
+                int newValue = Mathf.Clamp(value, 0, Size.x * Size.y);
+                if (_Data.supplyLine == newValue)
+                {
+                    return;
+                }
+                _Data.supplyLine = newValue;
                 MarkSupplier(_Data.supplyLine);
             }
             get => _Data.supplyLine;
@@ -68,7 +73,9 @@ namespace Game
                 }
             }
 
-            SupplyLine = _Data.supplyLine;
+            // SupplyLine = _Data.supplyLine;
+            MarkSupplier(_Data.supplyLine);
+
         }
         public void Deconstruct()
         {

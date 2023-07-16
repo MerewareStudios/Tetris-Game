@@ -175,7 +175,25 @@ MonoBehaviour:
       freeInvestment:
         type: 0
         amount: 0
-      rewards: []
+      rewards:
+      - type: 9
+        amount: 24
+      - type: 10
+        amount: 9
+      - type: 2
+        amount: 1
+      - type: 3
+        amount: 5
+      - type: 4
+        amount: 5
+      - type: 5
+        amount: 1
+      - type: 6
+        amount: 1
+      - type: 7
+        amount: 1
+      - type: 8
+        amount: 40
     upgradeMenuData:
       purchaseData:
       - upgradeType: 0
@@ -347,7 +365,7 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0.38431373, a: 1}
   - {r: 1, g: 0.28627452, b: 0.2, a: 1}
   - {r: 0.15100001, g: 0.15100001, b: 0.15100001, a: 1}
-  mergerPlaceColor: {r: 0.3803922, g: 0.6423908, b: 1, a: 1}
+  mergerPlaceColor: {r: 1, g: 1, b: 1, a: 0.043137256}
   enemyColors:
   - {r: 1, g: 0.27679035, b: 0.18431371, a: 1}
   - {r: 1, g: 0.47961238, b: 0.1830188, a: 1}
