@@ -16,7 +16,7 @@ public class StageBar : MonoBehaviour
     [SerializeField] private Color[] barColors; // Empty, Locked, Upgraded
     [SerializeField] private Image[] images;
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
-    [SerializeField] private Button[] purchaseButtons;
+    [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private GameObject buttonParent;
 
 
@@ -37,20 +37,20 @@ public class StageBar : MonoBehaviour
             return this;
         }
         priceCurrencyDisplay.Display(currency);
-        SetPurchaseType(currency.type);
+        // SetPurchaseType(currency.type);
         return this;
     }
     
-    public StageBar SetPurchaseType(Const.CurrencyType currencyType)
-    {
-        foreach (var t in purchaseButtons)
-        {
-            t.gameObject.SetActive(false);
-        }
-        purchaseButtons[(int)currencyType].gameObject.SetActive(true);
-
-        return this;
-    }
+    // public StageBar SetPurchaseType(Const.CurrencyType currencyType)
+    // {
+    //     foreach (var t in purchaseButtons)
+    //     {
+    //         t.gameObject.SetActive(false);
+    //     }
+    //     purchaseButtons[(int)currencyType].gameObject.SetActive(true);
+    //
+    //     return this;
+    // }
     
     public StageBar SetBars(int lockedCount, int upgradedCount)
     {

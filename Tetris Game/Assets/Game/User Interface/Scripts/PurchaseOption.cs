@@ -9,10 +9,9 @@ using UnityEngine.UI;
 
 public class PurchaseOption : MonoBehaviour
 {
-    [SerializeField] private Button purchaseButton;
+    [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
-    [SerializeField] private TextMeshProUGUI purchaseButtonText;
     [SerializeField] private TextMeshProUGUI detailedInfoText;
     [SerializeField] private Image frameOutline;
     [TextArea] [SerializeField] private string detailedInfo;
@@ -21,9 +20,8 @@ public class PurchaseOption : MonoBehaviour
 
     public PurchaseOption SetPurchase(Const.Currency currency, bool able2Purchase)
     {
-        SetButtonVisible(able2Purchase);
+        purchaseButton.SetAvailable(able2Purchase);
         priceCurrencyDisplay.Display(currency);
-        // Const.SetPriceStamp(priceText, purchaseButton, purchaseButtonText, able2Purchase, currencyData);
         return this;
     }
     public PurchaseOption SetDetailedInfo(int gain)
@@ -34,12 +32,6 @@ public class PurchaseOption : MonoBehaviour
     public string GetPurchaseInfo(int gain)
     {
         return string.Format(purchaseInfo, gain);
-    }
-    public PurchaseOption SetButtonVisible(bool value)
-    {
-        purchaseButton.image.enabled = value;
-        purchaseButtonText.color = purchaseButtonText.color.SetAlpha(value ? 1.0f : 0.25f);
-        return this;
     }
 
     public void PunchColor(Color punchColor, Color defaultColor)

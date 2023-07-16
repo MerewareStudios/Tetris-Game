@@ -21,8 +21,7 @@ namespace Game.UI
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
         [SerializeField] private TextMeshProUGUI upgradeText;
-        [SerializeField] private Button purchaseButton;
-        [SerializeField] private TextMeshProUGUI noFundsText;
+        [SerializeField] private CurrenyButton purchaseButton;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private System.Action _purchaseAction = null;
         [System.NonSerialized] private BlockData _blockData;
@@ -74,14 +73,6 @@ namespace Game.UI
             Show();
         }
         
-        public void SetPurchaseButtons(Const.CurrencyType currencyType, bool able2Purchase)
-        {
-            noFundsText.gameObject.SetActive(false);
-            
-            purchaseButton.gameObject.SetActive(able2Purchase);
-            noFundsText.gameObject.SetActive(!able2Purchase);
-        }
-        
         private void PunchMoney(float amount)
         {
             priceTextPivot.DOKill();
@@ -103,7 +94,8 @@ namespace Game.UI
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            SetPurchaseButtons(currency.type, hasFunds);
+            purchaseButton.SetAvailable(hasFunds);
+            
             currencyDisplay.Display(currency);
             PunchMoney(0.15f);
         }
