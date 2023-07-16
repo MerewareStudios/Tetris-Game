@@ -21,7 +21,7 @@ namespace Game.UI
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
         [SerializeField] private TextMeshProUGUI upgradeText;
-        [SerializeField] private Button[] purchaseButtons;
+        [SerializeField] private Button purchaseButton;
         [SerializeField] private TextMeshProUGUI noFundsText;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private System.Action _purchaseAction = null;
@@ -77,12 +77,8 @@ namespace Game.UI
         public void SetPurchaseButtons(Const.CurrencyType currencyType, bool able2Purchase)
         {
             noFundsText.gameObject.SetActive(false);
-            foreach (var t in purchaseButtons)
-            {
-                t.gameObject.SetActive(false);
-            }
             
-            purchaseButtons[(int)currencyType].gameObject.SetActive(able2Purchase);
+            purchaseButton.gameObject.SetActive(able2Purchase);
             noFundsText.gameObject.SetActive(!able2Purchase);
         }
         
