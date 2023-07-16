@@ -15,4 +15,11 @@ public class CurrenyButton : MonoBehaviour
         _button.image.enabled = state;
         return this;
     }
+    
+    public CurrenyButton SetMax(bool state)
+    {
+        text.text = state ? "MAX" : "BUY";
+        _button.image.enabled = !state;
+        return this;
+    }
 }

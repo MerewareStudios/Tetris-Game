@@ -29,8 +29,4 @@ public class CurrencyDisplay : MonoBehaviour
         this.currencyType = overridenCurrencyType;
         Const.THIS.SetCurrencyColor(text, overridenCurrencyType);
     }
-    public void DisplayMax()
-    {
-        text.text = "MAX";
-    }
 }

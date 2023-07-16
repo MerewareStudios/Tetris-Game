@@ -17,7 +17,6 @@ public class StageBar : MonoBehaviour
     [SerializeField] private Image[] images;
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
     [SerializeField] private CurrenyButton purchaseButton;
-    [SerializeField] private GameObject buttonParent;
 
 
     public StageBar SetTopInfo(string value)
@@ -30,28 +29,21 @@ public class StageBar : MonoBehaviour
  
     public StageBar SetPrice(Const.Currency currency, bool max)
     {
-        SetUsable(!max);
+        priceCurrencyDisplay.gameObject.SetActive(!max);
+
         if (max)
         {
-            priceCurrencyDisplay.DisplayMax();
+            purchaseButton.SetMax(max);
             return this;
         }
+        bool hasFunds = Wallet.HasFunds(currency);
+
+        purchaseButton.SetAvailable(hasFunds);
+        
         priceCurrencyDisplay.Display(currency);
-        // SetPurchaseType(currency.type);
+        
         return this;
     }
-    
-    // public StageBar SetPurchaseType(Const.CurrencyType currencyType)
-    // {
-    //     foreach (var t in purchaseButtons)
-    //     {
-    //         t.gameObject.SetActive(false);
-    //     }
-    //     purchaseButtons[(int)currencyType].gameObject.SetActive(true);
-    //
-    //     return this;
-    // }
-    
     public StageBar SetBars(int lockedCount, int upgradedCount)
     {
         for (int i = 0; i < images.Length; i++)
@@ -72,14 +64,6 @@ public class StageBar : MonoBehaviour
 
         return this;
     }
-    
-    private StageBar SetUsable(bool usable)
-    {
-        buttonParent.SetActive(usable);
-        return this;
-    }
-    
-
     
     private void SetBar(int index, BarStat barStat)
     {
