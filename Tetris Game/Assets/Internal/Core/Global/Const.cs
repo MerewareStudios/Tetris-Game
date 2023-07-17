@@ -56,8 +56,7 @@ public class Const : SSingleton<Const>
     public Ease rotationEase;
     public Ease piggyExplodeEase;
 
-    [Header("Time")]
-    public float loanBarInterval = 30.0f;
+    [Header("Ad Settings")]
     public float loanBarProtectionInterval = 10.0f;
     
     [Serializable]

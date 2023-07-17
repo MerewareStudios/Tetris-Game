@@ -272,29 +272,8 @@ public class HighlightFinger : MonoBehaviour
         fadeTween = DOVirtual.Float(currentStep, end, duration, (time) => { currentStep = time; material.SetColor("_BackgroundColor", gradient.Evaluate(currentStep)); }).SetEase(Ease.InOutSine).SetDelay(delay).SetUpdate(true);
             fadeTween.onComplete = () => { endAction?.Invoke(); };
     }
-    //void Update()
-    //{
-    //    if (!canCheck)
-    //    {
-    //        return;
-    //    }
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        RectTransformUtility.ScreenPointToLocalPointInRectangle(copyImage.rectTransform, Input.mousePosition, canvas.worldCamera, out Vector2 localPoint);
-    //        if (copyImage.rectTransform.rect.Contains(localPoint))
-    //        {
-    //            backgroundImage.raycastTarget = false;
-    //            fingerImage.enabled = false;
-
-    //            Fade(0.0f, 0.5f, 0.0f, Close);
-    //            canCheck = false;
-    //        }
-    //    }
-    //}
     void LateUpdate()
     {
-        //UpdateMimicImage();
-        //UpdateFingerPosition();
         UpdateCameraPosition();
     }
     private void Emit()

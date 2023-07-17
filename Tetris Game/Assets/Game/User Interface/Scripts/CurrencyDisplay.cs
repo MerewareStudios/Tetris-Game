@@ -21,12 +21,20 @@ public class CurrencyDisplay : MonoBehaviour
         text.text = type.ToTMProKey() + amount;
         UpdateVisual(type);
     }
-
+    public void Display(Const.CurrencyType type)
+    {
+        text.text = type.ToTMProKey();
+        UpdateVisual(type);
+    }
     private void UpdateVisual(Const.CurrencyType overridenCurrencyType)
     {
         if (this.currencyType.Equals(overridenCurrencyType)) return;
         
         this.currencyType = overridenCurrencyType;
         Const.THIS.SetCurrencyColor(text, overridenCurrencyType);
+    }
+    public void Display(string str)
+    {
+        text.text = str;
     }
 }

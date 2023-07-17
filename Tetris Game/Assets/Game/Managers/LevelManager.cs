@@ -12,12 +12,15 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.Begin(0.45f);
 
-        UIManager.THIS.levelText.text = "level " + this.CurrentLevel();
+        UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
 
         Warzone.THIS.LevelData = this.CurrentLevel().GetLevelSo();
         Warzone.THIS.OnLevelLoad();
+        
+        UIManager.THIS.loanBar.MakeUnavailable(10.0f);
     }
 
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -29,6 +32,7 @@ public class LevelManager : Singleton<LevelManager>
             OnFail();
         }
     }
+#endif
 
     public void CheckVictory()
     {

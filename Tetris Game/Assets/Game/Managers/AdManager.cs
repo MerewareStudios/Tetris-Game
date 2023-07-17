@@ -5,7 +5,7 @@ using Internal.Core;
 using UnityEngine;
 
 
-namespace  IWI
+namespace IWI
 {
     public class AdManager : Singleton<AdManager>
     {
@@ -23,7 +23,7 @@ namespace  IWI
         [System.Serializable]
         public class Data : ICloneable
         {
-            [SerializeField] private long loanBarStamp;
+            // [SerializeField] private long loanBarStamp;
             
             public Data()
             {
@@ -31,15 +31,15 @@ namespace  IWI
             }
             public Data(Data data)
             {
-                this.loanBarStamp = data.loanBarStamp;
+                // this.loanBarStamp = data.loanBarStamp;
             }
 
-            public int LoanBarSecondsLeft => (int)TimeSpan.FromTicks((loanBarStamp - DateTime.Now.Ticks)).TotalSeconds; 
-            public bool CanUseLoanBar => LoanBarSecondsLeft <= 0; 
-            public void StampLoanBar()
-            {
-                loanBarStamp = DateTime.Now.Ticks + TimeSpan.FromSeconds(Const.THIS.loanBarInterval).Ticks;
-            }
+            // public int LoanBarSecondsLeft => (int)TimeSpan.FromTicks((loanBarStamp - DateTime.Now.Ticks)).TotalSeconds; 
+            // public bool CanUseLoanBar => LoanBarSecondsLeft <= 0; 
+            // public void StampLoanBar()
+            // {
+                // loanBarStamp = DateTime.Now.Ticks + TimeSpan.FromSeconds(Const.THIS.loanBarInterval).Ticks;
+            // }
 
             public object Clone()
             {

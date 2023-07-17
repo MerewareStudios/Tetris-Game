@@ -29,7 +29,7 @@ namespace Game
             {
                 _supplier = value;
                 igniteSprite.enabled = value;
-                SetColor(PlaceType.EMPTY, true);
+                SetPlaceType(PlaceType.EMPTY, true);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Game
                 Current = null;
             }
         }
-        public void SetColor(PlaceType placeType, bool force = false)
+        public void SetPlaceType(PlaceType placeType, bool force = false)
         {
             if (!force && this._placeType.Equals(placeType))
             {
@@ -76,6 +76,8 @@ namespace Game
             if (placeType.Equals(PlaceType.EMPTY) && Supplier)
             {
                 color = Const.THIS.mergerPlaceColor;
+                placementSprite.color = color;
+                return;
             }
 
             DoColor(color);

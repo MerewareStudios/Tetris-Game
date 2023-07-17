@@ -47,11 +47,7 @@ public class UIManager : Singleton<UIManager>
       ft_Icon_MenuOnTop.ReturnInstance = (mono) => { mono.Despawn(); };
    }
 
-   void Start()
-   {
-      loanBar.gameObject.SetActive(false);
-   }
-
+#if UNITY_EDITOR
    private void Update()
    {
       if (Input.GetKeyDown(KeyCode.E))
@@ -63,6 +59,7 @@ public class UIManager : Singleton<UIManager>
          OpenShop();
       }
    }
+#endif
 
    public void OpenShop()
    {

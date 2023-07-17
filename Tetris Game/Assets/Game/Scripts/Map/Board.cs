@@ -116,7 +116,11 @@ namespace Game
                 }
             });
 
-            _ = (steadyPawnCount > _Data.pawnSat) ? UIManager.THIS.loanBar.Show() : UIManager.THIS.loanBar.Hide();
+            if (steadyPawnCount > _Data.pawnSat)
+            {
+                UIManager.THIS.loanBar.MakeAvailable();
+            }
+            // _ = (steadyPawnCount > _Data.pawnSat) ? UIManager.THIS.loanBar.MakeAvailable() : UIManager.THIS.loanBar.MakeUnavailable();
         }
         public void CheckAll()
         {
@@ -132,7 +136,7 @@ namespace Game
         {
             Call<Place>(places, (place) => 
                 {
-                    place.SetColor(Game.Place.PlaceType.EMPTY);
+                    place.SetPlaceType(Game.Place.PlaceType.EMPTY);
                 });
         }
         private void Call<T>(T[,] array, System.Action<T> action)
@@ -453,7 +457,7 @@ namespace Game
                 (Place place, bool canPlace) = Project(pawn);
                 if (place != null)
                 {
-                    place.SetColor(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
+                    place.SetPlaceType(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
                 }
             }
         }

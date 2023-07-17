@@ -244,8 +244,6 @@ MonoBehaviour:
         purchaseInstance: 0
         maxPurchase: 0
         increasePerUse: 1
-  DefaultAdData:
-    loanBarStamp: 0
   GunUpgradeData:
   - gunType: 0
     sprite: {fileID: 21300000, guid: 94d71f0de6a1c034096ea62a51761703, type: 3}
@@ -445,5 +443,4 @@ MonoBehaviour:
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
   piggyExplodeEase: 12
-  loanBarInterval: 30
-  loanBarProtectionInterval: 5
+  loanBarProtectionInterval: 15

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -165,10 +165,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7831b5d78b1cb4ab5a05bbda23a5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scalePivot: {fileID: 8507637744784485602}
   button: {fileID: 7431092399924912094}
-  currencyText: {fileID: 1830996475369750106}
-  textUpdateUpdateInterval: 1
+  scalePivot: {fileID: 8507637744784485602}
+  priceText: {fileID: 5456355280861531382}
+  currency:
+    type: 2
+    amount: 1
 --- !u!114 &7431092399924912094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,61 +235,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8507637744784485602}
     m_Modifications:
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c0674a7cedf5549858d78f9a7e05aa20,
-        type: 3}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445773814917981182, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_text
       value: <sprite name="Ad">
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e094f0c967d4d446a513117d0a86ca8, type: 2}
-    - target: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3443715328819109847, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -372,17 +323,17 @@ PrefabInstance:
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.79784703
+      value: 0.87461305
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.79784703
+      value: 0.87461305
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.79784703
+      value: 0.87461305
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
@@ -449,16 +400,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4d4a673d730ef248bac2359c69182e2, type: 3}
---- !u!114 &1830996475369750106 stripped
+--- !u!114 &5456355280861531382 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1980109824995241581, guid: d4d4a673d730ef248bac2359c69182e2,
+  m_CorrespondingSourceObject: {fileID: 5308368243460267201, guid: d4d4a673d730ef248bac2359c69182e2,
     type: 3}
   m_PrefabInstance: {fileID: 149677561238900791}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: a863a1b8798e37d4d92f9172c609dd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7960317572297689347 stripped
