@@ -22,11 +22,12 @@ public class UIManager : Singleton<UIManager>
    [Header("Level")]
    [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
-   [System.NonSerialized] public static bool MENU_OPEN = false;
+   [System.NonSerialized] public static bool MENU_VISIBLE = false;
    [Header("Transactors")]
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
    [SerializeField] public CurrencyTransactor ad;
+   [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
 
    // Make them info list
 
@@ -58,6 +59,18 @@ public class UIManager : Singleton<UIManager>
       {
          OpenShop();
       }
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+         Warzone.THIS.GiveShield(1);
+      }
+      if (Input.GetKeyDown(KeyCode.A))
+      {
+         LevelManager.THIS.OnVictory();
+      }
+      if (Input.GetKeyDown(KeyCode.F))
+      {
+         LevelManager.THIS.OnFail();
+      }
    }
 #endif
 
@@ -70,8 +83,10 @@ public class UIManager : Singleton<UIManager>
 
    public static void MenuMode(bool value)
    {
-      MENU_OPEN = value;
+      MENU_VISIBLE = value;
       Time.timeScale = value ? 0.0f : 1.0f;
+      
+      OnMenuModeChanged?.Invoke(value);
    }
 }
 

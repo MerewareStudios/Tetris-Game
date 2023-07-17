@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game;
 using Internal.Core;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Shield : MonoBehaviour, TickManager.ITickable
     [System.NonSerialized] private bool _activated = false;
     [System.NonSerialized] private Data _data;
     [System.NonSerialized] private Tween delayTween;
+    [System.NonSerialized] private float _lastTimeTicked;
 
     private bool Enabled
     {
@@ -49,16 +51,16 @@ public class Shield : MonoBehaviour, TickManager.ITickable
             _data = value;
             if (_data.CanProtect)
             {
-                StartProtection();
+                DisplayProtection();
             }
         }
         get => _data;
     }
-    
-    public void AddShield(int amount, float duration)
+
+    public void AddShield(int amount)
     {
         _Data.amount += amount;
-        _Data.AddTime(duration);
+        _Data.SetTime(Const.THIS.shieldMaxDuration);
         _Data = _data;
     }
     public int ConsumeShield(int amount)
@@ -75,23 +77,36 @@ public class Shield : MonoBehaviour, TickManager.ITickable
         return remaining;
     }
     
-    private void StartProtection()
+    private void DisplayProtection()
     {
-        if (!Enabled)
-        {
-            Enabled = true;
-        }
-        
         StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.amount, _Data.Percent, true, true);
-
-        TickManager.THIS.AddTickable(this);
+        if (Enabled)
+        {
+            return;
+        }
+        Enabled = true;
     }
-    
+    public void ResumeProtection()
+    {
+        _lastTimeTicked = Time.time;
+        if (_data.CanProtect)
+        {
+            DisplayProtection();
+            TickManager.THIS.AddTickable(this);
+        }
+    }
+    public void PauseProtection()
+    {
+        TickManager.THIS.RemoveTickable(this);
+    }
 
     public float TickInterval { get => StatDisplayArranger.UpdateInterval;}
 
     public void OnTick()
     {
+        _Data.ConsumeTime(Time.time - _lastTimeTicked);
+        _lastTimeTicked = Time.time;
+        
         StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.amount, _Data.Percent, false, false);
 
         if (_Data.CanProtect)
@@ -111,52 +126,44 @@ public class Shield : MonoBehaviour, TickManager.ITickable
     [System.Serializable]
     public class Data : ICloneable
     {
-        [SerializeField] public long startTick;
-        [SerializeField] public long endTick;
+        [SerializeField] public float maxTime = 0.0f;
+        [SerializeField] public float timeLeft = 0.0f;
         [SerializeField] public int amount;
-        [System.NonSerialized] private long _difTicks;
 
         public Data()
         {
             
         }
-        public Data(long startTick, long endTick, int amount)
+        public Data(float timeLeft, float maxTime, int amount)
         {
-            this.startTick = startTick;
-            this.endTick = endTick;
+            this.timeLeft = timeLeft;
+            this.maxTime = maxTime;
             this.amount = amount;
-
-            this._difTicks = this.endTick - this.startTick;
         }
 
-        public float Percent
-        {
-            get
-            {
-                long nowTick = DateTime.Now.Ticks;
-                long ticks2Go = endTick - nowTick;
-                return ticks2Go / (float)_difTicks;
-            }
-        }
+        public float Percent => timeLeft / maxTime;
         public bool CanProtect => AvailableByTime && amount > 0;
-        public bool AvailableByTime => DateTime.Now.Ticks < endTick;
+        public bool AvailableByTime => timeLeft > 0.0f;
 
         public void AddTime(float duration)
         {
-            startTick = DateTime.Now.Ticks;
-            if (!AvailableByTime)
-            {
-                endTick = DateTime.Now.Ticks;
-            }
-            endTick += TimeSpan.FromSeconds(duration).Ticks;
-            this._difTicks = this.endTick - this.startTick;
+            timeLeft += duration;
+            maxTime = timeLeft;
+        }
+        public void SetTime(float duration)
+        {
+            timeLeft = duration;
+            maxTime = timeLeft;
+        }
+        public void ConsumeTime(float duration)
+        {
+            timeLeft = Mathf.Clamp(timeLeft - duration, 0.0f, float.MaxValue);
         }
         public Data(Shield.Data data)
         {
-            this.startTick = data.startTick;
-            this.endTick = data.endTick;
+            this.timeLeft = data.timeLeft;
+            this.maxTime = data.maxTime;
             this.amount = data.amount;
-            this._difTicks = this.endTick - this.startTick;
         }
 
         public object Clone()

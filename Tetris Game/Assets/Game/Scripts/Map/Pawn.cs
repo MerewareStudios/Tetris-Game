@@ -108,7 +108,7 @@ namespace Game
                     TextEnabled = false;
                     UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
                     {
-                        Warzone.THIS.GiveShield(1, 5.0f);
+                        Warzone.THIS.GiveShield(1);
                     });
                     return false;
                 case Usage.Vertical:

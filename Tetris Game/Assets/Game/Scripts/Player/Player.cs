@@ -175,11 +175,13 @@ namespace Game
         public void OnVictory()
         {
             this.enabled = false;
+            shield.PauseProtection();
             _animator.SetTrigger(VICTORY_HASH);
         }
         public void OnFail()
         {
             this.enabled = false;
+            shield.PauseProtection();
             _animator.SetTrigger(DEATH_HASH);
             shouldGetUp = true;
         }

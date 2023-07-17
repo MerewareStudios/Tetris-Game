@@ -20,20 +20,6 @@ public class LevelManager : Singleton<LevelManager>
         UIManager.THIS.loanBar.MakeUnavailable(10.0f);
     }
 
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            OnVictory();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            OnFail();
-        }
-    }
-#endif
-
     public void CheckVictory()
     {
         if (Warzone.THIS.IsWarzoneCleared)
@@ -47,7 +33,7 @@ public class LevelManager : Singleton<LevelManager>
         OnFail();
     }
 
-    private void OnVictory()
+    public void OnVictory()
     {
         if (!GameManager.PLAYING)
         {
@@ -62,7 +48,7 @@ public class LevelManager : Singleton<LevelManager>
         this.NextLevel();
     }
     
-    private void OnFail()
+    public void OnFail()
     {
         if (!GameManager.PLAYING)
         {

@@ -11,6 +11,26 @@ namespace IWI
     {
         [System.NonSerialized] private Data _data;
 
+        void Start()
+        {
+            FakeAdBanner.Show();
+            // FakeAdInterstitial.Show(() =>
+            // {
+            //     Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+            // });   
+            //
+            // FakeAdRewarded.Show(
+            //     () =>
+            //     {
+            //         Debug.LogWarning("Fake Ad Rewarded (On Reward)");
+            //     },
+            //     () =>
+            //     {
+            //         Debug.LogWarning("Fake Ad Rewarded (On Skip)");
+            //     }
+            // );   
+        }
+
         public Data _Data
         {
             set
@@ -23,23 +43,14 @@ namespace IWI
         [System.Serializable]
         public class Data : ICloneable
         {
-            // [SerializeField] private long loanBarStamp;
-            
             public Data()
             {
                     
             }
             public Data(Data data)
             {
-                // this.loanBarStamp = data.loanBarStamp;
+                
             }
-
-            // public int LoanBarSecondsLeft => (int)TimeSpan.FromTicks((loanBarStamp - DateTime.Now.Ticks)).TotalSeconds; 
-            // public bool CanUseLoanBar => LoanBarSecondsLeft <= 0; 
-            // public void StampLoanBar()
-            // {
-                // loanBarStamp = DateTime.Now.Ticks + TimeSpan.FromSeconds(Const.THIS.loanBarInterval).Ticks;
-            // }
 
             public object Clone()
             {

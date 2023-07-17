@@ -24,12 +24,4 @@ public class StatDisplayArranger : Singleton<StatDisplayArranger>
         return _statDisplays[(int)statType].animationPivot.position;
 
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Warzone.THIS.GiveShield(1, 5.0f);
-        }
-    }
 }

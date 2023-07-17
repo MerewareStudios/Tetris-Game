@@ -28,7 +28,10 @@ public class TickManager : Singleton<TickManager>
 	}
 	public void RemoveTickable(ITickable tickable)
 	{
-		_tickers[tickable.TickInterval].Remove(tickable);
+		if (_tickers.TryGetValue(tickable.TickInterval, out var ticker))
+		{
+			ticker.Remove(tickable);
+		}
 	}
 
 	private class Ticker

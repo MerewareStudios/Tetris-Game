@@ -27,7 +27,7 @@ namespace  Game
         [System.NonSerialized] public readonly List<Enemy> Enemies = new();
         [System.NonSerialized] private bool _busy = false;
 
-        public bool Spawning => _spawnRoutine != null;
+        public bool Spawning { get; private set; }
         public bool HasEnemy => Enemies.Count > 0;
         public bool IsWarzoneCleared => !Spawning && !HasEnemy;
         
@@ -42,6 +42,21 @@ namespace  Game
             psMain = bloodPS.main;
             psShape = bloodPS.shape;
             psTransform = bloodPS.transform;
+            
+            UIManager.OnMenuModeChanged = state =>
+            {
+                if (state)
+                {
+                    this.Player.shield.PauseProtection();
+                }
+                else
+                {
+                    if (Spawning)
+                    {
+                        this.Player.shield.ResumeProtection();
+                    }
+                }
+            };
         }
     #endregion
 
@@ -86,6 +101,9 @@ namespace  Game
                 yield return new WaitForSeconds(LevelData.spawnDelay);
 
                 int totalHealth = LevelData.totalEnemyHealth;
+
+                Spawning = true;
+                this.Player.shield.ResumeProtection();
                 
                 while (totalHealth > 0)
                 {
@@ -108,6 +126,9 @@ namespace  Game
                 }
 
                 _spawnRoutine = null;
+                
+                Spawning = false;
+                
                 LevelManager.THIS.CheckVictory();
             }
         }
@@ -124,6 +145,8 @@ namespace  Game
                 StopCoroutine(_spawnRoutine);
                 _spawnRoutine = null;
             }
+
+            Spawning = false;
         }
         private Enemy SpawnEnemy(int health, float speed)
         {
@@ -237,9 +260,9 @@ namespace  Game
         {
             Player._HealthGained += amount;
         }
-        public void GiveShield(int amount, float duration)
+        public void GiveShield(int amount)
         {
-            Player.shield.AddShield(amount, duration);
+            Player.shield.AddShield(amount);
         }
 
     #endregion

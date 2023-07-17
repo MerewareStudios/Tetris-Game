@@ -398,8 +398,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             
             public void GenerateRewards()
             {
-                float probability = 1.0f;
-
                 if (piggyLevel < 1) return;
                 rewards.Add(new PiggyReward(PiggyReward.Type.Gem, UnityEngine.Random.Range(5, 26)));
                 if (piggyLevel < 2) return;
@@ -467,7 +465,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     Wallet.Transaction(new Const.Currency(Const.CurrencyType.Ad, amount));
                     break;
                 case PiggyReward.Type.Shield:
-                    Warzone.THIS.GiveShield(amount, 15.0f);
+                    Warzone.THIS.GiveShield(amount);
                     break;
                 case PiggyReward.Type.Heart:
                     Warzone.THIS.GiveHeart(amount);
@@ -476,7 +474,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     Warzone.THIS.GiveHeart(amount * 10);
                     break;
                 case PiggyReward.Type.Protection:
-                    Warzone.THIS.GiveShield(amount * 10, 15.0f);
+                    Warzone.THIS.GiveShield(amount * 10);
                     break;
                 case PiggyReward.Type.MaxStack:
                     Board.THIS.MaxStack += amount;

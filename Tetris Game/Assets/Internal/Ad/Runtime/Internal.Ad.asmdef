@@ -1,0 +1,16 @@
+{
+    "name": "Internal.Ad",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f4aeefea204d0054089c046ca0641fa4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

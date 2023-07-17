@@ -56,6 +56,8 @@ public class Const : SSingleton<Const>
     public Ease rotationEase;
     public Ease piggyExplodeEase;
 
+    [Header("Shield Settings")]
+    public float shieldMaxDuration = 30.0f;
     [Header("Ad Settings")]
     public float loanBarProtectionInterval = 10.0f;
     

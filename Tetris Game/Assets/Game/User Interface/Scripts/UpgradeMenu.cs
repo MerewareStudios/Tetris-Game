@@ -82,7 +82,7 @@ namespace Game.UI
                     Warzone.THIS.GiveHeart(purchaseData.gain);
                     break;
                 case UpgradeType.Shield:
-                    Warzone.THIS.GiveShield(purchaseData.gain, 15.0f);
+                    Warzone.THIS.GiveShield(purchaseData.gain);
                     break;
                 case UpgradeType.MaxStack:
                     Board.THIS.MaxStack = purchaseData.gain;
