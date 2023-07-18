@@ -99,6 +99,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             button.gameObject.SetActive(false);
         }
+        
+        _Data.rewards.Shuffle();
 
         List<Vector3> positions = CircleLayoutGroup.GetPoints(_rewardsCenter.position, _Data.RewardCount,  _Data.RewardCount.Direction(), _Data.RewardCount.Radius());
 
@@ -365,7 +367,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_Break()
     {
         _Data.GenerateRewards();
-        _Data.rewards.Shuffle();
         DisplayRewards();
     }
     #endregion

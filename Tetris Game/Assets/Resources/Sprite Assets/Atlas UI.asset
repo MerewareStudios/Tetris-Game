@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2a928c6157e74bf49a7aec8d8e522ce7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 88f32ea7654e1c44b98b33ef0e9a3f18, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 2a928c6157e74bf49a7aec8d8e522ce7, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 88f32ea7654e1c44b98b33ef0e9a3f18, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -174,7 +174,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 15
-    m_Scale: 1.15
+    m_Scale: 1.5
     m_Name: PiggyLevel
     m_HashCode: -1890592362
   - m_ElementType: 2
@@ -186,13 +186,13 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 17
-    m_Scale: 1.3
+    m_Scale: 1.5
     m_Name: Medkit
     m_HashCode: -1397839302
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 18
-    m_Scale: 1.3
+    m_Scale: 1.45
     m_Name: MaxStack
     m_HashCode: -765606566
   - m_ElementType: 2
@@ -204,21 +204,21 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 20
-    m_Scale: 1.3
+    m_Scale: 1.4
     m_Name: Hole
     m_HashCode: 2554798
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 21
-    m_Scale: 1.36
+    m_Scale: 1.5
     m_Name: Protection
     m_HashCode: 1275885955
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 22
-    m_Scale: 1
-    m_Name: Atlas_22
-    m_HashCode: 1874333012
+    m_Scale: 1.5
+    m_Name: Finger
+    m_HashCode: -1432653935
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 23
@@ -477,7 +477,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: -16.1
-      m_HorizontalBearingY: 223.7
+      m_HorizontalBearingY: 224.1
       m_HorizontalAdvance: 223.2
     m_GlyphRect:
       m_X: 0
@@ -509,7 +509,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 223.7
+      m_HorizontalBearingY: 218.4
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 512
@@ -525,7 +525,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 223.7
+      m_HorizontalBearingY: 226.4
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 768
@@ -557,7 +557,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 223.7
+      m_HorizontalBearingY: 202.8
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 0
@@ -573,8 +573,8 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 223.7
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingY: 208.8
+      m_HorizontalAdvance: 246.18
     m_GlyphRect:
       m_X: 256
       m_Y: 0
@@ -588,9 +588,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -45.2
+      m_HorizontalBearingY: 206
+      m_HorizontalAdvance: 150.2
     m_GlyphRect:
       m_X: 512
       m_Y: 0
