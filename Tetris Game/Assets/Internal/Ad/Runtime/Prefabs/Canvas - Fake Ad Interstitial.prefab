@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1496475866678755587}
   - component: {fileID: 8164594323060165857}
   - component: {fileID: 609349795868668181}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 1288059061658760826}
   - component: {fileID: 336370089406124639}
   - component: {fileID: 8286536872594582688}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4988131068236089018}
   - component: {fileID: 810202681943206514}
   - component: {fileID: 3401897904167195106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 4543325624339422861}
   - component: {fileID: 3233206111424559630}
   - component: {fileID: 8081926473753285668}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas - Fake Ad Interstitial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 777784951167601292}
   - component: {fileID: 964667987692468880}
   - component: {fileID: 8055734837570682841}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

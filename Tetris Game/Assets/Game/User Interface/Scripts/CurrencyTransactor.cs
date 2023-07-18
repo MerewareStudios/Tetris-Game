@@ -31,14 +31,11 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
         }
     }
     
-    public Const.Currency Currency
-    {
-        get => new Const.Currency(currencyType, base.TransactionData.value);
-    }
+    public Const.Currency Currency => new Const.Currency(currencyType, base.TransactionData.value);
 
     public bool Transaction(int amount)
     {
-        if (amount < 0 && base.TransactionData.value < -amount)
+        if (amount < 0 && Amount < -amount)
         {
             Punch(-0.15f);
             return false;

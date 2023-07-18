@@ -58,8 +58,17 @@ public class Const : SSingleton<Const>
 
     [Header("Shield Settings")]
     public float shieldMaxDuration = 30.0f;
-    [Header("Ad Settings")]
-    public float loanBarProtectionInterval = 10.0f;
+
+    [Header("Ad Settings")] public AdSettings adSettings;
+    
+    [Serializable]
+    public struct AdSettings
+    {
+        [SerializeField] public float loanBarProtectionInterval;
+        [SerializeField] public int adBreakSkipTime;
+        [SerializeField] public int mergePerAdBreak;
+
+    }
     
     [Serializable]
     public struct DirectionRadiusPair
@@ -79,6 +88,9 @@ public class Const : SSingleton<Const>
             this.type = type;
             this.amount = amount;
         }
+
+        public static Currency OneAd = new Currency(CurrencyType.Ad, 1);
+        public static Currency OneAdConsume = new Currency(CurrencyType.Ad, -1);
     }
     
     [Serializable]

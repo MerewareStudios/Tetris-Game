@@ -30,7 +30,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.GEM.Set(ref saveData.userData.gemTransactionData);
-        Wallet.AD.Set(ref saveData.userData.gemTransactionData);
+        Wallet.AD.Set(ref saveData.userData.adTransactionData);
 
         AdManager.THIS._Data = saveData.adData;
         

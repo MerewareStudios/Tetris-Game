@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2447210086814592814}
   - component: {fileID: 6776527624656669144}
   - component: {fileID: 4596482991329171245}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7095512850039993012}
   - component: {fileID: 2221368382941546113}
   - component: {fileID: 3177288895636185134}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas - Fake Ad Banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 2548696987691843111}
   - component: {fileID: 2933939654057799796}
   - component: {fileID: 4534816366035156003}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

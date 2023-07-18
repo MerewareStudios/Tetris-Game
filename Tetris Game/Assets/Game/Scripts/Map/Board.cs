@@ -13,6 +13,7 @@ namespace Game
         [SerializeField] public Vector2Int Size;
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tick = 0;
+        [System.NonSerialized] public System.Action OnMerge;
 
         [System.NonSerialized] private Data _data;
 
@@ -236,6 +237,8 @@ namespace Game
 
         public void MergeLines(List<int> lines, float duration)
         {
+            OnMerge?.Invoke();
+            
             for (int i = 0; i < lines.Count; i++)
             {
                 MergeLine(lines[i], lines.Count, duration);

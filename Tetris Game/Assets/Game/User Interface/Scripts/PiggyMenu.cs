@@ -488,8 +488,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     break;
                 case PiggyReward.Type.Hole:
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3072553160355305896}
   - component: {fileID: 3826170792725088772}
   - component: {fileID: 9016601525444690851}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1755112937082920319}
   - component: {fileID: 300245170599793233}
   - component: {fileID: 6353063952029029015}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 4936445326565590484}
   - component: {fileID: 686857153027309554}
   - component: {fileID: 7537675831723087291}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Reward Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 8798696320806778256}
   - component: {fileID: 4600523241781918695}
   - component: {fileID: 1692748454038301152}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 2949362399747260819}
   - component: {fileID: 1094536293236398622}
   - component: {fileID: 957710519723449774}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas - Fake Ad Rewarded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 4815532177792195577}
   - component: {fileID: 3222752027666897239}
   - component: {fileID: 4091999790906108937}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 902272332272118203}
   - component: {fileID: 573121942867160923}
   - component: {fileID: 6954599119079470973}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Skip Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
