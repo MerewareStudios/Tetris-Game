@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using Game;
-using Game.UI;
 using Internal.Core;
-using Internal.Visuals;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {

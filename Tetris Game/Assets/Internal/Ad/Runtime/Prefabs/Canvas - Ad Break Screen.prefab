@@ -537,6 +537,7 @@ GameObject:
   - component: {fileID: 1361843805738744712}
   - component: {fileID: 5666728919315294655}
   - component: {fileID: 2092710225126283017}
+  - component: {fileID: 2438237965155393208}
   m_Layer: 5
   m_Name: Canvas - Ad Break Screen
   m_TagString: Untagged
@@ -578,6 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2846355456824160056}
+  canvasGroup: {fileID: 2438237965155393208}
   buttonText: {fileID: 5321391251353501293}
 --- !u!223 &2846355456824160056
 Canvas:
@@ -680,6 +682,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2438237965155393208
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458527733264722160}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &126476408225803687
 PrefabInstance:
   m_ObjectHideFlags: 0

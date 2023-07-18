@@ -232,7 +232,8 @@ namespace Game
             
             UIManager.THIS.shopBar.Amount += level * 0.075f;
 
-            UIManager.THIS.ft_Level.FlyWorld(level.ToString(), mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.3f);
+            // UIManager.THIS.ft_Level.FlyWorld(level.ToString(), mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.3f);
+            UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
         }
 
         public void MergeLines(List<int> lines, float duration)

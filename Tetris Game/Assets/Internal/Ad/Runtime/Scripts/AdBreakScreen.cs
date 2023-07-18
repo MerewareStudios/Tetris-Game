@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine;
 public class AdBreakScreen : Singleton<AdBreakScreen>
 {
     [SerializeField] private Canvas canvas;
+    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI buttonText;
     [System.NonSerialized] private int _skipDuration;
     [System.NonSerialized] private System.Action _onShowAd;
@@ -31,8 +33,6 @@ public class AdBreakScreen : Singleton<AdBreakScreen>
 
         IEnumerator TimerRoutine()
         {
-            Debug.LogWarning(_skipDuration);
-
             for (int i = _skipDuration; i > 0; i--)
             {
                 buttonText.text = "YES(" + i + ")";
@@ -55,8 +55,17 @@ public class AdBreakScreen : Singleton<AdBreakScreen>
     public static void Show()
     {
         AdBreakScreen.THIS.canvas.enabled = true;
+        AdBreakScreen.THIS.FadeIn();
         AdBreakScreen.THIS.StartTimer();
     }
+
+    private void FadeIn()
+    {
+        canvasGroup.DOKill();
+        canvasGroup.alpha = 0.0f;
+        canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
+    }
+    
     public void Hide()
     {
         canvas.enabled = false;

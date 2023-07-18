@@ -432,4 +432,4 @@ MonoBehaviour:
   adSettings:
     loanBarProtectionInterval: 30
     adBreakSkipTime: 4
-    mergePerAdBreak: 1
+    mergePerAdBreak: 15
