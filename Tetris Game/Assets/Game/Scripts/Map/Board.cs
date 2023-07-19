@@ -218,7 +218,7 @@ namespace Game
         private void SpawnMergedPawn(Place place, int level)
         {
             Vector3 mergedPawnPosition = place.transform.position;
-            Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
+            // Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
             if (level <= 0)
             {
                 return;
@@ -228,12 +228,15 @@ namespace Game
             place.AcceptNow(mergedPawn);
 
             mergedPawn.MarkMergerColor();
-            mergedPawn.AnimatedShow(0.6f, () => mergedPawn.OnMerge());
+            mergedPawn.AnimatedShow(0.35f, () =>
+            {
+                Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
+            }, () => mergedPawn.OnMerge());
             
             UIManager.THIS.shopBar.Amount += level * 0.075f;
 
             // UIManager.THIS.ft_Level.FlyWorld(level.ToString(), mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.3f);
-            UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
+            // UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
         }
 
         public void MergeLines(List<int> lines, float duration)
@@ -271,6 +274,8 @@ namespace Game
                     {
                         int point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
                         totalPoint += point;
+                        
+                        // Particle.Merge_1.Play(place.Current.transform.position, scale : Vector3.one * 0.35f);
                     }
 
                     if (place.Current.Tick > highestTick)
@@ -288,14 +293,17 @@ namespace Game
                 Place spawnPlace = places[mergeIndex, lineIndex];
                 foreach (var pawn in pawns)
                 {
-                    Color color = multiplier == 1 ? Const.THIS.singleColor : Const.THIS.comboColor;
-                    Particle.Square.Emit(1, color, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                    // Color color = multiplier == 1 ? Const.THIS.singleColor : Const.THIS.comboColor;
+                    Particle.Square.Emit(1, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
                 
+                    pawn.PunchScale(-0.1f, 0.2f);
+
                     pawn.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
                         .onComplete += () =>
                     {
                         pawn.Deconstruct();
                     };
+                    
                 }
 
                 totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
@@ -338,7 +346,7 @@ namespace Game
                     currentPawn.Amount -= ammo;
                     if (currentPawn.Amount > 0)
                     {
-                        currentPawn.PunchScale(-0.2f);
+                        currentPawn.PunchScaleBullet(-0.2f);
                     }
                     else
                     {

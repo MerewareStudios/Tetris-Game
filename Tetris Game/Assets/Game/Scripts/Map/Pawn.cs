@@ -199,17 +199,21 @@ namespace Game
             meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.mergerColor);
         }
         #endregion
-        public void AnimatedShow(float delay, System.Action complete = null)
+        public void AnimatedShow(float delay, System.Action start = null, System.Action complete = null)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
             modelPivot.DOScale(Vector3.one, 0.25f).SetDelay(delay).SetEase(Ease.OutBack, 2.0f)
+                    .OnStart(() => 
+                {
+                    start?.Invoke();    
+                })
                 .onComplete += () => 
                 {
                     complete?.Invoke();    
                 };
         }
-        public void PunchScale(float magnitude)
+        public void PunchScaleBullet(float magnitude)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
@@ -217,6 +221,12 @@ namespace Game
 
             Particle.Bullet.Emit(1, _thisTransform.position + BulletPsUp);
             Particle.Ring.Emit(1, _thisTransform.position + BulletPsUp);
+        }
+        public void PunchScale(float magnitude, float duration)
+        {
+            modelPivot.DOKill();
+            modelPivot.localScale = Vector3.one;
+            modelPivot.DOScale(Vector3.one * magnitude, duration).SetRelative(true);
         }
         public void Hide(System.Action complete = null)
         {
