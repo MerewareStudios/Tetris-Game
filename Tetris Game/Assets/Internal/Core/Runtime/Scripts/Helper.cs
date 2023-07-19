@@ -220,7 +220,7 @@ namespace Internal.Core
             end.y = 0.0f;
             return (end - start).normalized;
         }
-        public static Tween DoColor(this Renderer renderer, MaterialPropertyBlock mpb, string key, Color fromColor, Color toColor, float duration, Ease ease)
+        public static Tween DoColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Color fromColor, Color toColor, float duration, Ease ease)
         {
             float timeStep = 0.0f;
             Tween tween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, duration).SetEase(ease);
@@ -231,7 +231,7 @@ namespace Internal.Core
             };
             return tween;
         }
-        public static Tween AnimateShaderColor(this Renderer renderer, MaterialPropertyBlock mpb, string key, Color fromColor, Color toColor, float duration, Ease ease, params int[] indexes)
+        public static Tween AnimateShaderColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Color fromColor, Color toColor, float duration, Ease ease, params int[] indexes)
         {
             float timeStep = 0.0f;
             Tween tween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, duration).SetEase(ease);
@@ -456,7 +456,7 @@ namespace Internal.Core
 
             return velocity * vI;
         }
-        public static Tween SetGradient(this Renderer renderer, float fromValue, float toValue, float duration, MaterialPropertyBlock mpb, string key, Gradient gradient, int matIndex = 0)
+        public static Tween SetGradient(this Renderer renderer, float fromValue, float toValue, float duration, MaterialPropertyBlock mpb, int key, Gradient gradient, int matIndex = 0)
         {
             float timeStep = 0.0f;
             Tween tween = DOTween.To((x) => timeStep = x, fromValue, toValue, duration);
@@ -467,31 +467,25 @@ namespace Internal.Core
             
             return tween;
         }
-        public static void SetFloat(this Renderer renderer, MaterialPropertyBlock mpb, string key, float value)
+        public static void SetFloat(this Renderer renderer, MaterialPropertyBlock mpb, int key, float value)
         {
             renderer.GetPropertyBlock(mpb, 0);
             mpb.SetFloat(key, value);
             renderer.SetPropertyBlock(mpb, 0);
         }
-        public static void SetVector(this Renderer renderer, MaterialPropertyBlock mpb, string key, Vector2 value)
+        public static void SetVector(this Renderer renderer, MaterialPropertyBlock mpb, int key, Vector2 value)
         {
             renderer.GetPropertyBlock(mpb, 0);
             mpb.SetVector(key, value);
             renderer.SetPropertyBlock(mpb, 0);
         }
-        public static void SetColor(this SpriteRenderer renderer, MaterialPropertyBlock mpb, string key, Color value)
-        {
-            renderer.GetPropertyBlock(mpb);
-            mpb.SetColor(key, value);
-            renderer.SetPropertyBlock(mpb);
-        }
-        public static void SetColor(this Renderer renderer, MaterialPropertyBlock mpb, string key, Color value, int matIndex = 0)
+        public static void SetColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Color value, int matIndex = 0)
         {
             renderer.GetPropertyBlock(mpb, matIndex);
             mpb.SetColor(key, value);
             renderer.SetPropertyBlock(mpb, matIndex);
         }
-        public static void SetTexture(this Renderer renderer, MaterialPropertyBlock mpb, string key, Texture value)
+        public static void SetTexture(this Renderer renderer, MaterialPropertyBlock mpb, int key, Texture value)
         {
             renderer.GetPropertyBlock(mpb, 0);
             mpb.SetTexture(key, value);

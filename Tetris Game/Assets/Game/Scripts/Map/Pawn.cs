@@ -188,15 +188,15 @@ namespace Game
         #region Colors
         public void MarkDefaultColor()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.defaultColor);
+            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.defaultColor);
         }
         public void MarkSteadyColor()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.steadyColor);
+            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.steadyColor);
         }
         public void MarkMergerColor()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, "_BaseColor", Const.THIS.mergerColor);
+            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
         }
         #endregion
         public void AnimatedShow(float delay, System.Action start = null, System.Action complete = null)

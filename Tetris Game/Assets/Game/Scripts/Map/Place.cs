@@ -12,8 +12,8 @@ namespace Game
     public class Place : MonoBehaviour
     {
         [SerializeField] public Transform segmentParent;
-        [SerializeField] private SpriteRenderer placementSprite;
-        [SerializeField] private SpriteRenderer igniteSprite;
+        [SerializeField] private MeshRenderer placementSprite;
+        [SerializeField] private MeshRenderer igniteSprite;
         [System.NonSerialized] public Vector2Int index;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
         [System.NonSerialized] private bool _supplier = false;
@@ -31,14 +31,19 @@ namespace Game
                 igniteSprite.enabled = value;
                 // SetPlaceType(PlaceType.EMPTY, true);
                 this._placeType = PlaceType.EMPTY;
-                placementSprite.color = value ? Const.THIS.mergerPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
+
+                Color color = value ? Const.THIS.mergerPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
+                placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
             }
         }
 
         public void Construct()
         {
             this._placeType = PlaceType.FREE;
-            placementSprite.color = Const.THIS.placeColors[(int)PlaceType.EMPTY];
+            
+            Color color = Const.THIS.placeColors[(int)PlaceType.EMPTY];
+            placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
+
         }
         public void Deconstruct()
         {
@@ -86,7 +91,9 @@ namespace Game
         private void DoColor(Color color)
         {
             placementSprite.DOKill();
-            placementSprite.DOColor(color, 0.125f);
+            placementSprite.GetPropertyBlock(GameManager.MPB_PLACEMENT, 0);
+            Color startColor = GameManager.MPB_PLACEMENT.GetColor(GameManager.BaseColor);
+            placementSprite.DoColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, startColor, color, 0.125f, Ease.OutSine);
         }
 
         public void Accept(Pawn pawn, float duration, System.Action OnComplete = null)

@@ -64,7 +64,7 @@ namespace  Game
                 if (health > 0)
                 {
                     modelPivot.localScale = Vector3.one * (1.0f + (health-1) * 0.75f);
-                    meshRenderer.SetColor(GameManager.MPB_ENEMY, "_BaseColor", health.Health2Color());
+                    meshRenderer.SetColor(GameManager.MPB_ENEMY, GameManager.BaseColor, health.Health2Color());
                 }
             }
             get => health;

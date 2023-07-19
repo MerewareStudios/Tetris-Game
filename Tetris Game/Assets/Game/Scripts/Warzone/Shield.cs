@@ -28,11 +28,11 @@ public class Shield : MonoBehaviour, TickManager.ITickable
                 zonePs.transform.DOKill();
                 zonePs.transform.DOScale(targetShowScale, 0.35f).SetEase(Ease.OutBack);
                 
-                frontLineMR.SetGradient(0.0f, 1.0f, 0.5f, GameManager.MPB_FRONT, "_BaseColor", Const.THIS.frontLineGradient);
+                frontLineMR.SetGradient(0.0f, 1.0f, 0.5f, GameManager.MPB_FRONT, GameManager.BaseColor, Const.THIS.frontLineGradient);
             }
             else
             {
-                frontLineMR.SetGradient(1.0f, 0.0f, 0.5f, GameManager.MPB_FRONT, "_BaseColor", Const.THIS.frontLineGradient);
+                frontLineMR.SetGradient(1.0f, 0.0f, 0.5f, GameManager.MPB_FRONT, GameManager.BaseColor, Const.THIS.frontLineGradient);
 
                 zonePs.transform.DOKill();
                 zonePs.transform.DOScale(targetHideScale, 0.35f).SetEase(Ease.InBack).onComplete += () =>
