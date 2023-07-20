@@ -1,5 +1,7 @@
+using System;
 using DG.Tweening;
 using Game;
+using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -23,6 +25,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public CurrencyTransactor gem;
    [SerializeField] public CurrencyTransactor ad;
    [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
+
 
    // Make them info list
 

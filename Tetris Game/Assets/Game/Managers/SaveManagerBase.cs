@@ -38,13 +38,12 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         }
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     private void OnApplicationQuit()
     {
         Save();
     }
-#endif
-#if !UNITY_EDITOR
+#else
      private void OnApplicationPause(bool pause)
     {
         if (pause)

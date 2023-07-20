@@ -18,7 +18,7 @@ public class AdBreakScreen : Singleton<AdBreakScreen>
     [System.NonSerialized] private Coroutine _timerRoutine;
     
     public delegate bool OnGetState();
-    
+
     public static void Set(int skipDuration, System.Action onShowAd, System.Action onSkip, OnGetState onCanSkip)
     {
         AdBreakScreen.THIS._skipDuration = skipDuration;

@@ -8,19 +8,20 @@ public class SSingleton<T> : ScriptableObject where T : ScriptableObject
     {
         get
         {
-            if (instance == null)
-            {
-                T[] scriptableObjects = Resources.LoadAll<T>("");
-                if (scriptableObjects.Length > 0)
-                {
-                    instance = scriptableObjects[0];
-                }
-                else
-                {
-                    Debug.LogError("Singleton instance of type " + typeof(T).Name + " not found in resources.");
-                }
-            }
+            // if (!instance)
+            // {
+            //     T[] scriptableObjects = Resources.LoadAll<T>("");
+            //     if (scriptableObjects.Length > 0)
+            //     {
+            //         instance = scriptableObjects[0];
+            //     }
+            //     else
+            //     {
+            //         Debug.LogError("Singleton instance of type " + typeof(T).Name + " not found in resources.");
+            //     }
+            // }
             return instance;
         }
+        set => instance = value;
     }
 }

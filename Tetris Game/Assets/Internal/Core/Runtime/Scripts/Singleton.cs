@@ -8,16 +8,13 @@ namespace Internal.Core
         {
             get
             {
-                if (instance == null)
+                if (!instance)
                 {
                     instance = FindObjectOfType<T>();
                 }
                 return instance;
             }
-            set
-            {
-                
-            }
+            private set => instance = value;
         }
         private static T instance;
     }

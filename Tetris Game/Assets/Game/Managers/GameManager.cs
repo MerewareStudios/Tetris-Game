@@ -15,6 +15,11 @@ public class GameManager : Singleton<GameManager>
 
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
 
+    void OnEnable()
+    {
+        
+    }
+
     void Awake()
     {
         MPB_PAWN = new();

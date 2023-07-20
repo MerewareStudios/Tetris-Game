@@ -9,11 +9,14 @@ using UnityEngine.Serialization;
 
 public class SaveManager : SaveManagerBase<SaveManager>
 {
+    [SerializeField] public Const Const;
     [SerializeField] public bool SKIP_ONBOARDING = true;
 
     public override void Awake()
     {
         base.Awake();
+
+        Const.THIS = this.Const;
 
         if (!saveData.saveGenerated)
         {
@@ -45,11 +48,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
-        
-    }
-
-    void Start()
-    {
         
     }
 }
