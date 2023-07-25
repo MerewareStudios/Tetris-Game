@@ -55,7 +55,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-<<<<<<< Updated upstream
     - _DecalMeshBiasType: 0
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
@@ -74,17 +73,4 @@ Material:
     - _step: 0
     m_Colors:
     - _Center: {r: 0, g: 0, b: 0, a: 0}
-=======
-    - _A: 1
-    - _Alpha: 1
-    - _Distance: 0
-    - _Distortion: 0.035
-    - _Fraction: 0.4
-    - _Power: 0.09
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Ramp: 0.4
-    - _Transition: 0.08
-    m_Colors: []
->>>>>>> Stashed changes
   m_BuildTextureStacks: []
