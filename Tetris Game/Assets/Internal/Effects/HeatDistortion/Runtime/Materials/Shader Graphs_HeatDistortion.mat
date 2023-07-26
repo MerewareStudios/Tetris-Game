@@ -30,7 +30,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2999
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -66,13 +66,13 @@ Material:
     - _End: 0.35
     - _Float: -2.39
     - _Mult: 1
-    - _Power: 0.04
+    - _Power: 0.06
     - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Ramp: -0.04
+    - _QueueOffset: -1
+    - _Ramp: 0.85
     - _Sine_Power: 2.4
     - _Start: 0.11
-    - _Transition: 0.07
+    - _Transition: 0.1
     - _step: 0
     m_Colors:
     - _Center: {r: 0, g: 0, b: 0, a: 0}

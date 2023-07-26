@@ -10,5 +10,6 @@ public  const int Spawner = 6;
 public  const int Grid = 7;
 public  const int Gridcheck = 8;
 public  const int Place = 9;
+public  const int Distort = 11;
 
 }
