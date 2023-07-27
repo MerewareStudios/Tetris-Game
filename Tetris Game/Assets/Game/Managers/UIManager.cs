@@ -5,6 +5,7 @@ using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
+using Visual.Effects;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -136,4 +137,13 @@ public static class UIManagerExtensions
       
       UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
    }
+
+    public static void Distort(Vector3 worldPosition, float delay)
+    {
+        Transform camTrasform = CameraManager.THIS.gameCamera.transform;
+
+        Vector3 pos = worldPosition + camTrasform.forward * -3.0f;
+
+        Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, Vector3.one * 3.0f, 0.55f, delay);
+    }
 }

@@ -14,11 +14,11 @@ public class GameManager : Singleton<GameManager>
     [System.NonSerialized] public static MaterialPropertyBlock MPB_DISTORTION;
 
     [System.NonSerialized] public static bool PLAYING = false;
-    [SerializeField] public Transform pos;
     
     private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
-    public static readonly int DistortionDistance = Shader.PropertyToID("_Ramp");
+    public static readonly int rampID = Shader.PropertyToID("_Ramp");
+    public static readonly int powerID = Shader.PropertyToID("_Power");
 
     void Awake()
     {
@@ -31,7 +31,7 @@ public class GameManager : Singleton<GameManager>
     
     void Start()
     {
-        Distortion.SetPropertyBlock(MPB_DISTORTION, DistortionDistance);
+        Distortion.SetPropertyBlock(MPB_DISTORTION, rampID, powerID, (go) => go.Despawn());
         Board.THIS.Construct();
         Play();
     }
@@ -48,11 +48,7 @@ public class GameManager : Singleton<GameManager>
         {
             Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Distortion distortion = Pool.Distortion.Spawn<Distortion>();
-            distortion.Distort(pos.position, pos.forward, Vector3.one * 5.0f, 0.8f);
-        }
+        
     }
     
     

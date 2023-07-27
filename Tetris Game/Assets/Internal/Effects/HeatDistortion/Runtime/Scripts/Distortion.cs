@@ -10,32 +10,44 @@ namespace Visual.Effects
     {
         [SerializeField] private MeshRenderer meshRenderer;
         [System.NonSerialized] private static MaterialPropertyBlock mpb;
-        [System.NonSerialized] private static int distortionID;
-        [System.NonSerialized] private Tween distanceTween;
+        [System.NonSerialized] private static int rampID;
+        [System.NonSerialized] private static int powerID;
+        [System.NonSerialized] public static System.Action<GameObject> OnComplete;
+        [System.NonSerialized] private Tween animationTween;
     
-        public static void SetPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int distortionID)
+        public static void SetPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int rampID, int powerID, System.Action<GameObject> OnComplete)
         {
             Distortion.mpb = materialPropertyBlock;
-            Distortion.distortionID = distortionID;
+            Distortion.rampID = rampID;
+            Distortion.powerID = powerID;
+            Distortion.OnComplete = OnComplete;
         }
 
-        public void Distort(Vector3 worldPosition, Vector3 forward, Vector3 scale, float duration)
+        public void Distort(Vector3 worldPosition, Vector3 forward, Vector3 scale, float duration, float delay)
         {
             transform.position = worldPosition;
             transform.forward = forward;
             transform.localScale = scale;
-            AnimateDistance(-0.1f, 1.0f, duration);
+            Animate(-0.1f, 1.0f, 0.1f, 0.0f, duration, delay);
         }
 
-        private void AnimateDistance(float start, float end, float duration)
+        private void Animate(float startRamp, float endRamp, float startPower, float endPower, float duration, float delay)
         {
+            meshRenderer.SetFloat(mpb, rampID, startRamp);
+            meshRenderer.SetFloat(mpb, powerID, startPower);
+
             float value = 0.0f;
-            distanceTween?.Kill();
-            distanceTween = DOTween.To((x) => value = x, start, end, duration).SetEase(Ease.InOutSine);
-            distanceTween.onUpdate = () =>
+            animationTween?.Kill();
+            animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(Ease.InSine).SetDelay(delay);
+            animationTween.onUpdate = () =>
             {
-                meshRenderer.SetFloat(mpb, distortionID, value);
+                float ramp = Mathf.Lerp(startRamp, endRamp, value);
+                meshRenderer.SetFloat(mpb, rampID, ramp);
+
+                float power = Mathf.Lerp(startPower, endPower, value);
+                meshRenderer.SetFloat(mpb, powerID, power);
             };
+            animationTween.onComplete = () => OnComplete.Invoke(this.gameObject);
         }
     }
 }

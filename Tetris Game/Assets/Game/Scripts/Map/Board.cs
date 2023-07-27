@@ -231,10 +231,13 @@ namespace Game
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(0.35f, () =>
             {
+
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
             }, () => mergedPawn.OnMerge());
             
             UIManager.THIS.shopBar.Amount += level * 0.075f;
+
+            UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
 
             // UIManager.THIS.ft_Level.FlyWorld(level.ToString(), mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.3f);
             // UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
@@ -304,7 +307,6 @@ namespace Game
                     {
                         pawn.Deconstruct();
                     };
-                    
                 }
 
                 totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
