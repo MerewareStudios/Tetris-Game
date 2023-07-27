@@ -141,9 +141,12 @@ public static class UIManagerExtensions
     public static void Distort(Vector3 worldPosition, float delay)
     {
         Transform camTrasform = CameraManager.THIS.gameCamera.transform;
-
         Vector3 pos = worldPosition + camTrasform.forward * -3.0f;
-
         Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, Vector3.one * 3.0f, 0.55f, delay);
+    }
+
+    public static void EmitVibeText(Vector3 worldPosition, string str, float delay = 0.0f)
+    {
+        UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, 0.35f, delay);
     }
 }

@@ -28,7 +28,7 @@ namespace Visual.Effects
             transform.position = worldPosition;
             transform.forward = forward;
             transform.localScale = scale;
-            Animate(-0.1f, 1.0f, 0.1f, 0.0f, duration, delay);
+            Animate(-0.1f, 0.8f, 0.1f, 0.0f, duration, delay);
         }
 
         private void Animate(float startRamp, float endRamp, float startPower, float endPower, float duration, float delay)

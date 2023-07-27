@@ -216,7 +216,7 @@ namespace Game
 
         
 
-        private void SpawnMergedPawn(Place place, int level)
+        private void SpawnMergedPawn(Place place, int level, int mergeIndexPoint)
         {
             Vector3 mergedPawnPosition = place.transform.position;
             // Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
@@ -233,13 +233,16 @@ namespace Game
             {
 
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
-            }, () => mergedPawn.OnMerge());
+            }, () => 
+                { 
+                    mergedPawn.OnMerge();
+                    UIManagerExtensions.EmitVibeText(mergedPawnPosition, "+" + (level - mergeIndexPoint));
+                });
             
             UIManager.THIS.shopBar.Amount += level * 0.075f;
 
             UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
 
-            // UIManager.THIS.ft_Level.FlyWorld(level.ToString(), mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.3f);
             // UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
         }
 
@@ -259,7 +262,7 @@ namespace Game
                 int totalPoint = 0;
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
-
+                int mergeIndexPoint = 0;
                 float delay = 0.0f;
 
                 for (int i = 0; i < Size.x; i++)
@@ -274,9 +277,10 @@ namespace Game
                 
                     pawns.Add(place.Current);
 
+                    int point = 0;
                     if (place.Current.Unbox(delay += 0.025f))
                     {
-                        int point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
+                        point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
                         totalPoint += point;
                         
                         // Particle.Merge_1.Play(place.Current.transform.position, scale : Vector3.one * 0.35f);
@@ -286,10 +290,16 @@ namespace Game
                     {
                         highestTick = place.Current.Tick;
                         mergeIndex = index;
+                        mergeIndexPoint = point;
                     }
                     else if(place.Current.Tick == highestTick)
                     {
-                        Helper.IsPossible(0.5f,() => mergeIndex = index);
+                        Helper.IsPossible(0.5f,() =>
+                                                {
+                                                    mergeIndex = index;
+                                                    mergeIndexPoint = point;
+                                                }
+                        );
                     }
                     place.Current = null;
                 }
@@ -310,7 +320,7 @@ namespace Game
                 }
 
                 totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
-                SpawnMergedPawn(spawnPlace, totalPoint);
+                SpawnMergedPawn(spawnPlace, totalPoint, mergeIndexPoint);
             }
         }
 

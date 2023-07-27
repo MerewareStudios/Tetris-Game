@@ -7,12 +7,11 @@ public class FlyingText : MonoBehaviour
 {
     [SerializeField] public Canvas canvas;
     [SerializeField] public Camera worldCamera;
-    [SerializeField] public ParticleSystem particleSystem;
     public delegate TextMeshProUGUI GetInstance();
     public System.Action<MonoBehaviour> ReturnInstance;
     public GetInstance OnGetInstance;
     
-    public Vector2 FlyWorld(string str, Vector3 worldPosition, float delay = 0.0f)
+    public Vector2 FlyWorld(string str, Vector3 worldPosition, float duration = 0.0f, float delay = 0.0f)
     {
         TextMeshProUGUI text = OnGetInstance.Invoke();
         text.text = str;
@@ -24,25 +23,17 @@ public class FlyingText : MonoBehaviour
         
         
         rectTransform.DOKill();
-        rectTransform.localScale = Vector3.zero;
+        rectTransform.localScale = Vector3.one;
 
         text.color = text.color.SetAlpha(1.0f);
         
-        Tween scaleTween = rectTransform.DOScale(Vector3.one, 0.15f).SetEase(Ease.OutBack, 4.0f).SetDelay(delay).OnStart(
-            () =>
-            {
-                if (particleSystem)
-                {
-                    particleSystem.transform.position = rectTransform.position;
-                    particleSystem.Emit(1);
-                }
-            });
-        Tween upTween = rectTransform.DOMove(Vector3.up * 0.1f, 0.2f).SetRelative(true).SetEase(Ease.OutSine);
-        Tween fadeTween = text.DOFade(0.0f, 0.125f).SetEase(Ease.OutQuint).SetDelay(0.175f);
+        Tween scaleTween = rectTransform.DOPunchScale(Vector3.one * 0.25f, duration, 1).SetDelay(delay);
+        //Tween upTween = rectTransform.DOMove(Vector3.up * 0.1f, 0.2f).SetRelative(true).SetEase(Ease.OutSine);
+        Tween fadeTween = text.DOFade(0.0f, duration).SetEase(Ease.OutSine).SetDelay(delay + 0.15f);
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(scaleTween);
-        sequence.Append(upTween);
+        //sequence.Append(upTween);
         sequence.Join(fadeTween);
 
         sequence.onComplete += () => ReturnInstance.Invoke(text);
