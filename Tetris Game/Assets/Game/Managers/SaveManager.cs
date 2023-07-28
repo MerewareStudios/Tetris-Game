@@ -10,6 +10,7 @@ using UnityEngine.Serialization;
 public class SaveManager : SaveManagerBase<SaveManager>
 {
     [SerializeField] public Const Const;
+    [SerializeField] public AnimConst AnimConst;
     [SerializeField] public bool SKIP_ONBOARDING = true;
 
     public override void Awake()
@@ -17,6 +18,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         base.Awake();
 
         Const.THIS = this.Const;
+        AnimConst.THIS = this.AnimConst;
 
         if (!saveData.saveGenerated)
         {

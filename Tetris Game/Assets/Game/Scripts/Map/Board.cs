@@ -228,13 +228,15 @@ namespace Game
             
             place.AcceptNow(mergedPawn);
 
+            if (max)
+            {
+                UIManagerExtensions.EmitVibeText(mergedPawn.transform.position + Vector3.up * 0.55f, "MAX", 0.15f, 0.275f);
+            }
+
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(0.35f, () =>
             {
-                if (max)
-                {
-                    UIManagerExtensions.EmitVibeText(mergedPawn.transform.position + Vector3.up * 0.55f, "MAX", 0.0f);
-                }
+                
                 //UIManagerExtensions.EmitVibeText(mergedPawnPosition, "+" + (level - mergeIndexPoint), 0.0f);
 
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
@@ -250,16 +252,16 @@ namespace Game
             // UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
         }
 
-        public void MergeLines(List<int> lines, float duration)
+        public void MergeLines(List<int> lines, float mergeTravelDelay, float mergeTravelDuration, Ease mergeTravelEase, float mergeTravelShoot)
         {
             OnMerge?.Invoke();
             
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i], lines.Count, duration);
+                MergeLine(lines[i], lines.Count);
             }
             
-            void MergeLine(int lineIndex, int multiplier, float duration)
+            void MergeLine(int lineIndex, int multiplier)
             {
                 List<Pawn> pawns = new();
 
@@ -321,7 +323,7 @@ namespace Game
                 
                     pawn.PunchScale(-0.1f, 0.2f);
 
-                    pawn.transform.DOMove(spawnPlace.segmentParent.position, duration).SetDelay(0.15f)
+                    pawn.transform.DOMove(spawnPlace.segmentParent.position, mergeTravelDuration).SetEase(mergeTravelEase, mergeTravelShoot).SetDelay(mergeTravelDelay)
                         .onComplete += () =>
                     {
                         pawn.Deconstruct();

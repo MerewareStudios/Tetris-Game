@@ -145,8 +145,13 @@ public static class UIManagerExtensions
         Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, Vector3.one * 3.0f, 0.55f, delay);
     }
 
-    public static void EmitVibeText(Vector3 worldPosition, string str, float delay = 0.0f)
+    public static void EmitVibeText(Vector3 worldPosition, string str, float duration = 0.2f, float delay = 0.0f)
     {
-        UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, 0.25f, delay);
+        UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, duration, delay);
+    }
+
+    public static void EmitComboText(int combo, float duration = 0.2f, float delay = 0.0f)
+    {
+        UIManager.THIS.ft_Combo.FlyScreen("x" + combo, Vector3.zero, duration, delay);
     }
 }

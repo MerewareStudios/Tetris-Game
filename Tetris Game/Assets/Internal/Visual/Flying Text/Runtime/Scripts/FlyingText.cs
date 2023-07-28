@@ -27,11 +27,11 @@ public class FlyingText : MonoBehaviour
 
         text.color = text.color.SetAlpha(1.0f);
         
-        Tween scaleTween = rectTransform.DOScale(Vector3.one, duration).SetEase(Ease.OutBack).SetDelay(delay);
+        Tween scaleTween = rectTransform.DOScale(Vector3.one, duration).SetEase(Ease.OutBack);
         //Tween upTween = rectTransform.DOMove(Vector3.up * 0.1f, 0.2f).SetRelative(true).SetEase(Ease.OutSine);
-        Tween fadeTween = text.DOFade(0.0f, 0.2f).SetEase(Ease.OutQuad).SetDelay(delay + 0.2f);
+        Tween fadeTween = text.DOFade(0.0f, 0.2f).SetEase(Ease.OutQuad).SetDelay(0.2f);
 
-        Sequence sequence = DOTween.Sequence();
+        Sequence sequence = DOTween.Sequence().SetDelay(delay);
         sequence.Append(scaleTween);
         //sequence.Append(upTween);
         sequence.Join(fadeTween);
@@ -41,33 +41,58 @@ public class FlyingText : MonoBehaviour
         return rectTransform.position;
     }
     
-    public void FlyScreen(string str, Vector3 screenPosition, float delay = 0.0f)
+    public void FlyScreen(string str, Vector3 screenPosition, float duration, float delay = 0.0f)
     {
         TextMeshProUGUI text = OnGetInstance.Invoke();
         text.text = str;
-        
+
         RectTransform rectTransform = text.rectTransform;
         rectTransform.SetParent(this.transform);
+        //rectTransform.position = canvas.worldCamera.ScreenToWorldPoint(worldCamera.WorldToScreenPoint(worldPosition));
         rectTransform.localPosition = screenPosition;
-        
+
+
+
         rectTransform.DOKill();
         rectTransform.localScale = Vector3.zero;
 
-        text.color = Color.white;
+        text.color = text.color.SetAlpha(1.0f);
 
-        float scaleUpDuration = 0.25f;
-        float fadeDuration = 0.2f;
-        
-        Tween scaleTween = rectTransform.DOScale(Vector3.one, scaleUpDuration).SetEase(Ease.OutSine).SetDelay(delay);
-        Tween upTween = rectTransform.DOMove(Vector3.up * 0.125f, fadeDuration).SetRelative(true).SetEase(Ease.OutSine).SetDelay(0.05f);
-        Tween fadeTween = text.DOFade(0.0f, fadeDuration).SetEase(Ease.OutQuint).SetDelay(0.05f);
+        Tween scaleTween = rectTransform.DOScale(Vector3.one, duration).SetEase(Ease.OutBack);
+        //Tween upTween = rectTransform.DOMove(Vector3.up * 0.1f, 0.2f).SetRelative(true).SetEase(Ease.OutSine);
+        Tween fadeTween = text.DOFade(0.0f, 0.2f).SetEase(Ease.OutQuad).SetDelay(0.2f);
 
-        Sequence sequence = DOTween.Sequence();
+        Sequence sequence = DOTween.Sequence().SetDelay(delay);
         sequence.Append(scaleTween);
-        sequence.Append(upTween);
+        //sequence.Append(upTween);
         sequence.Join(fadeTween);
 
         sequence.onComplete += () => ReturnInstance.Invoke(text);
+        //TextMeshProUGUI text = OnGetInstance.Invoke();
+        //text.text = str;
+
+        //RectTransform rectTransform = text.rectTransform;
+        //rectTransform.SetParent(this.transform);
+        //rectTransform.localPosition = screenPosition;
+
+        //rectTransform.DOKill();
+        //rectTransform.localScale = Vector3.zero;
+
+        //text.color = Color.white;
+
+        //float scaleUpDuration = 0.25f;
+        //float fadeDuration = 0.2f;
+
+        //Tween scaleTween = rectTransform.DOScale(Vector3.one, scaleUpDuration).SetEase(Ease.OutSine).SetDelay(delay);
+        //Tween upTween = rectTransform.DOMove(Vector3.up * 0.125f, fadeDuration).SetRelative(true).SetEase(Ease.OutSine).SetDelay(0.05f);
+        //Tween fadeTween = text.DOFade(0.0f, fadeDuration).SetEase(Ease.OutQuint).SetDelay(0.05f);
+
+        //Sequence sequence = DOTween.Sequence();
+        //sequence.Append(scaleTween);
+        //sequence.Append(upTween);
+        //sequence.Join(fadeTween);
+
+        //sequence.onComplete += () => ReturnInstance.Invoke(text);
     }
     
     public void LerpScreen(string str, Vector3 screenStart, Vector3 screenEnd, float delay = 0.0f, float duration = 0.05f, bool timeIndependent = false, System.Action endAction = null)

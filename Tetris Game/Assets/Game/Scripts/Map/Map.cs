@@ -28,11 +28,12 @@ namespace Game
                     {
                         if (tetrisLines.Count > 1)
                         {
-                            UIManager.THIS.ft_Combo.FlyScreen("x" + tetrisLines.Count, Vector3.zero, 0.0f);
-                            yield return new WaitForSeconds(0.4f);
+                            UIManagerExtensions.EmitComboText(tetrisLines.Count);
+                            //UIManager.THIS.ft_Combo.FlyScreen("<size=125%>x" + tetrisLines.Count + "<size=100%>\nMAX", Vector3.zero,  0.0f);
+                            yield return new WaitForSeconds(0.25f);
                         }
 
-                        Board.THIS.MergeLines(tetrisLines, 0.2f);
+                        Board.THIS.MergeLines(tetrisLines, AnimConst.THIS.mergeTravelDelay, AnimConst.THIS.mergeTravelDur, AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot);
                     
                         Board.THIS.MarkAllMover(tetrisLines[0]);
                         Board.THIS.CheckAll();
