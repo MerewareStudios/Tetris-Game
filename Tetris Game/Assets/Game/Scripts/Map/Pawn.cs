@@ -11,7 +11,7 @@ namespace Game
     public class Pawn : MonoBehaviour
     {
         [SerializeField] public MeshRenderer meshRenderer;
-        [SerializeField] public TextMeshPro levelText;
+        [SerializeField] private TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
 
         [System.NonSerialized] private Tween _moveTween = null;
@@ -34,6 +34,7 @@ namespace Game
             set => levelText.enabled = value;
         }
         public bool CanPlaceAnywhere => UsageType.Equals(Usage.HorMerge);
+        public Vector3 TextPosition => levelText.transform.position;
 
         public enum Usage
         {

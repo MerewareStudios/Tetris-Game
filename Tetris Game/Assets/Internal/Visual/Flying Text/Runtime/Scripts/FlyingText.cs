@@ -23,13 +23,13 @@ public class FlyingText : MonoBehaviour
         
         
         rectTransform.DOKill();
-        rectTransform.localScale = Vector3.one;
+        rectTransform.localScale = Vector3.zero;
 
         text.color = text.color.SetAlpha(1.0f);
         
-        Tween scaleTween = rectTransform.DOPunchScale(Vector3.one * 0.25f, duration, 1).SetDelay(delay);
+        Tween scaleTween = rectTransform.DOScale(Vector3.one, duration).SetEase(Ease.OutBack).SetDelay(delay);
         //Tween upTween = rectTransform.DOMove(Vector3.up * 0.1f, 0.2f).SetRelative(true).SetEase(Ease.OutSine);
-        Tween fadeTween = text.DOFade(0.0f, duration).SetEase(Ease.OutSine).SetDelay(delay + 0.15f);
+        Tween fadeTween = text.DOFade(0.0f, 0.2f).SetEase(Ease.OutQuad).SetDelay(delay + 0.2f);
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(scaleTween);

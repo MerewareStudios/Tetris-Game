@@ -216,7 +216,7 @@ namespace Game
 
         
 
-        private void SpawnMergedPawn(Place place, int level, int mergeIndexPoint)
+        private void SpawnMergedPawn(Place place, int level, int mergeIndexPoint, bool max)
         {
             Vector3 mergedPawnPosition = place.transform.position;
             // Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
@@ -231,12 +231,16 @@ namespace Game
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(0.35f, () =>
             {
+                if (max)
+                {
+                    UIManagerExtensions.EmitVibeText(mergedPawn.transform.position + Vector3.up * 0.55f, "MAX", 0.0f);
+                }
+                //UIManagerExtensions.EmitVibeText(mergedPawnPosition, "+" + (level - mergeIndexPoint), 0.0f);
 
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
             }, () => 
                 { 
                     mergedPawn.OnMerge();
-                    UIManagerExtensions.EmitVibeText(mergedPawnPosition, "+" + (level - mergeIndexPoint));
                 });
             
             UIManager.THIS.shopBar.Amount += level * 0.075f;
@@ -265,6 +269,8 @@ namespace Game
                 int mergeIndexPoint = 0;
                 float delay = 0.0f;
 
+                int highestPoint = 0;
+
                 for (int i = 0; i < Size.x; i++)
                 {
                     int index = i;
@@ -281,6 +287,9 @@ namespace Game
                     if (place.Current.Unbox(delay += 0.025f))
                     {
                         point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
+
+                        highestPoint = Mathf.Max(highestPoint, point);
+
                         totalPoint += point;
                         
                         // Particle.Merge_1.Play(place.Current.transform.position, scale : Vector3.one * 0.35f);
@@ -319,8 +328,15 @@ namespace Game
                     };
                 }
 
-                totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
-                SpawnMergedPawn(spawnPlace, totalPoint, mergeIndexPoint);
+                int maxClamp = _Data.maxStack * multiplier;
+                maxClamp = Mathf.Max(maxClamp, highestPoint);
+
+                bool max = (totalPoint > maxClamp);
+                if(max)
+                {
+                    totalPoint = Mathf.Clamp(totalPoint, 0, maxClamp);
+                }
+                SpawnMergedPawn(spawnPlace, totalPoint, mergeIndexPoint, max);
             }
         }
 

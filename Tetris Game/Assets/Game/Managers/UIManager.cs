@@ -147,6 +147,6 @@ public static class UIManagerExtensions
 
     public static void EmitVibeText(Vector3 worldPosition, string str, float delay = 0.0f)
     {
-        UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, 0.35f, delay);
+        UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, 0.25f, delay);
     }
 }
