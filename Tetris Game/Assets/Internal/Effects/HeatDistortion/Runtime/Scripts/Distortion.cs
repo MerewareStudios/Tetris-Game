@@ -23,22 +23,22 @@ namespace Visual.Effects
             Distortion.OnComplete = OnComplete;
         }
 
-        public void Distort(Vector3 worldPosition, Vector3 forward, Vector3 scale, float duration, float delay)
+        public void Distort(Vector3 worldPosition, Vector3 forward, float scale, float startRamp, float endRamp, float duration, Ease ease, float delay)
         {
             transform.position = worldPosition;
             transform.forward = forward;
-            transform.localScale = scale;
-            Animate(-0.1f, 0.8f, 0.1f, 0.0f, duration, delay);
+            transform.localScale = Vector3.one * scale;
+            Animate(startRamp, endRamp, 0.1f, 0.0f, duration, ease, delay);
         }
 
-        private void Animate(float startRamp, float endRamp, float startPower, float endPower, float duration, float delay)
+        private void Animate(float startRamp, float endRamp, float startPower, float endPower, float duration, Ease ease, float delay)
         {
             meshRenderer.SetFloat(mpb, rampID, startRamp);
             meshRenderer.SetFloat(mpb, powerID, startPower);
 
             float value = 0.0f;
             animationTween?.Kill();
-            animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(Ease.InSine).SetDelay(delay);
+            animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetDelay(delay);
             animationTween.onUpdate = () =>
             {
                 float ramp = Mathf.Lerp(startRamp, endRamp, value);

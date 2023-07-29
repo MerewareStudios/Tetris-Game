@@ -55,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.75
+    - _Alpha: 0.9
     - _DecalMeshBiasType: 0
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
@@ -72,7 +72,7 @@ Material:
     - _Ramp: 0.43
     - _Sine_Power: 2.4
     - _Start: 0.11
-    - _Transition: 0.1
+    - _Transition: 0.125
     - _step: 0
     m_Colors:
     - _Center: {r: 0, g: 0, b: 0, a: 0}

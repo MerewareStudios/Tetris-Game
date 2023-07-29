@@ -32,7 +32,7 @@ namespace Game
                 // SetPlaceType(PlaceType.EMPTY, true);
                 this._placeType = PlaceType.EMPTY;
 
-                Color color = value ? Const.THIS.mergerPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
+                Color color = value ? Const.THIS.shooterPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
                 placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
             }
         }
@@ -82,7 +82,7 @@ namespace Game
             Color color = Const.THIS.placeColors[(int)placeType];
             if (placeType.Equals(PlaceType.EMPTY) && Supplier)
             {
-                color = Const.THIS.mergerPlaceColor;
+                color = Const.THIS.shooterPlaceColor;
             }
 
             DoColor(color);

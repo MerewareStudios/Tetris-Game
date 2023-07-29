@@ -216,7 +216,7 @@ namespace Game
 
         
 
-        private void SpawnMergedPawn(Place place, int level, int mergeIndexPoint, bool max)
+        private void SpawnMergedPawn(Place place, int level)
         {
             Vector3 mergedPawnPosition = place.transform.position;
             // Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
@@ -228,13 +228,13 @@ namespace Game
             
             place.AcceptNow(mergedPawn);
 
-            if (max)
-            {
-                UIManagerExtensions.EmitVibeText(mergedPawn.transform.position + Vector3.up * 0.55f, "MAX", 0.15f, 0.275f);
-            }
+            // if (max)
+            // {
+            //     UIManagerExtensions.EmitVibeText(mergedPawn.transform.position + Vector3.up * 0.55f, "MAX",  AnimConst.THIS.maxTextDuration, AnimConst.THIS.maxTextDelay);
+            // }
 
             mergedPawn.MarkMergerColor();
-            mergedPawn.AnimatedShow(0.35f, () =>
+            mergedPawn.AnimatedShow(AnimConst.THIS.MergeTotalDur, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, () =>
             {
                 
                 //UIManagerExtensions.EmitVibeText(mergedPawnPosition, "+" + (level - mergeIndexPoint), 0.0f);
@@ -268,10 +268,10 @@ namespace Game
                 int totalPoint = 0;
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
-                int mergeIndexPoint = 0;
+                // int mergeIndexPoint = 0;
                 float delay = 0.0f;
 
-                int highestPoint = 0;
+                // int highestPoint = 0;
 
                 for (int i = 0; i < Size.x; i++)
                 {
@@ -290,7 +290,7 @@ namespace Game
                     {
                         point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
 
-                        highestPoint = Mathf.Max(highestPoint, point);
+                        // highestPoint = Mathf.Max(highestPoint, point);
 
                         totalPoint += point;
                         
@@ -301,14 +301,14 @@ namespace Game
                     {
                         highestTick = place.Current.Tick;
                         mergeIndex = index;
-                        mergeIndexPoint = point;
+                        // mergeIndexPoint = point;
                     }
                     else if(place.Current.Tick == highestTick)
                     {
                         Helper.IsPossible(0.5f,() =>
                                                 {
                                                     mergeIndex = index;
-                                                    mergeIndexPoint = point;
+                                                    // mergeIndexPoint = point;
                                                 }
                         );
                     }
@@ -330,15 +330,16 @@ namespace Game
                     };
                 }
 
-                int maxClamp = _Data.maxStack * multiplier;
-                maxClamp = Mathf.Max(maxClamp, highestPoint);
+                // int maxClamp = _Data.maxStack;
+                // int maxClamp = _Data.maxStack * multiplier;
+                // maxClamp = Mathf.Max(maxClamp, highestPoint);
 
-                bool max = (totalPoint > maxClamp);
-                if(max)
-                {
-                    totalPoint = Mathf.Clamp(totalPoint, 0, maxClamp);
-                }
-                SpawnMergedPawn(spawnPlace, totalPoint, mergeIndexPoint, max);
+                // bool max = (totalPoint > maxClamp);
+                // if(max)
+                // {
+                    totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
+                // }
+                SpawnMergedPawn(spawnPlace, totalPoint);
             }
         }
 

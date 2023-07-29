@@ -30,7 +30,7 @@ public class Const : SSingleton<Const>
     public Color steadyColor;
     public Color mergerColor;
     public Color[] placeColors;
-    public Color mergerPlaceColor;
+    public Color shooterPlaceColor;
     public Color[] enemyColors; // enemy colors
     public Color singleColor;
     public Color comboColor;

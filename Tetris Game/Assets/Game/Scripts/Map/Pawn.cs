@@ -68,10 +68,10 @@ namespace Game
                         levelText.text = UsageType.ToString().ToTMProKey(_amount);
                         break;
                     case Usage.Shooter:
-                        levelText.text = _amount.ToString();
+                        levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
                         break;
                     case Usage.ShooterIdle:
-                        levelText.text = _amount.ToString();
+                        levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
                         break;
                     default:
                         levelText.text = UsageType.ToString().ToTMProKey();
@@ -200,19 +200,23 @@ namespace Game
             meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
         }
         #endregion
-        public void AnimatedShow(float delay, System.Action start = null, System.Action complete = null)
+        public void AnimatedShow(float delay, float scale, float duration, System.Action start = null, System.Action complete = null)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
-            modelPivot.DOScale(Vector3.one, 0.25f).SetDelay(delay).SetEase(Ease.OutBack, 2.0f)
-                    .OnStart(() => 
-                {
-                    start?.Invoke();    
-                })
-                .onComplete += () => 
-                {
-                    complete?.Invoke();    
-                };
+            
+            DOVirtual.DelayedCall(delay, () =>
+            {
+                start?.Invoke();    
+
+                modelPivot.DOKill();
+                modelPivot.localScale = Vector3.one;
+                modelPivot.DOPunchScale(Vector3.one * scale, duration, 1)
+                    .onComplete += () => 
+                    {
+                        complete?.Invoke();    
+                    };
+                });
         }
         public void PunchScaleBullet(float magnitude)
         {

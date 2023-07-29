@@ -16,3 +16,10 @@ MonoBehaviour:
   mergeTravelDur: 0.2
   mergeTravelShoot: 1
   mergeTravelEase: 8
+  mergedScalePunch: 0.35
+  mergedScaleDuration: 0.35
+  distortScale: 3.5
+  distortStartRamp: -0.18
+  distortEndRamp: 0.5
+  distortDuration: 0.55
+  distortEase: 1

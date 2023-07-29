@@ -13,7 +13,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public ShopBar shopBar;
    [SerializeField] public LoanBar loanBar;
    [Header("Flying Text")]
-   [SerializeField] public FlyingText ft_Level;
+   // [SerializeField] public FlyingText ft_Level;
    [SerializeField] public FlyingText ft_Combo;
    [SerializeField] public FlyingText ft_Icon;
    [SerializeField] public FlyingText ft_Icon_MenuOnTop;
@@ -34,8 +34,8 @@ public class UIManager : Singleton<UIManager>
    {
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
       
-      ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();
-      ft_Level.ReturnInstance = (mono) => { mono.Despawn(); };
+      // ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();
+      // ft_Level.ReturnInstance = (mono) => { mono.Despawn(); };
       
       ft_Combo.OnGetInstance = () => Pool.Flying_Text___Combo.Spawn<TextMeshProUGUI>();
       ft_Combo.ReturnInstance = (mono) => { mono.Despawn(); };
@@ -142,13 +142,13 @@ public static class UIManagerExtensions
     {
         Transform camTrasform = CameraManager.THIS.gameCamera.transform;
         Vector3 pos = worldPosition + camTrasform.forward * -3.0f;
-        Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, Vector3.one * 3.0f, 0.55f, delay);
+        Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortStartRamp, AnimConst.THIS.distortEndRamp, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
     }
 
-    public static void EmitVibeText(Vector3 worldPosition, string str, float duration = 0.2f, float delay = 0.0f)
-    {
-        UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, duration, delay);
-    }
+    // public static void EmitVibeText(Vector3 worldPosition, string str, float duration = 0.2f, float delay = 0.0f)
+    // {
+    //     UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, duration, delay);
+    // }
 
     public static void EmitComboText(int combo, float duration = 0.2f, float delay = 0.0f)
     {
