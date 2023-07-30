@@ -19,7 +19,7 @@ public class Spawner : Singleton<Spawner>
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
 
-    [SerializeField] private float horSense = 1.5f;
+    // [SerializeField] private float horSense = 1.5f;
 
     [System.NonSerialized] private Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;

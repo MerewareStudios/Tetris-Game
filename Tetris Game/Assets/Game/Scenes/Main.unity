@@ -1221,7 +1221,6 @@ MonoBehaviour:
   modelPivot: {fileID: 1847584227}
   spawnedBlockLocation: {fileID: 860089792}
   distanceFromDraggingFinger: {x: 0, y: 0, z: 2}
-  horSense: 1.25
 --- !u!1 &548236970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,7 +3161,6 @@ MonoBehaviour:
     playerData:
       time: 0
       currentHealth: 1
-      maxHealth: 1
       turnRate: 6
       gunData:
         gunType: 0
@@ -4041,6 +4039,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stat Display - Health
       objectReference: {fileID: 0}
+    - target: {fileID: 1635701341939765859, guid: a476a1a218143a44b8297e949b95c01f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1832308140432844204, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4079,7 +4082,7 @@ PrefabInstance:
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
@@ -4089,17 +4092,17 @@ PrefabInstance:
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
@@ -4139,7 +4142,7 @@ PrefabInstance:
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 4848507863437068190, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}

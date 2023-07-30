@@ -21,6 +21,10 @@ public class Shield : MonoBehaviour, TickManager.ITickable
     {
         set
         {
+            if (_activated == value)
+            {
+                return;
+            }
             _activated = value;
             if (value)
             {
@@ -51,7 +55,7 @@ public class Shield : MonoBehaviour, TickManager.ITickable
             _data = value;
             if (_data.CanProtect)
             {
-                DisplayProtection();
+                ResumeProtection();
             }
         }
         get => _data;
@@ -80,10 +84,6 @@ public class Shield : MonoBehaviour, TickManager.ITickable
     private void DisplayProtection()
     {
         StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.amount, _Data.Percent, true, true);
-        if (Enabled)
-        {
-            return;
-        }
         Enabled = true;
     }
     public void ResumeProtection()
@@ -92,7 +92,10 @@ public class Shield : MonoBehaviour, TickManager.ITickable
         if (_data.CanProtect)
         {
             DisplayProtection();
-            TickManager.THIS.AddTickable(this);
+            if (!TickManager.THIS.IsTicking(this))
+            {
+                TickManager.THIS.AddTickable(this);
+            }
         }
     }
     public void PauseProtection()

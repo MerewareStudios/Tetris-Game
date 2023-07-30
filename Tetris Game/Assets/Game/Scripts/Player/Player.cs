@@ -32,7 +32,6 @@ namespace Game
         [System.NonSerialized] private static readonly int DEATH_HASH = Animator.StringToHash("Death");
         [System.NonSerialized] private static readonly int GETUP_HASH = Animator.StringToHash("GetUp");
 
-
         // public static int RANDOM_DEATH_HASH => DEATH_HASHES.Random(); 
 #region  Mono
 
@@ -80,12 +79,36 @@ namespace Game
                 _data = value;
                 var pos = transform.position;
                 _selfPosition = new Vector2(pos.x, pos.z);
-                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth);
+
+                _CurrentHealth = _data.currentHealth;
 
                 _GunData = _data.gunData;
                 _ShieldData = _data.shieldData;
             }
             get => _data;
+        }
+        
+        public int _CurrentHealth
+        {
+            set
+            {
+                _data.currentHealth = value;
+
+                if (_data.currentHealth > 0)
+                {
+                    StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth);
+                }
+                else
+                {
+                    StatDisplayArranger.THIS.Hide(StatDisplay.Type.Health);
+                }
+                
+                if (_Data.currentHealth < 0)
+                {
+                    OnDeath?.Invoke();
+                }
+            }
+            get => _data.currentHealth;
         }
         
         public Gun.Data _GunData
@@ -114,34 +137,11 @@ namespace Game
             get => _data.shieldData;
         }
         
-        public int _DamageTaken
-        {
-            set
-            {
-                _Data.currentHealth = Mathf.Clamp(_data.currentHealth - value, 0, _data.maxHealth);
-                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth);
-                
-                if (_Data.currentHealth <= 0)
-                {
-                    OnDeath?.Invoke();
-                }
-            }
-        }
         public void ReplenishHealth()
         {
-            if (_Data.currentHealth >= _Data.maxHealth) return;
+            if (_CurrentHealth > 0) return;
             
-            _Data.currentHealth = _Data.maxHealth;
-            StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, punch : true);
-        }
-        public int _HealthGained
-        {
-            set
-            {
-                _Data.currentHealth = value;
-                StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, 1.0f, true);
-            }
-            get => _Data.currentHealth;
+            _CurrentHealth = 0;
         }
 
         public void Shoot(int bulletCount)
@@ -203,7 +203,7 @@ namespace Game
         
         public void Reset()
         {
-            _Data.currentHealth = _Data.maxHealth;
+            _CurrentHealth = 0;
             _Data = _data;
         }
         
@@ -211,8 +211,7 @@ namespace Game
         public class Data : ICloneable
         {
             [SerializeField] public float time;
-            [SerializeField] public int currentHealth = 1;
-            [SerializeField] public int maxHealth = 1;
+            [SerializeField] public int currentHealth = 0;
             [SerializeField] public float turnRate = 6.0f;
             [SerializeField] public Gun.Data gunData;
             [SerializeField] public Shield.Data shieldData;
@@ -221,8 +220,7 @@ namespace Game
             public Data()
             {
                 this.time = 0.0f;
-                this.currentHealth = 1;
-                this.maxHealth = 1;
+                this.currentHealth = 0;
                 this.turnRate = 6.0f;
                 this.gunData = null;
                 this.shieldData = null;
@@ -231,7 +229,6 @@ namespace Game
             {
                 this.time = data.time;
                 this.currentHealth = data.currentHealth;
-                this.maxHealth = data.maxHealth;
                 this.turnRate = data.turnRate;
                 this.gunData = data.gunData.Clone() as Gun.Data;
                 this.shieldData = data.shieldData.Clone() as Shield.Data;

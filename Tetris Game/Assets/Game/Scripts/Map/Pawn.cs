@@ -13,6 +13,7 @@ namespace Game
         [SerializeField] public MeshRenderer meshRenderer;
         [SerializeField] private TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
+        [SerializeField] public Transform forwardPivot;
 
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Transform _thisTransform;
@@ -232,6 +233,12 @@ namespace Game
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.one * magnitude, duration).SetRelative(true);
+        }
+        public void PunchForward(float magnitude, float duration)
+        {
+            forwardPivot.DOKill();
+            forwardPivot.localPosition = Vector3.zero;
+            forwardPivot.DOPunchPosition(Vector3.forward * magnitude, duration, 1);
         }
         public void Hide(System.Action complete = null)
         {

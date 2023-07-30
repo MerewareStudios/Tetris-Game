@@ -27,8 +27,7 @@ MonoBehaviour:
   PowerUps: 0300000004000000
   DefaultPlayerData:
     time: 0
-    currentHealth: 1
-    maxHealth: 1
+    currentHealth: 0
     turnRate: 12
     gunData:
       gunType: 0
@@ -53,7 +52,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 0
     adTransactionData:
-      value: 1
+      value: 0
     shopFillTransactionData:
       value: 0
     blockShopData:

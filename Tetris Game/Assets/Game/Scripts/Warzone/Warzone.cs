@@ -72,7 +72,8 @@ namespace  Game
                 return;
             }
             CameraManager.THIS.Shake();
-            this.Player._DamageTaken = -detakenDamage;
+
+            this.Player._CurrentHealth += detakenDamage;
         } 
         public void EnemyKilled(Enemy enemy)
         {
@@ -258,7 +259,7 @@ namespace  Game
     
         public void GiveHeart(int amount)
         {
-            Player._HealthGained += amount;
+            Player._CurrentHealth += amount;
         }
         public void GiveShield(int amount)
         {

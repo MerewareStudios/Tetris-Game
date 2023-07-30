@@ -101,7 +101,7 @@ namespace Game
             this.Current = pawn;
 
             pawn.transform.parent = segmentParent;
-            pawn.Move(segmentParent.position, duration, Ease.Linear, () =>
+            pawn.Move(segmentParent.position, duration, AnimConst.THIS.moveEase, () =>
             {
                 OnComplete?.Invoke();
             });

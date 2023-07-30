@@ -13,7 +13,10 @@ public class TickManager : Singleton<TickManager>
 		float TickInterval { get; }
 		public void OnTick();
 	}
-
+	public bool IsTicking(ITickable tickable)
+	{
+		return _tickers.ContainsKey(tickable.TickInterval);
+	}
 	public void AddTickable(ITickable tickable)
 	{
 		if (!_tickers.ContainsKey(tickable.TickInterval))

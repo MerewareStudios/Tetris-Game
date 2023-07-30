@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Anim Const", menuName = "Game/Anim Const", order = 0)]
 public class AnimConst : SSingleton<AnimConst>
 {
+    [Header("Pawn")]
+    public Ease moveEase;
     [Header("Board")]
     public float mergeTravelDelay = 0.15f;
     public float mergeTravelDur = 0.2f;
