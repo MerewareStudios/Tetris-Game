@@ -10,5 +10,6 @@ public enum Particle
     Piggy_Break_Ps = 7,
     Green_Zone = 8,
     Merge_Circle = 9,
+    Square_Bullet = 10,
 
 }

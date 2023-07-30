@@ -378,7 +378,10 @@ namespace Game
                     currentPawn.Amount -= ammo;
                     if (currentPawn.Amount > 0)
                     {
-                        currentPawn.PunchScaleBullet(-0.2f);
+                        currentPawn.PunchScaleBullet(-0.4f);
+                        
+                        Particle.Square_Bullet.Emit(1, currentPawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+
                     }
                     else
                     {

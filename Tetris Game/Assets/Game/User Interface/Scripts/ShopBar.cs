@@ -13,7 +13,8 @@ public class ShopBar : Transactor<ShopBar, float>
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private RectTransform prompt;
     [SerializeField] private UnityEvent OnClickAction;
-    [FormerlySerializedAs("particleSystem")] [SerializeField] private ParticleSystem effectPS;
+    [SerializeField] private GameObject parent;
+    [SerializeField] private ParticleSystem effectPS;
     [System.NonSerialized] private Tween fillTween;
     
     public override void Set(ref User.TransactionData<float> transactionData)
@@ -23,7 +24,7 @@ public class ShopBar : Transactor<ShopBar, float>
         
         if (base.TransactionData.value >= 1.0f)
         {
-            ShowPrompt();
+            Show();
         }
     }
     
@@ -39,11 +40,13 @@ public class ShopBar : Transactor<ShopBar, float>
             
             base.TransactionData.value = Mathf.Clamp(value, 0.0f, 1.0f);
             
+            parent.SetActive(base.TransactionData.value > 0.0f);
+            
             PunchScale(0.3f);
             
             if (base.TransactionData.value >= 1.0f)
             {
-                ShowPrompt();
+                Show();
             }
             
             Fill = base.TransactionData.value;
@@ -73,20 +76,19 @@ public class ShopBar : Transactor<ShopBar, float>
         OnClickAction?.Invoke();
         
         effectPS.Stop();
-        // ConsumeFill();
     }
 
-    public void ConsumeFill()
+    public void Consume()
     {
         HidePrompt();
-        
-        base.TransactionData.value = 0.0f;
-        Fill = base.TransactionData.value;
+
+        Amount = 0.0f;
     }
     
-    public void ShowPrompt()
+    public void Show()
     {
         effectPS.Play();
+        
         prompt.gameObject.SetActive(true);
         prompt.localScale = Vector3.one;
         prompt.DOKill();

@@ -112,7 +112,7 @@ namespace Game.UI
             
             Show();
             
-            UIManager.THIS.shopBar.ConsumeFill();
+            UIManager.THIS.shopBar.Consume();
         }
 
         public void OnClick_Purchase()
