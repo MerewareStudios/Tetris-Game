@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6505600522280500471}
   m_Layer: 0
-  m_Name: Forward Pivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 539373785548880513}
   levelText: {fileID: 3293514591919851551}
   modelPivot: {fileID: 7562534648866976737}
-  forwardPivot: {fileID: 6505600522280500471}
+  pivot: {fileID: 6505600522280500471}
 --- !u!1 &6162316120112434110
 GameObject:
   m_ObjectHideFlags: 0
