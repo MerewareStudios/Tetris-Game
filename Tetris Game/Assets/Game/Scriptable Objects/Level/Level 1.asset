@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelData:
     spawnDelay: 5
-    totalEnemyHealth: 100
+    totalEnemyHealth: 10
     maxMerge: 1
     mergeProbability: 0
     enemySpeed: 0.1
     spawnWidth: 2.25
     spawnInterval: {x: 0.5, y: 1}
   victoryReward:
-    type: 1
-    amount: 2
+    type: 0
+    amount: 25
   failReward:
     type: 0
-    amount: 100
+    amount: 5

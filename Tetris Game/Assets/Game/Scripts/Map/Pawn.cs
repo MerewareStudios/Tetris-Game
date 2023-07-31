@@ -16,6 +16,7 @@ namespace Game
         [SerializeField] public Transform pivot;
 
         [System.NonSerialized] private Tween _moveTween = null;
+        [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Block ParentBlock;
         [System.NonSerialized] private int _amount = 1;
@@ -131,7 +132,8 @@ namespace Game
         
         public void Deconstruct()
         {
-            _moveTween?.Kill();
+            KillTweens();
+            
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
 
@@ -139,12 +141,17 @@ namespace Game
 
             this.Despawn();
         }
-        
+
+        private void KillTweens()
+        {
+            _delayedTween?.Kill();
+            _moveTween?.Kill();
+
+        }
         public void OnVictory()
         {
-            _moveTween?.Kill();
-            modelPivot.DOKill();
-            
+            KillTweens();
+
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
@@ -158,19 +165,13 @@ namespace Game
         }
         public void OnFail()
         {
-            _moveTween?.Kill();
-            modelPivot.DOKill();
-            
+            KillTweens();
+
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
                 .onComplete += Deconstruct;
 
-            
-            // UIManagerExtensions.EarnCoinWorld(levelText.transform.position, 1.25f, () =>
-            // {
-            //     Wallet.COIN.Transaction(1);
-            // });
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
@@ -206,7 +207,8 @@ namespace Game
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
             
-            DOVirtual.DelayedCall(delay, () =>
+            _delayedTween?.Kill();
+            _delayedTween = DOVirtual.DelayedCall(delay, () =>
             {
                 start?.Invoke();    
 
