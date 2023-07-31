@@ -14,8 +14,9 @@ namespace Game
     public class Player : MonoBehaviour
     {
         [SerializeField] public Shield shield;
+        [FormerlySerializedAs("_animator")]
         [Header("Motion Settings")]
-        [SerializeField] private Animator _animator;
+        [SerializeField] public Animator animator;
         [SerializeField] private Transform holster;
         [SerializeField] public Transform shiledTarget;
         [System.NonSerialized] private Gun gun;
@@ -25,12 +26,16 @@ namespace Game
 
         [System.NonSerialized] private Vector2 _selfPosition;
         [System.NonSerialized] private float _currentAngle = 0.0f;
-        [System.NonSerialized] private bool shouldGetUp = false;
+        [System.NonSerialized] private bool _shouldGetUp = false;
+        [System.NonSerialized] private Coroutine _searchRoutine = null;
         
-        [System.NonSerialized] private static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
-        [System.NonSerialized] private static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
-        [System.NonSerialized] private static readonly int DEATH_HASH = Animator.StringToHash("Death");
-        [System.NonSerialized] private static readonly int GETUP_HASH = Animator.StringToHash("GetUp");
+        [System.NonSerialized] public static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
+        [System.NonSerialized] public static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
+        [System.NonSerialized] public static readonly int DEATH_HASH = Animator.StringToHash("Death");
+        [System.NonSerialized] public static readonly int GETUP_HASH = Animator.StringToHash("GetUp");
+        [System.NonSerialized] public static readonly int WAVE_HASH = Animator.StringToHash("Wave");
+        [System.NonSerialized] public static readonly int SHOW_HASH = Animator.StringToHash("Show");
+        [System.NonSerialized] public static readonly int POINT_HASH = Animator.StringToHash("Point");
 
         // public static int RANDOM_DEATH_HASH => DEATH_HASHES.Random(); 
 #region  Mono
@@ -42,32 +47,9 @@ namespace Game
                 newGunData.prevShoot = _GunData.prevShoot;
                 _GunData = newGunData;
             };
-        }
 
 
-        void Update()
-        {
-            if (Warzone.THIS.Enemies.Count == 0)
-            {
-                return;
-            }
-            var targetPosition = Warzone.THIS.Enemies[0].transform.position;
-            Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
-            float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
-            _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate);
-
-            transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
-
-            float angleDif = Mathf.Abs(_currentAngle - targetAngle);
-
-            if ((_Data.time - gun._Data.prevShoot > gun._Data.fireRate) && angleDif <= 1.0f)
-            {
-                int bulletCount = Board.THIS.ConsumeBullet(_data.gunData.split);
-                Shoot(bulletCount);
-                gun._Data.prevShoot = _Data.time;
-            }
-
-            _Data.time += Time.deltaTime;
+            Onboarding.AmmoPlacementCheck();
         }
 
 #endregion
@@ -150,7 +132,7 @@ namespace Game
 
             if (shootCount > 0)
             {
-                _animator.SetTrigger(SHOOT_HASH);
+                animator.SetTrigger(SHOOT_HASH);
             }
             for (int i = 0; i < shootCount; i++)
             {
@@ -160,7 +142,7 @@ namespace Game
 
         public void Deconstruct()
         {
-            this.enabled = false;
+            StopSearching();
 
             _currentAngle = 0.0f;
             transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
@@ -174,31 +156,81 @@ namespace Game
         
         public void OnVictory()
         {
-            this.enabled = false;
+            StopSearching();
             shield.PauseProtection();
-            _animator.SetTrigger(VICTORY_HASH);
+            animator.SetTrigger(VICTORY_HASH);
         }
         public void OnFail()
         {
-            this.enabled = false;
+            StopSearching();
             shield.PauseProtection();
-            _animator.SetTrigger(DEATH_HASH);
-            shouldGetUp = true;
+            animator.SetTrigger(DEATH_HASH);
+            _shouldGetUp = true;
         }
-        public void Begin()
+        public void StartSearching()
+        {
+            _searchRoutine = StartCoroutine(SearchEnemyRoutine());
+            
+            IEnumerator SearchEnemyRoutine()
+            {
+                while (true)
+                {
+                    if (Warzone.THIS.Enemies.Count > 0)
+                    {
+                        var targetPosition = Warzone.THIS.Enemies[0].transform.position;
+                        Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
+                        float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
+                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate);
+
+                        transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
+
+                        float angleDif = Mathf.Abs(_currentAngle - targetAngle);
+
+                        if ((_Data.time - gun._Data.prevShoot > gun._Data.fireRate) && angleDif <= 1.0f)
+                        {
+                            int bulletCount = Board.THIS.ConsumeBullet(_data.gunData.split);
+                            Shoot(bulletCount);
+                            gun._Data.prevShoot = _Data.time;
+                        }
+
+                        _Data.time += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+            }
+        }
+
+        public void StopSearching()
+        {
+            if (_searchRoutine != null)
+            {
+                StopCoroutine(_searchRoutine);
+                _searchRoutine = null;
+            }
+        }
+        public void Replenish()
         {
             ReplenishHealth();
 
-            transform.DORotate(Vector3.zero, 1.25f).onComplete += () =>
-            {
-                this.enabled = true;
-            };
+            transform.DOKill();
+            transform.DORotate(Vector3.zero, 1.25f);
+                // .onComplete += () =>
+            // {
+            //     this.enabled = true;
+            // };
 
-            if (shouldGetUp)
+            if (_shouldGetUp)
             {
-                _animator.SetTrigger(GETUP_HASH);
-                shouldGetUp = false;
+                animator.SetTrigger(GETUP_HASH);
+                _shouldGetUp = false;
             }
+        }
+        
+        public void RotateToPlayer(float rotateDuration)
+        {
+            transform.DOKill();
+            transform.DORotate(new Vector3(0.0f, 180.0f, 0.0f), rotateDuration);
         }
         
         public void Reset()

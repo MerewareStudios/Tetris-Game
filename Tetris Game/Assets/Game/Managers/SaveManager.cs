@@ -11,6 +11,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 {
     [SerializeField] public Const Const;
     [SerializeField] public AnimConst AnimConst;
+    [SerializeField] public Onboarding Onboarding;
     [SerializeField] public bool SKIP_ONBOARDING = true;
 
     public override void Awake()
@@ -19,6 +20,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         Const.THIS = this.Const;
         AnimConst.THIS = this.AnimConst;
+        Onboarding.THIS = this.Onboarding;
 
         if (!saveData.saveGenerated)
         {
@@ -50,7 +52,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
-        
     }
 }
 public static class SaveManagerExtensions
@@ -164,5 +165,6 @@ namespace User
 
 public enum ONBOARDING
 {
-    TEMP_STEP,
+    NEED_AMMO_TEXT_SHOWN,
+    TEACH_MERGE_PLACE,
 }

@@ -96,6 +96,8 @@ namespace  Game
             StopSpawning();
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             
+            Player.StartSearching();
+            
             IEnumerator SpawnRoutine()
             {
                 Countdown.THIS.Count((int)LevelData.spawnDelay);
@@ -136,7 +138,7 @@ namespace  Game
 
         public void OnLevelLoad()
         {
-            Player.Begin();
+            Player.Replenish();
         }
 
         private void StopSpawning()

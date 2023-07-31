@@ -10,7 +10,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
-        Spawner.THIS.Begin(0.45f);
+        // Spawner.THIS.Begin(0.45f);
 
         UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
 

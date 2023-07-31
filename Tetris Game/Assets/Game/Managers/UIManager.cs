@@ -26,6 +26,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public CurrencyTransactor gem;
    [SerializeField] public CurrencyTransactor ad;
    [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
+   [Header("Tutorial")]
+   [SerializeField] public SpeechBubble speechBubble;
 
 
    // Make them info list

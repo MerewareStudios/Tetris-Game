@@ -132,6 +132,8 @@ public class Spawner : Singleton<Spawner>
 
         if (Board.THIS.CanPlace(_currentBlock))
         {
+            Onboarding.ShowAmmoBoxMerge();
+
             Board.THIS.Place(_currentBlock);
 
             _currentBlock = null;
