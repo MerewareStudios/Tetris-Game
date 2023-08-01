@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   LevelData:
-    spawnDelay: 5
+    spawnDelay: 3
     totalEnemyHealth: 10
     maxMerge: 1
     mergeProbability: 0

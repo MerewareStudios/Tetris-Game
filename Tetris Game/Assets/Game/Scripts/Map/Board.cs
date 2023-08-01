@@ -252,6 +252,11 @@ namespace Game
 
         public void MergeLines(List<int> lines, float mergeTravelDelay, float mergeTravelDuration, Ease mergeTravelEase, float mergeTravelShoot)
         {
+            if (ONBOARDING.HAVE_MERGED.IsNotComplete())
+            {
+                Onboarding.ApriciateForMerge();
+            }
+            
             OnMerge?.Invoke();
             
             for (int i = 0; i < lines.Count; i++)

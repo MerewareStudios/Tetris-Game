@@ -10,19 +10,30 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI text;
     [System.NonSerialized] private Tween _tween;
+    [System.NonSerialized] private Tween _delayTween;
     
-    public void Speak(string txt, float delay = 0.0f)
+    public void Speak(string txt, float delay = 0.0f, float? closeDelay = null)
     {
+        _delayTween?.Kill();
+            
         this.gameObject.SetActive(true);
         canvasGroup.alpha = 0.0f;
         text.text = txt;
         
         _tween?.Kill();
         _tween = canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetDelay(delay);
+
+        if (closeDelay != null)
+        {
+            _delayTween?.Kill();
+            _delayTween = DOVirtual.DelayedCall((float)closeDelay, Hide);
+        }
     }
     
     public void Hide()
     {
+        _delayTween?.Kill();
+
         _tween?.Kill();
         _tween = canvasGroup.DOFade(0.0f, 0.2f).SetEase(Ease.InOutSine);
         _tween.onComplete += () =>

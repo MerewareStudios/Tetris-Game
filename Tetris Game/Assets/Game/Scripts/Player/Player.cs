@@ -29,8 +29,10 @@ namespace Game
         [System.NonSerialized] private bool _shouldGetUp = false;
         [System.NonSerialized] private Coroutine _searchRoutine = null;
         
+        [System.NonSerialized] public static readonly int IDLE_HASH = Animator.StringToHash("Idle");
         [System.NonSerialized] public static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
         [System.NonSerialized] public static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
+        [System.NonSerialized] public static readonly int VICTORY_INF_HASH = Animator.StringToHash("VictoryInf");
         [System.NonSerialized] public static readonly int DEATH_HASH = Animator.StringToHash("Death");
         [System.NonSerialized] public static readonly int GETUP_HASH = Animator.StringToHash("GetUp");
         [System.NonSerialized] public static readonly int WAVE_HASH = Animator.StringToHash("Wave");

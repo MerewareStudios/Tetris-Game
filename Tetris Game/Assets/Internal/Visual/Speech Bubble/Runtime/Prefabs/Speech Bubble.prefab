@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4854667067426975871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339.535, y: -76.35}
-  m_SizeDelta: {x: 609.07, y: 178.7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 308.255, y: -181.245}
+  m_SizeDelta: {x: 546.51, y: 388.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &566613915507816029
 CanvasRenderer:
@@ -65,11 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Drag and drop
-
-    that ammo box
-
-    to the grid!'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 323ad0eb805f4a542b5f3a091c7982e8, type: 2}
   m_sharedMaterial: {fileID: -7252815453507711536, guid: 323ad0eb805f4a542b5f3a091c7982e8,
@@ -177,7 +173,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -115, y: 29}
-  m_SizeDelta: {x: 669.07, y: 180.7}
+  m_SizeDelta: {x: 606.51, y: 397.49}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1033886294549221282
 CanvasRenderer:
@@ -277,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &296816733488146172
 RectTransform:
   m_ObjectHideFlags: 0
@@ -420,6 +416,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -239, y: -643}
+  m_AnchoredPosition: {x: -239, y: -672}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}

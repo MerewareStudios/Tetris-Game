@@ -132,8 +132,6 @@ public class Spawner : Singleton<Spawner>
 
         if (Board.THIS.CanPlace(_currentBlock))
         {
-            Onboarding.ShowAmmoBoxMerge();
-
             Board.THIS.Place(_currentBlock);
 
             _currentBlock = null;
@@ -143,7 +141,17 @@ public class Spawner : Singleton<Spawner>
             {
                 _currentBlock = SpawnBlock(); // spawn the next block with delay
             });
-            Warzone.THIS.Begin();
+
+            
+            if (ONBOARDING.TEACH_MERGE_PLACE.IsNotComplete())
+            {
+                Onboarding.ShowAmmoBoxMerge();
+            }
+            // else
+            // {
+            //     Warzone.THIS.Begin();
+            // }
+            
             return;
         }
 

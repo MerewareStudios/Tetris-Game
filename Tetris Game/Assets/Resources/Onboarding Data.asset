@@ -16,3 +16,5 @@ MonoBehaviour:
   needAmmoBubbleDelay: 0.4
   firstBlockSpawnDelay: 2.25
   firstBlockBubbleDelay: 0.4
+  niceOneSkipDelay: 1.5
+  beginDelay: 0.3

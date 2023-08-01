@@ -97,11 +97,17 @@ namespace  Game
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             
             Player.StartSearching();
-            
+
             IEnumerator SpawnRoutine()
             {
+                UIManager.THIS.speechBubble.Speak("Enemies are coming!");
+                yield return new WaitForSeconds(1.0f);
+                UIManager.THIS.speechBubble.Hide();
+
+                
                 Countdown.THIS.Count((int)LevelData.spawnDelay);
                 yield return new WaitForSeconds(LevelData.spawnDelay);
+                
 
                 int totalHealth = LevelData.totalEnemyHealth;
 
