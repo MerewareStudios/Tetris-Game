@@ -100,8 +100,8 @@ namespace  Game
 
             IEnumerator SpawnRoutine()
             {
-                UIManager.THIS.speechBubble.Speak("Enemies are coming!");
-                yield return new WaitForSeconds(1.0f);
+                UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText);
+                yield return new WaitForSeconds(2.5f);
                 UIManager.THIS.speechBubble.Hide();
 
                 

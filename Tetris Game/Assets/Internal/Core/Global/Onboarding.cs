@@ -13,6 +13,13 @@ public class Onboarding : SSingleton<Onboarding>
     public float firstBlockBubbleDelay = 0.5f;
     public float niceOneSkipDelay = 0.5f;
     public float beginDelay = 0.5f;
+
+    [TextArea] [SerializeField] public string needAmmoText;
+    [TextArea] [SerializeField] public string useAmmoBoxText;
+    [TextArea] [SerializeField] public string stackText;
+    [TextArea] [SerializeField] public string niceOneText;
+    [TextArea] [SerializeField] public string keepStackingText;
+    [TextArea] [SerializeField] public string enemiesComingText;
     
     
     public static void AmmoPlacementCheck()
@@ -20,14 +27,14 @@ public class Onboarding : SSingleton<Onboarding>
         if (ONBOARDING.NEED_AMMO_TEXT_SHOWN.IsNotComplete())
         {
             Warzone.THIS.Player.RotateToPlayer(Onboarding.THIS.playerRotateDuration);
-            UIManager.THIS.speechBubble.Speak("I need ammo!", Onboarding.THIS.needAmmoBubbleDelay);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needAmmoText, Onboarding.THIS.needAmmoBubbleDelay);
             Warzone.THIS.Player.animator.SetTrigger(Player.WAVE_HASH);
 
             DOVirtual.DelayedCall(Onboarding.THIS.firstBlockSpawnDelay, () =>
             {
                 DOVirtual.DelayedCall(0.35f, () =>
                 {
-                    UIManager.THIS.speechBubble.Speak("Use that ammo box!", Onboarding.THIS.firstBlockBubbleDelay);
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, Onboarding.THIS.firstBlockBubbleDelay);
                     Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
                 
                     ONBOARDING.NEED_AMMO_TEXT_SHOWN.SetComplete();
@@ -43,7 +50,7 @@ public class Onboarding : SSingleton<Onboarding>
     public static void ShowAmmoBoxMerge()
     {
         Warzone.THIS.Player.RotateToPlayer(Onboarding.THIS.playerRotateDuration);
-        UIManager.THIS.speechBubble.Speak("Stack those boxes here!", Onboarding.THIS.needAmmoBubbleDelay);
+        UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, Onboarding.THIS.needAmmoBubbleDelay);
         Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
         
         ONBOARDING.TEACH_MERGE_PLACE.SetComplete();
@@ -56,16 +63,16 @@ public class Onboarding : SSingleton<Onboarding>
         IEnumerator Routine()
         {
             Warzone.THIS.Player.Replenish();
-            UIManager.THIS.speechBubble.Speak("Nice one!", 0.15f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.niceOneText, 0.15f);
             Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
             ONBOARDING.HAVE_MERGED.SetComplete();
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.75f);
             UIManager.THIS.speechBubble.Hide();
-            yield return new WaitForSeconds(0.2f);
-            UIManager.THIS.speechBubble.Speak("Keep stacking!", 0.2f);
+            yield return new WaitForSeconds(0.1f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.keepStackingText, 0.2f);
             
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(3.0f);
 
             UIManager.THIS.speechBubble.Hide();
             yield return new WaitForSeconds(1.0f);

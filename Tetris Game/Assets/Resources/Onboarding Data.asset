@@ -13,8 +13,17 @@ MonoBehaviour:
   m_Name: Onboarding Data
   m_EditorClassIdentifier: 
   playerRotateDuration: 0.5
-  needAmmoBubbleDelay: 0.4
-  firstBlockSpawnDelay: 2.25
+  needAmmoBubbleDelay: 0.5
+  firstBlockSpawnDelay: 2.75
   firstBlockBubbleDelay: 0.4
   niceOneSkipDelay: 1.5
   beginDelay: 0.3
+  needAmmoText: I need <size=140%><sprite name=AmmoB><bounce a=1 f=2 w=0.5>bullets
+    !</bounce></size>
+  useAmmoBoxText: Use those <size=125%><bounce a=1 f=2 w=1><sprite name=MaxStack>
+    <color=#53A4FF>boxes</color> !</bounce>
+  stackText: <color=#31C167><size=125%><bounce a=0.5 f=2>Merge</bounce></size></color>
+    them here!
+  niceOneText: <wiggle a=1.3 f=3><size=150%>Nice one!</size>
+  keepStackingText: <wiggle a=1.3 f=3><size=150%>Keep merging!</size>
+  enemiesComingText: <shake a=3 f=10><size=120%>Enemies are here!
