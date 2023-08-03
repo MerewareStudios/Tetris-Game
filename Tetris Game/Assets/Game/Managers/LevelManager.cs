@@ -11,13 +11,19 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         // Spawner.THIS.Begin(0.45f);
+        Spawner.THIS.OnLevelLoad();
 
         UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
 
-        Warzone.THIS.LevelData = this.CurrentLevel().GetLevelSo();
+        Warzone.THIS.LevelData = this.CurrentLevel().GetLevelData();
         Warzone.THIS.OnLevelLoad();
         
         UIManager.THIS.loanBar.MakeUnavailable(10.0f);
+    }
+
+    public Board.SuggestedBlock[] GetSuggestedBlocks()
+    {
+        return this.CurrentLevel().GetSuggestedBlocks();
     }
 
     public void CheckVictory()

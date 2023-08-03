@@ -20,6 +20,8 @@ namespace Game
         public Pawn Current { get; set; }
         public bool Occupied => Current;
         public bool IsBorderPlace => index.y == Board.THIS.Size.y - 1;
+        
+        public int LinearIndex => index.x * Board.THIS.Size.y + index.y;
 
 
         public bool Supplier

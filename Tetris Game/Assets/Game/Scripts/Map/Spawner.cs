@@ -27,12 +27,13 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Vector3 _finalPosition;
     [System.NonSerialized] private Tween delayedTween;
     [System.NonSerialized] private Tween assertionTween;
+    [System.NonSerialized] private int _blockSpawnCount = 0;
 
     public void Begin(float delay)
     {
         DOVirtual.DelayedCall(delay, () =>
         {
-            _currentBlock = SpawnBlock();  
+            _currentBlock = SpawnNextBlock();  
         });
     }
     public void Deconstruct()
@@ -44,6 +45,10 @@ public class Spawner : Singleton<Spawner>
             RemoveBlock(block);   
         }
         delayedTween?.Kill();
+    }
+    public void OnLevelLoad()
+    {
+        _blockSpawnCount = 0;
     }
 
     #region User Input
@@ -139,7 +144,7 @@ public class Spawner : Singleton<Spawner>
             delayedTween?.Kill();
             delayedTween = DOVirtual.DelayedCall(0.08f, () =>
             {
-                _currentBlock = SpawnBlock(); // spawn the next block with delay
+                _currentBlock = SpawnNextBlock(); // spawn the next block with delay
             });
 
             
@@ -187,16 +192,37 @@ public class Spawner : Singleton<Spawner>
     #region Spawn
 
     private List<Block> _spawnedBlocks = new();
-    private Block SpawnBlock()
+    private Block SpawnNextBlock()
     {
-        Pool pool = this.RandomBlock();
+        Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
+
+        Board.SuggestedBlock suggestedBlock = null;
+        Pool pool;
+        
+        if (suggestedBlocks.Length > _blockSpawnCount)
+        {
+            suggestedBlock = suggestedBlocks[_blockSpawnCount];
+            pool = suggestedBlock.type;
+        }
+        else
+        {
+            pool = this.RandomBlock();
+        }
+        
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
+
+        block.RequiredIndexes = suggestedBlock == null ? null : suggestedBlock.requiredPlaces;
+        
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;
         blockTransform.localPosition = block.spawnerOffset;
         blockTransform.localRotation = Quaternion.identity;
         block.Construct(pool);
         _spawnedBlocks.Add(block);
+
+
+        _blockSpawnCount++;
+        
         return block;
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage)

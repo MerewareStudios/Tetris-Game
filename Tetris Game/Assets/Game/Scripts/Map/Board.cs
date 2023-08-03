@@ -3,6 +3,7 @@ using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 namespace Game
 {
@@ -464,7 +465,7 @@ namespace Game
             }
             return index;
         }
-        private (Place, bool) Project(Pawn pawn)
+        private (Place, bool) Project(Pawn pawn, List<int> requiredIndexes)
         {
             Vector2Int? index = Pos2Index(pawn.transform.position);
             if (index == null)
@@ -486,6 +487,13 @@ namespace Game
             {
                 return (place, false);
             }
+            
+            Debug.Log(place.LinearIndex);
+            if (requiredIndexes != null && !requiredIndexes.Contains(place.LinearIndex))
+            {
+                return (place, false);
+            }
+            
             return (place, true);
         }
         public Place GetForwardPlace(Place place)
@@ -504,27 +512,28 @@ namespace Game
         {
             foreach (var pawn in block.Pawns)
             {
-                (Place place, bool canPlace) = Project(pawn);
+                (Place place, bool canPlace) = Project(pawn, block.RequiredIndexes);
                 if (place != null)
                 {
                     place.SetPlaceType(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
                 }
             }
         }
-        private bool CanPlacePawnOnGrid(Pawn pawn)
+        private bool CanPlacePawnOnGrid(Pawn pawn, List<int> requiredIndexes)
         {
-            (Place place, bool canPlace) = Project(pawn);
+            (Place place, bool canPlace) = Project(pawn, requiredIndexes);
             if (place == null)
             {
                 return false;
             }
+
             return canPlace;
         }
         public bool CanPlace(Block block)
         {
             foreach (var pawn in block.Pawns)
             {
-                if (!CanPlacePawnOnGrid(pawn))
+                if (!CanPlacePawnOnGrid(pawn, block.RequiredIndexes))
                 {
                     return false;
                 }
@@ -542,6 +551,13 @@ namespace Game
             });
         }
         
+        [System.Serializable]
+        public class SuggestedBlock
+        {
+            [SerializeField] public Pool type;
+            [SerializeField] public List<int> requiredPlaces;
+
+        }
         
         [System.Serializable]
         public class Data : ICloneable

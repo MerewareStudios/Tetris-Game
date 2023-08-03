@@ -26,3 +26,6 @@ MonoBehaviour:
   failReward:
     type: 0
     amount: 5
+  suggestedBlocks:
+  - type: 4
+    requiredPlaces: 2400000025000000260000002a000000

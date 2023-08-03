@@ -10,6 +10,7 @@ namespace Game
         [SerializeField] public Level.Data LevelData;
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
+        [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
     }
 }
 
@@ -17,7 +18,7 @@ namespace Game
 
 public static class LevelSoExtension
 {
-    public static Level.Data GetLevelSo(this int level)
+    public static Level.Data GetLevelData(this int level)
     {
         return Const.THIS.Levels[level - 1].LevelData;
     } 
@@ -28,5 +29,9 @@ public static class LevelSoExtension
     public static Const.Currency GetFailReward(this int level)
     {
         return Const.THIS.Levels[level - 1].failReward;
+    } 
+    public static Board.SuggestedBlock[] GetSuggestedBlocks(this int level)
+    {
+        return Const.THIS.Levels[level - 1].suggestedBlocks;
     } 
 }

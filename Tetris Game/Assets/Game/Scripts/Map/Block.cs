@@ -18,6 +18,7 @@ namespace Game
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public bool FreeBlock = false;
+        [System.NonSerialized] public List<int> RequiredIndexes;
 
         private void OnDrawGizmos()
         {
