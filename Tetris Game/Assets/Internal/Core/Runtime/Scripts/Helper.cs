@@ -254,6 +254,11 @@ namespace Internal.Core
             byte alpha = 255;
             return new Color32(red, green, blue, alpha);
         }
+
+        public static Vector2Int ToIndex(this int index, int size)
+        {
+            return new Vector2Int(index / size, index % size);
+        }
         public static int GetIndexFromSRGBColor(this Color32 color)
         {
             int red = color.r;

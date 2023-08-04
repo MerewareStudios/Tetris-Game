@@ -65,8 +65,8 @@ public class Spawner : Singleton<Spawner>
             return;
         }
 
-        assertionTween = DOVirtual.DelayedCall(0.15f, null);
-        assertionTween.onComplete += () =>
+        assertionTween = DOVirtual.DelayedCall(0.2f, null);
+        assertionTween.onComplete = () =>
         {
             _grabbedBlock = true;
 
@@ -91,6 +91,7 @@ public class Spawner : Singleton<Spawner>
     public void Input_OnDrag()
     {
         assertionTween?.Kill(true);
+        assertionTween = null;
         if (!_grabbedBlock)
         {
             return;
@@ -123,11 +124,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         assertionTween?.Kill();
-        if (_moveRoutine != null)
-        {
-            StopCoroutine(_moveRoutine);
-            _moveRoutine = null;
-        }
+        StopMovement();
         if (!_grabbedBlock || _currentBlock == null)
         {
             return;
@@ -174,12 +171,22 @@ public class Spawner : Singleton<Spawner>
         if (_currentBlock)
         {
             _currentBlock.OnPickUp();
+            Board.THIS.ShowSuggestedPlaces(_currentBlock);
         }
         while (true)
         {
             _currentBlock.transform.position = Vector3.Slerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 18.0f);
             yield return null;
         }
+    }
+
+    private void StopMovement()
+    {
+        if (_moveRoutine == null) return;
+        StopCoroutine(_moveRoutine);
+        _moveRoutine = null;
+        
+        Board.THIS.HideSuggestedPlaces();
     }
 
     private void AnimateTap()
@@ -196,13 +203,15 @@ public class Spawner : Singleton<Spawner>
     {
         Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
 
-        Board.SuggestedBlock suggestedBlock = null;
+        Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
+        Board.BlockRot blockRot = Board.BlockRot.UP;
         
         if (suggestedBlocks.Length > _blockSpawnCount)
         {
-            suggestedBlock = suggestedBlocks[_blockSpawnCount];
-            pool = suggestedBlock.type;
+            suggestedBlockData = suggestedBlocks[_blockSpawnCount];
+            pool = suggestedBlockData.type;
+            blockRot = suggestedBlockData.blockRot;
         }
         else
         {
@@ -211,17 +220,20 @@ public class Spawner : Singleton<Spawner>
         
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
 
-        block.RequiredIndexes = suggestedBlock == null ? null : suggestedBlock.requiredPlaces;
+        block.RequiredIndexes = suggestedBlockData?.requiredPlaces;
+        block.canRotate = suggestedBlockData?.canRotate ?? true;
         
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;
         blockTransform.localPosition = block.spawnerOffset;
-        blockTransform.localRotation = Quaternion.identity;
         block.Construct(pool);
+        block.Rotation = blockRot;
         _spawnedBlocks.Add(block);
 
 
         _blockSpawnCount++;
+        
+        Board.THIS.ShowSuggestedPlaces(block);
         
         return block;
     } 

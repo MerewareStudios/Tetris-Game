@@ -45,7 +45,7 @@ public class Gun : MonoBehaviour
         Transform enemyTransform = enemy.transform;
         Vector3 targetPosition = enemyTransform.position;
 
-        enemy.OnRemoved += () =>
+        enemy.OnRemoved = () =>
         {
             enemyTransform = null;
         };
@@ -60,7 +60,7 @@ public class Gun : MonoBehaviour
         trail.Clear();
         
         Tween bulletTween = bullet.DOJump(enemyTransform.position, 2.25f, 1, 0.45f).SetEase(Ease.Linear);
-        bulletTween.onUpdate += () =>
+        bulletTween.onUpdate = () =>
         {
             if (enemyTransform)
             {
@@ -68,7 +68,7 @@ public class Gun : MonoBehaviour
             }
             bulletTween.SetTarget(targetPosition);
         };
-        bulletTween.onComplete += () =>
+        bulletTween.onComplete = () =>
         {
             if (enemyTransform)
             {

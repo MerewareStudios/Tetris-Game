@@ -140,6 +140,12 @@ namespace Game
                     place.SetPlaceType(Game.Place.PlaceType.EMPTY);
                 });
         }
+
+        public Place LinearIndex2Place(int index)
+        {
+            Vector2Int ind = index.ToIndex(Size.y);
+            return places[ind.x, ind.y];
+        }
         private void Call<T>(T[,] array, System.Action<T> action)
         {
             for (int i = 0; i < Size.x; i++)
@@ -488,7 +494,6 @@ namespace Game
                 return (place, false);
             }
             
-            Debug.Log(place.LinearIndex);
             if (requiredIndexes != null && !requiredIndexes.Contains(place.LinearIndex))
             {
                 return (place, false);
@@ -551,12 +556,50 @@ namespace Game
             });
         }
         
+        public void ShowSuggestedPlaces(Block block)
+        {
+            if (block.RequiredIndexes == null)
+            {
+                return;
+            }
+            
+            IList<int> suggestedPlaces = block.RequiredIndexes;
+
+            
+            foreach (var index in suggestedPlaces)
+            {
+                Place place = LinearIndex2Place(index);
+
+                Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+            }
+            // Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+            // {
+            //     if (place.Current) return;
+            //
+            //     Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+            // });
+        }
+
+        public void HideSuggestedPlaces()
+        {
+            
+        }
+        
         [System.Serializable]
         public class SuggestedBlock
         {
             [SerializeField] public Pool type;
             [SerializeField] public List<int> requiredPlaces;
+            [SerializeField] public BlockRot blockRot;
+            [SerializeField] public bool canRotate = true;
+        }
 
+        public enum BlockRot
+        {
+            UP,
+            RIGHT,
+            DOWN,
+            LEFT
         }
         
         [System.Serializable]

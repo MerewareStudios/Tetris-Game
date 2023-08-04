@@ -19,22 +19,32 @@ namespace Game
         [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public bool FreeBlock = false;
         [System.NonSerialized] public List<int> RequiredIndexes;
+        [System.NonSerialized] public bool canRotate;
 
-        private void OnDrawGizmos()
+        // private void OnDrawGizmos()
+        // {
+        //     for (int x = 0; x < 3; x++)
+        //     {
+        //         for (int y = 0; y < 4; y++)
+        //         {
+        //             Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
+        //             Gizmos.DrawCube(new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
+        //         }
+        //     }
+        //
+        //     foreach (var segmentTransform in segmentTransforms.Where(segmentTransform => segmentTransform))
+        //     {
+        //         Gizmos.color = Color.green;
+        //         Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
+        //     }
+        // }
+
+        public Board.BlockRot Rotation
         {
-            for (int x = 0; x < 3; x++)
+            set
             {
-                for (int y = 0; y < 4; y++)
-                {
-                    Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
-                    Gizmos.DrawCube(new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
-                }
-            }
-
-            foreach (var segmentTransform in segmentTransforms.Where(segmentTransform => segmentTransform))
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
+                transform.localRotation = Quaternion.Euler(0.0f, 90.0f * (int)value, 0.0f);
+                ResetSegmentRotations();
             }
         }
 
@@ -102,7 +112,7 @@ namespace Game
             Busy = false;
             Pawns.Clear();
             PlacedOnGrid = false;
-            
+            RequiredIndexes = null;
             this.Despawn();
         }
         public void Detach()
@@ -121,21 +131,30 @@ namespace Game
 
         public void Rotate()
         {
+            if (!canRotate)
+            {
+                return;
+            }
             Busy = true;
 
             _motionTween?.Kill();
             _motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), Const.THIS.rotationDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
             _motionTween.onUpdate += () => 
                 {
-                    foreach (var segment in Pawns)
-                    {
-                        segment.transform.rotation = Quaternion.identity;
-                    }
+                    ResetSegmentRotations();
                 };
             _motionTween.onComplete += () =>
             {
                 Busy = false;
             };
+        }
+
+        private void ResetSegmentRotations()
+        {
+            foreach (var segment in Pawns)
+            {
+                segment.transform.rotation = Quaternion.identity;
+            }
         }
         public void Move(Vector3 position, float duration, Ease ease, bool speedBased = false)
         {

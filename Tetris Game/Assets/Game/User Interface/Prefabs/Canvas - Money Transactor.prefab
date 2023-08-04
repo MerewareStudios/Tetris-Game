@@ -33,7 +33,6 @@ RectTransform:
   m_Children:
   - {fileID: 2167331854267598999}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -101,8 +100,8 @@ MonoBehaviour:
   currencyType: 0
   currencyDisplay: {fileID: 7914124725540420090}
   pivot: {fileID: 2167331854267598999}
-  defaultAnchor: {x: 0, y: 0, z: 0}
-  scaledAnchor: {x: 0, y: 0, z: 0}
+  defaultAnchor: {x: 18, y: -247.25, z: 0}
+  scaledAnchor: {x: 66, y: -291, z: 0}
 --- !u!1 &8090866974709662223
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,11 +132,10 @@ RectTransform:
   m_Children:
   - {fileID: 5194051224641895439}
   m_Father: {fileID: 7424643266812777287}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 18, y: -247.25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &2629963966806304059

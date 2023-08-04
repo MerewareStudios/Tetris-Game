@@ -7,13 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Onboarding Data", menuName = "Game/Onboarding Data", order = 0)]
 public class Onboarding : SSingleton<Onboarding>
 {
-    public float playerRotateDuration = 0.4f;
-    public float needAmmoBubbleDelay = 1.5f;
-    public float firstBlockSpawnDelay = 1.5f;
-    public float firstBlockBubbleDelay = 0.5f;
-    public float niceOneSkipDelay = 0.5f;
-    public float beginDelay = 0.5f;
-
     [TextArea] [SerializeField] public string needAmmoText;
     [TextArea] [SerializeField] public string useAmmoBoxText;
     [TextArea] [SerializeField] public string stackText;
@@ -26,15 +19,15 @@ public class Onboarding : SSingleton<Onboarding>
     {
         if (ONBOARDING.NEED_AMMO_TEXT_SHOWN.IsNotComplete())
         {
-            Warzone.THIS.Player.RotateToPlayer(Onboarding.THIS.playerRotateDuration);
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needAmmoText, Onboarding.THIS.needAmmoBubbleDelay);
+            Warzone.THIS.Player.RotateToPlayer(0.5f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needAmmoText, 0.5f);
             Warzone.THIS.Player.animator.SetTrigger(Player.WAVE_HASH);
 
-            DOVirtual.DelayedCall(Onboarding.THIS.firstBlockSpawnDelay, () =>
+            DOVirtual.DelayedCall(2.75f, () =>
             {
                 DOVirtual.DelayedCall(0.35f, () =>
                 {
-                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, Onboarding.THIS.firstBlockBubbleDelay);
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
                     Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
                 
                     ONBOARDING.NEED_AMMO_TEXT_SHOWN.SetComplete();
@@ -49,8 +42,8 @@ public class Onboarding : SSingleton<Onboarding>
     
     public static void ShowAmmoBoxMerge()
     {
-        Warzone.THIS.Player.RotateToPlayer(Onboarding.THIS.playerRotateDuration);
-        UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, Onboarding.THIS.needAmmoBubbleDelay);
+        Warzone.THIS.Player.RotateToPlayer(0.5f);
+        UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, 0.5f);
         Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
         
         ONBOARDING.TEACH_MERGE_PLACE.SetComplete();
