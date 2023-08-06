@@ -58,8 +58,13 @@ namespace Game
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
                 
+                
                 Pawn.Usage usage = Pawn.Usage.Ammo;
-                Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
+
+                if (LevelManager.THIS.CanSpawnBonus())
+                {
+                   Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
+                }
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, lookUps[i], usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();

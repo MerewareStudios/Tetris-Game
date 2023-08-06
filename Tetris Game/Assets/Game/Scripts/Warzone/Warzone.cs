@@ -100,7 +100,7 @@ namespace  Game
 
             IEnumerator SpawnRoutine()
             {
-                UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 2.5f);
+                UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.5f);
                 yield return new WaitForSeconds(0.25f);
                 // yield return new WaitForSeconds(2.5f);
                 // UIManager.THIS.speechBubble.Hide();
@@ -290,7 +290,6 @@ namespace  Level
     [System.Serializable]
     public class Data : ICloneable
     {
-        [SerializeField] public bool canGiveBonus = true;
         [SerializeField] public float spawnDelay = 0.0f; // delay of the spawn
         [SerializeField] public int totalEnemyHealth = 100;
         [Range(1, 6)] [SerializeField] public int maxMerge = 2;

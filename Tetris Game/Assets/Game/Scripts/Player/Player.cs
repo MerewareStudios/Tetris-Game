@@ -133,6 +133,9 @@ namespace Game
 
             if (shootCount == 0)
             {
+                animator.SetTrigger(SHOOT_HASH);
+                gun.Bubble();
+
                 if (ONBOARDING.NEED_MORE_AMMO_SPEECH.IsNotComplete())
                 {
                     Onboarding.TalkAboutNeedMoreAmmo();

@@ -20,6 +20,7 @@ MonoBehaviour:
     enemySpeed: 0.1
     spawnWidth: 2.25
     spawnInterval: {x: 0.5, y: 1}
+  canGiveBonus: 0
   victoryReward:
     type: 0
     amount: 25

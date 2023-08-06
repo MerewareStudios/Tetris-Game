@@ -44,9 +44,9 @@ public class ParticleManager : Singleton<ParticleManager>
     }
     public static ParticleSystem Emit(Particle key, int amount, Color? color = null, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {
-        int index = ((int)key);
+        int index = (int)key;
         ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
-        if (particleSystem == null)
+        if (!particleSystem)
         {
             particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
@@ -68,11 +68,50 @@ public class ParticleManager : Singleton<ParticleManager>
 
         return particleSystem;
     }
+    
+    public static ParticleSystem EmitForward(Particle key, int amount, Vector3 position, Vector3? forward = null, Vector3? scale = null, Color? color = null)
+    {
+        int index = (int)key;
+        ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
+        if (!particleSystem)
+        {
+            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
+            particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
+            particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
+        }
+    
+        Transform pTransform = particleSystem.transform;
+        pTransform.position = position;
+        pTransform.forward = forward ?? pTransform.forward;
+        pTransform.localScale = scale ?? pTransform.localScale;
+    
+        var main = particleSystem.main;
+    
+        if (color != null)
+        {
+            main.startColor = (Color)color;
+        }
+        particleSystem.Emit(amount);
+    
+        return particleSystem;
+    }
+    public static void StopAndClear(Particle key)
+    {
+        int index = (int)key;
+        ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
+        if (particleSystem == null)
+        {
+            return;
+        }
+
+        particleSystem.Stop();
+        particleSystem.Clear();
+    }
     public static ParticleSystem Emit(Particle key, int amount, Color color, Vector3 position, float radius)
     {
         int index = ((int)key);
         ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
-        if (particleSystem == null)
+        if (!particleSystem)
         {
             particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
@@ -114,6 +153,10 @@ public class ParticleManager : Singleton<ParticleManager>
 }
 public static class ParticleManagerExtensions
 {
+    public static ParticleSystem EmitForward(this Particle key, int amount, Vector3 position, Vector3? forward = null, Vector3? scale = null, Color? color = null)
+    {
+        return ParticleManager.EmitForward(key, amount, position, forward, scale, color);
+    }
     public static ParticleSystem Emit(this Particle key, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {
         return ParticleManager.Emit(key, amount, null, position, rotation, scale);
@@ -152,5 +195,10 @@ public static class ParticleManagerExtensions
     public static void Play(this ParticleManager.ParticlePlayData playData, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
     {
         playData.particle.Play(position, rotation, scale, playData.particleSystemStopAction);
+    }
+    
+    public static void StopAndClear(this Particle key)
+    {
+        ParticleManager.StopAndClear(key);
     }
 }

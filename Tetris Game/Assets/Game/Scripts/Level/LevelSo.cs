@@ -7,7 +7,9 @@ namespace Game
     [CreateAssetMenu(fileName = "Level", menuName = "Game/Level Data", order = 0)]
     public class LevelSo : ScriptableObject
     {
+        
         [SerializeField] public Level.Data LevelData;
+        [SerializeField] public bool canGiveBonus = true;
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
@@ -18,6 +20,10 @@ namespace Game
 
 public static class LevelSoExtension
 {
+    public static bool CanSpawnBonus(this int level)
+    {
+        return Const.THIS.Levels[level - 1].canGiveBonus;
+    }
     public static Level.Data GetLevelData(this int level)
     {
         return Const.THIS.Levels[level - 1].LevelData;

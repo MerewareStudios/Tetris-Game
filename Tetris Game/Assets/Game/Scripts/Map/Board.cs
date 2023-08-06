@@ -584,6 +584,7 @@ namespace Game
 
         public void HideSuggestedPlaces()
         {
+            Particle.Green_Zone.StopAndClear();
             _suggestTween?.Kill();
         }
         

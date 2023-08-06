@@ -11,5 +11,6 @@ public enum Particle
     Green_Zone = 8,
     Merge_Circle = 9,
     Square_Bullet = 10,
+    Bubble = 11,
 
 }

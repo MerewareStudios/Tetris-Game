@@ -31,6 +31,11 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public bool CanSpawnBonus()
+    {
+        return this.CurrentLevel().CanSpawnBonus();
+    }
+
     public Board.SuggestedBlock[] GetSuggestedBlocks()
     {
         return this.CurrentLevel().GetSuggestedBlocks();
