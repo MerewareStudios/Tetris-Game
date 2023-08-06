@@ -229,7 +229,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private void CloseAction()
     {
         this.Close();
-        GameManager.THIS.Play();
+        LevelManager.THIS.LoadLevel();
     }
     private void Show()
     {

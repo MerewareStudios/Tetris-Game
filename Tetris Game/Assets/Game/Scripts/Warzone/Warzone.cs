@@ -84,7 +84,7 @@ namespace  Game
         {
             Player.Reset();
         }
-        public void Begin()
+        public void Begin(bool countdown = true)
         {
             if (_busy)
             {
@@ -100,13 +100,18 @@ namespace  Game
 
             IEnumerator SpawnRoutine()
             {
-                UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText);
-                yield return new WaitForSeconds(2.5f);
-                UIManager.THIS.speechBubble.Hide();
+                UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 2.5f);
+                yield return new WaitForSeconds(0.25f);
+                // yield return new WaitForSeconds(2.5f);
+                // UIManager.THIS.speechBubble.Hide();
+                if (countdown)
+                {
+                    
 
-                
-                Countdown.THIS.Count((int)LevelData.spawnDelay);
-                yield return new WaitForSeconds(LevelData.spawnDelay);
+                    
+                    Countdown.THIS.Count((int)LevelData.spawnDelay);
+                    yield return new WaitForSeconds(LevelData.spawnDelay);
+                }
                 
 
                 int totalHealth = LevelData.totalEnemyHealth;
@@ -285,6 +290,7 @@ namespace  Level
     [System.Serializable]
     public class Data : ICloneable
     {
+        [SerializeField] public bool canGiveBonus = true;
         [SerializeField] public float spawnDelay = 0.0f; // delay of the spawn
         [SerializeField] public int totalEnemyHealth = 100;
         [Range(1, 6)] [SerializeField] public int maxMerge = 2;

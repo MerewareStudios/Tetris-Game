@@ -14,6 +14,7 @@ namespace Game
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] public System.Action OnMerge;
+        [System.NonSerialized] private Tween _suggestTween;
 
         [System.NonSerialized] private Data _data;
 
@@ -259,11 +260,6 @@ namespace Game
 
         public void MergeLines(List<int> lines, float mergeTravelDelay, float mergeTravelDuration, Ease mergeTravelEase, float mergeTravelShoot)
         {
-            if (ONBOARDING.HAVE_MERGED.IsNotComplete())
-            {
-                Onboarding.ApriciateForMerge();
-            }
-            
             OnMerge?.Invoke();
             
             for (int i = 0; i < lines.Count; i++)
@@ -494,7 +490,7 @@ namespace Game
                 return (place, false);
             }
             
-            if (requiredIndexes != null && !requiredIndexes.Contains(place.LinearIndex))
+            if (requiredIndexes is { Count: > 0 } && !requiredIndexes.Contains(place.LinearIndex))
             {
                 return (place, false);
             }
@@ -562,27 +558,33 @@ namespace Game
             {
                 return;
             }
-            
-            IList<int> suggestedPlaces = block.RequiredIndexes;
 
-            
-            foreach (var index in suggestedPlaces)
+            void Highlight()
             {
-                Place place = LinearIndex2Place(index);
+                IList<int> suggestedPlaces = block.RequiredIndexes;
 
-                Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                foreach (var index in suggestedPlaces)
+                {
+                    Place place = LinearIndex2Place(index);
+
+                    Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                }
             }
-            // Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
-            // {
-            //     if (place.Current) return;
-            //
-            //     Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
-            // });
+
+            Highlight();
+            
+            _suggestTween?.Kill();
+            _suggestTween = DOVirtual.DelayedCall(1.5f, () =>
+            {
+                Highlight();
+            });
+
+            _suggestTween.SetLoops(-1);
         }
 
         public void HideSuggestedPlaces()
         {
-            
+            _suggestTween?.Kill();
         }
         
         [System.Serializable]

@@ -61,6 +61,10 @@ public static class SaveManagerExtensions
     {
         return !SaveManager.THIS.SKIP_ONBOARDING && SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
     }
+    public static bool IsComplete(this ONBOARDING onboardingStep)
+    {
+        return SaveManager.THIS.SKIP_ONBOARDING || !SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
+    }
     public static void SetComplete(this ONBOARDING onboardingStep)
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = false;
@@ -166,7 +170,10 @@ namespace User
 
 public enum ONBOARDING
 {
-    NEED_AMMO_TEXT_SHOWN,
-    TEACH_MERGE_PLACE,
+    FIRST_BLOCK_SPAWN_AND_PLACE,
+    LEARN_ROTATION,
+    TALK_ABOUT_MERGE,
     HAVE_MERGED,
+    NEED_MORE_AMMO_SPEECH,
+    ALL_BLOCK_STEPS,
 }

@@ -64,6 +64,13 @@ namespace IWI
             Board.THIS.OnMerge += () =>
             {
                 Try2AdBreak();
+                
+                if (ONBOARDING.HAVE_MERGED.IsNotComplete())
+                {
+                    Onboarding.CheerForMerge();
+                    
+                    ONBOARDING.HAVE_MERGED.SetComplete();
+                }
             };
         }
 

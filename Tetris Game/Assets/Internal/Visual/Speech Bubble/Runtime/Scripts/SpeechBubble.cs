@@ -14,7 +14,7 @@ public class SpeechBubble : MonoBehaviour
     [System.NonSerialized] private Tween _delayTween;
     public TypewriterByCharacter textAnimatorPlayer;
 
-    public void Speak(string txt, float delay = 0.0f, float? closeDelay = null)
+    public void Speak(string txt, float delay = 0.0f, float? autoCloseDelay = null)
     {
         _delayTween?.Kill();
             
@@ -30,10 +30,10 @@ public class SpeechBubble : MonoBehaviour
             textAnimatorPlayer.ShowText(txt);
         });
         
-        if (closeDelay != null)
+        if (autoCloseDelay != null)
         {
             _delayTween?.Kill();
-            _delayTween = DOVirtual.DelayedCall((float)closeDelay, Hide);
+            _delayTween = DOVirtual.DelayedCall((float)autoCloseDelay, Hide);
         }
     }
     

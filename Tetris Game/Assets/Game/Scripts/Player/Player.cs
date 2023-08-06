@@ -50,8 +50,7 @@ namespace Game
                 _GunData = newGunData;
             };
 
-
-            Onboarding.AmmoPlacementCheck();
+            
         }
 
 #endregion
@@ -132,10 +131,19 @@ namespace Game
         {
             int shootCount = Mathf.Min(bulletCount, Warzone.THIS.Enemies.Count);
 
-            if (shootCount > 0)
+            if (shootCount == 0)
             {
-                animator.SetTrigger(SHOOT_HASH);
+                if (ONBOARDING.NEED_MORE_AMMO_SPEECH.IsNotComplete())
+                {
+                    Onboarding.TalkAboutNeedMoreAmmo();
+                    ONBOARDING.NEED_MORE_AMMO_SPEECH.SetComplete();
+                    ONBOARDING.ALL_BLOCK_STEPS.SetComplete();
+                    return;
+                }
+                return;
             }
+            
+            animator.SetTrigger(SHOOT_HASH);
             for (int i = 0; i < shootCount; i++)
             {
                gun.Shoot(Warzone.THIS.Enemies[i]);
@@ -171,6 +179,8 @@ namespace Game
         }
         public void StartSearching()
         {
+            Warzone.THIS.Player.animator.SetTrigger(Player.IDLE_HASH);
+
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
             
             IEnumerator SearchEnemyRoutine()

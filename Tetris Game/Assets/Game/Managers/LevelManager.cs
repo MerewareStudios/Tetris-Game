@@ -10,7 +10,6 @@ public class LevelManager : Singleton<LevelManager>
     {
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
-        // Spawner.THIS.Begin(0.45f);
         Spawner.THIS.OnLevelLoad();
 
         UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
@@ -19,6 +18,17 @@ public class LevelManager : Singleton<LevelManager>
         Warzone.THIS.OnLevelLoad();
         
         UIManager.THIS.loanBar.MakeUnavailable(10.0f);
+        
+        if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
+        {
+            Spawner.THIS.DelayedSpawn(0.45f);
+            return;
+        }
+        
+        if (ONBOARDING.FIRST_BLOCK_SPAWN_AND_PLACE.IsNotComplete())
+        {
+            Onboarding.SpawnFirstBlockAndTeachPlacement();
+        }
     }
 
     public Board.SuggestedBlock[] GetSuggestedBlocks()

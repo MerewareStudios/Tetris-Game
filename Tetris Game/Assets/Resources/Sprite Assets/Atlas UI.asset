@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: be8f08b5d03a6254e88d86ed0025202d, type: 3}
+        m_Texture: {fileID: 2800000, guid: d53d9684c458374489d3809815c5e4cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: be8f08b5d03a6254e88d86ed0025202d, type: 3}
+  spriteSheet: {fileID: 2800000, guid: d53d9684c458374489d3809815c5e4cb, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -228,9 +228,9 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 24
-    m_Scale: 1
-    m_Name: Atlas_24
-    m_HashCode: 1874333010
+    m_Scale: 1.45
+    m_Name: RotBlock
+    m_HashCode: -1884300960
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -590,7 +590,7 @@ MonoBehaviour:
       m_Height: 256
       m_HorizontalBearingX: -45.2
       m_HorizontalBearingY: 206
-      m_HorizontalAdvance: 150.2
+      m_HorizontalAdvance: 162.37
     m_GlyphRect:
       m_X: 512
       m_Y: 0
@@ -620,8 +620,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 226.4
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 1024

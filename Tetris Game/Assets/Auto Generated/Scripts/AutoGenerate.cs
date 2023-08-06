@@ -241,10 +241,15 @@ namespace Internal.Core
         {
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath("Assets/Editor/Custom GUI Data.asset", typeof(ScriptableObject)));
         }
-        [MenuItem("GAME/Constants")]
+        [MenuItem("SCRIPTABLES/Constants")]
         private static void PingGameConstantsManager()
         {
             PingAsset<ScriptableObject>("Assets/Resources/Game Constants.asset");
+        }
+        [MenuItem("SCRIPTABLES/Onboarding")]
+        private static void PingOnboardingSO()
+        {
+            PingAsset<ScriptableObject>("Assets/Resources/Onboarding.asset");
         }
         [MenuItem("Assets/Create/Txt", priority = 1)]
         private static void CreateEmptyTxt()

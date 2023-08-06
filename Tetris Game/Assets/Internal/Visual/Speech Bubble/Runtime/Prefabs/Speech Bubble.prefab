@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 323ad0eb805f4a542b5f3a091c7982e8, type: 2}
   m_sharedMaterial: {fileID: -7252815453507711536, guid: 323ad0eb805f4a542b5f3a091c7982e8,
@@ -152,8 +152,7 @@ MonoBehaviour:
   typewriterStartsAutomatically: 0
   animationLoop: 0
   timeScale: 0
-  _text: I need <bounce a=1 f=2 w=0.5><color=#53A4FF><size=125%><sprite name=AmmoB>bullets</color></>
-    !
+  _text: A
   useDynamicScaling: 0
   referenceFontSize: -1
   isResettingTimeOnNewText: 1

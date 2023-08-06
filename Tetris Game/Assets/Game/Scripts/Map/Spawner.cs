@@ -29,7 +29,7 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Tween assertionTween;
     [System.NonSerialized] private int _blockSpawnCount = 0;
 
-    public void Begin(float delay)
+    public void DelayedSpawn(float delay)
     {
         DOVirtual.DelayedCall(delay, () =>
         {
@@ -138,21 +138,38 @@ public class Spawner : Singleton<Spawner>
 
             _currentBlock = null;
             
-            delayedTween?.Kill();
-            delayedTween = DOVirtual.DelayedCall(0.08f, () =>
-            {
-                _currentBlock = SpawnNextBlock(); // spawn the next block with delay
-            });
+            Board.THIS.HideSuggestedPlaces();
 
-            
-            if (ONBOARDING.TEACH_MERGE_PLACE.IsNotComplete())
+            if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
-                Onboarding.ShowAmmoBoxMerge();
+                delayedTween?.Kill();
+                delayedTween = DOVirtual.DelayedCall(0.08f, () =>
+                {
+                    _currentBlock = SpawnNextBlock(); // spawn the next block with delay
+                });
+                return;
             }
-            // else
-            // {
-            //     Warzone.THIS.Begin();
-            // }
+
+            if (ONBOARDING.FIRST_BLOCK_SPAWN_AND_PLACE.IsNotComplete())
+            {
+                ONBOARDING.FIRST_BLOCK_SPAWN_AND_PLACE.SetComplete();
+
+                Onboarding.SpawnSecondBlockAndTeachRotation();
+                
+                return;
+            }
+            
+            if (ONBOARDING.LEARN_ROTATION.IsNotComplete())
+            {
+                ONBOARDING.LEARN_ROTATION.SetComplete();
+
+                if (ONBOARDING.TALK_ABOUT_MERGE.IsNotComplete())
+                {
+                    Onboarding.TalkAboutMerge();
+                    ONBOARDING.TALK_ABOUT_MERGE.SetComplete();
+                }
+                return;
+            }
             
             return;
         }
@@ -171,7 +188,6 @@ public class Spawner : Singleton<Spawner>
         if (_currentBlock)
         {
             _currentBlock.OnPickUp();
-            Board.THIS.ShowSuggestedPlaces(_currentBlock);
         }
         while (true)
         {
@@ -185,8 +201,6 @@ public class Spawner : Singleton<Spawner>
         if (_moveRoutine == null) return;
         StopCoroutine(_moveRoutine);
         _moveRoutine = null;
-        
-        Board.THIS.HideSuggestedPlaces();
     }
 
     private void AnimateTap()

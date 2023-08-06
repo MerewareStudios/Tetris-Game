@@ -33,14 +33,9 @@ public class GameManager : Singleton<GameManager>
     {
         Distortion.SetPropertyBlock(MPB_DISTORTION, rampID, powerID, (go) => go.Despawn());
         Board.THIS.Construct();
-        Play();
-    }
-
-    public void Play()
-    {
         LevelManager.THIS.LoadLevel();
     }
-    
+
     void Update()
     {
         SaveManager.THIS.saveData.playTime += Time.deltaTime;
