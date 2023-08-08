@@ -25,7 +25,7 @@ public class LevelManager : Singleton<LevelManager>
             return;
         }
         
-        if (ONBOARDING.FIRST_BLOCK_SPAWN_AND_PLACE.IsNotComplete())
+        if (ONBOARDING.TEACH_PICK.IsNotComplete())
         {
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }

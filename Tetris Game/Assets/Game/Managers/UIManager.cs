@@ -3,6 +3,7 @@ using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
+using IWI.Tutorial;
 using TMPro;
 using UnityEngine;
 using Visual.Effects;
@@ -28,6 +29,7 @@ public class UIManager : Singleton<UIManager>
    [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
+   [SerializeField] public Finger finger;
 
 
    // Make them info list

@@ -29,6 +29,20 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Tween assertionTween;
     [System.NonSerialized] private int _blockSpawnCount = 0;
 
+    public void Shake()
+    {
+        if (_currentBlock)
+        {
+            _currentBlock.Shake();
+        }
+    }
+    public void Lift()
+    {
+        if (_currentBlock)
+        {
+            _currentBlock.Lift();
+        }
+    }
     public void DelayedSpawn(float delay)
     {
         DOVirtual.DelayedCall(delay, () =>
@@ -86,6 +100,12 @@ public class Spawner : Singleton<Spawner>
         {
             AnimateTap();
             _currentBlock.Rotate();
+            
+            if (ONBOARDING.LEARN_ROTATION.IsNotComplete())
+            {
+                ONBOARDING.LEARN_ROTATION.SetComplete();
+                UIManager.THIS.finger.Hide();
+            }
         }
     }
     public void Input_OnDrag()
@@ -150,24 +170,19 @@ public class Spawner : Singleton<Spawner>
                 return;
             }
 
-            if (ONBOARDING.FIRST_BLOCK_SPAWN_AND_PLACE.IsNotComplete())
+            if (ONBOARDING.TEACH_PLACEMENT.IsNotComplete())
             {
-                ONBOARDING.FIRST_BLOCK_SPAWN_AND_PLACE.SetComplete();
+                ONBOARDING.TEACH_PLACEMENT.SetComplete();
 
                 Onboarding.SpawnSecondBlockAndTeachRotation();
-                
+
                 return;
             }
             
-            if (ONBOARDING.LEARN_ROTATION.IsNotComplete())
+            if (ONBOARDING.TALK_ABOUT_MERGE.IsNotComplete())
             {
-                ONBOARDING.LEARN_ROTATION.SetComplete();
-
-                if (ONBOARDING.TALK_ABOUT_MERGE.IsNotComplete())
-                {
-                    Onboarding.TalkAboutMerge();
-                    ONBOARDING.TALK_ABOUT_MERGE.SetComplete();
-                }
+                Onboarding.TalkAboutMerge();
+                ONBOARDING.TALK_ABOUT_MERGE.AutoComplete();
                 return;
             }
             
@@ -188,6 +203,13 @@ public class Spawner : Singleton<Spawner>
         if (_currentBlock)
         {
             _currentBlock.OnPickUp();
+            
+            if (ONBOARDING.TEACH_PICK.IsNotComplete())
+            {
+                ONBOARDING.TEACH_PICK.SetComplete();
+
+                UIManager.THIS.finger.Hide();
+            }
         }
         while (true)
         {

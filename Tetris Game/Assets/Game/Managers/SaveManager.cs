@@ -69,6 +69,10 @@ public static class SaveManagerExtensions
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = false;
     }
+    public static void AutoComplete(this ONBOARDING onboardingStep)
+    {
+        SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = false;
+    }
     public static void ClearStep(this ONBOARDING onboardingStep)
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = true;
@@ -170,7 +174,8 @@ namespace User
 
 public enum ONBOARDING
 {
-    FIRST_BLOCK_SPAWN_AND_PLACE,
+    TEACH_PICK,
+    TEACH_PLACEMENT,
     LEARN_ROTATION,
     TALK_ABOUT_MERGE,
     HAVE_MERGED,

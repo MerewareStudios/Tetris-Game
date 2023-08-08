@@ -20,7 +20,7 @@ public class Onboarding : SSingleton<Onboarding>
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {
-        GameManager.THIS.StartCoroutine(Routine());
+       GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
@@ -38,6 +38,11 @@ public class Onboarding : SSingleton<Onboarding>
 
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
+            
+            Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
+            Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
+            UIManager.THIS.finger.OnClick = Spawner.THIS.Lift;
+            UIManager.THIS.finger.ShortPress(screenPosition, 0.75f);
         }
     }
     
@@ -58,6 +63,11 @@ public class Onboarding : SSingleton<Onboarding>
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText, 0.5f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
+
+            Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
+            Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
+            UIManager.THIS.finger.OnClick = Spawner.THIS.Shake;
+            UIManager.THIS.finger.Click(screenPosition);
 
             Spawner.THIS.DelayedSpawn(0.0f);
 

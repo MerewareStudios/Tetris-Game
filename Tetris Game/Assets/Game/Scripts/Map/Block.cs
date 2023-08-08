@@ -10,6 +10,7 @@ namespace Game
 {
     public class Block : MonoBehaviour
     {
+        [SerializeField] private Transform shakePivot;
         [SerializeField] public int width;
         [SerializeField] private List<Transform> segmentTransforms;
         [System.NonSerialized] public readonly List<Pawn> Pawns = new();
@@ -65,7 +66,7 @@ namespace Game
                 {
                    Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
                 }
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, lookUps[i], usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, lookUps[i], usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();
@@ -83,7 +84,7 @@ namespace Game
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
                 
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.transform, target.position, lookUps[i], usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, lookUps[i], usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();
@@ -134,6 +135,20 @@ namespace Game
             Deconstruct();
         }
 
+        public void Shake()
+        {
+            shakePivot.DOKill();
+            shakePivot.localPosition = Vector3.zero;
+            shakePivot.localEulerAngles = Vector3.zero;
+            shakePivot.DOPunchRotation(new Vector3(0.0f, 15.0f, 0.0f), 0.4f, 1);
+        }
+        public void Lift()
+        {
+            shakePivot.DOKill();
+            shakePivot.localPosition = Vector3.zero;
+            shakePivot.localEulerAngles = Vector3.zero;
+            shakePivot.DOPunchPosition(new Vector3(0.0f, 1.0f, 0.0f), 2.5f, 1);
+        }
         public void Rotate()
         {
             if (!canRotate)
