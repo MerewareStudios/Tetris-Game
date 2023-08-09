@@ -125,7 +125,8 @@ public class Onboarding : SSingleton<Onboarding>
 
         IEnumerator Routine()
         {
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText, 0.15f);
+            yield return new WaitForSeconds(1.5f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
             Spawner.THIS.DelayedSpawn(0.0f);
 
             yield return new WaitForSeconds(2.0f);

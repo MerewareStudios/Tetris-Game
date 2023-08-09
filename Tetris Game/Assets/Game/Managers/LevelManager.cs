@@ -12,7 +12,7 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
+        // UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
 
         Warzone.THIS.LevelData = this.CurrentLevel().GetLevelData();
         Warzone.THIS.OnLevelLoad();

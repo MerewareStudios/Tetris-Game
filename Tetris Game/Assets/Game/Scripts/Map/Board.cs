@@ -250,8 +250,11 @@ namespace Game
                 { 
                     mergedPawn.OnMerge();
                 });
-            
-            UIManager.THIS.shopBar.Amount += level * 0.075f;
+
+            if (ONBOARDING.ABLE_TO_EARN_XP.IsComplete())
+            {
+                UIManager.THIS.shopBar.Amount += level * 0.075f;
+            }
 
             UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
 

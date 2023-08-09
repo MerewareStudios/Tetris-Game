@@ -19,7 +19,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public FlyingText ft_Icon;
    [SerializeField] public FlyingText ft_Icon_MenuOnTop;
    [Header("Level")]
-   [SerializeField] public TextMeshProUGUI levelText;
+   // [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
    [System.NonSerialized] public static bool MENU_VISIBLE = false;
    [Header("Transactors")]

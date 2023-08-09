@@ -223,7 +223,7 @@ public class Spawner : Singleton<Spawner>
         }
         while (true)
         {
-            _currentBlock.transform.position = Vector3.Slerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 18.0f);
+            _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 18.0f);
             yield return null;
         }
     }

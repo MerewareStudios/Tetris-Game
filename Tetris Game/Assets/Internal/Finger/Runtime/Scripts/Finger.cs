@@ -132,6 +132,7 @@ namespace IWI.Tutorial
 
         public void Hide()
         {
+            Stop();
             _sequence?.Kill();
             canvas.enabled = false;
             ps.Clear();
