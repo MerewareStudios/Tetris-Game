@@ -101,7 +101,7 @@ public class Spawner : Singleton<Spawner>
             AnimateTap();
             _currentBlock.Rotate();
             
-            if (ONBOARDING.LEARN_ROTATION.IsNotComplete())
+            if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.LEARN_ROTATION.IsNotComplete())
             {
                 ONBOARDING.LEARN_ROTATION.SetComplete();
                 UIManager.THIS.finger.Hide();
@@ -169,9 +169,15 @@ public class Spawner : Singleton<Spawner>
                 });
                 return;
             }
+            
+            if (ONBOARDING.TEACH_PICK.IsNotComplete())
+            {
+                ONBOARDING.TEACH_PICK.SetComplete();
+            }
 
             if (ONBOARDING.TEACH_PLACEMENT.IsNotComplete())
             {
+                
                 ONBOARDING.TEACH_PLACEMENT.SetComplete();
 
                 Onboarding.SpawnSecondBlockAndTeachRotation();
@@ -188,6 +194,11 @@ public class Spawner : Singleton<Spawner>
             
             return;
         }
+        
+        if (ONBOARDING.TEACH_PICK.IsNotComplete())
+        {
+            Onboarding.PressOnSpawner();
+        }
 
         Mount();
     }
@@ -203,11 +214,10 @@ public class Spawner : Singleton<Spawner>
         if (_currentBlock)
         {
             _currentBlock.OnPickUp();
+            _currentBlock.CancelLift();
             
             if (ONBOARDING.TEACH_PICK.IsNotComplete())
             {
-                ONBOARDING.TEACH_PICK.SetComplete();
-
                 UIManager.THIS.finger.Hide();
             }
         }

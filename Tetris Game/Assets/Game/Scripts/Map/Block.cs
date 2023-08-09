@@ -147,7 +147,15 @@ namespace Game
             shakePivot.DOKill();
             shakePivot.localPosition = Vector3.zero;
             shakePivot.localEulerAngles = Vector3.zero;
-            shakePivot.DOPunchPosition(new Vector3(0.0f, 1.0f, 0.0f), 2.5f, 1);
+            shakePivot.DOPunchPosition(new Vector3(0.0f, 2.0f, 0.0f), 2.0f, 1);
+        }
+
+        public void CancelLift()
+        {
+            shakePivot.DOKill();
+            shakePivot.localPosition = Vector3.zero;
+            shakePivot.localEulerAngles = Vector3.zero;
+            // shakePivot.DOLocalMove(Vector3.zero, 0.1f).SetEase(Ease.InOutSine);
         }
         public void Rotate()
         {

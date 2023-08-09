@@ -38,12 +38,17 @@ public class Onboarding : SSingleton<Onboarding>
 
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
-            
-            Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
-            Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
-            UIManager.THIS.finger.OnClick = Spawner.THIS.Lift;
-            UIManager.THIS.finger.ShortPress(screenPosition, 0.75f);
+
+            PressOnSpawner();
         }
+    }
+
+    public static void PressOnSpawner()
+    {
+        Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
+        Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
+        UIManager.THIS.finger.OnClick = Spawner.THIS.Lift;
+        UIManager.THIS.finger.ShortPressAndDrag(screenPosition, 0.75f);
     }
     
     public static void SpawnSecondBlockAndTeachRotation()
