@@ -118,9 +118,12 @@ namespace Game
                 }
             });
 
-            if (steadyPawnCount > _Data.pawnSat)
+            if (ONBOARDING.ABLE_TO_USE_POWER.IsComplete())
             {
-                UIManager.THIS.loanBar.MakeAvailable();
+                if (steadyPawnCount > _Data.pawnSat)
+                {
+                    UIManager.THIS.loanBar.MakeAvailable();
+                }
             }
             // _ = (steadyPawnCount > _Data.pawnSat) ? UIManager.THIS.loanBar.MakeAvailable() : UIManager.THIS.loanBar.MakeUnavailable();
         }
@@ -225,7 +228,6 @@ namespace Game
         private void SpawnMergedPawn(Place place, int level)
         {
             Vector3 mergedPawnPosition = place.transform.position;
-            // Particle.Portal_Blue.Play(mergedPawnPosition + Vector3.up * 0.25f, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
             if (level <= 0)
             {
                 return;
@@ -234,19 +236,14 @@ namespace Game
             
             place.AcceptNow(mergedPawn);
 
-            // if (max)
-            // {
-            //     UIManagerExtensions.EmitVibeText(mergedPawn.transform.position + Vector3.up * 0.55f, "MAX",  AnimConst.THIS.maxTextDuration, AnimConst.THIS.maxTextDelay);
-            // }
 
             mergedPawn.MarkMergerColor();
-            mergedPawn.AnimatedShow(AnimConst.THIS.MergeTotalDur, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, () =>
+            mergedPawn.AnimatedShow(AnimConst.THIS.MergeTotalDur, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
+                () =>
             {
-                
-                //UIManagerExtensions.EmitVibeText(mergedPawnPosition, "+" + (level - mergeIndexPoint), 0.0f);
-
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
-            }, () => 
+            }, 
+                () => 
                 { 
                     mergedPawn.OnMerge();
                 });
@@ -257,8 +254,6 @@ namespace Game
             }
 
             UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
-
-            // UIManager.THIS.ft_Level.FlyWorld("X1", mergedPawnPosition + new Vector3(0.0f, 0.5f, 0.0f), 0.0f);
         }
 
         public void MergeLines(List<int> lines, float mergeTravelDelay, float mergeTravelDuration, Ease mergeTravelEase, float mergeTravelShoot)
