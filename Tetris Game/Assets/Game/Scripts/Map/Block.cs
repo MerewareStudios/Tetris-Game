@@ -22,23 +22,23 @@ namespace Game
         [System.NonSerialized] public List<int> RequiredIndexes;
         [System.NonSerialized] public bool canRotate;
 
-        // private void OnDrawGizmos()
-        // {
-        //     for (int x = 0; x < 3; x++)
-        //     {
-        //         for (int y = 0; y < 4; y++)
-        //         {
-        //             Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
-        //             Gizmos.DrawCube(new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
-        //         }
-        //     }
-        //
-        //     foreach (var segmentTransform in segmentTransforms.Where(segmentTransform => segmentTransform))
-        //     {
-        //         Gizmos.color = Color.green;
-        //         Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
-        //     }
-        // }
+        private void OnDrawGizmos()
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 4; y++)
+                {
+                    Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
+                    Gizmos.DrawCube(new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
+                }
+            }
+        
+            foreach (var segmentTransform in segmentTransforms.Where(segmentTransform => segmentTransform))
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
+            }
+        }
 
         public Board.BlockRot Rotation
         {

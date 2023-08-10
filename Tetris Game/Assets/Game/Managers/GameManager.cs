@@ -47,17 +47,18 @@ public class GameManager : Singleton<GameManager>
     }
     
     
-    public void Deconstruct()
-    {
-        Spawner.THIS.Deconstruct();
-        Map.THIS.Deconstruct();
-        Board.THIS.Deconstruct();
-        Warzone.THIS.Deconstruct();
-    }
+    // public void Deconstruct()
+    // {
+    //     Spawner.THIS.Deconstruct();
+    //     Map.THIS.Deconstruct();
+    //     Board.THIS.Deconstruct();
+    //     Warzone.THIS.Deconstruct();
+    // }
    
     public void OnVictory()
     {
         Spawner.THIS.Deconstruct();
+        Board.THIS.Deconstruct();
         Map.THIS.Deconstruct();
         Board.THIS.OnVictory();
         Warzone.THIS.OnVictory();
@@ -65,6 +66,7 @@ public class GameManager : Singleton<GameManager>
     public void OnFail()
     {
         Spawner.THIS.Deconstruct();
+        Board.THIS.Deconstruct();
         Map.THIS.Deconstruct();
         Board.THIS.OnFail();
         Warzone.THIS.OnFail();

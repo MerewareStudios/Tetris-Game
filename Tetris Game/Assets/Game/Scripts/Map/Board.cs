@@ -81,10 +81,12 @@ namespace Game
         }
         public void Deconstruct()
         {
-            Call<Place>(places, (place) =>
-            {
-                place.Deconstruct();
-            });
+            // Call<Place>(places, (place) =>
+            // {
+            //     place.Deconstruct();
+            // });
+            Dehighlight();
+            HideSuggestedPlaces();
         }
         public void OnVictory()
         {
@@ -241,12 +243,9 @@ namespace Game
             mergedPawn.AnimatedShow(AnimConst.THIS.MergeTotalDur, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
             {
+                mergedPawn.OnMerge();
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
-            }, 
-                () => 
-                { 
-                    mergedPawn.OnMerge();
-                });
+            });
 
             if (ONBOARDING.ABLE_TO_EARN_XP.IsComplete())
             {

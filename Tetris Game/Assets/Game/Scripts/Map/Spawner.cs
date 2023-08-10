@@ -19,8 +19,6 @@ public class Spawner : Singleton<Spawner>
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
 
-    // [SerializeField] private float horSense = 1.5f;
-
     [System.NonSerialized] private Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
@@ -28,6 +26,7 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Tween delayedTween;
     [System.NonSerialized] private Tween assertionTween;
     [System.NonSerialized] private int _blockSpawnCount = 0;
+    [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
 
     public void Shake()
     {
@@ -58,7 +57,18 @@ public class Spawner : Singleton<Spawner>
             block.Deconstruct();
             RemoveBlock(block);   
         }
+
+        StopAllRunningTasksOnBlock();
+    }
+
+    private void StopAllRunningTasksOnBlock()
+    {
         delayedTween?.Kill();
+
+        assertionTween?.Kill();
+        StopMovement();
+
+        _currentBlock = null;
     }
     public void OnLevelLoad()
     {
@@ -110,8 +120,15 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDrag()
     {
-        assertionTween?.Kill(true);
-        assertionTween = null;
+        if (!_currentBlock)
+        {
+            return;
+        }
+        if (assertionTween != null)
+        {
+            assertionTween.Kill(true);
+            assertionTween = null;
+        }
         if (!_grabbedBlock)
         {
             return;
@@ -244,7 +261,6 @@ public class Spawner : Singleton<Spawner>
 
     #region Spawn
 
-    private List<Block> _spawnedBlocks = new();
     private Block SpawnNextBlock()
     {
         Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
@@ -297,7 +313,7 @@ public class Spawner : Singleton<Spawner>
 
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)
     {
-        Deconstruct();  
+        StopAllRunningTasksOnBlock();  
         _currentBlock = SpawnBlock(pool, usage);
     }
     public void RemoveBlock(Block block)

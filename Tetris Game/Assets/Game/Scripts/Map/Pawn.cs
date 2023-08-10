@@ -202,7 +202,7 @@ namespace Game
             meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
         }
         #endregion
-        public void AnimatedShow(float delay, float scale, float duration, System.Action start = null, System.Action complete = null)
+        public void AnimatedShow(float delay, float scale, float duration, System.Action start = null)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
@@ -214,21 +214,14 @@ namespace Game
 
                 modelPivot.DOKill();
                 modelPivot.localScale = Vector3.one;
-                modelPivot.DOPunchScale(Vector3.one * scale, duration, 1)
-                    .onComplete += () => 
-                    {
-                        complete?.Invoke();    
-                    };
-                });
+                modelPivot.DOPunchScale(Vector3.one * scale, duration, 1);
+            });
         }
         public void PunchScaleBullet(float magnitude)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOPunchScale(Vector3.one * magnitude, 0.3f, 1);
-
-            // Particle.Bullet.Emit(1, _thisTransform.position + BulletPsUp);
-            // Particle.Ring.Emit(1, _thisTransform.position + CameraManager.THIS.gameCamera.transform.forward * -2.0f);
         }
         public void PunchScale(float magnitude, float duration)
         {
@@ -253,8 +246,6 @@ namespace Game
                 };
             
             Vector3 emitPosition = _thisTransform.position + BulletPsUp;
-            // Particle.Bullet.Emit(1, emitPosition);
-            // Particle.Ring.Emit(1, _thisTransform.position + CameraManager.THIS.gameCamera.transform.forward * -2.0f);
         }  
         public void Show()
         {
