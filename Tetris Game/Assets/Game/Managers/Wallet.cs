@@ -45,4 +45,12 @@ public static class Wallet
         GEM.Scale(scale, distance);
         AD.Scale(scale, distance);
     }
+    public static void HideTransactors()
+    {
+        
+    }
+    public static void ShowTransactors()
+    {
+        
+    }
 }

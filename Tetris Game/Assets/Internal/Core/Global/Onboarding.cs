@@ -66,7 +66,7 @@ public class Onboarding : SSingleton<Onboarding>
 
             yield return new WaitForSeconds(0.5f);
             
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText, 0.5f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
             Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
