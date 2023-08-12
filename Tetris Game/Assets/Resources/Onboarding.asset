@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needAmmoText: I need <size=120%><bounce a=1 f=2 w=0.5><color=#53A4FF>bullets</color>
     </bounce></size>!
-  useAmmoBoxText: Move <size=125%><bounce a=1 f=2 w=1><sprite name=MaxStack><color=#53A4FF>
+  useAmmoBoxText: Move the <size=125%><bounce a=1 f=2 w=1><sprite name=MaxStack><color=#53A4FF>
     boxes</color> !</bounce>
-  rotateText: Rotate <swing w=0.4><sprite name=RotBlock> </>
+  rotateText: Rotate <swing w=0.4><sprite name=MaxStack> </>
   stackText: <color=#31C167><size=125%><bounce a=0.5 f=2>Merge</bounce></size></color>
     them here!
   greatCheerText: <wiggle a=0.6 f=2><size=120%>Great!</size>

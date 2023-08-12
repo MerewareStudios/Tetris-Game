@@ -39,6 +39,7 @@ namespace IWI.Tutorial
             
             scalePivot.localScale = Vector3.one;
             offsetPivot.localPosition = Vector3.zero;
+            offsetPivot.localRotation = Quaternion.identity;
             
             Tween scaleDownTween = scalePivot.DOScale(scaleDown, downDuration).SetEase(downEase);
             Tween scaleUpTween = scalePivot.DOScale(Vector3.one, upDuration).SetEase(upEase);

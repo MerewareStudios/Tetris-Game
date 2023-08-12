@@ -18,7 +18,7 @@ namespace IWI
         {
             if (showAds)
             {
-                FakeAdBanner.Show();
+                // FakeAdBanner.Show();
                 // FakeAdInterstitial.Show(() =>
                 // {
                 //     Debug.LogWarning("Fake Ad Interstitial (On Finish)");
