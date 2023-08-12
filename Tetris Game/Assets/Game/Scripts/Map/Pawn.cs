@@ -158,7 +158,7 @@ namespace Game
                 .onComplete += Deconstruct;
 
             
-            UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.0f, () =>
+            UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
             {
                 Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
             });

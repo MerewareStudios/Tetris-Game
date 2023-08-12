@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A
+  m_text: I need bullets!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 323ad0eb805f4a542b5f3a091c7982e8, type: 2}
   m_sharedMaterial: {fileID: -7252815453507711536, guid: 323ad0eb805f4a542b5f3a091c7982e8,
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -3.48
+  m_characterSpacing: -5.08
   m_wordSpacing: 0
   m_lineSpacing: -31.99
   m_lineSpacingMax: 0
@@ -299,10 +299,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 35
-    m_Right: 25
-    m_Top: -13
-    m_Bottom: 22
+    m_Left: 49
+    m_Right: 36
+    m_Top: -6
+    m_Bottom: 41
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
