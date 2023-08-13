@@ -90,8 +90,6 @@ namespace Game.UI
                 case UpgradeType.SupplyLine:
                     Board.THIS.SupplyLine = purchaseData.gain;
                     break;
-                case UpgradeType.Hole:
-                    break;
                 case UpgradeType.MaxPiggyLevel:
                     PiggyMenu.THIS.MaxPiggyLevel++;
                     break;
@@ -111,7 +109,6 @@ namespace Game.UI
             Shield,
             MaxStack,
             SupplyLine,
-            Hole,
             MaxPiggyLevel,
         }
 

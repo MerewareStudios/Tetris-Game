@@ -460,7 +460,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, amount));
                     break;
                 case PiggyReward.Type.Gem:
-                    Wallet.Transaction(new Const.Currency(Const.CurrencyType.Gem, amount));
+                    Wallet.Transaction(new Const.Currency(Const.CurrencyType.PiggyCoin, amount));
                     break;
                 case PiggyReward.Type.Ad:
                     Wallet.Transaction(new Const.Currency(Const.CurrencyType.Ad, amount));

@@ -87,7 +87,6 @@ public class StatDisplay : MonoBehaviour
         Splitshot,
         Firerate,
         Shield,
-        Agility,
         MaxStack,
     }
 }

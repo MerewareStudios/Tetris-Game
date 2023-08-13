@@ -65,6 +65,7 @@ namespace Game
                 if (LevelManager.THIS.CanSpawnBonus())
                 {
                    Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
+                   // Helper.IsPossible(1.0f, () => OverrideUsage(out usage));
                 }
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, lookUps[i], usage);
                 pawn.ParentBlock = this;
