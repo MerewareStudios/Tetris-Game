@@ -45,7 +45,6 @@ MonoBehaviour:
       defaultStack: 7
       maxStack: 7
       defaultSupplyLine: 6
-      supplyLine: 6
       pawnSat: 23
     coinTransactionData:
       value: 0
@@ -346,8 +345,7 @@ MonoBehaviour:
   placeColors:
   - {r: 0, g: 1, b: 0.38431373, a: 1}
   - {r: 1, g: 0.28627452, b: 0.2, a: 1}
-  - {r: 0.189, g: 0.189, b: 0.189, a: 1}
-  shooterPlaceColor: {r: 0.1764706, g: 0.1764706, b: 0.1764706, a: 0.5803922}
+  - {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
   enemyColors:
   - {r: 1, g: 0.27679035, b: 0.18431371, a: 1}
   - {r: 1, g: 0.47961238, b: 0.1830188, a: 1}

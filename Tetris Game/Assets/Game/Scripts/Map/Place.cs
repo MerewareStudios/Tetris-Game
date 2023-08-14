@@ -1,11 +1,6 @@
 using DG.Tweening;
-using Game;
 using Internal.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game
 {
@@ -13,7 +8,7 @@ namespace Game
     {
         [SerializeField] public Transform segmentParent;
         [SerializeField] private MeshRenderer placementSprite;
-        [SerializeField] private MeshRenderer igniteSprite;
+        // [SerializeField] private MeshRenderer igniteSprite;
         [System.NonSerialized] public Vector2Int index;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
         [System.NonSerialized] private bool _supplier = false;
@@ -24,20 +19,20 @@ namespace Game
         public int LinearIndex => index.x * Board.THIS.Size.y + index.y;
 
 
-        public bool Supplier
-        {
-            get => _supplier;
-            set
-            {
-                _supplier = value;
-                igniteSprite.enabled = value;
-                // SetPlaceType(PlaceType.EMPTY, true);
-                this._placeType = PlaceType.EMPTY;
-
-                Color color = value ? Const.THIS.shooterPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
-                placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
-            }
-        }
+        // public bool Supplier
+        // {
+        //     get => _supplier;
+        //     set
+        //     {
+        //         _supplier = value;
+        //         igniteSprite.enabled = value;
+        //         // SetPlaceType(PlaceType.EMPTY, true);
+        //         this._placeType = PlaceType.EMPTY;
+        //
+        //         Color color = value ? Const.THIS.shooterPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
+        //         placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
+        //     }
+        // }
 
         public void Construct()
         {
@@ -82,10 +77,10 @@ namespace Game
             this._placeType = placeType;
 
             Color color = Const.THIS.placeColors[(int)placeType];
-            if (placeType.Equals(PlaceType.EMPTY) && Supplier)
-            {
-                color = Const.THIS.shooterPlaceColor;
-            }
+            // if (placeType.Equals(PlaceType.EMPTY) && Supplier)
+            // {
+            //     color = Const.THIS.shooterPlaceColor;
+            // }
 
             DoColor(color);
         }

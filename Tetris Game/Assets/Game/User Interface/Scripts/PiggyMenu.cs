@@ -411,11 +411,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 rewards.Add(new PiggyReward(PiggyReward.Type.Ad, UnityEngine.Random.Range(1, 3)));
                 if (piggyLevel < 6) return;
                 rewards.Add(new PiggyReward(PiggyReward.Type.MaxStack, 1));
+                // if (piggyLevel < 7) return;
+                // rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
                 if (piggyLevel < 7) return;
-                rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
-                if (piggyLevel < 8) return;
                 rewards.Add(new PiggyReward(PiggyReward.Type.PiggyLevel, 1));
-                if (piggyLevel < 9) return;
+                if (piggyLevel < 8) return;
                 rewards.Add(new PiggyReward(PiggyReward.Type.Hole, 1));
             }
 
@@ -480,9 +480,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 case PiggyReward.Type.MaxStack:
                     Board.THIS.MaxStack += amount;
                     break;
-                case PiggyReward.Type.SupplyLine:
-                    Board.THIS.SupplyLine += amount;
-                    break;
+                // case PiggyReward.Type.SupplyLine:
+                //     Board.THIS.SupplyLine += amount;
+                //     break;
                 case PiggyReward.Type.PiggyLevel:
                     PiggyMenu.THIS.MaxPiggyLevel += amount;
                     break;
@@ -506,7 +506,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Medkit,
             Protection,
             MaxStack,
-            SupplyLine,
+            // SupplyLine,
             PiggyLevel,
             Hole,
         }

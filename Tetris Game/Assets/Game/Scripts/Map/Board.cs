@@ -45,20 +45,20 @@ namespace Game
             get => _Data.maxStack;
         }
         
-        public int SupplyLine
-        {
-            set
-            {
-                int newValue = Mathf.Clamp(value, 0, Size.x * Size.y);
-                if (_Data.supplyLine == newValue)
-                {
-                    return;
-                }
-                _Data.supplyLine = newValue;
-                MarkSupplier(_Data.supplyLine);
-            }
-            get => _Data.supplyLine;
-        }
+        // public int SupplyLine
+        // {
+        //     set
+        //     {
+        //         int newValue = Mathf.Clamp(value, 0, Size.x * Size.y);
+        //         if (_Data.supplyLine == newValue)
+        //         {
+        //             return;
+        //         }
+        //         _Data.supplyLine = newValue;
+        //         MarkSupplier(_Data.supplyLine);
+        //     }
+        //     get => _Data.supplyLine;
+        // }
         
         public void Construct()
         {
@@ -76,7 +76,7 @@ namespace Game
             }
 
             // SupplyLine = _Data.supplyLine;
-            MarkSupplier(_Data.supplyLine);
+            // MarkSupplier(_Data.supplyLine);
 
         }
         public void Deconstruct()
@@ -416,14 +416,14 @@ namespace Game
             return false;
         }
         
-        public void MarkSupplier(int lastIndex)
-        {
-            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
-            {
-                int linearIndex = verticalIndex * Size.x + horizontalIndex;
-                place.Supplier = linearIndex < lastIndex;
-            });
-        }
+        // public void MarkSupplier(int lastIndex)
+        // {
+        //     Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+        //     {
+        //         int linearIndex = verticalIndex * Size.x + horizontalIndex;
+        //         place.Supplier = linearIndex < lastIndex;
+        //     });
+        // }
         
         public void Place(Block block)
         {
@@ -608,7 +608,7 @@ namespace Game
             [SerializeField] public int defaultStack = 6;
             [SerializeField] public int maxStack = 6;
             [SerializeField] public int defaultSupplyLine = 6;
-            [SerializeField] public int supplyLine = 6;
+            // [SerializeField] public int supplyLine = 6;
             [SerializeField] public int pawnSat = 75;
             
             public Data()
@@ -620,7 +620,7 @@ namespace Game
                 this.defaultStack = data.defaultStack;
                 this.maxStack = data.maxStack;
                 this.defaultSupplyLine = data.defaultSupplyLine;
-                this.supplyLine = data.supplyLine;
+                // this.supplyLine = data.supplyLine;
                 this.pawnSat = data.pawnSat;
             }
 

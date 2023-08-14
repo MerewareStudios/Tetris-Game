@@ -19,7 +19,7 @@ MonoBehaviour:
   mergeTravelEase: 8
   mergedScalePunch: 0.35
   mergedScaleDuration: 0.35
-  distortScale: 3.5
+  distortScale: 3.75
   distortStartRamp: -0.18
   distortEndRamp: 0.5
   distortDuration: 0.55
