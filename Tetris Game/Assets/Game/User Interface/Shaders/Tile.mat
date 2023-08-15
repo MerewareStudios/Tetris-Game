@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tile
-  m_Shader: {fileID: -6465566751694194690, guid: 9b17d6ac9ad0d7042ab3bba07b58e348,
+  m_Shader: {fileID: -6465566751694194690, guid: 35d4ebb0d6aa3e0418a22b1bf05e88ea,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

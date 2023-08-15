@@ -18,8 +18,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private MarkedProgress _markedProgressPiggy;
     [Header("Buttons")]
     [SerializeField] private RewardButton[] piggyRewardButtons;
-    [Header("Texts")]
-    [SerializeField] private TextMeshProUGUI pigLevelText;
     [Header("Curreny Displays")]
     [SerializeField] private CurrencyDisplay piggyCurrencyDisplay;
     [SerializeField] private CurrencyDisplay investmentCurrencyDisplay;
@@ -52,14 +50,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         set
         {
             _Data.piggyLevel = Mathf.Clamp(value, 0, _Data.maxPiggyLevel);
-            pigLevelText.text = (_Data.piggyLevel == _Data.maxPiggyLevel) ? "MAX" : _data.piggyLevel.ToString();
-
-            RectTransform rectTransformPiggyCount = pigLevelText.rectTransform;
-            
-            rectTransformPiggyCount.DOKill();
-            rectTransformPiggyCount.localScale = Vector3.one;
-            rectTransformPiggyCount.DOPunchScale(Vector3.one * 0.5f, 0.25f, 1).SetUpdate(true);
-            
             PunchPiggyIcon();
         }
         get => _Data.piggyLevel;
