@@ -174,8 +174,8 @@ Canvas:
   m_GameObject: {fileID: 74274868}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1317039840}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -334,11 +334,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0
+  far clip plane: 2000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 1204
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -511,11 +511,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: White Button - No Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 6731026354369373816, guid: 132e47b1ff1a7114da6c9773ec22fe48,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8601306136056327535, guid: 132e47b1ff1a7114da6c9773ec22fe48,
         type: 3}
       propertyPath: m_Pivot.x
@@ -549,12 +544,12 @@ PrefabInstance:
     - target: {fileID: 8601306136056327535, guid: 132e47b1ff1a7114da6c9773ec22fe48,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 700
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 8601306136056327535, guid: 132e47b1ff1a7114da6c9773ec22fe48,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 700
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 8601306136056327535, guid: 132e47b1ff1a7114da6c9773ec22fe48,
         type: 3}
@@ -599,7 +594,7 @@ PrefabInstance:
     - target: {fileID: 8601306136056327535, guid: 132e47b1ff1a7114da6c9773ec22fe48,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -456
+      value: -478
       objectReference: {fileID: 0}
     - target: {fileID: 8601306136056327535, guid: 132e47b1ff1a7114da6c9773ec22fe48,
         type: 3}
@@ -674,12 +669,12 @@ PrefabInstance:
     - target: {fileID: 3857730813646739277, guid: f9f1868cc367e2b4bae041e0cc5e60a5,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 595
+      value: 582.4
       objectReference: {fileID: 0}
     - target: {fileID: 3857730813646739277, guid: f9f1868cc367e2b4bae041e0cc5e60a5,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 368.8
+      value: 325.3
       objectReference: {fileID: 0}
     - target: {fileID: 3857730813646739277, guid: f9f1868cc367e2b4bae041e0cc5e60a5,
         type: 3}
@@ -724,7 +719,7 @@ PrefabInstance:
     - target: {fileID: 3857730813646739277, guid: f9f1868cc367e2b4bae041e0cc5e60a5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 763
+      value: 778
       objectReference: {fileID: 0}
     - target: {fileID: 3857730813646739277, guid: f9f1868cc367e2b4bae041e0cc5e60a5,
         type: 3}
@@ -745,11 +740,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blue Button - No Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551684115658175350, guid: f9f1868cc367e2b4bae041e0cc5e60a5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -781,11 +771,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow Button - Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 4995301642944319065, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
       propertyPath: m_Pivot.x
@@ -794,12 +779,12 @@ PrefabInstance:
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
@@ -809,7 +794,7 @@ PrefabInstance:
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
@@ -864,12 +849,12 @@ PrefabInstance:
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 430.56473
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 162
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8043547269533335947, guid: 8d3c9b45a09fcc04988708c1e7043fe6,
         type: 3}
@@ -938,12 +923,12 @@ PrefabInstance:
     - target: {fileID: 5471528318663458741, guid: 285749e3f9d7d574dab9100ea4fde375,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 475.4
+      value: 436.8
       objectReference: {fileID: 0}
     - target: {fileID: 5471528318663458741, guid: 285749e3f9d7d574dab9100ea4fde375,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 218.4
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 5471528318663458741, guid: 285749e3f9d7d574dab9100ea4fde375,
         type: 3}
@@ -988,7 +973,7 @@ PrefabInstance:
     - target: {fileID: 5471528318663458741, guid: 285749e3f9d7d574dab9100ea4fde375,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 310.50165
+      value: 318.99997
       objectReference: {fileID: 0}
     - target: {fileID: 5471528318663458741, guid: 285749e3f9d7d574dab9100ea4fde375,
         type: 3}
@@ -1009,11 +994,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Button - Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 8239438879028070274, guid: 285749e3f9d7d574dab9100ea4fde375,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1036,12 +1016,12 @@ PrefabInstance:
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
@@ -1051,7 +1031,7 @@ PrefabInstance:
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
@@ -1106,12 +1086,12 @@ PrefabInstance:
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 430.56473
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 162
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2387584818908695538, guid: 401300dd3aad09a47bab148c6d236315,
         type: 3}
@@ -1133,11 +1113,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow Button - No Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 4367657018894788094, guid: 401300dd3aad09a47bab148c6d236315,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1155,11 +1130,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Green Button - Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6881759494551987191, guid: 1c8078b893dae864b982dc46dbb7e612,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6977870188163913901, guid: 1c8078b893dae864b982dc46dbb7e612,
         type: 3}
@@ -1194,12 +1164,12 @@ PrefabInstance:
     - target: {fileID: 6977870188163913901, guid: 1c8078b893dae864b982dc46dbb7e612,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 475.4
+      value: 436.8
       objectReference: {fileID: 0}
     - target: {fileID: 6977870188163913901, guid: 1c8078b893dae864b982dc46dbb7e612,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 218.4
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 6977870188163913901, guid: 1c8078b893dae864b982dc46dbb7e612,
         type: 3}
@@ -1244,7 +1214,7 @@ PrefabInstance:
     - target: {fileID: 6977870188163913901, guid: 1c8078b893dae864b982dc46dbb7e612,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 499.50165
+      value: 510
       objectReference: {fileID: 0}
     - target: {fileID: 6977870188163913901, guid: 1c8078b893dae864b982dc46dbb7e612,
         type: 3}
@@ -1287,22 +1257,22 @@ PrefabInstance:
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
@@ -1312,7 +1282,7 @@ PrefabInstance:
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 239.7
+      value: 239.69995
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
@@ -1352,12 +1322,12 @@ PrefabInstance:
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 430.56473
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 868
+      value: -91
       objectReference: {fileID: 0}
     - target: {fileID: 1045605381652115463, guid: b61b97f9a81ba5e46a341cf8afdf6862,
         type: 3}
@@ -1378,11 +1348,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Button - Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 7575004989955882946, guid: b61b97f9a81ba5e46a341cf8afdf6862,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1436,12 +1401,12 @@ PrefabInstance:
     - target: {fileID: 5352587648255763867, guid: 075631a2841cf844694c7bb8c4f57361,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 475.4
+      value: 436.8
       objectReference: {fileID: 0}
     - target: {fileID: 5352587648255763867, guid: 075631a2841cf844694c7bb8c4f57361,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 218.4
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 5352587648255763867, guid: 075631a2841cf844694c7bb8c4f57361,
         type: 3}
@@ -1486,7 +1451,7 @@ PrefabInstance:
     - target: {fileID: 5352587648255763867, guid: 075631a2841cf844694c7bb8c4f57361,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 310.50165
+      value: 318.99994
       objectReference: {fileID: 0}
     - target: {fileID: 5352587648255763867, guid: 075631a2841cf844694c7bb8c4f57361,
         type: 3}
@@ -1508,11 +1473,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Button - No Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 5985551553121139435, guid: 075631a2841cf844694c7bb8c4f57361,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1530,11 +1490,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red Button - Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 2049688364741979890, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2266087245093601678, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
         type: 3}
@@ -1569,12 +1524,12 @@ PrefabInstance:
     - target: {fileID: 2266087245093601678, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 475.4
+      value: 436.8
       objectReference: {fileID: 0}
     - target: {fileID: 2266087245093601678, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 218.4
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 2266087245093601678, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
         type: 3}
@@ -1619,7 +1574,7 @@ PrefabInstance:
     - target: {fileID: 2266087245093601678, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 124.50166
+      value: 130.99998
       objectReference: {fileID: 0}
     - target: {fileID: 2266087245093601678, guid: 0200ce1df23f80a4aa13de203e8b2dd8,
         type: 3}
@@ -1694,12 +1649,12 @@ PrefabInstance:
     - target: {fileID: 6962410730713214928, guid: 260675061b3338a499019c18e6393375,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 700
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 6962410730713214928, guid: 260675061b3338a499019c18e6393375,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 700
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 6962410730713214928, guid: 260675061b3338a499019c18e6393375,
         type: 3}
@@ -1744,7 +1699,7 @@ PrefabInstance:
     - target: {fileID: 6962410730713214928, guid: 260675061b3338a499019c18e6393375,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -456
+      value: -478.00003
       objectReference: {fileID: 0}
     - target: {fileID: 6962410730713214928, guid: 260675061b3338a499019c18e6393375,
         type: 3}
@@ -1765,11 +1720,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: White Button - Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 8194692344610928888, guid: 260675061b3338a499019c18e6393375,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1835,12 +1785,12 @@ PrefabInstance:
     - target: {fileID: 4626986639947912763, guid: c0829b45e84af9246a0dc74094f3dcb8,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 595
+      value: 582.4
       objectReference: {fileID: 0}
     - target: {fileID: 4626986639947912763, guid: c0829b45e84af9246a0dc74094f3dcb8,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 368.8
+      value: 325.3
       objectReference: {fileID: 0}
     - target: {fileID: 4626986639947912763, guid: c0829b45e84af9246a0dc74094f3dcb8,
         type: 3}
@@ -1885,7 +1835,7 @@ PrefabInstance:
     - target: {fileID: 4626986639947912763, guid: c0829b45e84af9246a0dc74094f3dcb8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 763
+      value: 778
       objectReference: {fileID: 0}
     - target: {fileID: 4626986639947912763, guid: c0829b45e84af9246a0dc74094f3dcb8,
         type: 3}
@@ -1907,11 +1857,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue Button - Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 8704033828953547647, guid: c0829b45e84af9246a0dc74094f3dcb8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1929,11 +1874,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Green Button - No Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6734374356945582768, guid: cdf8f27982882f34cb92170d00792db0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8406075700843834400, guid: cdf8f27982882f34cb92170d00792db0,
         type: 3}
@@ -1968,12 +1908,12 @@ PrefabInstance:
     - target: {fileID: 8406075700843834400, guid: cdf8f27982882f34cb92170d00792db0,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 475.4
+      value: 436.8
       objectReference: {fileID: 0}
     - target: {fileID: 8406075700843834400, guid: cdf8f27982882f34cb92170d00792db0,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 218.4
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 8406075700843834400, guid: cdf8f27982882f34cb92170d00792db0,
         type: 3}
@@ -2018,7 +1958,7 @@ PrefabInstance:
     - target: {fileID: 8406075700843834400, guid: cdf8f27982882f34cb92170d00792db0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 499.50165
+      value: 509.99994
       objectReference: {fileID: 0}
     - target: {fileID: 8406075700843834400, guid: cdf8f27982882f34cb92170d00792db0,
         type: 3}
@@ -2053,11 +1993,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Button - No Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 8890612382090009876, guid: 9ec3480eaf5235f498afa447d67badcc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9116342790014096668, guid: 9ec3480eaf5235f498afa447d67badcc,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2091,12 +2026,12 @@ PrefabInstance:
     - target: {fileID: 9116342790014096668, guid: 9ec3480eaf5235f498afa447d67badcc,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 475.4
+      value: 436.8
       objectReference: {fileID: 0}
     - target: {fileID: 9116342790014096668, guid: 9ec3480eaf5235f498afa447d67badcc,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 218.4
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 9116342790014096668, guid: 9ec3480eaf5235f498afa447d67badcc,
         type: 3}
@@ -2141,7 +2076,7 @@ PrefabInstance:
     - target: {fileID: 9116342790014096668, guid: 9ec3480eaf5235f498afa447d67badcc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 124.50166
+      value: 130.99998
       objectReference: {fileID: 0}
     - target: {fileID: 9116342790014096668, guid: 9ec3480eaf5235f498afa447d67badcc,
         type: 3}
@@ -2196,22 +2131,22 @@ PrefabInstance:
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
@@ -2221,7 +2156,7 @@ PrefabInstance:
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 239.7
+      value: 239.69995
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
@@ -2261,12 +2196,12 @@ PrefabInstance:
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 430.56473
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 868
+      value: -91
       objectReference: {fileID: 0}
     - target: {fileID: 6766128913591746341, guid: 0011e8aff2f08b541955b59851583dd7,
         type: 3}
@@ -2287,11 +2222,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Purple Button - No Shadow
-      objectReference: {fileID: 0}
-    - target: {fileID: 8952711495366545159, guid: 0011e8aff2f08b541955b59851583dd7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
