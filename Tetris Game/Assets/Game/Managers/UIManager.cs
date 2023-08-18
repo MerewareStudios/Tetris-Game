@@ -49,6 +49,8 @@ public class UIManager : Singleton<UIManager>
       
       ft_Icon_MenuOnTop.OnGetInstance = () => Pool.Flying_Text___Icon.Spawn<TextMeshProUGUI>();
       ft_Icon_MenuOnTop.ReturnInstance = (mono) => { mono.Despawn(); };
+
+      MENU_VISIBLE = false;
    }
 
 #if UNITY_EDITOR
