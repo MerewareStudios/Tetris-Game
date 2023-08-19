@@ -143,6 +143,13 @@ public static class UIManagerExtensions
       
       UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
    }
+   
+   public static void EarnCurrencyScreenStartScale(Const.CurrencyType currencyType, Vector3 screenStart, float startScale, float scale, System.Action endAction = null)
+   {
+      Vector3 screenEnd = Wallet.IconPosition(currencyType);
+      
+      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, startScale, scale, true, endAction);
+   }
 
     public static void Distort(Vector3 worldPosition, float delay)
     {

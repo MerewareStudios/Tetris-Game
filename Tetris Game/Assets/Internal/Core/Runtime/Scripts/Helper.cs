@@ -27,7 +27,14 @@ namespace Internal.Core
     public static class Helper
     {
         private static System.Random rnd = new System.Random();
-
+        public static int Abs(this int value)
+        {
+            return Mathf.Abs(value); 
+        }
+        public static float Abs(this float value)
+        {
+            return Mathf.Abs(value); 
+        }
         public static void Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;
@@ -98,7 +105,7 @@ namespace Internal.Core
         {
             Debug.Log(obj.ToString());
         } 
-        public static float Map(float x, float in_min, float in_max, float out_min, float out_max)
+        public static float Remap(this float x, float in_min, float in_max, float out_min, float out_max)
         {
             return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }

@@ -131,7 +131,7 @@ public class FlyingText : MonoBehaviour
         Tween moveSideTween = rectTransform.DOMove(screenDrag, 0.3f).SetEase(Ease.OutSine).SetUpdate(timeIndependent);
         Tween scaleUp = rectTransform.DOScale(Vector3.one * 1.5f, 0.3f).SetEase(Ease.OutBack).SetUpdate(timeIndependent);
         Tween moveTween = rectTransform.DOMove(screenEnd, duration).SetEase(Ease.InBack).SetUpdate(timeIndependent);
-        Tween scaleDown = rectTransform.DOScale(Vector3.one * 0.75f, duration * 0.75f).SetEase(Ease.OutSine).SetUpdate(timeIndependent);
+        Tween scaleDown = rectTransform.DOScale(Vector3.one * 0.5f, duration * 0.75f).SetEase(Ease.OutSine).SetUpdate(timeIndependent);
         
         Sequence sequence = DOTween.Sequence().SetUpdate(timeIndependent);
         sequence.Append(moveSideTween);
@@ -146,7 +146,33 @@ public class FlyingText : MonoBehaviour
 
         return sequence;
     }
-    
+    public Sequence CurrencyLerp(string str, Vector3 screenStart, Vector3 screenEnd, float startScale, float targetScale, bool timeIndependent = false, System.Action endAction = null)
+    {
+        TextMeshProUGUI text = OnGetInstance.Invoke();
+        text.text = str;
+        
+        RectTransform rectTransform = text.rectTransform;
+        rectTransform.SetParent(this.transform);
+        rectTransform.position = screenStart;
+        rectTransform.DOKill();
+        rectTransform.localScale = Vector3.one * startScale;
+
+        Tween scaleUp = rectTransform.DOScale(Vector3.one * targetScale, 0.15f).SetEase(Ease.OutCubic).SetUpdate(timeIndependent);
+        Tween moveTween = rectTransform.DOMove(screenEnd, 0.5f).SetEase(Ease.InBack).SetUpdate(timeIndependent).SetDelay(0.2f);
+        Tween scaleDown = rectTransform.DOScale(Vector3.one * 0.75f, 0.5f).SetEase(Ease.InBack).SetUpdate(timeIndependent);
+        
+        Sequence sequence = DOTween.Sequence().SetUpdate(timeIndependent);
+        sequence.Append(scaleUp);
+        sequence.Append(moveTween);
+        sequence.Join(scaleDown);
+        sequence.onComplete += () =>
+        {
+            ReturnInstance.Invoke(text);
+            endAction?.Invoke();
+        };
+
+        return sequence;
+    }
     public Sequence CurrencyLerp(string str, Vector3 screenStart, Vector3 screenEnd, float scale, bool timeIndependent = false, System.Action endAction = null)
     {
         TextMeshProUGUI text = OnGetInstance.Invoke();

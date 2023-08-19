@@ -35,7 +35,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 
     public bool Transaction(int amount)
     {
-        if (amount < 0 && Amount < -amount)
+        if (amount < 0 && Amount < amount.Abs())
         {
             Punch(-0.15f);
             return false;
@@ -47,6 +47,8 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 
     private void Punch(float amount)
     {
+        pivot.gameObject.SetActive(true);
+        
         pivot.DOKill();
         pivot.localScale = Vector3.one * _targetScale;
         pivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);

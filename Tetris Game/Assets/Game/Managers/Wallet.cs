@@ -38,6 +38,12 @@ public static class Wallet
 
         return !currencyTransactor || currencyTransactor.Transaction(currency.amount);
     }
+    public static bool Consume(Const.Currency currency)
+    {
+        CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
+
+        return !currencyTransactor || currencyTransactor.Transaction(-currency.amount);
+    }
     
     public static void ScaleTransactors(float scale, bool distance = false)
     {
