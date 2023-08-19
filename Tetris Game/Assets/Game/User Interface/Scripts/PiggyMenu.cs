@@ -26,6 +26,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Button investButton;
     [SerializeField] private Button breakButton;
     [SerializeField] private Transform frame;
+    [Header("Reward")]
+    // [SerializeField] private Animator piggyAnimator;
+    [SerializeField] private RectTransform normalPiggy;
+    [SerializeField] private RectTransform rewardedPiggy;
+    [SerializeField] private RectTransform rewardedPiggyShakePivot;
+    [SerializeField] private Image rewardPiggyGlow;
+    [SerializeField] private Material piggyGlowMat;
+    [ColorUsage(true, true)] [SerializeField] private Color glowColorStart;
+    [ColorUsage(true, true)] [SerializeField] private Color glowColorEnd;
 
     
     #region Menu
@@ -84,6 +93,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         continueButton.transform.DOKill();
         continueButton.transform.localScale = Vector3.zero;
         continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
+        
+        
+        _markedProgressPiggy.gameObject.SetActive(true);
+        rewardedPiggy.gameObject.SetActive(false);
     }
     public void Hide()
     {
@@ -105,7 +118,21 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void OnClick_BreakPiggyBank()
     {
+        rewardPiggyGlow.transform.localScale = Vector3.zero;
+        rewardPiggyGlow.transform.DOKill();
+        rewardPiggyGlow.transform.DOScale(Vector3.one, 1.5f).SetEase(Ease.OutSine).SetUpdate(true);
         
+        
+        rewardPiggyGlow.DOColor(glowColorEnd, 1.5f).SetUpdate(true);
+        piggyGlowMat.DOColor(glowColorEnd, GameManager.InsideColor, 1.5f).SetUpdate(true);
+
+
+        rewardedPiggyShakePivot.DOKill();
+        rewardedPiggyShakePivot.localEulerAngles = Vector3.zero;
+        Tween shakeTween = rewardedPiggyShakePivot.DOPunchRotation(new Vector3(0.0f, 0.0f, 20.0f), 1.5f, 15).SetEase(Ease.InOutBack).SetUpdate(true);
+        shakeTween.SetAutoKill(false);
+        shakeTween.Complete();
+        shakeTween.PlayBackwards();
     }
     public void OnClick_InvestPiggyBank()
     {
@@ -212,12 +239,30 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 if (_Data.IsFull)
                 {
-                    // breakButton.targetGraphic.raycastTarget = false;
+                    breakButton.targetGraphic.raycastTarget = false;
                     breakButton.gameObject.SetActive(true);
                     breakButton.transform.DOKill();
                     breakButton.transform.localScale = Vector3.one;
                     breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true);
+                    
+                    _markedProgressPiggy.gameObject.SetActive(false);
+                    rewardedPiggy.gameObject.SetActive(true);
+                    rewardedPiggy.position = normalPiggy.position;
+                    rewardedPiggy.localScale = Vector3.one;
+                    rewardedPiggy.DOKill();
+                    rewardedPiggy.DOScale(Vector3.one * 1.5f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
+                    rewardedPiggy.DOLocalMove(Vector3.zero, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true).onComplete =
+                        () =>
+                        {
+                            breakButton.targetGraphic.raycastTarget = true;
 
+                        };
+                            
+                    
+                    rewardPiggyGlow.color = glowColorStart;
+                    piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
+                            // rewardPiggyGlow.color = glowColorStart;
+                            // rewardPiggyGlow.DOColor(glowColorEnd, 0.4f).SetUpdate(true)
                     // Money = 0;
 
                     // _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.2f, 0.25f, Ease.Linear,null, () =>
@@ -284,7 +329,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     
                 if (index == count - 1)
                 {
-                    AddMoney(currency.amount, 0.25f);
+                    AddMoney(currency.amount, 0.0f);
                 }
     
             })).SetDelay(i * 0.125f);

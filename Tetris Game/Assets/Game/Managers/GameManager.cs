@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int rampID = Shader.PropertyToID("_Ramp");
     public static readonly int powerID = Shader.PropertyToID("_Power");
+    public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
 
     void Awake()
     {
