@@ -26,7 +26,7 @@ MonoBehaviour:
     amount: 25
   failReward:
     type: 0
-    amount: 35
+    amount: 100
   suggestedBlocks:
   - type: 4
     requiredPlaces: 05000000060000000c00000013000000

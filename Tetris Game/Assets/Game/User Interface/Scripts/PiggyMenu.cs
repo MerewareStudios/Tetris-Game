@@ -13,21 +13,18 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [Header("End Level Screen")]
     [Header("Bars")]
     [SerializeField] private MarkedProgress _markedProgressPiggy;
-    [Header("Buttons")]
-    [SerializeField] private RewardButton[] piggyRewardButtons;
+    // [Header("Buttons")]
+    // [SerializeField] private RewardButton[] piggyRewardButtons;
     [Header("Currency Displays")]
     [SerializeField] private CurrencyDisplay piggyCurrencyDisplay;
     [Header("Pivots")]
     [SerializeField] private RectTransform _rectTransformPiggyIcon;
     [SerializeField] private RectTransform _coinTarget;
-    [SerializeField] private RectTransform _rewardsCenter;
-
+    // [SerializeField] private RectTransform _rewardsCenter;
     [Header("Buttons")]
-    [SerializeField] private GameObject continueButton;
-    [SerializeField] private GameObject investButton;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button investButton;
     [SerializeField] private Button breakButton;
-
-    
     [SerializeField] private Transform frame;
 
     
@@ -61,7 +58,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         Wallet.ScaleTransactors(1.5f, true);
         _Data = _data;
         
-        Money = _Data.currentMoney.amount;
+        piggyCurrencyDisplay.Display(_Data.currentMoney);
         _markedProgressPiggy._Progress = _Data.PiggyPercent;
         CanBreak = CanBreak;
 
@@ -69,8 +66,24 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         frame.localPosition = Vector3.down * 2000.0f;
         frame.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
 
-        investButton.gameObject.SetActive(!CanBreak);
-        continueButton.gameObject.SetActive(true);
+        investButton.gameObject.SetActive(false);
+        investButton.targetGraphic.raycastTarget = false;
+
+        if (!CanBreak)
+        {
+            investButton.transform.DOKill();
+            investButton.transform.localScale = Vector3.zero;
+            investButton.transform.DOScale(Vector3.one, 0.4f).SetEase(Ease.OutBack).SetDelay(0.4f).SetUpdate(true).OnStart(() =>
+            {
+                investButton.gameObject.SetActive(true);
+                investButton.image.raycastTarget = true;
+            });
+            
+        }
+        
+        continueButton.transform.DOKill();
+        continueButton.transform.localScale = Vector3.zero;
+        continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
     }
     public void Hide()
     {
@@ -97,11 +110,24 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_InvestPiggyBank()
     {
         InvestAnimated(Wallet.COIN.Currency);
-        investButton.gameObject.SetActive(false);
-    }
-    public void OnClick_SkipPiggyBank()
-    {
         
+        investButton.targetGraphic.raycastTarget = false;
+        investButton.transform.DOKill();
+        investButton.transform.DOScale(Vector3.zero, 0.35f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        {
+            investButton.gameObject.SetActive(false);
+        };
+        
+        continueButton.targetGraphic.raycastTarget = false;
+        continueButton.transform.DOKill();
+        continueButton.transform.DOScale(Vector3.zero, 0.45f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        {
+            continueButton.gameObject.SetActive(false);
+        };
+    }
+    public void OnClick_ContinuePiggyBank()
+    {
+        CloseAction();
     }
     #endregion
     
@@ -129,18 +155,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         get => _Data.maxPiggyLevel;
     }
 
-    private int Money
-    {
-        set
-        {
-            _Data.currentMoney.amount = value;
-            _Data.currentMoney.amount = Mathf.Clamp(Money, 0, _Data.moneyCapacity);
-
-            piggyCurrencyDisplay.Display(_Data.currentMoney);
-        }
-        get => _Data.currentMoney.amount;
-    }
-
     #endregion
     #region Animations
 
@@ -152,70 +166,87 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
 
     #endregion
-    #region Rewards
-    private void DisplayRewards()
-    {
-        foreach (var button in piggyRewardButtons)
-        {
-            button.gameObject.SetActive(false);
-        }
-        
-        _Data.rewards.Shuffle();
-
-        List<Vector3> positions = CircleLayoutGroup.GetPoints(_rewardsCenter.position, _Data.RewardCount,  _Data.RewardCount.Direction(), _Data.RewardCount.Radius());
-
-        for (int i = 0; i < _Data.RewardCount; i++)
-        {
-            RewardButton rewardButton = piggyRewardButtons[i];
-            PiggyReward piggyReward = _Data.rewards[i];
-            rewardButton.OnClick(() =>
-            {
-                _Data.rewards.Remove(piggyReward);
-                rewardButton.ShowReward(piggyReward);
-
-                if (_Data.rewards.Count <= 0)
-                {
-                    DOVirtual.DelayedCall(1.25f, CloseAction).SetUpdate(true);
-                }
-
-            }).Show(_rewardsCenter.position, positions[i], i * 0.1f);
-        }
-    }
+    // #region Rewards
+    // private void DisplayRewards()
+    // {
+    //     foreach (var button in piggyRewardButtons)
+    //     {
+    //         button.gameObject.SetActive(false);
+    //     }
+    //     
+    //     _Data.rewards.Shuffle();
+    //
+    //     List<Vector3> positions = CircleLayoutGroup.GetPoints(_rewardsCenter.position, _Data.RewardCount,  _Data.RewardCount.Direction(), _Data.RewardCount.Radius());
+    //
+    //     for (int i = 0; i < _Data.RewardCount; i++)
+    //     {
+    //         RewardButton rewardButton = piggyRewardButtons[i];
+    //         PiggyReward piggyReward = _Data.rewards[i];
+    //         rewardButton.OnClick(() =>
+    //         {
+    //             _Data.rewards.Remove(piggyReward);
+    //             rewardButton.ShowReward(piggyReward);
+    //
+    //             if (_Data.rewards.Count <= 0)
+    //             {
+    //                 // DOVirtual.DelayedCall(1.25f, CloseAction).SetUpdate(true);
+    //             }
+    //
+    //         }).Show(_rewardsCenter.position, positions[i], i * 0.1f);
+    //     }
+    // }
 
     
-    #endregion
+    // #endregion
     #region Invest
     private void AddMoney(int count, float delay = 0.0f)
     {
-        Money += count;
+        _Data.currentMoney.amount += count;
+        _Data.currentMoney.amount = Mathf.Clamp(_Data.currentMoney.amount, 0, _Data.moneyCapacity);
+        
         _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, Mathf.Clamp(count / 100.0f, 0.2f, 0.8f), delay, Ease.OutQuad, 
             
-            (value) => Money = _Data.Percent2Money(value) , 
+            (value) => piggyCurrencyDisplay.Display(_Data.Percent2Money(value)), 
             
             () =>
             {
                 if (_Data.IsFull)
                 {
+                    // breakButton.targetGraphic.raycastTarget = false;
+                    breakButton.gameObject.SetActive(true);
+                    breakButton.transform.DOKill();
+                    breakButton.transform.localScale = Vector3.one;
+                    breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true);
+
                     // Money = 0;
 
                     // _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.2f, 0.25f, Ease.Linear,null, () =>
                     // {
-                        // Money = 0;
-                        // if (excess > 0)
-                        // {
-                        //     AddMoney(excess, 0.15f);
-                        // }
-                        // else
-                        // {
-                            // ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
-                        // }
+                    // Money = 0;
+                    // if (excess > 0)
+                    // {
+                    //     AddMoney(excess, 0.15f);
+                    // }
+                    // else
+                    // {
+                    // ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
+                    // }
 
                     // });
                 }
-                // else
-                // {
+                else
+                {
+                    continueButton.gameObject.SetActive(true);
+                    continueButton.transform.DOKill();
+                    continueButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
+                        () =>
+                        {
+                            continueButton.targetGraphic.raycastTarget = true;
+                        };
+                    
+
                     // ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
-                // }
+                }
             });
     }
     // private void InvestCoins(Const.Currency currency)
@@ -363,7 +394,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
             public float PiggyPercent => currentMoney.amount / (float)moneyCapacity;
             public bool IsFull => currentMoney.amount >= moneyCapacity;
-            public int Percent2Money(float percent) => (int)Mathf.Lerp(0.0f, moneyCapacity, percent);
+            public Const.Currency Percent2Money(float percent) => new Const.Currency(currentMoney.type, (int)Mathf.Lerp(0.0f, moneyCapacity, percent));
             public int RewardCount => rewards.Count;
             public bool RewardsWaiting => rewards.Count > 0;
             // public bool MaxRewardsReached => piggyLevel >= maxPiggyLevel;
