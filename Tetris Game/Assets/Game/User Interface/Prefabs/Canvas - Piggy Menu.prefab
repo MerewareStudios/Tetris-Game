@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 13}
+  m_AnchoredPosition: {x: 0, y: 16}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1673273028812827168
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: INVEST 20<size=70%>%
+  m_text: INVEST <size=120%><color=#FFFC00>20<size=80%>%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 929b651fa16cc6744ab1a18875610afc, type: 2}
   m_sharedMaterial: {fileID: -2695050727172364303, guid: 929b651fa16cc6744ab1a18875610afc,
@@ -2003,7 +2003,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -119.85}
-  m_SizeDelta: {x: 658.96, y: 239.7}
+  m_SizeDelta: {x: 706.96, y: 244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1226172249319275343
 CanvasRenderer:
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 9.2
+  m_PixelsPerUnitMultiplier: 9.8
 --- !u!114 &8537267506465226131
 MonoBehaviour:
   m_ObjectHideFlags: 0

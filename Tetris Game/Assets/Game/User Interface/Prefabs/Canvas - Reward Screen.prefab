@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3226124756315118971}
+  _canvasGroup: {fileID: 7327895397427504274}
   rewardDisplayParent: {fileID: 2161064879629916995}
   piggyBlowPS: {fileID: 578415136194262123}
   claimButton: {fileID: 5863318696980972215}
@@ -103,7 +104,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &7473796426122375561
 MonoBehaviour:
   m_ObjectHideFlags: 0
