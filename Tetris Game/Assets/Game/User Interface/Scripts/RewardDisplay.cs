@@ -19,9 +19,12 @@ public class RewardDisplay : MonoBehaviour
         
         this.icon.sprite = rewardData.iconSprite;
         this.background.sprite = rewardData.backgroundSprite;
-        bottomInfo.text = "+" + piggyReward.amount + " " + rewardData.infoPostfix;
+        bottomInfo.text = "+" + piggyReward.amount + " " + rewardData.infoPostfix.ToUpper();
 
         canvas.sortingOrder = 7 + sortingIndex;
+
+        var main = ps.main;
+        main.startColor = rewardData.color;
     }
 
     public void SetSortingBehind()

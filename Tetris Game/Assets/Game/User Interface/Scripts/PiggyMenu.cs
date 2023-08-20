@@ -546,7 +546,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Medkit,
             Protection,
             MaxStack,
-            PiggyLevel,
+            PiggyCapacity,
+            Damage,
+            Firerate,
+            Splitshot,
+            Weapon
         }
     } 
     #endregion

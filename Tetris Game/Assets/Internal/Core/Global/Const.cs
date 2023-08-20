@@ -79,7 +79,7 @@ public class Const : SSingleton<Const>
         [SerializeField] public Sprite backgroundSprite;
         [SerializeField] public Sprite iconSprite;
         [TextArea][SerializeField] public string infoPostfix;
-
+        [SerializeField] public Color color;
     }
     
     [Serializable]

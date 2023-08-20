@@ -13,12 +13,12 @@ public class CurrencyDisplay : MonoBehaviour
 
     public void Display(Const.Currency overridenCurrency)
     {
-        text.text = overridenCurrency.type.ToTMProKey() + overridenCurrency.amount;
+        text.text = overridenCurrency.type.ToTMProKey() + " " + overridenCurrency.amount;
         UpdateVisual(overridenCurrency.type);
     }
     public void Display(Const.CurrencyType type, int amount)
     {
-        text.text = type.ToTMProKey() + amount;
+        text.text = type.ToTMProKey() + " " + amount;
         UpdateVisual(type);
     }
     public void Display(Const.CurrencyType type)

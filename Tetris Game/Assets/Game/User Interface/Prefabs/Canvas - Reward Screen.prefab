@@ -65,7 +65,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988924238841501245}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -133,6 +133,140 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &2027865649035625988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4832833213146253871}
+  - component: {fileID: 1133075163560662606}
+  - component: {fileID: 7883417224383963651}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4832833213146253871
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027865649035625988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 125470122116434741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -453.63538}
+  m_SizeDelta: {x: 684.3999, y: 217.1997}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &1133075163560662606
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027865649035625988}
+  m_CullTransparentMesh: 1
+--- !u!114 &7883417224383963651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027865649035625988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: YOUR REWARDS
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 64f87d86dc2bea340917fa9857a01a35, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: cccc6d6c56c586442b7180bd61493690, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 166.37
+  m_fontSizeBase: 166.37
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 113
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: -11.5
+  m_wordSpacing: 5.58
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 0
+  m_parseCtrlCharacters: 0
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 0
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2840941012749772369
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +515,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 25
+      scalar: 15
       minScalar: 0.25
       maxCurve:
         serializedVersion: 2
@@ -433,25 +567,25 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.89382416, b: 0, a: 1}
+      minMaxState: 4
+      minColor: {r: 1, g: 0, b: 0.9193015, a: 1}
+      maxColor: {r: 1, g: 0.6924793, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
-        key4: {r: 0, g: 0, b: 0, a: 0}
-        key5: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0.10588235, g: 1, b: 0.23624693, a: 1}
+        key1: {r: 0.40392128, g: 0.10588235, b: 1, a: 1}
+        key2: {r: 1, g: 0.2117647, b: 0.7372548, a: 0}
+        key3: {r: 1, g: 1, b: 0.41568625, a: 0}
+        key4: {r: 0.67058825, g: 1, b: 0.67058825, a: 0}
+        key5: {r: 0, g: 1, b: 1, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
-        ctime4: 0
-        ctime5: 0
+        ctime1: 13107
+        ctime2: 26214
+        ctime3: 39321
+        ctime4: 52428
+        ctime5: 65535
         ctime6: 0
         ctime7: 0
         atime0: 0
@@ -463,8 +597,8 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
-        m_NumColorKeys: 2
+        m_ColorSpace: 0
+        m_NumColorKeys: 6
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
@@ -499,7 +633,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
+      scalar: 1
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -823,7 +957,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5128,6 +5262,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4832833213146253871}
   - {fileID: 8746883968031857654}
   - {fileID: 2161064879629916995}
   - {fileID: 8422691646512581661}
@@ -5319,12 +5454,12 @@ PrefabInstance:
     - target: {fileID: 6433757765341751923, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 683.4
+      value: 753.91
       objectReference: {fileID: 0}
     - target: {fileID: 6433757765341751923, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 217.19995
+      value: 223
       objectReference: {fileID: 0}
     - target: {fileID: 6433757765341751923, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}

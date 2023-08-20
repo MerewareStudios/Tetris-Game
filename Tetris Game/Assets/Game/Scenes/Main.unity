@@ -6478,12 +6478,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 384570875}
     m_Modifications:
-    - target: {fileID: 3258956136602288446, guid: e3d377368904d064d91d5764ac306155,
+    - target: {fileID: 226149614418171106, guid: e3d377368904d064d91d5764ac306155,
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3258956136602288446, guid: e3d377368904d064d91d5764ac306155,
+    - target: {fileID: 226149614418171106, guid: e3d377368904d064d91d5764ac306155,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -6493,6 +6493,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 309379018}
+    - target: {fileID: 3680631963217843338, guid: e3d377368904d064d91d5764ac306155,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4645010180928139344, guid: e3d377368904d064d91d5764ac306155,
         type: 3}
       propertyPath: m_Name
@@ -6537,11 +6542,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5736246427470981809, guid: e3d377368904d064d91d5764ac306155,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5736246427470981809, guid: e3d377368904d064d91d5764ac306155,
         type: 3}
@@ -6884,6 +6884,16 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 309379018}
+    - target: {fileID: 3226124756315118971, guid: ddc96344383e14940908e152b7cf7bb0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916430564943521416, guid: ddc96344383e14940908e152b7cf7bb0,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7831,6 +7841,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas - Ad Break Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 8537120318261939295, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4338417768516384067, guid: 40f8700cc7cd42d4ea5761bebe2256fa,
+        type: 2}
     - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}
       propertyPath: m_Enabled
