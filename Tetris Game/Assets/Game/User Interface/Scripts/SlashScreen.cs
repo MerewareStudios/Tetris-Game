@@ -111,7 +111,7 @@ public class SlashScreen : Singleton<SlashScreen>
         _sequence.onComplete += () =>
         {
             Hide(animationSettingsHide, 0.1f);
-            UIManagerExtensions.EarnCurrencyScreenStartScale(currency.type, currencyDisplay.iconPivot.position, 1.0f, 1.25f, () =>
+            UIManagerExtensions.EarnCurrencyScreenStartScale(currency.type, currencyDisplay.iconPivot.position, 1.2f, 1.5f, () =>
             {
                 Wallet.Transaction(currency);
                 

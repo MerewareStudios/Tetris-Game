@@ -11,7 +11,7 @@ namespace Game
         // [SerializeField] private MeshRenderer igniteSprite;
         [System.NonSerialized] public Vector2Int index;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
-        [System.NonSerialized] private bool _supplier = false;
+        // [System.NonSerialized] private bool _supplier = false;
         public Pawn Current { get; set; }
         public bool Occupied => Current;
         public bool IsBorderPlace => index.y == Board.THIS.Size.y - 1;

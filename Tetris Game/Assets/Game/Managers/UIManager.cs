@@ -88,6 +88,10 @@ public class UIManager : Singleton<UIManager>
 
    public static void MenuMode(bool value)
    {
+      if (MENU_VISIBLE == value)
+      {
+         return;
+      }
       MENU_VISIBLE = value;
       Time.timeScale = value ? 0.0f : 1.0f;
       

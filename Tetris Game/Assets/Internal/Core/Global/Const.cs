@@ -25,6 +25,8 @@ public class Const : SSingleton<Const>
     public AdManager.Data DefaultAdData;
     public Gun.UpgradeData[] GunUpgradeData;
     
+    [Header("Reward")] 
+    public RewardData[] rewardDatas;
     [Header("Colors")] 
     public Color defaultColor;
     public Color steadyColor;
@@ -67,6 +69,16 @@ public class Const : SSingleton<Const>
         [SerializeField] public float loanBarProtectionInterval;
         [SerializeField] public int adBreakSkipTime;
         [SerializeField] public int mergePerAdBreak;
+
+    }
+    
+    [Serializable]
+    public struct RewardData
+    {
+        [SerializeField] public PiggyMenu.PiggyReward.Type type;
+        [SerializeField] public Sprite backgroundSprite;
+        [SerializeField] public Sprite iconSprite;
+        [TextArea][SerializeField] public string infoPostfix;
 
     }
     
@@ -167,7 +179,10 @@ public static class ConstExtensions
     {
         return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].radius;
     }
-    
+    public static Const.RewardData RewardData(this PiggyMenu.PiggyReward.Type type)
+    {
+        return Const.THIS.rewardDatas[(int)type];
+    }
     // public static void Stamp(this TextMeshProUGUI priceText, Const.Currency currency, int amount)
     // {
     //     Const.SetPriceStamp(priceText, currency, amount);
