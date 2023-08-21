@@ -53,7 +53,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             return true;
         }
-        Hide();
+        UIManager.MenuMode(false);
+        Wallet.ScaleTransactors(1.0f);
         return false;
     }
     private void CloseAction()
@@ -98,12 +99,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         _markedProgressPiggy.gameObject.SetActive(true);
         rewardedPiggy.gameObject.SetActive(false);
     }
-    public void Hide()
-    {
-        UIManager.MenuMode(false);
-        
-        Wallet.ScaleTransactors(1.0f);
-    }
     #endregion
 
     #region Break
@@ -147,7 +142,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             rewardedPiggy.gameObject.SetActive(false);
             Particle.Piggy_Break_Ps.Emit(100, rewardedPiggyShakePivot.position);
-            
+
+            base.CloseImmediate();
             RewardScreen.THIS.ShowFakeCards();
         });
     }

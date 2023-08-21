@@ -95,7 +95,7 @@ public class RewardScreen : Singleton<RewardScreen>
     {
         claimButton.transform.DOKill();
         claimButton.transform.localScale = Vector3.one;
-        claimButton.transform.DOPunchScale(Vector3.one * -0.2f, 0.35f, 1).SetUpdate(true);
+        claimButton.transform.DOPunchScale(Vector3.one * -0.1f, 0.25f, 1).SetUpdate(true);
         
         if (!_canClaim)
         {
@@ -146,7 +146,7 @@ public class RewardScreen : Singleton<RewardScreen>
         {
             if (lastOne)
             {
-                _canvasGroup.DOFade(0.0f, 0.25f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+                _canvasGroup.DOFade(0.0f, 0.35f).SetDelay(0.2f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
                 {
                     Deconstruct();
                     this._canvas.enabled = false;

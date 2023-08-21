@@ -64,6 +64,16 @@ namespace Game.UI
         {
             return this.parentContainer;
         }
+
+        public void CloseImmediate()
+        {
+            if (!Visible)
+            {
+                return;
+            }
+            Visible = false;
+            canvas.enabled = false;  
+        }
     }
 
     

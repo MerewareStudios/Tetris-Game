@@ -60,3 +60,14 @@ MonoBehaviour:
     textAnchor: 4
     fontSize: 15
     toUpperCase: 1
+  - character: 38
+    tooltip: Custom tooltip
+    texture: {fileID: 2800000, guid: 4b257e3ea00e08240bb1a7e002989fda, type: 3}
+    texturePadding: 0.975
+    removeCharacter: 1
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+    backgroundColor: {r: 0, g: 0.6774039, b: 1, a: 1}
+    fontStyle: 1
+    textAnchor: 4
+    fontSize: 15
+    toUpperCase: 1
