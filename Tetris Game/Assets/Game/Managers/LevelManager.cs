@@ -6,24 +6,22 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
+
+    public static int CurrentLevel => LevelManager.THIS.CurrentLevel();
     public void LoadLevel()
     {
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        // UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
-        
-        Debug.Log("Load Level : " + this.CurrentLevel());
-
-        Warzone.THIS.LevelData = this.CurrentLevel().GetLevelData();
+        Warzone.THIS.LevelData = CurrentLevel.GetLevelData();
         Warzone.THIS.OnLevelLoad();
         
         UIManager.THIS.loanBar.MakeUnavailable(10.0f);
         
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
-            // Warzone.THIS.Begin(true);
+            Warzone.THIS.Begin(true);
             Spawner.THIS.DelayedSpawn(0.45f);
             return;
         }

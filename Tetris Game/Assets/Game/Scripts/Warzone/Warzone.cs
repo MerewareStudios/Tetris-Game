@@ -102,7 +102,7 @@ namespace  Game
             {
                 if (countdown)
                 {
-                    Countdown.THIS.Count((int)LevelData.spawnDelay);
+                    Announcer.THIS.Count(LevelManager.CurrentLevel, (int)LevelData.spawnDelay);
                     yield return new WaitForSeconds(LevelData.spawnDelay);
                 }
                 

@@ -185,9 +185,6 @@ public class Spawner : Singleton<Spawner>
                     _currentBlock = SpawnNextBlock(); // spawn the next block with delay
                 });
                 
-                                
-                Warzone.THIS.Begin(true);
-
                 return;
             }
             

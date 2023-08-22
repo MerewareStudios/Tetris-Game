@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3273968967863860177}
+  - component: {fileID: 2271826117280910288}
   - component: {fileID: 3276470233934764210}
   - component: {fileID: 175635505977886773}
   - component: {fileID: 4555149550616624449}
-  - component: {fileID: 2271826117280910288}
   m_Layer: 5
   m_Name: Canvas - Timer
   m_TagString: Untagged
@@ -40,6 +40,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2271826117280910288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360197232253254921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac0197404f4d234996ce42a29218b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 5846015776154656285}
+  textRect: {fileID: 8407794209761543374}
+  canvas: {fileID: 3276470233934764210}
 --- !u!223 &3276470233934764210
 Canvas:
   m_ObjectHideFlags: 0
@@ -103,21 +118,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2271826117280910288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1360197232253254921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac0197404f4d234996ce42a29218b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 5846015776154656285}
-  textRect: {fileID: 8407794209761543374}
-  canvas: {fileID: 3276470233934764210}
 --- !u!1 &4646735137774886129
 GameObject:
   m_ObjectHideFlags: 0

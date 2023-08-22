@@ -157,14 +157,19 @@ namespace Game
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InQuad)
-                .onComplete += Deconstruct;
+                    .onComplete +=
+                () =>
+                {
+                    Deconstruct();
+                    UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
+                    {
+                        Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
+                    });
+                };
 
             // if (_amount > 1)
             // {
-            //     UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.0f, () =>
-            //     {
-            //         Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
-            //     });
+                
             // }
         }
         // public void OnFail()
