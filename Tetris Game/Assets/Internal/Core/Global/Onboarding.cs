@@ -16,7 +16,8 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string needMoreAmmoText;
     [TextArea] [SerializeField] public string keepStackingText;
     [TextArea] [SerializeField] public string enemiesComingText;
-    
+    [Header("Other")]
+    [TextArea] [SerializeField] public string waveText;
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {

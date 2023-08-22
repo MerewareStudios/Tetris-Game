@@ -5,27 +5,28 @@ using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
+using Febucci.UI;
 
 namespace  Game.UI
 {
     public class Announcer : Singleton<Announcer>
     {
-        [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private RectTransform textRect;
         [SerializeField] private Canvas canvas;
         [System.NonSerialized] private Coroutine countdownRoutine;
         [System.NonSerialized] private Sequence _sequence;
+        public TypewriterByCharacter animatedText;
 
 
 
-        public void Count(int levelIndex, int seconds)
+        public Coroutine Count(string startingText, int seconds)
         {
             canvas.enabled = true;
             countdownRoutine = StartCoroutine(CountRoutine());
                 
             IEnumerator CountRoutine()
             {
-                ShowText("Wave " + levelIndex);
+                ShowText(startingText);
                 yield return new WaitForSeconds(1);
                 for (int i = 0; i < seconds; i++)
                 {
@@ -33,11 +34,13 @@ namespace  Game.UI
                     yield return new WaitForSeconds(1);
                 }
             }
+
+            return countdownRoutine;
         }
 
         private void ShowText(string str)
         {
-            text.text = str;
+            animatedText.ShowText(str);
 
             textRect.localScale = Vector3.zero;
             Tween scaleUp = textRect.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutBack);

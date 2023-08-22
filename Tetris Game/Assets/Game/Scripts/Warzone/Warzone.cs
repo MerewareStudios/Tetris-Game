@@ -102,8 +102,8 @@ namespace  Game
             {
                 if (countdown)
                 {
-                    Announcer.THIS.Count(LevelManager.CurrentLevel, (int)LevelData.spawnDelay);
-                    yield return new WaitForSeconds(LevelData.spawnDelay);
+                    string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
+                    yield return Announcer.THIS.Count(startingText, (int)LevelData.spawnDelay);
                 }
                 
 

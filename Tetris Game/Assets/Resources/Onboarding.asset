@@ -24,3 +24,4 @@ MonoBehaviour:
     </bounce></size>!
   keepStackingText: <wiggle a=1 f=3>Keep merging!</>
   enemiesComingText: <wiggle a=0.25 f=1><size=120%>Enemies are here!
+  waveText: <wiggle a=1 f=3>Wave</> {0}
