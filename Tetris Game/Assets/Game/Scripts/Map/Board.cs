@@ -455,7 +455,7 @@ namespace Game
         }
         private Vector2Int? Pos2Index(Vector3 position)
         {
-            Vector3 posDif = position - transform.position + indexOffset;
+            Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - transform.position + indexOffset;
             Vector2 posFin = new Vector2(posDif.x, -posDif.z);
             Vector2Int? index = null;
             if (posFin.x >= 0.0f && posFin.x < Size.x && posFin.y >= 0.0f && posFin.y < Size.y)

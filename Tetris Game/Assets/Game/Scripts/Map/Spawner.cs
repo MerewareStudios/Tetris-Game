@@ -11,17 +11,19 @@ using UnityEngine.Serialization;
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
+    [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private LayerMask spawnerLayer;
-    [SerializeField] private LayerMask gridCheckLayer;
     [Header("Locations")]
     [SerializeField] private Transform modelPivot;
     [SerializeField] private Transform spawnedBlockLocation;
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
+    [SerializeField] public Vector3 distanceOfBlockCast;
 
     [System.NonSerialized] private Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
+    [System.NonSerialized] private Vector3 _fingerOffset;
     [System.NonSerialized] private Vector3 _finalPosition;
     [System.NonSerialized] private Tween delayedTween;
     [System.NonSerialized] private Tween assertionTween;
@@ -94,9 +96,34 @@ public class Spawner : Singleton<Spawner>
         {
             _grabbedBlock = true;
 
+
+
+            CalculateFingerOffset();
             UpdateTargetPosition();
             
             _moveRoutine = StartCoroutine(MoveRoutine());
+            
+            IEnumerator MoveRoutine()
+            {
+                if (_currentBlock)
+                {
+                    _currentBlock.OnPickUp();
+                    _currentBlock.CancelLift();
+            
+                    if (ONBOARDING.TEACH_PICK.IsNotComplete())
+                    {
+                        UIManager.THIS.finger.Hide();
+                    }
+                }
+
+                float smoothFactor = 0.0f;
+                while (true)
+                {
+                    _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 24.0f * smoothFactor);
+                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
+                    yield return null;
+                }
+            }
         };
     }
     public void Input_OnClick()
@@ -141,17 +168,34 @@ public class Spawner : Singleton<Spawner>
         Board.THIS.HighlightPawnOnGrid(_currentBlock);
     }
 
+    private void CalculateFingerOffset()
+    {
+        // Recalculate of the mesh collider position changes
+        Vector3 startPosition = new Vector3(0.00f, 0.26f, -3.30f);
+        // Vector3 startPosition = Vector3.zero;
+        // Transform cameraTransform = CameraManager.THIS.gameCamera.transform;
+        // Ray ray = new Ray(_currentBlock.transform.position + cameraTransform.forward * -10.0f, cameraTransform.forward);
+        // if (meshCollider.Raycast(ray, out RaycastHit hit, 100.0f))
+        // {
+        //     startPosition = hit.point;
+        //     Debug.Log(startPosition);
+        // }
+            
+        Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
+        if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
+        {
+            _fingerOffset = hit.point - startPosition;
+            // _fingerOffset.y = 0.0f;
+            // _fingerOffset.z = 0.0f;
+        }
+    }
     private void UpdateTargetPosition()
     {
-        // Vector2 viewPortTouch = CameraManager.THIS.gameCamera.ScreenToViewportPoint(Input.mousePosition);
-        // float distanceMultiplier = (Mathf.Abs(viewPortTouch.x - 0.5f) + 1.0f) * horSense;
-
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
-        // worldPosition.x *= distanceMultiplier;
-
-        if (Physics.Raycast(worldPosition, CameraManager.THIS.gameCamera.transform.forward, out RaycastHit hit, 100.0f, gridCheckLayer))
+        if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
         {
-            _finalPosition = hit.point + distanceFromDraggingFinger;
+            Vector3 targetPosition = hit.point + distanceFromDraggingFinger;
+            _finalPosition = targetPosition - _fingerOffset;
         }
     }
     public void Input_OnUp()
@@ -225,25 +269,6 @@ public class Spawner : Singleton<Spawner>
     private void Mount()
     {
         _currentBlock.Move(spawnedBlockLocation.position + _currentBlock.spawnerOffset, 25.0f, Ease.OutQuad, true);
-    }
-
-    private IEnumerator MoveRoutine()
-    {
-        if (_currentBlock)
-        {
-            _currentBlock.OnPickUp();
-            _currentBlock.CancelLift();
-            
-            if (ONBOARDING.TEACH_PICK.IsNotComplete())
-            {
-                UIManager.THIS.finger.Hide();
-            }
-        }
-        while (true)
-        {
-            _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 24.0f);
-            yield return null;
-        }
     }
 
     private void StopMovement()
