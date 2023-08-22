@@ -158,7 +158,7 @@ public class FlyingText : MonoBehaviour
         rectTransform.localScale = Vector3.one * startScale;
 
         Tween scaleUp = rectTransform.DOScale(Vector3.one * targetScale, 0.15f).SetEase(Ease.OutCubic).SetUpdate(timeIndependent);
-        Tween moveTween = rectTransform.DOMove(screenEnd, 0.5f).SetEase(Ease.InBack).SetUpdate(timeIndependent).SetDelay(0.2f);
+        Tween moveTween = rectTransform.DOMove(screenEnd, 0.5f).SetEase(Ease.InBack, 0.75f).SetUpdate(timeIndependent).SetDelay(0.1f);
         Tween scaleDown = rectTransform.DOScale(Vector3.one * 0.75f, 0.5f).SetEase(Ease.InBack).SetUpdate(timeIndependent);
         
         Sequence sequence = DOTween.Sequence().SetUpdate(timeIndependent);

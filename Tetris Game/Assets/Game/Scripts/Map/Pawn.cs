@@ -148,31 +148,43 @@ namespace Game
             _moveTween?.Kill();
 
         }
-        public void OnVictory()
+        public void DeconstructAnimated()
         {
             KillTweens();
 
-            modelPivot.DOKill();
-            modelPivot.localScale = Vector3.one;
-            modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
-                .onComplete += Deconstruct;
-
-            
-            UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
-            {
-                Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
-            });
-        }
-        public void OnFail()
-        {
-            KillTweens();
+            transform.parent = null;
 
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
-            modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
+            modelPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InQuad)
                 .onComplete += Deconstruct;
 
+            // if (_amount > 1)
+            // {
+            //     UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.0f, () =>
+            //     {
+            //         Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
+            //     });
+            // }
         }
+        // public void OnFail()
+        // {
+        //     KillTweens();
+        //
+        //     modelPivot.DOKill();
+        //     modelPivot.localScale = Vector3.one;
+        //     modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
+        //         .onComplete += Deconstruct;
+        //     
+        //     if (_amount > 1)
+        //     {
+        //         UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
+        //         {
+        //             Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
+        //         });
+        //     }
+        //
+        // }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
             _moveTween?.Kill();

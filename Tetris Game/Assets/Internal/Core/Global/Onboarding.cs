@@ -115,6 +115,9 @@ public class Onboarding : SSingleton<Onboarding>
             // UIManager.THIS.speechBubble.Hide();
             // yield return new WaitForSeconds(1.0f);
             
+            
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.5f);
+            yield return new WaitForSeconds(0.25f);
             Warzone.THIS.Begin(false);
         }
     }

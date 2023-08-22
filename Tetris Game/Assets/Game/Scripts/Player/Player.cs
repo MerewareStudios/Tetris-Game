@@ -185,6 +185,8 @@ namespace Game
             Warzone.THIS.Player.animator.SetTrigger(Player.IDLE_HASH);
 
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
+
+            _currentAngle = transform.eulerAngles.y;
             
             IEnumerator SearchEnemyRoutine()
             {

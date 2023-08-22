@@ -55,7 +55,7 @@ namespace Game
         {
             if (Occupied)
             {
-                Current.OnVictory();
+                Current.DeconstructAnimated();
                 Current = null;
             }
         }
@@ -63,7 +63,7 @@ namespace Game
         {
             if (Occupied)
             {
-                Current.OnFail();
+                Current.DeconstructAnimated();
                 Current = null;
             }
         }

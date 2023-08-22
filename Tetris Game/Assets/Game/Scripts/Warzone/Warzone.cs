@@ -100,15 +100,8 @@ namespace  Game
 
             IEnumerator SpawnRoutine()
             {
-                UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.5f);
-                yield return new WaitForSeconds(0.25f);
-                // yield return new WaitForSeconds(2.5f);
-                // UIManager.THIS.speechBubble.Hide();
                 if (countdown)
                 {
-                    
-
-                    
                     Countdown.THIS.Count((int)LevelData.spawnDelay);
                     yield return new WaitForSeconds(LevelData.spawnDelay);
                 }

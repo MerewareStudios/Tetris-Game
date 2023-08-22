@@ -122,6 +122,22 @@ namespace Game
             RequiredIndexes = null;
             this.Despawn();
         }
+        public void DeconstructAnimated()
+        {
+            if (!PlacedOnGrid)
+            {
+                foreach (var pawn in Pawns)
+                {
+                    pawn.DeconstructAnimated();
+                }
+            }
+            _motionTween?.Kill();
+            Busy = false;
+            Pawns.Clear();
+            PlacedOnGrid = false;
+            RequiredIndexes = null;
+            this.Despawn();
+        }
         public void Detach()
         {
             foreach (var pawn in Pawns)
@@ -145,18 +161,20 @@ namespace Game
         }
         public void Lift()
         {
-            shakePivot.DOKill();
-            shakePivot.localPosition = Vector3.zero;
-            shakePivot.localEulerAngles = Vector3.zero;
-            shakePivot.DOPunchPosition(new Vector3(0.0f, 2.0f, 0.0f), 2.0f, 1);
+            _motionTween?.Kill();
+            
+            // shakePivot.DOKill();
+            // shakePivot.localPosition = Vector3.zero;
+            // shakePivot.localEulerAngles = Vector3.zero;
+            _motionTween = transform.DOPunchPosition(new Vector3(0.0f, 2.0f, 0.0f), 2.0f, 1);
         }
 
         public void CancelLift()
         {
-            shakePivot.DOKill();
+            _motionTween?.Kill();
             // shakePivot.localPosition = Vector3.zero;
             // shakePivot.localEulerAngles = Vector3.zero;
-            shakePivot.DOLocalMove(Vector3.zero, 0.35f).SetEase(Ease.InOutSine);
+            // shakePivot.DOLocalMove(Vector3.zero, 0.35f).SetEase(Ease.InOutSine);
         }
         public void Rotate()
         {

@@ -13,10 +13,18 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   LevelData:
-    spawnDelay: 5
-    totalHealth: 50
+    spawnDelay: 3
+    totalEnemyHealth: 15
     maxMerge: 1
     mergeProbability: 0
     enemySpeed: 0.1
     spawnWidth: 2.25
     spawnInterval: {x: 0.5, y: 1}
+  canGiveBonus: 1
+  victoryReward:
+    type: 0
+    amount: 20
+  failReward:
+    type: 0
+    amount: 5
+  suggestedBlocks: []

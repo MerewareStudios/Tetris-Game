@@ -54,10 +54,10 @@ public class Spawner : Singleton<Spawner>
         while (_spawnedBlocks.Count > 0)
         {
             Block block = _spawnedBlocks[^1];
-            block.Deconstruct();
+            block.DeconstructAnimated();
             RemoveBlock(block);   
         }
-
+        
         StopAllRunningTasksOnBlock();
     }
 
@@ -184,6 +184,10 @@ public class Spawner : Singleton<Spawner>
                 {
                     _currentBlock = SpawnNextBlock(); // spawn the next block with delay
                 });
+                
+                                
+                Warzone.THIS.Begin(true);
+
                 return;
             }
             
@@ -240,7 +244,7 @@ public class Spawner : Singleton<Spawner>
         }
         while (true)
         {
-            _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 18.0f);
+            _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 24.0f);
             yield return null;
         }
     }

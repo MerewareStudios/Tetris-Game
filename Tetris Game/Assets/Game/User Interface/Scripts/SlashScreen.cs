@@ -110,12 +110,15 @@ public class SlashScreen : Singleton<SlashScreen>
 
         _sequence.onComplete += () =>
         {
-            Hide(animationSettingsHide, 0.1f);
-            UIManagerExtensions.EarnCurrencyScreenStartScale(currency.type, currencyDisplay.iconPivot.position, 1.2f, 1.5f, () =>
+            DOVirtual.DelayedCall(0.25f, () =>
             {
-                Wallet.Transaction(currency);
-                
-                PiggyMenu.THIS.Open(0.225f);
+                Hide(animationSettingsHide, 0.0f);
+                UIManagerExtensions.EarnCurrencyScreenStartScale(currency.type, currencyDisplay.iconPivot.position,
+                    1.2f, 1.5f, () =>
+                    {
+                        Wallet.Transaction(currency);
+                        PiggyMenu.THIS.Open(0.225f);
+                    });
             });
         };
     }
@@ -129,8 +132,8 @@ public class SlashScreen : Singleton<SlashScreen>
         
         _sequence = DOTween.Sequence();
 
-        _sequence.SetUpdate(true).SetDelay(delay);
         _sequence.Join(topSlash).Join(bottomSlash).Join(shrink);
+        _sequence.SetUpdate(true).SetDelay(delay);
 
         _sequence.onComplete += () =>
         {

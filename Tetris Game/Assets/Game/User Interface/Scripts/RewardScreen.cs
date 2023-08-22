@@ -150,6 +150,10 @@ public class RewardScreen : Singleton<RewardScreen>
                 {
                     Deconstruct();
                     this._canvas.enabled = false;
+                    
+                    UIManager.MenuMode(false);
+                    Wallet.ScaleTransactors(1.0f);
+                    // LevelManager.THIS.LoadLevel();
                 };
                 
             }

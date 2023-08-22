@@ -57,11 +57,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         Wallet.ScaleTransactors(1.0f);
         return false;
     }
-    private void CloseAction()
-    {
-        this.Close();
-        LevelManager.THIS.LoadLevel();
-    }
     private void Show()
     {
         UIManager.MenuMode(true);
@@ -149,7 +144,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_InvestPiggyBank()
     {
-        InvestAnimated(Wallet.COIN.Currency);
+        int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
+        InvestAnimated(new Const.Currency(Wallet.COIN.Currency.type, amount));
         
         investButton.targetGraphic.raycastTarget = false;
         investButton.transform.DOKill();
@@ -167,7 +163,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_ContinuePiggyBank()
     {
-        CloseAction();
+        this.Close();
+        LevelManager.THIS.LoadLevel();
     }
     #endregion
     

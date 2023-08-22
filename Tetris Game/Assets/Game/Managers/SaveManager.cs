@@ -91,7 +91,7 @@ public static class SaveManagerExtensions
     }
     public static int NextLevel(this LevelManager levelManager)
     {
-        return SaveManager.THIS.saveData.userData.level;
+        return ++SaveManager.THIS.saveData.userData.level;
     }
 }
 public partial class SaveData

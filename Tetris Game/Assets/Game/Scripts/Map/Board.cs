@@ -571,7 +571,7 @@ namespace Game
             Highlight();
             
             _suggestTween?.Kill();
-            _suggestTween = DOVirtual.DelayedCall(1.5f, () =>
+            _suggestTween = DOVirtual.DelayedCall(1.4f, () =>
             {
                 Highlight();
             });

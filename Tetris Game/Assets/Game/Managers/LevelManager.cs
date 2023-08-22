@@ -13,6 +13,8 @@ public class LevelManager : Singleton<LevelManager>
         Spawner.THIS.OnLevelLoad();
 
         // UIManager.THIS.levelText.text = "Level " + this.CurrentLevel();
+        
+        Debug.Log("Load Level : " + this.CurrentLevel());
 
         Warzone.THIS.LevelData = this.CurrentLevel().GetLevelData();
         Warzone.THIS.OnLevelLoad();
@@ -21,6 +23,7 @@ public class LevelManager : Singleton<LevelManager>
         
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
+            // Warzone.THIS.Begin(true);
             Spawner.THIS.DelayedSpawn(0.45f);
             return;
         }
@@ -64,8 +67,8 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.PLAYING = false;
         GameManager.THIS.OnVictory();
 
-        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, this.CurrentLevel().GetVictoryReward());
         
+        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, this.CurrentLevel().GetVictoryReward());
         this.NextLevel();
     }
     

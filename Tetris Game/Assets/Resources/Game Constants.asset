@@ -170,7 +170,7 @@ MonoBehaviour:
       currentMoney:
         type: 0
         amount: 0
-      moneyCapacity: 100
+      moneyCapacity: 50
       freeInvestment:
         type: 0
         amount: 0
