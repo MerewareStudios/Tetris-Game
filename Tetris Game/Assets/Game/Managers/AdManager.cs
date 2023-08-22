@@ -46,7 +46,7 @@ namespace IWI
                     },
                     () =>
                     {
-                        Toast.Show("Ad skipped!", 1.0f);
+                        // Toast.Show("Ad skipped!", 1.0f);
                         UIManager.MenuMode(false);
                     }, 
                     () =>
@@ -54,7 +54,7 @@ namespace IWI
                         bool state = Wallet.Transaction(Const.Currency.OneAdConsume);
                         if (!state)
                         {
-                            Toast.Show("No Funds!", 1.0f);
+                            // Toast.Show("No Funds!", 1.0f);
                         }
 
                         return state;

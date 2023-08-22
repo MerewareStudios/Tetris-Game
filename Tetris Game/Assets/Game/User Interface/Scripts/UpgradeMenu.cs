@@ -69,11 +69,11 @@ namespace Game.UI
 
             if (!transactionSuccessful)
             {
-                Toast.Show(UIManager.NO_FUNDS_TEXT, 2.25f);
+                // Toast.Show(UIManager.NO_FUNDS_TEXT, 2.25f);
                 return;
             }
             
-            Toast.Show(purchaseOption.GetPurchaseInfo(purchaseData.gain), 0.5f);
+            // Toast.Show(purchaseOption.GetPurchaseInfo(purchaseData.gain), 0.5f);
             
             UpgradeType upgradeType = (UpgradeType)purchaseIndex;
             switch (upgradeType)

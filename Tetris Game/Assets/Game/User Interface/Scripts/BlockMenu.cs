@@ -108,7 +108,7 @@ namespace Game.UI
             
             _ = purchasedBefore ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
             
-            Toast.Show(purchasedBefore ? "BLOCK UPGRADED" : "BLOCK ADDED", 0.5f);
+            // Toast.Show(purchasedBefore ? "BLOCK UPGRADED" : "BLOCK ADDED", 0.5f);
             
             Show();
             
