@@ -167,8 +167,12 @@ namespace Game
                 () =>
                 {
                     Deconstruct();
-                    
-                    
+
+
+                    // UIManager.THIS.coinPSScreen.emitterConstraintTransform = levelText.transform;
+                    // UIManager.THIS.coinPSScreen.Emit(1, Vector2.zero);
+                    UIManager.THIS.coinEmitter.Emit(levelText.transform.position);
+
                     // Earn pawn delete coin
 
                     // UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>

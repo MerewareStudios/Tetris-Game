@@ -1,11 +1,14 @@
 using System;
+using AssetKits.ParticleImage;
 using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
+using IWI.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Visual.Effects;
 
 public class UIManager : Singleton<UIManager>
@@ -13,6 +16,9 @@ public class UIManager : Singleton<UIManager>
    [Header("Bars")]
    [SerializeField] public ShopBar shopBar;
    [SerializeField] public LoanBar loanBar;
+   [FormerlySerializedAs("particleImageCoin")]
+   [Header("Particle Images")]
+   [SerializeField] public UIEmitter coinEmitter;
    [Header("Level")]
    // [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";

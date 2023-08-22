@@ -1094,6 +1094,23 @@ namespace AssetKits.ParticleImage
                 Play();
             }
         }
+        /*
+         *
+         *
+         * 
+         */
+        // private int emitCount = 0;
+        public void Emit(int count, Vector2 position)
+        {
+            _particles.Insert(0, GenerateParticleAtPosition(0, 0, position));
+            // emitCount++;
+        }
+        /*
+        *
+        *
+        * 
+        */
+        
 
         /// <summary>
         /// Starts the particle system.
@@ -1266,6 +1283,7 @@ namespace AssetKits.ParticleImage
                     else
                     {
                         Vector3 canPos;
+                        
                         Vector3 viewportPos = camera.WorldToViewportPoint(_emitterConstraintTransform.position);
 
                         canPos = new Vector3(viewportPos.x.Remap(0.5f, 1.5f, 0f, canvasRect.rect.width),
@@ -1562,6 +1580,170 @@ namespace AssetKits.ParticleImage
                     p = _position;
                     break;
             }
+
+            if (space == Simulation.World)
+            {
+                p = Quaternion.Euler(transform.eulerAngles) * (p);
+            }
+            
+            Vector2 v = Vector2.zero;
+            switch (_shape)
+            {
+                case EmitterShape.Point:
+                    if (_spread == SpreadType.Uniform)
+                    {
+                        v = RotateOnAngle(new Vector3(0,1f,0), angle) * _startSpeed.Evaluate(Random.value, Random.value);;
+                    }
+                    else
+                    {
+                        v = Random.insideUnitCircle.normalized * _startSpeed.Evaluate(Random.value, Random.value);
+                    }
+                    break;
+                case EmitterShape.Circle:
+                    v = p.normalized * _startSpeed.Evaluate(Random.value, Random.value);
+                    break;
+                case EmitterShape.Rectangle:
+                    v = p.normalized * _startSpeed.Evaluate(Random.value, Random.value);
+                    break;
+                case EmitterShape.Line:
+                    v = (space == Simulation.World ? transform.up : Vector3.up) * _startSpeed.Evaluate(Random.value, Random.value);
+                    break;
+                case EmitterShape.Directional:
+                    float a = 0;
+                    if (space == Simulation.World)
+                    {
+                        if (_spread == SpreadType.Uniform)
+                        {
+                            a = Mathf.Repeat(angle, 361).Remap(0,360, -_angle / 2, _angle / 2) - transform.eulerAngles.z;
+                        }
+                        else
+                        {
+                            a = Random.Range(-_angle / 2, _angle / 2) - transform.eulerAngles.z;
+                        }
+                    }
+                    else
+                    {
+                        if (_spread == SpreadType.Uniform)
+                        {
+                            a = Mathf.Repeat(angle, 361).Remap(0, 360, -_angle / 2, _angle / 2);
+                        }
+                        else
+                        {
+                            a = Random.Range(-_angle/2, _angle/2);
+                        }
+                    }
+                    v = RotateOnAngle(a) * _startSpeed.Evaluate(Random.value, Random.value);
+                    break;
+            }
+
+            float sLerp = Random.value;
+            
+            Particle part = new Particle(
+                this,
+                p,
+                _startRotation.separated ? new Vector3(_startRotation.xCurve.Evaluate(Random.value, Random.value), _startRotation.yCurve.Evaluate(Random.value, Random.value),_startRotation.zCurve.Evaluate(Random.value, Random.value)) :
+                    new Vector3(0, 0,_startRotation.mainCurve.Evaluate(Random.value, Random.value)),
+                v,
+                _startColor.Evaluate(Random.value, Random.value),
+                _startSize.separated ? new Vector3(_startSize.xCurve.Evaluate(Random.value, Random.value), _startSize.yCurve.Evaluate(Random.value, Random.value),_startSize.zCurve.Evaluate(Random.value, Random.value)) :
+                    new Vector3(_startSize.mainCurve.Evaluate(sLerp, sLerp), _startSize.mainCurve.Evaluate(sLerp, sLerp),_startSize.mainCurve.Evaluate(sLerp, sLerp)),
+                _lifetime.Evaluate(Random.value, Random.value));
+            
+            return part;
+        }
+        
+        private Particle GenerateParticleAtPosition(int order, int source, Vector2 position)
+        {
+            float angle = 0;
+            if (source == 0)//Burst
+            {
+                angle = order * (360f / 1) * _spreadLoop;
+            }
+            else if(source == 1)//Rate per Sec
+            {
+                angle = order * (360f / (_rate)) / _duration * _spreadLoop;
+            }
+            else if(source == 2)//Rate over Life
+            {
+                angle = order * (360f / (_rateOverLifetime)) * _spreadLoop;
+            }
+            else if(source == 3)//Rate over Distance
+            {
+                angle = order * (360f / (_rateOverDistance)) / _duration * _spreadLoop;
+            }
+            
+            // Create new particle at system's starting position
+            Vector2 p = position;
+            // switch (_shape)
+            // {
+            //     case EmitterShape.Point:
+            //         p = _position;
+            //         break;
+            //     case EmitterShape.Circle:
+            //         if (_emitOnSurface)
+            //         {
+            //             if (_spread == SpreadType.Random)
+            //             {
+            //                 p = _position + (Random.insideUnitCircle * _radius);
+            //             }
+            //             else
+            //             {
+            //                 p = (RotateOnAngle(new Vector3(0,Random.Range(0f,1f),0), angle) * _radius);
+            //             }
+            //         }
+            //         else
+            //         {
+            //             if (_spread == SpreadType.Random)
+            //             {
+            //                 Vector2 r = Random.insideUnitCircle.normalized;
+            //                 p = _position + Vector2.Lerp(r * _radius, r * (_radius - _emitterThickness), Random.value);
+            //             }
+            //             else
+            //             {
+            //                 p = (RotateOnAngle(new Vector3(0,1f,0), angle) * (UnityEngine.Random.Range(_radius, _radius - _emitterThickness)));
+            //             }
+            //         }
+            //         break;
+            //     case EmitterShape.Rectangle:
+            //         if (_emitOnSurface)
+            //         {
+            //             if(_spread == SpreadType.Uniform)
+            //             {
+            //                 p = Vector2.Lerp(GetPointOnRect(angle*Mathf.Deg2Rad, _width, _height), Vector2.one, Random.value);
+            //             }
+            //             else
+            //             {
+            //                 p = _position + new Vector2(Random.Range(-_width / 2, _width / 2),
+            //                     Random.Range(-_height / 2, _height / 2));
+            //             }
+            //         }
+            //         else
+            //         {
+            //             float a = Random.Range(0f, 360f);
+            //             
+            //             if(_spread == SpreadType.Uniform)
+            //             {
+            //                 a = angle;
+            //             }
+            //             
+            //             p = Vector2.Lerp(GetPointOnRect(a*Mathf.Deg2Rad, _width, _height), GetPointOnRect(a*Mathf.Deg2Rad, _width-_emitterThickness, _height-_emitterThickness), Random.value);
+            //         }
+            //         break;
+            //     case EmitterShape.Line:
+            //         if(_spread == SpreadType.Uniform)
+            //         {
+            //             p = _position + new Vector2(Mathf.Repeat(angle, 361).Remap(0,360,-_length/2, _length/2), 0);
+            //         }
+            //         else
+            //         {
+            //             p = _position + new Vector2(Random.Range(-_length/2, _length/2), 0);
+            //         }
+            //         
+            //         break;
+            //     case EmitterShape.Directional:
+            //         p = _position;
+            //         break;
+            // }
 
             if (space == Simulation.World)
             {

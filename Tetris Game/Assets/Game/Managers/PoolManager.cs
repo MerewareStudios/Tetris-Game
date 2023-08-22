@@ -123,7 +123,7 @@ namespace  Game.Editor
     {
         public override void OnInspectorGUI()
         {
-            if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")) == true)
+            if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")))
             {
                 AutoGenerate.GeneratePool();
             }
