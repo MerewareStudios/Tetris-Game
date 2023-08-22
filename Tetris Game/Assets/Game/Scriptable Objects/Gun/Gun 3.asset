@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2298bad192dff947a79014fe035571f, type: 3}
   m_Name: Gun 3
   m_EditorClassIdentifier: 
-  prefab: 23
+  prefab: 21
   holsterTransformData:
     localPosition: {x: -0.041, y: 0.079, z: 0.042}
     localEulerAngles: {x: 345.3343, y: 167.60696, z: 273.18408}
     localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
   defaultData:
-    type: 0
-    shootInterval: 0.5
+    gunType: 0
     prevShoot: 0
-    maxShootPerTrigger: 1
+    fireRate: 1
+    split: 1
+    damage: 1

@@ -13,11 +13,6 @@ public class UIManager : Singleton<UIManager>
    [Header("Bars")]
    [SerializeField] public ShopBar shopBar;
    [SerializeField] public LoanBar loanBar;
-   [Header("Flying Text")]
-   // [SerializeField] public FlyingText ft_Level;
-   [SerializeField] public FlyingText ft_Combo;
-   [SerializeField] public FlyingText ft_Icon;
-   [SerializeField] public FlyingText ft_Icon_MenuOnTop;
    [Header("Level")]
    // [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
@@ -38,18 +33,6 @@ public class UIManager : Singleton<UIManager>
    {
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
       
-      // ft_Level.OnGetInstance = () => Pool.Flying_Text___Level.Spawn<TextMeshProUGUI>();
-      // ft_Level.ReturnInstance = (mono) => { mono.Despawn(); };
-      
-      ft_Combo.OnGetInstance = () => Pool.Flying_Text___Combo.Spawn<TextMeshProUGUI>();
-      ft_Combo.ReturnInstance = (mono) => { mono.Despawn(); };
-      
-      ft_Icon.OnGetInstance = () => Pool.Flying_Text___Icon.Spawn<TextMeshProUGUI>();
-      ft_Icon.ReturnInstance = (mono) => { mono.Despawn(); };
-      
-      ft_Icon_MenuOnTop.OnGetInstance = () => Pool.Flying_Text___Icon.Spawn<TextMeshProUGUI>();
-      ft_Icon_MenuOnTop.ReturnInstance = (mono) => { mono.Despawn(); };
-
       MENU_VISIBLE = false;
    }
 
@@ -101,74 +84,74 @@ public class UIManager : Singleton<UIManager>
 
 public static class UIManagerExtensions
 {
-   public static void LerpHearth(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
+   // public static void LerpHearth(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
+   // {
+   //    Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
+   //    Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
+   //
+   //    Vector3 screenEnd = StatDisplayArranger.THIS.ScreenPosition(StatDisplay.Type.Health);
+   //    
+   //    flyingText.LerpScreen("Heart".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
+   // }
+   // public static void LerpShield(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
+   // {
+   //    Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
+   //    Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
+   //
+   //    Vector3 viewPortPlayer = CameraManager.THIS.gameCamera.WorldToViewportPoint(Warzone.THIS.Player.shiledTarget.position);
+   //    Vector3 screenEnd = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPortPlayer);
+   //    
+   //    flyingText.LerpScreen("Shield".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
+   // }
+   // public static void LerpXP(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
+   // {
+   //    Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
+   //    Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
+   //
+   //    Vector3 screenEnd = UIManager.THIS.shopBar.fill.transform.position;
+   //    
+   //    flyingText.LerpScreen("XP".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
+   // }
+   // public static Sequence DragCoin(Vector3 screenStart, Vector3 screenDrag, Vector3 screenEnd, float duration = 0.0f, System.Action endAction = null)
+   // {
+   //    return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.CurrencyType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
+   // }
+   // public static void EarnCurrencyWorld(Const.CurrencyType currencyType, Vector3 worldStart, float scale, System.Action endAction = null)
+   // {
+   //    Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
+   //    Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
+   //
+   //    EarnCurrencyScreen(currencyType, screenStart, scale, endAction);
+   // }
+   //
+   // public static void EarnCurrencyScreen(Const.CurrencyType currencyType, Vector3 screenStart, float scale, System.Action endAction = null)
+   // {
+   //    Vector3 screenEnd = Wallet.IconPosition(currencyType);
+   //    
+   //    UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
+   // }
+   //
+   // public static void EarnCurrencyScreenStartScale(Const.CurrencyType currencyType, Vector3 screenStart, float startScale, float scale, System.Action endAction = null)
+   // {
+   //    Vector3 screenEnd = Wallet.IconPosition(currencyType);
+   //    
+   //    UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, startScale, scale, true, endAction);
+   // }
+   //
+   public static void Distort(Vector3 worldPosition, float delay)
    {
-      Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
-      Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
-
-      Vector3 screenEnd = StatDisplayArranger.THIS.ScreenPosition(StatDisplay.Type.Health);
-      
-      flyingText.LerpScreen("Heart".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
+       Transform camTrasform = CameraManager.THIS.gameCamera.transform;
+       Vector3 pos = worldPosition + camTrasform.forward * -3.0f;
+       Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortStartRamp, AnimConst.THIS.distortEndRamp, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
    }
-   public static void LerpShield(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
-   {
-      Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
-      Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
-
-      Vector3 viewPortPlayer = CameraManager.THIS.gameCamera.WorldToViewportPoint(Warzone.THIS.Player.shiledTarget.position);
-      Vector3 screenEnd = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPortPlayer);
-      
-      flyingText.LerpScreen("Shield".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
-   }
-   public static void LerpXP(this FlyingText flyingText, Vector3 worldStart, float delay = 0.0f, float duration = 1.0f, System.Action endAction = null)
-   {
-      Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
-      Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
-
-      Vector3 screenEnd = UIManager.THIS.shopBar.fill.transform.position;
-      
-      flyingText.LerpScreen("XP".ToTMProKey(), screenStart, screenEnd, delay, duration, false, endAction);
-   }
-   public static Sequence DragCoin(Vector3 screenStart, Vector3 screenDrag, Vector3 screenEnd, float duration = 0.0f, System.Action endAction = null)
-   {
-      return UIManager.THIS.ft_Icon_MenuOnTop.DragScreen(Const.CurrencyType.Coin.ToTMProKey(), screenStart, screenDrag, screenEnd, duration, true, endAction);
-   }
-   public static void EarnCurrencyWorld(Const.CurrencyType currencyType, Vector3 worldStart, float scale, System.Action endAction = null)
-   {
-      Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToViewportPoint(worldStart);
-      Vector3 screenStart = CameraManager.THIS.uiCamera.ViewportToWorldPoint(viewPort);
-
-      EarnCurrencyScreen(currencyType, screenStart, scale, endAction);
-   }
-   
-   public static void EarnCurrencyScreen(Const.CurrencyType currencyType, Vector3 screenStart, float scale, System.Action endAction = null)
-   {
-      Vector3 screenEnd = Wallet.IconPosition(currencyType);
-      
-      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, scale, true, endAction);
-   }
-   
-   public static void EarnCurrencyScreenStartScale(Const.CurrencyType currencyType, Vector3 screenStart, float startScale, float scale, System.Action endAction = null)
-   {
-      Vector3 screenEnd = Wallet.IconPosition(currencyType);
-      
-      UIManager.THIS.ft_Icon_MenuOnTop.CurrencyLerp(currencyType.ToTMProKey(), screenStart, screenEnd, startScale, scale, true, endAction);
-   }
-
-    public static void Distort(Vector3 worldPosition, float delay)
-    {
-        Transform camTrasform = CameraManager.THIS.gameCamera.transform;
-        Vector3 pos = worldPosition + camTrasform.forward * -3.0f;
-        Pool.Distortion.Spawn<Distortion>().Distort(pos, camTrasform.forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortStartRamp, AnimConst.THIS.distortEndRamp, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
-    }
-
-    // public static void EmitVibeText(Vector3 worldPosition, string str, float duration = 0.2f, float delay = 0.0f)
-    // {
-    //     UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, duration, delay);
-    // }
-
-    public static void EmitComboText(int combo, float duration = 0.2f, float delay = 0.0f)
-    {
-        UIManager.THIS.ft_Combo.FlyScreen("x" + combo, Vector3.zero, duration, delay);
-    }
+   //
+   //  // public static void EmitVibeText(Vector3 worldPosition, string str, float duration = 0.2f, float delay = 0.0f)
+   //  // {
+   //  //     UIManager.THIS.ft_Level.FlyWorld(str, worldPosition, duration, delay);
+   //  // }
+   //
+   //  public static void EmitComboText(int combo, float duration = 0.2f, float delay = 0.0f)
+   //  {
+   //      UIManager.THIS.ft_Combo.FlyScreen("x" + combo, Vector3.zero, duration, delay);
+   //  }
 }

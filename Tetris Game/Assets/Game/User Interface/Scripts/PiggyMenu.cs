@@ -337,16 +337,19 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             screenDrag.y += posDif;
     
             int index = i;
-            UIManagerExtensions.DragCoin(screenStart, screenDrag, screenEnd, 0.7f + i * -0.025f, (() =>
-            {
-                PunchPiggyIcon(0.2f);
-                    
-                if (index == count - 1)
-                {
-                    AddMoney(currency.amount, 0.0f);
-                }
-    
-            })).SetDelay(i * 0.125f);
+            
+            // Fill piggy bank
+
+            // UIManagerExtensions.DragCoin(screenStart, screenDrag, screenEnd, 0.7f + i * -0.025f, (() =>
+            // {
+            //     PunchPiggyIcon(0.2f);
+            //         
+            //     if (index == count - 1)
+            //     {
+            //         AddMoney(currency.amount, 0.0f);
+            //     }
+            //
+            // })).SetDelay(i * 0.125f);
         }
     }
     #endregion

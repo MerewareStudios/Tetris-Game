@@ -252,6 +252,8 @@ namespace Game
                 UIManager.THIS.shopBar.Amount += level * 0.075f;
             }
 
+            // Earn heart upgrade
+
             UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
         }
 

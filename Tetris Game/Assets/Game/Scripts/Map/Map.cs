@@ -28,7 +28,8 @@ namespace Game
                     {
                         if (tetrisLines.Count > 1)
                         {
-                            UIManagerExtensions.EmitComboText(tetrisLines.Count);
+                            // Combo text emission
+                            // UIManagerExtensions.EmitComboText(tetrisLines.Count);
                             //UIManager.THIS.ft_Combo.FlyScreen("<size=125%>x" + tetrisLines.Count + "<size=100%>\nMAX", Vector3.zero,  0.0f);
                             yield return new WaitForSeconds(0.25f);
                         }

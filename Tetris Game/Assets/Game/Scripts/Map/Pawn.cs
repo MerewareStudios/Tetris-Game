@@ -102,17 +102,23 @@ namespace Game
                     return true;
                 case Usage.Heart:
                     TextEnabled = false;
-                    UIManager.THIS.ft_Icon.LerpHearth(levelText.transform.position, delay, 0.65f, endAction: () =>
-                    {
-                        Warzone.THIS.GiveHeart(_amount);
-                    });
+                    
+                    // Earn heart upgrade
+
+                    // UIManager.THIS.ft_Icon.LerpHearth(levelText.transform.position, delay, 0.65f, endAction: () =>
+                    // {
+                    //     Warzone.THIS.GiveHeart(_amount);
+                    // });
                     return false;
                 case Usage.Shield:
                     TextEnabled = false;
-                    UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
-                    {
-                        Warzone.THIS.GiveShield(1);
-                    });
+                    
+                    // Earn shield
+
+                    // UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
+                    // {
+                    //     Warzone.THIS.GiveShield(1);
+                    // });
                     return false;
                 case Usage.Vertical:
                     
@@ -161,10 +167,14 @@ namespace Game
                 () =>
                 {
                     Deconstruct();
-                    UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
-                    {
-                        Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
-                    });
+                    
+                    
+                    // Earn pawn delete coin
+
+                    // UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
+                    // {
+                    //     Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
+                    // });
                 };
 
             // if (_amount > 1)

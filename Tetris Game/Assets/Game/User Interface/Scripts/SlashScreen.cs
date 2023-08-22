@@ -113,12 +113,15 @@ public class SlashScreen : Singleton<SlashScreen>
             DOVirtual.DelayedCall(0.25f, () =>
             {
                 Hide(animationSettingsHide, 0.0f);
-                UIManagerExtensions.EarnCurrencyScreenStartScale(currency.type, currencyDisplay.iconPivot.position,
-                    1.2f, 1.5f, () =>
-                    {
-                        Wallet.Transaction(currency);
-                        PiggyMenu.THIS.Open(0.225f);
-                    });
+                
+                // End level reward
+
+                // UIManagerExtensions.EarnCurrencyScreenStartScale(currency.type, currencyDisplay.iconPivot.position,
+                //     1.2f, 1.5f, () =>
+                //     {
+                //         Wallet.Transaction(currency);
+                //         PiggyMenu.THIS.Open(0.225f);
+                //     });
             });
         };
     }
