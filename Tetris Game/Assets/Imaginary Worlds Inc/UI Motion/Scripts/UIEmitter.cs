@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
+using IWI.Emitter.Enums;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
+using Space = IWI.Emitter.Enums.Space;
 
 namespace IWI.UI
 {
@@ -16,8 +22,12 @@ namespace IWI.UI
         private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
-        [SerializeField] public MotionSettings motionSettings;
-        [SerializeField] public TargetSettings targetSettings;
+        [SerializeField] public GeneralSettings generalSettings;
+        [SerializeField] public BurstSettings burstSettings;
+        [SerializeField] public TargetSettings targetSettingsStart;
+        [SerializeField] public TargetSettings targetSettingsEnd;
+        [SerializeField] public CallbackSettings callbackSettings;
+        [System.NonSerialized] private float _timeOffset = 0.0f;
 
         void Awake()
         {
@@ -26,11 +36,13 @@ namespace IWI.UI
             mainCamera = Camera.main;
             uiCamera = _canvas.worldCamera;
             SetupPool();
+
+            _timeOffset = Random.Range(0.0f, 100.0f);
         }
 
         void Start()
         {
-            if (motionSettings.playAtStart)
+            if (generalSettings.playAtStart)
             {
                 Play();
             }
@@ -42,7 +54,7 @@ namespace IWI.UI
             {
                 return;
             }
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < imageSettings.maxImageCount; i++)
             {
                 GameObject imagePrefab = new GameObject();
                 imagePrefab.SetActive(false);
@@ -55,7 +67,10 @@ namespace IWI.UI
                 rectTransform.localScale = Vector3.one;
                 rectTransform.localPosition = Vector3.zero;
                 Image image = imagePrefab.AddComponent<Image>();
+                
                 image.sprite = imageSettings.sprite;
+                image.raycastTarget = imageSettings.raycastTarget;
+                image.maskable = imageSettings.maskable;
                 
                 _imageQueue.Enqueue(image);
             }
@@ -63,97 +78,91 @@ namespace IWI.UI
 
         public Image SpawnImage()
         {
+            if (_imageQueue.Count == 0)
+            {
+                return null;
+            }
             Image image = _imageQueue.Dequeue();
             image.gameObject.SetActive(true);
 
             return image;
+        }
+        public void DespawnImage(Image image)
+        {
+            _imageQueue.Enqueue(image);
+            image.gameObject.SetActive(false);
         }
 
         #region Play Functions
 
         public void Play()
         {
-            Image image = SpawnImage();
-            RectTransform imageRectTransform = image.rectTransform;
+            Vector3 startPosition = GetLocal(targetSettingsStart);
+            Vector3 endPosition = GetLocal(targetSettingsEnd);
 
+            int emitCount = (int)generalSettings.startCount.Evaluate(Now, Random.value);
+            for (int i = 0; i < emitCount; i++)
+            {
+                Sequence sequence = DOTween.Sequence();
+                
+                Image image = SpawnImage();
+                if (!image)
+                {
+                    return;
+                }
+                RectTransform imageRectTransform = image.rectTransform;
+                
+                float size = generalSettings.startSize.Evaluate(Now, Random.value);
+                image.SetSize(size);
 
-            // Vector3 canPos;
-            //             
-            // Vector3 viewportPos = mainCamera.WorldToViewportPoint(targetSettings.startTransform.position);
-            //
-            // canPos = new Vector3(viewportPos.x.Remap(0.5f, 1.5f, 0f, _canvasRect.rect.width),
-            //     viewportPos.y.Remap(0.5f, 1.5f, 0f, _canvasRect.rect.height), 0);
-            //             
-            // canPos = _canvasRect.transform.TransformPoint(canPos);
-            //
-            // canPos = transform.parent.InverseTransformPoint(canPos);
-            //
-            // imageRectTransform.transform.localPosition = canPos;
+                imageRectTransform.DOKill();
             
-             
-            // Vector2 ViewportPosition=uiCamera.WorldToViewportPoint(targetSettings.startTransform.position);
-            //
-            // Vector2 WorldObject_ScreenPosition=new Vector2(
-            //     ((ViewportPosition.x*_canvasRect.sizeDelta.x)-(_canvasRect.sizeDelta.x*0.5f)),
-            //     ((ViewportPosition.y*_canvasRect.sizeDelta.y)-(_canvasRect.sizeDelta.y*0.5f)));
+                imageRectTransform.anchoredPosition = startPosition;
 
-            // imageRectTransform.anchoredPosition=WorldObject_ScreenPosition;
-            
-            // Vector3 pos = Vector3.zero;
-            
-            // Vector2 viewport = new Vector2(0.5f, 0.5f);
-            // Vector2 viewport = uiCamera.WorldToViewportPoint(targetSettings.startTransform.position);
-            // Vector3 screen = uiCamera.ViewportToScreenPoint(viewport);
-            // Vector3 screen = uiCamera.WorldToScreenPoint(r.position);
+                if (burstSettings.burst)
+                {
+                    float burstMaxDistance = burstSettings.maxDistance.Evaluate(Now, Random.value);
+                    float burstMinDistance = burstSettings.minDistance.Evaluate(Now, Random.value);
+                    float burstMotionDuration = burstSettings.duration.Evaluate(Now, Random.value);
+                    float burstEndDelay = burstSettings.endDelay.Evaluate(Now, Random.value);
 
-            // Vector3 view = mainCamera.WorldToViewportPoint(targetSettings.startTransform.position);
-            // Vector3 world = uiCamera.ViewportToWorldPoint(view);
-            
-            // Vector3 canPos;
-            //             
-            // Vector3 viewportPos = mainCamera.WorldToViewportPoint(targetSettings.startTransform.position);
-            //
-            // canPos = new Vector3(viewportPos.x.Remap(0.5f, 1.5f, 0f, _canvasRect.rect.width),
-            //     viewportPos.y.Remap(0.5f, 1.5f, 0f, _canvasRect.rect.height), 0);
-            //             
-            // canPos = _canvasRect.transform.TransformPoint(canPos);
-            //
-            // canPos = transform.parent.InverseTransformPoint(canPos);
-            //
-            // // transform.localPosition = canPos;
-            //
-            // // Vector2 WorldObject_ScreenPosition = new Vector2(
-            // //     ((viewport.x*_canvasRect.sizeDelta.x)-(_canvasRect.sizeDelta.x*0.5f)),
-            // //     ((viewport.y*_canvasRect.sizeDelta.y)-(_canvasRect.sizeDelta.y*0.5f)));
-            //
-            // // Debug.Log(viewport);
+                    Vector2 burstDistance = Random.insideUnitCircle.normalized * Random.Range(burstMinDistance, burstMaxDistance);
+                    
+                    Tween burstMotion = imageRectTransform.DOAnchorPos(burstDistance, burstMotionDuration).SetRelative(true);
+                    _ = burstSettings.ease.Equals(Ease.Unset) ? burstMotion.SetEase(burstSettings.easeCurve) : burstMotion.SetEase(burstSettings.ease, burstSettings.overshoot);
+                    sequence.Append(burstMotion).AppendInterval(burstEndDelay);
+                }
+                
+                
+                float duration = generalSettings.duration.Evaluate(Now, Random.value);
+                
+                Tween travelMotion = imageRectTransform.DOAnchorPos(endPosition, duration);
+                _ = generalSettings.ease.Equals(Ease.Unset) ? travelMotion.SetEase(generalSettings.easeCurve) : travelMotion.SetEase(generalSettings.ease, generalSettings.overshoot);
+                
+                sequence.Append(travelMotion);
+                
+                sequence.onComplete = () =>
+                {
+                    DespawnImage(image);
+                    callbackSettings.OnArrive?.Invoke();
+                };
+            }
+        }
 
-            // imageRectTransform.position = world;
-            // imageRectTransform.anchoredPosition = canPos;
-            
-            // Vector2 viewport = new Vector2(0.5f, 0.5f);
-
-            // Vector3 worldPoint = r.position;
-            
-            // Vector3 local = _canvasRect.InverseTransformPoint(worldPoint);
-            // Vector3 view = mainCamera.WorldToViewportPoint(targetSettings.startTransform.position);
-            Vector3 screen = mainCamera.WorldToScreenPoint(targetSettings.startTransform.position);
-
-            Debug.Log(screen);
-            
-            // Vector3 world = mainCamera.ScreenToWorldPoint(screen);
-            
-            // Debug.Log(screen);
-
-            // Vector3 w = _canvasRect.TransformPoint(screen);
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screen, uiCamera, out Vector2 local);
-
-            // Vector3 local = _canvasRect.InverseTransformPoint(worldPoint);
-            
-            imageRectTransform.localPosition = local;
-            // imageRectTransform.position = world;
-
+        public Vector3 GetLocal(TargetSettings targetSettings)
+        {
+            Vector2 localPoint = Vector3.zero;
+            switch (targetSettings.space)
+            {
+                case Space.Screen:
+                    localPoint = uiCamera.WorldToScreenPoint(targetSettings.transform.position);
+                    break;
+                case Space.World:
+                    localPoint = mainCamera.WorldToScreenPoint(targetSettings.transform.position);
+                    break;
+            }
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, uiCamera, out Vector2 local);
+            return local;
         }
         public void Restart()
         {
@@ -173,6 +182,8 @@ namespace IWI.UI
         }
         #endregion
 
+        private float Now => _timeOffset + Time.time;
+
         void OnDestroy()
         {
             while (_imageQueue.Count > 0)
@@ -186,19 +197,47 @@ namespace IWI.UI
     public class ImageSettings
     {
         [SerializeField] public Sprite sprite;
+        [SerializeField] public bool raycastTarget = false;
+        [SerializeField] public bool maskable = false;
+        [SerializeField] public int maxImageCount = 50;
     }
     [Serializable]
-    public class MotionSettings
+    public class GeneralSettings
     {
         [SerializeField] public bool playAtStart = true;
+        [SerializeField] public ParticleSystem.MinMaxCurve startCount = new ParticleSystem.MinMaxCurve(1, 10);
         [SerializeField] public ParticleSystem.MinMaxCurve startSize = new ParticleSystem.MinMaxCurve(50.0f, 75.0f);
+        [SerializeField] public ParticleSystem.MinMaxCurve duration = new ParticleSystem.MinMaxCurve(0.5f, 0.6f);
+        [SerializeField] public Ease ease;
+        [SerializeField] public float overshoot = 1.7f;
+        [SerializeField] public AnimationCurve easeCurve;
+    }
+    [Serializable]
+    public class BurstSettings
+    {
+        [SerializeField] public bool burst = true;
+        [SerializeField] public Shape shape;
+        [SerializeField] public ParticleSystem.MinMaxCurve maxDistance = new ParticleSystem.MinMaxCurve(50, 100);
+        [SerializeField] public ParticleSystem.MinMaxCurve minDistance = new ParticleSystem.MinMaxCurve(50, 100);
+        [SerializeField] public ParticleSystem.MinMaxCurve duration = new ParticleSystem.MinMaxCurve(0.5f, 0.6f);
+        [SerializeField] public ParticleSystem.MinMaxCurve endDelay = new ParticleSystem.MinMaxCurve(0.25f, 0.3f);
+        [SerializeField] public Ease ease;
+        [SerializeField] public float overshoot = 1.7f;
+        [SerializeField] public AnimationCurve easeCurve;
     }
     [Serializable]
     public class TargetSettings
     {
-        [SerializeField] public Transform startTransform;
-        [SerializeField] public Transform endTransform;
+        [SerializeField] public IWI.Emitter.Enums.Space space;
+        [SerializeField] public Transform transform;
+        [System.NonSerialized] public Vector3 position;
     }
+    [Serializable]
+    public class CallbackSettings
+    {
+        [SerializeField] public UnityEvent OnArrive;
+    }
+    
     [Serializable]
     public class DebugSettings
     {
@@ -206,7 +245,7 @@ namespace IWI.UI
     }
     public static class Helper
     {
-        public static void SetImageSize(this Image image, float size)
+        public static void SetSize(this Image image, float size)
         {
             image.rectTransform.sizeDelta = new Vector2(size, size);
         }
@@ -218,6 +257,19 @@ namespace IWI.UI
         }
     }
     
+}
+
+namespace IWI.Emitter.Enums
+{
+    public enum Space
+    {
+        Screen,
+        World
+    }
+    public enum Shape
+    {
+        Circular,
+    }
 }
 
 #if UNITY_EDITOR
