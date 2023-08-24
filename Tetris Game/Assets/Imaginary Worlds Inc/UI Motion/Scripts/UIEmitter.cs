@@ -24,8 +24,8 @@ namespace IWI.UI
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
         [SerializeField] public ValueSettings valueSettings;
-        [SerializeField] public GeneralSettings generalSettings;
-        [SerializeField] public BurstSettings burstSettings;
+        [SerializeField] public MotionData motionData;
+       
         [SerializeField] public TargetSettings targetSettingsStart;
         [SerializeField] public TargetSettings targetSettingsEnd;
         [SerializeField] public CallbackSettings callbackSettings;
@@ -44,7 +44,7 @@ namespace IWI.UI
 
         void Start()
         {
-            if (generalSettings.playAtStart)
+            if (motionData.generalSettings.playAtStart)
             {
                 Play();
             }
@@ -99,22 +99,29 @@ namespace IWI.UI
 
         public void Play()
         {
-            Vector3 startPosition = GetLocal(targetSettingsStart);
-            Vector3 endPosition = GetLocal(targetSettingsEnd);
-
-            int emitCount = (int)generalSettings.startCount.Evaluate(Now, Random.value);
+            int emitCount = (int)motionData.generalSettings.startCount.Evaluate(Now, Random.value);
+            Emit(emitCount, valueSettings, targetSettingsStart, targetSettingsEnd);
+        }
+        public void Emit(int emitCount, ValueSettings value, TargetSettings? start, TargetSettings? end, MotionData motionDataSO = null)
+        {
+            MotionData md = motionDataSO ? motionDataSO : this.motionData;
+            BurstSettings burstSettings = md.burstSettings;
+            GeneralSettings generalSettings = md.generalSettings;
+            
+            Vector3 startPosition = GetLocal(start ?? this.targetSettingsStart);
+            Vector3 endPosition = GetLocal(end ?? this.targetSettingsEnd);
 
             int valuePerInstance;
             int excess;
 
-            switch (valueSettings.valueType)
+            switch (value.valueType)
             {
                 case ValueType.TotalValue:
-                    valuePerInstance = valueSettings.totalValue / emitCount;
-                    excess = valueSettings.totalValue - (valuePerInstance * emitCount);
+                    valuePerInstance = value.amount / emitCount;
+                    excess = value.amount - (valuePerInstance * emitCount);
                     break;
                 case ValueType.ValuePerInstance:
-                    valuePerInstance = valueSettings.valuePerInstance;
+                    valuePerInstance = value.amount;
                     excess = 0;
                     break;
                 default:
@@ -151,6 +158,11 @@ namespace IWI.UI
                     
                     Tween burstMotion = imageRectTransform.DOAnchorPos(burstDistance, burstMotionDuration).SetRelative(true);
                     _ = burstSettings.ease.Equals(Ease.Unset) ? burstMotion.SetEase(burstSettings.easeCurve) : burstMotion.SetEase(burstSettings.ease, burstSettings.overshoot);
+                    burstMotion.onUpdate = () =>
+                    {
+                        float percent = burstMotion.position / burstMotionDuration;
+                        imageRectTransform.localScale = Vector3.one * burstSettings.sizeOverDuration.Evaluate(percent);
+                    };
                     sequence.Append(burstMotion).AppendInterval(burstEndDelay);
                 }
                 
@@ -159,6 +171,11 @@ namespace IWI.UI
                 
                 Tween travelMotion = imageRectTransform.DOAnchorPos(endPosition, duration);
                 _ = generalSettings.ease.Equals(Ease.Unset) ? travelMotion.SetEase(generalSettings.easeCurve) : travelMotion.SetEase(generalSettings.ease, generalSettings.overshoot);
+                travelMotion.onUpdate = () =>
+                {
+                    float percent = travelMotion.position / duration;
+                    imageRectTransform.localScale = Vector3.one * generalSettings.sizeOverDuration.Evaluate(percent);
+                };
                 
                 sequence.Append(travelMotion);
                 
@@ -173,15 +190,18 @@ namespace IWI.UI
         public Vector3 GetLocal(TargetSettings targetSettings)
         {
             Vector2 localPoint = Vector3.zero;
+            Camera cam = null;
             switch (targetSettings.space)
             {
                 case Space.Screen:
-                    localPoint = uiCamera.WorldToScreenPoint(targetSettings.transform.position);
+                    cam = uiCamera;
                     break;
                 case Space.World:
-                    localPoint = mainCamera.WorldToScreenPoint(targetSettings.transform.position);
+                    cam = mainCamera;
                     break;
             }
+
+            localPoint = cam.WorldToScreenPoint(targetSettings.transform ? targetSettings.transform.position : targetSettings.Position);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, uiCamera, out Vector2 local);
             return local;
         }
@@ -192,14 +212,6 @@ namespace IWI.UI
         public void Pause()
         {
                 
-        }
-        public void Emit(Vector3 worldPosition)
-        {
-            SpawnImage();
-        }
-        public void Emit(Vector2 screenPosition)
-        {
-            SpawnImage();
         }
         #endregion
 
@@ -223,11 +235,16 @@ namespace IWI.UI
         [SerializeField] public int maxImageCount = 50;
     }
     [Serializable]
-    public class ValueSettings
+    public struct ValueSettings
     {
         [SerializeField] public ValueType valueType;
-        [SerializeField] public int totalValue = 10;
-        [SerializeField] public int valuePerInstance = 1;
+        [SerializeField] public int amount;
+
+        public ValueSettings(ValueType valueType, int amount)
+        {
+            this.valueType = valueType;
+            this.amount = amount;
+        }
     }
     [Serializable]
     public class GeneralSettings
@@ -256,11 +273,19 @@ namespace IWI.UI
         [SerializeField] public AnimationCurve sizeOverDuration;
     }
     [Serializable]
-    public class TargetSettings
+    public struct TargetSettings
     {
         [SerializeField] public IWI.Emitter.Enums.Space space;
         [SerializeField] public Transform transform;
-        [System.NonSerialized] public Vector3 position;
+        [System.NonSerialized] public Vector3 Position;
+
+
+        public TargetSettings(Space space, Transform transform, Vector3 position)
+        {
+            this.space = space;
+            this.transform = transform;
+            Position = position;
+        }
     }
     [Serializable]
     public class CallbackSettings
@@ -273,6 +298,8 @@ namespace IWI.UI
     {
         [SerializeField] public bool hideImagesInHierarchy;
     }
+    
+    
     public static class Helper
     {
         public static void SetSize(this Image image, float size)

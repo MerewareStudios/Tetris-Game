@@ -159,51 +159,14 @@ namespace Game
             KillTweens();
 
             transform.parent = null;
+            
+            UIManager.THIS.coinEmitter.EmitCoin_World(levelText.transform.position, 1, 1);
 
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InQuad)
-                    .onComplete +=
-                () =>
-                {
-                    Deconstruct();
-
-
-                    // UIManager.THIS.coinPSScreen.emitterConstraintTransform = levelText.transform;
-                    // UIManager.THIS.coinPSScreen.Emit(1, Vector2.zero);
-                    UIManager.THIS.coinEmitter.Emit(levelText.transform.position);
-
-                    // Earn pawn delete coin
-
-                    // UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
-                    // {
-                    //     Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
-                    // });
-                };
-
-            // if (_amount > 1)
-            // {
-                
-            // }
+                .onComplete = Deconstruct;
         }
-        // public void OnFail()
-        // {
-        //     KillTweens();
-        //
-        //     modelPivot.DOKill();
-        //     modelPivot.localScale = Vector3.one;
-        //     modelPivot.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack)
-        //         .onComplete += Deconstruct;
-        //     
-        //     if (_amount > 1)
-        //     {
-        //         UIManagerExtensions.EarnCurrencyWorld(Const.CurrencyType.Coin, levelText.transform.position, 1.25f, () =>
-        //         {
-        //             Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, 1));
-        //         });
-        //     }
-        //
-        // }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
             _moveTween?.Kill();
