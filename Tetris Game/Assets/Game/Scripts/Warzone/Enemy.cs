@@ -107,8 +107,9 @@ namespace  Game
         {
             _thisTransform.DOKill();
             Warzone.THIS.RemoveEnemy(this);
-            Wallet.COIN.Transaction(1);
-            Particle.Coin.Emit(1, transform.position + new Vector3(0.0f, 0.25f, 0.0f));
+            // Wallet.COIN.Transaction(1);
+            UIManagerExtensions.EmitEnemyCoin(transform.position, 1, 1);
+            // Particle.Coin.Emit(1, transform.position + new Vector3(0.0f, 0.25f, 0.0f));
             this.Deconstruct();
         }
     #endregion

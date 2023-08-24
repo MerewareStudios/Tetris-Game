@@ -13,21 +13,18 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [Header("End Level Screen")]
     [Header("Bars")]
     [SerializeField] private MarkedProgress _markedProgressPiggy;
-    // [Header("Buttons")]
-    // [SerializeField] private RewardButton[] piggyRewardButtons;
     [Header("Currency Displays")]
     [SerializeField] private CurrencyDisplay piggyCurrencyDisplay;
     [Header("Pivots")]
     [SerializeField] private RectTransform _rectTransformPiggyIcon;
     [SerializeField] private RectTransform _coinTarget;
-    // [SerializeField] private RectTransform _rewardsCenter;
     [Header("Buttons")]
     [SerializeField] private Button continueButton;
     [SerializeField] private Button investButton;
     [SerializeField] private Button breakButton;
     [SerializeField] private Transform frame;
     [Header("Reward")]
-    // [SerializeField] private Animator piggyAnimator;
+    [SerializeField] private Canvas piggySortedCanvas;
     [SerializeField] private RectTransform normalPiggy;
     [SerializeField] private RectTransform rewardedPiggy;
     [SerializeField] private RectTransform rewardedPiggyShakePivot;
@@ -194,47 +191,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     #endregion
     #region Animations
-
     private void PunchPiggyIcon(float amount = 0.25f)
     {
         _rectTransformPiggyIcon.DOKill();
         _rectTransformPiggyIcon.localScale = Vector3.one;
         _rectTransformPiggyIcon.DOPunchScale(Vector3.one * amount, 0.75f, 1).SetUpdate(true);
     }
-
     #endregion
-    // #region Rewards
-    // private void DisplayRewards()
-    // {
-    //     foreach (var button in piggyRewardButtons)
-    //     {
-    //         button.gameObject.SetActive(false);
-    //     }
-    //     
-    //     _Data.rewards.Shuffle();
-    //
-    //     List<Vector3> positions = CircleLayoutGroup.GetPoints(_rewardsCenter.position, _Data.RewardCount,  _Data.RewardCount.Direction(), _Data.RewardCount.Radius());
-    //
-    //     for (int i = 0; i < _Data.RewardCount; i++)
-    //     {
-    //         RewardButton rewardButton = piggyRewardButtons[i];
-    //         PiggyReward piggyReward = _Data.rewards[i];
-    //         rewardButton.OnClick(() =>
-    //         {
-    //             _Data.rewards.Remove(piggyReward);
-    //             rewardButton.ShowReward(piggyReward);
-    //
-    //             if (_Data.rewards.Count <= 0)
-    //             {
-    //                 // DOVirtual.DelayedCall(1.25f, CloseAction).SetUpdate(true);
-    //             }
-    //
-    //         }).Show(_rewardsCenter.position, positions[i], i * 0.1f);
-    //     }
-    // }
-
-    
-    // #endregion
     #region Invest
     private void AddMoney(int count, float delay = 0.0f)
     {
@@ -271,27 +234,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                             breakButton.targetGraphic.raycastTarget = true;
 
                         };
-                            
                     
                     rewardPiggyGlow.color = glowColorStart;
                     piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
-                            // rewardPiggyGlow.color = glowColorStart;
-                            // rewardPiggyGlow.DOColor(glowColorEnd, 0.4f).SetUpdate(true)
-                    // Money = 0;
-
-                    // _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.2f, 0.25f, Ease.Linear,null, () =>
-                    // {
-                    // Money = 0;
-                    // if (excess > 0)
-                    // {
-                    //     AddMoney(excess, 0.15f);
-                    // }
-                    // else
-                    // {
-                    // ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
-                    // }
-
-                    // });
                 }
                 else
                 {
@@ -302,111 +247,25 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         {
                             continueButton.targetGraphic.raycastTarget = true;
                         };
-                    
-
-                    // ShowPiggyScreenButtons(_Data.piggyLevel > 0, true);
                 }
             });
     }
-    // private void InvestCoins(Const.Currency currency)
-    // {
-    //     ShowScreen(false, true, false);
-    //     ShowPiggyScreenButtons(false, false);
-    //     
-    //     DOVirtual.DelayedCall(0.4f, () =>
-    //     {
-    //         InvestAnimation(currency);
-    //     });
-    // }
     private void InvestAnimated(Const.Currency currency)
     {
         Wallet.Consume(currency);
-        const int maxCoin = 6;
-        
-        int count = Mathf.Min(currency.amount, maxCoin);
-        float posDif = 0.3f;
-            
-        Vector3 screenStart = Wallet.IconPosition(currency.type);
-        Vector3 screenEnd = _coinTarget.position;
-        Vector3 screenDrag = screenStart;
-        screenDrag.x = screenEnd.x;
-        screenDrag.y = screenEnd.y + 0.2f * (maxCoin - count + 1);
-            
-        for (int i = 0; i < count; i++)
-        {
-            screenDrag.y += posDif;
-    
-            int index = i;
-            
-            // Fill piggy bank
+        UIManagerExtensions.RequestCoinFromWallet(_coinTarget.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount,
+        (value) =>
+            {
+                PunchPiggyIcon(0.2f);
+            },
+        () =>
+            {
+                AddMoney(currency.amount, 0.0f);
+            });
 
-            // UIManagerExtensions.DragCoin(screenStart, screenDrag, screenEnd, 0.7f + i * -0.025f, (() =>
-            // {
-            //     PunchPiggyIcon(0.2f);
-            //         
-            //     if (index == count - 1)
-            //     {
-            //         AddMoney(currency.amount, 0.0f);
-            //     }
-            //
-            // })).SetDelay(i * 0.125f);
-        }
     }
     #endregion
     
-    #region Option Buttons
-
-    // private Const.Currency InvestWithStrategy(Const.Currency currency)
-    // {
-    //     if (currency.amount <= 3)
-    //     {
-    //         return currency;
-    //     }
-    //     currency.amount = Mathf.FloorToInt(currency.amount * 0.5f);
-    //     if (currency.amount % 2 == 1)
-    //     {
-    //         currency.amount++;
-    //     }
-    //
-    //     currency.amount = Mathf.Clamp(currency.amount, 1, 50);
-    //     return currency;
-    // }
-    // public void Option_Keep()
-    // {
-    //     CloseAction();
-    // }
-    // public void Option_Invest()
-    // {
-    //     InvestCoins(InvestWithStrategy(Wallet.COIN.Currency));
-    // }
-    //
-    // public void Option_InvestFree()
-    // {
-    //     Debug.LogWarning("Watch Ad - Not Implemented, invest");
-    //     InvestCoins(_Data.freeInvestment);
-    // }
-    // public void Option_JustOpen()
-    // {
-    //     OnClick_Break();
-    // }
-    // public void Option_OpenRewards()
-    // {
-    //     DisplayRewards();
-    // }
-    
-    #endregion
-    #region Piggy Screen Buttons
-   
-    // public void OnClick_Continue()
-    // {
-    //     CloseAction();
-    // }
-    // public void OnClick_Break()
-    // {
-    //     _Data.GenerateRewards();
-    //     DisplayRewards();
-    // }
-    #endregion
     #region Classes
         [System.Serializable]
         public class Data : ICloneable
@@ -430,36 +289,12 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 this.freeInvestment = data.freeInvestment;
                 this.rewards.CopyFrom(data.rewards);
             }
-
             
-            // public void GenerateRewards()
-            // {
-                // if (piggyLevel < 1) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.Gem, UnityEngine.Random.Range(5, 26)));
-                // if (piggyLevel < 2) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.Coin, UnityEngine.Random.Range(5, 26)));
-                // if (piggyLevel < 3) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.Shield, UnityEngine.Random.Range(5, 16)));
-                // if (piggyLevel < 4) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.Heart, UnityEngine.Random.Range(5, 11)));
-                // if (piggyLevel < 5) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.Ad, UnityEngine.Random.Range(1, 3)));
-                // if (piggyLevel < 6) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.MaxStack, 1));
-                // // if (piggyLevel < 7) return;
-                // // rewards.Add(new PiggyReward(PiggyReward.Type.SupplyLine, 1));
-                // if (piggyLevel < 7) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.PiggyLevel, 1));
-                // if (piggyLevel < 8) return;
-                // rewards.Add(new PiggyReward(PiggyReward.Type.Hole, 1));
-            // }
-
             public float PiggyPercent => currentMoney.amount / (float)moneyCapacity;
             public bool IsFull => currentMoney.amount >= moneyCapacity;
             public Const.Currency Percent2Money(float percent) => new Const.Currency(currentMoney.type, (int)Mathf.Lerp(0.0f, moneyCapacity, percent));
             public int RewardCount => rewards.Count;
             public bool RewardsWaiting => rewards.Count > 0;
-            // public bool MaxRewardsReached => piggyLevel >= maxPiggyLevel;
 
             public object Clone()
             {
@@ -488,10 +323,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             this.amount = amount;
         }
         
-        // public void GiveReward()
-        // {
-        //     switch (type)
-        //     {
         //         case PiggyReward.Type.Coin:
         //             Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, amount));
         //             break;
@@ -522,10 +353,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         //         case PiggyReward.Type.PiggyLevel:
         //             PiggyMenu.THIS.MaxPiggyLevel += amount;
         //             break;
-        //         // case PiggyReward.Type.Hole:
-        //         //     break;
-        //     }
-        // }
 
         public object Clone()
         {

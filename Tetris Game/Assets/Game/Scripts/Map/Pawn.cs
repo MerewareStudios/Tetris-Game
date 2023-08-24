@@ -160,7 +160,7 @@ namespace Game
 
             transform.parent = null;
             
-            UIManager.THIS.coinEmitter.EmitCoin_World(levelText.transform.position, 1, 1);
+            UIManagerExtensions.EmitBlockCoin(transform.position, 1, 1);
 
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;

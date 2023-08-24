@@ -22,6 +22,9 @@ public class UIManager : Singleton<UIManager>
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;
    [SerializeField] public MotionData motionData_Block;
+   [SerializeField] public MotionData motionData_Enemy;
+   [SerializeField] public MotionData motionData_LevelReward;
+   [SerializeField] public MotionData motionData_PiggyFill;
    [Header("Level")]
    // [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
@@ -60,7 +63,7 @@ public class UIManager : Singleton<UIManager>
       {
          Warzone.THIS.GiveShield(1);
       }
-      if (Input.GetKeyDown(KeyCode.A))
+      if (Input.GetKeyDown(KeyCode.G))
       {
          LevelManager.THIS.OnVictory();
       }
@@ -100,10 +103,29 @@ public static class UIManagerExtensions
        Pool.Distortion.Spawn<Distortion>().Distort(pos, camTransform.forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortStartRamp, AnimConst.THIS.distortEndRamp, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
    }
 
-   public static void EmitCoin_World(this UIEmitter uiEmitter, Vector3 worldPosition, int count, int totalValue)
+   public static void EmitBlockCoin(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      uiEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Block);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Block);
+   }
+   public static void EmitEnemyCoin(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy);
+   }
+   public static void EmitLevelRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
+   }
+   public static void RequestCoinFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, Const.CurrencyType.Coin.IconPosition());
+      TargetSettings targetSettingsEnd = new TargetSettings(Space.Screen, null, targetCanvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_PiggyFill, OnArrive, OnAllArrive);
    }
 }

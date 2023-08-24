@@ -57,7 +57,7 @@ TagManager:
   - name: Menu On Top
     uniqueID: 741092477
     locked: 0
-  - name: Settings
+  - name: Coin
     uniqueID: 3998147259
     locked: 0
   - name: Overlay

@@ -14,7 +14,7 @@ public static class Wallet
 
     public static CurrencyTransactor[] CurrencyTransactors;
     
-    public static Vector3 IconPosition(Const.CurrencyType currencyType)
+    public static Vector3 IconPosition(this Const.CurrencyType currencyType)
     {
         CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currencyType];
 

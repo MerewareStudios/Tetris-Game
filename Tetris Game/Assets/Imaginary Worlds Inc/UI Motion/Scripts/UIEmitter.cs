@@ -100,9 +100,9 @@ namespace IWI.UI
         public void Play()
         {
             int emitCount = (int)motionData.generalSettings.startCount.Evaluate(Now, Random.value);
-            Emit(emitCount, valueSettings, targetSettingsStart, targetSettingsEnd);
+            Emit(emitCount, valueSettings, targetSettingsStart, targetSettingsEnd, null, callbackSettings.OnArrive.Invoke, callbackSettings.OnAllArrive.Invoke);
         }
-        public void Emit(int emitCount, ValueSettings value, TargetSettings? start, TargetSettings? end, MotionData motionDataSO = null)
+        public void Emit(int emitCount, ValueSettings value, TargetSettings? start, TargetSettings? end, MotionData motionDataSO = null, System.Action<int> OnArriveAction = null, System.Action OnAllArriveAction = null)
         {
             MotionData md = motionDataSO ? motionDataSO : this.motionData;
             BurstSettings burstSettings = md.burstSettings;
@@ -110,6 +110,9 @@ namespace IWI.UI
             
             Vector3 startPosition = GetLocal(start ?? this.targetSettingsStart);
             Vector3 endPosition = GetLocal(end ?? this.targetSettingsEnd);
+
+            OnArriveAction ??= callbackSettings.OnArrive.Invoke;
+            OnAllArriveAction ??= callbackSettings.OnAllArrive.Invoke;
 
             int valuePerInstance;
             int excess;
@@ -127,6 +130,8 @@ namespace IWI.UI
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            int arrivedCount = 0;
             
             for (int i = 0; i < emitCount; i++)
             {
@@ -178,11 +183,18 @@ namespace IWI.UI
                 };
                 
                 sequence.Append(travelMotion);
-                
+                sequence.SetUpdate(imageSettings.updateType, imageSettings.timeIndependent);
                 sequence.onComplete = () =>
                 {
                     DespawnImage(image);
-                    callbackSettings.OnArrive?.Invoke(valuePerInstance + ((index + 1 == emitCount) ? excess : 0));
+                    OnArriveAction?.Invoke(valuePerInstance + ((index + 1 == emitCount) ? excess : 0));
+
+                    arrivedCount++;
+                    
+                    if (arrivedCount == emitCount)
+                    {
+                        OnAllArriveAction?.Invoke();
+                    }
                 };
             }
         }
@@ -233,6 +245,8 @@ namespace IWI.UI
         [SerializeField] public bool raycastTarget = false;
         [SerializeField] public bool maskable = false;
         [SerializeField] public int maxImageCount = 50;
+        [SerializeField] public UpdateType updateType;
+        [SerializeField] public bool timeIndependent = true;
     }
     [Serializable]
     public struct ValueSettings
@@ -291,6 +305,7 @@ namespace IWI.UI
     public class CallbackSettings
     {
         [SerializeField] public UnityEvent<int> OnArrive;
+        [SerializeField] public UnityEvent OnAllArrive;
     }
     
     [Serializable]
