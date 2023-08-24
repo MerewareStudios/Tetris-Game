@@ -239,6 +239,7 @@ namespace IWI.UI
         [SerializeField] public Ease ease;
         [SerializeField] public float overshoot = 1.7f;
         [SerializeField] public AnimationCurve easeCurve;
+        [SerializeField] public AnimationCurve sizeOverDuration;
     }
     [Serializable]
     public class BurstSettings
@@ -252,6 +253,7 @@ namespace IWI.UI
         [SerializeField] public Ease ease;
         [SerializeField] public float overshoot = 1.7f;
         [SerializeField] public AnimationCurve easeCurve;
+        [SerializeField] public AnimationCurve sizeOverDuration;
     }
     [Serializable]
     public class TargetSettings
