@@ -45,9 +45,12 @@ public class GameManager : Singleton<GameManager>
         {
             Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
         }
-        
     }
     
+    public static void AddCoin(int value)
+    {
+       Wallet.COIN.Transaction(value);
+    }
     
     // public void Deconstruct()
     // {

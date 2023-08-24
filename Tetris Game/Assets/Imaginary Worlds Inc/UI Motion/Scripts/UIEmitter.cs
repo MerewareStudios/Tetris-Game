@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Space = IWI.Emitter.Enums.Space;
+using ValueType = IWI.Emitter.Enums.ValueType;
 
 namespace IWI.UI
 {
@@ -22,6 +23,7 @@ namespace IWI.UI
         private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
+        [SerializeField] public ValueSettings valueSettings;
         [SerializeField] public GeneralSettings generalSettings;
         [SerializeField] public BurstSettings burstSettings;
         [SerializeField] public TargetSettings targetSettingsStart;
@@ -101,8 +103,27 @@ namespace IWI.UI
             Vector3 endPosition = GetLocal(targetSettingsEnd);
 
             int emitCount = (int)generalSettings.startCount.Evaluate(Now, Random.value);
+
+            int valuePerInstance;
+            int excess;
+
+            switch (valueSettings.valueType)
+            {
+                case ValueType.TotalValue:
+                    valuePerInstance = valueSettings.totalValue / emitCount;
+                    excess = valueSettings.totalValue - (valuePerInstance * emitCount);
+                    break;
+                case ValueType.ValuePerInstance:
+                    valuePerInstance = valueSettings.valuePerInstance;
+                    excess = 0;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             for (int i = 0; i < emitCount; i++)
             {
+                int index = i;
                 Sequence sequence = DOTween.Sequence();
                 
                 Image image = SpawnImage();
@@ -144,7 +165,7 @@ namespace IWI.UI
                 sequence.onComplete = () =>
                 {
                     DespawnImage(image);
-                    callbackSettings.OnArrive?.Invoke();
+                    callbackSettings.OnArrive?.Invoke(valuePerInstance + ((index + 1 == emitCount) ? excess : 0));
                 };
             }
         }
@@ -202,6 +223,13 @@ namespace IWI.UI
         [SerializeField] public int maxImageCount = 50;
     }
     [Serializable]
+    public class ValueSettings
+    {
+        [SerializeField] public ValueType valueType;
+        [SerializeField] public int totalValue = 10;
+        [SerializeField] public int valuePerInstance = 1;
+    }
+    [Serializable]
     public class GeneralSettings
     {
         [SerializeField] public bool playAtStart = true;
@@ -235,7 +263,7 @@ namespace IWI.UI
     [Serializable]
     public class CallbackSettings
     {
-        [SerializeField] public UnityEvent OnArrive;
+        [SerializeField] public UnityEvent<int> OnArrive;
     }
     
     [Serializable]
@@ -264,11 +292,16 @@ namespace IWI.Emitter.Enums
     public enum Space
     {
         Screen,
-        World
+        World,
     }
     public enum Shape
     {
         Circular,
+    }
+    public enum ValueType
+    {
+        TotalValue,
+        ValuePerInstance,
     }
 }
 

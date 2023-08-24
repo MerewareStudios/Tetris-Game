@@ -2653,6 +2653,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7358218989986563799}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1072706233 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5788680838522422370, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 4102055379504710331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1096184537
 GameObject:
   m_ObjectHideFlags: 0
@@ -4696,10 +4702,14 @@ MonoBehaviour:
     raycastTarget: 0
     maskable: 0
     maxImageCount: 50
+  valueSettings:
+    valueType: 0
+    totalValue: 10
+    valuePerInstance: 1
   generalSettings:
     playAtStart: 1
     startCount:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -4877,18 +4887,18 @@ MonoBehaviour:
     transform: {fileID: 68610899}
   targetSettingsEnd:
     space: 0
-    transform: {fileID: 1411092490}
+    transform: {fileID: 1072706233}
   callbackSettings:
     OnArrive:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
+        - m_Target: {fileID: 228455767}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: AddCoin
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
