@@ -5122,6 +5122,7 @@ GameObject:
   - component: {fileID: 8091562085991707680}
   - component: {fileID: 3772746365000825070}
   - component: {fileID: 2981565226958616638}
+  - component: {fileID: 2559063755219903693}
   m_Layer: 5
   m_Name: Canvas - Finger
   m_TagString: Untagged
@@ -5162,6 +5163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 3772746365000825070}
+  canvasGroup: {fileID: 2559063755219903693}
   canvasRect: {fileID: 7827162823437580552}
   tip: {fileID: 6674382387691748398}
   positionPivot: {fileID: 638598203877035779}
@@ -5222,3 +5224,15 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!225 &2559063755219903693
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9098571809227225480}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

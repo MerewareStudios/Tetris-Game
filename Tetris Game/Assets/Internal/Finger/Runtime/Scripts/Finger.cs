@@ -10,6 +10,7 @@ namespace IWI.Tutorial
     public class Finger : MonoBehaviour
     {
         [SerializeField] private Canvas canvas;
+        [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private RectTransform canvasRect;
 
         [SerializeField] private RectTransform tip;
@@ -48,11 +49,16 @@ namespace IWI.Tutorial
             canvas.enabled = true;
             positionPivot.gameObject.SetActive(false);
             
+            canvasGroup.DOKill();
+            canvasGroup.alpha = 0.0f;
+            
             this.WaitForNull(Task);
 
             void Task()
             {
                 positionPivot.gameObject.SetActive(true);
+                
+                canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
 
                 positionPivot.anchoredPosition = GetAnchor(position, worldSpace);
                 
@@ -108,13 +114,20 @@ namespace IWI.Tutorial
             
             canvas.enabled = true;
             positionPivot.gameObject.SetActive(false);
+            
+            canvasGroup.DOKill();
+            canvasGroup.alpha = 0.0f;
 
             this.WaitForNull(Task);
 
             void Task()
             {
                 positionPivot.gameObject.SetActive(true);
+                
 
+                canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
+
+                
                 positionPivot.anchoredPosition = GetAnchor(position, worldSpace);
                 
                 scalePivot.localScale = Vector3.one;
@@ -173,10 +186,18 @@ namespace IWI.Tutorial
         public void Hide()
         {
             Stop();
+            
             _sequence?.Kill();
-            canvas.enabled = false;
-            ps.Clear();
-            ps.Stop();
+            
+            canvasGroup.DOKill();
+            canvasGroup.DOFade(0.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+            {
+                canvas.enabled = false;
+                ps.Clear();
+                ps.Stop();
+            };
+            
+           
         }
         
         public void Stop()

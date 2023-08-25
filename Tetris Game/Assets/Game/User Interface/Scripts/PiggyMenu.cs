@@ -102,6 +102,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         continueButton.transform.localScale = Vector3.zero;
         if (ONBOARDING.LEARN_TO_INVEST.IsComplete())
         {
+            continueButton.transform.localPosition = Vector3.zero;
             continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
         }
         
@@ -185,8 +186,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_ContinuePiggyBank()
     {
+        continueButton.targetGraphic.raycastTarget = false;
         if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
         {
+            ONBOARDING.LEARN_TO_CONTINUE.SetComplete();
             Onboarding.HideFinger();
         }
         this.Close();
@@ -271,6 +274,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 {
                     continueButton.gameObject.SetActive(true);
                     continueButton.transform.DOKill();
+                    continueButton.transform.position = investButton.transform.position;
                     continueButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
                         () =>
                         {

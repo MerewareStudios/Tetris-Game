@@ -201,7 +201,7 @@ namespace Game
 
                         transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 
-                        float angleDif = Mathf.Abs(_currentAngle - targetAngle);
+                        float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
 
                         if ((_Data.time - gun._Data.prevShoot > gun._Data.fireRate) && angleDif <= 1.0f)
                         {
