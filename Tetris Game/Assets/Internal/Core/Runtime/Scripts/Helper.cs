@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,26 @@ namespace Internal.Core
     public static class Helper
     {
         private static System.Random rnd = new System.Random();
+        
+        public static void WaitForNull(this MonoBehaviour mono, System.Action action)
+        {
+            mono.StartCoroutine(Wait());
+            IEnumerator Wait()
+            {
+                yield return null;
+                action.Invoke();
+            }
+        }
+        public static void WaitForFrame(this MonoBehaviour mono, System.Action action)
+        {
+            mono.StartCoroutine(Wait());
+            IEnumerator Wait()
+            {
+                yield return new WaitForEndOfFrame();
+                action.Invoke();
+            }
+        }
+        
         public static int Abs(this int value)
         {
             return Mathf.Abs(value); 

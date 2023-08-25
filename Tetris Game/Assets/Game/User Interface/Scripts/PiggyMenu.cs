@@ -32,6 +32,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Material piggyGlowMat;
     [ColorUsage(true, true)] [SerializeField] private Color glowColorStart;
     [ColorUsage(true, true)] [SerializeField] private Color glowColorEnd;
+    [Header("Reward")]
+    [SerializeField] private Transform clickLocation_Invest;
+    [SerializeField] private Transform clickLocation_Continue;
 
     
     #region Menu
@@ -75,17 +78,32 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             investButton.transform.DOKill();
             investButton.transform.localScale = Vector3.zero;
-            investButton.transform.DOScale(Vector3.one, 0.4f).SetEase(Ease.OutBack).SetDelay(0.4f).SetUpdate(true).OnStart(() =>
+            Tween investButtonTween = investButton.transform.DOScale(Vector3.one, 0.4f).SetEase(Ease.OutBack).SetDelay(0.4f).SetUpdate(true);
+            investButtonTween.OnStart(() =>
             {
                 investButton.gameObject.SetActive(true);
-                investButton.image.raycastTarget = true;
             });
+            investButtonTween.onComplete = () =>
+            {
+                investButton.image.raycastTarget = true;
             
+                if (ONBOARDING.LEARN_TO_INVEST.IsNotComplete())
+                {
+                    Onboarding.ClickOn(clickLocation_Invest.position, false, () =>
+                    {
+                        investButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                    });
+                }
+            };
+
         }
         
         continueButton.transform.DOKill();
         continueButton.transform.localScale = Vector3.zero;
-        continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
+        if (ONBOARDING.LEARN_TO_INVEST.IsComplete())
+        {
+            continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
+        }
         
         
         _markedProgressPiggy.gameObject.SetActive(true);
@@ -142,13 +160,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_InvestPiggyBank()
     {
         int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
-        InvestAnimated(new Const.Currency(Wallet.COIN.Currency.type, amount));
         
         investButton.targetGraphic.raycastTarget = false;
         investButton.transform.DOKill();
         investButton.transform.DOScale(Vector3.zero, 0.35f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
         {
             investButton.gameObject.SetActive(false);
+            
+            InvestAnimated(new Const.Currency(Wallet.COIN.Currency.type, amount));
         };
         
         continueButton.targetGraphic.raycastTarget = false;
@@ -157,9 +176,19 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             continueButton.gameObject.SetActive(false);
         };
+        
+        if (ONBOARDING.LEARN_TO_INVEST.IsNotComplete())
+        {
+            ONBOARDING.LEARN_TO_INVEST.SetComplete();
+            Onboarding.HideFinger();
+        }
     }
     public void OnClick_ContinuePiggyBank()
     {
+        if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
+        {
+            Onboarding.HideFinger();
+        }
         this.Close();
         LevelManager.THIS.LoadLevel();
     }
@@ -204,7 +233,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         _Data.currentMoney.amount += count;
         _Data.currentMoney.amount = Mathf.Clamp(_Data.currentMoney.amount, 0, _Data.moneyCapacity);
         
-        _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, Mathf.Clamp(count / 100.0f, 0.2f, 0.8f), delay, Ease.OutQuad, 
+        _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.35f, delay, Ease.OutQuad, 
             
             (value) => piggyCurrencyDisplay.Display(_Data.Percent2Money(value)), 
             
@@ -246,6 +275,16 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         () =>
                         {
                             continueButton.targetGraphic.raycastTarget = true;
+                            
+                            
+                            if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
+                            {
+                                Onboarding.ClickOn(clickLocation_Continue.position, false, () =>
+                                {
+                                    continueButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                                });
+                            }
+                            
                         };
                 }
             });

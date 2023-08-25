@@ -5162,11 +5162,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 3772746365000825070}
+  canvasRect: {fileID: 7827162823437580552}
   tip: {fileID: 6674382387691748398}
   positionPivot: {fileID: 638598203877035779}
   scalePivot: {fileID: 5674296735909550866}
   offsetPivot: {fileID: 7339284612526388058}
-  scaleDown: {x: 0.85, y: 0.85, z: 0.85}
+  scaleDown: {x: 0.8125, y: 0.9, z: 0.8125}
   offset: {x: 0, y: 20}
   shortDragOffset: {x: 0, y: 125}
   downDuration: 0.15

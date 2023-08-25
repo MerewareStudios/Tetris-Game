@@ -40,16 +40,23 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            PressOnSpawner();
+            DragOn(Spawner.THIS.transform.position, true, Spawner.THIS.Lift);
         }
     }
 
-    public static void PressOnSpawner()
+    public static void DragOn(Vector3 position, bool worldSpace, System.Action OnClick)
     {
-        Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
-        Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
-        UIManager.THIS.finger.OnClick = Spawner.THIS.Lift;
-        UIManager.THIS.finger.ShortPressAndDrag(screenPosition, 0.75f);
+        UIManager.THIS.finger.OnClick = OnClick;
+        UIManager.THIS.finger.ShortPressAndDrag(position, worldSpace, 0.75f);
+    }
+    public static void ClickOn(Vector3 position, bool worldSpace, System.Action OnClick)
+    {
+        UIManager.THIS.finger.OnClick = OnClick;
+        UIManager.THIS.finger.Click(position, worldSpace);
+    }
+    public static void HideFinger()
+    {
+        UIManager.THIS.finger.Hide();
     }
     
     public static void SpawnSecondBlockAndTeachRotation()
@@ -70,10 +77,12 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
-            Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
-            UIManager.THIS.finger.OnClick = Spawner.THIS.Shake;
-            UIManager.THIS.finger.Click(screenPosition);
+            // Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
+            // Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
+            // UIManager.THIS.finger.OnClick = Spawner.THIS.Shake;
+            // UIManager.THIS.finger.Click(screenPosition, true);
+            
+            ClickOn(Spawner.THIS.transform.position, true, Spawner.THIS.Shake);
 
             Spawner.THIS.DelayedSpawn(0.0f);
 
