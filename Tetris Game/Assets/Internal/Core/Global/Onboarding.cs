@@ -77,11 +77,6 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            // Vector3 viewPort = CameraManager.THIS.gameCamera.WorldToScreenPoint(Spawner.THIS.transform.position);
-            // Vector3 screenPosition = CameraManager.THIS.uiCamera.ScreenToWorldPoint(viewPort);
-            // UIManager.THIS.finger.OnClick = Spawner.THIS.Shake;
-            // UIManager.THIS.finger.Click(screenPosition, true);
-            
             ClickOn(Spawner.THIS.transform.position, true, Spawner.THIS.Shake);
 
             Spawner.THIS.DelayedSpawn(0.0f);
@@ -126,7 +121,7 @@ public class Onboarding : SSingleton<Onboarding>
             // yield return new WaitForSeconds(1.0f);
             
             
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.5f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.25f);
             yield return new WaitForSeconds(0.25f);
             Warzone.THIS.Begin(false);
         }
@@ -138,7 +133,7 @@ public class Onboarding : SSingleton<Onboarding>
 
         IEnumerator Routine()
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.25f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
             Spawner.THIS.DelayedSpawn(0.0f);
 

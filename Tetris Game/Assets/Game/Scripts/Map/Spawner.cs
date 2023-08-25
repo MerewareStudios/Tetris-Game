@@ -289,13 +289,18 @@ public class Spawner : Singleton<Spawner>
 
     private Block SpawnNextBlock()
     {
-        Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
+        Board.SuggestedBlock[] suggestedBlocks = null;
+
+        if (ONBOARDING.TALK_ABOUT_MERGE.IsNotComplete())
+        {
+            suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
+        }
 
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
         Board.BlockRot blockRot = Board.BlockRot.UP;
         
-        if (suggestedBlocks.Length > _blockSpawnCount)
+        if (suggestedBlocks != null && suggestedBlocks.Length > _blockSpawnCount)
         {
             suggestedBlockData = suggestedBlocks[_blockSpawnCount];
             pool = suggestedBlockData.type;

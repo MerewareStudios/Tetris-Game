@@ -161,14 +161,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_InvestPiggyBank()
     {
         int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
-        
+        InvestAnimated(new Const.Currency(Wallet.COIN.Currency.type, amount));
+
         investButton.targetGraphic.raycastTarget = false;
         investButton.transform.DOKill();
         investButton.transform.DOScale(Vector3.zero, 0.35f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
         {
             investButton.gameObject.SetActive(false);
-            
-            InvestAnimated(new Const.Currency(Wallet.COIN.Currency.type, amount));
         };
         
         continueButton.targetGraphic.raycastTarget = false;

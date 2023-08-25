@@ -17,7 +17,7 @@ public class LevelManager : Singleton<LevelManager>
         Warzone.THIS.LevelData = CurrentLevel.GetLevelData();
         Warzone.THIS.OnLevelLoad();
         
-        UIManager.THIS.loanBar.MakeUnavailable(10.0f);
+        // UIManager.THIS.loanBar.MakeUnavailable(10.0f);
         
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
@@ -48,11 +48,6 @@ public class LevelManager : Singleton<LevelManager>
         {
             OnVictory();
         }
-    }
-    
-    public void CheckFail()
-    {
-        OnFail();
     }
 
     public void OnVictory()

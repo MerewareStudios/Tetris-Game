@@ -124,7 +124,7 @@ namespace Game
             {
                 if (steadyPawnCount > _Data.pawnSat)
                 {
-                    UIManager.THIS.loanBar.MakeAvailable();
+                    // UIManager.THIS.loanBar.MakeAvailable();
                 }
             }
             // _ = (steadyPawnCount > _Data.pawnSat) ? UIManager.THIS.loanBar.MakeAvailable() : UIManager.THIS.loanBar.MakeUnavailable();

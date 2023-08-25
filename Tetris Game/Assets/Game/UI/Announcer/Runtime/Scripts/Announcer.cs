@@ -26,8 +26,8 @@ namespace  Game.UI
                 
             IEnumerator CountRoutine()
             {
-                ShowText(startingText);
-                yield return new WaitForSeconds(1);
+                ShowText(startingText, 0.7f);
+                yield return new WaitForSeconds(1.4f);
                 for (int i = 0; i < seconds; i++)
                 {
                     ShowText((seconds - i).ToString());
@@ -38,13 +38,13 @@ namespace  Game.UI
             return countdownRoutine;
         }
 
-        private void ShowText(string str)
+        private void ShowText(string str, float stayDuration = 0.3f)
         {
             animatedText.ShowText(str);
 
             textRect.localScale = Vector3.zero;
             Tween scaleUp = textRect.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutBack);
-            Tween scaleDown = textRect.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCirc).SetDelay(0.3f);
+            Tween scaleDown = textRect.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCirc).SetDelay(stayDuration);
 
             _sequence = DOTween.Sequence();
             _sequence.Append(scaleUp);

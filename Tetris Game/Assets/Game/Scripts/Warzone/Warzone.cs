@@ -36,7 +36,7 @@ namespace  Game
         {
             this.Player.OnDeath += () =>
             {
-                LevelManager.THIS.CheckFail();
+                LevelManager.THIS.OnFail();
             };
             
             psMain = bloodPS.main;

@@ -17,7 +17,7 @@ public class UIManager : Singleton<UIManager>
 {
    [Header("Bars")]
    [SerializeField] public ShopBar shopBar;
-   [SerializeField] public LoanBar loanBar;
+   // [SerializeField] public LoanBar loanBar;
    [FormerlySerializedAs("particleImageCoin")]
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;

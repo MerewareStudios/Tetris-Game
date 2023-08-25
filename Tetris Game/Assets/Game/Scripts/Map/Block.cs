@@ -128,7 +128,7 @@ namespace Game
             {
                 foreach (var pawn in Pawns)
                 {
-                    pawn.DeconstructAnimated();
+                    pawn.DeconstructAnimated(false);
                 }
             }
             _motionTween?.Kill();

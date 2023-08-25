@@ -154,18 +154,21 @@ namespace Game
             _moveTween?.Kill();
 
         }
-        public void DeconstructAnimated()
+        public void DeconstructAnimated(bool yieldCoin)
         {
             KillTweens();
 
             transform.parent = null;
-            
-            UIManagerExtensions.EmitBlockCoin(transform.position, 1, 1);
 
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
             modelPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InQuad)
                 .onComplete = Deconstruct;
+            
+            if (yieldCoin)
+            {
+                UIManagerExtensions.EmitBlockCoin(transform.position, 1, 1);
+            }
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
