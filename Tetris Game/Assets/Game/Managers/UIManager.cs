@@ -1,12 +1,7 @@
-using System;
-using AssetKits.ParticleImage;
-using DG.Tweening;
 using Game;
-using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
 using IWI.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Visual.Effects;
@@ -16,7 +11,7 @@ using ValueType = IWI.Emitter.Enums.ValueType;
 public class UIManager : Singleton<UIManager>
 {
    [Header("Bars")]
-   [SerializeField] public ShopBar shopBar;
+   [SerializeField] public Shop shop;
    // [SerializeField] public LoanBar loanBar;
    [FormerlySerializedAs("particleImageCoin")]
    [Header("UI Emitter")]
@@ -25,6 +20,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public MotionData motionData_Enemy;
    [SerializeField] public MotionData motionData_LevelReward;
    [SerializeField] public MotionData motionData_PiggyFill;
+   [SerializeField] public MotionData motionData_Shop;
    [Header("Level")]
    // [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
@@ -70,6 +66,10 @@ public class UIManager : Singleton<UIManager>
       if (Input.GetKeyDown(KeyCode.F))
       {
          LevelManager.THIS.OnFail();
+      }
+      if (Input.GetKeyDown(KeyCode.S))
+      {
+         shop.AnimatedShow();
       }
    }
 #endif
@@ -127,5 +127,11 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsEnd = new TargetSettings(Space.Screen, null, targetCanvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_PiggyFill, OnArrive, OnAllArrive);
+   }
+   public static void EmitLevelShopCoin(Vector3 canvasWorldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Shop, null, null);
    }
 }

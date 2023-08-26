@@ -247,10 +247,10 @@ namespace Game
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
             });
 
-            if (ONBOARDING.ABLE_TO_EARN_XP.IsComplete())
-            {
-                UIManager.THIS.shopBar.Amount += level * 0.075f;
-            }
+            // if (ONBOARDING.ABLE_TO_EARN_XP.IsComplete())
+            // {
+            //     UIManager.THIS.shopBar.Amount += level * 0.075f;
+            // }
 
             // Earn heart upgrade
 

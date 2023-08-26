@@ -110,7 +110,7 @@ namespace Game.UI
             Upgrade(statType);
             Show();
             
-            UIManager.THIS.shopBar.Consume();
+            // UIManager.THIS.shopBar.Consume();
         }
 
         public void OnClick_Purchase(int statType)
