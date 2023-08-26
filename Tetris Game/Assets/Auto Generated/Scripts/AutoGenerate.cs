@@ -189,7 +189,41 @@ namespace Internal.Core
         }
 
 
+        [MenuItem("Assets/Create/IWI Package Hierarchy", priority = 0)]
+        private static void AddIWIPackageHierarchy()
+        {
+            var path = "";
+            var obj = Selection.activeObject;
+            if (obj == null) path = "Assets";
+            else path = AssetDatabase.GetAssetPath(obj.GetInstanceID());
+            if (path.Length > 0)
+            {
+                if (Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path + "/+Document README+");
+                    Directory.CreateDirectory(path + "/Editor");
+                    Directory.CreateDirectory(path + "/Demo");
+                    Directory.CreateDirectory(path + "/Scripts");
+                    Directory.CreateDirectory(path + "/Textures");
+                    Directory.CreateDirectory(path + "/Materials");
+                    Directory.CreateDirectory(path + "/Prefabs");
+                    Directory.CreateDirectory(path + "/Shaders");
+                    Directory.CreateDirectory(path + "/Models");
 
+
+                    AssetDatabase.Refresh();
+                }
+                else
+                {
+                    Debug.Log("File Not Supported");
+                }
+            }
+            else
+            {
+                Debug.Log("Not in assets folder");
+            }
+        }
+        
         [MenuItem("Assets/Create/Package Hierarchy", priority = 0)]
         private static void AddPackageHierarchy()
         {
