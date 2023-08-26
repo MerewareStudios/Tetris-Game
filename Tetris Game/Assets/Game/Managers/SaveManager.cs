@@ -42,7 +42,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         AdManager.THIS._Data = saveData.adData;
         
-        UIManager.THIS.shopBar.Set(ref saveData.userData.shopFillTransactionData);
+        // UIManager.THIS.shopBar.Set(ref saveData.userData.shopFillTransactionData);
         
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
