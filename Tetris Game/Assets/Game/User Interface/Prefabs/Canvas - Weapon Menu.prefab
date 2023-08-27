@@ -390,11 +390,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9118741302088271387}
+  - component: {fileID: 2410118695960397201}
   - component: {fileID: 1764179146799194572}
   - component: {fileID: 2024318750655970998}
   - component: {fileID: 8668352636153950466}
   - component: {fileID: 3260775144644934614}
-  - component: {fileID: 2410118695960397201}
   m_Layer: 5
   m_Name: Canvas - Weapon Menu
   m_TagString: Untagged
@@ -423,6 +423,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2410118695960397201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141181731393288760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d6f15c9c0fb28458b2cd5815cc6830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentContainer: {fileID: 9118741302088271387}
+  canvas: {fileID: 1764179146799194572}
+  canvasGroup: {fileID: 3260775144644934614}
+  _blocker: {fileID: 1847163080739300171}
+  stageBarFireRate: {fileID: 5263773631436745253}
+  stageBarSplitShot: {fileID: 2137664936923186284}
+  stageBarDamage: {fileID: 7196575194297301887}
+  gunImage: {fileID: 7820052811860946232}
 --- !u!223 &1764179146799194572
 Canvas:
   m_ObjectHideFlags: 0
@@ -468,7 +488,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8668352636153950466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,26 +518,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2410118695960397201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7141181731393288760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d6f15c9c0fb28458b2cd5815cc6830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentContainer: {fileID: 9118741302088271387}
-  canvas: {fileID: 1764179146799194572}
-  canvasGroup: {fileID: 3260775144644934614}
-  _blocker: {fileID: 1847163080739300171}
-  stageBarFireRate: {fileID: 5263773631436745253}
-  stageBarSplitShot: {fileID: 2137664936923186284}
-  stageBarDamage: {fileID: 7196575194297301887}
-  gunImage: {fileID: 7820052811860946232}
 --- !u!1001 &3910823324244776148
 PrefabInstance:
   m_ObjectHideFlags: 0

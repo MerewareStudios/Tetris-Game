@@ -10,11 +10,12 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [System.NonSerialized] private Data _data;
 
     
-    void Start()
+    public MenuNavigator Setup()
     {
         _menus.Add(BlockMenu.THIS);
         _menus.Add(WeaponMenu.THIS);
         _menus.Add(UpgradeMenu.THIS);
+        return this;
     }
 
     public new void Open(float duration = 1.0f)

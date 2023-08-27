@@ -15,7 +15,7 @@ namespace Game.UI
         Weapon,
         Upgrade
     }
-    public class Menu<T> : Singleton<T>, IMenu where T : MonoBehaviour
+    public class Menu<T> : Lazyingleton<T>, IMenu where T : MonoBehaviour
     {
         [SerializeField] private RectTransform parentContainer;
         [SerializeField] private Canvas canvas;
@@ -30,6 +30,7 @@ namespace Game.UI
             {
                 return true;
             }
+            this.gameObject.SetActive(true);
             Visible = true;
             canvas.enabled = true;
             canvasGroup.alpha = 0.0f;
@@ -55,7 +56,9 @@ namespace Game.UI
             showTween?.Kill();
             showTween = canvasGroup.DoFade_IWI(0.0f, duration, Ease.InOutSine, () =>
             {
-                canvas.enabled = false;  
+                canvas.enabled = false; 
+                this.gameObject.SetActive(false);
+
             }).SetDelay(delay).SetUpdate(true);
 
             return false;

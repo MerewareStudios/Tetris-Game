@@ -7,7 +7,7 @@ using Internal.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardScreen : Singleton<RewardScreen>
+public class RewardScreen : Lazyingleton<RewardScreen>
 {
     [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup _canvasGroup;

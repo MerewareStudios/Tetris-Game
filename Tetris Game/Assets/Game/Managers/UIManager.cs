@@ -1,4 +1,5 @@
 using Game;
+using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
 using IWI.UI;
@@ -10,6 +11,14 @@ using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>
 {
+   [Header("Canvases")]
+   [SerializeField] private BlockMenu blockMenu;
+   [SerializeField] private WeaponMenu weaponMenu;
+   [SerializeField] private UpgradeMenu upgradeMenu;
+   [SerializeField] private SlashScreen slashScreen;
+   [SerializeField] private MenuNavigator menuNavigator;
+   [SerializeField] private PiggyMenu piggyMenu;
+   [SerializeField] private RewardScreen rewardScreen;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    // [SerializeField] public LoanBar loanBar;
@@ -38,10 +47,18 @@ public class UIManager : Singleton<UIManager>
    // Make them info list
 
     void Awake()
-   {
-      Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
-      
-      MENU_VISIBLE = false;
+    {
+         BlockMenu.THIS = blockMenu;
+         WeaponMenu.THIS = weaponMenu;
+         UpgradeMenu.THIS = upgradeMenu;
+         SlashScreen.THIS = slashScreen;
+         MenuNavigator.THIS = menuNavigator.Setup();
+         PiggyMenu.THIS = piggyMenu;
+         RewardScreen.THIS = rewardScreen;
+
+         Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
+
+         MENU_VISIBLE = false;
    }
 
 #if UNITY_EDITOR

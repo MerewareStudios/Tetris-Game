@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class SlashScreen : Singleton<SlashScreen>
+public class SlashScreen : Lazyingleton<SlashScreen>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CurrencyDisplay currencyDisplay;

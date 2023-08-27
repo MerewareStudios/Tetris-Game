@@ -25,5 +25,5 @@ MonoBehaviour:
   keepStackingText: <wiggle a=1 f=3>Keep merging!</>
   enemiesComingText: <wiggle a=0.25 f=1><size=120%>Enemies are here!
   waveText: <wiggle a=1 f=3>Level</> {0}
-  upgradeBlockText: <bounce a=0.6 f=2UPGRADE!
-  newBlockText: <bounce a=0.6 f=2>NEW BLOCK!
+  upgradeBlockText: <bounce a=0.1 f=2>UPGRADE!
+  newBlockText: <bounce a=0.1 f=2>NEW BLOCK!

@@ -84,11 +84,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 297752548052268464}
+  - component: {fileID: 7866713175002467056}
   - component: {fileID: 5313740321572908372}
   - component: {fileID: 3926425338062334379}
   - component: {fileID: 3834704898108458333}
   - component: {fileID: 7690020794071560519}
-  - component: {fileID: 7866713175002467056}
   m_Layer: 5
   m_Name: Canvas - Block Menu
   m_TagString: Untagged
@@ -117,6 +117,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &7866713175002467056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495158717571472314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea1eb24fadabe844936dd19a1df5d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentContainer: {fileID: 297752548052268464}
+  canvas: {fileID: 5313740321572908372}
+  canvasGroup: {fileID: 7690020794071560519}
+  _blocker: {fileID: 5169736055579792027}
+  blockVisualGrid: {fileID: 2633787264509215066}
+  priceTextPivot: {fileID: 6253326031780973027}
+  currencyDisplay: {fileID: 8288912999898188822}
+  frame: {fileID: 407926203923498667}
+  upgradeColor: {r: 0.23529412, g: 1, b: 0, a: 1}
+  purchaseColor: {r: 0.23529412, g: 0.48235294, b: 0.8117647, a: 1}
+  topTextAnimator: {fileID: 8797759091606767303}
+  purchaseButton: {fileID: 5480907385518865175}
 --- !u!223 &5313740321572908372
 Canvas:
   m_ObjectHideFlags: 0
@@ -162,7 +186,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3834704898108458333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,30 +216,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7866713175002467056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495158717571472314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea1eb24fadabe844936dd19a1df5d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentContainer: {fileID: 297752548052268464}
-  canvas: {fileID: 5313740321572908372}
-  canvasGroup: {fileID: 7690020794071560519}
-  _blocker: {fileID: 5169736055579792027}
-  blockVisualGrid: {fileID: 2633787264509215066}
-  priceTextPivot: {fileID: 6253326031780973027}
-  currencyDisplay: {fileID: 8288912999898188822}
-  frame: {fileID: 407926203923498667}
-  upgradeColor: {r: 0.23529412, g: 1, b: 0, a: 1}
-  purchaseColor: {r: 0.23529412, g: 0.48235294, b: 0.8117647, a: 1}
-  topTextAnimator: {fileID: 8797759091606767303}
-  purchaseButton: {fileID: 5480907385518865175}
 --- !u!1 &596232220331071869
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: UPGRADE
+  m_text: NEW BLOCK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64f87d86dc2bea340917fa9857a01a35, type: 2}
   m_sharedMaterial: {fileID: 8003077353371966180, guid: 64f87d86dc2bea340917fa9857a01a35,
@@ -560,7 +560,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -6
-  m_wordSpacing: 0
+  m_wordSpacing: 11.89
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -740,6 +740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3720639774213672039}
+  - component: {fileID: 4618475958386907825}
   m_Layer: 5
   m_Name: Navigation Buttons
   m_TagString: Untagged
@@ -768,6 +769,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -391.00003}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!95 &4618475958386907825
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6629056589387332012}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7bb198e9758cec0478464224162f5202, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8707646734178989429
 GameObject:
   m_ObjectHideFlags: 0
