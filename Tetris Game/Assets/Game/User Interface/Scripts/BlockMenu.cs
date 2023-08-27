@@ -20,7 +20,6 @@ namespace Game.UI
         [SerializeField] private Febucci.UI.TextAnimator_TMP topTextAnimator;
         [SerializeField] private CurrenyButton purchaseButton;
         [System.NonSerialized] private BlockShopData _blockShopData;
-        [System.NonSerialized] private System.Action _purchaseAction = null;
         [System.NonSerialized] private BlockData _blockData;
 
         public void Set(ref BlockShopData blockShopData)
@@ -101,26 +100,13 @@ namespace Game.UI
             blockVisualGrid.Display(table);
         }
 
-        private void OnPurchase()
-        {
-            _purchaseAction?.Invoke();
-
-            bool purchasedBefore =  _blockShopData.HaveBlock(_blockData.blockType);
-            
-            _ = purchasedBefore ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
-            
-            // Toast.Show(purchasedBefore ? "BLOCK UPGRADED" : "BLOCK ADDED", 0.5f);
-            
-            Show();
-            
-            // UIManager.THIS.shopBar.Consume();
-        }
-
         public void OnClick_Purchase()
         {
-            if (Wallet.Transaction(_blockData.currency))
+            if (Wallet.Consume(_blockData.currency))
             {
-                OnPurchase();
+                bool purchasedBefore =  _blockShopData.HaveBlock(_blockData.blockType);
+                _ = purchasedBefore ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
+                Show();
             }
         }
         

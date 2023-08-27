@@ -44,6 +44,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     
     public void Show(State state, float delay, Const.Currency currency)
     {
+        this.gameObject.SetActive(true);
         ResetSelf();
         SlashAnimationSettings slashAnimationSettings = null;
         switch (state)
@@ -136,6 +137,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         _sequence.onComplete += () =>
         {
             canvas.enabled = false;
+            this.gameObject.SetActive(false);
         };
     }
 

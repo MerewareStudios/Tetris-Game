@@ -40,6 +40,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
     public void Show(List<PiggyMenu.PiggyReward> rewardDatas)
     {
         _canvas.enabled = true;
+        this.gameObject.SetActive(true);
         
         piggyBlowPS.Play();
         _rewardDisplays.Clear();
@@ -153,7 +154,8 @@ public class RewardScreen : Lazyingleton<RewardScreen>
                     
                     UIManager.MenuMode(false);
                     Wallet.ScaleTransactors(1.0f);
-                    // LevelManager.THIS.LoadLevel();
+                    
+                    this.gameObject.SetActive(false);
                 };
                 
             }
