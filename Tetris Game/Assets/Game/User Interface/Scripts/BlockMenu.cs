@@ -5,6 +5,7 @@ using Internal.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Febucci.UI;
 
 
 namespace Game.UI
@@ -16,7 +17,7 @@ namespace Game.UI
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
-        [SerializeField] private TextMeshProUGUI upgradeText;
+        [SerializeField] private Febucci.UI.TextAnimator_TMP topTextAnimator;
         [SerializeField] private CurrenyButton purchaseButton;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private System.Action _purchaseAction = null;
@@ -56,7 +57,7 @@ namespace Game.UI
             bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
-            upgradeText.gameObject.SetActive(purchasedBlock);
+            topTextAnimator.SetText(purchasedBlock ? Onboarding.THIS.upgradeBlockText : Onboarding.THIS.newBlockText);
         }
 
         public void OnClick_ShowNext()

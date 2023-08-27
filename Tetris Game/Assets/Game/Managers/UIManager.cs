@@ -53,7 +53,7 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.R))
       {
-         OpenShop();
+         MenuNavigator.THIS.Open();
       }
       if (Input.GetKeyDown(KeyCode.Space))
       {
@@ -74,12 +74,6 @@ public class UIManager : Singleton<UIManager>
    }
 #endif
 
-   public void OpenShop()
-   {
-      MenuNavigator.THIS.Open();
-   }
-
-   
 
    public static void MenuMode(bool value)
    {

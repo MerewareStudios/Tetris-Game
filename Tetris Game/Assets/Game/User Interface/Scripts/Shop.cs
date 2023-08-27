@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Shop : MonoBehaviour
 {
@@ -12,12 +14,54 @@ public class Shop : MonoBehaviour
     [SerializeField] private RectTransform bigIconTransform;
     [SerializeField] private RectTransform leftPivot;
     [SerializeField] private RectTransform smallIconTransform;
+    [SerializeField] private RectTransform buttonTransform;
     [SerializeField] private Animator animator;
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Button button;
+    [SerializeField] private Data data;
+    [System.NonSerialized] private bool open = false;
+
+    public Data _Data
+    {
+        set
+        {
+            this.data = value;
+        }
+        get => this.data;
+    }
+
+    public void Increase()
+    {
+        if (this.open || _Data.IsEnough)
+        {
+            return;
+        }
+
+        _Data.current++;
+        Debug.LogWarning("SHOP POINT : " + _Data.current + "/" + _Data.max);
+        if (_Data.IsEnough)
+        {
+            AnimatedShow();
+        }
+    }
+    
+    public void OnClick_Open()
+    {
+        _Data.current = 0;
+        button.targetGraphic.raycastTarget = false;
+        buttonTransform.DOKill();
+        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        {
+            this.open = false;
+        };
+        
+        MenuNavigator.THIS.Open();
+    }
     
     public void AnimatedShow()
     {
+        this.open = true;
+
         trailRenderer.emitting = false;
         button.targetGraphic.raycastTarget = false;
         this.WaitForNull(Show);
@@ -60,6 +104,10 @@ public class Shop : MonoBehaviour
                 pivot.gameObject.SetActive(true);
                 pivot.localScale = Vector3.one;
                 pivot.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
+                
+                buttonTransform.DOKill();
+                buttonTransform.localScale = Vector3.one;
+
 
                 animator.enabled = true;
 
@@ -84,5 +132,29 @@ public class Shop : MonoBehaviour
     public void ImmediateHide()
     {
         
+    }
+    
+    [System.Serializable]
+    public class Data : ICloneable
+    {
+        [SerializeField] public int current = 0;
+        [SerializeField] public int max = 6;
+            
+        public Data()
+        {
+                
+        }
+        public Data(Data data)
+        {
+            this.current = data.current;
+            this.max = data.max;
+        }
+
+        public bool IsEnough => current >= max;
+
+        public object Clone()
+        {
+            return new Data(this);
+        }
     }
 }

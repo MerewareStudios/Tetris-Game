@@ -259,7 +259,7 @@ public class Spawner : Singleton<Spawner>
         
         if (ONBOARDING.TEACH_PICK.IsNotComplete())
         {
-            Onboarding.ClickOn(this.transform.position, true, null);
+            Onboarding.DragOn(transform.position, true, Lift);
         }
 
         Mount();

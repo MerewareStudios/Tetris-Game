@@ -63,13 +63,17 @@ namespace IWI
             
             Board.THIS.OnMerge += () =>
             {
-                Try2AdBreak();
+                // Try2AdBreak();
                 
                 if (ONBOARDING.HAVE_MERGED.IsNotComplete())
                 {
                     Onboarding.CheerForMerge();
                     
                     ONBOARDING.HAVE_MERGED.SetComplete();
+                }
+                if (ONBOARDING.EARN_SHOP_POINT.IsComplete())
+                {
+                    UIManager.THIS.shop.Increase();
                 }
             };
         }

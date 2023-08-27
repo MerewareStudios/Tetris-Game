@@ -42,7 +42,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         AdManager.THIS._Data = saveData.adData;
         
-        // UIManager.THIS.shopBar.Set(ref saveData.userData.shopFillTransactionData);
+        UIManager.THIS.shop._Data = saveData.userData.shopData;
         
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
@@ -134,7 +134,7 @@ namespace User
         [SerializeField] public TransactionData<int> coinTransactionData = new();
         [SerializeField] public TransactionData<int> gemTransactionData = new();
         [SerializeField] public TransactionData<int> adTransactionData = new();
-        [SerializeField] public TransactionData<float> shopFillTransactionData = new();
+        [SerializeField] public Shop.Data shopData;
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
@@ -155,7 +155,8 @@ namespace User
             gemTransactionData = data.gemTransactionData.Clone() as TransactionData<int>;
             adTransactionData = data.adTransactionData.Clone() as TransactionData<int>;
             
-            shopFillTransactionData = data.shopFillTransactionData.Clone() as TransactionData<float>;
+            shopData = data.shopData.Clone() as Shop.Data;
+            
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
@@ -181,8 +182,11 @@ public enum ONBOARDING
     HAVE_MERGED,
     NEED_MORE_AMMO_SPEECH,
     ALL_BLOCK_STEPS,
-    ABLE_TO_EARN_XP,
     ABLE_TO_USE_POWER,
     LEARN_TO_INVEST,
     LEARN_TO_CONTINUE,
+    EARN_SHOP_POINT,
+    USE_BLOCK_TAB,
+    USE_WEAPON_TAB,
+    USE_UPGRADE_TAB,
 }

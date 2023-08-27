@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Game.UI;
-using Internal.Core;
 using UnityEngine;
 
 public class MenuNavigator : Menu<MenuNavigator>, IMenu
@@ -29,7 +27,19 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         UIManager.MenuMode(true);
         
         Wallet.ScaleTransactors(1.5f, true);
+        Activate();
         OpenLastMenu();
+    }
+
+    private void Activate()
+    {
+        bool blockActive = true;
+        bool weaponActive = ONBOARDING.USE_BLOCK_TAB.IsComplete();
+        bool upgradeActive = ONBOARDING.USE_UPGRADE_TAB.IsComplete();
+        
+        tabs[(int)MenuType.Block].gameObject.SetActive(blockActive);
+        tabs[(int)MenuType.Weapon].gameObject.SetActive(weaponActive);
+        tabs[(int)MenuType.Upgrade].gameObject.SetActive(upgradeActive);
     }
     
     public new bool Close(float duration = 0.25f, float delay = 0.0f)

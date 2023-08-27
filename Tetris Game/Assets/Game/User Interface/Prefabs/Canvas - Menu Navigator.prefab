@@ -297,11 +297,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5768157104385018218}
+  - component: {fileID: 2280751699274451867}
   - component: {fileID: 632556369961824273}
   - component: {fileID: 7601623892043701986}
   - component: {fileID: 6451274418691993202}
   - component: {fileID: 3279054081914172177}
-  - component: {fileID: 2280751699274451867}
   m_Layer: 5
   m_Name: Canvas - Menu Navigator
   m_TagString: Untagged
@@ -330,6 +330,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2280751699274451867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685167862302163645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47316f33f4af26340af3aa12614a3ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentContainer: {fileID: 5768157104385018218}
+  canvas: {fileID: 632556369961824273}
+  canvasGroup: {fileID: 3279054081914172177}
+  _blocker: {fileID: 450952356989881064}
+  tabs:
+  - {fileID: 8798050237011891955}
+  - {fileID: 4015499408296543160}
+  - {fileID: 6466271715161654677}
 --- !u!223 &632556369961824273
 Canvas:
   m_ObjectHideFlags: 0
@@ -405,26 +425,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2280751699274451867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6685167862302163645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47316f33f4af26340af3aa12614a3ae0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentContainer: {fileID: 5768157104385018218}
-  canvas: {fileID: 632556369961824273}
-  canvasGroup: {fileID: 3279054081914172177}
-  _blocker: {fileID: 450952356989881064}
-  tabs:
-  - {fileID: 8798050237011891955}
-  - {fileID: 4015499408296543160}
-  - {fileID: 6466271715161654677}
 --- !u!1 &7083864889476541861
 GameObject:
   m_ObjectHideFlags: 0
