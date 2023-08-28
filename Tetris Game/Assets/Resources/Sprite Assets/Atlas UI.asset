@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: fbe23cb1652199845b6808455c6a482b, type: 3}
+        m_Texture: {fileID: 2800000, guid: de38e2fdbc4263b40876732895c650e4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: fbe23cb1652199845b6808455c6a482b, type: 3}
+  spriteSheet: {fileID: 2800000, guid: de38e2fdbc4263b40876732895c650e4, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -205,8 +205,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 20
     m_Scale: 1.4
-    m_Name: Hole
-    m_HashCode: 2554798
+    m_Name: Check
+    m_HashCode: 80935526
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 21

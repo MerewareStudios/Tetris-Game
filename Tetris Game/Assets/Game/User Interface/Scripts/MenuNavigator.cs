@@ -41,6 +41,24 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         tabs[(int)MenuType.Block].gameObject.SetActive(blockActive);
         tabs[(int)MenuType.Weapon].gameObject.SetActive(weaponActive);
         tabs[(int)MenuType.Upgrade].gameObject.SetActive(upgradeActive);
+
+        if (ONBOARDING.LEARNED_ALL_TABS.IsComplete())
+        {
+            return;
+        }
+        
+        if (upgradeActive)
+        {
+            
+            SetLastMenu(MenuType.Upgrade);
+            return;
+        }  
+        if (weaponActive)
+        {
+            
+            SetLastMenu(MenuType.Weapon);
+            return;
+        }
     }
     
     public new bool Close(float duration = 0.25f, float delay = 0.0f)
@@ -51,7 +69,13 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         }
         UIManager.MenuMode(false);
         Wallet.ScaleTransactors(1.0f);
-        _menus[(int)_data.lastMenuType].Close(0.2f);
+        
+        int lastMenuIndex = (int)_Data.lastMenuType;
+        tabs[lastMenuIndex].Hide();
+        _menus[lastMenuIndex].Close(0.2f);
+        
+        
+        UIManager.THIS.finger.Hide();
         return false;
     }
     
@@ -60,9 +84,14 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         this.Close();
     }
 
+    public void SetLastMenu(MenuType menuType)
+    {
+        _Data.lastMenuType = menuType;
+    }
+
     private void OpenLastMenu(float duration = 0.25f)
     {
-        int lastMenuIndex = (int)_data.lastMenuType;
+        int lastMenuIndex = (int)_Data.lastMenuType;
         _menus[lastMenuIndex].GetParentContainer().SetAsLastSibling();
         _menus[lastMenuIndex].Open(duration);
         tabs[lastMenuIndex].Show();

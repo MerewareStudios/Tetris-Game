@@ -285,6 +285,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                             {
                                 Onboarding.ClickOn(clickLocation_Continue.position, false, () =>
                                 {
+                                    continueButton.transform.DOKill();
+                                    continueButton.transform.localScale = Vector3.one;
                                     continueButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
                                 });
                             }

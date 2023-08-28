@@ -57,7 +57,7 @@ MonoBehaviour:
       max: 6
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
-      lastIndex: 5
+      lastIndex: 0
     weaponShopData:
       gunIndex: 0
       upgradeIndexes: 000000000000000000000000
@@ -197,7 +197,7 @@ MonoBehaviour:
         type: 0
         amount: 0
       value: 0
-  - gunType: 1
+  - gunType: 2
     sprite: {fileID: 21300000, guid: fed9751968c66f84fa5a234652125572, type: 3}
     stageData_Firerate:
     - currency:
@@ -239,31 +239,6 @@ MonoBehaviour:
         amount: 0
       value: 0
   DefaultBlockData:
-  - blockType: 5
-    currency:
-      type: 0
-      amount: 0
-    lookUp: 000000000000000000000000000000000000000000000000010000000100000000000000010000000100000000000000
-  - blockType: 3
-    currency:
-      type: 0
-      amount: 0
-    lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000010000000100000000000000
-  - blockType: 4
-    currency:
-      type: 0
-      amount: 0
-    lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000001000000
-  - blockType: 6
-    currency:
-      type: 0
-      amount: 0
-    lookUp: 000000000000000000000000000000000000000000000000000000000100000001000000010000000100000000000000
-  - blockType: 13
-    currency:
-      type: 0
-      amount: 0
-    lookUp: 000000000000000000000000000000000000000000000000010000000100000000000000000000000100000001000000
   - blockType: 10
     currency:
       type: 0

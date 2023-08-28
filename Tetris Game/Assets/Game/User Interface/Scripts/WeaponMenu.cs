@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Febucci.UI;
 using Internal.Core;
 using Internal.Visuals;
 using TMPro;
@@ -20,7 +21,9 @@ namespace Game.UI
         [SerializeField] private StageBar stageBarSplitShot;
         [SerializeField] private StageBar stageBarDamage;
         [SerializeField] private Image gunImage;
-
+        [SerializeField] private TextAnimator_TMP newText;
+        [SerializeField] private TextAnimator_TMP ownedText;
+        
         [System.NonSerialized] private WeaponShopData _weaponShopData;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> OnGunDataChanged = null;
@@ -122,6 +125,25 @@ namespace Game.UI
             {
                 OnPurchase(type);
             }
+        }
+        
+        public void OnClick_ShowNext()
+        {
+            _weaponShopData.gunIndex++;
+            if (_weaponShopData.gunIndex >= Const.THIS.DefaultBlockData.Length)
+            {
+                _weaponShopData.gunIndex = 0;
+            }
+            Show();
+        }
+        public void OnClick_ShowPrevious()
+        {
+            _weaponShopData.gunIndex--;
+            if (_weaponShopData.gunIndex < 0)
+            {
+                _weaponShopData.gunIndex = Const.THIS.DefaultBlockData.Length - 1;
+            }
+            Show();
         }
         
         [System.Serializable]

@@ -44,6 +44,8 @@ namespace IWI.Tutorial
 
         public void ShortPressAndDrag(Vector3 position, bool worldSpace, float pressDuration)
         {
+            this.gameObject.SetActive(true);
+
             Stop();
             
             canvas.enabled = true;
@@ -110,6 +112,8 @@ namespace IWI.Tutorial
         
         public void Click(Vector3 position, bool worldSpace)
         {
+            this.gameObject.SetActive(true);
+
             Stop();
             
             canvas.enabled = true;
@@ -185,6 +189,10 @@ namespace IWI.Tutorial
 
         public void Hide()
         {
+            if (!this.gameObject.activeSelf)
+            {
+                return;
+            }
             Stop();
             
             _sequence?.Kill();
@@ -193,6 +201,7 @@ namespace IWI.Tutorial
             canvasGroup.DOFade(0.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
             {
                 canvas.enabled = false;
+                this.gameObject.SetActive(false);
                 ps.Clear();
                 ps.Stop();
             };

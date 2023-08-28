@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2244500223171358199}
   m_Layer: 0
-  m_Name: VIASS_Colections_Gun
+  m_Name: Gun All
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

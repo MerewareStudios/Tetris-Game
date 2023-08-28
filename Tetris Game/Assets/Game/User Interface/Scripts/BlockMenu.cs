@@ -15,12 +15,13 @@ namespace Game.UI
         [SerializeField] private BlockVisualGrid blockVisualGrid;
         [SerializeField] private RectTransform priceTextPivot;
         [SerializeField] private RectTransform buttonRectTransform;
+        [SerializeField] private RectTransform buttonClickTarget;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
-        [SerializeField] private Febucci.UI.TextAnimator_TMP topTextAnimator;
-        [SerializeField] private CurrenyButton purchaseButton;
+        [SerializeField] private TextAnimator_TMP topTextAnimator;
         [SerializeField] private TextAnimator_TMP purchasedText;
+        [SerializeField] private CurrenyButton purchaseButton;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _blockData;
 
@@ -53,7 +54,7 @@ namespace Game.UI
             string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
             this._blockData = Const.THIS.DefaultBlockData[showIndex];
             
-            SetPrice(_blockData.currency);
+            bool hasFunds = SetPrice(_blockData.currency);
             SetLookUp(_blockData.lookUp);
 
             bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
@@ -65,7 +66,23 @@ namespace Game.UI
             currencyDisplay.gameObject.SetActive(!purchasedBlock);
             purchaseButton.gameObject.SetActive(!purchasedBlock);
 
-            
+            if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
+            {
+                if (!purchasedBlock && hasFunds)
+                {
+                    Onboarding.ClickOn(buttonClickTarget.position, false, () =>
+                    {
+                        purchaseButton.transform.DOKill();
+                        purchaseButton.transform.localEulerAngles = Vector3.zero;
+                        purchaseButton.transform.localScale = Vector3.one;
+                        purchaseButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                    });
+                }
+                else
+                {
+                    Onboarding.HideFinger();
+                }
+            }
         }
 
         public void OnClick_ShowNext()
@@ -77,7 +94,15 @@ namespace Game.UI
             }
             Show();
         }
-        
+        public void OnClick_ShowPrevious()
+        {
+            _blockShopData.lastIndex--;
+            if (_blockShopData.lastIndex < 0)
+            {
+                _blockShopData.lastIndex = Const.THIS.DefaultBlockData.Length - 1;
+            }
+            Show();
+        }
         private void PunchMoney(float amount)
         {
             priceTextPivot.DOKill();
@@ -96,17 +121,9 @@ namespace Game.UI
             buttonRectTransform.localEulerAngles = Vector3.zero;
             buttonRectTransform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 0.3f, 15).SetUpdate(true);
         }
-        public void OnClick_ShowPrevious()
-        {
-            _blockShopData.lastIndex--;
-            if (_blockShopData.lastIndex < 0)
-            {
-                _blockShopData.lastIndex = Const.THIS.DefaultBlockData.Length - 1;
-            }
-            Show();
-        }
+        
 
-        private void SetPrice(Const.Currency currency)
+        private bool SetPrice(Const.Currency currency)
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
@@ -120,6 +137,8 @@ namespace Game.UI
             currencyDisplay.Display(currency);
             PunchMoney(0.2f);
             PunchPurchasedText(0.2f);
+
+            return hasFunds;
         }
         private void SetLookUp(int[] table)
         {
@@ -137,6 +156,14 @@ namespace Game.UI
             if (Wallet.Consume(_blockData.currency))
             {
                 _blockShopData.AddUnlockedBlock(_blockData);
+
+                if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
+                {
+                    ONBOARDING.LEARN_TO_PURCHASE_BLOCK.SetComplete();
+                    ONBOARDING.USE_BLOCK_TAB.SetComplete();
+                    // MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
+                    Onboarding.HideFinger();
+                }
                 Show();
             }
         }
