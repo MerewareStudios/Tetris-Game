@@ -1,3 +1,4 @@
+using System;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class ApplicationManager : Singleton<ApplicationManager>
         Application.runInBackground = true;
 #endif
         LoadSettings();
+
+        fpsTimestamp = Time.realtimeSinceStartup;
     }
     private void LoadSettings()
     {
@@ -37,7 +40,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     //    }
     //}
 
-    void Update()
+    void LateUpdate()
     {
         fps++;
         if (Time.realtimeSinceStartup - fpsTimestamp > 1.0f)

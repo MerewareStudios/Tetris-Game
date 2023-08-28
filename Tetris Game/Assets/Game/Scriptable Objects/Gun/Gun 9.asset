@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2298bad192dff947a79014fe035571f, type: 3}
-  m_Name: Gun 5
+  m_Name: Gun 9
   m_EditorClassIdentifier: 
-  prefab: 28
+  prefab: 32
   holsterTransformData:
     localPosition: {x: -0.041, y: 0.079, z: 0.042}
     localEulerAngles: {x: 345.3343, y: 167.60696, z: 273.18408}

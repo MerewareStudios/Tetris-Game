@@ -20,6 +20,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         base.Awake();
 
         Const.THIS = this.Const;
+        Const.THIS.ManualAwake();
         AnimConst.THIS = this.AnimConst;
         Onboarding.THIS = this.Onboarding;
 
@@ -35,6 +36,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
             saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
         }
+        
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.GEM.Set(ref saveData.userData.gemTransactionData);

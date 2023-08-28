@@ -23,12 +23,12 @@ namespace Game
 
 public static class GunSoExtension
 {
-    public static Pool GetPrefab(this Gun.Type gunType)
+    public static Pool GetPrefab(this Pool gunType)
     {
         GunSo gunSo = Const.THIS.Guns[(int)gunType];
         return gunSo.prefab;
     } 
-    public static TransformData GetTransformData(this Gun.Type type)
+    public static TransformData GetTransformData(this Pool type)
     {
         GunSo gunSo = Const.THIS.Guns[(int)type];
         return gunSo.holsterTransformData;

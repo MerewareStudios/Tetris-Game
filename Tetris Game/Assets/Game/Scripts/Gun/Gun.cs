@@ -97,7 +97,7 @@ public class Gun : MonoBehaviour
     [System.Serializable]
     public class Data : ICloneable
     {
-        [SerializeField] public Gun.Type gunType;
+        [SerializeField] public Pool gunType;
         [SerializeField] public float prevShoot = 0.0f;
         [SerializeField] public int fireRate = 1;
         [SerializeField] public int split = 1;
@@ -111,7 +111,7 @@ public class Gun : MonoBehaviour
             this.prevShoot = 0.0f;
             this.damage = 1;
         }
-        public Data(Gun.Type gunType, int fireRate, int split, int damage)
+        public Data(Pool gunType, int fireRate, int split, int damage)
         {
             this.gunType = gunType;
             this.fireRate = fireRate;
@@ -134,20 +134,10 @@ public class Gun : MonoBehaviour
     }
     
     [Serializable]
-    public enum Type
-    {
-        GUN1,
-        GUN2,
-        GUN3,
-        GUN4,
-        GUN5,
-    }
-
-    
-    [Serializable]
     public class UpgradeData
     {
-        [SerializeField] public Gun.Type gunType;
+        [SerializeField] public Const.Currency currency;
+        [SerializeField] public Pool gunType;
         [SerializeField] public Sprite sprite;
         [SerializeField] public StageBar.StageData<int>[] stageData_Firerate;
         [SerializeField] public StageBar.StageData<int>[] stageData_Splitshot;
@@ -193,7 +183,7 @@ public class Gun : MonoBehaviour
         }
         public void Init()
         {
-            stageDatas.Clear();
+            // stageDatas.Clear();
             stageDatas.Add(stageData_Firerate);
             stageDatas.Add(stageData_Splitshot);
             stageDatas.Add(stageData_Damage);  

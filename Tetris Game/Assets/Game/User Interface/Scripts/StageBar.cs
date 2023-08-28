@@ -90,7 +90,8 @@ public class StageBar : MonoBehaviour
         }
         public StageData(StageData<T> gunStatUpgradeData)
         {
-                
+            this.currency = gunStatUpgradeData.currency;
+            this.value = gunStatUpgradeData.value;
         }
         public object Clone()
         {

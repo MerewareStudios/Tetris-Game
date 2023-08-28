@@ -19,10 +19,11 @@ public class Const : SSingleton<Const>
     public Pawn.Usage[] PowerUps;
     
     
-    [Header("Defaults")]
+    [Header("Save Default")]
     public Player.Data DefaultPlayerData;
     public User.Data DefaultUserData;
     public AdManager.Data DefaultAdData;
+    [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
     
@@ -125,6 +126,14 @@ public class Const : SSingleton<Const>
         Coin,
         PiggyCoin,
         Ad,
+    }
+
+    public void ManualAwake()
+    {
+        foreach (var data in GunUpgradeData)
+        {
+            data.Init();
+        }
     }
 
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)

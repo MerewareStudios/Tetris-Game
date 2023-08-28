@@ -24,6 +24,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7e7ba5da3a5133b469a7306c289efe67, type: 2}
   - {fileID: 11400000, guid: e8a3f88ed85fa5c4190de756478a6f68, type: 2}
   - {fileID: 11400000, guid: cadf184367c68b6488c4410340ae412d, type: 2}
+  - {fileID: 11400000, guid: e952832b846f48f4591c4c0ff70f7055, type: 2}
+  - {fileID: 11400000, guid: 2b91b8726002f1143b60ce7b4610c6f3, type: 2}
+  - {fileID: 11400000, guid: d7c0a304c5d67b0449e69f3a6b9643f3, type: 2}
+  - {fileID: 11400000, guid: 46a988deaec8fb24b9c86b9647f930f8, type: 2}
+  - {fileID: 11400000, guid: 2173c3967f394764dbd328dfd7430440, type: 2}
   PowerUps: 0300000004000000
   DefaultPlayerData:
     time: 0
@@ -60,7 +65,27 @@ MonoBehaviour:
       lastIndex: 0
     weaponShopData:
       gunIndex: 0
-      upgradeIndexes: 000000000000000000000000
+      gunShopDatas:
+      - purchased: 1
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
+      - purchased: 0
+        upgradeIndexes: 000000000000000000000000
     menuNavData:
       lastMenuType: 0
     piggyData:
@@ -127,7 +152,10 @@ MonoBehaviour:
     adBreakEnabled: 1
     mergeCountForAdBreak: 0
   GunUpgradeData:
-  - gunType: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 24
     sprite: {fileID: 21300000, guid: 94d71f0de6a1c034096ea62a51761703, type: 3}
     stageData_Firerate:
     - currency:
@@ -156,7 +184,10 @@ MonoBehaviour:
         type: 0
         amount: 10
       value: 1
-  - gunType: 1
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 25
     sprite: {fileID: 21300000, guid: 1025e89981c54e349ac50e67cc58a432, type: 3}
     stageData_Firerate:
     - currency:
@@ -197,8 +228,319 @@ MonoBehaviour:
         type: 0
         amount: 0
       value: 0
-  - gunType: 2
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 26
     sprite: {fileID: 21300000, guid: fed9751968c66f84fa5a234652125572, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 27
+    sprite: {fileID: 21300000, guid: 44147ad36f79b39428f460ff5c5ebdf4, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 28
+    sprite: {fileID: 21300000, guid: 84d9a0124296f0e4aa25271f264b2ad2, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 29
+    sprite: {fileID: 21300000, guid: b283f5bddc0b67843b1798f727b34eb5, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 30
+    sprite: {fileID: 21300000, guid: e50f1866f6053404a913fc35cdd42cce, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 31
+    sprite: {fileID: 21300000, guid: 5f5e6b7d110b2b04689db3743ce25993, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 32
+    sprite: {fileID: 21300000, guid: 203567a7dd0fe9146be30526568a261a, type: 3}
+    stageData_Firerate:
+    - currency:
+        type: 0
+        amount: 0
+      value: 2
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Splitshot:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    stageData_Damage:
+    - currency:
+        type: 0
+        amount: 0
+      value: 1
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+    - currency:
+        type: 0
+        amount: 0
+      value: 0
+  - currency:
+      type: 0
+      amount: 0
+    gunType: 33
+    sprite: {fileID: 21300000, guid: fdd640f115ba8094ba3a6bc3c2463863, type: 3}
     stageData_Firerate:
     - currency:
         type: 0

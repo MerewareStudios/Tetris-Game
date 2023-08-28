@@ -16,11 +16,11 @@ namespace Game.UI
         [SerializeField] private RectTransform priceTextPivot;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private RectTransform buttonClickTarget;
-        [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
         [SerializeField] private TextAnimator_TMP topTextAnimator;
         [SerializeField] private TextAnimator_TMP purchasedText;
+        [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _blockData;
@@ -61,7 +61,7 @@ namespace Game.UI
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
             topTextAnimator.SetText(purchasedBlock ? "" : Onboarding.THIS.newBlockText);
-            purchasedText.SetText(purchasedBlock ? Onboarding.THIS.nextBlockText : "");
+            purchasedText.SetText(purchasedBlock ? Onboarding.THIS.ownedText : "");
 
             currencyDisplay.gameObject.SetActive(!purchasedBlock);
             purchaseButton.gameObject.SetActive(!purchasedBlock);

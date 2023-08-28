@@ -1612,10 +1612,6 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
-  - gameObject: {fileID: 7657227265221952152, guid: 8a46d5e1139114e0ab01532df9744bf5,
-      type: 3}
-    preload: 0
-    capacity: 250
   - gameObject: {fileID: 5685951678490703151, guid: 5bc26ed8e11fca04ea3508eaa569fa78,
       type: 3}
     preload: 0
@@ -1625,6 +1621,46 @@ MonoBehaviour:
     preload: 0
     capacity: 250
   - gameObject: {fileID: 2840851278670590169, guid: 1b25df69c600a1e4ca9b98885ba43c04,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 7657227265221952152, guid: 8a46d5e1139114e0ab01532df9744bf5,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 1307469753505419829, guid: 4412e0f33e587443c9fa09b86ee761ac,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 8185494304968515150, guid: f786dad7821f44c45b49e1bf0ff4cd50,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 6681613714665599140, guid: 24b126e851ef541e28474f97d9c975e2,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 6107772689257460929, guid: e5f23c95191d141c5928f77fc7750141,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 336708934671667619, guid: b5fd5e4b22828462fa06aa57451aee03,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 7822817811920235445, guid: 4271d258c2e3e4e30983f8e4abf6f82d,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 7505897580462339147, guid: ed246c594750a463385f7096c9c909a9,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 4181784673285613459, guid: 1800d1ce90e70497d8ec2f2988b7ac39,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 7338380262507455598, guid: 30277495835ac4c1ea6de7f53fa8e05f,
       type: 3}
     preload: 0
     capacity: 250
@@ -2764,7 +2800,7 @@ MonoBehaviour:
         lastIndex: 0
       weaponShopData:
         gunIndex: 0
-        upgradeIndexes: 000000000000000000000000
+        gunShopDatas: []
       menuNavData:
         lastMenuType: 0
       piggyData:
