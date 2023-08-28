@@ -186,7 +186,7 @@ MonoBehaviour:
       value: 1
   - currency:
       type: 0
-      amount: 0
+      amount: 50
     gunType: 25
     sprite: {fileID: 21300000, guid: 1025e89981c54e349ac50e67cc58a432, type: 3}
     stageData_Firerate:
@@ -230,7 +230,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 100
     gunType: 26
     sprite: {fileID: 21300000, guid: fed9751968c66f84fa5a234652125572, type: 3}
     stageData_Firerate:
@@ -274,7 +274,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 200
     gunType: 27
     sprite: {fileID: 21300000, guid: 44147ad36f79b39428f460ff5c5ebdf4, type: 3}
     stageData_Firerate:
@@ -318,7 +318,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 250
     gunType: 28
     sprite: {fileID: 21300000, guid: 84d9a0124296f0e4aa25271f264b2ad2, type: 3}
     stageData_Firerate:
@@ -362,7 +362,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 300
     gunType: 29
     sprite: {fileID: 21300000, guid: b283f5bddc0b67843b1798f727b34eb5, type: 3}
     stageData_Firerate:
@@ -406,7 +406,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 350
     gunType: 30
     sprite: {fileID: 21300000, guid: e50f1866f6053404a913fc35cdd42cce, type: 3}
     stageData_Firerate:
@@ -450,7 +450,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 400
     gunType: 31
     sprite: {fileID: 21300000, guid: 5f5e6b7d110b2b04689db3743ce25993, type: 3}
     stageData_Firerate:
@@ -494,7 +494,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 500
     gunType: 32
     sprite: {fileID: 21300000, guid: 203567a7dd0fe9146be30526568a261a, type: 3}
     stageData_Firerate:
@@ -538,7 +538,7 @@ MonoBehaviour:
       value: 0
   - currency:
       type: 0
-      amount: 0
+      amount: 750
     gunType: 33
     sprite: {fileID: 21300000, guid: fdd640f115ba8094ba3a6bc3c2463863, type: 3}
     stageData_Firerate:

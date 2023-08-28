@@ -37,4 +37,8 @@ public class CurrencyDisplay : MonoBehaviour
     {
         text.text = str;
     }
+    public void Set(string str)
+    {
+        text.text = str;
+    }
 }

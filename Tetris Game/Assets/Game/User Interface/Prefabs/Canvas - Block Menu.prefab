@@ -137,12 +137,12 @@ MonoBehaviour:
   priceTextPivot: {fileID: 6253326031780973027}
   buttonRectTransform: {fileID: 1631929674316152345}
   buttonClickTarget: {fileID: 8276612906383227367}
-  currencyDisplay: {fileID: 8288912999898188822}
   frame: {fileID: 407926203923498667}
   upgradeColor: {r: 0.23529412, g: 0.48235294, b: 0.8117647, a: 1}
   purchaseColor: {r: 0.69411767, g: 0.84705883, b: 0.050980393, a: 1}
   topTextAnimator: {fileID: 8797759091606767303}
   purchasedText: {fileID: 8393208631883616094}
+  currencyDisplay: {fileID: 8288912999898188822}
   purchaseButton: {fileID: 5480907385518865175}
 --- !u!223 &5313740321572908372
 Canvas:
@@ -3241,8 +3241,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
-      propertyPath: m_margin.y
-      value: -26.9
+      propertyPath: m_fontSize
+      value: 131.3
       objectReference: {fileID: 0}
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}

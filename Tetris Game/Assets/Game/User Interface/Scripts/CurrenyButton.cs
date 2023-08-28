@@ -16,9 +16,9 @@ public class CurrenyButton : MonoBehaviour
         return this;
     }
     
-    public CurrenyButton SetMax(bool state)
+    public CurrenyButton SetFull(bool state)
     {
-        text.text = state ? "MAX" : "BUY";
+        text.text = state ? Onboarding.THIS.fullText : "BUY";
         _button.image.enabled = !state;
         return this;
     }

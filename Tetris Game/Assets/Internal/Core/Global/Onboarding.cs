@@ -21,8 +21,9 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string waveText;
     [Header("Block Menu")]
     [TextArea] [SerializeField] public string newBlockText;
-    [FormerlySerializedAs("nextBlockText")] [TextArea] [SerializeField] public string ownedText;
+    [TextArea] [SerializeField] public string ownedText;
     [TextArea] [SerializeField] public string nextWeaponText;
+    [TextArea] [SerializeField] public string fullText;
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {

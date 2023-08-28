@@ -28,3 +28,4 @@ MonoBehaviour:
   newBlockText: <bounce a=0.1 f=2>NEW BLOCK!
   ownedText: <pend a=0.1 f=2>OWNED<sprite name=Check>
   nextWeaponText: <bounce a=0.1 f=2>NEW WEAPON!
+  fullText: <sprite name=Check>

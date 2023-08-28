@@ -27,6 +27,8 @@ namespace Game.UI
         [SerializeField] private RectTransform purchaseParent;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
+        [SerializeField] private RectTransform priceTextPivot;
+        [SerializeField] private RectTransform buttonRectTransform;
         
         [System.NonSerialized] private WeaponShopData _weaponShopData;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
@@ -71,9 +73,7 @@ namespace Game.UI
             
             if (!purchasedWeapon)
             {
-                currencyDisplay.Display(_gunUpgradeData.currency);
-                bool hasFunds = Wallet.HasFunds(_gunUpgradeData.currency);
-                purchaseButton.SetAvailable(hasFunds);
+                SetPrice(_gunUpgradeData.currency);
                 return;
             }
             
@@ -97,12 +97,41 @@ namespace Game.UI
                 .SetBars(stageDatas.Length - 1, currentIndex);
         }
         
+        private bool SetPrice(Const.Currency currency)
+        {
+            bool hasFunds = Wallet.HasFunds(currency);
+
+            purchaseButton.SetAvailable(hasFunds);
+            
+            if (hasFunds)
+            {   
+                PunchButton(0.2f);
+            }
+            
+            currencyDisplay.Display(currency);
+            PunchMoney(0.2f);
+            return hasFunds;
+        }
+        
         private void SetSprite(Sprite sprite)
         {
             gunImage.sprite = sprite;
             gunImage.transform.DOKill();
             gunImage.transform.localScale = Vector3.one;
             gunImage.transform.DOPunchScale(Vector3.one * 0.25f, 0.25f, 1).SetUpdate(true);
+        }
+        
+        private void PunchMoney(float amount)
+        {
+            priceTextPivot.DOKill();
+            priceTextPivot.localScale = Vector3.one;
+            priceTextPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
+        }
+        private void PunchButton(float amount)
+        {
+            buttonRectTransform.DOKill();
+            buttonRectTransform.localEulerAngles = Vector3.zero;
+            buttonRectTransform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 0.3f, 15).SetUpdate(true);
         }
 
         private void Upgrade(Gun.StatType statType)

@@ -29,11 +29,13 @@ public class StageBar : MonoBehaviour
  
     public StageBar SetPrice(Const.Currency currency, bool max)
     {
-        priceCurrencyDisplay.gameObject.SetActive(!max);
+        purchaseButton.gameObject.SetActive(!max);
 
         if (max)
         {
-            purchaseButton.SetMax(max);
+            priceCurrencyDisplay.Set(Onboarding.THIS.fullText);
+
+            // purchaseButton.SetFull(max);
             return this;
         }
         bool hasFunds = Wallet.HasFunds(currency);
