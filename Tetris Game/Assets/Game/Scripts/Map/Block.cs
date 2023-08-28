@@ -53,7 +53,7 @@ namespace Game
         {
             FreeBlock = false;
             
-            int[] lookUps = this.GetLookUp(pool);
+            // int[] lookUps = this.GetLookUp(pool);
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
@@ -67,7 +67,7 @@ namespace Game
                    Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
                    // Helper.IsPossible(1.0f, () => OverrideUsage(out usage));
                 }
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, lookUps[i], usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();
@@ -79,13 +79,13 @@ namespace Game
         {
             FreeBlock = true;
 
-            int[] lookUps = this.GetLookUp(pool);
+            // int[] lookUps = this.GetLookUp(pool);
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
                 
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, lookUps[i], usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();

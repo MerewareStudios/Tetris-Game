@@ -24,6 +24,7 @@ public class Const : SSingleton<Const>
     public User.Data DefaultUserData;
     public AdManager.Data DefaultAdData;
     public Gun.UpgradeData[] GunUpgradeData;
+    public BlockMenu.BlockData[] DefaultBlockData;
     
     [Header("Reward")] 
     public RewardData[] rewardDatas;

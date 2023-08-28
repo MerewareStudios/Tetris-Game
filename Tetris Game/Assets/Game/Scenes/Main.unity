@@ -2755,7 +2755,6 @@ MonoBehaviour:
         current: 0
         max: 6
       blockShopData:
-        blockDatas: []
         unlockedBlocks: 
         lastIndex: 0
       weaponShopData:

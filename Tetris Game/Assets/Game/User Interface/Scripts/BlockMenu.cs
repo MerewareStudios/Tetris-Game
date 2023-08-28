@@ -14,11 +14,13 @@ namespace Game.UI
     {
         [SerializeField] private BlockVisualGrid blockVisualGrid;
         [SerializeField] private RectTransform priceTextPivot;
+        [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
         [SerializeField] private Febucci.UI.TextAnimator_TMP topTextAnimator;
         [SerializeField] private CurrenyButton purchaseButton;
+        [SerializeField] private TextAnimator_TMP purchasedText;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _blockData;
 
@@ -48,7 +50,8 @@ namespace Game.UI
         private void Show()
         {
             int showIndex = _blockShopData.lastIndex;
-            this._blockData = _blockShopData.blockDatas[showIndex];
+            string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
+            this._blockData = Const.THIS.DefaultBlockData[showIndex];
             
             SetPrice(_blockData.currency);
             SetLookUp(_blockData.lookUp);
@@ -56,13 +59,19 @@ namespace Game.UI
             bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
-            topTextAnimator.SetText(purchasedBlock ? Onboarding.THIS.upgradeBlockText : Onboarding.THIS.newBlockText);
+            topTextAnimator.SetText(purchasedBlock ? "" : Onboarding.THIS.newBlockText);
+            purchasedText.SetText(purchasedBlock ? Onboarding.THIS.nextBlockText : "");
+
+            currencyDisplay.gameObject.SetActive(!purchasedBlock);
+            purchaseButton.gameObject.SetActive(!purchasedBlock);
+
+            
         }
 
         public void OnClick_ShowNext()
         {
             _blockShopData.lastIndex++;
-            if (_blockShopData.lastIndex >= _blockShopData.blockDatas.Count)
+            if (_blockShopData.lastIndex >= Const.THIS.DefaultBlockData.Length)
             {
                 _blockShopData.lastIndex = 0;
             }
@@ -75,13 +84,24 @@ namespace Game.UI
             priceTextPivot.localScale = Vector3.one;
             priceTextPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
-        
+        private void PunchPurchasedText(float amount)
+        {
+            purchasedText.transform.DOKill();
+            purchasedText.transform.localScale = Vector3.one;
+            purchasedText.transform.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
+        }
+        private void PunchButton(float amount)
+        {
+            buttonRectTransform.DOKill();
+            buttonRectTransform.localEulerAngles = Vector3.zero;
+            buttonRectTransform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 0.3f, 15).SetUpdate(true);
+        }
         public void OnClick_ShowPrevious()
         {
             _blockShopData.lastIndex--;
             if (_blockShopData.lastIndex < 0)
             {
-                _blockShopData.lastIndex = _blockShopData.blockDatas.Count - 1;
+                _blockShopData.lastIndex = Const.THIS.DefaultBlockData.Length - 1;
             }
             Show();
         }
@@ -92,8 +112,14 @@ namespace Game.UI
 
             purchaseButton.SetAvailable(hasFunds);
             
+            if (hasFunds)
+            {   
+                PunchButton(0.2f);
+            }
+            
             currencyDisplay.Display(currency);
-            PunchMoney(0.15f);
+            PunchMoney(0.2f);
+            PunchPurchasedText(0.2f);
         }
         private void SetLookUp(int[] table)
         {
@@ -102,10 +128,15 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
+            bool haveBlock =  _blockShopData.HaveBlock(_blockData.blockType);
+            if (haveBlock)
+            {
+                return;
+            }
+            
             if (Wallet.Consume(_blockData.currency))
             {
-                bool purchasedBefore =  _blockShopData.HaveBlock(_blockData.blockType);
-                _ = purchasedBefore ? _blockData.Upgrade() : _blockShopData.AddUnlockedBlock(_blockData);
+                _blockShopData.AddUnlockedBlock(_blockData);
                 Show();
             }
         }
@@ -114,10 +145,10 @@ namespace Game.UI
         [System.Serializable]
         public class BlockShopData : ICloneable
         {
-            [SerializeField] public List<BlockData> blockDatas = new();
+            // [SerializeField] public List<BlockData> blockDatas = new();
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
-            [System.NonSerialized] public Dictionary<Pool, BlockData> blockDataDic;
+            // [System.NonSerialized] public Dictionary<Pool, BlockData> blockDataDic;
 
             public BlockShopData()
             {
@@ -125,31 +156,31 @@ namespace Game.UI
             }
             public BlockShopData(BlockShopData blockShopData)
             {
-                blockDatas.CopyFrom(blockShopData.blockDatas);
+                // blockDatas.CopyFrom(blockShopData.blockDatas);
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
             }
 
-            private void FillDic()
-            {
-                blockDataDic = new Dictionary<Pool, BlockData>();
-                foreach (var blockData in blockDatas)
-                {
-                    blockDataDic.Add(blockData.blockType, blockData);
-                }
-            }
+            // private void FillDic()
+            // {
+            //     blockDataDic = new Dictionary<Pool, BlockData>();
+            //     // foreach (var blockData in blockDatas)
+            //     // {
+            //     //     blockDataDic.Add(blockData.blockType, blockData);
+            //     // }
+            // }
             public Pool GetRandomBlock()
             {
                 return unlockedBlocks.Random<Pool>();
             }
-            public int[] LookUps(Pool pool)
-            {
-                if (blockDataDic == null)
-                {
-                    FillDic();
-                }
-                return blockDataDic[pool].lookUp;
-            }
+            // public int[] LookUps(Pool pool)
+            // {
+            //     if (blockDataDic == null)
+            //     {
+            //         FillDic();
+            //     }
+            //     return blockDataDic[pool].lookUp;
+            // }
             public bool AddUnlockedBlock(BlockData blockData)
             {
                 if (HaveBlock(blockData.blockType)) return false;
@@ -176,7 +207,7 @@ namespace Game.UI
             [SerializeField] public Pool blockType;
             [SerializeField] public Const.Currency currency;
             [SerializeField] public int[] lookUp;
-            [SerializeField] public int trackIndex = 0;
+            // [SerializeField] public int trackIndex = 0;
             
             public BlockData()
             {
@@ -187,24 +218,24 @@ namespace Game.UI
                 this.blockType = blockData.blockType;
                 this.currency = blockData.currency;
                 this.lookUp = blockData.lookUp.Clone() as int[];
-                this.trackIndex = blockData.trackIndex;
+                // this.trackIndex = blockData.trackIndex;
             }
-            public bool Upgrade()
-            {
-                if (trackIndex >= lookUp.Length)
-                {
-                    trackIndex = 0;
-                }
-                if (lookUp[trackIndex] <= 0)
-                {
-                    trackIndex++;
-                    Upgrade();
-                    return false;
-                }
-                lookUp[trackIndex]++;
-                trackIndex++;
-                return true;
-            }
+            // public bool Upgrade()
+            // {
+            //     if (trackIndex >= lookUp.Length)
+            //     {
+            //         trackIndex = 0;
+            //     }
+            //     if (lookUp[trackIndex] <= 0)
+            //     {
+            //         trackIndex++;
+            //         Upgrade();
+            //         return false;
+            //     }
+            //     lookUp[trackIndex]++;
+            //     trackIndex++;
+            //     return true;
+            // }
             public object Clone()
             {
                 return new BlockData(this);

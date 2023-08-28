@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using DG.Tweening;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -18,6 +19,12 @@ public class BlockVisualGrid : MonoBehaviour
         for (int i = 0; i < lookUp.Length; i++)
         {
             blocks[i].SetActive(lookUp[i] > 0);
+            if (blocks[i].activeSelf)
+            {
+                blocks[i].transform.DOKill();
+                blocks[i].transform.localScale = Vector3.one;
+                blocks[i].transform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
+            }
             texts[i].text = GetAmmoImage(lookUp[i]);
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Onboarding Data", menuName = "Game/Onboarding Data", order = 0)]
 public class Onboarding : SSingleton<Onboarding>
@@ -19,8 +20,9 @@ public class Onboarding : SSingleton<Onboarding>
     [Header("Other")]
     [TextArea] [SerializeField] public string waveText;
     [Header("Block Menu")]
-    [TextArea] [SerializeField] public string upgradeBlockText;
+    [TextArea] [SerializeField] public string purchasedBlockText;
     [TextArea] [SerializeField] public string newBlockText;
+    [TextArea] [SerializeField] public string nextBlockText;
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {
