@@ -97,12 +97,17 @@ namespace Game
             set
             {
                 // _data.gunData = value;
-                if (gun)
+               
+                if (gun && !gun._Data.gunType.Equals(value.gunType))
                 {
                     gun.Despawn();
+                    gun = null;
+                }
+                if (!gun)
+                {
+                    gun = value.gunType.Spawn<Gun>(holster);
                 }
 
-                gun = value.gunType.Spawn<Gun>(holster);
                 gun._Data = value;
             }
             get => gun._Data;

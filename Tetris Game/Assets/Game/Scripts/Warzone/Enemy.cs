@@ -42,17 +42,14 @@ namespace  Game
             _Health = healthValue;
             _Speed = speedValue;
         }
-        public int _DamageTaken
+        public void TakeDamage(int value)
         {
-            set
+            float radius = health * 0.1f;
+            Warzone.THIS.Emit(health * 5, transform.position, health.Health2Color(), radius);
+            _Health -= value;
+            if (_Health <= 0)
             {
-                float radius = health * 0.1f;
-                Warzone.THIS.Emit(health * 5, transform.position, health.Health2Color(), radius);
-                _Health -= value;
-                if (_Health <= 0)
-                {
-                    Warzone.THIS.EnemyKilled(this);
-                }
+                Warzone.THIS.EnemyKilled(this);
             }
         }
         

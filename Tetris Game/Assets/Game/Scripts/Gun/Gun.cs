@@ -78,7 +78,7 @@ public class Gun : MonoBehaviour
         {
             if (enemyTransform)
             {
-                enemy._DamageTaken = _Data.damage;
+                enemy.TakeDamage(_Data.damage);
             }
             bullet.Despawn();
             trail.gameObject.Despawn();
