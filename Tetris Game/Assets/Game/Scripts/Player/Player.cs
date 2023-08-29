@@ -49,8 +49,6 @@ namespace Game
                 newGunData.prevShoot = _GunData.prevShoot;
                 _GunData = newGunData;
             };
-
-            
         }
 
 #endregion
@@ -65,7 +63,7 @@ namespace Game
 
                 _CurrentHealth = _data.currentHealth;
 
-                _GunData = _data.gunData;
+                _GunData = WeaponMenu.THIS.EquippedGunData;
                 _ShieldData = _data.shieldData;
             }
             get => _data;
@@ -98,16 +96,16 @@ namespace Game
         {
             set
             {
-                _data.gunData = value;
+                // _data.gunData = value;
                 if (gun)
                 {
                     gun.Despawn();
                 }
 
-                gun = _data.gunData.gunType.GetPrefab().Spawn<Gun>(holster);
-                gun._Data = _data.gunData;
+                gun = value.gunType.Spawn<Gun>(holster);
+                gun._Data = value;
             }
-            get => _data.gunData;
+            get => gun._Data;
         }
         
         public Shield.Data _ShieldData
@@ -203,9 +201,9 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
 
-                        if ((_Data.time - gun._Data.prevShoot > gun._Data.fireRate) && angleDif <= 1.0f)
+                        if ((_Data.time - gun._Data.prevShoot > gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
-                            int bulletCount = Board.THIS.ConsumeBullet(_data.gunData.split);
+                            int bulletCount = Board.THIS.ConsumeBullet(_GunData.split);
                             Shoot(bulletCount);
                             gun._Data.prevShoot = _Data.time;
                         }
@@ -262,7 +260,7 @@ namespace Game
             [SerializeField] public float time;
             [SerializeField] public int currentHealth = 0;
             [SerializeField] public float turnRate = 6.0f;
-            [SerializeField] public Gun.Data gunData;
+            // [SerializeField] public Gun.Data gunData;
             [SerializeField] public Shield.Data shieldData;
 
             
@@ -271,7 +269,7 @@ namespace Game
                 this.time = 0.0f;
                 this.currentHealth = 0;
                 this.turnRate = 6.0f;
-                this.gunData = null;
+                // this.gunData = null;
                 this.shieldData = null;
             }
             public Data(Data data)
@@ -279,7 +277,7 @@ namespace Game
                 this.time = data.time;
                 this.currentHealth = data.currentHealth;
                 this.turnRate = data.turnRate;
-                this.gunData = data.gunData.Clone() as Gun.Data;
+                // this.gunData = data.gunData.Clone() as Gun.Data;
                 this.shieldData = data.shieldData.Clone() as Shield.Data;
             }
 

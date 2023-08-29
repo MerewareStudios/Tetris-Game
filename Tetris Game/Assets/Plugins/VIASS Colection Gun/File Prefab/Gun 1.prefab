@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7657227265221729976}
+  - component: {fileID: 2213985741435216157}
   - component: {fileID: 7657227265218862744}
   - component: {fileID: 7657227265219959896}
-  - component: {fileID: 2213985741435216157}
   m_Layer: 0
   m_Name: Gun 1
   m_TagString: Untagged
@@ -35,6 +35,20 @@ Transform:
   - {fileID: 6251039159345465301}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2213985741435216157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657227265221952152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b4863554a176148840065cb1495ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 6251039159345465301}
+  GunSo: {fileID: 11400000, guid: d1c79da0ce1ea5147a9a36b9d8ee8a88, type: 2}
 --- !u!33 &7657227265218862744
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -85,19 +99,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2213985741435216157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7657227265221952152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b4863554a176148840065cb1495ab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muzzle: {fileID: 6251039159345465301}
 --- !u!1 &8511359325832540800
 GameObject:
   m_ObjectHideFlags: 0

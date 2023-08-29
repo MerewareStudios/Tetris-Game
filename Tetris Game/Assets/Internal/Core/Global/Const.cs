@@ -15,7 +15,6 @@ public class Const : SSingleton<Const>
 {
     [Header("Look Up")]
     public LevelSo[] Levels;
-    public GunSo[] Guns;
     public Pawn.Usage[] PowerUps;
     
     

@@ -22,7 +22,8 @@ public class StageBar : MonoBehaviour
     public StageBar SetTopInfo(string value)
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(statType.ToString().ToUpper()).Append("\n").Append(statType.ToTMProKey()).Append(value);
+        // stringBuilder.Append(statType.ToString().ToUpper()).Append("\n").Append(statType.ToTMProKey()).Append(value);
+        stringBuilder.Append(statType.ToTMProKey()).Append(value);
         topInfoText.text = stringBuilder.ToString();
         return this;
     }

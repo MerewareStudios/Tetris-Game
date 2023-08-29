@@ -22,6 +22,7 @@ public class Onboarding : SSingleton<Onboarding>
     [Header("Block Menu")]
     [TextArea] [SerializeField] public string newBlockText;
     [TextArea] [SerializeField] public string ownedText;
+    [TextArea] [SerializeField] public string equippedText;
     [TextArea] [SerializeField] public string nextWeaponText;
     [TextArea] [SerializeField] public string fullText;
     

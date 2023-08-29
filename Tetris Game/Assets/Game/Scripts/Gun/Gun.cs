@@ -10,6 +10,7 @@ using UnityEngine.Serialization;
 public class Gun : MonoBehaviour
 {
     [SerializeField] public Transform muzzle; 
+    [SerializeField] public Game.GunSo GunSo; 
     [System.NonSerialized] private Data _data;
 
     
@@ -19,11 +20,11 @@ public class Gun : MonoBehaviour
         {
             _data = value;
             
-            transform.Set(_data.gunType.GetTransformData());
+            transform.Set(GunSo.holsterTransformData);
             
             SetStat(StatDisplay.Type.Damage, _data.damage);
             SetStat(StatDisplay.Type.Splitshot, _data.split);
-            SetStat(StatDisplay.Type.Firerate, _data.fireRate);
+            SetStat(StatDisplay.Type.Firerate, _data.FireRate);
         }
         get => _data;
     }
@@ -99,10 +100,25 @@ public class Gun : MonoBehaviour
     {
         [SerializeField] public Pool gunType;
         [SerializeField] public float prevShoot = 0.0f;
-        [SerializeField] public int fireRate = 1;
+        [SerializeField] private int fireRate = 1;
         [SerializeField] public int split = 1;
         [SerializeField] public int damage = 1;
 
+        public float FireInterval
+        {
+            get;
+            set;
+        }
+
+        public int FireRate
+        {
+            set
+            {
+                this.fireRate = value;
+                FireInterval = 1.0f - (value - 1) * 0.05f;
+            }
+            get => this.fireRate;
+        }
             
         public Data()
         {
@@ -114,14 +130,14 @@ public class Gun : MonoBehaviour
         public Data(Pool gunType, int fireRate, int split, int damage)
         {
             this.gunType = gunType;
-            this.fireRate = fireRate;
+            this.FireRate = fireRate;
             this.split = split;
             this.damage = damage;
         }
         public Data(Data data)
         {
             this.gunType = data.gunType;
-            this.fireRate = data.fireRate;
+            this.FireRate = data.fireRate;
             this.prevShoot = data.prevShoot;
             this.split = data.split;
             this.damage = data.damage;

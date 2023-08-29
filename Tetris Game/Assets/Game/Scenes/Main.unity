@@ -2800,6 +2800,7 @@ MonoBehaviour:
         lastIndex: 0
       weaponShopData:
         gunIndex: 0
+        equipIndex: 0
         gunShopDatas: []
       menuNavData:
         lastMenuType: 0
