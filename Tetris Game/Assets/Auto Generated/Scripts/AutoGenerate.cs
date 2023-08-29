@@ -171,11 +171,11 @@ namespace Internal.Core
         {
             PlayerPrefs.DeleteAll();
         }
-        [MenuItem("PREFS/Clear Editor Prefs")]
-        private static void ClearEditorPrefs()
-        {
-            EditorPrefs.DeleteAll();
-        }
+        // [MenuItem("PREFS/Clear Editor Prefs")]
+        // private static void ClearEditorPrefs()
+        // {
+        //     EditorPrefs.DeleteAll();
+        // }
 
         [MenuItem("BUILD/APK", priority = 9)]
         private static void BuildAPK()

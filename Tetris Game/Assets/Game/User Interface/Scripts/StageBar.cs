@@ -41,7 +41,7 @@ public class StageBar : MonoBehaviour
         }
         bool hasFunds = Wallet.HasFunds(currency);
 
-        purchaseButton.SetAvailable(hasFunds);
+        purchaseButton.SetAvailable(hasFunds, "UPGRADE");
         
         priceCurrencyDisplay.Display(currency);
         

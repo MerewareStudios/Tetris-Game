@@ -2769,12 +2769,6 @@ MonoBehaviour:
       time: 0
       currentHealth: 1
       turnRate: 6
-      gunData:
-        gunType: 0
-        prevShoot: 0
-        fireRate: 0
-        split: 1
-        damage: 1
       shieldData:
         maxTime: 0
         timeLeft: 0
