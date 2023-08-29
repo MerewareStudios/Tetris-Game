@@ -175,7 +175,7 @@ namespace Game.UI
                 //     // MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
                 //     Onboarding.HideFinger();
                 // }
-                Show();
+                // Show();
             }
         }
 
@@ -183,6 +183,7 @@ namespace Game.UI
         {
             _weaponShopData.Equip();
             OnGunDataChanged?.Invoke(EquippedGunData);
+            Show();
         }
         public Gun.Data EquippedGunData
         {
