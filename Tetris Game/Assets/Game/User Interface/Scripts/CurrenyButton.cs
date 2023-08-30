@@ -9,9 +9,9 @@ public class CurrenyButton : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI text;
 
-    public bool Interactable
+    public bool Available
     {
-        set => _button.interactable = value;
+        set => _button.targetGraphic.color = value ? Const.THIS.currenyButtonNormalColor : Const.THIS.currenyButtonFadedColor;
     } 
     
     public CurrenyButton SetAvailable(bool state)

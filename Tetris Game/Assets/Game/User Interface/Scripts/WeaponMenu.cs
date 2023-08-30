@@ -1,15 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using DG.Tweening;
-using Febucci.UI;
 using Internal.Core;
-using Internal.Visuals;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using User;
 
 
 namespace Game.UI
@@ -17,12 +13,12 @@ namespace Game.UI
     public class WeaponMenu : Menu<WeaponMenu>, IMenu
     {
         [Header("Stage Bars")]
+        [SerializeField] private StageBar stageBarDamage;
         [SerializeField] private StageBar stageBarFireRate;
         [SerializeField] private StageBar stageBarSplitShot;
-        [SerializeField] private StageBar stageBarDamage;
         [SerializeField] private Image gunImage;
-        [SerializeField] private TextAnimator_TMP newText;
-        [SerializeField] private TextAnimator_TMP ownedText;
+        [SerializeField] private GameObject newTextBanner;
+        [SerializeField] private GameObject equippedTextBanner;
         [SerializeField] private RectTransform stageBarParent;
         [SerializeField] private RectTransform purchaseParent;
         [SerializeField] private CurrencyDisplay currencyDisplay;
@@ -30,7 +26,8 @@ namespace Game.UI
         [SerializeField] private RectTransform priceTextPivot;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private Button equipButton;
-        
+        [SerializeField] private TextMeshProUGUI gunStatText;
+
         [System.NonSerialized] private WeaponShopData _weaponShopData;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> OnGunDataChanged = null;
@@ -71,8 +68,16 @@ namespace Game.UI
             
             SetSprite(_gunUpgradeData.sprite);
 
-            newText.SetText(purchasedWeapon ? "" : Onboarding.THIS.nextWeaponText);
-            ownedText.SetText(equippedWeapon ? Onboarding.THIS.equippedText : "");
+            newTextBanner.SetActive(!purchasedWeapon);
+            equippedTextBanner.SetActive(equippedWeapon);
+            // newText.SetText(purchasedWeapon ? "" : Onboarding.THIS.nextWeaponText);
+            // ownedText.SetText(equippedWeapon ? Onboarding.THIS.equippedText : "");
+            
+            int damage = CurrentDamage(_gunUpgradeData);
+            int rate = CurrentFireRate(_gunUpgradeData);
+            int split = CurrentSplitShot(_gunUpgradeData);
+
+            SetStats(damage, rate, split);
             
             if (!purchasedWeapon)
             {
@@ -80,38 +85,52 @@ namespace Game.UI
                 return;
             }
             
+            FillStageBar(Gun.StatType.Damage, stageBarDamage);
             FillStageBar(Gun.StatType.Firerate, stageBarFireRate);
             FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot);
-            FillStageBar(Gun.StatType.Damage, stageBarDamage);
+            
+            
+            
         }
 
         private void FillStageBar(Gun.StatType statType, StageBar stageBar)
         {
-            int currentIndex = _weaponShopData.GetUpgradeIndex(statType);
+            int currentIndex = _weaponShopData.CurrentIndex(statType);
 
-            StageBar.StageData<int>[] stageDatas = _gunUpgradeData.stageDatas[(int)statType];
-            StageBar.StageData<int> stageData = stageDatas[currentIndex];
+            bool max = _gunUpgradeData.IsFull(statType, currentIndex);
             
-            bool max = currentIndex >= stageDatas.Length - 1;
-
             stageBar
-                // .SetPrice(stageData.currency)
-                // .SetInteractable(Wallet.HasFunds(stageData.currency))
                 .SetMaxed(!max)
                 .SetCurrencyStampVisible(!max)
-                .SetBars(stageDatas.Length - 1, currentIndex);
+                .SetBars(_gunUpgradeData.UpgradeCount(statType), currentIndex);
 
             if (max)
             {
                 return;
             }
+            Const.Currency price = _gunUpgradeData.Price(statType, currentIndex);
 
             stageBar
-                .SetPrice(stageData.currency)
-                .SetInteractable(Wallet.HasFunds(stageData.currency));
+                .SetPrice(price)
+                .SetInteractable(Wallet.HasFunds(price));
+            
+        }
+        
+        public void SetStats(int damage, int rate, int split)
+        {
+            StringBuilder stringBuilder = new();
+            
+            stringBuilder.Append(Onboarding.THIS.damageText);
+            stringBuilder.Append(damage);
+            
+            stringBuilder.Append(Onboarding.THIS.fireRateText);
+            stringBuilder.Append(rate);
+            
+            stringBuilder.Append(Onboarding.THIS.splitShotText);
+            stringBuilder.Append(split);
 
-            // .SetInteractable(Wallet.HasFunds(stageData.currency))
-            // .SetMaxed(!max)
+
+            gunStatText.text = stringBuilder.ToString();
         }
         
         private bool SetPrice(Const.Currency currency)
@@ -151,22 +170,6 @@ namespace Game.UI
             buttonRectTransform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 0.3f, 15).SetUpdate(true);
         }
 
-        private void Upgrade(Gun.StatType statType)
-        {
-            _weaponShopData.Upgrade(statType, 1);
-
-            // if (_gunUpgradeData.IsAllFull(_weaponShopData.upgradeIndexes))
-            // {
-            //     _weaponShopData.gunIndex++;
-            //     _weaponShopData.Refresh();
-            // }
-
-            if (_weaponShopData.Equipped)
-            {
-                OnGunDataChanged?.Invoke(EquippedGunData);
-            }
-        }
-        
         public void OnClick_PurchaseWeapon()
         {
             // _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
@@ -203,25 +206,56 @@ namespace Game.UI
         {
             get
             {
+
                 Gun.UpgradeData gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.equipIndex];
 
-                Pool gunType = gunUpgradeData.gunType;
-                int fireRate = gunUpgradeData.Value(Gun.StatType.Firerate, _weaponShopData.GetUpgradeIndexOfEquippedGun(Gun.StatType.Firerate));
-                int split = gunUpgradeData.Value(Gun.StatType.Splitshot, _weaponShopData.GetUpgradeIndexOfEquippedGun(Gun.StatType.Splitshot));
-                int damage = gunUpgradeData.Value(Gun.StatType.Damage, _weaponShopData.GetUpgradeIndexOfEquippedGun(Gun.StatType.Damage));
+                int damage = CurrentDamage(gunUpgradeData);
+                int rate = CurrentFireRate(gunUpgradeData);
+                int split = CurrentSplitShot(gunUpgradeData);
 
-                return new Gun.Data(gunType, fireRate, split, damage);
+                Pool gunType = gunUpgradeData.gunType;
+
+                return new Gun.Data(gunType, damage, rate, split);
             }
         }
+
+        private int CurrentDamage(Gun.UpgradeData gunUpgradeData)
+        {
+            int currentIndex_Damage = _weaponShopData.CurrentIndex(Gun.StatType.Damage);
+            int damage = gunUpgradeData.UpgradedValue(Gun.StatType.Damage, currentIndex_Damage);
+            return damage;
+        }
+        
+        private int CurrentFireRate(Gun.UpgradeData gunUpgradeData)
+        {
+            int currentIndex_FireRate = _weaponShopData.CurrentIndex(Gun.StatType.Firerate);
+            int rate = gunUpgradeData.UpgradedValue(Gun.StatType.Firerate, currentIndex_FireRate);
+            return rate;
+        }
+
+        private int CurrentSplitShot(Gun.UpgradeData gunUpgradeData)
+        {
+            int currentIndex_SplitShot = _weaponShopData.CurrentIndex(Gun.StatType.Splitshot);
+            int split = gunUpgradeData.UpgradedValue(Gun.StatType.Splitshot, currentIndex_SplitShot);
+            return split;
+        }
+
 
         public void OnClick_PurchaseUpgrade(int statType)
         {
             Gun.StatType type = (Gun.StatType)statType;
-            StageBar.StageData<int> stageData = _gunUpgradeData.GetStageData(type, _weaponShopData.GetUpgradeIndex(type));
 
-            if (Wallet.Transaction(stageData.currency))
+            Const.Currency price = _gunUpgradeData.Price(type, _weaponShopData.CurrentIndex(type));
+
+            if (Wallet.Consume(price))
             {
-                Upgrade(type);
+                _weaponShopData.Upgrade(type, 1);
+
+                if (_weaponShopData.Equipped)
+                {
+                    OnGunDataChanged?.Invoke(EquippedGunData);
+                }
+                
                 Show();
             }
         }
@@ -263,7 +297,7 @@ namespace Game.UI
                 gunShopDatas.CopyFrom(weaponShopData.gunShopDatas);
             }
             
-            public int GetUpgradeIndex(Gun.StatType statType)
+            public int CurrentIndex(Gun.StatType statType)
             {
                 return gunShopDatas[gunIndex].upgradeIndexes[(int)statType];
             }

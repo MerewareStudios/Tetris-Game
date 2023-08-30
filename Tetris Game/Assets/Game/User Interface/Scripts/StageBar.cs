@@ -12,7 +12,7 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private CurrencyDisplay currencyDisplay;
 
-
+    
     public StageBar SetCurrencyStampVisible(bool state)
     {
         currencyDisplay.gameObject.SetActive(state);
@@ -25,7 +25,7 @@ public class StageBar : MonoBehaviour
     }
     public StageBar SetInteractable(bool state)
     {
-        purchaseButton.Interactable = state;
+        purchaseButton.Available = state;
         return this;
     }
     public StageBar SetMaxed(bool state)
@@ -33,15 +33,15 @@ public class StageBar : MonoBehaviour
         purchaseButton.Set(state ? Onboarding.THIS.plusText : Onboarding.THIS.fullText, state);
         return this;
     }
-    public StageBar SetBars(int lockedCount, int upgradedCount)
+    public StageBar SetBars(int availableCount, int filledCount)
     {
         for (int i = 0; i < images.Length; i++)
         {
-            if (i <= upgradedCount)
+            if (i + 1 <= filledCount)
             {
                 SetBar(i, BarStat.Upgraded);
             }
-            else if (i <= lockedCount)
+            else if (i + 1 <= availableCount)
             {
                 SetBar(i, BarStat.Empty);
             }
@@ -64,27 +64,8 @@ public class StageBar : MonoBehaviour
     {
         Empty,
         Locked,
-        Upgraded
+        Upgraded,
+        Gien
     }
     
-    [Serializable]
-    public class StageData<T> : ICloneable
-    {
-        [SerializeField] public Const.Currency currency;
-        [SerializeField] public T value;
-            
-        public StageData()
-        {
-                
-        }
-        public StageData(StageData<T> gunStatUpgradeData)
-        {
-            this.currency = gunStatUpgradeData.currency;
-            this.value = gunStatUpgradeData.value;
-        }
-        public object Clone()
-        {
-            return new StageData<T>(this);
-        }
-    }
 }

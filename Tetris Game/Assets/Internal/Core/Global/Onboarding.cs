@@ -26,6 +26,9 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string nextWeaponText;
     [TextArea] [SerializeField] public string fullText;
     [TextArea] [SerializeField] public string plusText;
+    [TextArea] [SerializeField] public string damageText;
+    [TextArea] [SerializeField] public string fireRateText;
+    [TextArea] [SerializeField] public string splitShotText;
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {

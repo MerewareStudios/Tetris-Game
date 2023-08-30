@@ -44,6 +44,9 @@ public class Const : SSingleton<Const>
     public Color[] metaTextColors;
     [Header("Images")] 
     public Sprite[] purchaseOptionSprites;
+    [Header("Curreny Visuals")] 
+    public Color currenyButtonNormalColor;
+    public Color currenyButtonFadedColor;
     [Header("Purchase Option")] 
     public Color defaultFrameColor;
     public Color acceptedFrameColor;

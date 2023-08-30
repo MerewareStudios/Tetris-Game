@@ -426,8 +426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barColors:
-  - {r: 0.15, g: 0.15, b: 0.15, a: 1}
-  - {r: 0.249, g: 0.249, b: 0.249, a: 1}
+  - {r: 0.5568628, g: 1, b: 0, a: 0.20784314}
+  - {r: 0.67058825, g: 0.28627452, b: 0.9294118, a: 0.07058824}
   - {r: 0.5568223, g: 1, b: 0, a: 1}
   images:
   - {fileID: 7934575910789053166}
@@ -442,6 +442,7 @@ MonoBehaviour:
   - {fileID: 5976975408259216737}
   purchaseButton: {fileID: 4661480364163048441}
   currencyDisplay: {fileID: 6871920544934319700}
+  infoText: {fileID: 0}
 --- !u!1001 &14860692421351693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1823,6 +1824,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855345980631214829, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.a
+      value: 0.39607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855345980631214829, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855345980631214829, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855345980631214829, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8855345980631214829, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
