@@ -18,10 +18,12 @@ namespace Game.UI
         [SerializeField] private RectTransform buttonClickTarget;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
-        [SerializeField] private TextAnimator_TMP topTextAnimator;
-        [SerializeField] private TextAnimator_TMP purchasedText;
+        // [SerializeField] private TextAnimator_TMP topTextAnimator;
+        // [SerializeField] private TextAnimator_TMP purchasedText;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
+        [SerializeField] private GameObject newTextBanner;
+        [SerializeField] private Transform equippedTextBanner;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _blockData;
 
@@ -60,8 +62,12 @@ namespace Game.UI
             bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
-            topTextAnimator.SetText(purchasedBlock ? "" : Onboarding.THIS.newBlockText);
-            purchasedText.SetText(purchasedBlock ? Onboarding.THIS.ownedText : "");
+            
+            newTextBanner.SetActive(!purchasedBlock);
+            equippedTextBanner.gameObject.SetActive(purchasedBlock);
+            
+            // topTextAnimator.SetText(purchasedBlock ? "" : Onboarding.THIS.newBlockText);
+            // purchasedText.SetText(purchasedBlock ? Onboarding.THIS.ownedText : "");
 
             currencyDisplay.gameObject.SetActive(!purchasedBlock);
             purchaseButton.gameObject.SetActive(!purchasedBlock);
@@ -111,9 +117,9 @@ namespace Game.UI
         }
         private void PunchPurchasedText(float amount)
         {
-            purchasedText.transform.DOKill();
-            purchasedText.transform.localScale = Vector3.one;
-            purchasedText.transform.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
+            equippedTextBanner.DOKill();
+            equippedTextBanner.localScale = Vector3.one;
+            equippedTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
         private void PunchButton(float amount)
         {
