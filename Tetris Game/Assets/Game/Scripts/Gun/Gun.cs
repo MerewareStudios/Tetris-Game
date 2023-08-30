@@ -194,15 +194,14 @@ public class Gun : MonoBehaviour
                     return false;
                 }
             }
-
             return true;
         }
         public void Init()
         {
             // stageDatas.Clear();
+            stageDatas.Add(stageData_Damage);  
             stageDatas.Add(stageData_Firerate);
             stageDatas.Add(stageData_Splitshot);
-            stageDatas.Add(stageData_Damage);  
         }
     }
 }
