@@ -33,7 +33,7 @@ public class CurrencyDisplay : MonoBehaviour
         this.currencyType = overridenCurrencyType;
         Const.THIS.SetCurrencyColor(text, overridenCurrencyType);
     }
-    public void Display(string str)
+    public void Display(string str, bool buttonActive)
     {
         text.text = str;
     }

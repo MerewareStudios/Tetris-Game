@@ -29,4 +29,5 @@ MonoBehaviour:
   ownedText: <pend a=0.1 f=2>OWNED<sprite name=Check>
   equippedText: <pend a=0.1 f=2>EQUIPPED!<sprite name=Check>
   nextWeaponText: <bounce a=0.1 f=2>NEW WEAPON!
-  fullText: <sprite name=Check>
+  fullText: <size=75%><sprite name=Check>
+  plusText: +

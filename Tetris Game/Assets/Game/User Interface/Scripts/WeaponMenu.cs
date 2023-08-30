@@ -95,9 +95,23 @@ namespace Game.UI
             bool max = currentIndex >= stageDatas.Length - 1;
 
             stageBar
-                .SetTopInfo(stageData.value.ToString())
-                .SetPrice(stageData.currency, max)
+                // .SetPrice(stageData.currency)
+                // .SetInteractable(Wallet.HasFunds(stageData.currency))
+                .SetMaxed(!max)
+                .SetCurrencyStampVisible(!max)
                 .SetBars(stageDatas.Length - 1, currentIndex);
+
+            if (max)
+            {
+                return;
+            }
+
+            stageBar
+                .SetPrice(stageData.currency)
+                .SetInteractable(Wallet.HasFunds(stageData.currency));
+
+            // .SetInteractable(Wallet.HasFunds(stageData.currency))
+            // .SetMaxed(!max)
         }
         
         private bool SetPrice(Const.Currency currency)

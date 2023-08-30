@@ -144,7 +144,7 @@ MonoBehaviour:
     stageData_Firerate:
     - currency:
         type: 0
-        amount: 10
+        amount: 5
       value: 1
     - currency:
         type: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
     stageData_Splitshot:
     - currency:
         type: 0
-        amount: 10
+        amount: 30
       value: 1
     - currency:
         type: 0

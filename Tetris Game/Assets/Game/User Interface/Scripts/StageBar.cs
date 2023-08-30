@@ -1,50 +1,36 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
-using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StageBar : MonoBehaviour
 {
-    [SerializeField] private StatDisplay.Type statType;
-    [SerializeField] private TextMeshProUGUI topInfoText;
     [SerializeField] private Color[] barColors; // Empty, Locked, Upgraded
     [SerializeField] private Image[] images;
-    [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
     [SerializeField] private CurrenyButton purchaseButton;
+    [SerializeField] private CurrencyDisplay currencyDisplay;
 
 
-    public StageBar SetTopInfo(string value)
+    public StageBar SetCurrencyStampVisible(bool state)
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        // stringBuilder.Append(statType.ToString().ToUpper()).Append("\n").Append(statType.ToTMProKey()).Append(value);
-        stringBuilder.Append(statType.ToTMProKey()).Append(value);
-        topInfoText.text = stringBuilder.ToString();
+        currencyDisplay.gameObject.SetActive(state);
         return this;
     }
- 
-    public StageBar SetPrice(Const.Currency currency, bool max)
+    public StageBar SetPrice(Const.Currency currency)
     {
-        purchaseButton.gameObject.SetActive(!max);
-
-        if (max)
-        {
-            priceCurrencyDisplay.Set(Onboarding.THIS.fullText);
-
-            // purchaseButton.SetFull(max);
-            return this;
-        }
-        bool hasFunds = Wallet.HasFunds(currency);
-
-        purchaseButton.SetAvailable(hasFunds, "UPGRADE");
-        
-        priceCurrencyDisplay.Display(currency);
-        
+        currencyDisplay.Display(currency);
+        return this;
+    }
+    public StageBar SetInteractable(bool state)
+    {
+        purchaseButton.Interactable = state;
+        return this;
+    }
+    public StageBar SetMaxed(bool state)
+    {
+        purchaseButton.Set(state ? Onboarding.THIS.plusText : Onboarding.THIS.fullText, state);
         return this;
     }
     public StageBar SetBars(int lockedCount, int upgradedCount)

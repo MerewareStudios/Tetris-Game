@@ -204,7 +204,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 20
-    m_Scale: 1.4
+    m_Scale: 1.2
     m_Name: Check
     m_HashCode: 80935526
   - m_ElementType: 2
@@ -557,7 +557,7 @@ MonoBehaviour:
       m_Width: 256
       m_Height: 256
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 202.8
+      m_HorizontalBearingY: 205
       m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 0

@@ -155,9 +155,9 @@ public class Gun : MonoBehaviour
         [SerializeField] public Const.Currency currency;
         [SerializeField] public Pool gunType;
         [SerializeField] public Sprite sprite;
+        [SerializeField] public StageBar.StageData<int>[] stageData_Damage;
         [SerializeField] public StageBar.StageData<int>[] stageData_Firerate;
         [SerializeField] public StageBar.StageData<int>[] stageData_Splitshot;
-        [SerializeField] public StageBar.StageData<int>[] stageData_Damage;
         [System.NonSerialized] public List<StageBar.StageData<int>[]> stageDatas = new();
             
         public StageBar.StageData<int> GetStageData(Gun.StatType statType, int atLevel)

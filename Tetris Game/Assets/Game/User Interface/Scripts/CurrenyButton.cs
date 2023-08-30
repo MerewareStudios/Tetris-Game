@@ -9,6 +9,11 @@ public class CurrenyButton : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI text;
 
+    public bool Interactable
+    {
+        set => _button.interactable = value;
+    } 
+    
     public CurrenyButton SetAvailable(bool state)
     {
         text.text = state ? "BUY" : "NO FUNDS";
@@ -27,6 +32,13 @@ public class CurrenyButton : MonoBehaviour
     {
         text.text = state ? Onboarding.THIS.fullText : "BUY";
         _button.image.enabled = !state;
+        return this;
+    }
+    
+    public CurrenyButton Set(string str, bool buttonImageActive)
+    {
+        text.text = str;
+        _button.image.enabled = buttonImageActive;
         return this;
     }
 }
