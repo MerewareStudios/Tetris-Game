@@ -548,7 +548,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2280751699274451867}
         m_TargetAssemblyTypeName: MenuNavigator, Assembly-CSharp
-        m_MethodName: Close
+        m_MethodName: OnClick_Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -75,8 +75,6 @@ namespace Game.UI
             {
                 PunchNewBanner(0.4f);
             }
-            // newText.SetText(purchasedWeapon ? "" : Onboarding.THIS.nextWeaponText);
-            // ownedText.SetText(equippedWeapon ? Onboarding.THIS.equippedText : "");
             
             int damage = CurrentDamage(_gunUpgradeData);
             int rate = CurrentFireRate(_gunUpgradeData);
@@ -93,9 +91,6 @@ namespace Game.UI
             FillStageBar(Gun.StatType.Damage, stageBarDamage);
             FillStageBar(Gun.StatType.Firerate, stageBarFireRate);
             FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot);
-            
-            
-            
         }
 
         private void FillStageBar(Gun.StatType statType, StageBar stageBar)
