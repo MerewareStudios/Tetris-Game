@@ -17,8 +17,8 @@ namespace Game.UI
         [SerializeField] private StageBar stageBarFireRate;
         [SerializeField] private StageBar stageBarSplitShot;
         [SerializeField] private Image gunImage;
-        [SerializeField] private GameObject newTextBanner;
-        [SerializeField] private GameObject equippedTextBanner;
+        [SerializeField] private RectTransform newTextBanner;
+        [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private RectTransform stageBarParent;
         [SerializeField] private RectTransform purchaseParent;
         [SerializeField] private CurrencyDisplay currencyDisplay;
@@ -68,8 +68,13 @@ namespace Game.UI
             
             SetSprite(_gunUpgradeData.sprite);
 
-            newTextBanner.SetActive(!purchasedWeapon);
-            equippedTextBanner.SetActive(equippedWeapon);
+            newTextBanner.gameObject.SetActive(!purchasedWeapon);
+            equippedTextBanner.gameObject.SetActive(equippedWeapon);
+
+            if (!purchasedWeapon)
+            {
+                PunchNewBanner(0.4f);
+            }
             // newText.SetText(purchasedWeapon ? "" : Onboarding.THIS.nextWeaponText);
             // ownedText.SetText(equippedWeapon ? Onboarding.THIS.equippedText : "");
             
@@ -168,6 +173,12 @@ namespace Game.UI
             buttonRectTransform.DOKill();
             buttonRectTransform.localEulerAngles = Vector3.zero;
             buttonRectTransform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 0.3f, 15).SetUpdate(true);
+        }
+        private void PunchNewBanner(float amount)
+        {
+            newTextBanner.DOKill();
+            newTextBanner.localScale = Vector3.one;
+            newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
         public void OnClick_PurchaseWeapon()

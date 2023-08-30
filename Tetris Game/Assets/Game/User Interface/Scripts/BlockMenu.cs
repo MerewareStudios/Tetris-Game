@@ -22,8 +22,8 @@ namespace Game.UI
         // [SerializeField] private TextAnimator_TMP purchasedText;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
-        [SerializeField] private GameObject newTextBanner;
-        [SerializeField] private Transform equippedTextBanner;
+        [SerializeField] private RectTransform newTextBanner;
+        [SerializeField] private RectTransform equippedTextBanner;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _blockData;
 
@@ -63,8 +63,13 @@ namespace Game.UI
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
             
-            newTextBanner.SetActive(!purchasedBlock);
+            newTextBanner.gameObject.SetActive(!purchasedBlock);
             equippedTextBanner.gameObject.SetActive(purchasedBlock);
+
+            if (!purchasedBlock)
+            {
+                PunchNewBanner(0.4f);
+            }
             
             // topTextAnimator.SetText(purchasedBlock ? "" : Onboarding.THIS.newBlockText);
             // purchasedText.SetText(purchasedBlock ? Onboarding.THIS.ownedText : "");
@@ -127,7 +132,12 @@ namespace Game.UI
             buttonRectTransform.localEulerAngles = Vector3.zero;
             buttonRectTransform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 0.3f, 15).SetUpdate(true);
         }
-        
+        private void PunchNewBanner(float amount)
+        {
+            newTextBanner.DOKill();
+            newTextBanner.localScale = Vector3.one;
+            newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
+        }
 
         private bool SetPrice(Const.Currency currency)
         {
