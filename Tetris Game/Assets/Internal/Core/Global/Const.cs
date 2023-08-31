@@ -25,6 +25,7 @@ public class Const : SSingleton<Const>
     [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
+    public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
     
     [Header("Reward")] 
     public RewardData[] rewardDatas;
@@ -42,6 +43,9 @@ public class Const : SSingleton<Const>
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
+    [Header("Button Textures")] 
+    public Sprite getButtonTexture;
+    public Sprite buyButtonTexture;
     [Header("Images")] 
     public Sprite[] purchaseOptionSprites;
     [Header("Curreny Visuals")] 
@@ -73,7 +77,6 @@ public class Const : SSingleton<Const>
         [SerializeField] public float loanBarProtectionInterval;
         [SerializeField] public int adBreakSkipTime;
         [SerializeField] public int mergePerAdBreak;
-
     }
     
     [Serializable]
@@ -128,6 +131,7 @@ public class Const : SSingleton<Const>
         Coin,
         PiggyCoin,
         Ad,
+        Dollar,
     }
 
     public void ManualAwake()

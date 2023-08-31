@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CurrencyDisplay : MonoBehaviour
 {
@@ -14,6 +11,13 @@ public class CurrencyDisplay : MonoBehaviour
     public void Display(Const.Currency overridenCurrency)
     {
         text.text = overridenCurrency.type.ToTMProKey() + " " + overridenCurrency.amount;
+        UpdateVisual(overridenCurrency.type);
+    }
+    public void DisplayRealMoneyWithFraction(Const.Currency overridenCurrency)
+    {
+        float amount = overridenCurrency.amount;
+        amount -= 0.01f;
+        text.text = "$" + amount.ToString("F2");
         UpdateVisual(overridenCurrency.type);
     }
     public void Display(Const.CurrencyType type, int amount)

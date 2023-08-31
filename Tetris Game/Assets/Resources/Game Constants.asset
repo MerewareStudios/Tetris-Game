@@ -84,54 +84,13 @@ MonoBehaviour:
       rewards: []
     upgradeMenuData:
       purchaseData:
-      - upgradeType: 0
-        currency:
-          type: 0
-          amount: 0
-        gain: 10
-        purchaseInstance: 0
-        maxPurchase: 0
-        increasePerUse: 0
-      - upgradeType: 1
-        currency:
-          type: 0
-          amount: 0
-        gain: 20
-        purchaseInstance: 0
-        maxPurchase: 0
-        increasePerUse: 0
-      - upgradeType: 2
-        currency:
-          type: 0
-          amount: 0
-        gain: 7
-        purchaseInstance: 0
-        maxPurchase: 0
-        increasePerUse: 1
-      - upgradeType: 3
-        currency:
-          type: 0
-          amount: 0
-        gain: 7
-        purchaseInstance: 0
-        maxPurchase: 0
-        increasePerUse: 1
-      - upgradeType: 4
-        currency:
-          type: 0
-          amount: 0
-        gain: 30
-        purchaseInstance: 0
-        maxPurchase: 0
-        increasePerUse: 0
-      - upgradeType: 5
-        currency:
-          type: 0
-          amount: 0
-        gain: 4
-        purchaseInstance: 0
-        maxPurchase: 0
-        increasePerUse: 1
+      - purchaseStamp: 0
+      - purchaseStamp: 0
+      - purchaseStamp: 0
+      - purchaseStamp: 0
+      - purchaseStamp: 0
+      - purchaseStamp: 0
+      - purchaseStamp: 0
   DefaultAdData:
     adBreakEnabled: 1
     mergeCountForAdBreak: 0
@@ -293,6 +252,76 @@ MonoBehaviour:
       type: 0
       amount: 500
     lookUp: 000000000000000000000000010000000000000001000000010000000000000001000000010000000000000001000000
+  purchaseDataLookUp:
+  - purchaseType: 0
+    currency:
+      type: 3
+      amount: 5
+    sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
+    title: <bounce a=0.05 f=1>CHEST
+    info: '<sprite name=Coin> +25
+
+      <sprite name=PiggyCoin> +10
+
+      <sprite
+      name=Ad> +5'
+    seconds: 0
+  - purchaseType: 1
+    currency:
+      type: 1
+      amount: 50
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>STACK LIMIT
+    info: +1 Stack
+    seconds: 0
+  - purchaseType: 2
+    currency:
+      type: 3
+      amount: 1
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>SKIP TICKET
+    info: +5<sprite name=Ad>
+    seconds: 0
+  - purchaseType: 3
+    currency:
+      type: 1
+      amount: 50
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>MEDKIT
+    info: +10<sprite name=Heart>
+    seconds: 0
+  - purchaseType: 4
+    currency:
+      type: 3
+      amount: 1
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>COIN PACK
+    info: +200<sprite name=Coin>
+    seconds: 0
+  - purchaseType: 5
+    currency:
+      type: 1
+      amount: 50
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>EXTRA SHIELD
+    info: +25<sprite name=Shield>
+    seconds: 0
+  - purchaseType: 6
+    currency:
+      type: 3
+      amount: 1
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>PIGGY COIN
+    info: +100<sprite name=PiggyCoin>
+    seconds: 0
+  - purchaseType: 7
+    currency:
+      type: 1
+      amount: 25
+    sprite: {fileID: 0}
+    title: <bounce a=0.05 f=1>PIGGY CAPACITY
+    info: +25
+    seconds: 0
   rewardDatas:
   - type: 0
     backgroundSprite: {fileID: 21300000, guid: ae636bd39634c464097557b854c89e24, type: 3}
@@ -410,16 +439,20 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 4c8589fcb4a5e594ab7b1b23e9914251, type: 2}
   - {fileID: 2100000, guid: a38b9df60192ebe4cacb977dc3a701c2, type: 2}
   - {fileID: 2100000, guid: 3e094f0c967d4d446a513117d0a86ca8, type: 2}
+  - {fileID: 2100000, guid: d99996e072b9e7c4381ca7c796111a99, type: 2}
   metaTextColors:
   - {r: 0.99607843, g: 0.9490196, b: 0.2627451, a: 1}
   - {r: 1, g: 0.5137255, b: 0.79025674, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  getButtonTexture: {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
+  buyButtonTexture: {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
   purchaseOptionSprites:
   - {fileID: 21300000, guid: 18e9d080cfeac4bcbbd49c99ada661e8, type: 3}
   - {fileID: 21300000, guid: 18e9d080cfeac4bcbbd49c99ada661e8, type: 3}
   - {fileID: 21300000, guid: 450ce0cdd8bbd4cb2acdfd86f85136c6, type: 3}
   currenyButtonNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  currenyButtonFadedColor: {r: 0.14901961, g: 0.14901961, b: 0.14901961, a: 0.5019608}
+  currenyButtonFadedColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0.5019608}
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.14117648}
   acceptedFrameColor: {r: 0, g: 1, b: 0.15510082, a: 1}
   deniedFrameColor: {r: 1, g: 0.12694877, b: 0, a: 1}

@@ -143,7 +143,7 @@ namespace Game.UI
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            purchaseButton.SetAvailable(hasFunds);
+            purchaseButton.Available = hasFunds;
             
             if (hasFunds)
             {   

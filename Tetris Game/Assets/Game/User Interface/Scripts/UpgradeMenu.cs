@@ -44,66 +44,72 @@ namespace Game.UI
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
+                PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
-                PurchaseData purchaseData = _Data.purchaseData[i];
-                bool hasFunds = Wallet.HasFunds(purchaseData.currency);
+                bool hasFunds = Wallet.HasFunds(lookUp.currency);
+
                 purchaseOption
-                    .SetPurchase(purchaseData.currency, hasFunds)
-                    .SetDetailedInfo(purchaseData.gain);
+                    .SetPurchaseText(lookUp.currency.type.Equals(Const.CurrencyType.Dollar) ? "BUY" : "GET")
+                    .SetIcon(lookUp.sprite)
+                    .SetPurchase(lookUp.currency, hasFunds)
+                    .SetInfo(lookUp.title, lookUp.info);
             }
         }
 
         public void OnClick_Purchase(int purchaseIndex)
         {
-            PurchaseOption purchaseOption = purchaseOptions[purchaseIndex];
             PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
-            
-            
-            
-            bool transactionSuccessful = Wallet.Transaction(purchaseData.currency);
-            
-            purchaseOptions[purchaseIndex].PunchColor(transactionSuccessful ? Const.THIS.acceptedFrameColor : Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
-            purchaseOptions[purchaseIndex].Punch(transactionSuccessful ? new Vector3(0.0f, 30.0f) :  new Vector3(-50.0f, 0.0f));
+            PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
-            if (!transactionSuccessful)
+
+            if (!Wallet.Transaction(lookUp.currency))
             {
-                // Toast.Show(UIManager.NO_FUNDS_TEXT, 2.25f);
+                purchaseOptions[purchaseIndex].PunchColor(Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
+                purchaseOptions[purchaseIndex].Punch(new Vector3(-50.0f, 0.0f));
                 return;
             }
             
+            purchaseOptions[purchaseIndex].PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
+            purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, 30.0f));
+
+            
             // Toast.Show(purchaseOption.GetPurchaseInfo(purchaseData.gain), 0.5f);
             
-            UpgradeType upgradeType = (UpgradeType)purchaseIndex;
-            switch (upgradeType)
-            {
-                case UpgradeType.Heart:
-                    Warzone.THIS.GiveHeart(purchaseData.gain);
-                    break;
-                case UpgradeType.Shield:
-                    Warzone.THIS.GiveShield(purchaseData.gain);
-                    break;
-                case UpgradeType.MaxStack:
-                    Board.THIS.MaxStack = purchaseData.gain;
-                    break;
-                case UpgradeType.MaxPiggyLevel:
-                    PiggyMenu.THIS.MaxPiggyLevel++;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            purchaseData.gain += purchaseData.increasePerUse;
-            purchaseData.purchaseInstance++;
+            // UpgradeType upgradeType = (UpgradeType)purchaseIndex;
+            // switch (upgradeType)
+            // {
+            //     case UpgradeType.Heart:
+            //         Warzone.THIS.GiveHeart(purchaseData.gain);
+            //         break;
+            //     case UpgradeType.Shield:
+            //         Warzone.THIS.GiveShield(purchaseData.gain);
+            //         break;
+            //     case UpgradeType.MaxStack:
+            //         Board.THIS.MaxStack = purchaseData.gain;
+            //         break;
+            //     case UpgradeType.MaxPiggyLevel:
+            //         PiggyMenu.THIS.MaxPiggyLevel++;
+            //         break;
+            //     default:
+            //         throw new ArgumentOutOfRangeException();
+            // }
+            //
+            // purchaseData.gain += purchaseData.increasePerUse;
+            // purchaseData.purchaseInstance++;
             Show();
         }
 
         [Serializable]
-        public enum UpgradeType
+        public enum PurchaseType
         {
-            Heart,
-            Shield,
+            Chest,
             MaxStack,
-            MaxPiggyLevel,
+            BuySkipTicket,
+            MedKit,
+            BuyCoin,
+            Shield,
+            BuyPiggyCoin,
+            PiggyCapacity,
         }
 
         [System.Serializable]
@@ -127,30 +133,31 @@ namespace Game.UI
         [System.Serializable]
         public class PurchaseData : ICloneable
         {
-            [SerializeField] public UpgradeType upgradeType;
-            [SerializeField] public Const.Currency currency;
-            [SerializeField] public int gain;
-            [SerializeField] public int purchaseInstance = 0;
-            [SerializeField] public int maxPurchase = 0;
-            [SerializeField] public int increasePerUse = 0;
+            [SerializeField] public long purchaseStamp;
+            
             public PurchaseData()
             {
                 
             }
             public PurchaseData(PurchaseData purchaseData)
             {
-                this.upgradeType = purchaseData.upgradeType;
-                this.currency = purchaseData.currency;
-                this.gain = purchaseData.gain;
-                this.purchaseInstance = purchaseData.purchaseInstance;
-                this.maxPurchase = purchaseData.maxPurchase;
-                this.increasePerUse = purchaseData.increasePerUse;
+                this.purchaseStamp = purchaseData.purchaseStamp;
             }
 
             public object Clone()
             {
                 return new PurchaseData(this);
             }
+        } 
+        [System.Serializable]
+        public class PurchaseDataLookUp
+        {
+            [SerializeField] public PurchaseType purchaseType;
+            [SerializeField] public Const.Currency currency;
+            [SerializeField] public Sprite sprite;
+            [TextArea] [SerializeField] public string title;
+            [TextArea] [SerializeField] public string info;
+            [SerializeField] public int seconds;
         } 
         
     }

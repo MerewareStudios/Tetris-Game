@@ -145,8 +145,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 10
     m_Scale: 2.18
-    m_Name: Cash
-    m_HashCode: 2445305
+    m_Name: Dollar
+    m_HashCode: -1660129704
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11

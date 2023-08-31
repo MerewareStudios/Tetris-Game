@@ -14,27 +14,31 @@ public class CurrenyButton : MonoBehaviour
         set => _button.targetGraphic.color = value ? Const.THIS.currenyButtonNormalColor : Const.THIS.currenyButtonFadedColor;
     } 
     
-    public CurrenyButton SetAvailable(bool state)
-    {
-        text.text = state ? "BUY" : "NO FUNDS";
-        _button.image.enabled = state;
-        return this;
-    }
+    // public CurrenyButton SetAvailable(bool state)
+    // {
+    //     text.text = state ? "BUY" : "NO FUNDS";
+    //     _button.image.enabled = state;
+    //     return this;
+    // }
     
-    public CurrenyButton SetAvailable(bool state, string statement)
+    // public CurrenyButton SetAvailable(bool state, string statement)
+    // {
+    //     text.text = state ? statement : "NO FUNDS";
+    //     _button.image.enabled = state;
+    //     return this;
+    // }
+    //
+    // public CurrenyButton SetFull(bool state)
+    // {
+    //     text.text = state ? Onboarding.THIS.fullText : "BUY";
+    //     _button.image.enabled = !state;
+    //     return this;
+    // }
+    //
+    public Sprite ButtonSprite
     {
-        text.text = state ? statement : "NO FUNDS";
-        _button.image.enabled = state;
-        return this;
+        set => _button.image.sprite = value;
     }
-    
-    public CurrenyButton SetFull(bool state)
-    {
-        text.text = state ? Onboarding.THIS.fullText : "BUY";
-        _button.image.enabled = !state;
-        return this;
-    }
-    
     public CurrenyButton Set(string str, bool buttonImageActive)
     {
         text.text = str;

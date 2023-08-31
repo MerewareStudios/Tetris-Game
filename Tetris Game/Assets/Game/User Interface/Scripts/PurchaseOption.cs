@@ -1,39 +1,54 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
-using Internal.Core;
+using Febucci.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Febucci.UI.Core;
 
 public class PurchaseOption : MonoBehaviour
 {
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
+    [SerializeField] private TextAnimator_TMP titleText;
     [SerializeField] private TextMeshProUGUI detailedInfoText;
     [SerializeField] private Image frameOutline;
-    [TextArea] [SerializeField] private string detailedInfo;
-    [TextArea] [SerializeField] private string purchaseInfo;
+    [SerializeField] private Image icon;
     [System.NonSerialized] private Sequence _colorSequence;
 
-    public PurchaseOption SetPurchase(Const.Currency currency, bool able2Purchase)
+    public PurchaseOption SetPurchaseText(string text)
     {
-        purchaseButton.SetAvailable(able2Purchase);
-        priceCurrencyDisplay.Display(currency);
+        purchaseButton.Set(text, true);
         return this;
     }
-    public PurchaseOption SetDetailedInfo(int gain)
+    public PurchaseOption SetIcon(Sprite sprite)
     {
-        detailedInfoText.text = string.Format(detailedInfo, gain);
+        icon.sprite = sprite;
         return this;
     }
-    public string GetPurchaseInfo(int gain)
+    public PurchaseOption SetPurchase(Const.Currency currency, bool available)
     {
-        return string.Format(purchaseInfo, gain);
-    }
+        if (currency.type.Equals(Const.CurrencyType.Dollar))
+        {
+            priceCurrencyDisplay.DisplayRealMoneyWithFraction(currency);
+            purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
+        }
+        else
+        {
+            priceCurrencyDisplay.Display(currency);
+            purchaseButton.ButtonSprite = Const.THIS.getButtonTexture;
+        }
 
+        purchaseButton.Available = available;
+        return this;
+    }
+    
+    public PurchaseOption SetInfo(string title, string details)
+    {
+        titleText.SetText(title);
+        detailedInfoText.SetText(details);
+        return this;
+    }
     public void PunchColor(Color punchColor, Color defaultColor)
     {
         _colorSequence?.Kill();
