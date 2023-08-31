@@ -23,6 +23,10 @@ public static class Wallet
     
     public static bool HasFunds(Const.Currency currency)
     {
+        if (!Exists(currency))
+        {
+            return true;
+        }
         CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
         if (currencyTransactor)
@@ -32,15 +36,28 @@ public static class Wallet
 
         return true;
     }
+
+    public static bool Exists(Const.Currency currency)
+    {
+        return (int)currency.type < Wallet.CurrencyTransactors.Length;
+    }
     
     public static bool Transaction(Const.Currency currency)
     {
+        if (!Exists(currency))
+        {
+            return true;
+        }
         CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
         return !currencyTransactor || currencyTransactor.Transaction(currency.amount);
     }
     public static bool Consume(Const.Currency currency)
     {
+        if (!Exists(currency))
+        {
+            return true;
+        }
         CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
         return !currencyTransactor || currencyTransactor.Transaction(-currency.amount);

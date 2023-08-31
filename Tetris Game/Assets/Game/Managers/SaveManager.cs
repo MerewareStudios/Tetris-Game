@@ -2,6 +2,7 @@ using Internal.Core;
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Dreamteck.Splines.Primitives;
 using Game;
 using Game.UI;
 using IWI;
@@ -49,12 +50,16 @@ public class SaveManager : SaveManagerBase<SaveManager>
         BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
         WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
         PiggyMenu.THIS._Data = saveData.userData.piggyData;
-        UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
         Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
+    }
+
+    void Start()
+    {
+        UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
     }
 }
 public static class SaveManagerExtensions

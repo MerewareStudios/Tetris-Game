@@ -14,6 +14,7 @@ public class PurchaseOption : MonoBehaviour
     [SerializeField] private TextMeshProUGUI detailedInfoText;
     [SerializeField] private Image frameOutline;
     [SerializeField] private Image icon;
+    [SerializeField] private GameObject bestBadge;
     [System.NonSerialized] private Sequence _colorSequence;
 
     public PurchaseOption SetPurchaseText(string text)
@@ -42,7 +43,11 @@ public class PurchaseOption : MonoBehaviour
         purchaseButton.Available = available;
         return this;
     }
-    
+    public PurchaseOption SetBestBadge(bool value)
+    {
+        bestBadge.SetActive(value);
+        return this;
+    }
     public PurchaseOption SetInfo(string title, string details)
     {
         titleText.SetText(title);

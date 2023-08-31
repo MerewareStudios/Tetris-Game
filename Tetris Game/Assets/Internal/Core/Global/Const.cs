@@ -56,8 +56,8 @@ public class Const : SSingleton<Const>
     public Color acceptedFrameColor;
     public Color deniedFrameColor;
     
-    [Header("Visuals")] 
-    public DirectionRadiusPair[] rewardDirectionRadiusPair;
+    // [Header("Visuals")] 
+    // public DirectionRadiusPair[] rewardDirectionRadiusPair;
     
     [Header("Values")] 
     public float rotationDuration = 0.15f;
@@ -187,14 +187,14 @@ public static class ConstExtensions
     {
         return Const.THIS.enemyColors[health - 1];
     } 
-    public static Vector3 Direction(this int rewardCount)
-    {
-        return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].dir;
-    } 
-    public static float Radius(this int rewardCount)
-    {
-        return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].radius;
-    }
+    // public static Vector3 Direction(this int rewardCount)
+    // {
+    //     return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].dir;
+    // } 
+    // public static float Radius(this int rewardCount)
+    // {
+    //     return Const.THIS.rewardDirectionRadiusPair[rewardCount - 1].radius;
+    // }
     public static Const.RewardData RewardData(this PiggyMenu.PiggyReward.Type type)
     {
         return Const.THIS.rewardDatas[(int)type];

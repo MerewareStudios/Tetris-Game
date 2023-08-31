@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 91efffe04302fcb48b34e46fd0659889, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8039f9e51e4b41e4680a288d4ed5f06d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 91efffe04302fcb48b34e46fd0659889, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 8039f9e51e4b41e4680a288d4ed5f06d, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -90,7 +90,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
-    m_Scale: 3.19
+    m_Scale: 1.3
     m_Name: Ad
     m_HashCode: 2053
   - m_ElementType: 2
@@ -252,9 +252,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -69.04
-      m_HorizontalBearingY: 164.1
-      m_HorizontalAdvance: 118.3
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 211.1
+      m_HorizontalAdvance: 256
     m_GlyphRect:
       m_X: 256
       m_Y: 1024

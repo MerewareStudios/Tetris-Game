@@ -11,6 +11,7 @@ namespace Game.UI
         [Header("Purchase Options")]
         [SerializeField] private PurchaseOption[] purchaseOptions;
         [System.NonSerialized] private Data _data;
+        [System.NonSerialized] private bool oneTimeDataSet = false;
 
         public Data _Data
         {
@@ -39,6 +40,28 @@ namespace Game.UI
             }
         }
 
+        private void SetOneTimeData()
+        {
+            if (oneTimeDataSet)
+            {
+                return;
+            }
+            oneTimeDataSet = true;
+            for (int i = 0; i < purchaseOptions.Length; i++)
+            {
+                PurchaseOption purchaseOption = purchaseOptions[i];
+                PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
+
+                // bool hasFunds = Wallet.HasFunds(lookUp.currency);
+
+                purchaseOption
+                    .SetPurchaseText(lookUp.currency.type.Equals(Const.CurrencyType.Dollar) ? "BUY" : "GET")
+                    .SetIcon(lookUp.sprite)
+                    .SetBestBadge(lookUp.best)
+                    .SetInfo(lookUp.title, lookUp.info);
+            }
+        }
+
         private void Show()
         {
             for (int i = 0; i < purchaseOptions.Length; i++)
@@ -48,12 +71,9 @@ namespace Game.UI
 
                 bool hasFunds = Wallet.HasFunds(lookUp.currency);
 
-                purchaseOption
-                    .SetPurchaseText(lookUp.currency.type.Equals(Const.CurrencyType.Dollar) ? "BUY" : "GET")
-                    .SetIcon(lookUp.sprite)
-                    .SetPurchase(lookUp.currency, hasFunds)
-                    .SetInfo(lookUp.title, lookUp.info);
+                purchaseOption.SetPurchase(lookUp.currency, hasFunds);
             }
+            SetOneTimeData();
         }
 
         public void OnClick_Purchase(int purchaseIndex)
@@ -62,7 +82,7 @@ namespace Game.UI
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
 
-            if (!Wallet.Transaction(lookUp.currency))
+            if (!Wallet.Consume(lookUp.currency))
             {
                 purchaseOptions[purchaseIndex].PunchColor(Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
                 purchaseOptions[purchaseIndex].Punch(new Vector3(-50.0f, 0.0f));
@@ -72,7 +92,43 @@ namespace Game.UI
             purchaseOptions[purchaseIndex].PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
             purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, 30.0f));
 
-            
+
+            switch ((PurchaseType)purchaseIndex)
+            {
+                case PurchaseType.MaxStack:
+                    
+                    break;
+                case PurchaseType.BuySkipTicket:
+                    
+                    break;
+                case PurchaseType.MedKit:
+                    
+                    break;
+                case PurchaseType.BuyCoin:
+                    
+                    break;
+                case PurchaseType.Shield:
+                    
+                    break;
+                case PurchaseType.BuyPiggyCoin:
+                    
+                    break;
+                case PurchaseType.PiggyCapacity:
+                    
+                    break;
+                case PurchaseType.BasicChest:
+                    
+                    break;
+                case PurchaseType.PrimeChest:
+                    
+                    break;
+                case PurchaseType.PrestigeChest:
+                    
+                    break;
+                case PurchaseType.RemoveAds:
+                    
+                    break;
+            }
             // Toast.Show(purchaseOption.GetPurchaseInfo(purchaseData.gain), 0.5f);
             
             // UpgradeType upgradeType = (UpgradeType)purchaseIndex;
@@ -102,7 +158,6 @@ namespace Game.UI
         [Serializable]
         public enum PurchaseType
         {
-            Chest,
             MaxStack,
             BuySkipTicket,
             MedKit,
@@ -110,6 +165,10 @@ namespace Game.UI
             Shield,
             BuyPiggyCoin,
             PiggyCapacity,
+            BasicChest,
+            PrimeChest,
+            PrestigeChest,
+            RemoveAds,
         }
 
         [System.Serializable]
@@ -157,6 +216,7 @@ namespace Game.UI
             [SerializeField] public Sprite sprite;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
+            [SerializeField] public bool best = false;
             [SerializeField] public int seconds;
         } 
         
