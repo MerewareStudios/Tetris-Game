@@ -260,7 +260,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 50
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 7b1fd934843bbc24e82b1f48879499b6, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: +1 Stack
     best: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
     currency:
       type: 3
       amount: 1
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: db3f127cf7e28f546820257b12c577db, type: 3}
     title: <bounce a=0.05 f=1>COIN PACK
     info: <sprite name=Coin> x200
     best: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 50
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
     title: <bounce a=0.05 f=1>EXTRA SHIELD
     info: <sprite name=Shield> x25
     best: 0
@@ -305,8 +305,8 @@ MonoBehaviour:
     currency:
       type: 3
       amount: 1
-    sprite: {fileID: 0}
-    title: <bounce a=0.05 f=1>PIGGY COIN
+    sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
+    title: <bounce a=0.05 f=1>PIGGY COIN PACK
     info: <sprite name=PiggyCoin> x100
     best: 0
     seconds: 0
@@ -314,7 +314,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 25
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
     title: <bounce a=0.05 f=1>PIGGY CAPACITY
     info: +25
     best: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
     currency:
       type: 3
       amount: 5
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
     title: <bounce a=0.05 f=1>BASIC CHEST
     info: '<sprite name=Coin> x25
 
@@ -337,7 +337,7 @@ MonoBehaviour:
     currency:
       type: 3
       amount: 7
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
     title: <bounce a=0.05 f=1>PRIME CHEST
     info: '<sprite name=Coin> x50
 
@@ -351,7 +351,7 @@ MonoBehaviour:
     currency:
       type: 3
       amount: 9
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
     title: <bounce a=0.05 f=1>PRESTIGE CHEST
     info: '<sprite name=Coin> x100
 
@@ -365,7 +365,7 @@ MonoBehaviour:
     currency:
       type: 3
       amount: 10
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
     title: <bounce a=0.05 f=1>REMOVE ADS
     info: 'Remove
 
@@ -506,25 +506,6 @@ MonoBehaviour:
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.8117647}
   acceptedFrameColor: {r: 0, g: 1, b: 0.15510082, a: 1}
   deniedFrameColor: {r: 1, g: 0.12694877, b: 0, a: 1}
-  rewardDirectionRadiusPair:
-  - dir: {x: 0, y: 0, z: 0}
-    radius: 0
-  - dir: {x: 1, y: 0, z: 0}
-    radius: 187.5
-  - dir: {x: 0, y: 1, z: 0}
-    radius: 194.8
-  - dir: {x: 1, y: 1, z: 0}
-    radius: 176.7
-  - dir: {x: 0, y: 1, z: 0}
-    radius: 275
-  - dir: {x: 0, y: 1, z: 0}
-    radius: 328.6
-  - dir: {x: 0, y: 1, z: 0}
-    radius: 368
-  - dir: {x: 0, y: 1, z: 0}
-    radius: 415.71
-  - dir: {x: 0, y: 1, z: 0}
-    radius: 453.74
   rotationDuration: 0.15
   jumpDuration: 0.1875
   jumpPower: {x: 0, y: 0.5, z: 0}
