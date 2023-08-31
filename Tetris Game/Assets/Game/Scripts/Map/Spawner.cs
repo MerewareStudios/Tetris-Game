@@ -112,7 +112,7 @@ public class Spawner : Singleton<Spawner>
             
                     if (ONBOARDING.TEACH_PICK.IsNotComplete())
                     {
-                        UIManager.THIS.finger.Hide();
+                        Onboarding.HideFinger();
                     }
                 }
 
@@ -141,7 +141,7 @@ public class Spawner : Singleton<Spawner>
             if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.LEARN_ROTATION.IsNotComplete())
             {
                 ONBOARDING.LEARN_ROTATION.SetComplete();
-                UIManager.THIS.finger.Hide();
+                Onboarding.HideFinger();
             }
         }
     }

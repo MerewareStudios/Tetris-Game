@@ -18,6 +18,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
   - {fileID: 11400000, guid: 1bcbd2651be768b47b3b5cd6e9d92aa6, type: 2}
   - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
   PowerUps: 0300000004000000
   DefaultPlayerData:
     time: 0
@@ -104,14 +114,14 @@ MonoBehaviour:
     gunType: 24
     sprite: {fileID: 21300000, guid: 884504ef77e9b214e8b37b52768e6eb1, type: 3}
     defaultValues: 010000000100000001000000
-    damagePrice:
-    - type: 0
-      amount: 15
-    - type: 0
-      amount: 20
+    damagePrice: []
     fireRatePrice:
     - type: 0
       amount: 10
+    - type: 0
+      amount: 20
+    - type: 0
+      amount: 30
     splitShotPrice: []
   - currency:
       type: 0

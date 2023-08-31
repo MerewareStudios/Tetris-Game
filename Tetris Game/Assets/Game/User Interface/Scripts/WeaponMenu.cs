@@ -82,6 +82,23 @@ namespace Game.UI
 
             SetStats(damage, rate, split);
             
+            
+            if (ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
+            {
+                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
+                {
+                    Onboarding.ClickOn(stageBarFireRate.clickTarget.position, false, () =>
+                    {
+                        stageBarFireRate.PunchPurchaseButton(0.2f);
+                    });
+                }
+                else
+                {
+                    Onboarding.HideFinger();
+                }
+            }
+            
+            
             if (!purchasedWeapon)
             {
                 SetPrice(_gunUpgradeData.currency);
@@ -113,7 +130,6 @@ namespace Game.UI
             stageBar
                 .SetPrice(price)
                 .SetInteractable(Wallet.HasFunds(price));
-            
         }
         
         public void SetStats(int damage, int rate, int split)
@@ -190,6 +206,7 @@ namespace Game.UI
                 _weaponShopData.Purchase();
 
                 OnClick_Equip();
+                
 
                 // if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
                 // {
@@ -260,6 +277,13 @@ namespace Game.UI
                 if (_weaponShopData.Equipped)
                 {
                     OnGunDataChanged?.Invoke(EquippedGunData);
+                }
+                
+                if (ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
+                {
+                    ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
+                    ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
+                    Onboarding.HideFinger();
                 }
                 
                 Show();

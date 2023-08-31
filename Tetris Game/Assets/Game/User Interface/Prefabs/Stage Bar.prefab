@@ -373,7 +373,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -83}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4961995795787951690
@@ -442,7 +442,7 @@ MonoBehaviour:
   - {fileID: 5976975408259216737}
   purchaseButton: {fileID: 4661480364163048441}
   currencyDisplay: {fileID: 6871920544934319700}
-  infoText: {fileID: 0}
+  clickTarget: {fileID: 6965924649663279028}
 --- !u!1001 &14860692421351693
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class StageBar : MonoBehaviour
     [SerializeField] private Image[] images;
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private CurrencyDisplay currencyDisplay;
+    [SerializeField] public RectTransform clickTarget;
 
     
     public StageBar SetCurrencyStampVisible(bool state)
@@ -57,6 +59,15 @@ public class StageBar : MonoBehaviour
     private void SetBar(int index, BarStat barStat)
     {
         images[index].color = barColors[(int)barStat];
+    }
+    
+    public void PunchPurchaseButton(float amount)
+    {
+        Transform buttonTransform = purchaseButton.transform;
+        buttonTransform.DOKill();
+        buttonTransform.localEulerAngles = Vector3.zero;
+        buttonTransform.localScale = Vector3.one;
+        buttonTransform.DOPunchScale(Vector3.one * amount, 0.3f, 1).SetUpdate(true);
     }
 
     [Serializable]

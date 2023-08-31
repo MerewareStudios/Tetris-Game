@@ -576,7 +576,7 @@ namespace Game
             _suggestTween = DOVirtual.DelayedCall(1.4f, () =>
             {
                 Highlight();
-            });
+            }).SetUpdate(false);
 
             _suggestTween.SetLoops(-1);
         }

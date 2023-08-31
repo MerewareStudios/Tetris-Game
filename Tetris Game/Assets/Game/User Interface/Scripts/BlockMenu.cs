@@ -18,8 +18,6 @@ namespace Game.UI
         [SerializeField] private RectTransform buttonClickTarget;
         [SerializeField] private Image frame;
         [SerializeField] private Color upgradeColor, purchaseColor;
-        // [SerializeField] private TextAnimator_TMP topTextAnimator;
-        // [SerializeField] private TextAnimator_TMP purchasedText;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
         [SerializeField] private RectTransform newTextBanner;
@@ -70,9 +68,6 @@ namespace Game.UI
             {
                 PunchNewBanner(0.4f);
             }
-            
-            // topTextAnimator.SetText(purchasedBlock ? "" : Onboarding.THIS.newBlockText);
-            // purchasedText.SetText(purchasedBlock ? Onboarding.THIS.ownedText : "");
 
             currencyDisplay.gameObject.SetActive(!purchasedBlock);
             purchaseButton.gameObject.SetActive(!purchasedBlock);
@@ -176,8 +171,7 @@ namespace Game.UI
                 if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_BLOCK.SetComplete();
-                    ONBOARDING.USE_BLOCK_TAB.SetComplete();
-                    // MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
+                    ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
                     Onboarding.HideFinger();
                 }
                 Show();
@@ -188,10 +182,8 @@ namespace Game.UI
         [System.Serializable]
         public class BlockShopData : ICloneable
         {
-            // [SerializeField] public List<BlockData> blockDatas = new();
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
-            // [System.NonSerialized] public Dictionary<Pool, BlockData> blockDataDic;
 
             public BlockShopData()
             {
@@ -199,45 +191,26 @@ namespace Game.UI
             }
             public BlockShopData(BlockShopData blockShopData)
             {
-                // blockDatas.CopyFrom(blockShopData.blockDatas);
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
             }
-
-            // private void FillDic()
-            // {
-            //     blockDataDic = new Dictionary<Pool, BlockData>();
-            //     // foreach (var blockData in blockDatas)
-            //     // {
-            //     //     blockDataDic.Add(blockData.blockType, blockData);
-            //     // }
-            // }
             public Pool GetRandomBlock()
             {
                 return unlockedBlocks.Random<Pool>();
             }
-            // public int[] LookUps(Pool pool)
-            // {
-            //     if (blockDataDic == null)
-            //     {
-            //         FillDic();
-            //     }
-            //     return blockDataDic[pool].lookUp;
-            // }
             public bool AddUnlockedBlock(BlockData blockData)
             {
-                if (HaveBlock(blockData.blockType)) return false;
-                
+                if (HaveBlock(blockData.blockType))
+                {
+                    return false;
+                }
                 unlockedBlocks.Add(blockData.blockType);
-
                 return true;
             }
-
             public bool HaveBlock(Pool pool)
             {
                 return unlockedBlocks.Contains(pool);
             }
-            
             public object Clone()
             {
                 return new BlockShopData(this);
@@ -250,7 +223,6 @@ namespace Game.UI
             [SerializeField] public Pool blockType;
             [SerializeField] public Const.Currency currency;
             [SerializeField] public int[] lookUp;
-            // [SerializeField] public int trackIndex = 0;
             
             public BlockData()
             {
@@ -261,24 +233,7 @@ namespace Game.UI
                 this.blockType = blockData.blockType;
                 this.currency = blockData.currency;
                 this.lookUp = blockData.lookUp.Clone() as int[];
-                // this.trackIndex = blockData.trackIndex;
             }
-            // public bool Upgrade()
-            // {
-            //     if (trackIndex >= lookUp.Length)
-            //     {
-            //         trackIndex = 0;
-            //     }
-            //     if (lookUp[trackIndex] <= 0)
-            //     {
-            //         trackIndex++;
-            //         Upgrade();
-            //         return false;
-            //     }
-            //     lookUp[trackIndex]++;
-            //     trackIndex++;
-            //     return true;
-            // }
             public object Clone()
             {
                 return new BlockData(this);

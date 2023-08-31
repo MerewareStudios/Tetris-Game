@@ -69,16 +69,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: I need bullets!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 323ad0eb805f4a542b5f3a091c7982e8, type: 2}
-  m_sharedMaterial: {fileID: -7252815453507711536, guid: 323ad0eb805f4a542b5f3a091c7982e8,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 64f87d86dc2bea340917fa9857a01a35, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c864fba5e3ed36d40a81e2eb31d0f87c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
