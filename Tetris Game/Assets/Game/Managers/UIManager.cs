@@ -42,6 +42,7 @@ public class UIManager : Singleton<UIManager>
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
    [SerializeField] public Finger finger;
+   [System.NonSerialized] public static IMenu currentMenu = null;
 
 
    // Make them info list
@@ -98,6 +99,13 @@ public class UIManager : Singleton<UIManager>
    }
 #endif
 
+   public static void ForceUpdateAvailableMenu()
+   {
+      if (UIManager.currentMenu != null)
+      {
+         UIManager.currentMenu.Show();
+      }
+   }
 
    public static void MenuMode(bool value)
    {

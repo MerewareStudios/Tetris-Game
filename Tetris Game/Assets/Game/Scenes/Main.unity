@@ -2873,7 +2873,7 @@ MonoBehaviour:
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!1001 &1252688684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0be4d6b0a8decd47847ecff56a920d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiTouchEnabled: 1
+  multiTouchEnabled: 0
   targetFrameRate: 60
   fpsText: {fileID: 1411092491}
 --- !u!1001 &1379936941
@@ -4680,6 +4680,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2335112254709691534, guid: 69d6fa9ea9d67a24a9a012260545db4b,
+        type: 3}
+      propertyPath: updateOnMoneyChange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2911292811842455799, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4688,7 +4693,7 @@ PrefabInstance:
     - target: {fileID: 2911292811842455799, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.625
+      value: 243.51003
       objectReference: {fileID: 0}
     - target: {fileID: 3647917920111936274, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
@@ -6600,9 +6605,44 @@ PrefabInstance:
       objectReference: {fileID: 1072706233}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnArrive.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 228455767}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 949660115}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ForceUpdateAvailableMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8604119203136572944, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: m_Camera
@@ -8171,6 +8211,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.859862
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8598617
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.859862
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99628174
       objectReference: {fileID: 0}
@@ -9438,6 +9493,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -137.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
+        type: 3}
+      propertyPath: updateOnMoneyChange
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2928664227830478969, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
         type: 3}

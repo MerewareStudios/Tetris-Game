@@ -180,7 +180,7 @@ namespace Game
             Busy = true;
 
             _motionTween?.Kill();
-            _motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), Const.THIS.rotationDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
+            _motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
             _motionTween.onUpdate += () => 
                 {
                     ResetSegmentRotations();

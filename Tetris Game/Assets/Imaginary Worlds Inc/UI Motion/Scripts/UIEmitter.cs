@@ -195,6 +195,11 @@ namespace IWI.UI
                     {
                         OnAllArriveAction?.Invoke();
                     }
+
+                    if (Idle)
+                    {
+                        callbackSettings.OnComplete?.Invoke();
+                    }
                 };
             }
         }
@@ -228,6 +233,8 @@ namespace IWI.UI
         #endregion
 
         private float Now => _timeOffset + Time.time;
+        private bool Idle => _imageQueue.Count == imageSettings.maxImageCount;
+        private int AliveCount => imageSettings.maxImageCount - _imageQueue.Count;
 
         void OnDestroy()
         {
@@ -306,6 +313,7 @@ namespace IWI.UI
     {
         [SerializeField] public UnityEvent<int> OnArrive;
         [SerializeField] public UnityEvent OnAllArrive;
+        [SerializeField] public UnityEvent OnComplete;
     }
     
     [Serializable]

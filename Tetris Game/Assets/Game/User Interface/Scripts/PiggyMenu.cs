@@ -57,8 +57,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         Wallet.ScaleTransactors(1.0f);
         return false;
     }
-    private void Show()
+    public new void Show()
     {
+        base.Show();
+        
         UIManager.MenuMode(true);
         Wallet.ScaleTransactors(1.5f, true);
         _Data = _data;

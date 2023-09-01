@@ -48,8 +48,10 @@ namespace Game.UI
             }
         }
 
-        private void Show()
+        public new void Show()
         {
+            base.Show();
+            
             int showIndex = _blockShopData.lastIndex;
             string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
             this._blockData = Const.THIS.DefaultBlockData[showIndex];

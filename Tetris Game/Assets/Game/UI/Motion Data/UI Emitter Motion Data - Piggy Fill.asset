@@ -64,10 +64,10 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0.1
-      m_ConstantMax: 0.35
+      m_ConstantMin: 0.05
+      m_ConstantMax: 0.25
     endDelay:
-      m_Mode: 3
+      m_Mode: 0
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2

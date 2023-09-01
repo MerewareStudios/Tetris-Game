@@ -62,8 +62,9 @@ namespace Game.UI
             }
         }
 
-        private void Show()
+        public new void Show()
         {
+            base.Show();
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];

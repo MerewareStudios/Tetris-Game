@@ -21,6 +21,7 @@ namespace Game.UI
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Image _blocker;
+        [SerializeField] private bool updateOnMoneyChange = true;
         [System.NonSerialized] private Tween showTween;
         [System.NonSerialized] protected bool Visible = false;
 
@@ -41,6 +42,11 @@ namespace Game.UI
                 _blocker.raycastTarget = false;
             }).SetUpdate(true);
 
+            if (updateOnMoneyChange)
+            {
+                UIManager.currentMenu = this;
+            }
+            
             return false;
         }
         
@@ -61,7 +67,15 @@ namespace Game.UI
 
             }).SetDelay(delay).SetUpdate(true);
 
+            if (updateOnMoneyChange)
+            {
+                UIManager.currentMenu = null;
+            }            
             return false;
+        }
+        public void Show()
+        {
+            
         }
         public RectTransform GetParentContainer()
         {
@@ -85,6 +99,7 @@ namespace Game.UI
     {
         bool Open(float duration = 0.25f);
         bool Close(float duration = 0.5f, float delay = 0.0f);
+        public void Show();
         RectTransform GetParentContainer();
     }
 }

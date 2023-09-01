@@ -56,7 +56,6 @@ public class Const : SSingleton<Const>
     public Color deniedFrameColor;
     
     [Header("Values")] 
-    public float rotationDuration = 0.15f;
     public float jumpDuration = 0.15f;
     public Vector3 jumpPower;
     public Ease rotationEase;

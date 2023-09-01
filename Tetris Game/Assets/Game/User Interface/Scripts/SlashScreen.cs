@@ -31,6 +31,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     public class SlashAnimationSettings
     {
         [SerializeField] public Ease slashShowEase;
+        [SerializeField] public float slashShowOvershoot;
         [SerializeField] public float slashShowDur;
         [SerializeField] public Ease expandShowEase;
         [SerializeField] public float expandShowDur;
@@ -40,13 +41,14 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         [SerializeField] public bool bottomPivotActive;
         [SerializeField] public bool victoryImageActive;
         [SerializeField] public bool failImageActive;
+        [SerializeField] public Color centerColor;
     }
     
     public void Show(State state, float delay, Const.Currency currency)
     {
         this.gameObject.SetActive(true);
-        ResetSelf();
         SlashAnimationSettings slashAnimationSettings = null;
+        ResetSelf();
         switch (state)
         {
             case State.Victory:
@@ -72,8 +74,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         bottomBannerImage.DOKill();
         
 
-        topBannerImage.color = animationSettingsVictory.bannerGradient.Evaluate(0.0f);
-        bottomBannerImage.color = animationSettingsVictory.bannerGradient.Evaluate(0.0f);
+        
 
         centerImage.rectTransform.sizeDelta = new Vector2(distance, centerMinHeight);
     }
@@ -89,8 +90,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         
         bottomPivot.gameObject.SetActive(animationSettings.bottomPivotActive);
         
-        Tween topSlash = topPivot.DOAnchorPos(Vector3.zero, animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase);
-        Tween bottomSlash = bottomPivot.DOAnchorPos(Vector3.zero, animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase);
+        Tween topSlash = topPivot.DOAnchorPos(Vector3.zero, animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase, animationSettings.slashShowOvershoot);
+        Tween bottomSlash = bottomPivot.DOAnchorPos(Vector3.zero, animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase, animationSettings.slashShowOvershoot);
 
        
 
@@ -101,6 +102,10 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             bottomPivot.gameObject.SetActive(true);
         });
         
+        centerImage.color = animationSettings.centerColor;
+        topBannerImage.color = animationSettings.bannerGradient.Evaluate(0.0f);
+        bottomBannerImage.color = animationSettings.bannerGradient.Evaluate(0.0f);
+
         Tween gradientTop = topBannerImage.DOColor(animationSettings.bannerGradient.Evaluate(1.0f), animationSettings.colorShowDuration).SetEase(Ease.InOutSine);
         Tween gradientBottom = bottomBannerImage.DOColor(animationSettings.bannerGradient.Evaluate(1.0f), animationSettings.colorShowDuration).SetEase(Ease.InOutSine);
         
@@ -111,8 +116,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
 
         _sequence.onComplete += () =>
         {
-            Hide(animationSettingsHide, 0.0f);
-            DOVirtual.DelayedCall(0.25f, () =>
+            Hide(animationSettingsHide, 0.2f);
+            DOVirtual.DelayedCall(0.45f, () =>
             {
                 UIManagerExtensions.EmitLevelRewardCoin(currencyDisplay.iconPivot.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount, () =>
                 {
@@ -125,8 +130,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     private void Hide(SlashAnimationSettings animationSettings, float delay)
     {
         Tween shrink = centerImage.rectTransform.DOSizeDelta(new Vector2(distance, centerMinHeight), animationSettings.expandShowDur).SetEase(animationSettings.expandShowEase).SetDelay(animationSettings.expandDelay);
-        Tween topSlash = topPivot.DOAnchorPos(new Vector2(distance, 0.0f), animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase);
-        Tween bottomSlash = bottomPivot.DOAnchorPos(new Vector2(-distance, 0.0f), animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase);
+        Tween topSlash = topPivot.DOAnchorPos(new Vector2(distance, 0.0f), animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase, animationSettings.slashShowOvershoot);
+        Tween bottomSlash = bottomPivot.DOAnchorPos(new Vector2(-distance, 0.0f), animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase, animationSettings.slashShowOvershoot);
         
         
         _sequence = DOTween.Sequence();

@@ -55,8 +55,9 @@ namespace Game.UI
             }
         }
 
-        private void Show()
+        public new void Show()
         {
+            base.Show();
             bool purchasedWeapon = _weaponShopData.Purchased;
             bool equippedWeapon = _weaponShopData.Equipped;
 
