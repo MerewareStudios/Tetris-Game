@@ -21,6 +21,7 @@ namespace Game.UI
         [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private RectTransform stageBarParent;
         [SerializeField] private RectTransform purchaseParent;
+        [SerializeField] private RectTransform purchaseClickTarget;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
         [SerializeField] private RectTransform priceTextPivot;
@@ -61,8 +62,8 @@ namespace Game.UI
             bool purchasedWeapon = _weaponShopData.Purchased;
             bool equippedWeapon = _weaponShopData.Equipped;
 
-            purchaseParent.gameObject.SetActive(!purchasedWeapon);
             stageBarParent.gameObject.SetActive(purchasedWeapon);
+            purchaseParent.gameObject.SetActive(!purchasedWeapon);
             equipButton.gameObject.SetActive(purchasedWeapon && !equippedWeapon);
             
             _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
@@ -84,13 +85,31 @@ namespace Game.UI
             SetStats(damage, rate, split);
             
             
-            if (ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
+            if (stageBarParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
             {
                 if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
                 {
                     Onboarding.ClickOn(stageBarFireRate.clickTarget.position, false, () =>
                     {
                         stageBarFireRate.PunchPurchaseButton(0.2f);
+                    });
+                }
+                else
+                {
+                    Onboarding.HideFinger();
+                }
+            }
+            if (purchaseParent.gameObject.activeSelf &&ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
+            {
+                if (Wallet.HasFunds(_gunUpgradeData.currency))
+                {
+                    Onboarding.ClickOn(purchaseClickTarget.position, false, () =>
+                    {
+                        Transform buttonTransform = purchaseButton.transform;
+                        buttonTransform.DOKill();
+                        buttonTransform.localEulerAngles = Vector3.zero;
+                        buttonTransform.localScale = Vector3.one;
+                        buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
                     });
                 }
                 else
@@ -208,15 +227,11 @@ namespace Game.UI
 
                 OnClick_Equip();
                 
-
-                // if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
-                // {
-                //     ONBOARDING.LEARN_TO_PURCHASE_BLOCK.SetComplete();
-                //     ONBOARDING.USE_BLOCK_TAB.SetComplete();
-                //     // MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
-                //     Onboarding.HideFinger();
-                // }
-                // Show();
+                if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
+                {
+                    ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
+                    Onboarding.HideFinger();
+                }
             }
         }
 

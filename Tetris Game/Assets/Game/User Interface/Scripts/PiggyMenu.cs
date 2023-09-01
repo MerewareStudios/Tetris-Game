@@ -35,6 +35,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [Header("Reward")]
     [SerializeField] private Transform clickLocation_Invest;
     [SerializeField] private Transform clickLocation_Continue;
+    [SerializeField] private Transform clickLocation_Break;
 
     
     #region Menu
@@ -93,6 +94,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 {
                     Onboarding.ClickOn(clickLocation_Invest.position, false, () =>
                     {
+                        investButton.transform.DOKill();
+                        investButton.transform.localScale = Vector3.one;
                         investButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
                     });
                 }
@@ -159,10 +162,22 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             base.CloseImmediate();
             RewardScreen.THIS.ShowFakeCards();
         });
+        
+        if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
+        {
+            ONBOARDING.LEARN_TO_BREAK.SetComplete();
+            Onboarding.HideFinger();
+        }
     }
     public void OnClick_InvestPiggyBank()
     {
         int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
+        amount = Mathf.Clamp(amount, 0, _Data.Remaining);
+        if (amount == 0)
+        {
+            return;
+        }
+        
         InvestAnimated(new Const.Currency(Wallet.COIN.Currency.type, amount));
 
         investButton.targetGraphic.raycastTarget = false;
@@ -178,6 +193,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             continueButton.gameObject.SetActive(false);
         };
+        
         
         if (ONBOARDING.LEARN_TO_INVEST.IsNotComplete())
         {
@@ -250,7 +266,18 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     breakButton.gameObject.SetActive(true);
                     breakButton.transform.DOKill();
                     breakButton.transform.localScale = Vector3.one;
-                    breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true);
+                    breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true).onComplete = () =>
+                    {
+                        if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
+                        {
+                            Onboarding.ClickOn(clickLocation_Break.position, false, () =>
+                            {
+                                breakButton.transform.DOKill();
+                                breakButton.transform.localScale = Vector3.one;
+                                breakButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                            });
+                        }
+                    };
                     
                     _markedProgressPiggy.gameObject.SetActive(false);
                     
@@ -274,28 +301,33 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 }
                 else
                 {
-                    continueButton.gameObject.SetActive(true);
-                    continueButton.transform.DOKill();
-                    continueButton.transform.position = investButton.transform.position;
-                    continueButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
-                        () =>
-                        {
-                            continueButton.targetGraphic.raycastTarget = true;
-                            
-                            
-                            if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
-                            {
-                                Onboarding.ClickOn(clickLocation_Continue.position, false, () =>
-                                {
-                                    continueButton.transform.DOKill();
-                                    continueButton.transform.localScale = Vector3.one;
-                                    continueButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
-                                });
-                            }
-                            
-                        };
+                    ShowContinueButton();
                 }
             });
+    }
+
+    private void ShowContinueButton()
+    {
+        continueButton.gameObject.SetActive(true);
+        continueButton.transform.DOKill();
+        continueButton.transform.position = investButton.transform.position;
+        continueButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
+            () =>
+            {
+                continueButton.targetGraphic.raycastTarget = true;
+                            
+                            
+                if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
+                {
+                    Onboarding.ClickOn(clickLocation_Continue.position, false, () =>
+                    {
+                        continueButton.transform.DOKill();
+                        continueButton.transform.localScale = Vector3.one;
+                        continueButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                    });
+                }
+                            
+            };
     }
     private void InvestAnimated(Const.Currency currency)
     {
@@ -340,6 +372,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             public float PiggyPercent => currentMoney.amount / (float)moneyCapacity;
             public bool IsFull => currentMoney.amount >= moneyCapacity;
             public Const.Currency Percent2Money(float percent) => new Const.Currency(currentMoney.type, (int)Mathf.Lerp(0.0f, moneyCapacity, percent));
+            public int Remaining => moneyCapacity - currentMoney.amount;
             public int RewardCount => rewards.Count;
             public bool RewardsWaiting => rewards.Count > 0;
 

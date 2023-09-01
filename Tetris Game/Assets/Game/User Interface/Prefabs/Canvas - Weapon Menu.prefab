@@ -1176,6 +1176,7 @@ MonoBehaviour:
   canvas: {fileID: 1764179146799194572}
   canvasGroup: {fileID: 3260775144644934614}
   _blocker: {fileID: 1847163080739300171}
+  updateOnMoneyChange: 1
   stageBarDamage: {fileID: 5263773631436745253}
   stageBarFireRate: {fileID: 2137664936923186284}
   stageBarSplitShot: {fileID: 7196575194297301887}
@@ -1184,6 +1185,7 @@ MonoBehaviour:
   equippedTextBanner: {fileID: 5739733788645733611}
   stageBarParent: {fileID: 5070264132265325361}
   purchaseParent: {fileID: 3831110748260749200}
+  purchaseClickTarget: {fileID: 4454387118084748279}
   currencyDisplay: {fileID: 5336801764067201346}
   purchaseButton: {fileID: 1367563538118758381}
   priceTextPivot: {fileID: 8057015040381408439}
@@ -1235,7 +1237,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8668352636153950466
 MonoBehaviour:
   m_ObjectHideFlags: 0
