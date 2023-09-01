@@ -772,12 +772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSystems:
-  - {fileID: 1215137823204173186, guid: ab2eb230630bb3d478f9204fee240345, type: 3}
   - {fileID: 5094943319427585628, guid: c4860d54f38512a44a60636062611bd5, type: 3}
-  - {fileID: 2784790271907757722, guid: 7dd5caaa64bfddf42b19546cbe6e5840, type: 3}
-  - {fileID: 8188206205364553825, guid: f2de0b34186f86d41850e60ba1e448cb, type: 3}
   - {fileID: 2454123482817471278, guid: 82f8a2620ef98d74daac956814e77ac1, type: 3}
-  - {fileID: 6666957586002756635, guid: ff00d35ab9848b942847ff923b2397be, type: 3}
   - {fileID: 8842786536726778492, guid: af604a8c9f4d6804c8851edf088b6169, type: 3}
   - {fileID: 2882704853452454927, guid: 4b0eb94cf50c22445bb346383d666b7d, type: 3}
   - {fileID: 1915668213165803795, guid: 05e48b05d632c494e93e02b85b28511c, type: 3}
