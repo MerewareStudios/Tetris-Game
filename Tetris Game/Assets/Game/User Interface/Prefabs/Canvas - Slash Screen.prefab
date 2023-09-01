@@ -478,9 +478,7 @@ MonoBehaviour:
   topBannerImage: {fileID: 408369359073698018}
   bottomBannerImage: {fileID: 4356194206893404599}
   victoryImage: {fileID: 3233418964760137358}
-  victoryBonusImage: {fileID: 0}
   failImage: {fileID: 3351723916932617608}
-  victoryFailImage: {fileID: 0}
   distance: 3000
   centerMinHeight: -30
   centerMaxHeight: 350

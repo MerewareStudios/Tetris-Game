@@ -5704,7 +5704,7 @@ PrefabInstance:
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
       propertyPath: m_text
-      value: I need <size=120%><color=#53A4FF>ammo</color> </size>!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
@@ -5714,17 +5714,17 @@ PrefabInstance:
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
       propertyPath: m_fontColor.b
-      value: 0.19999999
+      value: 0.043137256
       objectReference: {fileID: 0}
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
       propertyPath: m_fontColor.g
-      value: 0.829749
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
       propertyPath: m_fontColor.r
-      value: 1
+      value: 0.7254902
       objectReference: {fileID: 0}
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
@@ -8212,17 +8212,17 @@ PrefabInstance:
     - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.859862
+      value: 2.2872581
       objectReference: {fileID: 0}
     - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.8598617
+      value: 2.287258
       objectReference: {fileID: 0}
     - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.859862
+      value: 2.2872581
       objectReference: {fileID: 0}
     - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
@@ -8238,6 +8238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -9.885
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
