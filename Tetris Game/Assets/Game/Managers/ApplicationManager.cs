@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ApplicationManager : Singleton<ApplicationManager>
 {
+    [SerializeField] public bool multiTouchEnabled = false;
     [SerializeField] public int targetFrameRate = 60;
     [SerializeField] public TextMeshProUGUI fpsText;
     [System.NonSerialized] public int fps;
@@ -14,6 +15,8 @@ public class ApplicationManager : Singleton<ApplicationManager>
 
     public virtual void Awake()
     {
+        Input.multiTouchEnabled = multiTouchEnabled;
+        
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
      Debug.unityLogger.logEnabled = false; 
 #endif

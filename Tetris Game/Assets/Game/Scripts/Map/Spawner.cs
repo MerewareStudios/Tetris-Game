@@ -83,6 +83,10 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDown()
     {
+        if (Input.touchCount > 1)
+        {
+            return;
+        }
         if (!IsTouchingSpawner(Input.mousePosition) || !_currentBlock)
         {
             return;
@@ -125,26 +129,40 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnClick()
     {
+        if (Input.touchCount > 1)
+        {
+            return;
+        }
         if (!IsTouchingSpawner(Input.mousePosition) || !_currentBlock || _grabbedBlock)
         {
             return;
         }
 
-        if (!_currentBlock.Busy)
+        if (_currentBlock.Busy)
         {
-            AnimateTap();
-            _currentBlock.Rotate();
+            return;
+        }
+        
+        AnimateTap();
+        _currentBlock.Rotate();
             
-            if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.LEARN_ROTATION.IsNotComplete())
-            {
-                ONBOARDING.LEARN_ROTATION.SetComplete();
-                Onboarding.HideFinger();
-            }
+        if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.LEARN_ROTATION.IsNotComplete())
+        {
+            ONBOARDING.LEARN_ROTATION.SetComplete();
+            Onboarding.HideFinger();
         }
     }
     public void Input_OnDrag()
     {
+        if (Input.touchCount > 1)
+        {
+            return;
+        }
         if (!_currentBlock)
+        {
+            return;
+        }
+        if (_currentBlock.Busy)
         {
             return;
         }
@@ -167,23 +185,11 @@ public class Spawner : Singleton<Spawner>
 
     private void CalculateFingerOffset()
     {
-        // Recalculate of the mesh collider position changes
         Vector3 startPosition = new Vector3(0.00f, 0.26f, -3.30f);
-        // Vector3 startPosition = Vector3.zero;
-        // Transform cameraTransform = CameraManager.THIS.gameCamera.transform;
-        // Ray ray = new Ray(_currentBlock.transform.position + cameraTransform.forward * -10.0f, cameraTransform.forward);
-        // if (meshCollider.Raycast(ray, out RaycastHit hit, 100.0f))
-        // {
-        //     startPosition = hit.point;
-        //     Debug.Log(startPosition);
-        // }
-            
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
         {
             _fingerOffset = hit.point - startPosition;
-            // _fingerOffset.y = 0.0f;
-            // _fingerOffset.z = 0.0f;
         }
     }
     private void UpdateTargetPosition()
@@ -197,6 +203,10 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnUp()
     {
+        if (Input.touchCount > 1)
+        {
+            return;
+        }
         if (!GameManager.PLAYING)
         {
             return;
@@ -223,7 +233,7 @@ public class Spawner : Singleton<Spawner>
                 delayedTween?.Kill();
                 delayedTween = DOVirtual.DelayedCall(0.08f, () =>
                 {
-                    _currentBlock = SpawnNextBlock(); // spawn the next block with delay
+                    _currentBlock = SpawnNextBlock();
                 });
                 
                 return;
@@ -236,11 +246,8 @@ public class Spawner : Singleton<Spawner>
 
             if (ONBOARDING.TEACH_PLACEMENT.IsNotComplete())
             {
-                
                 ONBOARDING.TEACH_PLACEMENT.SetComplete();
-
                 Onboarding.SpawnSecondBlockAndTeachRotation();
-
                 return;
             }
             
