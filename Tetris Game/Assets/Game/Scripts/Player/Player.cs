@@ -189,10 +189,11 @@ namespace Game
 
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
 
-            _currentAngle = transform.eulerAngles.y;
             
             IEnumerator SearchEnemyRoutine()
             {
+                _currentAngle = transform.eulerAngles.y;
+
                 while (true)
                 {
                     if (Warzone.THIS.Enemies.Count > 0)
@@ -233,8 +234,8 @@ namespace Game
         {
             ReplenishHealth();
 
-            transform.DOKill();
-            transform.DORotate(Vector3.zero, 1.25f);
+            // transform.DOKill();
+            // transform.DORotate(Vector3.zero, 1.25f);
                 // .onComplete += () =>
             // {
             //     this.enabled = true;
@@ -264,7 +265,7 @@ namespace Game
         {
             [SerializeField] public float time;
             [SerializeField] public int currentHealth = 0;
-            [SerializeField] public float turnRate = 6.0f;
+            [SerializeField] public int turnRate = 6;
             // [SerializeField] public Gun.Data gunData;
             [SerializeField] public Shield.Data shieldData;
 
@@ -273,7 +274,7 @@ namespace Game
             {
                 this.time = 0.0f;
                 this.currentHealth = 0;
-                this.turnRate = 6.0f;
+                this.turnRate = 6;
                 // this.gunData = null;
                 this.shieldData = null;
             }
