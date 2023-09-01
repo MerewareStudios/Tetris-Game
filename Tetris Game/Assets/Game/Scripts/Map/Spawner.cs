@@ -1,12 +1,9 @@
 using DG.Tweening;
 using Game;
 using Internal.Core;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class Spawner : Singleton<Spawner>
 {
@@ -27,7 +24,7 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Vector3 _finalPosition;
     [System.NonSerialized] private Tween delayedTween;
     [System.NonSerialized] private Tween assertionTween;
-    [System.NonSerialized] private int _blockSpawnCount = 0;
+    [System.NonSerialized] private int _queuedBlockIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
 
     public void Shake()
@@ -74,7 +71,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void OnLevelLoad()
     {
-        _blockSpawnCount = 0;
+        _queuedBlockIndex = 0;
     }
 
     #region User Input
@@ -289,20 +286,14 @@ public class Spawner : Singleton<Spawner>
 
     private Block SpawnNextBlock()
     {
-        Board.SuggestedBlock[] suggestedBlocks = null;
-
-        if (ONBOARDING.TALK_ABOUT_MERGE.IsNotComplete())
-        {
-            suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
-        }
-
+        Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
         Board.BlockRot blockRot = Board.BlockRot.UP;
         
-        if (suggestedBlocks != null && suggestedBlocks.Length > _blockSpawnCount)
+        if (suggestedBlocks != null && suggestedBlocks.Length > _queuedBlockIndex)
         {
-            suggestedBlockData = suggestedBlocks[_blockSpawnCount];
+            suggestedBlockData = suggestedBlocks[_queuedBlockIndex];
             pool = suggestedBlockData.type;
             blockRot = suggestedBlockData.blockRot;
         }
@@ -310,42 +301,42 @@ public class Spawner : Singleton<Spawner>
         {
             pool = this.RandomBlock();
         }
-        
+        _queuedBlockIndex++;
+        return SpawnBlock(pool, Pawn.Usage.Ammo, suggestedBlockData, blockRot);
+    } 
+    private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData, Board.BlockRot blockRot)
+    {
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
-
+        
         block.RequiredIndexes = suggestedBlockData?.requiredPlaces;
         block.canRotate = suggestedBlockData?.canRotate ?? true;
         
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;
         blockTransform.localPosition = block.spawnerOffset;
-        block.Construct(pool);
         block.Rotation = blockRot;
+
+        block.Construct(usage);
         _spawnedBlocks.Add(block);
-
-
-        _blockSpawnCount++;
         
         Board.THIS.ShowSuggestedPlaces(block);
-        
-        return block;
-    } 
-    private Block SpawnBlock(Pool pool, Pawn.Usage usage)
-    {
-        Block block = pool.Spawn<Block>(spawnedBlockLocation);
-        Transform blockTransform = block.transform;
-        blockTransform.localScale = Vector3.one;
-        blockTransform.localPosition = block.spawnerOffset;
-        blockTransform.localRotation = Quaternion.identity;
-        block.Construct(pool, usage);
-        _spawnedBlocks.Add(block);
+
         return block;
     }
 
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)
     {
+        DespawnCurrentBlock();
         StopAllRunningTasksOnBlock();  
-        _currentBlock = SpawnBlock(pool, usage);
+        _currentBlock = SpawnBlock(pool, usage, null, Board.BlockRot.UP);
+    }
+    private void DespawnCurrentBlock()
+    {
+        if (_currentBlock)
+        {
+            _currentBlock.Deconstruct();
+            RemoveBlock(_currentBlock);   
+        }    
     }
     public void RemoveBlock(Block block)
     {
@@ -356,7 +347,7 @@ public class Spawner : Singleton<Spawner>
         Pawn pawn = Pool.Pawn.Spawn<Pawn>(parent);
         Transform pawnTransform = pawn.transform;
         pawnTransform.position = position;
-        pawnTransform.localRotation = Quaternion.identity;
+        pawnTransform.rotation = Quaternion.identity;
         pawnTransform.localScale = Vector3.one;
         pawn.UsageType = usageType;
         pawn.Amount = level;

@@ -56,6 +56,13 @@ public class UIManager : Singleton<UIManager>
          PiggyMenu.THIS = piggyMenu;
          RewardScreen.THIS = rewardScreen;
 
+         RewardScreen.THIS.OnClose = () =>
+         {
+            MenuMode(false);
+            Wallet.ScaleTransactors(1.0f);
+            LevelManager.THIS.LoadLevel();
+         };
+
          Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
 
          MENU_VISIBLE = false;

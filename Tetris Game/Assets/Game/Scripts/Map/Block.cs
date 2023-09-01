@@ -18,7 +18,7 @@ namespace Game
         [System.NonSerialized] private Tween _motionTween;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
-        [System.NonSerialized] public bool FreeBlock = false;
+        // [System.NonSerialized] public bool FreeBlock = false;
         [System.NonSerialized] public List<int> RequiredIndexes;
         [System.NonSerialized] public bool canRotate;
 
@@ -49,41 +49,36 @@ namespace Game
             }
         }
 
-        public void Construct(Pool pool)
-        {
-            FreeBlock = false;
-            
-            // int[] lookUps = this.GetLookUp(pool);
-            for (int i = 0; i < segmentTransforms.Count; i++)
-            {
-                Transform target = segmentTransforms[i];
-                if (!target) continue;
-                
-                
-                Pawn.Usage usage = Pawn.Usage.Ammo;
-
-                if (LevelManager.THIS.CanSpawnBonus())
-                {
-                   Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
-                   // Helper.IsPossible(1.0f, () => OverrideUsage(out usage));
-                }
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
-                pawn.ParentBlock = this;
-                pawn.MarkDefaultColor();
-                pawn.Show();
-                Pawns.Add(pawn);
-            }
-        }
+        // public void Construct()
+        // {
+        //     for (int i = 0; i < segmentTransforms.Count; i++)
+        //     {
+        //         Transform target = segmentTransforms[i];
+        //         if (!target) continue;
+        //         
+        //         
+        //         
+        //         Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
+        //         pawn.ParentBlock = this;
+        //         pawn.MarkDefaultColor();
+        //         pawn.Show();
+        //         Pawns.Add(pawn);
+        //     }
+        // }
         
-        public void Construct(Pool pool, Pawn.Usage usage) 
+        public void Construct(Pawn.Usage usage) 
         {
-            FreeBlock = true;
-
-            // int[] lookUps = this.GetLookUp(pool);
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
+                
+                
+                if (usage.Equals(Pawn.Usage.Ammo) && LevelManager.THIS.CanSpawnBonus())
+                {
+                    Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
+                }
+                
                 
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
@@ -95,10 +90,10 @@ namespace Game
 
         public void OnPickUp()
         {
-            if (FreeBlock)
-            {
-                Board.THIS.ShowAvailablePlaces();
-            }
+            // if (FreeBlock)
+            // {
+            //     Board.THIS.ShowAvailablePlaces();
+            // }
         }
 
         private void OverrideUsage(out Pawn.Usage usage)

@@ -158,7 +158,7 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
-            bool haveBlock =  _blockShopData.HaveBlock(_blockData.blockType);
+            bool haveBlock = _blockShopData.HaveBlock(_blockData.blockType);
             if (haveBlock)
             {
                 return;
@@ -167,6 +167,8 @@ namespace Game.UI
             if (Wallet.Consume(_blockData.currency))
             {
                 _blockShopData.AddUnlockedBlock(_blockData);
+                
+                Spawner.THIS.InterchangeBlock(_blockData.blockType, Pawn.Usage.Ammo);
 
                 if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
                 {

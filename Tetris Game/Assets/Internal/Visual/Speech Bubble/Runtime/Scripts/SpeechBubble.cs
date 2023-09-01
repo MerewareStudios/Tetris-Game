@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class SpeechBubble : MonoBehaviour
 {
+    [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI text;
     [System.NonSerialized] private Tween _tween;
@@ -16,6 +17,7 @@ public class SpeechBubble : MonoBehaviour
 
     public void Speak(string txt, float delay = 0.0f, float? autoCloseDelay = null)
     {
+        _canvas.enabled = true;
         _delayTween?.Kill();
             
         this.gameObject.SetActive(true);
@@ -46,6 +48,7 @@ public class SpeechBubble : MonoBehaviour
         _tween.onComplete += () =>
         {
             this.gameObject.SetActive(false);
+            _canvas.enabled = false;
         };
     }
 }

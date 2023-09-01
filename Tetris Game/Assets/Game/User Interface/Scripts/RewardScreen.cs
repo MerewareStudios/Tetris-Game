@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Game.UI;
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +13,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
     [SerializeField] private Button claimButton;
     [System.NonSerialized] private List<RewardDisplay> _rewardDisplays = new ();
     [System.NonSerialized] private bool _canClaim = false;
+    [System.NonSerialized] public System.Action OnClose;
     
     public void ShowFakeCards()
     {
@@ -73,14 +71,6 @@ public class RewardScreen : Lazyingleton<RewardScreen>
 
         _canClaim = true;
 
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            ShowFakeCards();
-        }
     }
 
     public void Deconstruct()
@@ -149,13 +139,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
             {
                 _canvasGroup.DOFade(0.0f, 0.35f).SetDelay(0.2f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
                 {
-                    Deconstruct();
-                    this._canvas.enabled = false;
-                    
-                    UIManager.MenuMode(false);
-                    Wallet.ScaleTransactors(1.0f);
-                    
-                    this.gameObject.SetActive(false);
+                    Close();
                 };
                 
             }
@@ -186,6 +170,15 @@ public class RewardScreen : Lazyingleton<RewardScreen>
             rewardDisplay.Despawn();
         };
             
+        
+    }
+
+    private void Close()
+    {
+        Deconstruct();
+        this._canvas.enabled = false;
+        this.gameObject.SetActive(false);
+        OnClose?.Invoke();
         
     }
 }

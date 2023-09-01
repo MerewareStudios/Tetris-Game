@@ -378,6 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507912ba9632cad46a1ac5c3fa6a5c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 5806487978586115636}
   canvasGroup: {fileID: 2199842794891399279}
   text: {fileID: 81798825238307815}
   textAnimatorPlayer: {fileID: 1626027312637437121}
