@@ -22,13 +22,8 @@ MonoBehaviour:
   niceOneText: <wiggle a=1.3 f=3><size=150%>Nice one!</size>
   needMoreAmmoText: Need more <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>bullets</color>
     </bounce></size>!
-  keepStackingText: <wiggle a=1 f=3>Keep merging!</>
-  enemiesComingText: <wiggle a=0.25 f=1><size=120%>Enemies are here!
+  enemiesComingText: <wiggle a=0.5 f=1><size=120%><color=#FF4C4D>Enemies!
   waveText: <wiggle a=1 f=3>Level</> {0}
-  newBlockText: <bounce a=0.1 f=2>NEW BLOCK!
-  ownedText: <pend a=0.1 f=2>OWNED<sprite name=Check>
-  equippedText: <pend a=0.1 f=2>EQUIPPED!<sprite name=Check>
-  nextWeaponText: <bounce a=0.1 f=2>NEW!
   fullText: <size=75%><sprite name=Check>
   plusText: +
   damageText: <sprite name=Damage>

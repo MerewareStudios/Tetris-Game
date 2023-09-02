@@ -15,15 +15,10 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string greatCheerText;
     [TextArea] [SerializeField] public string niceOneText;
     [TextArea] [SerializeField] public string needMoreAmmoText;
-    [TextArea] [SerializeField] public string keepStackingText;
     [TextArea] [SerializeField] public string enemiesComingText;
     [Header("Other")]
     [TextArea] [SerializeField] public string waveText;
     [Header("Block Menu")]
-    [TextArea] [SerializeField] public string newBlockText;
-    [TextArea] [SerializeField] public string ownedText;
-    [TextArea] [SerializeField] public string equippedText;
-    [TextArea] [SerializeField] public string nextWeaponText;
     [TextArea] [SerializeField] public string fullText;
     [TextArea] [SerializeField] public string plusText;
     [TextArea] [SerializeField] public string damageText;
@@ -131,10 +126,15 @@ public class Onboarding : SSingleton<Onboarding>
             // UIManager.THIS.speechBubble.Hide();
             // yield return new WaitForSeconds(1.0f);
             
+     
+            
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.25f);
             yield return new WaitForSeconds(0.25f);
             Warzone.THIS.Begin(false);
+            
+            ONBOARDING.INSPECT_HEART_DISPLAY.SetComplete();
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, Warzone.THIS.Player._CurrentHealth);
         }
     }
     
@@ -147,6 +147,9 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(1.25f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
             Spawner.THIS.DelayedSpawn(0.0f);
+
+            
+            
 
             yield return new WaitForSeconds(2.0f);
             UIManager.THIS.speechBubble.Hide();

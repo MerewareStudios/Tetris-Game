@@ -22,9 +22,9 @@ public class Gun : MonoBehaviour
             
             transform.Set(GunSo.holsterTransformData);
             
-            SetStat(StatDisplay.Type.Damage, _data.damage);
-            SetStat(StatDisplay.Type.Splitshot, _data.split);
-            SetStat(StatDisplay.Type.Firerate, _data.FireRate);
+            // SetStat(StatDisplay.Type.Damage, _data.damage);
+            // SetStat(StatDisplay.Type.Splitshot, _data.split);
+            // SetStat(StatDisplay.Type.Firerate, _data.FireRate);
         }
         get => _data;
     }

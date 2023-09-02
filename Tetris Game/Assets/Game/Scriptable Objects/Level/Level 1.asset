@@ -28,12 +28,12 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks:
-  - type: 4
-    requiredPlaces: 05000000060000000c00000013000000
-    blockRot: 1
-    canRotate: 0
   - type: 3
     requiredPlaces: 1a000000290000002100000028000000
+    blockRot: 3
+    canRotate: 0
+  - type: 4
+    requiredPlaces: 05000000060000000c00000013000000
     blockRot: 0
     canRotate: 1
   - type: 6

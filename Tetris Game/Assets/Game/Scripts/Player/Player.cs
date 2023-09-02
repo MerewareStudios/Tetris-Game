@@ -66,6 +66,11 @@ namespace Game
 
                 _GunData = WeaponMenu.THIS.EquippedGunData;
                 _ShieldData = _data.shieldData;
+
+                if (ONBOARDING.INSPECT_HEART_DISPLAY.IsNotComplete())
+                {
+                    StatDisplayArranger.THIS.HideImmediate(StatDisplay.Type.Health);
+                }
             }
             get => _data;
         }
@@ -128,7 +133,7 @@ namespace Game
         {
             if (_CurrentHealth > 0) return;
             
-            _CurrentHealth = 0;
+            _CurrentHealth = 1;
         }
 
         public void Shoot(int bulletCount)

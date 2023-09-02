@@ -33,14 +33,14 @@ namespace Game
             set
             {
                 _Data.maxStack = value;
-                if (_Data.maxStack != _Data.defaultStack)
-                {
-                    StatDisplayArranger.THIS.Show(StatDisplay.Type.MaxStack, _data.maxStack);
-                }
-                else
-                {
-                    StatDisplayArranger.THIS.Hide(StatDisplay.Type.MaxStack);
-                }
+                // if (_Data.maxStack != _Data.defaultStack)
+                // {
+                //     StatDisplayArranger.THIS.Show(StatDisplay.Type.MaxStack, _data.maxStack);
+                // }
+                // else
+                // {
+                //     StatDisplayArranger.THIS.Hide(StatDisplay.Type.MaxStack);
+                // }
             }
             get => _Data.maxStack;
         }

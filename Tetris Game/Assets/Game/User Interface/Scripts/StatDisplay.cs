@@ -71,6 +71,11 @@ public class StatDisplay : MonoBehaviour
             this.gameObject.SetActive(false);
         };
     }
+    public void HideImmediate()
+    {
+        _currentValue = -1;
+        this.gameObject.SetActive(false);
+    }
     
     public void Punch()
     {
@@ -83,10 +88,9 @@ public class StatDisplay : MonoBehaviour
     public enum Type
     {
         Health,
-        Damage,
-        Splitshot,
-        Firerate,
+        // Damage,
+        // Splitshot,
+        // Firerate,
         Shield,
-        MaxStack,
     }
 }

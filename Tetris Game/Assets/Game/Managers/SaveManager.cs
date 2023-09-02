@@ -182,6 +182,7 @@ namespace User
 
 public enum ONBOARDING
 {
+    INSPECT_HEART_DISPLAY,
     TEACH_PICK,
     TEACH_PLACEMENT,
     LEARN_ROTATION,

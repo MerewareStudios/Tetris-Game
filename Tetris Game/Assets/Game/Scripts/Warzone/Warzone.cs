@@ -263,7 +263,7 @@ namespace  Game
         
     #region  Upgrades
     
-        public void GiveHeart(int amount)
+        public void GiveHeart(int amount = 1)
         {
             Player._CurrentHealth += amount;
         }

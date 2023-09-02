@@ -31,7 +31,7 @@ MonoBehaviour:
   PowerUps: 0300000004000000
   DefaultPlayerData:
     time: 0
-    currentHealth: 0
+    currentHealth: 1
     turnRate: 12
     shieldData:
       maxTime: 0
@@ -516,7 +516,6 @@ MonoBehaviour:
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.8117647}
   acceptedFrameColor: {r: 0, g: 1, b: 0.15510082, a: 1}
   deniedFrameColor: {r: 1, g: 0.12694877, b: 0, a: 1}
-  rotationDuration: 0.15
   jumpDuration: 0.1875
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0

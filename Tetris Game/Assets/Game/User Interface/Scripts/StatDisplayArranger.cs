@@ -18,6 +18,10 @@ public class StatDisplayArranger : Singleton<StatDisplayArranger>
     {
         _statDisplays[(int)statType].Hide();
     }
+    public void HideImmediate(StatDisplay.Type statType)
+    {
+        _statDisplays[(int)statType].HideImmediate();
+    }
 
     public Vector3 ScreenPosition(StatDisplay.Type statType)
     {
