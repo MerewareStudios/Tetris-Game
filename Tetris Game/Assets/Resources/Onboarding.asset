@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d99e4016d76fe4692c3a2308544fb7, type: 3}
   m_Name: Onboarding
   m_EditorClassIdentifier: 
-  needAmmoText: I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
+  needAmmoText: Hey! I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
     </bounce></size>!
   useAmmoBoxText: <size=125%>Move <bounce a=1 f=2 w=1><sprite name=MaxStack> </>
   rotateText: <size=125%>Rotate <swing w=0.4><sprite name=MaxStack> </>

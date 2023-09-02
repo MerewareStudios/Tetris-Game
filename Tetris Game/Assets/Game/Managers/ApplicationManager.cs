@@ -6,6 +6,7 @@ using UnityEngine;
 public class ApplicationManager : Singleton<ApplicationManager>
 {
     [SerializeField] public bool multiTouchEnabled = false;
+    [SerializeField] public bool useNativeFrameRate = true;
     [SerializeField] public int targetFrameRate = 60;
     [SerializeField] public TextMeshProUGUI fpsText;
     [System.NonSerialized] public int fps;
@@ -20,8 +21,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
      Debug.unityLogger.logEnabled = false; 
 #endif
-        
-        Application.targetFrameRate = targetFrameRate;
+        Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.numerator : targetFrameRate;
 #if UNITY_EDITOR
         Application.runInBackground = true;
 #endif

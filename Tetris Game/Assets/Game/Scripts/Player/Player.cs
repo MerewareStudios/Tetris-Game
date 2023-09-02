@@ -18,7 +18,8 @@ namespace Game
         [Header("Motion Settings")]
         [SerializeField] public Animator animator;
         [SerializeField] private Transform holster;
-        [SerializeField] public Transform shiledTarget;
+        [SerializeField] public Transform acceptTarget;
+
         [System.NonSerialized] private Gun gun;
 
         [System.NonSerialized] private Data _data;

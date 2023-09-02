@@ -5834,6 +5834,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
+      propertyPath: waitLong
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
       propertyPath: waitForNormalChars
       value: 0.03
       objectReference: {fileID: 0}

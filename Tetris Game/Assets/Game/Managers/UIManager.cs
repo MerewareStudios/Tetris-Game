@@ -141,6 +141,13 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy);
    }
+   public static void EmitEnemyCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      TargetSettings targetSettingsEnd = new TargetSettings(Space.World, null, Warzone.THIS.Player.acceptTarget.position);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Enemy);
+   }
    public static void EmitLevelRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
    {
       TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);

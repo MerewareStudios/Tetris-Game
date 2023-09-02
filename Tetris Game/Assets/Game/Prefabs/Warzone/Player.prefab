@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield: {fileID: 0}
-  _animator: {fileID: 1240445161471149592}
+  animator: {fileID: 1240445161471149592}
   holster: {fileID: 6218805647396707961}
-  shiledTarget: {fileID: 0}
+  acceptTarget: {fileID: 5840727313846333946}
 --- !u!1001 &227018868375919224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,6 +115,12 @@ PrefabInstance:
 --- !u!95 &1240445161471149592 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1301674674891824224, guid: 5da21afdae418154b902a34a9b33e70b,
+    type: 3}
+  m_PrefabInstance: {fileID: 227018868375919224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5840727313846333946 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5920235692488715138, guid: 5da21afdae418154b902a34a9b33e70b,
     type: 3}
   m_PrefabInstance: {fileID: 227018868375919224}
   m_PrefabAsset: {fileID: 0}
