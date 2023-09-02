@@ -90,7 +90,7 @@ namespace Game
                     StatDisplayArranger.THIS.Hide(StatDisplay.Type.Health);
                 }
                 
-                if (_Data.currentHealth < 0)
+                if (_Data.currentHealth <= 0)
                 {
                     OnDeath?.Invoke();
                 }
