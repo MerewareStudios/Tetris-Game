@@ -33,10 +33,13 @@ namespace Game
                 }
             }
         
-            foreach (var segmentTransform in segmentTransforms.Where(segmentTransform => segmentTransform))
+            foreach (var segmentTransform in segmentTransforms)
             {
-                Gizmos.color = Color.green;
-                Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
+                if (segmentTransform)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
+                }
             }
         }
 
