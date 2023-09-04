@@ -18,8 +18,6 @@ public static class PlacementCheck
             List<Vector3> localPawnPositions = block.LocalPawnPositions;
             
             Vector3 zeroShift = Vector3.zero;
-            // Vector3 zeroShiftUnRotated = new Vector3(-1.0f, 0.0f, -1.5f);
-            // Vector3 zeroShiftRotated = new Vector3(-1.5f, 0.0f, -1.0f);
 
             List<Vector3> foundPos = new();
 
@@ -28,58 +26,59 @@ public static class PlacementCheck
 
             // for (int angle = 0; angle < 360; angle+=90)
             {
-                int angle = 0;
-                // int totalHorShift = 0;
+                int angle = 180;
+                
                 int totalHorShiftStart = 0;
                 int totalHorShiftEnd = 0;
                 
-                int upShift = 0;
                 int totalVertShiftStart = 0;
                 int totalVertShiftEnd = 0;
 
                 switch (angle)
                 {
                     case 0:
+                        zeroShift = new Vector3(1.0f, 0.0f, 1.5f);;
+                        
+                        
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = boardSize.x - block.NormalWidth + 1;
                         
-                        zeroShift = new Vector3(1.0f, 0.0f, 1.5f);;
                         
                         totalVertShiftStart = block.NormalHeight - 1 + (boardSize.y - block.FitHeight);
                         totalVertShiftEnd = boardSize.y;
                         break;
                     case 90:
-                        totalHorShiftStart = blockHeight - block.NormalHeight;
-                        totalHorShiftEnd = totalHorShiftStart + boardSize.x;
+                        zeroShift = new Vector3(1.5f, 0.0f, -1.0f);;
                         
-                        zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);;
                         
-                        upShift = 4 - block.FitHeight;
-                
-                        totalVertShiftStart = 3 + upShift;
-                        totalVertShiftEnd = totalVertShiftStart + (block.FitHeight - block.NormalWidth) + 1;
+                        totalHorShiftStart = 0;
+                        totalHorShiftEnd = boardSize.x - block.NormalHeight + 1;
+                        
+                        
+                        totalVertShiftStart = boardSize.y - block.FitHeight;
+                        totalVertShiftEnd = boardSize.y - block.NormalWidth + 1;
                         break;
                     case 180:
-                        totalHorShiftStart = 0;
-                        totalHorShiftEnd = boardSize.x + 2;
-                        
                         zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);;
                         
-                        upShift = 4 - block.FitHeight;
-                
-                        totalVertShiftStart = 3 + upShift;
-                        totalVertShiftEnd = totalVertShiftStart + (4 - block.NormalHeight - upShift) + 1;
-                        break;
-                    case 270:
-                        totalHorShiftStart = block.NormalHeight - 1;
+                        
+                        totalHorShiftStart = block.NormalWidth - 1;
                         totalHorShiftEnd = boardSize.x;
                         
-                        zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);;
                         
-                        // totalVertShiftStart = boardSize.y - 1 - blockWidth + blockHeight - block.FitHeight - blockWidth + block.NormalWidth;
-                        totalVertShiftStart = boardSize.y + blockHeight - block.FitHeight + block.NormalWidth - 2 * blockWidth - 1;
-                        // totalVertShiftEnd = totalVertShiftStart + boardSize.y - (totalVertShiftStart + blockWidth) + 1;
-                        totalVertShiftEnd = boardSize.y - blockWidth + 1;
+                        totalVertShiftStart = 0;
+                        totalVertShiftEnd = boardSize.y;
+                        break;
+                    case 270:
+                        zeroShift = new Vector3(1.5f, 0.0f, -1.0f);;
+                        
+                        
+                        totalHorShiftStart = 0;
+                        totalHorShiftEnd = boardSize.x - block.NormalHeight + 1;
+                        
+                        
+                        totalVertShiftStart = boardSize.y - block.FitHeight;
+                        totalVertShiftEnd = boardSize.y - block.NormalWidth + 1;
                         break;
                 }
 
@@ -117,10 +116,10 @@ public static class PlacementCheck
                         {
                             foreach (var p in foundPos)
                             {
-                                Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.25f);
+                                Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.2f);
                             }
 
-                            yield return new WaitForSeconds(0.25f);
+                            yield return new WaitForSeconds(0.2f);
                             // return true;
                         }
                     }
