@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Game;
 using Internal.Core;
@@ -321,14 +322,23 @@ public class Spawner : Singleton<Spawner>
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;
         blockTransform.localPosition = block.spawnerOffset;
-        block.Rotation = blockRot;
 
         block.Construct(usage);
+        block.Rotation = blockRot;
         _spawnedBlocks.Add(block);
         
         Board.THIS.ShowSuggestedPlaces(block);
 
+        // block.DetectFit();
+        
         return block;
+    }
+
+    public Block b;
+    private void Start()
+    {
+        b.DetectFit();
+
     }
 
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)

@@ -476,7 +476,7 @@ namespace Game
             Vector2Int ind = (Vector2Int)index;
             Place place = GetPlace(ind);
             
-            if (Size.y - pawn.ParentBlock.width > ind.y && !pawn.CanPlaceAnywhere)
+            if (Size.y - pawn.ParentBlock.FitHeight > ind.y && !pawn.CanPlaceAnywhere)
             {
                 return (place, false);
             }
@@ -495,6 +495,22 @@ namespace Game
             }
             
             return (place, true);
+        }
+        public bool IsEmpty(Vector3 position)
+        {
+            Vector2Int? index = Pos2Index(position);
+            if (index == null)
+            {
+                return false;
+            }
+            Vector2Int ind = (Vector2Int)index;
+            Place place = GetPlace(ind);
+            
+            if (place.Occupied)
+            {
+                return false;
+            }
+            return true;
         }
         public Place GetForwardPlace(Place place)
         {

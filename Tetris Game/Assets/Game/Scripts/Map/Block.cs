@@ -2,8 +2,10 @@ using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
+using Febucci.UI.Core;
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -11,14 +13,15 @@ namespace Game
     public class Block : MonoBehaviour
     {
         [SerializeField] private Transform shakePivot;
-        [SerializeField] public int width;
+        [FormerlySerializedAs("width")] [SerializeField] public int FitHeight;
         [SerializeField] private List<Transform> segmentTransforms;
-        [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         [SerializeField] public Vector3 spawnerOffset;
+        [SerializeField] private Transform rotatePivot;
+        
+        [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         [System.NonSerialized] private Tween _motionTween;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
-        // [System.NonSerialized] public bool FreeBlock = false;
         [System.NonSerialized] public List<int> RequiredIndexes;
         [System.NonSerialized] public bool canRotate;
 
@@ -29,7 +32,7 @@ namespace Game
                 for (int y = 0; y < 4; y++)
                 {
                     Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
-                    Gizmos.DrawCube(new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
+                    Gizmos.DrawCube( transform.position + new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
                 }
             }
         
@@ -38,37 +41,27 @@ namespace Game
                 if (segmentTransform)
                 {
                     Gizmos.color = Color.green;
+                    
+                    // Vector3 rotPos = segmentTransform.position.RotatePointAroundPivot(transform.position, Quaternion.Euler(0.0f, angle, 0.0f));
                     Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
                 }
             }
+            
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(rotatePivot.position, 0.1f);
         }
+
+        public List<Vector3> LocalPawnPositions => (from segmentTransform in segmentTransforms where segmentTransform select segmentTransform.localPosition).ToList();
 
         public Board.BlockRot Rotation
         {
             set
             {
-                transform.localRotation = Quaternion.Euler(0.0f, 90.0f * (int)value, 0.0f);
+                rotatePivot.localRotation = Quaternion.Euler(0.0f, 90.0f * (int)value, 0.0f);
                 ResetSegmentRotations();
             }
         }
 
-        // public void Construct()
-        // {
-        //     for (int i = 0; i < segmentTransforms.Count; i++)
-        //     {
-        //         Transform target = segmentTransforms[i];
-        //         if (!target) continue;
-        //         
-        //         
-        //         
-        //         Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
-        //         pawn.ParentBlock = this;
-        //         pawn.MarkDefaultColor();
-        //         pawn.Show();
-        //         Pawns.Add(pawn);
-        //     }
-        // }
-        
         public void Construct(Pawn.Usage usage) 
         {
             for (int i = 0; i < segmentTransforms.Count; i++)
@@ -83,7 +76,7 @@ namespace Game
                 }
                 
                 
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.rotatePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();
@@ -183,11 +176,8 @@ namespace Game
             Busy = true;
 
             _motionTween?.Kill();
-            _motionTween = transform.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
-            _motionTween.onUpdate += () => 
-                {
-                    ResetSegmentRotations();
-                };
+            _motionTween = rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
+            _motionTween.onUpdate = ResetSegmentRotations;
             _motionTween.onComplete += () =>
             {
                 Busy = false;

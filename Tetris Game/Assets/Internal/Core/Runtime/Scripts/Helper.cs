@@ -27,6 +27,10 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static Vector3 RotatePointAroundPivot(this Vector3 point, Vector3 pivot, Quaternion angles)
+        {
+            return angles * (point - pivot) + pivot;
+        }
         private static System.Random rnd = new System.Random();
         
         public static void WaitForNull(this MonoBehaviour mono, System.Action action)
