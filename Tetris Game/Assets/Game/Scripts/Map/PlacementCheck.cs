@@ -66,8 +66,8 @@ public static class PlacementCheck
                         totalHorShiftEnd = boardSize.x;
                         
                         
-                        totalVertShiftStart = 0;
-                        totalVertShiftEnd = boardSize.y;
+                        totalVertShiftStart = boardSize.y - block.FitHeight;
+                        totalVertShiftEnd = boardSize.y - block.NormalHeight + 1;
                         break;
                     case 270:
                         zeroShift = new Vector3(1.5f, 0.0f, -1.0f);;
