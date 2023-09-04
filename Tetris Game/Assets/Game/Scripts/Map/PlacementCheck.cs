@@ -21,13 +21,8 @@ public static class PlacementCheck
 
             List<Vector3> foundPos = new();
 
-            const int blockWidth = 3;
-            const int blockHeight = 4;
-
-            // for (int angle = 0; angle < 360; angle+=90)
+            for (int angle = 0; angle < 360; angle+=90)
             {
-                int angle = 180;
-                
                 int totalHorShiftStart = 0;
                 int totalHorShiftEnd = 0;
                 
@@ -37,7 +32,7 @@ public static class PlacementCheck
                 switch (angle)
                 {
                     case 0:
-                        zeroShift = new Vector3(1.0f, 0.0f, 1.5f);;
+                        zeroShift = new Vector3(1.0f, 0.0f, 1.5f);
                         
                         
                         totalHorShiftStart = 0;
@@ -48,7 +43,7 @@ public static class PlacementCheck
                         totalVertShiftEnd = boardSize.y;
                         break;
                     case 90:
-                        zeroShift = new Vector3(1.5f, 0.0f, -1.0f);;
+                        zeroShift = new Vector3(1.5f, 0.0f, -1.0f);
                         
                         
                         totalHorShiftStart = 0;
@@ -59,7 +54,7 @@ public static class PlacementCheck
                         totalVertShiftEnd = boardSize.y - block.NormalWidth + 1;
                         break;
                     case 180:
-                        zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);;
+                        zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);
                         
                         
                         totalHorShiftStart = block.NormalWidth - 1;
@@ -70,15 +65,15 @@ public static class PlacementCheck
                         totalVertShiftEnd = boardSize.y - block.NormalHeight + 1;
                         break;
                     case 270:
-                        zeroShift = new Vector3(1.5f, 0.0f, -1.0f);;
+                        zeroShift = new Vector3(-1.5f, 0.0f, 1.0f);
                         
                         
-                        totalHorShiftStart = 0;
-                        totalHorShiftEnd = boardSize.x - block.NormalHeight + 1;
+                        totalHorShiftStart = block.NormalHeight - 1;
+                        totalHorShiftEnd = boardSize.x;
                         
                         
-                        totalVertShiftStart = boardSize.y - block.FitHeight;
-                        totalVertShiftEnd = boardSize.y - block.NormalWidth + 1;
+                        totalVertShiftStart = block.NormalWidth - 1 + boardSize.y - block.FitHeight;
+                        totalVertShiftEnd = boardSize.y;
                         break;
                 }
 
@@ -116,10 +111,10 @@ public static class PlacementCheck
                         {
                             foreach (var p in foundPos)
                             {
-                                Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.2f);
+                                Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.1f);
                             }
 
-                            yield return new WaitForSeconds(0.2f);
+                            yield return new WaitForSeconds(0.1f);
                             // return true;
                         }
                     }

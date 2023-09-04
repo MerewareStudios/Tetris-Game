@@ -442,6 +442,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 11400000, guid: ef1427b917b094041a058d314a67854d,
+        type: 2}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
       propertyPath: width
       value: 3
       objectReference: {fileID: 0}
@@ -455,6 +461,12 @@ PrefabInstance:
       propertyPath: FitHeight
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
+        type: 3}
+      propertyPath: blockData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e9118b77db4b18488ba6c7037d944a9,
+        type: 2}
     - target: {fileID: 1077132605915332894, guid: 23153b00d3c37384595d5351cbef9741,
         type: 3}
       propertyPath: NormalWidth

@@ -16,9 +16,11 @@ namespace Game
         [SerializeField] public int FitHeight;
         [SerializeField] public int NormalHeight;
         [SerializeField] public int NormalWidth;
+        [SerializeField] public int[] checkAngles;
         [SerializeField] private List<Transform> segmentTransforms;
         [SerializeField] public Vector3 spawnerOffset;
         [SerializeField] private Transform rotatePivot;
+        [SerializeField] public  BlockData blockData;
         
         [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         [System.NonSerialized] private Tween _motionTween;
