@@ -34,5 +34,6 @@ public enum Pool
     Gun_8 = 31,
     Gun_9 = 32,
     Gun_10 = 33,
+    All_Block = 34,
 
 }

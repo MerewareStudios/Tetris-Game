@@ -334,6 +334,13 @@ public class Spawner : Singleton<Spawner>
         return block;
     }
 
+    // public Block b;
+    // private void Start()
+    // {
+        // b.DetectFit(this);
+
+    // }
+
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)
     {
         DespawnCurrentBlock();

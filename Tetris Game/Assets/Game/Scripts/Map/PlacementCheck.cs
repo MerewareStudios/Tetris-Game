@@ -22,13 +22,20 @@ public static class PlacementCheck
 
             List<Vector3> foundPos = new();
 
-            int totalVertShiftStart = 3;
-            int totalVertShiftEnd = totalVertShiftStart + 4;
+            // 4 0
+            // 3 0
+            // 1 2
 
-            for (int angle = 0; angle < 360; angle+=90)
+            // for (int angle = 0; angle < 360; angle+=90)
             {
+                int angle = 0;
                 bool rotated = angle % 180 == 90;
                 int totalHorShift = boardSize.x + (rotated ? 3 : 2);
+
+                int upShift = Mathf.Clamp(block.FitHeight - block.NormalHeight, 0, 4);
+                
+                int totalVertShiftStart = 3 - upShift;
+                int totalVertShiftEnd = totalVertShiftStart + (block.FitHeight - block.NormalHeight) + 1;
 
                 for (int j = totalVertShiftStart; j < totalVertShiftEnd; j++)
                 {
@@ -49,39 +56,29 @@ public static class PlacementCheck
 
                             bool isEmpty = Board.THIS.IsEmpty(finalPos);
                             
-                            if (!isEmpty)
-                            {
-                                found = false;
-                                break;
-                            }
+                            // if (!isEmpty)
+                            // {
+                            //     found = false;
+                            //     break;
+                            // }
                             
                             foundPos.Add(finalPos);
                         }
 
                         if (found)
                         {
-                            Vector3 center = Vector3.zero;
                             foreach (var p in foundPos)
                             {
-                                center += p;
+                                Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 20.25f);
                             }
 
-                            center /= foundPos.Count;
-                            foreach (var p in foundPos)
-                            {
-                                Debug.DrawLine(center + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.5f);
-                            }
-
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(0.25f);
                             // return true;
                         }
                     }
                 }
             }
         }
-
-        
         return false;
     }
-    
 }
