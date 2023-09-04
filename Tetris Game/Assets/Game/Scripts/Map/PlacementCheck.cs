@@ -19,8 +19,8 @@ public static class PlacementCheck
             
             Vector3 zeroShift = Vector3.zero;
 
-            List<Vector3> foundPos = new();
-
+            List<Place> places = new();
+            
             for (int angle = 0; angle < 360; angle+=90)
             {
                 int totalHorShiftStart = 0;
@@ -36,10 +36,10 @@ public static class PlacementCheck
                         
                         
                         totalHorShiftStart = 0;
-                        totalHorShiftEnd = boardSize.x - block.NormalWidth + 1;
+                        totalHorShiftEnd = boardSize.x - block.blockData.NormalWidth + 1;
                         
                         
-                        totalVertShiftStart = block.NormalHeight - 1 + (boardSize.y - block.FitHeight);
+                        totalVertShiftStart = block.blockData.NormalHeight - 1 + (boardSize.y - block.blockData.FitHeight);
                         totalVertShiftEnd = boardSize.y;
                         break;
                     case 90:
@@ -47,32 +47,32 @@ public static class PlacementCheck
                         
                         
                         totalHorShiftStart = 0;
-                        totalHorShiftEnd = boardSize.x - block.NormalHeight + 1;
+                        totalHorShiftEnd = boardSize.x - block.blockData.NormalHeight + 1;
                         
                         
-                        totalVertShiftStart = boardSize.y - block.FitHeight;
-                        totalVertShiftEnd = boardSize.y - block.NormalWidth + 1;
+                        totalVertShiftStart = boardSize.y - block.blockData.FitHeight;
+                        totalVertShiftEnd = boardSize.y - block.blockData.NormalWidth + 1;
                         break;
                     case 180:
                         zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);
                         
                         
-                        totalHorShiftStart = block.NormalWidth - 1;
+                        totalHorShiftStart = block.blockData.NormalWidth - 1;
                         totalHorShiftEnd = boardSize.x;
                         
                         
-                        totalVertShiftStart = boardSize.y - block.FitHeight;
-                        totalVertShiftEnd = boardSize.y - block.NormalHeight + 1;
+                        totalVertShiftStart = boardSize.y - block.blockData.FitHeight;
+                        totalVertShiftEnd = boardSize.y - block.blockData.NormalHeight + 1;
                         break;
                     case 270:
                         zeroShift = new Vector3(-1.5f, 0.0f, 1.0f);
                         
                         
-                        totalHorShiftStart = block.NormalHeight - 1;
+                        totalHorShiftStart = block.blockData.NormalHeight - 1;
                         totalHorShiftEnd = boardSize.x;
                         
                         
-                        totalVertShiftStart = block.NormalWidth - 1 + boardSize.y - block.FitHeight;
+                        totalVertShiftStart = block.blockData.NormalWidth - 1 + boardSize.y - block.blockData.FitHeight;
                         totalVertShiftEnd = boardSize.y;
                         break;
                 }
@@ -86,7 +86,7 @@ public static class PlacementCheck
                         bool found = true;
                         Vector3 finalPos = Vector3.zero;
 
-                        foundPos.Clear();
+                        places.Clear();
                         
                         foreach (var localPawnPosition in localPawnPositions)
                         {
@@ -96,25 +96,27 @@ public static class PlacementCheck
 
                             finalPos = boardPosition + shift + rotatedPosition;
 
-                            bool isEmpty = Board.THIS.IsEmpty(finalPos);
+                            Place place = Board.THIS.IsEmpty(finalPos);
                             
-                            // if (!isEmpty)
-                            // {
-                            //     found = false;
-                            //     break;
-                            // }
+                            if (!place)
+                            {
+                                found = false;
+                                break;
+                            }
                             
-                            foundPos.Add(finalPos);
+                            places.Add(place);
                         }
 
                         if (found)
                         {
-                            foreach (var p in foundPos)
-                            {
-                                Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.1f);
-                            }
+                            // foreach (var p in foundPos)
+                            // {
+                            //     Debug.DrawLine(Spawner.THIS.transform.position + Vector3.up * 3.0f, p + Vector3.up * 3.0f, Color.white, 0.1f);
+                            // }
+                            
+                            Board.THIS.Highlight(places);
 
-                            yield return new WaitForSeconds(0.1f);
+                            yield return new WaitForSeconds(1.5f);
                             // return true;
                         }
                     }

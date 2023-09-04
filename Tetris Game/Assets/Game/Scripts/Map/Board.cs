@@ -476,7 +476,7 @@ namespace Game
             Vector2Int ind = (Vector2Int)index;
             Place place = GetPlace(ind);
             
-            if (Size.y - pawn.ParentBlock.FitHeight > ind.y && !pawn.CanPlaceAnywhere)
+            if (Size.y - pawn.ParentBlock.blockData.FitHeight > ind.y && !pawn.CanPlaceAnywhere)
             {
                 return (place, false);
             }
@@ -496,21 +496,21 @@ namespace Game
             
             return (place, true);
         }
-        public bool IsEmpty(Vector3 position)
+        public Place IsEmpty(Vector3 position)
         {
             Vector2Int? index = Pos2Index(position);
             if (index == null)
             {
-                return false;
+                return null;
             }
             Vector2Int ind = (Vector2Int)index;
             Place place = GetPlace(ind);
             
             if (place.Occupied)
             {
-                return false;
+                return null;
             }
-            return true;
+            return place;
         }
         public Place GetForwardPlace(Place place)
         {
@@ -595,6 +595,26 @@ namespace Game
             }).SetUpdate(false);
 
             _suggestTween.SetLoops(-1);
+        }
+        public void Highlight(List<Place> places)
+        {
+            // void Highlight()
+            // {
+                foreach (var place in places)
+                {
+                    Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                }
+            // }
+
+            // Highlight();
+            //
+            // _suggestTween?.Kill();
+            // _suggestTween = DOVirtual.DelayedCall(1.4f, () =>
+            // {
+            //     Highlight();
+            // }).SetUpdate(false);
+            //
+            // _suggestTween.SetLoops(-1);
         }
 
         public void HideSuggestedPlaces()

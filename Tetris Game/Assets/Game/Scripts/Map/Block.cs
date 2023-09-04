@@ -13,12 +13,7 @@ namespace Game
     public class Block : MonoBehaviour
     {
         [SerializeField] private Transform shakePivot;
-        [SerializeField] public int FitHeight;
-        [SerializeField] public int NormalHeight;
-        [SerializeField] public int NormalWidth;
-        [SerializeField] public int[] checkAngles;
         [SerializeField] private List<Transform> segmentTransforms;
-        [SerializeField] public Vector3 spawnerOffset;
         [SerializeField] private Transform rotatePivot;
         [SerializeField] public  BlockData blockData;
         

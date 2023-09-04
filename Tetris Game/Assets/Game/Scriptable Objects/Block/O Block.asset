@@ -15,5 +15,5 @@ MonoBehaviour:
   FitHeight: 3
   NormalHeight: 2
   NormalWidth: 2
-  checkAngles: 
-  spawnerOffset: {x: 0, y: 0, z: 0}
+  checkAngles: 00000000
+  spawnerOffset: {x: 0.5, y: 0, z: 1}

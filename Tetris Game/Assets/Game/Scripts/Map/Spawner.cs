@@ -273,7 +273,7 @@ public class Spawner : Singleton<Spawner>
 
     private void Mount()
     {
-        _currentBlock.Move(spawnedBlockLocation.position + _currentBlock.spawnerOffset, 25.0f, Ease.OutQuad, true);
+        _currentBlock.Move(spawnedBlockLocation.position + _currentBlock.blockData.spawnerOffset, 25.0f, Ease.OutQuad, true);
     }
 
     private void StopMovement()
@@ -321,7 +321,7 @@ public class Spawner : Singleton<Spawner>
         
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;
-        blockTransform.localPosition = block.spawnerOffset;
+        blockTransform.localPosition = block.blockData.spawnerOffset;
 
         block.Construct(usage);
         block.Rotation = blockRot;
@@ -333,13 +333,6 @@ public class Spawner : Singleton<Spawner>
         
         return block;
     }
-
-    // public Block b;
-    // private void Start()
-    // {
-        // b.DetectFit(this);
-
-    // }
 
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)
     {
