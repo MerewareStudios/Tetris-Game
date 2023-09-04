@@ -41,8 +41,6 @@ namespace Game
                 if (segmentTransform)
                 {
                     Gizmos.color = Color.green;
-                    
-                    // Vector3 rotPos = segmentTransform.position.RotatePointAroundPivot(transform.position, Quaternion.Euler(0.0f, angle, 0.0f));
                     Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
                 }
             }

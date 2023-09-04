@@ -28,7 +28,7 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks:
-  - type: 7
+  - type: 3
     requiredPlaces: 1a000000290000002100000028000000
     blockRot: 3
     canRotate: 0

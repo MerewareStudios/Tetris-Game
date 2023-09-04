@@ -329,16 +329,9 @@ public class Spawner : Singleton<Spawner>
         
         Board.THIS.ShowSuggestedPlaces(block);
 
-        // block.DetectFit();
+        block.DetectFit(this);
         
         return block;
-    }
-
-    public Block b;
-    private void Start()
-    {
-        b.DetectFit();
-
     }
 
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)
