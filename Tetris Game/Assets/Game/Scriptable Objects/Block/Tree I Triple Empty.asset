@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3342aae3d6fc975498ae7f94801cb459, type: 3}
   m_Name: Tree I Triple Empty
   m_EditorClassIdentifier: 
-  FitHeight: 0
-  NormalHeight: 0
-  NormalWidth: 0
+  FitHeight: 3
+  NormalHeight: 3
+  NormalWidth: 3
   checkAngles: 
   spawnerOffset: {x: 0, y: 0, z: 0}
