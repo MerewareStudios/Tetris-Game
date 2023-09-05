@@ -19,6 +19,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private MenuNavigator menuNavigator;
    [SerializeField] private PiggyMenu piggyMenu;
    [SerializeField] private RewardScreen rewardScreen;
+   [SerializeField] private CustomPower customPower;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    // [SerializeField] public LoanBar loanBar;
@@ -56,6 +57,7 @@ public class UIManager : Singleton<UIManager>
          MenuNavigator.THIS = menuNavigator.Setup();
          PiggyMenu.THIS = piggyMenu;
          RewardScreen.THIS = rewardScreen;
+         CustomPower.THIS = customPower;
 
          RewardScreen.THIS.OnClose = () =>
          {
@@ -95,6 +97,15 @@ public class UIManager : Singleton<UIManager>
       if (Input.GetKeyDown(KeyCode.S))
       {
          shop.AnimatedShow();
+      }
+      if (Input.GetKeyDown(KeyCode.X))
+      {
+         bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
+         CustomPower.THIS.Show(!notLearnedTicketMerge);
+         if (notLearnedTicketMerge)
+         {
+            Onboarding.TalkAboutTicketMerge();
+         }
       }
    }
 #endif

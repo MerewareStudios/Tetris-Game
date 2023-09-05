@@ -9,14 +9,14 @@ namespace Game
         [SerializeField] public Transform segmentParent;
         [SerializeField] private MeshRenderer placementSprite;
         // [SerializeField] private MeshRenderer igniteSprite;
-        [System.NonSerialized] public Vector2Int index;
+        [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
         // [System.NonSerialized] private bool _supplier = false;
         public Pawn Current { get; set; }
         public bool Occupied => Current;
-        public bool IsBorderPlace => index.y == Board.THIS.Size.y - 1;
+        public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
         
-        public int LinearIndex => index.x * Board.THIS.Size.y + index.y;
+        public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
 
 
         // public bool Supplier

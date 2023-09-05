@@ -46,7 +46,7 @@ namespace Game
                     place.Construct();
                     place.transform.localPosition = new Vector3(i, 0.0f, -j);
                     places[i, j] = place;
-                    place.index = new Vector2Int(i, j);
+                    place.Index = new Vector2Int(i, j);
                 }
             }
         }
@@ -110,6 +110,10 @@ namespace Game
         }
         public void CheckDeadLock()
         {
+            if (CustomPower.THIS.Available)
+            {
+                return;
+            }
             if (_delayedHighlightTween != null)
             {
                 return;   
@@ -129,6 +133,8 @@ namespace Game
                 // Debug.Log("place required skipping check with highlight");
                 return;
             }
+           
+
             
             for (int i = 0; i < Size.x; i++)
             {
@@ -146,7 +152,7 @@ namespace Game
                         return;
                     }
                     
-                    if (place.Current.UsageType.Equals(Pawn.Usage.Shooter))
+                    if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                     {
                         // Debug.Log("has shooter skipping");
                         return;
@@ -159,13 +165,21 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(5.0f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(4.0f, () =>
                 {
                     Highlight(randomPlaces);
                     _delayedHighlightTween = null;
                 });
                 // Debug.Log("no deadlock : has place");
                 return;
+            }
+
+
+            bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
+            CustomPower.THIS.Show(!notLearnedTicketMerge);
+            if (notLearnedTicketMerge)
+            {
+                Onboarding.TalkAboutTicketMerge();
             }
             
             Debug.Log("deadlock");
@@ -279,7 +293,7 @@ namespace Game
             UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
         }
 
-        public void MergeLines(List<int> lines, float mergeTravelDelay, float mergeTravelDuration, Ease mergeTravelEase, float mergeTravelShoot)
+        public void MergeLines(List<int> lines)
         {
             OnMerge?.Invoke();
             
@@ -328,13 +342,18 @@ namespace Game
                     place.Current = null;
                 }
 
+                if (pawns.Count == 0)
+                {
+                    return;
+                }
+
                 Place spawnPlace = places[mergeIndex, lineIndex];
                 foreach (var pawn in pawns)
                 {
                     Particle.Square.Emit(1, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
                 
                     pawn.PunchScale(-0.1f, 0.2f);
-                    pawn.transform.DOMove(spawnPlace.segmentParent.position, mergeTravelDuration).SetEase(mergeTravelEase, mergeTravelShoot).SetDelay(mergeTravelDelay)
+                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                         .onComplete += () =>
                     {
                         pawn.Deconstruct();
@@ -392,7 +411,7 @@ namespace Game
                         
                         currentPawn.Hide(currentPawn.Deconstruct);
                         
-                        MarkMovers(place.index.x, place.index.y);
+                        MarkMovers(place.Index.x, place.Index.y);
                     }
                 
                     totalAmmo += ammo;
@@ -473,10 +492,11 @@ namespace Game
             {
                 return (place, false);
             }
-            if (HasForwardPawnAtColumn(ind) && !pawn.CanPlaceAnywhere)
-            {
-                return (place, false);
-            }
+            // if (HasForwardPawnAtColumn(ind) && !pawn.CanPlaceAnywhere)
+            // if (!pawn.CanPlaceAnywhere)
+            // {
+                // return (place, false);
+            // }
             
             if (requiredPlaces is { Count: > 0 } && !requiredPlaces.Contains(place))
             {
@@ -505,7 +525,7 @@ namespace Game
         {
             Place forwardPlace = null;
 
-            Vector2Int index = place.index;
+            Vector2Int index = place.Index;
             index.y--;
             if (index.y >= 0)
             {
@@ -552,7 +572,15 @@ namespace Game
             {
                 if (place.Current) return;
 
-                Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                Particle.Blue_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+            });
+        }
+        
+        public void ShowTicketMergePlaces()
+        {
+            CallRow<Place>(places, 0, (place, horizontalIndex) =>
+            {
+                Particle.Yellow_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
             });
         }
         
@@ -560,13 +588,13 @@ namespace Game
         {
             foreach (var place in places)
             {
-                Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                Particle.Blue_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
             }
         }
 
         public void HideSuggestedPlaces()
         {
-            Particle.Green_Zone.StopAndClear();
+            Particle.Blue_Zone.StopAndClear();
         }
         
         [System.Serializable]

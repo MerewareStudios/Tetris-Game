@@ -19,7 +19,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Button button;
     [SerializeField] private Data data;
-    [System.NonSerialized] private bool open = false;
+    [System.NonSerialized] public bool Open = false;
 
     public Data _Data
     {
@@ -32,7 +32,7 @@ public class Shop : MonoBehaviour
 
     public void Increase()
     {
-        if (this.open || _Data.IsEnough)
+        if (this.Open || _Data.IsEnough)
         {
             return;
         }
@@ -47,20 +47,19 @@ public class Shop : MonoBehaviour
     
     public void OnClick_Open()
     {
+        this.Open = false;
+        
         _Data.current = 0;
         button.targetGraphic.raycastTarget = false;
         buttonTransform.DOKill();
-        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
-        {
-            this.open = false;
-        };
+        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true);
         
         MenuNavigator.THIS.Open();
     }
     
     public void AnimatedShow()
     {
-        this.open = true;
+        this.Open = true;
 
         trailRenderer.emitting = false;
         button.targetGraphic.raycastTarget = false;

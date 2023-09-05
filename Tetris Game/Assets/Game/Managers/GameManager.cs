@@ -67,6 +67,9 @@ public class GameManager : Singleton<GameManager>
         Map.THIS.Deconstruct();
         Board.THIS.OnVictory();
         Warzone.THIS.OnVictory();
+        
+        Onboarding.Deconstruct();
+        CustomPower.THIS.Deconstruct();
     }
     public void OnFail()
     {
@@ -75,5 +78,8 @@ public class GameManager : Singleton<GameManager>
         Map.THIS.Deconstruct();
         Board.THIS.OnFail();
         Warzone.THIS.OnFail();
+        
+        Onboarding.Deconstruct();
+        CustomPower.THIS.Deconstruct();
     }
 }

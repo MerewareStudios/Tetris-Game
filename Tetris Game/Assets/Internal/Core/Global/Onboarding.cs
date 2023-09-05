@@ -16,6 +16,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string niceOneText;
     [TextArea] [SerializeField] public string needMoreAmmoText;
     [TextArea] [SerializeField] public string enemiesComingText;
+    [TextArea] [SerializeField] public string ticketMergeText;
     [Header("Other")]
     [TextArea] [SerializeField] public string waveText;
     [Header("Block Menu")]
@@ -24,6 +25,25 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string damageText;
     [TextArea] [SerializeField] public string fireRateText;
     [TextArea] [SerializeField] public string splitShotText;
+    
+    public Coroutine coroutine = null;
+
+    public static void Deconstruct()
+    {
+        Onboarding.StopRoutine();
+        
+        UIManager.THIS.speechBubble.Hide();
+        HideFinger();
+    }
+    
+    public static void StopRoutine()
+    {
+        if (Onboarding.THIS.coroutine != null)
+        {
+            GameManager.THIS.StopCoroutine(Onboarding.THIS.coroutine);
+            Onboarding.THIS.coroutine = null;
+        }
+    }
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {
@@ -105,13 +125,26 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, 0.2f);
             
             Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
+        }
+    }
+    public static void TalkAboutTicketMerge()
+    {
+        Onboarding.THIS.coroutine = GameManager.THIS.StartCoroutine(Routine());
 
+        IEnumerator Routine()
+        {
+            yield return new WaitForSeconds(0.1f);
+            
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.ticketMergeText, 0.2f);
+
+            yield return new WaitForSeconds(0.25f);
+            Onboarding.ClickOn(CustomPower.THIS.clickTarget.position, true, CustomPower.THIS.HighlightPunch);
         }
     }
     
     public static void CheerForMerge()
     {
-        GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
@@ -125,9 +158,6 @@ public class Onboarding : SSingleton<Onboarding>
 
             // UIManager.THIS.speechBubble.Hide();
             // yield return new WaitForSeconds(1.0f);
-            
-     
-            
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.25f);
             yield return new WaitForSeconds(0.25f);

@@ -60,7 +60,7 @@ namespace IWI.Tutorial
             {
                 positionPivot.gameObject.SetActive(true);
                 
-                canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
+                canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
 
                 positionPivot.anchoredPosition = GetAnchor(position, worldSpace);
                 
@@ -129,7 +129,7 @@ namespace IWI.Tutorial
                 positionPivot.gameObject.SetActive(true);
                 
 
-                canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
+                canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
 
                 
                 positionPivot.anchoredPosition = GetAnchor(position, worldSpace);

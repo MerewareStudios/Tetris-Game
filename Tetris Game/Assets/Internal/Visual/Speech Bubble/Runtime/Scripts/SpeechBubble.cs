@@ -41,6 +41,10 @@ public class SpeechBubble : MonoBehaviour
     
     public void Hide()
     {
+        if (!_canvas.enabled)
+        {
+            return;
+        }
         _delayTween?.Kill();
 
         _tween?.Kill();

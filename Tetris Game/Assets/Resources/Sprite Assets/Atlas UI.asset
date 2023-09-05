@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c3f574c52dc907144a243cb7c59078ad, type: 3}
+        m_Texture: {fileID: 2800000, guid: 99730220c26f9734a9cc271e3b1577de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: c3f574c52dc907144a243cb7c59078ad, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 99730220c26f9734a9cc271e3b1577de, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -138,9 +138,9 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 9
-    m_Scale: 1
-    m_Name: Shop
-    m_HashCode: 3027108
+    m_Scale: 1.2
+    m_Name: Arrow
+    m_HashCode: 74159225
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 10
@@ -380,9 +380,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 256
       m_Height: 256
-      m_HorizontalBearingX: -128
-      m_HorizontalBearingY: 128
-      m_HorizontalAdvance: 256
+      m_HorizontalBearingX: -47.7
+      m_HorizontalBearingY: 204
+      m_HorizontalAdvance: 179.7
     m_GlyphRect:
       m_X: 1024
       m_Y: 768
