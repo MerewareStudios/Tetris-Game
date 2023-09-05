@@ -22,7 +22,7 @@ namespace Game
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public List<int> RequiredIndexes;
-        [System.NonSerialized] public bool canRotate;
+        [System.NonSerialized] public bool CanRotate;
 
         private void OnDrawGizmos()
         {
@@ -59,8 +59,9 @@ namespace Game
             }
         }
 
-        public void Construct(Pawn.Usage usage) 
+        public void Construct(Pawn.Usage usage)
         {
+            this.rotatePivot.localEulerAngles = Vector3.zero;
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
@@ -72,7 +73,6 @@ namespace Game
                     Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
                 }
                 
-                
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.rotatePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
@@ -83,10 +83,7 @@ namespace Game
 
         public void OnPickUp()
         {
-            // if (FreeBlock)
-            // {
-            //     Board.THIS.ShowAvailablePlaces();
-            // }
+            
         }
 
         private void OverrideUsage(out Pawn.Usage usage)
@@ -150,23 +147,16 @@ namespace Game
         public void Lift()
         {
             _motionTween?.Kill();
-            
-            // shakePivot.DOKill();
-            // shakePivot.localPosition = Vector3.zero;
-            // shakePivot.localEulerAngles = Vector3.zero;
             _motionTween = transform.DOPunchPosition(new Vector3(0.0f, 2.0f, 0.0f), 2.0f, 1);
         }
 
         public void CancelLift()
         {
             _motionTween?.Kill();
-            // shakePivot.localPosition = Vector3.zero;
-            // shakePivot.localEulerAngles = Vector3.zero;
-            // shakePivot.DOLocalMove(Vector3.zero, 0.35f).SetEase(Ease.InOutSine);
         }
         public void Rotate()
         {
-            if (!canRotate)
+            if (!CanRotate)
             {
                 return;
             }

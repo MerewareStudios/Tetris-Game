@@ -22,6 +22,7 @@ namespace Game
                     Board.THIS.MoveAll(0.25f);
                     yield return new WaitForSeconds(0.3f);
                     Board.THIS.CheckAll();
+                    Board.THIS.CheckDeadLock();
                     List<int> tetrisLines = Board.THIS.CheckTetris();
                     
                     if (tetrisLines.Count > 0)

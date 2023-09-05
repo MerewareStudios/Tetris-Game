@@ -251,9 +251,6 @@ namespace Game
             modelPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
         }
 
-
-
-        
         public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
             if (BUSY)

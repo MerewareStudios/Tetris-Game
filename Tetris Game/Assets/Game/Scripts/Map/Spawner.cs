@@ -18,14 +18,15 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
 
-    [System.NonSerialized] private Block _currentBlock;
+    [System.NonSerialized] public Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
     [System.NonSerialized] private Vector3 _fingerOffset;
     [System.NonSerialized] private Vector3 _finalPosition;
     [System.NonSerialized] private Tween delayedTween;
     [System.NonSerialized] private Tween assertionTween;
-    [System.NonSerialized] private int _queuedBlockIndex = 0;
+    [System.NonSerialized] public int SpawnIndex = 0;
+    [System.NonSerialized] public int SpawnTime = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
 
     public void Shake()
@@ -46,7 +47,7 @@ public class Spawner : Singleton<Spawner>
     {
         DOVirtual.DelayedCall(delay, () =>
         {
-            _currentBlock = SpawnNextBlock();  
+            _currentBlock = SpawnSuggestedBlock();  
         });
     }
     public void Deconstruct()
@@ -57,7 +58,8 @@ public class Spawner : Singleton<Spawner>
             block.DeconstructAnimated();
             RemoveBlock(block);   
         }
-        
+
+        SpawnIndex = 0;
         StopAllRunningTasksOnBlock();
     }
 
@@ -72,7 +74,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void OnLevelLoad()
     {
-        _queuedBlockIndex = 0;
+        SpawnIndex = 0;
     }
 
     #region User Input
@@ -97,7 +99,6 @@ public class Spawner : Singleton<Spawner>
         assertionTween.onComplete = () =>
         {
             _grabbedBlock = true;
-
 
 
             CalculateFingerOffset();
@@ -190,7 +191,7 @@ public class Spawner : Singleton<Spawner>
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
         {
-            _fingerOffset = hit.point - startPosition;
+            _fingerOffset = hit.point - startPosition - _currentBlock.blockData.spawnerOffset;
         }
     }
     private void UpdateTargetPosition()
@@ -234,7 +235,7 @@ public class Spawner : Singleton<Spawner>
                 delayedTween?.Kill();
                 delayedTween = DOVirtual.DelayedCall(0.08f, () =>
                 {
-                    _currentBlock = SpawnNextBlock();
+                    _currentBlock = SpawnSuggestedBlock();
                 });
                 
                 return;
@@ -292,45 +293,43 @@ public class Spawner : Singleton<Spawner>
 
     #region Spawn
 
-    private Block SpawnNextBlock()
+    private Block SpawnSuggestedBlock()
     {
         Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
-        Board.BlockRot blockRot = Board.BlockRot.UP;
-        
-        if (suggestedBlocks != null && suggestedBlocks.Length > _queuedBlockIndex)
+        if (suggestedBlocks != null && suggestedBlocks.Length > SpawnIndex)
         {
-            suggestedBlockData = suggestedBlocks[_queuedBlockIndex];
+            suggestedBlockData = suggestedBlocks[SpawnIndex];
             pool = suggestedBlockData.type;
-            blockRot = suggestedBlockData.blockRot;
         }
         else
         {
             pool = this.RandomBlock();
         }
-        _queuedBlockIndex++;
-        return SpawnBlock(pool, Pawn.Usage.Ammo, suggestedBlockData, blockRot);
+        
+        return SpawnBlock(pool, Pawn.Usage.Ammo, suggestedBlockData);
     } 
-    private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData, Board.BlockRot blockRot)
+    private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
     {
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
         
         block.RequiredIndexes = suggestedBlockData?.requiredPlaces;
-        block.canRotate = suggestedBlockData?.canRotate ?? true;
+        block.CanRotate = suggestedBlockData?.canRotate ?? true;
         
         Transform blockTransform = block.transform;
         blockTransform.localScale = Vector3.one;
         blockTransform.localPosition = block.blockData.spawnerOffset;
 
         block.Construct(usage);
-        block.Rotation = blockRot;
+        block.Rotation = suggestedBlockData?.blockRot ?? Board.BlockRot.UP;
         _spawnedBlocks.Add(block);
-        
-        Board.THIS.ShowSuggestedPlaces(block);
 
-        block.DetectFit(this);
+        Board.THIS.ShowSuggestedPlaces(block);
         
+        SpawnTime = (int)Time.time;
+        SpawnIndex++;
+
         return block;
     }
 
@@ -338,7 +337,7 @@ public class Spawner : Singleton<Spawner>
     {
         DespawnCurrentBlock();
         StopAllRunningTasksOnBlock();  
-        _currentBlock = SpawnBlock(pool, usage, null, Board.BlockRot.UP);
+        _currentBlock = SpawnBlock(pool, usage, null);
     }
     private void DespawnCurrentBlock()
     {
