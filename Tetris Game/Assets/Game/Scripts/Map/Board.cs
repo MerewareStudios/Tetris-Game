@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +12,7 @@ namespace Game
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] public System.Action OnMerge;
-        [System.NonSerialized] private Tween _suggestTween;
+        [System.NonSerialized] private Tween _delayedHighlightTween = null;
 
         [System.NonSerialized] private Data _data;
 
@@ -92,15 +90,43 @@ namespace Game
                 }
             });
         }
+
+        public List<Place> Index2Place(List<int> indexes)
+        {
+            List<Place> list = new();
+
+            foreach (var index in indexes)
+            {
+                list.Add(LinearIndex2Place(index));
+            }
+
+            return list;
+        }
+
+        public void KillDelayedHighlight()
+        {
+            _delayedHighlightTween?.Kill();
+            _delayedHighlightTween = null;
+        }
         public void CheckDeadLock()
         {
+            if (_delayedHighlightTween != null)
+            {
+                return;   
+            }
             if (!Spawner.THIS._currentBlock)
             {
                 return;
             }
-            if (Spawner.THIS._currentBlock.RequiredIndexes != null && Spawner.THIS._currentBlock.RequiredIndexes.Count > 0)
+            if (Spawner.THIS._currentBlock.RequiredPlaces != null && Spawner.THIS._currentBlock.RequiredPlaces.Count > 0)
             {
-                Debug.Log("place required skipping check");
+                Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
+                _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
+                {
+                    Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
+                    _delayedHighlightTween = null;
+                });
+                // Debug.Log("place required skipping check with highlight");
                 return;
             }
             
@@ -116,13 +142,13 @@ namespace Game
 
                     if (place.Current.MOVER)
                     {
-                        Debug.Log("has mover skipping check");
+                        // Debug.Log("has mover skipping check");
                         return;
                     }
                     
                     if (place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                     {
-                        Debug.Log("has shooter skipping");
+                        // Debug.Log("has shooter skipping");
                         return;
                     }
                 }
@@ -132,13 +158,13 @@ namespace Game
 
             if (allPlaces.Count > 0)
             {
-                Debug.Log("has place");
-
-                if (Time.time - Spawner.THIS.SpawnTime > 5)
+                List<Place> randomPlaces = allPlaces.Random();
+                _delayedHighlightTween = DOVirtual.DelayedCall(5.0f, () =>
                 {
-                    Highlight(allPlaces.Random());
-                    Debug.Log("no deadlock : has place");
-                }
+                    Highlight(randomPlaces);
+                    _delayedHighlightTween = null;
+                });
+                // Debug.Log("no deadlock : has place");
                 return;
             }
             
@@ -429,7 +455,7 @@ namespace Game
             }
             return index;
         }
-        private (Place, bool) Project(Pawn pawn, List<int> requiredIndexes)
+        private (Place, bool) Project(Pawn pawn, List<Place> requiredPlaces)
         {
             Vector2Int? index = Pos2Index(pawn.transform.position);
             if (index == null)
@@ -452,7 +478,7 @@ namespace Game
                 return (place, false);
             }
             
-            if (requiredIndexes is { Count: > 0 } && !requiredIndexes.Contains(place.LinearIndex))
+            if (requiredPlaces is { Count: > 0 } && !requiredPlaces.Contains(place))
             {
                 return (place, false);
             }
@@ -491,16 +517,16 @@ namespace Game
         {
             foreach (var pawn in block.Pawns)
             {
-                (Place place, bool canPlace) = Project(pawn, block.RequiredIndexes);
+                (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
                 if (place != null)
                 {
                     place.SetPlaceType(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
                 }
             }
         }
-        private bool CanPlacePawnOnGrid(Pawn pawn, List<int> requiredIndexes)
+        private bool CanPlacePawnOnGrid(Pawn pawn, List<Place> requiredPlaces)
         {
-            (Place place, bool canPlace) = Project(pawn, requiredIndexes);
+            (Place place, bool canPlace) = Project(pawn, requiredPlaces);
             if (place == null)
             {
                 return false;
@@ -512,7 +538,7 @@ namespace Game
         {
             foreach (var pawn in block.Pawns)
             {
-                if (!CanPlacePawnOnGrid(pawn, block.RequiredIndexes))
+                if (!CanPlacePawnOnGrid(pawn, block.RequiredPlaces))
                 {
                     return false;
                 }
@@ -530,35 +556,6 @@ namespace Game
             });
         }
         
-        public void ShowSuggestedPlaces(Block block)
-        {
-            if (block.RequiredIndexes == null)
-            {
-                return;
-            }
-
-            void Highlight()
-            {
-                IList<int> suggestedPlaces = block.RequiredIndexes;
-
-                foreach (var index in suggestedPlaces)
-                {
-                    Place place = LinearIndex2Place(index);
-
-                    Particle.Green_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
-                }
-            }
-
-            Highlight();
-            
-            _suggestTween?.Kill();
-            _suggestTween = DOVirtual.DelayedCall(1.4f, () =>
-            {
-                Highlight();
-            }).SetUpdate(false);
-
-            _suggestTween.SetLoops(-1);
-        }
         public void Highlight(List<Place> places)
         {
             foreach (var place in places)
@@ -570,7 +567,6 @@ namespace Game
         public void HideSuggestedPlaces()
         {
             Particle.Green_Zone.StopAndClear();
-            _suggestTween?.Kill();
         }
         
         [System.Serializable]
@@ -591,7 +587,7 @@ namespace Game
         }
         
         [System.Serializable]
-        public class Data : ICloneable
+        public class Data : System.ICloneable
         {
             [SerializeField] public int defaultStack = 6;
             [SerializeField] public int maxStack = 6;
@@ -626,7 +622,6 @@ namespace Game
             
             Vector3 zeroShift = Vector3.zero;
 
-            List<Place> places = new();
 
             foreach (var angle in block.blockData.checkAngles)
             {
@@ -640,45 +635,29 @@ namespace Game
                 {
                     case 0:
                         zeroShift = new Vector3(1.0f, 0.0f, 1.5f);
-                        
-                        
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = Size.x - block.blockData.NormalWidth + 1;
-                        
-                        
                         totalVertShiftStart = block.blockData.NormalHeight - 1 + (Size.y - block.blockData.FitHeight);
                         totalVertShiftEnd = Size.y;
                         break;
                     case 90:
                         zeroShift = new Vector3(1.5f, 0.0f, -1.0f);
-                        
-                        
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = Size.x - block.blockData.NormalHeight + 1;
-                        
-                        
                         totalVertShiftStart = Size.y - block.blockData.FitHeight;
                         totalVertShiftEnd = Size.y - block.blockData.NormalWidth + 1;
                         break;
                     case 180:
                         zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);
-                        
-                        
                         totalHorShiftStart = block.blockData.NormalWidth - 1;
                         totalHorShiftEnd = Size.x;
-                        
-                        
                         totalVertShiftStart = Size.y - block.blockData.FitHeight;
                         totalVertShiftEnd = Size.y - block.blockData.NormalHeight + 1;
                         break;
                     case 270:
                         zeroShift = new Vector3(-1.5f, 0.0f, 1.0f);
-                        
-                        
                         totalHorShiftStart = block.blockData.NormalHeight - 1;
                         totalHorShiftEnd = Size.x;
-                        
-                        
                         totalVertShiftStart = block.blockData.NormalWidth - 1 + Size.y - block.blockData.FitHeight;
                         totalVertShiftEnd = Size.y;
                         break;
@@ -689,9 +668,8 @@ namespace Game
                     for (int i = totalHorShiftStart; i < totalHorShiftEnd; i++)
                     {
                         bool found = true;
-                        Vector3 finalPos = Vector3.zero;
 
-                        places.Clear();
+                        List<Place> foundPlaces = new();
                         
                         foreach (var localPawnPosition in localPawnPositions)
                         {
@@ -699,7 +677,7 @@ namespace Game
 
                             Vector3 shift = zeroShift + new Vector3(i, 0.0f, -j);
 
-                            finalPos = boardPosition + shift + rotatedPosition;
+                            Vector3 finalPos = boardPosition + shift + rotatedPosition;
 
                             Place place = IsEmpty(finalPos);
                             
@@ -709,13 +687,12 @@ namespace Game
                                 break;
                             }
                             
-                            places.Add(place);
+                            foundPlaces.Add(place);
                         }
 
                         if (found)
                         {
-                            allPlaces.Add(places);
-                            // Highlight(places);
+                            allPlaces.Add(foundPlaces);
                         }
                     }
                 }

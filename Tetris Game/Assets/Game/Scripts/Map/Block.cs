@@ -21,7 +21,7 @@ namespace Game
         [System.NonSerialized] private Tween _motionTween;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
-        [System.NonSerialized] public List<int> RequiredIndexes;
+        [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public bool CanRotate;
 
         private void OnDrawGizmos()
@@ -104,7 +104,7 @@ namespace Game
             Busy = false;
             Pawns.Clear();
             PlacedOnGrid = false;
-            RequiredIndexes = null;
+            RequiredPlaces = null;
             this.Despawn();
         }
         public void DeconstructAnimated()
@@ -120,7 +120,7 @@ namespace Game
             Busy = false;
             Pawns.Clear();
             PlacedOnGrid = false;
-            RequiredIndexes = null;
+            RequiredPlaces = null;
             this.Despawn();
         }
         public void Detach()

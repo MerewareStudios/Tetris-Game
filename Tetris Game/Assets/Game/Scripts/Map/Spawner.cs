@@ -225,6 +225,7 @@ public class Spawner : Singleton<Spawner>
         if (Board.THIS.CanPlace(_currentBlock))
         {
             Board.THIS.Place(_currentBlock);
+            Board.THIS.KillDelayedHighlight();
 
             _currentBlock = null;
             
@@ -314,7 +315,7 @@ public class Spawner : Singleton<Spawner>
     {
         Block block = pool.Spawn<Block>(spawnedBlockLocation);
         
-        block.RequiredIndexes = suggestedBlockData?.requiredPlaces;
+        block.RequiredPlaces = suggestedBlockData == null ? null : Board.THIS.Index2Place(suggestedBlockData.requiredPlaces);
         block.CanRotate = suggestedBlockData?.canRotate ?? true;
         
         Transform blockTransform = block.transform;
@@ -325,7 +326,7 @@ public class Spawner : Singleton<Spawner>
         block.Rotation = suggestedBlockData?.blockRot ?? Board.BlockRot.UP;
         _spawnedBlocks.Add(block);
 
-        Board.THIS.ShowSuggestedPlaces(block);
+        // Board.THIS.ShowSuggestedPlaces(block);
         
         SpawnTime = (int)Time.time;
         SpawnIndex++;
