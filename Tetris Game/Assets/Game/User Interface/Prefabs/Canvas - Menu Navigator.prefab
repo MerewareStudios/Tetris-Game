@@ -245,11 +245,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2587659651443111562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -63.63965, y: 26.360352}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
   m_SizeDelta: {x: 180, y: 180}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &749870942014366703
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 7601623892043701986}
   - component: {fileID: 6451274418691993202}
   - component: {fileID: 3279054081914172177}
+  - component: {fileID: 2186379495735899813}
   m_Layer: 5
   m_Name: Canvas - Menu Navigator
   m_TagString: Untagged
@@ -346,6 +347,7 @@ MonoBehaviour:
   canvas: {fileID: 632556369961824273}
   canvasGroup: {fileID: 3279054081914172177}
   _blocker: {fileID: 450952356989881064}
+  updateOnMoneyChange: 1
   tabs:
   - {fileID: 8798050237011891955}
   - {fileID: 4015499408296543160}
@@ -425,6 +427,27 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &2186379495735899813
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685167862302163645}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ceba4bf5aca43345a19ea1a9caa245f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7083864889476541861
 GameObject:
   m_ObjectHideFlags: 0
