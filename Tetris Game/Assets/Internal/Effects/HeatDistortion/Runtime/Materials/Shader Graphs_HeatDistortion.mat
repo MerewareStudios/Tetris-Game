@@ -66,10 +66,10 @@ Material:
     - _End: 0.35
     - _Float: -2.39
     - _Mult: 1
-    - _Power: 0.19
+    - _Power: 0.333
     - _QueueControl: 0
     - _QueueOffset: -1
-    - _Ramp: 0.43
+    - _Ramp: -0.026
     - _Sine_Power: 2.4
     - _Start: 0.11
     - _Transition: 0.125

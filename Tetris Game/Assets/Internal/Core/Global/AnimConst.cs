@@ -22,7 +22,13 @@ public class AnimConst : SSingleton<AnimConst>
     public float distortEndRamp = 0.6f;
     public float distortDuration = 0.55f;
     public Ease distortEase;
+    [Header("Explode")]
+    public Vector3 fragmentScale;
+    public float explodePower;
+    public float jumpPower;
+    public float jumpDuration;
+    public Ease explosionJumpEase;
 
 
-    public float MergeTotalDur => mergeTravelDelay + mergeTravelDur;
+    public float MergeShowDelay => mergeTravelDelay + mergeTravelDur;
 }

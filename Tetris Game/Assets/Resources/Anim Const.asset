@@ -13,14 +13,19 @@ MonoBehaviour:
   m_Name: Anim Const
   m_EditorClassIdentifier: 
   moveEase: 0
-  mergeTravelDelay: 0.1
+  mergeTravelDelay: 0.4
   mergeTravelDur: 0.2
   mergeTravelShoot: 1
   mergeTravelEase: 8
   mergedScalePunch: 0.35
   mergedScaleDuration: 0.35
-  distortScale: 3.75
-  distortStartRamp: -0.18
+  distortScale: 5
+  distortStartRamp: 0
   distortEndRamp: 0.5
   distortDuration: 0.55
   distortEase: 1
+  fragmentScale: {x: 0.5, y: 0.5, z: 0.5}
+  explodePower: 3
+  jumpPower: 1
+  jumpDuration: 0.6
+  explosionJumpEase: 9

@@ -283,14 +283,17 @@ namespace Game
 
 
             mergedPawn.MarkMergerColor();
-            mergedPawn.AnimatedShow(AnimConst.THIS.MergeTotalDur, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
+            mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
             {
+                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(mergedPawn.modelPivot.position + new Vector3(0.0f, 0.3516f, 0.0f));
+                UIManagerExtensions.Distort(mergedPawnPosition, 0.0f);
+
                 mergedPawn.OnMerge();
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
             });
 
-            UIManagerExtensions.Distort(mergedPawnPosition, 0.1f);
+
         }
 
         public void MergeLines(List<int> lines)
