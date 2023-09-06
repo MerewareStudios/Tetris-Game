@@ -38,6 +38,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
     public void Show(List<PiggyMenu.PiggyReward> rewardDatas)
     {
         _canvas.enabled = true;
+        _canvasGroup.alpha = 1.0f;
         this.gameObject.SetActive(true);
         
         piggyBlowPS.Play();

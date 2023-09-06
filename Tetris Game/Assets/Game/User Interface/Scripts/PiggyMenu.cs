@@ -68,7 +68,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         piggyCurrencyDisplay.Display(_Data.currentMoney);
         _markedProgressPiggy._Progress = _Data.PiggyPercent;
-        CanBreak = CanBreak;
 
         frame.DOKill();
         frame.localPosition = Vector3.down * 2000.0f;
@@ -77,7 +76,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         investButton.gameObject.SetActive(false);
         investButton.targetGraphic.raycastTarget = false;
 
-        if (!CanBreak)
+        if (!_Data.IsFull)
         {
             investButton.transform.DOKill();
             investButton.transform.localScale = Vector3.zero;
@@ -112,21 +111,21 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         }
         
         
-        _markedProgressPiggy.gameObject.SetActive(true);
-        rewardedPiggy.gameObject.SetActive(false);
+        _markedProgressPiggy.gameObject.SetActive(!_Data.IsFull);
+        rewardedPiggy.gameObject.SetActive(_Data.IsFull);
+        if (_Data.IsFull)
+        {
+            rewardedPiggy.localPosition = Vector3.zero;
+            rewardedPiggy.localScale = Vector3.one * 1.5f;
+            rewardPiggyGlow.color = glowColorStart;
+            piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
+        }
+
+        breakButton.gameObject.SetActive(_Data.IsFull);
     }
     #endregion
 
     #region Break
-    public bool CanBreak
-    {
-        set
-        {
-            breakButton.gameObject.SetActive(value);
-        }
-        get => _Data.IsFull;
-    }
-
     public void OnClick_BreakPiggyBank()
     {
         breakButton.targetGraphic.raycastTarget = false;
@@ -157,10 +156,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         DOVirtual.DelayedCall(1.5f, () =>
         {
             rewardedPiggy.gameObject.SetActive(false);
+            shakeTween?.Kill();
+            
             Particle.Piggy_Break_Ps.Emit(100, rewardedPiggyShakePivot.position);
 
             base.CloseImmediate();
             RewardScreen.THIS.ShowFakeCards();
+
+            _Data.currentMoney.amount = 0;
         });
         
         if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())

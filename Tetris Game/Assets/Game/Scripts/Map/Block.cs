@@ -73,7 +73,7 @@ namespace Game
                     Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
                 }
                 
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.rotatePivot, target.position, 1, usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
                 pawn.MarkDefaultColor();
                 pawn.Show();
@@ -137,7 +137,7 @@ namespace Game
             Deconstruct();
         }
 
-        public void Shake()
+        public void ShakeRotation()
         {
             shakePivot.DOKill();
             shakePivot.localPosition = Vector3.zero;

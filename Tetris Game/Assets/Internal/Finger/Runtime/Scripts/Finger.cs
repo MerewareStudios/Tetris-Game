@@ -103,7 +103,7 @@ namespace IWI.Tutorial
                     
                     while (true)
                     {
-                        yield return new WaitForSecondsRealtime(upDuration + downDuration + shortDragDuration + 1.0f); 
+                        yield return new WaitForSecondsRealtime(upDuration + downDuration + shortDragDuration + 1.25f); 
                         _sequence.Restart();
                     }
                 }

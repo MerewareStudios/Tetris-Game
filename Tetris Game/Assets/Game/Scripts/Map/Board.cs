@@ -595,6 +595,8 @@ namespace Game
         public void HideSuggestedPlaces()
         {
             Particle.Blue_Zone.StopAndClear();
+            Particle.Yellow_Zone.StopAndClear();
+            _delayedHighlightTween?.Kill();
         }
         
         [System.Serializable]

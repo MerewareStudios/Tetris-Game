@@ -33,7 +33,7 @@ public class Spawner : Singleton<Spawner>
     {
         if (_currentBlock)
         {
-            _currentBlock.Shake();
+            _currentBlock.ShakeRotation();
         }
     }
     public void Lift()
