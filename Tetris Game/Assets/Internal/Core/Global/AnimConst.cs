@@ -30,6 +30,11 @@ public class AnimConst : SSingleton<AnimConst>
     public float jumpPower;
     public float jumpDuration;
     public Ease explosionJumpEase;
+    [Header("Glimmer")]
+    public float glimmerSpeedBlock;
+    public float glimmerSpeedWeapon;
+    public float glimmerSpeedUpgrade;
+    public Ease glimmerEase;
 
 
     public float MergeShowDelay => mergeTravelDelay + mergeTravelDur;

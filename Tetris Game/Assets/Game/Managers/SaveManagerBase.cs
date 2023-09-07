@@ -44,7 +44,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         Save();
     }
 #else
-     private void OnApplicationPause(bool pause)
+    private void OnApplicationPause(bool pause)
     {
         if (pause)
         {

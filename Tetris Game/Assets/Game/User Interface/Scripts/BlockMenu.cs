@@ -12,6 +12,7 @@ namespace Game.UI
 {
     public class BlockMenu : Menu<BlockMenu>, IMenu
     {
+        [SerializeField] private Image maskFrame;
         [SerializeField] private BlockVisualGrid blockVisualGrid;
         [SerializeField] private RectTransform priceTextPivot;
         [SerializeField] private RectTransform buttonRectTransform;
@@ -51,7 +52,7 @@ namespace Game.UI
         public new void Show()
         {
             base.Show();
-            
+
             int showIndex = _blockShopData.lastIndex;
             string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
             this._blockData = Const.THIS.DefaultBlockData[showIndex];
@@ -179,6 +180,7 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
                 Show();
+                maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
             }
         }
         

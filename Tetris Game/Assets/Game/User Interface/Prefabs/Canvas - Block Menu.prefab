@@ -134,6 +134,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 7690020794071560519}
   _blocker: {fileID: 5169736055579792027}
   updateOnMoneyChange: 1
+  maskFrame: {fileID: 7381717890304946065}
   blockVisualGrid: {fileID: 2633787264509215066}
   priceTextPivot: {fileID: 6253326031780973027}
   buttonRectTransform: {fileID: 1631929674316152345}

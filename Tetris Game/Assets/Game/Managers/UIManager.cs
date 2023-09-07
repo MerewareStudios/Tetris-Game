@@ -5,6 +5,7 @@ using IWI.Tutorial;
 using IWI.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Visual.Effects;
 using Space = IWI.Emitter.Enums.Space;
 using ValueType = IWI.Emitter.Enums.ValueType;
@@ -68,8 +69,11 @@ public class UIManager : Singleton<UIManager>
 
          Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
 
+         Glimmer.OnComplete = glimmer => glimmer.Despawn();
+
          MENU_VISIBLE = false;
-   }
+         currentMenu = null;
+    }
 
 #if UNITY_EDITOR
    private void Update()
@@ -144,6 +148,13 @@ public static class UIManagerExtensions
        Transform camTransform = CameraManager.THIS.gameCamera.transform;
        Vector3 pos = worldPosition + camTransform.forward * -3.0f;
        Pool.Distortion.Spawn<Distortion>().Distort(pos, camTransform.forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortStartRamp, AnimConst.THIS.distortEndRamp, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
+   }
+   
+   public static void Glimmer(this Image image, float speed)
+   {
+      Glimmer glimmer = Pool.Glimmer.Spawn<Glimmer>();
+      RectTransform rectTransform = image.rectTransform;
+      glimmer.Show(image, rectTransform, speed, AnimConst.THIS.glimmerEase);
    }
 
    public static void EmitBlockCoin(Vector3 worldPosition, int count, int totalValue)

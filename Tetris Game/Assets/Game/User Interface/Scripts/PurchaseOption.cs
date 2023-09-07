@@ -7,6 +7,7 @@ using Febucci.UI.Core;
 
 public class PurchaseOption : MonoBehaviour
 {
+    [SerializeField] private Image glimmerFrame;
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private RectTransform animationPivot;
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
@@ -69,5 +70,13 @@ public class PurchaseOption : MonoBehaviour
         animationPivot.DOKill();
         animationPivot.anchoredPosition = Vector2.zero;
         animationPivot.DOPunchAnchorPos(anchor, 0.25f).SetUpdate(true);
-    } 
+    }
+
+    public void Glimmer()
+    {
+        if (bestBadge.activeSelf)
+        {
+            glimmerFrame.Glimmer(AnimConst.THIS.glimmerSpeedUpgrade);
+        }
+    }
 }

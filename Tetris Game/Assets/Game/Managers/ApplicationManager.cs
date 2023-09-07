@@ -22,9 +22,9 @@ public class ApplicationManager : Singleton<ApplicationManager>
      Debug.unityLogger.logEnabled = false; 
 #endif
         Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.numerator : targetFrameRate;
-#if UNITY_EDITOR
-        Application.runInBackground = true;
-#endif
+// #if UNITY_EDITOR
+//         Application.runInBackground = true;
+// #endif
         LoadSettings();
 
         fpsTimestamp = Time.realtimeSinceStartup;

@@ -31,3 +31,6 @@ MonoBehaviour:
   jumpPower: 1
   jumpDuration: 0.6
   explosionJumpEase: 9
+  glimmerSpeedBlock: 2000
+  glimmerSpeedWeapon: 1500
+  glimmerEase: 21

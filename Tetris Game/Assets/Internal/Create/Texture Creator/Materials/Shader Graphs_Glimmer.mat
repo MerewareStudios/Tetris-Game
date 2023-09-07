@@ -57,7 +57,7 @@ Material:
     m_Floats:
     - _Mult: 7.08
     - _Power: 1.27
-    - _Window: 0.07
+    - _Window: 0.04
     m_Colors:
     - _Remap: {r: 3.2, g: 11.59, b: 0, a: 0}
   m_BuildTextureStacks: []

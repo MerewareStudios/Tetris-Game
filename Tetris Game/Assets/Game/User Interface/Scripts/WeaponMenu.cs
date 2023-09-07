@@ -13,6 +13,7 @@ namespace Game.UI
     public class WeaponMenu : Menu<WeaponMenu>, IMenu
     {
         [Header("Stage Bars")]
+        [SerializeField] private Image frame;
         [SerializeField] private StageBar stageBarDamage;
         [SerializeField] private StageBar stageBarFireRate;
         [SerializeField] private StageBar stageBarSplitShot;
@@ -55,10 +56,15 @@ namespace Game.UI
                 return;
             }
         }
-
+        
         public new void Show()
         {
             base.Show();
+            CustomShow();
+        }
+
+        public void CustomShow(float gunPunchAmount = 0.1f, bool glimmer = false)
+        {
             bool purchasedWeapon = _weaponShopData.Purchased;
             bool equippedWeapon = _weaponShopData.Equipped;
 
@@ -68,7 +74,11 @@ namespace Game.UI
             
             _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
             
-            SetSprite(_gunUpgradeData.sprite);
+            SetSprite(_gunUpgradeData.sprite, gunPunchAmount);
+            if (glimmer)
+            {
+                frame.Glimmer(AnimConst.THIS.glimmerSpeedWeapon);
+            }
 
             newTextBanner.gameObject.SetActive(!purchasedWeapon);
             equippedTextBanner.gameObject.SetActive(equippedWeapon);
@@ -185,12 +195,13 @@ namespace Game.UI
             return hasFunds;
         }
         
-        private void SetSprite(Sprite sprite)
+        private void SetSprite(Sprite sprite, float punchAmount)
         {
             gunImage.sprite = sprite;
-            gunImage.transform.DOKill();
-            gunImage.transform.localScale = Vector3.one;
-            gunImage.transform.DOPunchScale(Vector3.one * 0.25f, 0.25f, 1).SetUpdate(true);
+            Transform gunImageTransform;
+            (gunImageTransform = gunImage.transform).DOKill();
+            gunImageTransform.localScale = Vector3.one;
+            gunImageTransform.DOPunchScale(Vector3.one * punchAmount, 0.25f, 1).SetUpdate(true);
         }
         
         private void PunchMoney(float amount)
@@ -212,35 +223,7 @@ namespace Game.UI
             newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        public void OnClick_PurchaseWeapon()
-        {
-            // _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
-
-            if (_weaponShopData.Purchased)
-            {
-                return;
-            }
-            
-            if (Wallet.Consume(_gunUpgradeData.currency))
-            {
-                _weaponShopData.Purchase();
-
-                OnClick_Equip();
-                
-                if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
-                {
-                    ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
-                    Onboarding.HideFinger();
-                }
-            }
-        }
-
-        public void OnClick_Equip()
-        {
-            _weaponShopData.Equip();
-            OnGunDataChanged?.Invoke(EquippedGunData);
-            Show();
-        }
+        
         public Gun.Data EquippedGunData
         {
             get
@@ -279,7 +262,6 @@ namespace Game.UI
             return split;
         }
 
-
         public void OnClick_PurchaseUpgrade(int statType)
         {
             Gun.StatType type = (Gun.StatType)statType;
@@ -302,8 +284,38 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
                 
-                Show();
+                CustomShow(0.2f, true);
             }
+        }
+        
+        public void OnClick_PurchaseWeapon()
+        {
+            // _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
+
+            if (_weaponShopData.Purchased)
+            {
+                return;
+            }
+            
+            if (Wallet.Consume(_gunUpgradeData.currency))
+            {
+                _weaponShopData.Purchase();
+
+                OnClick_Equip();
+                
+                if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
+                {
+                    ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
+                    Onboarding.HideFinger();
+                }
+            }
+        }
+        
+        public void OnClick_Equip()
+        {
+            _weaponShopData.Equip();
+            OnGunDataChanged?.Invoke(EquippedGunData);
+            CustomShow(0.3f, true);
         }
         
         public void OnClick_ShowNext()

@@ -65,6 +65,7 @@ namespace Game.UI
         public new void Show()
         {
             base.Show();
+            SetOneTimeData();
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
@@ -73,8 +74,8 @@ namespace Game.UI
                 bool hasFunds = Wallet.HasFunds(lookUp.currency);
 
                 purchaseOption.SetPurchase(lookUp.currency, hasFunds);
+                purchaseOption.Glimmer();
             }
-            SetOneTimeData();
         }
 
         public void OnClick_Purchase(int purchaseIndex)
