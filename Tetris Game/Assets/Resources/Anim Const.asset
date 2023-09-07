@@ -33,4 +33,5 @@ MonoBehaviour:
   explosionJumpEase: 9
   glimmerSpeedBlock: 2000
   glimmerSpeedWeapon: 1500
+  glimmerSpeedUpgrade: 2000
   glimmerEase: 21
