@@ -152,7 +152,7 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.niceOneText, 0.15f);
             Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
 
-            yield return new WaitForSeconds(1.75f);
+            yield return new WaitForSeconds(1.25f);
             UIManager.THIS.speechBubble.Hide();
             yield return new WaitForSeconds(0.25f);
 

@@ -355,7 +355,7 @@ namespace Game
                 {
                     Particle.Square.Emit(1, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
                 
-                    pawn.PunchScale(-0.1f, 0.2f);
+                    pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                         .onComplete += () =>
                     {
