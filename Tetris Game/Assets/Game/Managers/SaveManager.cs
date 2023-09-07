@@ -1,13 +1,9 @@
 using Internal.Core;
 using System;
-using System.Collections.Generic;
-using DG.Tweening;
-using Dreamteck.Splines.Primitives;
 using Game;
 using Game.UI;
 using IWI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SaveManager : SaveManagerBase<SaveManager>
 {
