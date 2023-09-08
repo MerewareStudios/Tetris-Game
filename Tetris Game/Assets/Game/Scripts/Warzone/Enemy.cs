@@ -28,7 +28,7 @@ namespace  Game
     #region  Mono
         public void Walk()
         {
-            thisTransform.position += thisTransform.forward * (Time.deltaTime * _Speed);
+            thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed));
             if (Warzone.THIS.Zone.IsOutside(thisTransform))
             {
                 Warzone.THIS.EnemyKamikaze(this);
@@ -38,10 +38,9 @@ namespace  Game
 
     #region  Warzone
 
-        public void Set(int healthValue, float speedValue)
+        public void Replenish()
         {
-            _Health = healthValue;
-            _Speed = speedValue;
+            _Health = so.maxHealth;
             
             animator.SetTrigger(WALK_HASH);
         }
@@ -58,7 +57,13 @@ namespace  Game
 
         private void ColorPunch()
         {
-            
+            _colorPunchTween?.Kill();
+            float timeStep = 0.0f;
+            _colorPunchTween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, 0.35f).SetEase(Ease.Linear);
+            _colorPunchTween.onUpdate = () =>
+            {
+                skin.SetColor(GameManager.MPB_ENEMY, GameManager.EnemyEmisColor, so.hitGradient.Evaluate(timeStep));
+            };
         }
         
         public int _Health
@@ -73,14 +78,6 @@ namespace  Game
                 // }
             }
             get => currentHealth;
-        }
-        public float _Speed
-        {
-            set
-            {
-                so.speed = value;
-            }
-            get => so.speed;
         }
     
         public void OnSpawn(Vector3 position)
@@ -112,11 +109,10 @@ namespace  Game
         {
             thisTransform.DOKill();
             Warzone.THIS.RemoveEnemy(this);
-            // Wallet.COIN.Transaction(1);
-            // Particle.Coin.Emit(1, transform.position + new Vector3(0.0f, 0.25f, 0.0f));
+            
             animator.SetTrigger(DEATH_HASH);
 
-            DOVirtual.DelayedCall(1.25f, () =>
+            DOVirtual.DelayedCall(0.7f, () =>
             {
                 UIManagerExtensions.EmitEnemyCoin(thisTransform.position, 1, 1);
 
@@ -141,6 +137,27 @@ namespace  Game
             Chest,
             Eye,
         }
+        
+        [System.Serializable]
+        public class SpawnData
+        {
+            [SerializeField] public int spawnDelay = 3;
+            [SerializeField] public float spawnInterval = 0.2f;
+            [SerializeField] public List<CountData> countDatas;
+            [SerializeField] public List<BossData > bossDatas;
+        } 
+        [System.Serializable]
+        public class CountData
+        {
+            [SerializeField] public Pool enemyType;
+            [SerializeField] public int count;
+        } 
+        [System.Serializable]
+        public class BossData
+        {
+            [SerializeField] public Pool enemyType;
+            [SerializeField] public int count;
+        } 
     }
 
 }

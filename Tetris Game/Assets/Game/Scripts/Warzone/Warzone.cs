@@ -13,7 +13,7 @@ namespace  Game
     public class Warzone : Singleton<Warzone>
     {
         [Header("Level")]
-        [System.NonSerialized] public Level.Data LevelData;
+        [System.NonSerialized] public Enemy.SpawnData EnemySpawnData;
         [Header("Players")]
         [SerializeField] public Player Player;
         [Header("Zones")]
@@ -111,33 +111,19 @@ namespace  Game
                 if (countdown)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
-                    yield return Announcer.THIS.Count(startingText, (int)LevelData.spawnDelay);
+                    yield return Announcer.THIS.Count(startingText, EnemySpawnData.spawnDelay);
                 }
                 
 
-                int totalHealth = LevelData.totalEnemyHealth;
+                // int totalHealth = EnemySpawnData.totalEnemyHealth;
 
                 Spawning = true;
                 this.Player.shield.ResumeProtection();
                 
-                while (totalHealth > 0)
+                while (true)
                 {
-                    int health = 1;
-                    while (Helper.Possible(LevelData.mergeProbability)) //check
-                    {
-                        if (health >= LevelData.maxMerge)
-                        {
-                            break;
-                        }
-                        health++;
-                    }
-
-
-                    Enemies.Add(SpawnEnemy(health, LevelData.enemySpeed));
-
-                    totalHealth -= health;
-
-                    yield return new WaitForSeconds(LevelData.spawnInterval.Random());
+                    Enemies.Add(SpawnEnemy());
+                    yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
                 }
 
                 _spawnRoutine = null;
@@ -163,11 +149,11 @@ namespace  Game
 
             Spawning = false;
         }
-        private Enemy SpawnEnemy(int health, float speed)
+        private Enemy SpawnEnemy()
         {
             Enemy enemy = Pool.Enemy_1.Spawn<Enemy>(this.transform);
-            enemy.Set(health, speed);
-            enemy.OnSpawn(RandomSpawnPosition());
+            enemy.Replenish();
+            enemy.OnSpawn(RandomSpawnPosition);
             return enemy;
         }
 
@@ -187,10 +173,8 @@ namespace  Game
             Enemies.Remove(enemy);
             LevelManager.THIS.CheckVictory();
         }
-        private Vector3 RandomSpawnPosition()
-        {
-            return new Vector3(Random.Range(-LevelData.spawnWidth, LevelData.spawnWidth), 0.0f, Zone.startLine);
-        }
+        private Vector3 RandomSpawnPosition => new Vector3(Random.Range(-2.5f, 2.5f), 0.0f, Zone.startLine);
+            
     #endregion
 
         public void Emit(int amount, Vector3 position, Color color, float radius)
@@ -288,38 +272,5 @@ namespace  Game
 
 namespace  Level
 {
-    [System.Serializable]
-    public class Data : ICloneable
-    {
-        [SerializeField] public float spawnDelay = 0.0f; // delay of the spawn
-        [SerializeField] public int totalEnemyHealth = 100;
-        [Range(1, 6)] [SerializeField] public int maxMerge = 2;
-        [Range(0.0f, 0.9f)] [SerializeField] public float mergeProbability = 0.5f;
-        [SerializeField] public float enemySpeed = 1.0f;
-        [SerializeField] public float spawnWidth = 2.5f;
-        [SerializeField] public Vector2 spawnInterval;
-                
-        public Data()
-        {
-            this.spawnDelay = 0.0f;
-            this.totalEnemyHealth = 0;
-            this.maxMerge = 1;
-            this.enemySpeed = 1.0f;
-            this.spawnWidth = 2.5f;
-        }
-        public Data(Data data)
-        {
-            this.spawnDelay = data.spawnDelay;
-            this.totalEnemyHealth = data.totalEnemyHealth;
-            this.maxMerge = data.maxMerge;
-            this.enemySpeed = data.enemySpeed;
-            this.spawnWidth = data.spawnWidth;
-            this.spawnInterval = data.spawnInterval;
-        }
-
-        public object Clone()
-        {
-            return new Data(this);
-        }
-    } 
+    
 }

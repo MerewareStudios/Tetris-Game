@@ -14,7 +14,7 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        Warzone.THIS.LevelData = CurrentLevel.GetLevelData();
+        Warzone.THIS.EnemySpawnData = CurrentLevel.GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
         
         // UIManager.THIS.loanBar.MakeUnavailable(10.0f);
