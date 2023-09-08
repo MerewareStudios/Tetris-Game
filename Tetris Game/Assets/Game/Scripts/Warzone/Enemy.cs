@@ -11,24 +11,25 @@ namespace  Game
     public class Enemy : MonoBehaviour
     {
         [Header("Model")]
+        [SerializeField] private Transform thisTransform;
         [SerializeField] public Transform modelPivot;
-        [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private Renderer skin;
+        [SerializeField] private Animator animator;
+        [SerializeField] private EnemyData so;
         [Header("Stats")]
-        [System.NonSerialized] private int health = 1;
-        [System.NonSerialized] private float speed = 1.0f;
+        [System.NonSerialized] private int currentHealth = 1;
         // Self references
-        [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public System.Action OnRemoved = null;
+        [System.NonSerialized] private Tween _colorPunchTween;
+
+        private static int WALK_HASH = Animator.StringToHash("Walk");
+        private static int DEATH_HASH = Animator.StringToHash("Death");
 
     #region  Mono
-        private void Awake()
+        public void Walk()
         {
-            _thisTransform = this.transform;
-        }
-        void Update()
-        {
-            _thisTransform.position += _thisTransform.forward * (Time.deltaTime * _Speed);
-            if (Warzone.THIS.Zone.IsOutside(_thisTransform))
+            thisTransform.position += thisTransform.forward * (Time.deltaTime * _Speed);
+            if (Warzone.THIS.Zone.IsOutside(thisTransform))
             {
                 Warzone.THIS.EnemyKamikaze(this);
             }
@@ -41,49 +42,56 @@ namespace  Game
         {
             _Health = healthValue;
             _Speed = speedValue;
+            
+            animator.SetTrigger(WALK_HASH);
         }
         public void TakeDamage(int value)
         {
-            float radius = health * 0.1f;
-            Warzone.THIS.Emit(health * 5, transform.position, health.Health2Color(), radius);
+            ColorPunch();
+            Warzone.THIS.Emit(5, transform.position, currentHealth.Health2Color(), so.radius);
             _Health -= value;
             if (_Health <= 0)
             {
                 Warzone.THIS.EnemyKilled(this);
             }
         }
+
+        private void ColorPunch()
+        {
+            
+        }
         
         public int _Health
         {
             set
             {
-                health = value;
-                if (health > 0)
-                {
-                    modelPivot.localScale = Vector3.one * (1.0f + (health-1) * 0.75f);
-                    meshRenderer.SetColor(GameManager.MPB_ENEMY, GameManager.BaseColor, health.Health2Color());
-                }
+                currentHealth = value;
+                // if (health > 0)
+                // {
+                    // modelPivot.localScale = Vector3.one * (1.0f + (health-1) * 0.75f);
+                    // meshRenderer.SetColor(GameManager.MPB_ENEMY, GameManager.BaseColor, health.Health2Color());
+                // }
             }
-            get => health;
+            get => currentHealth;
         }
         public float _Speed
         {
             set
             {
-                speed = value;
+                so.speed = value;
             }
-            get => speed;
+            get => so.speed;
         }
     
         public void OnSpawn(Vector3 position)
         {
-            _thisTransform.DOKill();
+            thisTransform.DOKill();
             
-            _thisTransform.position = position;
-            _thisTransform.forward = Vector3.back;
+            thisTransform.position = position;
+            thisTransform.forward = Vector3.back;
 
-            _thisTransform.localScale = Vector3.zero;
-            _thisTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
+            thisTransform.localScale = Vector3.zero;
+            thisTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
 
             this.enabled = true;
         }
@@ -96,18 +104,25 @@ namespace  Game
 
         public void KamikazeDeconstruct()
         {
-            _thisTransform.DOKill();
-            Particle.Kamikaze.Play(_thisTransform.position);
+            thisTransform.DOKill();
+            Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();
         }
         public void Kill()
         {
-            _thisTransform.DOKill();
+            thisTransform.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             // Wallet.COIN.Transaction(1);
-            UIManagerExtensions.EmitEnemyCoin(transform.position, 1, 1);
             // Particle.Coin.Emit(1, transform.position + new Vector3(0.0f, 0.25f, 0.0f));
-            this.Deconstruct();
+            animator.SetTrigger(DEATH_HASH);
+
+            DOVirtual.DelayedCall(1.25f, () =>
+            {
+                UIManagerExtensions.EmitEnemyCoin(thisTransform.position, 1, 1);
+
+                Warzone.THIS.Emit(15, thisTransform.position, so.color, so.radius);
+                this.Deconstruct();
+            });
         }
     #endregion
 
@@ -117,5 +132,15 @@ namespace  Game
             this.Despawn();
         }
         
+        public enum Type
+        {
+            Slime,
+            Mushroom,
+            Turtle,
+            Cactus,
+            Chest,
+            Eye,
+        }
     }
+
 }

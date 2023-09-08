@@ -60,6 +60,14 @@ namespace  Game
         }
     #endregion
 
+    void Update()
+    {
+        foreach (var enemy in Enemies)
+        {
+            enemy.Walk();
+        }
+    }
+
     #region Warzone
         public void EnemyKamikaze(Enemy enemy)
         {
@@ -157,7 +165,7 @@ namespace  Game
         }
         private Enemy SpawnEnemy(int health, float speed)
         {
-            Enemy enemy = Pool.Enemy.Spawn<Enemy>(this.transform);
+            Enemy enemy = Pool.Enemy_1.Spawn<Enemy>(this.transform);
             enemy.Set(health, speed);
             enemy.OnSpawn(RandomSpawnPosition());
             return enemy;

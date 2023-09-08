@@ -19,7 +19,7 @@ public enum Pool
     Tree_I_Double_Empty = 16,
     Tree_I_Triple_Empty = 17,
     Tree_I_Empty_Block = 18,
-    Enemy = 19,
+    Enemy_1 = 19,
     Bullet = 20,
     Trail = 21,
     Distortion = 22,
