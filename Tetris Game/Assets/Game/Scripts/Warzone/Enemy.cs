@@ -43,6 +43,7 @@ namespace  Game
             _Health = so.maxHealth;
             
             animator.SetTrigger(WALK_HASH);
+            skin.SetColor(GameManager.MPB_ENEMY, GameManager.EnemyEmisColor, Color.black);
         }
         public void TakeDamage(int value)
         {
