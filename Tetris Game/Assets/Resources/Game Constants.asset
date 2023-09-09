@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Game Constants
   m_EditorClassIdentifier: 
   Levels:
-  - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
+  - {fileID: 11400000, guid: 1bcbd2651be768b47b3b5cd6e9d92aa6, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
-  - {fileID: 11400000, guid: 1bcbd2651be768b47b3b5cd6e9d92aa6, type: 2}
+  - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
   - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
   - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
   - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
@@ -454,13 +454,6 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0.38431373, a: 1}
   - {r: 1, g: 0.28627452, b: 0.2, a: 1}
   - {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
-  enemyColors:
-  - {r: 1, g: 0.27679035, b: 0.18431371, a: 1}
-  - {r: 1, g: 0.47961238, b: 0.1830188, a: 1}
-  - {r: 1, g: 0.8564748, b: 0.18431371, a: 1}
-  - {r: 0.18431371, g: 1, b: 0.793827, a: 1}
-  - {r: 0.7459129, g: 0.18431371, b: 1, a: 1}
-  - {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   singleColor: {r: 0.25490198, g: 0.54901963, b: 0.95686275, a: 1}
   comboColor: {r: 1, g: 0.4509804, b: 0.18039216, a: 1}
   frontLineGradient:

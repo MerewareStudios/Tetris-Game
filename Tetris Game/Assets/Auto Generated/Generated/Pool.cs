@@ -38,5 +38,6 @@ public enum Pool
     Glimmer = 35,
     Enemy_2 = 36,
     Enemy_3 = 37,
+    Enemy_4 = 38,
 
 }
