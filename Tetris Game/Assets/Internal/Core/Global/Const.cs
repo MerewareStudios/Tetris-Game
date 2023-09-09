@@ -34,7 +34,6 @@ public class Const : SSingleton<Const>
     public Color steadyColor;
     public Color mergerColor;
     public Color[] placeColors;
-    public Color[] enemyColors; // enemy colors
     public Color singleColor;
     public Color comboColor;
     public Gradient frontLineGradient;
@@ -148,10 +147,6 @@ public class Const : SSingleton<Const>
 
 public static class ConstExtensions
 {
-    public static Color Health2Color(this int health)
-    {
-        return Const.THIS.enemyColors[health - 1];
-    } 
     public static Const.RewardData RewardData(this PiggyMenu.PiggyReward.Type type)
     {
         return Const.THIS.rewardDatas[(int)type];

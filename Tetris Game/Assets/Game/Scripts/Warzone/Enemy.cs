@@ -49,7 +49,7 @@ namespace  Game
         public void TakeDamage(int value)
         {
             ColorPunch();
-            Warzone.THIS.Emit(5, transform.position, currentHealth.Health2Color(), so.radius);
+            Warzone.THIS.Emit(so.emitCount, transform.position, so.color, so.radius);
             _Health -= value;
             if (_Health <= 0)
             {
@@ -133,7 +133,7 @@ namespace  Game
             DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
                 UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, so.maxHealth, so.maxHealth);
-                Warzone.THIS.Emit(15, thisTransform.position, so.color, so.radius);
+                Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
                 LevelManager.THIS.CheckVictory();
             });

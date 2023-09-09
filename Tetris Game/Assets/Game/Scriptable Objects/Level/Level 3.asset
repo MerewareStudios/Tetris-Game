@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 3
   m_EditorClassIdentifier: 
-  LevelData:
+  EnemySpawnData:
     spawnDelay: 3
-    totalEnemyHealth: 25
-    maxMerge: 1
-    mergeProbability: 0
-    enemySpeed: 0.1
-    spawnWidth: 2.25
-    spawnInterval: {x: 0.5, y: 1}
+    spawnInterval: 1
+    countDatas:
+    - enemyType: 19
+      count: 0
+    - enemyType: 36
+      count: 0
+    - enemyType: 37
+      count: 8
+    bossDatas: []
   canGiveBonus: 0
   victoryReward:
     type: 0

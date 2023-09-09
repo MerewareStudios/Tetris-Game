@@ -47,4 +47,6 @@ MonoBehaviour:
   maxHealth: 2
   speed: 0.15
   radius: 0.6
+  emitCount: 5
+  deathEmitCount: 10
   wipeDelay: 0.7
