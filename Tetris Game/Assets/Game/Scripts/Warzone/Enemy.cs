@@ -11,7 +11,7 @@ namespace  Game
     public class Enemy : MonoBehaviour
     {
         [Header("Model")]
-        [SerializeField] private Transform thisTransform;
+        [SerializeField] public Transform thisTransform;
         [SerializeField] public Transform modelPivot;
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
@@ -24,6 +24,7 @@ namespace  Game
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
+        private static int HIT_HASH = Animator.StringToHash("Hit");
 
     #region  Mono
         public void Walk()
@@ -38,7 +39,7 @@ namespace  Game
 
     #region  Warzone
 
-        public void Replenish()
+        private void Replenish()
         {
             _Health = so.maxHealth;
             
@@ -53,6 +54,18 @@ namespace  Game
             if (_Health <= 0)
             {
                 Warzone.THIS.EnemyKilled(this);
+            }
+            else
+            {
+                animator.SetTrigger(HIT_HASH);
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                animator.SetTrigger(HIT_HASH);
             }
         }
 
@@ -83,6 +96,8 @@ namespace  Game
     
         public void OnSpawn(Vector3 position)
         {
+            Replenish();
+
             thisTransform.DOKill();
             
             thisTransform.position = position;
@@ -98,6 +113,8 @@ namespace  Game
             Warzone.THIS.RemoveEnemy(this);
             OnRemoved?.Invoke();
             KamikazeDeconstruct();
+            LevelManager.THIS.CheckVictory();
+
         }
 
         public void KamikazeDeconstruct()
@@ -113,12 +130,12 @@ namespace  Game
             
             animator.SetTrigger(DEATH_HASH);
 
-            DOVirtual.DelayedCall(0.7f, () =>
+            DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
-                UIManagerExtensions.EmitEnemyCoin(thisTransform.position, 1, 1);
-
+                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, so.maxHealth, so.maxHealth);
                 Warzone.THIS.Emit(15, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
+                LevelManager.THIS.CheckVictory();
             });
         }
     #endregion

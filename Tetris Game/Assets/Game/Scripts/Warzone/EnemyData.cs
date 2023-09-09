@@ -10,4 +10,5 @@ public class EnemyData : ScriptableObject
     public int maxHealth;
     public float speed;
     public float radius;
+    public float wipeDelay;
 }

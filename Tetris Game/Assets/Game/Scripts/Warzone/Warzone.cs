@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace  Game
 {
@@ -24,12 +22,13 @@ namespace  Game
         [System.NonSerialized] public Transform psTransform;
         //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
-        [System.NonSerialized] public readonly List<Enemy> Enemies = new();
+        [System.NonSerialized] private readonly List<Enemy> Enemies = new();
         [System.NonSerialized] private bool _busy = false;
 
         public bool Spawning { get; private set; }
         public bool HasEnemy => Enemies.Count > 0;
         public bool IsWarzoneCleared => !Spawning && !HasEnemy;
+        public int EnemyCount => Enemies.Count;
         
     #region Warzone
         void Awake()
@@ -104,7 +103,6 @@ namespace  Game
             StopSpawning();
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             
-            Player.StartSearching();
 
             IEnumerator SpawnRoutine()
             {
@@ -115,14 +113,32 @@ namespace  Game
                 }
                 
 
-                // int totalHealth = EnemySpawnData.totalEnemyHealth;
-
                 Spawning = true;
                 this.Player.shield.ResumeProtection();
+
+                List<Pool> enemyPool = new();
+                int enemyIndex = 0;
                 
-                while (true)
+                foreach (var countData in EnemySpawnData.countDatas)
                 {
-                    Enemies.Add(SpawnEnemy());
+                    for (int i = 0; i < countData.count; i++)
+                    {
+                        enemyPool.Add(countData.enemyType);                        
+                    }
+                }
+                
+                enemyPool.Shuffle();
+                
+                Player.StartSearching();
+
+
+                while (enemyIndex < enemyPool.Count)
+                {
+                    Enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
+                    if (!Player.CurrentEnemy)
+                    {
+                        AssignClosestEnemy();
+                    }
                     yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
                 }
 
@@ -130,7 +146,7 @@ namespace  Game
                 
                 Spawning = false;
                 
-                LevelManager.THIS.CheckVictory();
+                // LevelManager.THIS.CheckVictory();
             }
         }
 
@@ -149,29 +165,23 @@ namespace  Game
 
             Spawning = false;
         }
-        private Enemy SpawnEnemy()
+        private Enemy SpawnEnemy(Pool pool)
         {
-            Enemy enemy = Pool.Enemy_1.Spawn<Enemy>(this.transform);
-            enemy.Replenish();
+            Enemy enemy = pool.Spawn<Enemy>(this.transform);
             enemy.OnSpawn(RandomSpawnPosition);
-            return enemy;
-        }
-
-        public Enemy DequeEnemy()
-        {
-            if (Enemies.Count == 0)
-            {
-                return null;
-            }
-
-            Enemy enemy = Enemies[0];
-            Enemies.RemoveAt(0);
             return enemy;
         }
         public void RemoveEnemy(Enemy enemy)
         {
             Enemies.Remove(enemy);
-            LevelManager.THIS.CheckVictory();
+            AssignClosestEnemy();
+        }
+
+        public void AssignClosestEnemy()
+        {
+            Player.CurrentEnemy = Enemies
+                .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - Zone.endLine))
+                .FirstOrDefault();
         }
         private Vector3 RandomSpawnPosition => new Vector3(Random.Range(-2.5f, 2.5f), 0.0f, Zone.startLine);
             

@@ -23,17 +23,16 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private CustomPower customPower;
    [Header("Bars")]
    [SerializeField] public Shop shop;
-   // [SerializeField] public LoanBar loanBar;
    [FormerlySerializedAs("particleImageCoin")]
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;
    [SerializeField] public MotionData motionData_Block;
    [SerializeField] public MotionData motionData_Enemy;
+   [SerializeField] public MotionData motionData_Enemy_Burst;
    [SerializeField] public MotionData motionData_LevelReward;
    [SerializeField] public MotionData motionData_PiggyFill;
    [SerializeField] public MotionData motionData_Shop;
    [Header("Level")]
-   // [SerializeField] public TextMeshProUGUI levelText;
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
    [System.NonSerialized] public static bool MENU_VISIBLE = false;
    [Header("Transactors")]
@@ -168,6 +167,12 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy);
+   }
+   public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
    }
    public static void EmitEnemyCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
    {

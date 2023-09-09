@@ -29,6 +29,7 @@ namespace Game
         [System.NonSerialized] private float _currentAngle = 0.0f;
         [System.NonSerialized] private bool _shouldGetUp = false;
         [System.NonSerialized] private Coroutine _searchRoutine = null;
+        [System.NonSerialized] public Enemy CurrentEnemy = null;
         
         [System.NonSerialized] public static readonly int IDLE_HASH = Animator.StringToHash("Idle");
         [System.NonSerialized] public static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
@@ -138,7 +139,7 @@ namespace Game
 
         public void Shoot(int bulletCount)
         {
-            int shootCount = Mathf.Min(bulletCount, Warzone.THIS.Enemies.Count);
+            int shootCount = Mathf.Min(bulletCount, Warzone.THIS.EnemyCount);
 
             if (shootCount == 0)
             {
@@ -158,7 +159,7 @@ namespace Game
             animator.SetTrigger(SHOOT_HASH);
             for (int i = 0; i < shootCount; i++)
             {
-               gun.Shoot(Warzone.THIS.Enemies[i]);
+               gun.Shoot(CurrentEnemy);
             }
         }
 
@@ -193,18 +194,18 @@ namespace Game
         {
             Warzone.THIS.Player.animator.SetTrigger(Player.IDLE_HASH);
 
+            StopSearching();
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
 
             
             IEnumerator SearchEnemyRoutine()
             {
                 _currentAngle = transform.eulerAngles.y;
-
                 while (true)
                 {
-                    if (Warzone.THIS.Enemies.Count > 0)
+                    if (CurrentEnemy)
                     {
-                        var targetPosition = Warzone.THIS.Enemies[0].transform.position;
+                        var targetPosition = CurrentEnemy.thisTransform.position;
                         Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
                         _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate);

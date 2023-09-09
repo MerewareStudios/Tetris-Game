@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy 1
+  m_Name: Enemy 2
   m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -126,8 +126,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
-    - _SpecColor: {r: 1, g: 0, b: 0.41786307, a: 0}
+    - _EmissionColor: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 1}
+    - _SpecColor: {r: 1, g: 0.5509525, b: 0.2588235, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7603848154891847096
 MonoBehaviour:

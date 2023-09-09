@@ -1664,6 +1664,10 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
+  - gameObject: {fileID: 6409661743272111104, guid: b4041d047cbb83943a4991dce8dcf636,
+      type: 3}
+    preload: 0
+    capacity: 250
 --- !u!1 &812741769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2309,6 +2313,8 @@ MonoBehaviour:
   coinEmitter: {fileID: 1775779537}
   motionData_Block: {fileID: 11400000, guid: e393417e9894bfb4ba93cce27cc53f72, type: 2}
   motionData_Enemy: {fileID: 11400000, guid: fb0b46f355600e54bad57a215d819a05, type: 2}
+  motionData_Enemy_Burst: {fileID: 11400000, guid: 20479afacb54b1d4ca007042b406f67b,
+    type: 2}
   motionData_LevelReward: {fileID: 11400000, guid: 7dbd65f44c20a9d428ad94ff4cf87161,
     type: 2}
   motionData_PiggyFill: {fileID: 11400000, guid: 3267444f39d2f2247833454923c7e711,
