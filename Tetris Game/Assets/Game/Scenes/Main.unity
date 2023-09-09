@@ -1676,6 +1676,14 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
+  - gameObject: {fileID: 6409661743272111104, guid: cb98a05aa7c2c37429b894730f396880,
+      type: 3}
+    preload: 0
+    capacity: 250
+  - gameObject: {fileID: 6409661743272111104, guid: b86b4bb81d2930949bcc7c4c290f4d30,
+      type: 3}
+    preload: 0
+    capacity: 250
 --- !u!1 &812741769
 GameObject:
   m_ObjectHideFlags: 0

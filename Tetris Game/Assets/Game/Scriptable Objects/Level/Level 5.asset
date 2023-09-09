@@ -16,7 +16,7 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 1
     countDatas:
-    - enemyType: 39
+    - enemyType: 40
       count: 5
     bossDatas: []
   canGiveBonus: 0
