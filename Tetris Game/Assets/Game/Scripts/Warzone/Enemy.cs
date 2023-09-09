@@ -132,7 +132,7 @@ namespace  Game
 
             DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
-                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, so.maxHealth, so.maxHealth);
+                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, so.reward, so.reward);
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
                 LevelManager.THIS.CheckVictory();

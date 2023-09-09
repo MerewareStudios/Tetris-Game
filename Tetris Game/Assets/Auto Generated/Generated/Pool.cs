@@ -39,5 +39,6 @@ public enum Pool
     Enemy_2 = 36,
     Enemy_3 = 37,
     Enemy_4 = 38,
+    Enemy_5 = 39,
 
 }

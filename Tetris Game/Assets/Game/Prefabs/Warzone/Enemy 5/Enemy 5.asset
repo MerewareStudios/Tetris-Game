@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 3
+  m_Name: Enemy 5
   m_EditorClassIdentifier: 
-  type: 2
-  color: {r: 1, g: 0.8739667, b: 0, a: 1}
+  type: 4
+  color: {r: 0.9668522, g: 1, b: 0, a: 1}
   hitGradient:
     serializedVersion: 2
     key0: {r: 0, g: 0, b: 0, a: 1}
@@ -44,9 +44,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  reward: 3
-  maxHealth: 3
-  speed: 0.2
+  reward: 15
+  maxHealth: 6
+  speed: 0.15
   radius: 0.6
   emitCount: 5
   deathEmitCount: 20

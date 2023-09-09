@@ -44,6 +44,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  reward: 4
   maxHealth: 4
   speed: 0.25
   radius: 0.6
