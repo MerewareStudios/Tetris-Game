@@ -100,19 +100,19 @@ namespace Game.UI
                 case PurchaseType.MaxStack:
                     
                     break;
-                case PurchaseType.BuySkipTicket:
+                case PurchaseType.SkipTicket:
                     
                     break;
                 case PurchaseType.MedKit:
                     
                     break;
-                case PurchaseType.BuyCoin:
+                case PurchaseType.Coin:
                     
                     break;
                 case PurchaseType.Shield:
                     
                     break;
-                case PurchaseType.BuyPiggyCoin:
+                case PurchaseType.PiggyCoin:
                     
                     break;
                 case PurchaseType.PiggyCapacity:
@@ -161,11 +161,12 @@ namespace Game.UI
         public enum PurchaseType
         {
             MaxStack,
-            BuySkipTicket,
+            SkipTicket,
             MedKit,
-            BuyCoin,
+            Coin,
+            Heart,
             Shield,
-            BuyPiggyCoin,
+            PiggyCoin,
             PiggyCapacity,
             BasicChest,
             PrimeChest,

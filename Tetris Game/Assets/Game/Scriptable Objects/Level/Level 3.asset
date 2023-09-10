@@ -17,11 +17,11 @@ MonoBehaviour:
     spawnInterval: 1
     countDatas:
     - enemyType: 19
-      count: 0
+      count: 4
     - enemyType: 36
-      count: 0
+      count: 2
     - enemyType: 37
-      count: 8
+      count: 1
     bossDatas: []
   canGiveBonus: 0
   victoryReward:

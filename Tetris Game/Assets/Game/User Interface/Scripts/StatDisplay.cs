@@ -81,7 +81,7 @@ public class StatDisplay : MonoBehaviour
     {
         punchPivot.DOKill();
         punchPivot.localScale = Vector3.one;
-        punchPivot.DOPunchScale(Vector3.one * 0.25f, 0.25f, 1);
+        punchPivot.DOPunchScale(Vector3.one * 0.5f, 0.25f, 1);
     }
 
     [Serializable]

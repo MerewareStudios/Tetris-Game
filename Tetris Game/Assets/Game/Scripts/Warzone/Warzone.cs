@@ -267,7 +267,6 @@ namespace  Game
     
         public void GiveHeart(int amount = 1)
         {
-            Player._CurrentHealth += amount;
         }
         public void GiveShield(int amount)
         {

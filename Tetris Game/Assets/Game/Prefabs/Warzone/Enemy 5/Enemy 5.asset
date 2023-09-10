@@ -46,7 +46,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   reward: 15
   maxHealth: 6
-  speed: 0.15
+  speed: 0.1
   radius: 0.6
   emitCount: 5
   deathEmitCount: 20

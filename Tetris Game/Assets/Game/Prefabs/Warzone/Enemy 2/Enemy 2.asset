@@ -44,9 +44,15 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  reward: 2
+  enemyRewards:
+  - type: 3
+    rewardAmount: 2
+    rewardProbability: 1
+  - type: 4
+    rewardAmount: 1
+    rewardProbability: 0.5
   maxHealth: 2
-  speed: 0.15
+  speed: 0.175
   radius: 0.6
   emitCount: 5
   deathEmitCount: 10

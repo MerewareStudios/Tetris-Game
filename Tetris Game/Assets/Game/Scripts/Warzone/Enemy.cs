@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game.UI;
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -17,7 +18,7 @@ namespace  Game
         [SerializeField] private Animator animator;
         [SerializeField] private EnemyData so;
         [Header("Stats")]
-        [System.NonSerialized] private int currentHealth = 1;
+        [System.NonSerialized] private int _currentHealth = 1;
         // Self references
         [System.NonSerialized] public System.Action OnRemoved = null;
         [System.NonSerialized] private Tween _colorPunchTween;
@@ -84,14 +85,14 @@ namespace  Game
         {
             set
             {
-                currentHealth = value;
+                _currentHealth = value;
                 // if (health > 0)
                 // {
                     // modelPivot.localScale = Vector3.one * (1.0f + (health-1) * 0.75f);
                     // meshRenderer.SetColor(GameManager.MPB_ENEMY, GameManager.BaseColor, health.Health2Color());
                 // }
             }
-            get => currentHealth;
+            get => _currentHealth;
         }
     
         public void OnSpawn(Vector3 position)
@@ -132,7 +133,21 @@ namespace  Game
 
             DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
-                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, so.reward, so.reward);
+                foreach (var reward in so.enemyRewards)
+                {
+                    Helper.IsPossible(reward.rewardProbability, () =>
+                    {
+                        switch (reward.type)
+                        {
+                            case UpgradeMenu.PurchaseType.Coin:
+                                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                                break;
+                            case UpgradeMenu.PurchaseType.Heart:
+                                UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                                break;
+                        }
+                    });
+                }
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
                 LevelManager.THIS.CheckVictory();

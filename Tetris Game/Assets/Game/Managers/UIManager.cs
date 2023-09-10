@@ -26,12 +26,14 @@ public class UIManager : Singleton<UIManager>
    [FormerlySerializedAs("particleImageCoin")]
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;
+   [SerializeField] public UIEmitter heartEmitter;
    [SerializeField] public MotionData motionData_Block;
    [SerializeField] public MotionData motionData_Enemy;
    [SerializeField] public MotionData motionData_Enemy_Burst;
    [SerializeField] public MotionData motionData_LevelReward;
    [SerializeField] public MotionData motionData_PiggyFill;
    [SerializeField] public MotionData motionData_Shop;
+   [SerializeField] public MotionData motionData_UpgradeBurst;
    [Header("Level")]
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
    [System.NonSerialized] public static bool MENU_VISIBLE = false;
@@ -174,13 +176,6 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
    }
-   public static void EmitEnemyCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
-   {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
-      TargetSettings targetSettingsEnd = new TargetSettings(Space.World, null, Warzone.THIS.Player.acceptTarget.position);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Enemy);
-   }
    public static void EmitLevelRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
    {
       TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);
@@ -199,5 +194,12 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Shop, null, null);
+   }
+   public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      // TargetSettings targetSettingsEnd = new TargetSettings(Space.World, null, Warzone.THIS.Player.acceptTarget.position);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
    }
 }

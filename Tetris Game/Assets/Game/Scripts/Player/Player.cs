@@ -18,7 +18,6 @@ namespace Game
         [Header("Motion Settings")]
         [SerializeField] public Animator animator;
         [SerializeField] private Transform holster;
-        [SerializeField] public Transform acceptTarget;
 
         [System.NonSerialized] private Gun gun;
 
@@ -84,7 +83,7 @@ namespace Game
 
                 if (_data.currentHealth > 0)
                 {
-                    StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth);
+                    StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, _data.currentHealth, punch:true);
                 }
                 else
                 {
@@ -201,6 +200,7 @@ namespace Game
             IEnumerator SearchEnemyRoutine()
             {
                 _currentAngle = transform.eulerAngles.y;
+                float smoothFactor = 0.0f;
                 while (true)
                 {
                     if (CurrentEnemy)
@@ -208,7 +208,9 @@ namespace Game
                         var targetPosition = CurrentEnemy.thisTransform.position;
                         Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
-                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate);
+
+                        smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
+                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate * smoothFactor);
 
                         transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 
