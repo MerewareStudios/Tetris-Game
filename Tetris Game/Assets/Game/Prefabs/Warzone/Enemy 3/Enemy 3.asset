@@ -46,7 +46,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    rewardAmount: 3
+    rewardAmount: 5
     rewardProbability: 1
   - type: 5
     rewardAmount: 1

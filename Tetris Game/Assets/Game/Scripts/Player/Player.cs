@@ -65,7 +65,7 @@ namespace Game
                 _CurrentHealth = _data.currentHealth;
 
                 _GunData = WeaponMenu.THIS.EquippedGunData;
-                _ShieldData = _data.shieldData;
+                shield._Data = _data.shieldData;
 
                 if (ONBOARDING.INSPECT_HEART_DISPLAY.IsNotComplete())
                 {
@@ -119,16 +119,6 @@ namespace Game
             get => gun._Data;
         }
         
-        public Shield.Data _ShieldData
-        {
-            set
-            {
-                _data.shieldData = value;
-                shield._Data = _data.shieldData;
-            }
-            get => _data.shieldData;
-        }
-        
         public void ReplenishHealth()
         {
             if (_CurrentHealth > 0) return;
@@ -179,13 +169,11 @@ namespace Game
         public void OnVictory()
         {
             StopSearching();
-            shield.PauseProtection();
             animator.SetTrigger(VICTORY_HASH);
         }
         public void OnFail()
         {
             StopSearching();
-            shield.PauseProtection();
             animator.SetTrigger(DEATH_HASH);
             _shouldGetUp = true;
         }
@@ -193,8 +181,8 @@ namespace Game
         {
             Warzone.THIS.Player.animator.SetTrigger(Player.IDLE_HASH);
 
-            StopSearching();
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
+            shield.Resume();
 
             
             IEnumerator SearchEnemyRoutine()
@@ -238,6 +226,7 @@ namespace Game
                 StopCoroutine(_searchRoutine);
                 _searchRoutine = null;
             }
+            shield.Pause();
         }
         public void Replenish()
         {

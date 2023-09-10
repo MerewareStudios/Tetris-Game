@@ -18,14 +18,15 @@ namespace  Game
         [SerializeField] private Animator animator;
         [SerializeField] private EnemyData so;
         [Header("Stats")]
-        [System.NonSerialized] private int _currentHealth = 1;
-        // Self references
+        [System.NonSerialized] public int Health = 1;
         [System.NonSerialized] public System.Action OnRemoved = null;
         [System.NonSerialized] private Tween _colorPunchTween;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
         private static int HIT_HASH = Animator.StringToHash("Hit");
+
+        public int Damage => so.damage;
 
     #region  Mono
         public void Walk()
@@ -42,7 +43,7 @@ namespace  Game
 
         private void Replenish()
         {
-            _Health = so.maxHealth;
+            Health = so.maxHealth;
             
             animator.SetTrigger(WALK_HASH);
             skin.SetColor(GameManager.MPB_ENEMY, GameManager.EnemyEmisColor, Color.black);
@@ -51,8 +52,8 @@ namespace  Game
         {
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.color, so.radius);
-            _Health -= value;
-            if (_Health <= 0)
+            Health -= value;
+            if (Health <= 0)
             {
                 Warzone.THIS.EnemyKilled(this);
             }
@@ -81,20 +82,6 @@ namespace  Game
             };
         }
         
-        public int _Health
-        {
-            set
-            {
-                _currentHealth = value;
-                // if (health > 0)
-                // {
-                    // modelPivot.localScale = Vector3.one * (1.0f + (health-1) * 0.75f);
-                    // meshRenderer.SetColor(GameManager.MPB_ENEMY, GameManager.BaseColor, health.Health2Color());
-                // }
-            }
-            get => _currentHealth;
-        }
-    
         public void OnSpawn(Vector3 position)
         {
             Replenish();
@@ -144,6 +131,9 @@ namespace  Game
                                 break;
                             case UpgradeMenu.PurchaseType.Heart:
                                 UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                                break;
+                            case UpgradeMenu.PurchaseType.Shield:
+                                UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
                                 break;
                         }
                     });

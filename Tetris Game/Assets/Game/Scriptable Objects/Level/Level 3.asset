@@ -16,9 +16,9 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 1
     countDatas:
-    - enemyType: 19
+    - enemyType: 37
       count: 4
-    - enemyType: 36
+    - enemyType: 37
       count: 2
     - enemyType: 37
       count: 1

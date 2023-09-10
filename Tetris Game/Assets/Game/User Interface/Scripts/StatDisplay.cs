@@ -21,7 +21,7 @@ public class StatDisplay : MonoBehaviour
         image.sprite = sprite;
     }
 
-    private bool SetValue(int value)
+    private bool SetAmount(int value)
     {
         if (_currentValue == value)
         {
@@ -42,7 +42,7 @@ public class StatDisplay : MonoBehaviour
 
         timerFill.fillAmount = timePercent;
         
-        if (SetValue(value))
+        if (SetAmount(value))
         {
             return;
         }
@@ -58,6 +58,24 @@ public class StatDisplay : MonoBehaviour
         animationPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
     }
     
+    public void UpdatePercent(float timePercent)
+    {
+        timerFill.fillAmount = timePercent;
+    }
+    public void UpdateAmount(int amount, float punch)
+    {
+        if (SetAmount(amount))
+        {
+            return;
+        }
+        
+        Punch(punch);
+
+        this.gameObject.SetActive(true);
+        animationPivot.DOKill();
+        animationPivot.localScale = Vector3.one;
+        animationPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);    
+    }
     public void Hide()
     {
         if (!this.gameObject.activeSelf)
@@ -77,11 +95,11 @@ public class StatDisplay : MonoBehaviour
         this.gameObject.SetActive(false);
     }
     
-    public void Punch()
+    public void Punch(float amount = 0.5f)
     {
         punchPivot.DOKill();
         punchPivot.localScale = Vector3.one;
-        punchPivot.DOPunchScale(Vector3.one * 0.5f, 0.25f, 1);
+        punchPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1);
     }
 
     [Serializable]

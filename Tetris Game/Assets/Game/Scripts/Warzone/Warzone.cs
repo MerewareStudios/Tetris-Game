@@ -25,7 +25,7 @@ namespace  Game
         [System.NonSerialized] private readonly List<Enemy> Enemies = new();
         [System.NonSerialized] private bool _busy = false;
 
-        public bool Spawning { get; private set; }
+        public bool Spawning => _spawnRoutine != null;
         public bool HasEnemy => Enemies.Count > 0;
         public bool IsWarzoneCleared => !Spawning && !HasEnemy;
         public int EnemyCount => Enemies.Count;
@@ -44,15 +44,16 @@ namespace  Game
             
             UIManager.OnMenuModeChanged = state =>
             {
+                Debug.Log("OnMenuModeChanged " + state);
                 if (state)
                 {
-                    this.Player.shield.PauseProtection();
+                    this.Player.shield.Pause();
                 }
                 else
                 {
                     if (Spawning)
                     {
-                        this.Player.shield.ResumeProtection();
+                        this.Player.shield.Resume();
                     }
                 }
             };
@@ -72,15 +73,16 @@ namespace  Game
         {
             enemy.Kamikaze();
 
-            int detakenDamage = Player.shield.ConsumeShield(enemy._Health);
-            if (detakenDamage >= 0)
+            bool blocked = Player.shield.Remove();
+            
+            if (blocked)
             {
                 Particle.Shield.Play(enemy.transform.position);
                 return;
             }
+            
             CameraManager.THIS.Shake();
-
-            this.Player._CurrentHealth += detakenDamage;
+            this.Player._CurrentHealth -= enemy.Damage;
         } 
         public void EnemyKilled(Enemy enemy)
         {
@@ -113,8 +115,6 @@ namespace  Game
                 }
                 
 
-                Spawning = true;
-                this.Player.shield.ResumeProtection();
 
                 List<Pool> enemyPool = new();
                 int enemyIndex = 0;
@@ -144,7 +144,6 @@ namespace  Game
 
                 _spawnRoutine = null;
                 
-                Spawning = false;
                 
                 // LevelManager.THIS.CheckVictory();
             }
@@ -162,8 +161,6 @@ namespace  Game
                 StopCoroutine(_spawnRoutine);
                 _spawnRoutine = null;
             }
-
-            Spawning = false;
         }
         private Enemy SpawnEnemy(Pool pool)
         {
@@ -262,18 +259,6 @@ namespace  Game
                 return transform.position.z < endLine;
             }
         }
-        
-    #region  Upgrades
-    
-        public void GiveHeart(int amount = 1)
-        {
-        }
-        public void GiveShield(int amount)
-        {
-            Player.shield.AddShield(amount);
-        }
-
-    #endregion
     }
 }
 

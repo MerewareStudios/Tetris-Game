@@ -27,6 +27,7 @@ public class UIManager : Singleton<UIManager>
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;
    [SerializeField] public UIEmitter heartEmitter;
+   [SerializeField] public UIEmitter shieldEmitter;
    [SerializeField] public MotionData motionData_Block;
    [SerializeField] public MotionData motionData_Enemy;
    [SerializeField] public MotionData motionData_Enemy_Burst;
@@ -87,9 +88,13 @@ public class UIManager : Singleton<UIManager>
       {
          MenuNavigator.THIS.Open();
       }
-      if (Input.GetKeyDown(KeyCode.Space))
+      if (Input.GetKeyDown(KeyCode.M))
       {
-         Warzone.THIS.GiveShield(1);
+         Warzone.THIS.Player._CurrentHealth += 1;
+      }
+      if (Input.GetKeyDown(KeyCode.N))
+      {
+         Warzone.THIS.Player.shield.Add(1);
       }
       if (Input.GetKeyDown(KeyCode.G))
       {
@@ -112,7 +117,6 @@ public class UIManager : Singleton<UIManager>
             Onboarding.TalkAboutTicketMerge();
          }
       }
-
       if (Input.GetKeyDown(KeyCode.B))
       {
          Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(Vector3.zero + new Vector3(0.0f, 0.3516f + 0.254f, 0.0f));
@@ -198,8 +202,13 @@ public static class UIManagerExtensions
    public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
-      // TargetSettings targetSettingsEnd = new TargetSettings(Space.World, null, Warzone.THIS.Player.acceptTarget.position);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
+   }
+   public static void ShieldToPlayer(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.shieldEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
    }
 }

@@ -56,6 +56,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         }
         UIManager.MenuMode(false);
         Wallet.ScaleTransactors(1.0f);
+        LevelManager.THIS.LoadLevel();
         return false;
     }
     public new void Show()
@@ -214,7 +215,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Onboarding.HideFinger();
         }
         this.Close();
-        LevelManager.THIS.LoadLevel();
     }
     #endregion
     

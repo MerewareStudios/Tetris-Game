@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Shield : MonoBehaviour
     [SerializeField] private Vector3 targetHideScale;
     [System.NonSerialized] private Data _data;
 
-    private bool Enabled
+    private bool EffectEnabled
     {
         set
         {
@@ -31,7 +32,6 @@ public class Shield : MonoBehaviour
                 };
             }
         }
-        get => zonePs.isPlaying;
     }
     
     public Data _Data
@@ -39,102 +39,98 @@ public class Shield : MonoBehaviour
         set
         {
             _data = value;
-            if (_data.CanProtect)
-            {
-                ResumeProtection();
-            }
         }
         get => _data;
     }
 
-    public void AddShield(int amount)
+    public void Add(int value)
     {
-        _Data.amount += amount;
-        _Data = _data;
+        _Data.Amount += value;
+        StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Shield, _Data.Amount, 0.5f);
+        Resume();
     }
-    public int ConsumeShield(int amount)
+    public bool Remove()
     {
-        if (!_Data.CanProtect)
+        if (!_Data.Available)
         {
-            return -amount;
+            return false;
         }
+        _Data.Amount -= 1;
+        StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Shield, _Data.Amount, -0.25f);
+        if (!_Data.AvailableByCount)
+        {
+            StatDisplayArranger.THIS.Hide(StatDisplay.Type.Shield);
+        }
+        return true;
+    }
+    public void AddOnly(int value)
+    {
+        _Data.Amount += value;
+    }
 
-        _Data.amount -= amount;
-
-        int remaining = _Data.amount;
-        _Data.amount = Mathf.Clamp(_Data.amount, 0, int.MaxValue);
-        return remaining;
+    public void Pause()
+    {
+        this.enabled = false;
     }
     
-    private void DisplayProtection()
+    public void Stop()
     {
-        StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.amount, _Data.Percent, true, true);
-        Enabled = true;
-    }
-    public void ResumeProtection()
-    {
-        if (_data.CanProtect)
-        {
-            DisplayProtection();
-            // if (!TickManager.THIS.IsTicking(this))
-            // {
-            //     TickManager.THIS.AddTickable(this);
-            // }
-        }
-    }
-    public void PauseProtection()
-    {
-        // TickManager.THIS.RemoveTickable(this);
-    }
-
-    public float TickInterval { get => StatDisplayArranger.UpdateInterval;}
-
-    public void OnTick()
-    {
-        // _Data.ConsumeTime(Time.time - _lastTimeTicked);
-        
-        StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.amount, _Data.Percent, false, false);
-
-        if (_Data.CanProtect)
-        {
-            return;
-        }
-
-        _Data.amount = 0;
-        
-        Enabled = false;
-            
-        // TickManager.THIS.RemoveTickable(this);
+        EffectEnabled = false;
+        this.enabled = false;
         StatDisplayArranger.THIS.Hide(StatDisplay.Type.Shield);
     }
+    
+    public void Resume()
+    {
+        EffectEnabled = _Data.Available;
+        this.enabled = true;
+        
+        if (_Data.Available)
+        {
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.Amount, _Data.Percent, false, false);
+        }
+    }
 
+    void Update()
+    {
+        _Data.ConsumeTime(Time.deltaTime);
+        StatDisplayArranger.THIS.UpdateFill(StatDisplay.Type.Shield, _Data.Percent);
+
+        if (!_Data.Available)
+        {
+            Stop();
+        }
+    }
     
     [System.Serializable]
     public class Data : System.ICloneable
     {
-        [System.NonSerialized] public float maxTime = 0.0f;
+        [System.NonSerialized] private const float MaxTime = 30.0f;
         [SerializeField] public float timeLeft = 0.0f;
-        [SerializeField] public int amount;
+        [SerializeField] private int amount;
 
-        // public Data()
-        // {
-        //     
-        // }
-        // public Data(float timeLeft, int amount)
-        // {
-        //     this.timeLeft = timeLeft;
-        //     this.maxTime = this.timeLeft;
-        //     this.amount = amount;
-        // }
-
-        public float Percent => timeLeft / maxTime;
-        public bool CanProtect => AvailableByTime && amount > 0;
-        public bool AvailableByTime => timeLeft > 0.0f;
-
-        public void AddTime(float duration)
+        public int Amount
         {
-            timeLeft += duration;
-            maxTime = timeLeft;
+            set
+            {
+                this.amount = value;
+                this.amount = Mathf.Max(amount, 0);
+                if (value > 0)
+                {
+                    ReplenishTime();
+                }
+            }
+            get => amount;
+        }
+
+        public float Percent => timeLeft / MaxTime;
+        public bool Available => AvailableByTime && AvailableByCount;
+        public bool AvailableByTime => timeLeft > 0.0f;
+        public bool AvailableByCount => amount > 0;
+
+        public void ReplenishTime()
+        {
+            timeLeft = MaxTime;
         }
         public void ConsumeTime(float duration)
         {
@@ -143,7 +139,6 @@ public class Shield : MonoBehaviour
         public Data(Shield.Data data)
         {
             this.timeLeft = data.timeLeft;
-            this.maxTime = this.timeLeft;
             this.amount = data.amount;
         }
 

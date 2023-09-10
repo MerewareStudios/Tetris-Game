@@ -30,8 +30,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 100
-      m_ConstantMax: 110
+      m_ConstantMin: 25
+      m_ConstantMax: 30
     minDistance:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 100
-      m_ConstantMax: 100
+      m_ConstantMin: 25
+      m_ConstantMax: 25
     duration:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
       m_ConstantMin: 0.5
       m_ConstantMax: 0.5
     ease: 26
-    overshoot: 2
+    overshoot: 1
     easeCurve:
       serializedVersion: 2
       m_Curve:

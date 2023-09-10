@@ -56,6 +56,10 @@ public class GameManager : Singleton<GameManager>
     {
         Warzone.THIS.Player._CurrentHealth += value;
     }
+    public static void AddShield(int value)
+    {
+        Warzone.THIS.Player.shield.Add(value);
+    }
     
     // public void Deconstruct()
     // {
