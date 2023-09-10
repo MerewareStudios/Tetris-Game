@@ -71,13 +71,12 @@ namespace  Game
     #region Warzone
         public void EnemyKamikaze(Enemy enemy)
         {
-            enemy.Kamikaze();
-
             bool blocked = Player.shield.Remove();
+            enemy.Kamikaze(blocked);
             
             if (blocked)
             {
-                Particle.Shield.Play(enemy.transform.position);
+                UIManagerExtensions.ShieldPs(enemy.thisTransform.position);
                 return;
             }
             

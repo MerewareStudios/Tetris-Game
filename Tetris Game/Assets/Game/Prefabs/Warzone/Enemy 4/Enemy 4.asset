@@ -44,7 +44,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  reward: 4
+  enemyRewards: []
+  damage: 5
   maxHealth: 4
   speed: 0.125
   radius: 0.6

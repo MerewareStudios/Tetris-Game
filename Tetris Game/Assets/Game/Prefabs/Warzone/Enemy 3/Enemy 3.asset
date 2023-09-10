@@ -51,6 +51,7 @@ MonoBehaviour:
   - type: 5
     rewardAmount: 1
     rewardProbability: 0.5
+  damage: 3
   maxHealth: 5
   speed: 0.1
   radius: 0.6

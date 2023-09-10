@@ -96,13 +96,16 @@ namespace  Game
 
             this.enabled = true;
         }
-        public void Kamikaze()
+        public void Kamikaze(bool giveRewards)
         {
+            if (giveRewards)
+            {
+                GiveRewards();
+            }
             Warzone.THIS.RemoveEnemy(this);
             OnRemoved?.Invoke();
             KamikazeDeconstruct();
             LevelManager.THIS.CheckVictory();
-
         }
 
         public void KamikazeDeconstruct()
@@ -120,28 +123,33 @@ namespace  Game
 
             DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
-                foreach (var reward in so.enemyRewards)
-                {
-                    Helper.IsPossible(reward.rewardProbability, () =>
-                    {
-                        switch (reward.type)
-                        {
-                            case UpgradeMenu.PurchaseType.Coin:
-                                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
-                                break;
-                            case UpgradeMenu.PurchaseType.Heart:
-                                UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
-                                break;
-                            case UpgradeMenu.PurchaseType.Shield:
-                                UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
-                                break;
-                        }
-                    });
-                }
+                GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
                 LevelManager.THIS.CheckVictory();
             });
+        }
+
+        private void GiveRewards()
+        {
+            foreach (var reward in so.enemyRewards)
+            {
+                Helper.IsPossible(reward.rewardProbability, () =>
+                {
+                    switch (reward.type)
+                    {
+                        case UpgradeMenu.PurchaseType.Coin:
+                            UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                            break;
+                        case UpgradeMenu.PurchaseType.Heart:
+                            UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                            break;
+                        case UpgradeMenu.PurchaseType.Shield:
+                            UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                            break;
+                    }
+                });
+            }
         }
     #endregion
 

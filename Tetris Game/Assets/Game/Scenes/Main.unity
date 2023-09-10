@@ -1701,7 +1701,7 @@ GameObject:
   - component: {fileID: 812741770}
   - component: {fileID: 812741771}
   m_Layer: 0
-  m_Name: Warzone
+  m_Name: $ Warzone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
