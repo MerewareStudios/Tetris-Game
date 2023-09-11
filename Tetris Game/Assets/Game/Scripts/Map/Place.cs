@@ -7,48 +7,20 @@ namespace Game
     public class Place : MonoBehaviour
     {
         [SerializeField] public Transform segmentParent;
-        [SerializeField] private MeshRenderer placementSprite;
         [SerializeField] private Renderer gridTile;
-        // [SerializeField] private MeshRenderer igniteSprite;
         [System.NonSerialized] public Vector2Int Index;
-        [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
-        // [System.NonSerialized] private bool _supplier = false;
+        [System.NonSerialized] private PlaceColor _placeColor = PlaceColor.GREEN;
         public Pawn Current { get; set; }
         public bool Occupied => Current;
         public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
+        public Vector3 PlacePosition => gridTile.transform.position;
         
         public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
 
-        public Color GridTileColor
-        {
-            set
-            {
-                gridTile.SetColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, value);
-            }
-        }
-
-        // public bool Supplier
-        // {
-        //     get => _supplier;
-        //     set
-        //     {
-        //         _supplier = value;
-        //         igniteSprite.enabled = value;
-        //         // SetPlaceType(PlaceType.EMPTY, true);
-        //         this._placeType = PlaceType.EMPTY;
-        //
-        //         Color color = value ? Const.THIS.shooterPlaceColor : Const.THIS.placeColors[(int)PlaceType.EMPTY];
-        //         placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
-        //     }
-        // }
-
         public void Construct()
         {
-            this._placeType = PlaceType.FREE;
-            
-            Color color = Const.THIS.placeColors[(int)PlaceType.EMPTY];
-            placementSprite.SetColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, color);
-
+            this._placeColor = PlaceColor.GREEN;
+            gridTile.SetColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, Const.THIS.gridTileColors[LinearIndex % 2]);
         }
         public void Deconstruct()
         {
@@ -75,30 +47,23 @@ namespace Game
                 Current = null;
             }
         }
-        public void SetPlaceType(PlaceType placeType, bool force = false)
+        public void SetPlaceType(PlaceColor placeColor, bool force = false)
         {
-            if (!force && this._placeType.Equals(placeType))
+            if (!force && this._placeColor.Equals(placeColor))
             {
                 return;
             }
 
-            this._placeType = placeType;
-
-            Color color = Const.THIS.placeColors[(int)placeType];
-            // if (placeType.Equals(PlaceType.EMPTY) && Supplier)
-            // {
-            //     color = Const.THIS.shooterPlaceColor;
-            // }
-
-            DoColor(color);
+            this._placeColor = placeColor;
+            DoColor(Const.THIS.placeColorsDouble[(int)placeColor * 2 + (LinearIndex % 2)]);
         }
 
         private void DoColor(Color color)
         {
-            placementSprite.DOKill();
-            placementSprite.GetPropertyBlock(GameManager.MPB_PLACEMENT, 0);
-            Color startColor = GameManager.MPB_PLACEMENT.GetColor(GameManager.BaseColor);
-            placementSprite.DoColor(GameManager.MPB_PLACEMENT, GameManager.BaseColor, startColor, color, 0.125f, Ease.OutSine);
+            gridTile.DOKill();
+            gridTile.GetPropertyBlock(GameManager.MPB_GRID_TILE, 0);
+            Color startColor = GameManager.MPB_GRID_TILE.GetColor(GameManager.BaseColor);
+            gridTile.DoColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, startColor, color, 0.125f, Ease.OutSine);
         }
 
         public void Accept(Pawn pawn, float duration, System.Action OnComplete = null)
@@ -117,11 +82,11 @@ namespace Game
             pawn.Set(segmentParent, segmentParent.position);
         }
 
-        public enum PlaceType
+        public enum PlaceColor
         {
-            FREE,
-            OCCUPIED,
-            EMPTY,
+            GREEN,
+            RED,
+            NORMAL,
         }
     }
 }

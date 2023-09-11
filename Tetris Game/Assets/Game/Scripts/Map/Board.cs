@@ -43,31 +43,29 @@ namespace Game
             {
                 for(int j = 0; j < Size.y; j++)
                 {
-                    int linearIndex = j + i * Size.y;
                     Place place = Pool.Place.Spawn<Place>(this.transform);
-                    place.Construct();
-                    place.GridTileColor = Const.THIS.gridTileColors[linearIndex % 2];
                     place.transform.localPosition = new Vector3(i, 0.0f, -j);
                     places[i, j] = place;
                     place.Index = new Vector2Int(i, j);
+                    place.Construct();
                 }
             }
 
             transform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
         }
 
-        private void Update()
-        {
-            for (int i = 0; i < Size.x; i++)
-            {
-                for(int j = 0; j < Size.y; j++)
-                {
-                    int linearIndex = j + i * Size.y;
-                    Place place = places[i, j];
-                    place.GridTileColor = Const.THIS.gridTileColors[linearIndex % 2];
-                }
-            }
-        }
+        // private void Update()
+        // {
+        //     for (int i = 0; i < Size.x; i++)
+        //     {
+        //         for(int j = 0; j < Size.y; j++)
+        //         {
+        //             int linearIndex = j + i * Size.y;
+        //             Place place = places[i, j];
+        //             place.GridTileColor = Const.THIS.gridTileColors[linearIndex % 2];
+        //         }
+        //     }
+        // }
 
         public void Deconstruct()
         {
@@ -207,7 +205,7 @@ namespace Game
         {
             Call<Place>(places, (place) => 
                 {
-                    place.SetPlaceType(Game.Place.PlaceType.EMPTY);
+                    place.SetPlaceType(Game.Place.PlaceColor.NORMAL);
                 });
         }
 
@@ -562,7 +560,7 @@ namespace Game
                 (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
                 if (place != null)
                 {
-                    place.SetPlaceType(canPlace ? Game.Place.PlaceType.FREE : Game.Place.PlaceType.OCCUPIED);
+                    place.SetPlaceType(canPlace ? Game.Place.PlaceColor.GREEN : Game.Place.PlaceColor.RED);
                 }
             }
         }
@@ -610,7 +608,7 @@ namespace Game
         {
             foreach (var place in places)
             {
-                Particle.Blue_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                Particle.Blue_Zone.Emit(1, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
             }
         }
 

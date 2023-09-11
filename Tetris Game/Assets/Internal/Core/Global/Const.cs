@@ -34,10 +34,7 @@ public class Const : SSingleton<Const>
     public Color defaultColor;
     public Color steadyColor;
     public Color mergerColor;
-    public Color[] placeColors;
-    public Color singleColor;
-    public Color comboColor;
-    public Gradient frontLineGradient;
+    public Color[] placeColorsDouble;
     public Color piggyExplodeColor;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
@@ -45,8 +42,6 @@ public class Const : SSingleton<Const>
     [Header("Button Textures")] 
     public Sprite getButtonTexture;
     public Sprite buyButtonTexture;
-    [Header("Images")] 
-    public Sprite[] purchaseOptionSprites;
     [Header("Curreny Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;
