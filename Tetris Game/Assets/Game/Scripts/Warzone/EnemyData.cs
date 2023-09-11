@@ -17,6 +17,7 @@ public class EnemyData : ScriptableObject
     public int emitCount;
     public int deathEmitCount;
     public float wipeDelay;
+    public float crossSize;
 
 
     [System.Serializable]

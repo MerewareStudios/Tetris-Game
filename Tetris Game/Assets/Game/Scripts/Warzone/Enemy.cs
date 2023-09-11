@@ -27,6 +27,7 @@ namespace  Game
         private static int HIT_HASH = Animator.StringToHash("Hit");
 
         public int Damage => so.damage;
+        public Vector3 CrossSize => new Vector3(so.crossSize, so.crossSize, so.crossSize);
 
     #region  Mono
         public void Walk()

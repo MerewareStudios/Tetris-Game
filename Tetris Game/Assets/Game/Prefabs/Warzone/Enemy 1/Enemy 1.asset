@@ -55,3 +55,4 @@ MonoBehaviour:
   emitCount: 5
   deathEmitCount: 6
   wipeDelay: 0.7
+  crossSize: 1

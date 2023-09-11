@@ -18,6 +18,7 @@ namespace Game
         [Header("Motion Settings")]
         [SerializeField] public Animator animator;
         [SerializeField] private Transform holster;
+        [SerializeField] private Transform crossHair;
 
         [System.NonSerialized] private Gun gun;
 
@@ -189,11 +190,18 @@ namespace Game
             {
                 _currentAngle = transform.eulerAngles.y;
                 float smoothFactor = 0.0f;
+                crossHair.gameObject.SetActive(true);
+
                 while (true)
                 {
                     if (CurrentEnemy)
                     {
                         var targetPosition = CurrentEnemy.thisTransform.position;
+
+                        crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.turnRate * smoothFactor);
+                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor);
+                        crossHair.forward = transform.forward;
+                        
                         Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
 
@@ -227,6 +235,7 @@ namespace Game
                 _searchRoutine = null;
             }
             shield.Pause();
+            crossHair.gameObject.SetActive(false);
         }
         public void Replenish()
         {

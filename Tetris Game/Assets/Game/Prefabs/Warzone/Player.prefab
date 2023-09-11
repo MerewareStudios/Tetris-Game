@@ -48,8 +48,7 @@ MonoBehaviour:
   shield: {fileID: 0}
   animator: {fileID: 1240445161471149592}
   holster: {fileID: 6218805647396707961}
-  acceptTarget: {fileID: 0}
-  heartPS: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!1001 &227018868375919224
 PrefabInstance:
   m_ObjectHideFlags: 0
