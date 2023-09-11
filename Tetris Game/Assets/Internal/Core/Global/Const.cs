@@ -30,6 +30,7 @@ public class Const : SSingleton<Const>
     [Header("Reward")] 
     public RewardData[] rewardDatas;
     [Header("Colors")] 
+    public Color[] gridTileColors;
     public Color defaultColor;
     public Color steadyColor;
     public Color mergerColor;

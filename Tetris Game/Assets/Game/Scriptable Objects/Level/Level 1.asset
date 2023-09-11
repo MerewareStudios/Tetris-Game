@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   EnemySpawnData:
-    spawnDelay: 3
+    spawnDelay: 111
     spawnInterval: 1.5
     countDatas:
     - enemyType: 19

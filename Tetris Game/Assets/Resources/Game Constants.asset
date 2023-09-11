@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Game Constants
   m_EditorClassIdentifier: 
   Levels:
-  - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
+  - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
   - {fileID: 11400000, guid: 1bcbd2651be768b47b3b5cd6e9d92aa6, type: 2}
   - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
@@ -447,6 +447,9 @@ MonoBehaviour:
     iconSprite: {fileID: 21300000, guid: 0959aa906424baf428ea5218c92d6606, type: 3}
     infoPostfix: New Weapon
     color: {r: 0, g: 1, b: 0.3829465, a: 1}
+  gridTileColors:
+  - {r: 0.9056604, g: 0.6596354, b: 0.2597365, a: 1}
+  - {r: 0.81, g: 0.5890909, b: 0.23142856, a: 1}
   defaultColor: {r: 0.20300001, g: 0.5397007, b: 1, a: 1}
   steadyColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
   mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}

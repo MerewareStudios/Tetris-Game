@@ -9,9 +9,9 @@ public class GameManager : Singleton<GameManager>
 {
     [System.NonSerialized] public static MaterialPropertyBlock MPB_PAWN;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_ENEMY;
-    // [System.NonSerialized] public static MaterialPropertyBlock MPB_FRONT;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_PLACEMENT;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_DISTORTION;
+    [System.NonSerialized] public static MaterialPropertyBlock MPB_GRID_TILE;
 
     [System.NonSerialized] public static bool PLAYING = false;
     
@@ -26,9 +26,9 @@ public class GameManager : Singleton<GameManager>
     {
         MPB_PAWN = new();
         MPB_ENEMY = new();
-        // MPB_FRONT = new();
         MPB_PLACEMENT = new();
         MPB_DISTORTION = new();
+        MPB_GRID_TILE = new();
     }
     
     void Start()

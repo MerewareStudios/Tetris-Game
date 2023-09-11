@@ -8,6 +8,7 @@ namespace Game
     {
         [SerializeField] public Transform segmentParent;
         [SerializeField] private MeshRenderer placementSprite;
+        [SerializeField] private Renderer gridTile;
         // [SerializeField] private MeshRenderer igniteSprite;
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceType _placeType = PlaceType.FREE;
@@ -18,6 +19,13 @@ namespace Game
         
         public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
 
+        public Color GridTileColor
+        {
+            set
+            {
+                gridTile.SetColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, value);
+            }
+        }
 
         // public bool Supplier
         // {

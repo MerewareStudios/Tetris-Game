@@ -1,3 +1,4 @@
+using System;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,14 +43,32 @@ namespace Game
             {
                 for(int j = 0; j < Size.y; j++)
                 {
+                    int linearIndex = j + i * Size.y;
                     Place place = Pool.Place.Spawn<Place>(this.transform);
                     place.Construct();
+                    place.GridTileColor = Const.THIS.gridTileColors[linearIndex % 2];
                     place.transform.localPosition = new Vector3(i, 0.0f, -j);
                     places[i, j] = place;
                     place.Index = new Vector2Int(i, j);
                 }
             }
+
+            transform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
         }
+
+        private void Update()
+        {
+            for (int i = 0; i < Size.x; i++)
+            {
+                for(int j = 0; j < Size.y; j++)
+                {
+                    int linearIndex = j + i * Size.y;
+                    Place place = places[i, j];
+                    place.GridTileColor = Const.THIS.gridTileColors[linearIndex % 2];
+                }
+            }
+        }
+
         public void Deconstruct()
         {
             Dehighlight();
