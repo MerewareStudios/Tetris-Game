@@ -299,9 +299,6 @@ namespace Game
             place.AcceptNow(mergedPawn);
 
             
-            
-
-
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
@@ -404,9 +401,10 @@ namespace Game
         {
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-                if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
+                if (place.Current && verticalIndex >= startLine)
                 {
                     place.Current.MOVER = true;
+                    place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
                 }
             });
         }
@@ -415,10 +413,12 @@ namespace Game
         {
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-        
-                if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
+                // if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
+                if (place.Current && horizontalIndex == x && verticalIndex >= y)
                 {
                     place.Current.MOVER = true;
+                    Debug.Log((verticalIndex - y));
+                    place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
                 }
             });
         }

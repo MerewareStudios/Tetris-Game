@@ -450,52 +450,16 @@ MonoBehaviour:
   gridTileColors:
   - {r: 0.6801091, g: 0.24705881, b: 0.8666667, a: 1}
   - {r: 0.6971073, g: 0.30853334, b: 0.8666667, a: 1}
-  defaultColor: {r: 0.20300001, g: 0.5397007, b: 1, a: 1}
+  defaultColor: {r: 0.14743528, g: 0.4952316, b: 0.964, a: 1}
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}
-  placeColors:
-  - {r: 0.19999999, g: 1, b: 0.23371771, a: 1}
-  - {r: 1, g: 0.28627452, b: 0.2, a: 1}
-  - {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
   placeColorsDouble:
-  - {r: 0.17157634, g: 0.81, b: 0.19152707, a: 1}
+  - {r: 0.18758793, g: 0.89199996, b: 0.21055792, a: 1}
   - {r: 0.2117647, g: 1, b: 0.23673983, a: 1}
-  - {r: 0.845, g: 0.17894118, b: 0.19882366, a: 1}
+  - {r: 0.886, g: 0.18762352, b: 0.20847072, a: 1}
   - {r: 1, g: 0.2113207, b: 0.23446302, a: 1}
   - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
-  singleColor: {r: 0.25490198, g: 0.54901963, b: 0.95686275, a: 1}
-  comboColor: {r: 1, g: 0.4509804, b: 0.18039216, a: 1}
-  frontLineGradient:
-    serializedVersion: 2
-    key0: {r: 0.25882354, g: 0.5529412, b: 1, a: 1}
-    key1: {r: 0.03137255, g: 0.15294118, b: 0.34117648, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
   piggyExplodeColor: {r: 1, g: 0.70980394, b: 0.85490197, a: 1}
   metaTextMaterials:
   - {fileID: 2100000, guid: 4c8589fcb4a5e594ab7b1b23e9914251, type: 2}
@@ -509,10 +473,6 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   getButtonTexture: {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
   buyButtonTexture: {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
-  purchaseOptionSprites:
-  - {fileID: 21300000, guid: 18e9d080cfeac4bcbbd49c99ada661e8, type: 3}
-  - {fileID: 21300000, guid: 18e9d080cfeac4bcbbd49c99ada661e8, type: 3}
-  - {fileID: 21300000, guid: 450ce0cdd8bbd4cb2acdfd86f85136c6, type: 3}
   currenyButtonNormalColor: {r: 1, g: 1, b: 1, a: 1}
   currenyButtonFadedColor: {r: 1, g: 1, b: 1, a: 0.2}
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.8117647}

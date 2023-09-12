@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Anim Const
   m_EditorClassIdentifier: 
   moveEase: 0
-  mergeTravelDelay: 0.1
+  mergeTravelDelay: 0.15
   mergeTravelDur: 0.2
   mergeTravelShoot: 1
   mergeTravelEase: 8
   mergedScalePunch: 0.35
   mergedScaleDuration: 0.35
-  mergedPunchScale: -0.1
+  mergedPunchScale: -0.175
   mergedPunchDuration: 0.1
-  distortScale: 5
+  distortScale: 4
   distortStartRamp: 0
   distortEndRamp: 0.5
   distortDuration: 0.8
@@ -59,7 +59,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   explodeRadius: 0.6
-  jumpPower: 0
+  jumpPower: 2
   jumpDuration: 0.75
   explosionJumpEase: 21
   glimmerSpeedBlock: 2000

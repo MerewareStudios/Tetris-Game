@@ -242,6 +242,12 @@ namespace Game
             pivot.localScale = Vector3.one;
             pivot.DOPunchScale(Vector3.up * magnitude, duration, 1);
         }
+        public void JumpUp(float magnitude, float duration, float delay)
+        {
+            pivot.DOKill();
+            pivot.localPosition = Vector3.zero;
+            pivot.DOPunchPosition(Vector3.back * magnitude, duration, 1).SetDelay(delay);
+        }
         public void Hide(System.Action complete = null)
         {
             modelPivot.DOKill();

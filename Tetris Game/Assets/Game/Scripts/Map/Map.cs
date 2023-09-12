@@ -22,7 +22,7 @@ namespace Game
                 while (true)
                 {
                     Board.THIS.MoveAll(0.25f);
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForSeconds(0.275f);
                     Board.THIS.CheckAll();
                     List<int> tetrisLines = Board.THIS.CheckTetris();
                     
@@ -44,16 +44,14 @@ namespace Game
                             //UIManager.THIS.ft_Combo.FlyScreen("<size=125%>x" + tetrisLines.Count + "<size=100%>\nMAX", Vector3.zero,  0.0f);
                             // yield return new WaitForSeconds(0.25f);
                         // }
-
-                      
-
                         Board.THIS.MergeLines(tetrisLines);
                     
                         Board.THIS.MarkAllMover(tetrisLines[0]);
                         Board.THIS.CheckAll();
-                        yield return new WaitForSeconds(0.75f);
+
+                        yield return new WaitForSeconds(0.325f);
                     }
-                    yield return new WaitForSeconds(0.175f);
+                    yield return new WaitForSeconds(0.17f);
                     Board.THIS.CheckDeadLock();
                 }
             }
