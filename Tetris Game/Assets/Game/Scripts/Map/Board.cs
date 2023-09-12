@@ -417,7 +417,6 @@ namespace Game
                 if (place.Current && horizontalIndex == x && verticalIndex >= y)
                 {
                     place.Current.MOVER = true;
-                    Debug.Log((verticalIndex - y));
                     place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
                 }
             });
@@ -426,7 +425,7 @@ namespace Game
         public int ConsumeBullet(int splitCount)
         {
             int totalAmmo = 0;
-            CallRow<Place>(places, 0, (place, horizontalIndex) =>
+            Call<Place>(places, (place) =>
             {
                 if (splitCount > 0 && place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                 {
