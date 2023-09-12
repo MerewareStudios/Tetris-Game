@@ -1096,7 +1096,7 @@ GameObject:
   - component: {fileID: 183552485749146767}
   - component: {fileID: 4373759297596524496}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Continue Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1614,6 +1614,7 @@ MonoBehaviour:
   _rectTransformPiggyIcon: {fileID: 2452570680296169187}
   _coinTarget: {fileID: 221342732115417062}
   continueButton: {fileID: 1860617752551880045}
+  continueText: {fileID: 4373759297596524496}
   investButton: {fileID: 8537267506465226131}
   breakButton: {fileID: 352714330288184130}
   frame: {fileID: 5788546401495193989}
@@ -2250,7 +2251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 318.36}
+  m_AnchoredPosition: {x: 135.79596, y: 0.000015258789}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8466423471045595208
@@ -2533,7 +2534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4241523688717228336}
   m_Layer: 5
-  m_Name: "P\u0131ggy Reward P\u0131vot"
+  m_Name: "Piggy Reward P\u0131vot"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

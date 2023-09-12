@@ -106,7 +106,6 @@ namespace  Game
             Warzone.THIS.RemoveEnemy(this);
             OnRemoved?.Invoke();
             KamikazeDeconstruct();
-            LevelManager.THIS.CheckVictory();
         }
 
         public void KamikazeDeconstruct()
@@ -127,7 +126,7 @@ namespace  Game
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
-                LevelManager.THIS.CheckVictory();
+                LevelManager.THIS.CheckEndLevel();
             });
         }
 

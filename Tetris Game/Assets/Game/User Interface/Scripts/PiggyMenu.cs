@@ -20,6 +20,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private RectTransform _coinTarget;
     [Header("Buttons")]
     [SerializeField] private Button continueButton;
+    [SerializeField] private TextMeshProUGUI continueText;
     [SerializeField] private Button investButton;
     [SerializeField] private Button breakButton;
     [SerializeField] private Transform frame;
@@ -107,6 +108,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         continueButton.transform.localScale = Vector3.zero;
         if (ONBOARDING.LEARN_TO_INVEST.IsComplete())
         {
+            continueText.text = "LATER";
             continueButton.transform.localPosition = Vector3.zero;
             continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
         }
@@ -312,6 +314,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private void ShowContinueButton()
     {
         continueButton.gameObject.SetActive(true);
+        continueText.text = "CONTINUE";
         continueButton.transform.DOKill();
         continueButton.transform.position = investButton.transform.position;
         continueButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =

@@ -22,8 +22,7 @@ namespace  Game
         [System.NonSerialized] public Transform psTransform;
         //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
-        [System.NonSerialized] private readonly List<Enemy> Enemies = new();
-        [System.NonSerialized] private bool _busy = false;
+        [SerializeField] private List<Enemy> Enemies = new();
 
         public bool Spawning => _spawnRoutine != null;
         public bool HasEnemy => Enemies.Count > 0;
@@ -33,18 +32,12 @@ namespace  Game
     #region Warzone
         void Awake()
         {
-            this.Player.OnDeath += () =>
-            {
-                LevelManager.THIS.OnFail();
-            };
-            
             psMain = bloodPS.main;
             psShape = bloodPS.shape;
             psTransform = bloodPS.transform;
             
             UIManager.OnMenuModeChanged = state =>
             {
-                Debug.Log("OnMenuModeChanged " + state);
                 if (state)
                 {
                     this.Player.shield.Pause();
@@ -62,9 +55,10 @@ namespace  Game
 
     void Update()
     {
-        foreach (var enemy in Enemies)
+
+        for (int i = Enemies.Count - 1; i >= 0; i--)
         {
-            enemy.Walk();
+            Enemies[i].Walk();
         }
     }
 
@@ -82,6 +76,8 @@ namespace  Game
             
             CameraManager.THIS.Shake();
             this.Player._CurrentHealth -= enemy.Damage;
+            
+            LevelManager.THIS.CheckEndLevel();
         } 
         public void EnemyKilled(Enemy enemy)
         {
@@ -94,14 +90,14 @@ namespace  Game
         }
         public void Begin(bool countdown = true)
         {
-            if (_busy)
+            if (this.enabled)
             {
                 return;
             }
 
-            _busy = true;
+
             
-            StopSpawning();
+            // StopSpawning();
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             
 
@@ -130,6 +126,7 @@ namespace  Game
                 
                 Player.StartSearching();
 
+                this.enabled = true;
 
                 while (enemyIndex < enemyPool.Count)
                 {
@@ -160,6 +157,7 @@ namespace  Game
                 StopCoroutine(_spawnRoutine);
                 _spawnRoutine = null;
             }
+            this.enabled = false;
         }
         private Enemy SpawnEnemy(Pool pool)
         {
@@ -195,18 +193,18 @@ namespace  Game
     
     #region IO
 
-        public void Deconstruct()
-        {
-            StopSpawning();
-            Player.Deconstruct();
-            foreach (var enemy in Enemies)
-            {
-                enemy.Deconstruct();
-
-            }
-            Enemies.Clear();
-            _busy = false;
-        }
+        // public void Deconstruct()
+        // {
+        //     StopSpawning();
+        //     Player.Deconstruct();
+        //     foreach (var enemy in Enemies)
+        //     {
+        //         enemy.Deconstruct();
+        //
+        //     }
+        //     Enemies.Clear();
+        //     _busy = false;
+        // }
 
         public void OnVictory()
         {
@@ -217,15 +215,12 @@ namespace  Game
                 enemy.Deconstruct();
             }
             Enemies.Clear();
-            _busy = false;
         }
         
         public void OnFail()
         {
             StopSpawning();
             Player.OnFail();
-            
-            _busy = false;
             
             int enemyCount = Enemies.Count;
 

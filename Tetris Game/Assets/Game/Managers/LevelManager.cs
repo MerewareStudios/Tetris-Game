@@ -42,8 +42,12 @@ public class LevelManager : Singleton<LevelManager>
         return this.CurrentLevel().GetSuggestedBlocks();
     }
 
-    public void CheckVictory()
+    public void CheckEndLevel()
     {
+        if (Warzone.THIS.Player._CurrentHealth <= 0)
+        {
+            OnFail();
+        }
         if (Warzone.THIS.IsWarzoneCleared)
         {
             OnVictory();

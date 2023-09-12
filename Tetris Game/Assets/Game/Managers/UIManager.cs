@@ -80,7 +80,7 @@ public class UIManager : Singleton<UIManager>
 #if UNITY_EDITOR
    private void Update()
    {
-      if (Input.GetKeyDown(KeyCode.E))
+      if (Input.GetKeyDown(KeyCode.P))
       {
          PiggyMenu.THIS.Open();
       }

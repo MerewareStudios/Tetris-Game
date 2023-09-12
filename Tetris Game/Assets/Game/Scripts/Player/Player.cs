@@ -23,7 +23,6 @@ namespace Game
         [System.NonSerialized] private Gun gun;
 
         [System.NonSerialized] private Data _data;
-        [System.NonSerialized] public System.Action OnDeath = null;
 
         [System.NonSerialized] private Vector2 _selfPosition;
         [System.NonSerialized] private float _currentAngle = 0.0f;
@@ -91,10 +90,10 @@ namespace Game
                     StatDisplayArranger.THIS.Hide(StatDisplay.Type.Health);
                 }
                 
-                if (_Data.currentHealth <= 0)
-                {
-                    OnDeath?.Invoke();
-                }
+                // if (_Data.currentHealth <= 0)
+                // {
+                    // LevelManager.THIS.OnFail();
+                // }
             }
             get => _data.currentHealth;
         }
@@ -234,6 +233,8 @@ namespace Game
                 StopCoroutine(_searchRoutine);
                 _searchRoutine = null;
             }
+
+            CurrentEnemy = null;
             shield.Pause();
             crossHair.gameObject.SetActive(false);
         }
