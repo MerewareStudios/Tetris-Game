@@ -21,10 +21,10 @@ MonoBehaviour:
   mergedScaleDuration: 0.35
   mergedPunchScale: -0.175
   mergedPunchDuration: 0.1
-  distortScale: 4
+  distortScale: 5
   distortStartRamp: 0
-  distortEndRamp: 0.5
-  distortDuration: 0.8
+  distortEndRamp: 0.4
+  distortDuration: 0.6
   distortEase: 3
   fragmentScale: {x: 0.45, y: 0.45, z: 0.45}
   explodePower: 5
