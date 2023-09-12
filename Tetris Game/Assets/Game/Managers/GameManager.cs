@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     // [System.NonSerialized] public static MaterialPropertyBlock MPB_PLACEMENT;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_DISTORTION;
     [System.NonSerialized] public static MaterialPropertyBlock MPB_GRID_TILE;
+    [System.NonSerialized] public static MaterialPropertyBlock MPB_EXPLODE;
 
     [System.NonSerialized] public static bool PLAYING = false;
     
@@ -29,6 +30,7 @@ public class GameManager : Singleton<GameManager>
         // MPB_PLACEMENT = new();
         MPB_DISTORTION = new();
         MPB_GRID_TILE = new();
+        MPB_EXPLODE = new();
     }
     
     void Start()

@@ -82,6 +82,11 @@ namespace Game
             }
         }
 
+        // public void Construct()
+        // {
+        //     modelPivot.gameObject.SetActive(true);
+        // }
+
         public void OnMerge()
         {
             UsageType = Pawn.Usage.Shooter;
@@ -197,6 +202,11 @@ namespace Game
         public void MarkMergerColor()
         {
             meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
+        }
+        public void MarkMergerColorHideNumber()
+        {
+            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
+            levelText.text = "1";
         }
         #endregion
         public void AnimatedShow(float delay, float scale, float duration, System.Action start = null)

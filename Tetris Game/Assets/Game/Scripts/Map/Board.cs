@@ -298,16 +298,18 @@ namespace Game
             
             place.AcceptNow(mergedPawn);
 
+            
+            
+
 
             mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
             {
-                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(mergedPawn.modelPivot.position + new Vector3(0.0f, 0.3516f, 0.0f));
                 UIManagerExtensions.Distort(mergedPawnPosition, 0.0f);
-
-                mergedPawn.OnMerge();
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
+                // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(mergedPawn.modelPivot.position + new Vector3(0.0f, 0.3516f, 0.0f));
+                mergedPawn.OnMerge();
             });
 
 
@@ -368,15 +370,28 @@ namespace Game
                 }
 
                 Place spawnPlace = places[mergeIndex, lineIndex];
-                foreach (var pawn in pawns)
+                for (int i = 0; i < pawns.Count; i++)
                 {
-                    Particle.Square.Emit(1, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                    int index = i;
+                    Pawn pawn = pawns[i];
+                    // pawn.modelPivot.gameObject.SetActive(false);
+                    // if (pawn.UsageType.Equals(Pawn.Usage.Ammo))
+                    // {
+                        // pawn.MarkMergerColorHideNumber();
+                    // }
+                    
+                    // Particle.Square.Emit(1, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
                 
                     pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                         .onComplete += () =>
                     {
                         pawn.Deconstruct();
+
+                        if (index == pawns.Count - 1)
+                        {
+                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.transform.position + new Vector3(0.0f, 0.6f, 0.0f));
+                        }
                     };
                 }
 

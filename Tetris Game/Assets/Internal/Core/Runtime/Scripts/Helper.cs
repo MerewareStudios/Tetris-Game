@@ -252,6 +252,17 @@ namespace Internal.Core
             end.y = 0.0f;
             return (end - start).normalized;
         }
+        public static Tween DoColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Gradient gradient, float duration)
+        {
+            float timeStep = 0.0f;
+            Tween tween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, duration);
+            tween.onUpdate = () =>
+            {
+                Color currentColor = gradient.Evaluate(timeStep);
+                renderer.SetColor(mpb, key, currentColor);
+            };
+            return tween;
+        }
         public static Tween DoColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Color fromColor, Color toColor, float duration, Ease ease)
         {
             float timeStep = 0.0f;

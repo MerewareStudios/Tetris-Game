@@ -27,6 +27,8 @@ public class AnimConst : SSingleton<AnimConst>
     [Header("Explode")]
     public Vector3 fragmentScale;
     public float explodePower;
+    public Gradient explodeGradient;
+    public float explodeRadius;
     public float jumpPower;
     public float jumpDuration;
     public Ease explosionJumpEase;

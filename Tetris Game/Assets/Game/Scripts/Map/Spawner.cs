@@ -361,6 +361,7 @@ public class Spawner : Singleton<Spawner>
         pawnTransform.localScale = Vector3.one;
         pawn.UsageType = usageType;
         pawn.Amount = level;
+        // pawn.Construct();
         return pawn;
     }
     #endregion
