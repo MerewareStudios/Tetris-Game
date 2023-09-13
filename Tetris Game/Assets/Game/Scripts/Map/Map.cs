@@ -51,7 +51,7 @@ namespace Game
 
                         yield return new WaitForSeconds(0.325f);
                     }
-                    yield return new WaitForSeconds(0.17f);
+                    yield return new WaitForSeconds(0.25f);
                     Board.THIS.CheckDeadLock();
                 }
             }
