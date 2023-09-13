@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Gun 2
   m_EditorClassIdentifier: 
   holsterTransformData:
-    localPosition: {x: -0.009, y: -0.014, z: 0.013}
-    localEulerAngles: {x: 338.50586, y: 167.88788, z: 263.0435}
-    localScale: {x: 0.5271329, y: 0.5271329, z: 0.5271329}
+    localPosition: {x: -0.0226, y: 0.0346, z: 0.0431}
+    localEulerAngles: {x: 340.89362, y: 167.57968, z: 263.1504}
+    localScale: {x: 0.61563855, y: 0.61563855, z: 0.61563855}

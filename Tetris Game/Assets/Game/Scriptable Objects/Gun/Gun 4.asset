@@ -12,14 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2298bad192dff947a79014fe035571f, type: 3}
   m_Name: Gun 4
   m_EditorClassIdentifier: 
-  prefab: 27
   holsterTransformData:
-    localPosition: {x: -0.041, y: 0.079, z: 0.042}
-    localEulerAngles: {x: 345.3343, y: 167.60696, z: 273.18408}
-    localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
-  defaultData:
-    gunType: 0
-    prevShoot: 0
-    fireRate: 1
-    split: 1
-    damage: 1
+    localPosition: {x: -0.0242, y: 0.0365, z: 0.0343}
+    localEulerAngles: {x: 341.90186, y: 164.87764, z: 250.99237}
+    localScale: {x: 0.56763035, y: 0.56763035, z: 0.56763035}
