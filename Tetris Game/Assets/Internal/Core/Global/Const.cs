@@ -124,14 +124,6 @@ public class Const : SSingleton<Const>
         Dollar,
     }
 
-    public void ManualAwake()
-    {
-        foreach (var data in GunUpgradeData)
-        {
-            data.Init();
-        }
-    }
-
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)
     {
         int enumInt = (int)overridenCurrencyType;

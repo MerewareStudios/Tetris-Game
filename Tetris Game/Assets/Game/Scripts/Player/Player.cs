@@ -89,11 +89,6 @@ namespace Game
                 {
                     StatDisplayArranger.THIS.Hide(StatDisplay.Type.Health);
                 }
-                
-                // if (_Data.currentHealth <= 0)
-                // {
-                    // LevelManager.THIS.OnFail();
-                // }
             }
             get => _data.currentHealth;
         }
@@ -102,8 +97,6 @@ namespace Game
         {
             set
             {
-                // _data.gunData = value;
-               
                 if (gun && !gun._Data.gunType.Equals(value.gunType))
                 {
                     gun.Despawn();
@@ -210,6 +203,8 @@ namespace Game
                         transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
+                        
+                        Debug.Log(gun._Data);
 
                         if ((_Data.time - gun._Data.prevShoot > gun._Data.FireInterval) && angleDif <= 1.0f)
                         {

@@ -17,7 +17,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
         base.Awake();
 
         Const.THIS = this.Const;
-        Const.THIS.ManualAwake();
         AnimConst.THIS = this.AnimConst;
         Onboarding.THIS = this.Onboarding;
 

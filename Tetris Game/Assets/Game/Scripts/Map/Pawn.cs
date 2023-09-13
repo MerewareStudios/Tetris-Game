@@ -82,11 +82,6 @@ namespace Game
             }
         }
 
-        // public void Construct()
-        // {
-        //     modelPivot.gameObject.SetActive(true);
-        // }
-
         public void OnMerge()
         {
             UsageType = Pawn.Usage.Shooter;
@@ -239,12 +234,14 @@ namespace Game
         public void PunchUp(float magnitude, float duration)
         {
             pivot.DOKill();
+            pivot.localPosition = Vector3.zero;
             pivot.localScale = Vector3.one;
             pivot.DOPunchScale(Vector3.up * magnitude, duration, 1);
         }
         public void JumpUp(float magnitude, float duration, float delay)
         {
             pivot.DOKill();
+            pivot.localScale = Vector3.one;
             pivot.localPosition = Vector3.zero;
             pivot.DOPunchPosition(Vector3.back * magnitude, duration, 1).SetDelay(delay);
         }

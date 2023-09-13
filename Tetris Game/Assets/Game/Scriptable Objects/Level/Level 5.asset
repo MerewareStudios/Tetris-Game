@@ -19,10 +19,8 @@ MonoBehaviour:
     - enemyType: 19
       count: 6
     - enemyType: 36
-      count: 4
+      count: 14
     - enemyType: 37
-      count: 2
-    - enemyType: 38
       count: 1
     bossDatas: []
   canGiveBonus: 0

@@ -44,7 +44,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 0
+      value: 10000
     gemTransactionData:
       value: 0
     adTransactionData:
@@ -113,7 +113,9 @@ MonoBehaviour:
     gunType: 24
     sprite: {fileID: 21300000, guid: 884504ef77e9b214e8b37b52768e6eb1, type: 3}
     defaultValues: 010000000100000001000000
-    damagePrice: []
+    damagePrice:
+    - type: 0
+      amount: 1
     fireRatePrice:
     - type: 0
       amount: 10
@@ -127,9 +129,21 @@ MonoBehaviour:
       amount: 50
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
-    defaultValues: 000000000000000000000000
-    damagePrice: []
-    fireRatePrice: []
+    defaultValues: 010000000300000001000000
+    damagePrice:
+    - type: 0
+      amount: 0
+    - type: 0
+      amount: 0
+    fireRatePrice:
+    - type: 0
+      amount: 25
+    - type: 0
+      amount: 25
+    - type: 0
+      amount: 25
+    - type: 0
+      amount: 25
     splitShotPrice: []
   - currency:
       type: 0

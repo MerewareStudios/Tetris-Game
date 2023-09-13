@@ -109,7 +109,7 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
             }
-            if (purchaseParent.gameObject.activeSelf &&ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
+            if (purchaseParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
             {
                 if (Wallet.HasFunds(_gunUpgradeData.currency))
                 {
@@ -145,6 +145,7 @@ namespace Game.UI
             int currentIndex = _weaponShopData.CurrentIndex(statType);
 
             bool max = _gunUpgradeData.IsFull(statType, currentIndex);
+            Debug.Log(max);
             
             stageBar
                 .SetMaxed(!max)

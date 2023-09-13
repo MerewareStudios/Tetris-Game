@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using DG.Tweening;
 using Game;
 using Internal.Core;
@@ -111,7 +112,7 @@ public class Gun : MonoBehaviour
             set
             {
                 this.rate = value;
-                FireInterval = 1.0f - (value - 1) * 0.05f;
+                FireInterval = 1.3f - (value - 1) * 0.05f;
             }
             get => this.rate;
         }
@@ -139,6 +140,17 @@ public class Gun : MonoBehaviour
             this.damage = data.damage;
         }
 
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new();
+            stringBuilder.AppendLine("Gun Type : " + gunType.ToString());
+            stringBuilder.AppendLine("Rate : " + rate.ToString());
+            stringBuilder.AppendLine("Split : " + split.ToString());
+            stringBuilder.AppendLine("Damage : " + damage.ToString());
+            stringBuilder.AppendLine("FireInterval : " + FireInterval.ToString());
+            return stringBuilder.ToString();
+        }
+
         public object Clone()
         {
             return new Data(this);
@@ -155,20 +167,28 @@ public class Gun : MonoBehaviour
         [SerializeField] public Const.Currency[] damagePrice;
         [SerializeField] public Const.Currency[] fireRatePrice;
         [SerializeField] public Const.Currency[] splitShotPrice;
-        [System.NonSerialized] private List<Const.Currency[]> _upgradePrices = new();
+        // [System.NonSerialized] private List<Const.Currency[]> _upgradePrices = new();
             
         public int DefaultValue(Gun.StatType statType) => defaultValues[(int)statType];
         public int UpgradedValue(Gun.StatType statType, int upgradeIndex) => DefaultValue(statType) + upgradeIndex;
-        public Const.Currency Price(Gun.StatType statType, int upgradeIndex) => _upgradePrices[(int)statType][upgradeIndex];
-        public int UpgradeCount(Gun.StatType statType) => _upgradePrices[(int)statType].Length;
-        public bool HasAvailableUpgrade(Gun.StatType statType, int upgradeIndex) => upgradeIndex < _upgradePrices[(int)statType].Length;
-        public bool IsFull(Gun.StatType statType, int upgradeIndex) => upgradeIndex >= _upgradePrices[(int)statType].Length;
-        
-        public void Init()
+        public Const.Currency Price(Gun.StatType statType, int upgradeIndex) => Prices(statType)[upgradeIndex];
+        public int UpgradeCount(Gun.StatType statType) => Prices(statType).Length;
+        public bool HasAvailableUpgrade(Gun.StatType statType, int upgradeIndex) => upgradeIndex < Prices(statType).Length;
+        public bool IsFull(Gun.StatType statType, int upgradeIndex) => upgradeIndex >= Prices(statType).Length;
+
+
+        public Const.Currency[] Prices(Gun.StatType statType)
         {
-            _upgradePrices.Add(damagePrice);  
-            _upgradePrices.Add(fireRatePrice);
-            _upgradePrices.Add(splitShotPrice);
+            switch (statType)
+            {
+                case StatType.Damage:
+                    return damagePrice;
+                case StatType.Firerate:
+                    return fireRatePrice;
+                case StatType.Splitshot:
+                    return splitShotPrice;
+            }
+            return null;
         }
     }
 }
