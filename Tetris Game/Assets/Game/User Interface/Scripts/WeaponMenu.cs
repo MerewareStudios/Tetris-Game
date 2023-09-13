@@ -300,15 +300,15 @@ namespace Game.UI
             
             if (Wallet.Consume(_gunUpgradeData.currency))
             {
-                _weaponShopData.Purchase();
-
-                OnClick_Equip();
-                
                 if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
                     Onboarding.HideFinger();
                 }
+                
+                _weaponShopData.Purchase();
+
+                OnClick_Equip();
             }
         }
         

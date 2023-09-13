@@ -52,7 +52,7 @@ MonoBehaviour:
     rewardAmount: 1
     rewardProbability: 0.5
   damage: 3
-  maxHealth: 5
+  maxHealth: 6
   speed: 0.1
   radius: 0.6
   emitCount: 5
