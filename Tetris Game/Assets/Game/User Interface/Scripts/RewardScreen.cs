@@ -83,7 +83,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
     }
 
 
-    public void OnClick_Claim()
+    public void OnClick_Next()
     {
         claimButton.transform.DOKill();
         claimButton.transform.localScale = Vector3.one;

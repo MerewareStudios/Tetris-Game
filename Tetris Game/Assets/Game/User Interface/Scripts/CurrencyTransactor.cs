@@ -28,8 +28,15 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
         {
             base.TransactionData.value = value;
             currencyDisplay.Display(currencyType, value);
+            pivot.gameObject.SetActive(true);
         }
     }
+    //
+    // public static Currency operator -(Currency currency, int amount)
+    // {
+    //     currency.amount -= amount;
+    //     return currency;
+    // }
     
     public Const.Currency Currency => new Const.Currency(currencyType, base.TransactionData.value);
 
@@ -47,8 +54,6 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 
     private void Punch(float amount)
     {
-        pivot.gameObject.SetActive(true);
-        
         pivot.DOKill();
         pivot.localScale = Vector3.one * _targetScale;
         pivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);

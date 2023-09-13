@@ -5358,12 +5358,12 @@ PrefabInstance:
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_text
-      value: CLAIM
+      value: ACCEPT
       objectReference: {fileID: 0}
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_fontSize
-      value: 123.28
+      value: 132.1
       objectReference: {fileID: 0}
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
@@ -5389,17 +5389,17 @@ PrefabInstance:
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 123.28
+      value: 132.1
       objectReference: {fileID: 0}
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: cccc6d6c56c586442b7180bd61493690, type: 2}
+      objectReference: {fileID: 2100000, guid: 9d0f3a10ceefb304089622f89f8646bb, type: 2}
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_characterSpacing
-      value: -7.43
+      value: -11.1
       objectReference: {fileID: 0}
     - target: {fileID: 379822543112979879, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
@@ -5415,7 +5415,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 84064d643ab65be4096d189011ec4520,
+      objectReference: {fileID: 21300000, guid: 8587e022ecb71854885be6a2d1afc1a9,
         type: 3}
     - target: {fileID: 3689060588610317735, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
@@ -5455,7 +5455,7 @@ PrefabInstance:
     - target: {fileID: 6433757765341751923, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 753.91
+      value: 667.4
       objectReference: {fileID: 0}
     - target: {fileID: 6433757765341751923, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
@@ -5525,7 +5525,7 @@ PrefabInstance:
     - target: {fileID: 8339478321634813345, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_Name
-      value: Claim
+      value: Next
       objectReference: {fileID: 0}
     - target: {fileID: 8503862253615843088, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
@@ -5540,7 +5540,7 @@ PrefabInstance:
     - target: {fileID: 9003985102801626329, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClick_Claim
+      value: OnClick_Next
       objectReference: {fileID: 0}
     - target: {fileID: 9003985102801626329, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}

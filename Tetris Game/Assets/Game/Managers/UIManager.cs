@@ -84,6 +84,10 @@ public class UIManager : Singleton<UIManager>
       {
          PiggyMenu.THIS.Open();
       }
+      if (Input.GetKeyDown(KeyCode.O))
+      {
+         PiggyMenu.THIS.GiveRewards();
+      }
       if (Input.GetKeyDown(KeyCode.R))
       {
          MenuNavigator.THIS.Open();

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Game;
 using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
@@ -164,7 +164,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Particle.Piggy_Break_Ps.Emit(100, rewardedPiggyShakePivot.position);
 
             base.CloseImmediate();
-            RewardScreen.THIS.ShowFakeCards();
+
+            GiveRewards();
 
             _Data.currentMoney.amount = 0;
         });
@@ -174,6 +175,43 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             ONBOARDING.LEARN_TO_BREAK.SetComplete();
             Onboarding.HideFinger();
         }
+    }
+
+    public void GiveRewards()
+    {
+        List<PiggyMenu.PiggyReward> rewardDatas = new List<PiggyMenu.PiggyReward>();
+        // case PiggyReward.Type.Coin:
+        int coinPercent = (int)(50 * 0.2f);
+        int coinReward = Random.Range(coinPercent, coinPercent + 10);
+        rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Coin, coinReward));
+            
+        Wallet.COIN.Amount += coinReward;
+        // case PiggyReward.Type.PiggyCoin:
+                
+        // case PiggyReward.Type.Ad:
+                
+        // case PiggyReward.Type.Shield:
+                
+        // case PiggyReward.Type.Heart:
+                
+        // case PiggyReward.Type.Medkit:
+            
+        // case PiggyReward.Type.Protection:
+                
+        // case PiggyReward.Type.MaxStack:
+                
+        // case PiggyReward.Type.PiggyCapacity:
+                
+        // case PiggyReward.Type.Damage:
+                
+        // case PiggyReward.Type.Firerate:
+                
+        // case PiggyReward.Type.Splitshot:
+                
+        // case PiggyReward.Type.Weapon:
+            
+        // RewardScreen.THIS.ShowFakeCards();
+        RewardScreen.THIS.Show(rewardDatas);
     }
     public void OnClick_InvestPiggyBank()
     {
@@ -358,7 +396,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             [SerializeField] public int maxPiggyLevel = 9;
             [SerializeField] public Const.Currency currentMoney;
             [SerializeField] public int moneyCapacity;
-            [SerializeField] public Const.Currency freeInvestment;
+            // [SerializeField] public Const.Currency freeInvestment;
             [SerializeField] public List<PiggyReward> rewards = new();
 
             public Data()
@@ -371,7 +409,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 this.maxPiggyLevel = data.maxPiggyLevel;
                 this.currentMoney = data.currentMoney;
                 this.moneyCapacity = data.moneyCapacity;
-                this.freeInvestment = data.freeInvestment;
+                // this.freeInvestment = data.freeInvestment;
                 this.rewards.CopyFrom(data.rewards);
             }
             
@@ -409,37 +447,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             this.amount = amount;
         }
         
-        //         case PiggyReward.Type.Coin:
-        //             Wallet.Transaction(new Const.Currency(Const.CurrencyType.Coin, amount));
-        //             break;
-        //         case PiggyReward.Type.PiggyCoin:
-        //             Wallet.Transaction(new Const.Currency(Const.CurrencyType.PiggyCoin, amount));
-        //             break;
-        //         case PiggyReward.Type.Ad:
-        //             Wallet.Transaction(new Const.Currency(Const.CurrencyType.Ad, amount));
-        //             break;
-        //         case PiggyReward.Type.Shield:
-        //             Warzone.THIS.GiveShield(amount);
-        //             break;
-        //         case PiggyReward.Type.Heart:
-        //             Warzone.THIS.GiveHeart(amount);
-        //             break;
-        //         case PiggyReward.Type.Medkit:
-        //             Warzone.THIS.GiveHeart(amount * 10);
-        //             break;
-        //         case PiggyReward.Type.Protection:
-        //             Warzone.THIS.GiveShield(amount * 10);
-        //             break;
-        //         case PiggyReward.Type.MaxStack:
-        //             Board.THIS.MaxStack += amount;
-        //             break;
-        //         // case PiggyReward.Type.SupplyLine:
-        //         //     Board.THIS.SupplyLine += amount;
-        //         //     break;
-        //         case PiggyReward.Type.PiggyLevel:
-        //             PiggyMenu.THIS.MaxPiggyLevel += amount;
-        //             break;
-
         public object Clone()
         {
             return new PiggyReward(this);

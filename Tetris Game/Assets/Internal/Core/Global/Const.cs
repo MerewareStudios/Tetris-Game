@@ -102,17 +102,17 @@ public class Const : SSingleton<Const>
         public static Currency OneAdConsume = new Currency(CurrencyType.Ad, -1);
         
         
-        public static Currency operator +(Currency currency, int amount)
-        {
-            currency.amount += amount;
-            return currency;
-        }
-        
-        public static Currency operator -(Currency currency, int amount)
-        {
-            currency.amount -= amount;
-            return currency;
-        }
+        // public static Currency operator +(Currency currency, int amount)
+        // {
+        //     currency.amount += amount;
+        //     return currency;
+        // }
+        //
+        // public static Currency operator -(Currency currency, int amount)
+        // {
+        //     currency.amount -= amount;
+        //     return currency;
+        // }
     }
     
     [Serializable]

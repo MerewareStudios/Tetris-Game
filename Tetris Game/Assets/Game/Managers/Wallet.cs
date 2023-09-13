@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Internal.Core;
-using RootMotion.Demos;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public static class Wallet
 {
