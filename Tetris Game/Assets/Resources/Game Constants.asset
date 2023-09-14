@@ -578,7 +578,7 @@ MonoBehaviour:
   gridTileColors:
   - {r: 0.6801091, g: 0.24705881, b: 0.8666667, a: 1}
   - {r: 0.6971073, g: 0.30853334, b: 0.8666667, a: 1}
-  defaultColor: {r: 0.14743528, g: 0.4952316, b: 0.964, a: 1}
+  defaultColor: {r: 0.14242274, g: 0.47224385, b: 0.922, a: 1}
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   mergerColor: {r: 0.22232941, g: 0.859, b: 0.46402237, a: 1}
   placeColorsDouble:
