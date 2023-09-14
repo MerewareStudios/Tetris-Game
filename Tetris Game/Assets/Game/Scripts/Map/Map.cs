@@ -15,6 +15,7 @@ namespace Game
 
         public void StartMainLoop()
         {
+            StopLoop();
             _mainRoutine = StartCoroutine(MainLoop());
 
             IEnumerator MainLoop()
@@ -57,6 +58,15 @@ namespace Game
             }
         }
 
+        private void StopLoop()
+        {
+            if (_mainRoutine != null)
+            {
+                StopCoroutine(_mainRoutine);
+                _mainRoutine = null;
+            }
+        }
+
         public void ForceMerge(int line)
         {
             _queuedMergeLines.Enqueue(line);
@@ -64,11 +74,7 @@ namespace Game
 
         public void Deconstruct()
         {
-            if (_mainRoutine != null)
-            {
-                StopCoroutine(_mainRoutine);
-                _mainRoutine = null;
-            }
+            StopLoop();
         }
     }
 }

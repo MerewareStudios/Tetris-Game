@@ -3,6 +3,7 @@ using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
 using IWI.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>
 {
+   [SerializeField] public TextMeshProUGUI levelText;
    [Header("Canvases")]
    [SerializeField] private BlockMenu blockMenu;
    [SerializeField] private WeaponMenu weaponMenu;

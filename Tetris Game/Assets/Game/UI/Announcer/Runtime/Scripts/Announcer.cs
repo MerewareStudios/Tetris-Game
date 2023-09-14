@@ -26,19 +26,19 @@ namespace  Game.UI
                 
             IEnumerator CountRoutine()
             {
-                ShowText(startingText, 0.7f);
-                yield return new WaitForSeconds(1.4f);
+                // ShowText(startingText, 0.7f);
+                // yield return new WaitForSeconds(1.4f);
                 for (int i = 0; i < seconds; i++)
                 {
                     ShowText((seconds - i).ToString());
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.75f);
                 }
             }
 
             return countdownRoutine;
         }
 
-        private void ShowText(string str, float stayDuration = 0.3f)
+        private void ShowText(string str, float stayDuration = 0.2f)
         {
             animatedText.ShowText(str);
 

@@ -168,8 +168,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
             GiveRewards();
             _Data.breakInstance++;
-
             _Data.currentMoney.amount = 0;
+            _Data.moneyCapacity += 25;
         });
         
         if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
@@ -358,13 +358,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 if (_Data.IsFull)
                 {
-                    DOVirtual.DelayedCall(0.35f, () =>
+                    DOVirtual.DelayedCall(0.15f, () =>
                     {
                         breakButton.targetGraphic.raycastTarget = false;
                         breakButton.gameObject.SetActive(true);
                         breakButton.transform.DOKill();
-                        breakButton.transform.localScale = Vector3.one;
-                        breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true).onComplete = () =>
+                        breakButton.transform.localScale = Vector3.zero;
+                        breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
                         {
                             if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
                             {

@@ -1709,7 +1709,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 9d0f3a10ceefb304089622f89f8646bb, type: 2}
+      objectReference: {fileID: 2100000, guid: de9c72f682391cd4d88b16fce5400539, type: 2}
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_enableAutoSizing

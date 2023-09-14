@@ -2800,6 +2800,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5788546401495193989}
     m_Modifications:
+    - target: {fileID: 419139578461731116, guid: f94add2f176c9a24f91aa2e94ffbce52,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1665207187217881880, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
       propertyPath: m_Name
@@ -2808,7 +2813,7 @@ PrefabInstance:
     - target: {fileID: 1665207187217881880, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4950850579801818656, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
@@ -2910,7 +2915,7 @@ PrefabInstance:
     - target: {fileID: 8106883349545571549, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 239.69995
+      value: 202.61
       objectReference: {fileID: 0}
     - target: {fileID: 8106883349545571549, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
@@ -2955,7 +2960,7 @@ PrefabInstance:
     - target: {fileID: 8106883349545571549, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -304
+      value: -375
       objectReference: {fileID: 0}
     - target: {fileID: 8106883349545571549, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}

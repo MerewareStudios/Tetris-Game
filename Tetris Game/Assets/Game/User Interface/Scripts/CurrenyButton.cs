@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Internal.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,9 +12,14 @@ public class CurrenyButton : MonoBehaviour
 
     public bool Available
     {
-        set => _button.targetGraphic.color = value ? Const.THIS.currenyButtonNormalColor : Const.THIS.currenyButtonFadedColor;
-    } 
-    
+        set
+        {
+            _button.targetGraphic.color =
+                value ? Const.THIS.currenyButtonNormalColor : Const.THIS.currenyButtonFadedColor;
+            text.color = text.color.SetAlpha(value ? 1.0f : 0.5f);
+        }
+    }
+
     // public CurrenyButton SetAvailable(bool state)
     // {
     //     text.text = state ? "BUY" : "NO FUNDS";

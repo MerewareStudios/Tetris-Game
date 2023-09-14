@@ -44,7 +44,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 0
+      value: 1000
     gemTransactionData:
       value: 0
     adTransactionData:
@@ -602,7 +602,7 @@ MonoBehaviour:
   getButtonTexture: {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
   buyButtonTexture: {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
   currenyButtonNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  currenyButtonFadedColor: {r: 1, g: 1, b: 1, a: 0.2}
+  currenyButtonFadedColor: {r: 1, g: 1, b: 1, a: 0.5882353}
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.8117647}
   acceptedFrameColor: {r: 0, g: 1, b: 0.15510082, a: 1}
   deniedFrameColor: {r: 1, g: 0.12694877, b: 0, a: 1}

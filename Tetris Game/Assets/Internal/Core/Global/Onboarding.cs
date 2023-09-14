@@ -160,9 +160,12 @@ public class Onboarding : SSingleton<Onboarding>
             // yield return new WaitForSeconds(1.0f);
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.25f);
+            ONBOARDING.LEARNED_LEVEL_TEXT.SetComplete();
+            UIManager.THIS.levelText.enabled = true;
             yield return new WaitForSeconds(0.25f);
             Warzone.THIS.Begin(false);
             
+            ONBOARDING.LEARNED_META.SetComplete();
             ONBOARDING.INSPECT_HEART_DISPLAY.SetComplete();
             StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, Warzone.THIS.Player._CurrentHealth);
         }

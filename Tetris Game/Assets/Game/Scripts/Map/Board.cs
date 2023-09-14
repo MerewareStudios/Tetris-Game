@@ -44,19 +44,6 @@ namespace Game
             transform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
         }
 
-        // private void Update()
-        // {
-        //     for (int i = 0; i < Size.x; i++)
-        //     {
-        //         for(int j = 0; j < Size.y; j++)
-        //         {
-        //             int linearIndex = j + i * Size.y;
-        //             Place place = places[i, j];
-        //             place.GridTileColor = Const.THIS.gridTileColors[linearIndex % 2];
-        //         }
-        //     }
-        // }
-
         public void Deconstruct()
         {
             Dehighlight();
@@ -137,7 +124,6 @@ namespace Game
                     Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
                     _delayedHighlightTween = null;
                 });
-                // Debug.Log("place required skipping check with highlight");
                 return;
             }
            
@@ -155,13 +141,11 @@ namespace Game
 
                     if (place.Current.MOVER)
                     {
-                        // Debug.Log("has mover skipping check");
                         return;
                     }
                     
                     if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                     {
-                        // Debug.Log("has shooter skipping");
                         return;
                     }
                 }
@@ -177,7 +161,6 @@ namespace Game
                     Highlight(randomPlaces);
                     _delayedHighlightTween = null;
                 });
-                // Debug.Log("no deadlock : has place");
                 return;
             }
 
@@ -188,8 +171,6 @@ namespace Game
             {
                 Onboarding.TalkAboutTicketMerge();
             }
-            
-            Debug.Log("deadlock");
         }
         public void Dehighlight()
         {
@@ -620,7 +601,7 @@ namespace Game
         {
             Particle.Blue_Zone.StopAndClear();
             Particle.Yellow_Zone.StopAndClear();
-            _delayedHighlightTween?.Kill();
+            KillDelayedHighlight();
         }
         
         [System.Serializable]
