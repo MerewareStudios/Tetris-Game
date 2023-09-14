@@ -94,13 +94,8 @@ namespace  Game
             {
                 return;
             }
-
-
             
-            // StopSpawning();
             _spawnRoutine = StartCoroutine(SpawnRoutine());
-            
-
             IEnumerator SpawnRoutine()
             {
                 if (countdown)
@@ -139,9 +134,6 @@ namespace  Game
                 }
 
                 _spawnRoutine = null;
-                
-                
-                // LevelManager.THIS.CheckVictory();
             }
         }
 
@@ -177,7 +169,7 @@ namespace  Game
                 .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - Zone.endLine))
                 .FirstOrDefault();
         }
-        private Vector3 RandomSpawnPosition => new Vector3(Random.Range(-2.5f, 2.5f), 0.0f, Zone.startLine);
+        private Vector3 RandomSpawnPosition => new Vector3(Random.Range(-1.5f, 1.5f), 0.0f, Zone.startLine);
             
     #endregion
 

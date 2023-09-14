@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -19,28 +17,6 @@ public class CurrenyButton : MonoBehaviour
             text.color = text.color.SetAlpha(value ? 1.0f : 0.5f);
         }
     }
-
-    // public CurrenyButton SetAvailable(bool state)
-    // {
-    //     text.text = state ? "BUY" : "NO FUNDS";
-    //     _button.image.enabled = state;
-    //     return this;
-    // }
-    
-    // public CurrenyButton SetAvailable(bool state, string statement)
-    // {
-    //     text.text = state ? statement : "NO FUNDS";
-    //     _button.image.enabled = state;
-    //     return this;
-    // }
-    //
-    // public CurrenyButton SetFull(bool state)
-    // {
-    //     text.text = state ? Onboarding.THIS.fullText : "BUY";
-    //     _button.image.enabled = !state;
-    //     return this;
-    // }
-    //
     public Sprite ButtonSprite
     {
         set => _button.image.sprite = value;
