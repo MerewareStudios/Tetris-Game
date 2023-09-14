@@ -62,6 +62,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
             rewardDisplay.rectTransform.DORotate(new Vector3(0.0f, 0.0f, 20.0f + angleAddition * i), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
             
             rewardDisplay.Set(rewardDatas[i], i);
+            rewardDisplay.animator.enabled = i == rewardDatas.Count - 1;
             
             _rewardDisplays.Add(rewardDisplay);
         }
@@ -120,6 +121,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
 
         const float cardDragDur = 0.4f;
 
+
         Tween upTween = rewardDisplay.rectTransform.DOScale(Vector3.one * 1.1f, 0.45f).SetEase(Ease.OutQuad).SetUpdate(true);
         Tween rotationTween = rewardDisplay.rectTransform.DOLocalRotate(Vector3.zero, 0.25f).SetEase(Ease.OutQuad).SetUpdate(true);
         Tween punchScaleUp = rewardDisplay.rectTransform.DOScale(Vector3.one * 0.3f, 0.15f).SetRelative(true).SetEase(Ease.OutBack).SetUpdate(true);
@@ -127,6 +129,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
             () =>
             {
                 rewardDisplay.ps.Play();
+                _rewardDisplays[^1].animator.enabled = true;
             };
         
 

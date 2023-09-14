@@ -3,7 +3,7 @@ using UnityEngine;
 public static class Wallet
 {
     public static CurrencyTransactor COIN => UIManager.THIS.coin;
-    public static CurrencyTransactor GEM => UIManager.THIS.gem;
+    public static CurrencyTransactor PIGGY => UIManager.THIS.gem;
     public static CurrencyTransactor AD => UIManager.THIS.ad;
 
     public static CurrencyTransactor[] CurrencyTransactors;
@@ -60,7 +60,7 @@ public static class Wallet
     public static void ScaleTransactors(float scale, bool distance = false)
     {
         COIN.Scale(scale, distance);
-        GEM.Scale(scale, distance);
+        PIGGY.Scale(scale, distance);
         AD.Scale(scale, distance);
     }
     public static void HideTransactors()

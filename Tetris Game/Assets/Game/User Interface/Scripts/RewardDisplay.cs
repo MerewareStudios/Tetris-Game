@@ -11,7 +11,9 @@ public class RewardDisplay : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI bottomInfo;
+    [SerializeField] private TextMeshProUGUI title;
     [SerializeField] public ParticleSystem ps;
+    [SerializeField] public Animator animator;
 
     public void Set(PiggyMenu.PiggyReward piggyReward, int sortingIndex)
     {
@@ -19,7 +21,8 @@ public class RewardDisplay : MonoBehaviour
         
         this.icon.sprite = rewardData.iconSprite;
         this.background.sprite = rewardData.backgroundSprite;
-        bottomInfo.text = "+" + piggyReward.amount + " " + rewardData.infoPostfix.ToUpper();
+        bottomInfo.text = string.Format(rewardData.formatText, piggyReward.amount);
+        title.text = rewardData.title;
 
         canvas.sortingOrder = 7 + sortingIndex;
 

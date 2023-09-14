@@ -35,8 +35,11 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
-        Wallet.GEM.Set(ref saveData.userData.gemTransactionData);
+        Wallet.COIN.Active = ONBOARDING.EARNED_COIN.IsComplete();
+        Wallet.PIGGY.Set(ref saveData.userData.gemTransactionData);
+        Wallet.PIGGY.Active = ONBOARDING.EARNED_PIGGY_COIN.IsComplete();
         Wallet.AD.Set(ref saveData.userData.adTransactionData);
+        Wallet.AD.Active = ONBOARDING.EARNED_SKIP_TICKET.IsComplete();
 
         AdManager.THIS._Data = saveData.adData;
         
@@ -177,6 +180,9 @@ namespace User
 
 public enum ONBOARDING
 {
+    EARNED_COIN,
+    EARNED_PIGGY_COIN,
+    EARNED_SKIP_TICKET,
     INSPECT_HEART_DISPLAY,
     TEACH_PICK,
     TEACH_PLACEMENT,

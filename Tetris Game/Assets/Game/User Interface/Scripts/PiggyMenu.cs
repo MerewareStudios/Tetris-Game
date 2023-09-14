@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game;
 using Game.UI;
 using Internal.Core;
 using TMPro;
@@ -166,6 +167,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             base.CloseImmediate();
 
             GiveRewards();
+            _Data.breakInstance++;
 
             _Data.currentMoney.amount = 0;
         });
@@ -179,38 +181,89 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void GiveRewards()
     {
+
         List<PiggyMenu.PiggyReward> rewardDatas = new List<PiggyMenu.PiggyReward>();
+        
+        
+        int capIndex = _Data.moneyCapacity / 25;
+        
         // case PiggyReward.Type.Coin:
         int coinPercent = (int)(50 * 0.2f);
-        int coinReward = Random.Range(coinPercent, coinPercent + 10);
-        rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Coin, coinReward));
-            
-        Wallet.COIN.Amount += coinReward;
+        int coinCount = Random.Range(coinPercent, coinPercent + 10);
+        rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Coin, coinCount));
+        Wallet.COIN.Transaction(coinCount);
         // case PiggyReward.Type.PiggyCoin:
-                
+        int piggyCoinCount = Random.Range(capIndex * 2, capIndex * 3);
+        rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCoin, piggyCoinCount));
+        Wallet.PIGGY.Transaction(piggyCoinCount);
         // case PiggyReward.Type.Ad:
-                
+        Debug.Log(_Data.breakInstance + " " + (_Data.breakInstance % 3));
+        if (_Data.breakInstance % 3 == 0)
+        {
+            Helper.IsPossible(0.5f, () =>
+            {
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
+                Wallet.AD.Transaction(1);
+            });
+        }
         // case PiggyReward.Type.Shield:
-                
+        if (capIndex >= 3)
+        {
+            Helper.IsPossible(0.75f, () =>
+            {
+                int shieldAmount = capIndex * 5;
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Shield, shieldAmount));
+                Warzone.THIS.Player.shield.AddOnly(shieldAmount);
+            });
+        }
         // case PiggyReward.Type.Heart:
-                
+        if (capIndex >= 3)
+        {
+            Helper.IsPossible(0.85f, () =>
+            {
+                int heartAmount = capIndex;
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Heart, heartAmount));
+                Warzone.THIS.Player._CurrentHealth += heartAmount;
+            });
+        }
         // case PiggyReward.Type.Medkit:
-            
+        if (capIndex >= 4)
+        {
+            Helper.IsPossible(0.5f, () =>
+            {
+                int medkitAmount = capIndex;
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Medkit, medkitAmount));
+                Warzone.THIS.Player._CurrentHealth += medkitAmount * 10;
+            });
+        }
         // case PiggyReward.Type.Protection:
-                
+        if (capIndex >= 5)
+        {
+            Helper.IsPossible(0.5f, () =>
+            {
+                int protectionAmount = capIndex;
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Protection, protectionAmount));
+                Warzone.THIS.Player.shield.AddOnly(protectionAmount * 10);
+            });
+        }
         // case PiggyReward.Type.MaxStack:
-                
+        if (capIndex >= 3)
+        {
+            Helper.IsPossible(0.2f, () =>
+            {
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.MaxStack, 1));
+                Board.THIS._Data.maxStack++;
+            });
+        }     
         // case PiggyReward.Type.PiggyCapacity:
-                
-        // case PiggyReward.Type.Damage:
-                
-        // case PiggyReward.Type.Firerate:
-                
-        // case PiggyReward.Type.Splitshot:
-                
-        // case PiggyReward.Type.Weapon:
-            
-        // RewardScreen.THIS.ShowFakeCards();
+        if (capIndex >= 6)
+        {
+            Helper.IsPossible(0.25f, () =>
+            {
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, 25));
+                _Data.moneyCapacity += 25;
+            });
+        }     
         RewardScreen.THIS.Show(rewardDatas);
     }
     public void OnClick_InvestPiggyBank()
@@ -305,42 +358,46 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 if (_Data.IsFull)
                 {
-                    breakButton.targetGraphic.raycastTarget = false;
-                    breakButton.gameObject.SetActive(true);
-                    breakButton.transform.DOKill();
-                    breakButton.transform.localScale = Vector3.one;
-                    breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true).onComplete = () =>
+                    DOVirtual.DelayedCall(0.35f, () =>
                     {
-                        if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
+                        breakButton.targetGraphic.raycastTarget = false;
+                        breakButton.gameObject.SetActive(true);
+                        breakButton.transform.DOKill();
+                        breakButton.transform.localScale = Vector3.one;
+                        breakButton.transform.DOPunchScale(Vector3.one * 0.25f, 0.45f, 1).SetUpdate(true).onComplete = () =>
                         {
-                            Onboarding.ClickOn(clickLocation_Break.position, false, () =>
+                            if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
                             {
-                                breakButton.transform.DOKill();
-                                breakButton.transform.localScale = Vector3.one;
-                                breakButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
-                            });
-                        }
-                    };
-                    
-                    _markedProgressPiggy.gameObject.SetActive(false);
-                    
-                    rewardedPiggyShakePivot.localScale = Vector3.one;
-                    rewardedPiggyShakePivot.localEulerAngles = Vector3.zero;
-                    
-                    rewardedPiggy.gameObject.SetActive(true);
-                    rewardedPiggy.position = normalPiggy.position;
-                    rewardedPiggy.localScale = Vector3.one;
-                    rewardedPiggy.DOKill();
-                    rewardedPiggy.DOScale(Vector3.one * 1.5f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
-                    rewardedPiggy.DOLocalMove(Vector3.zero, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true).onComplete =
-                        () =>
-                        {
-                            breakButton.targetGraphic.raycastTarget = true;
-
+                                Onboarding.ClickOn(clickLocation_Break.position, false, () =>
+                                {
+                                    breakButton.transform.DOKill();
+                                    breakButton.transform.localScale = Vector3.one;
+                                    breakButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                                });
+                            }
                         };
-                    
-                    rewardPiggyGlow.color = glowColorStart;
-                    piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
+                        
+                        _markedProgressPiggy.gameObject.SetActive(false);
+                        
+                        rewardedPiggyShakePivot.localScale = Vector3.one;
+                        rewardedPiggyShakePivot.localEulerAngles = Vector3.zero;
+                        
+                        rewardedPiggy.gameObject.SetActive(true);
+                        rewardedPiggy.position = normalPiggy.position;
+                        rewardedPiggy.localScale = Vector3.one;
+                        rewardedPiggy.DOKill();
+                        rewardedPiggy.DOScale(Vector3.one * 1.5f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
+                        rewardedPiggy.DOLocalMove(Vector3.zero, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true).onComplete =
+                            () =>
+                            {
+                                breakButton.targetGraphic.raycastTarget = true;
+
+                            };
+                        
+                        rewardPiggyGlow.color = glowColorStart;
+                        piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
+                    });
+
                 }
                 else
                 {
@@ -396,8 +453,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             [SerializeField] public int maxPiggyLevel = 9;
             [SerializeField] public Const.Currency currentMoney;
             [SerializeField] public int moneyCapacity;
-            // [SerializeField] public Const.Currency freeInvestment;
-            [SerializeField] public List<PiggyReward> rewards = new();
+            [SerializeField] public int breakInstance;
 
             public Data()
             {
@@ -409,16 +465,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 this.maxPiggyLevel = data.maxPiggyLevel;
                 this.currentMoney = data.currentMoney;
                 this.moneyCapacity = data.moneyCapacity;
-                // this.freeInvestment = data.freeInvestment;
-                this.rewards.CopyFrom(data.rewards);
+                this.breakInstance = data.breakInstance;
             }
             
             public float PiggyPercent => currentMoney.amount / (float)moneyCapacity;
             public bool IsFull => currentMoney.amount >= moneyCapacity;
             public Const.Currency Percent2Money(float percent) => new Const.Currency(currentMoney.type, (int)Mathf.Lerp(0.0f, moneyCapacity, percent));
             public int Remaining => moneyCapacity - currentMoney.amount;
-            public int RewardCount => rewards.Count;
-            public bool RewardsWaiting => rewards.Count > 0;
 
             public object Clone()
             {
@@ -463,10 +516,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Protection,
             MaxStack,
             PiggyCapacity,
-            Damage,
-            Firerate,
-            Splitshot,
-            Weapon
+            // Damage,
+            // Firerate,
+            // Splitshot,
+            // Weapon
         }
     } 
     #endregion

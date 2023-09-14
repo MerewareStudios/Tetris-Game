@@ -75,7 +75,8 @@ public class Const : SSingleton<Const>
         [SerializeField] public PiggyMenu.PiggyReward.Type type;
         [SerializeField] public Sprite backgroundSprite;
         [SerializeField] public Sprite iconSprite;
-        [TextArea][SerializeField] public string infoPostfix;
+        [TextArea][SerializeField] public string formatText;
+        [TextArea][SerializeField] public string title;
         [SerializeField] public Color color;
     }
     

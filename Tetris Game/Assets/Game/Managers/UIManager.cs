@@ -69,7 +69,7 @@ public class UIManager : Singleton<UIManager>
             LevelManager.THIS.LoadLevel();
          };
 
-         Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.GEM, Wallet.AD };
+         Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.AD };
 
          Glimmer.OnComplete = glimmer => glimmer.Despawn();
 

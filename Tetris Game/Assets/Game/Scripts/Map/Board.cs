@@ -22,18 +22,8 @@ namespace Game
             set
             {
                 _data = value;
-                MaxStack = _data.maxStack;
             }
             get => _data;
-        }
-        
-        public int MaxStack
-        {
-            set
-            {
-                _Data.maxStack = value;
-            }
-            get => _Data.maxStack;
         }
         
         public void Construct()

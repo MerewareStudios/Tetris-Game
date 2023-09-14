@@ -49,6 +49,10 @@ public class Shield : MonoBehaviour
         StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Shield, _Data.Amount, 0.5f);
         Resume();
     }
+    public void AddOnly(int value)
+    {
+        _Data.Amount += value;
+    }
     public bool Remove()
     {
         if (!_Data.Available)
@@ -62,10 +66,6 @@ public class Shield : MonoBehaviour
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Shield);
         }
         return true;
-    }
-    public void AddOnly(int value)
-    {
-        _Data.Amount += value;
     }
 
     public void Pause()
