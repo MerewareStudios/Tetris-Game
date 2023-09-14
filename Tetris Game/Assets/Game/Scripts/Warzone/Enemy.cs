@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,6 +12,9 @@ namespace  Game
 {
     public class Enemy : MonoBehaviour
     {
+        [SerializeField] private Canvas canvas;
+        [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private RectTransform healthRT;
         [Header("Model")]
         [SerializeField] public Transform thisTransform;
         [SerializeField] public Transform modelPivot;
@@ -18,7 +22,7 @@ namespace  Game
         [SerializeField] private Animator animator;
         [SerializeField] private EnemyData so;
         [Header("Stats")]
-        [System.NonSerialized] public int Health = 1;
+        [System.NonSerialized] private int _health;
         [System.NonSerialized] public System.Action OnRemoved = null;
         [System.NonSerialized] private Tween _colorPunchTween;
 
@@ -26,10 +30,29 @@ namespace  Game
         private static int DEATH_HASH = Animator.StringToHash("Death");
         private static int HIT_HASH = Animator.StringToHash("Hit");
 
-        public int Damage => so.damage;
+        public int Damage => Health;
+
+        public int Health
+        {
+            set
+            {
+                this._health = value;
+                healthText.text = value <= 0 ? "" : value.ToString();
+
+                healthRT.DOKill();
+                healthRT.localPosition = Vector3.zero;
+                healthRT.DOPunchAnchorPos(new Vector2(0.0f, 10.0f), 0.75f, 1);
+            }
+            get => this._health;
+        }
         public Vector3 CrossSize => new Vector3(so.crossSize, so.crossSize, so.crossSize);
 
-    #region  Mono
+        void Awake()
+        {
+            canvas.worldCamera = CameraManager.THIS.gameCamera;
+        }
+
+        #region  Mono
         public void Walk()
         {
             thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed));
@@ -54,6 +77,7 @@ namespace  Game
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.color, so.radius);
             Health -= value;
+            Warzone.THIS.Player.PunchCrossHair();
             if (Health <= 0)
             {
                 Warzone.THIS.EnemyKilled(this);

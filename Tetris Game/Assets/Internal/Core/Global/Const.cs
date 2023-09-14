@@ -42,13 +42,16 @@ public class Const : SSingleton<Const>
     [Header("Button Textures")] 
     public Sprite getButtonTexture;
     public Sprite buyButtonTexture;
-    [Header("Curreny Visuals")] 
+    [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;
     [Header("Purchase Option")] 
     public Color defaultFrameColor;
     public Color acceptedFrameColor;
     public Color deniedFrameColor;
+    [Header("Hit")] 
+    public Gradient hitGradient;
+    public AnimationCurve hitScaleCurve;
     
     [Header("Values")] 
     public float jumpDuration = 0.15f;

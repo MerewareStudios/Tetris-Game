@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
@@ -19,6 +16,9 @@ namespace Game
         [SerializeField] public Animator animator;
         [SerializeField] private Transform holster;
         [SerializeField] private Transform crossHair;
+        [SerializeField] private Transform crossHairScalePivot;
+        [SerializeField] public SpriteRenderer crossHairSpriteRenderer;
+        [System.NonSerialized] private Tween _crossColorTween;
 
         [System.NonSerialized] private Gun gun;
 
@@ -237,18 +237,26 @@ namespace Game
         {
             ReplenishHealth();
 
-            // transform.DOKill();
-            // transform.DORotate(Vector3.zero, 1.25f);
-                // .onComplete += () =>
-            // {
-            //     this.enabled = true;
-            // };
-
             if (_shouldGetUp)
             {
                 animator.SetTrigger(GETUP_HASH);
                 _shouldGetUp = false;
             }
+        }
+
+        public void PunchCrossHair()
+        {
+            _crossColorTween?.Kill();
+            
+            float timeStep = 0.0f;
+            _crossColorTween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, 0.25f);
+            _crossColorTween.onUpdate = () =>
+            {
+                Color currentColor = Const.THIS.hitGradient.Evaluate(timeStep);
+                crossHairSpriteRenderer.color = currentColor;
+
+                crossHairScalePivot.localScale = Vector3.one * Const.THIS.hitScaleCurve.Evaluate(timeStep);
+            };
         }
         
         public void RotateToPlayer(float rotateDuration)

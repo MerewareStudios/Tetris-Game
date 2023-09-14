@@ -10,7 +10,6 @@ public class EnemyData : ScriptableObject
     public Color color;
     public Gradient hitGradient;
     public List<EnemyReward> enemyRewards;
-    public int damage;
     public int maxHealth;
     public float speed;
     public float radius;
