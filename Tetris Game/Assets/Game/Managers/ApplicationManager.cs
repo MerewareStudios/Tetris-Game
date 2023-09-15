@@ -23,7 +23,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
 #endif
         Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.value : targetFrameRate;
         // LoadSettings();
-
+        
         fpsTimestamp = Time.realtimeSinceStartup;
     }
     // private void LoadSettings()
