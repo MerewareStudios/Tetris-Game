@@ -110,6 +110,7 @@ namespace Game
         }
         public void CheckDeadLock()
         {
+            
             if (CustomPower.THIS.Available)
             {
                 return;
@@ -169,7 +170,11 @@ namespace Game
                 });
                 return;
             }
-
+            
+            if (!Spawner.THIS.CheckedMergeAfterMove)
+            {
+                return;
+            }
 
             bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
             CustomPower.THIS.Show(!notLearnedTicketMerge);

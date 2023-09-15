@@ -55,6 +55,7 @@ namespace Game
                         Board.THIS.CheckAll();
 
                         yield return new WaitForSeconds(0.325f);
+                        Spawner.THIS.CheckedMergeAfterMove = true;
                     }
                     yield return new WaitForSeconds(0.25f);
                     Board.THIS.CheckDeadLock();

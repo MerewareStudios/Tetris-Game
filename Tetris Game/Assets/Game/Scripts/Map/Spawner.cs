@@ -28,6 +28,7 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] public int SpawnIndex = 0;
     [System.NonSerialized] public int SpawnTime = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
+    [System.NonSerialized] public bool CheckedMergeAfterMove = false;
 
     public void Shake()
     {
@@ -68,11 +69,13 @@ public class Spawner : Singleton<Spawner>
             RemoveBlock(block);   
         }
 
+        CheckedMergeAfterMove = false;
         SpawnIndex = 0;
         StopAllRunningTasksOnBlock();
     }
     public void OnLevelEnd()
     {
+        CheckedMergeAfterMove = false;
         delayedTween?.Kill();
         assertionTween?.Kill();
         StopMovement();

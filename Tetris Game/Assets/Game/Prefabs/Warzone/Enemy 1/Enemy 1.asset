@@ -49,7 +49,7 @@ MonoBehaviour:
     rewardAmount: 1
     rewardProbability: 1
   maxHealth: 6
-  speed: 0.1
+  speed: 0.085
   radius: 0.5
   emitCount: 10
   deathEmitCount: 35
