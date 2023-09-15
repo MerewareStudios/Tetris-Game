@@ -21,7 +21,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
      Debug.unityLogger.logEnabled = false; 
 #endif
-        Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.numerator : targetFrameRate;
+        Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.value : targetFrameRate;
         // LoadSettings();
 
         fpsTimestamp = Time.realtimeSinceStartup;

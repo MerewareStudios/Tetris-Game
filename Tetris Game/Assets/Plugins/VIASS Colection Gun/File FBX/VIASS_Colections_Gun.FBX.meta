@@ -1,79 +1,215 @@
 fileFormatVersion: 2
 guid: 2669e6e3e10c748f1a69bd62f88ca2b5
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Gun_01_H
-    100002: Gun_01_R
-    100004: Gun_02_H
-    100006: Gun_02_R
-    100008: Gun_03_H
-    100010: Gun_03_R
-    100012: Gun_04_H
-    100014: Gun_04_R
-    100016: Gun_05_H
-    100018: Gun_05_H1
-    100020: Gun_05_R
-    100022: //RootNode
-    400000: Gun_01_H
-    400002: Gun_01_R
-    400004: Gun_02_H
-    400006: Gun_02_R
-    400008: Gun_03_H
-    400010: Gun_03_R
-    400012: Gun_04_H
-    400014: Gun_04_R
-    400016: Gun_05_H
-    400018: Gun_05_H1
-    400020: Gun_05_R
-    400022: //RootNode
-    2100000: 'Material #25'
-    2100002: 'Material #31'
-    2100004: 'Material #26'
-    2100006: 'Material #32'
-    2100008: 'Material #27'
-    2100010: 'Material #33'
-    2100012: 'Material #28'
-    2100014: 'Material #34'
-    2100016: 'Material #29'
-    2100018: 'Material #30'
-    2100020: 'Material #35'
-    2300000: Gun_01_H
-    2300002: Gun_01_R
-    2300004: Gun_02_H
-    2300006: Gun_02_R
-    2300008: Gun_03_H
-    2300010: Gun_03_R
-    2300012: Gun_04_H
-    2300014: Gun_04_R
-    2300016: Gun_05_H
-    2300018: Gun_05_H1
-    2300020: Gun_05_R
-    3300000: Gun_01_H
-    3300002: Gun_01_R
-    3300004: Gun_02_H
-    3300006: Gun_02_R
-    3300008: Gun_03_H
-    3300010: Gun_03_R
-    3300012: Gun_04_H
-    3300014: Gun_04_R
-    3300016: Gun_05_H
-    3300018: Gun_05_H1
-    3300020: Gun_05_R
-    4300000: Gun_01_H
-    4300002: Gun_01_R
-    4300004: Gun_02_H
-    4300006: Gun_02_R
-    4300008: Gun_03_H
-    4300010: Gun_03_R
-    4300012: Gun_04_H
-    4300014: Gun_04_R
-    4300016: Gun_05_H
-    4300018: Gun_05_H1
-    4300020: Gun_05_R
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Gun_01_H
+  - first:
+      1: 100002
+    second: Gun_01_R
+  - first:
+      1: 100004
+    second: Gun_02_H
+  - first:
+      1: 100006
+    second: Gun_02_R
+  - first:
+      1: 100008
+    second: Gun_03_H
+  - first:
+      1: 100010
+    second: Gun_03_R
+  - first:
+      1: 100012
+    second: Gun_04_H
+  - first:
+      1: 100014
+    second: Gun_04_R
+  - first:
+      1: 100016
+    second: Gun_05_H
+  - first:
+      1: 100018
+    second: Gun_05_H1
+  - first:
+      1: 100020
+    second: Gun_05_R
+  - first:
+      1: 100022
+    second: //RootNode
+  - first:
+      4: 400000
+    second: Gun_01_H
+  - first:
+      4: 400002
+    second: Gun_01_R
+  - first:
+      4: 400004
+    second: Gun_02_H
+  - first:
+      4: 400006
+    second: Gun_02_R
+  - first:
+      4: 400008
+    second: Gun_03_H
+  - first:
+      4: 400010
+    second: Gun_03_R
+  - first:
+      4: 400012
+    second: Gun_04_H
+  - first:
+      4: 400014
+    second: Gun_04_R
+  - first:
+      4: 400016
+    second: Gun_05_H
+  - first:
+      4: 400018
+    second: Gun_05_H1
+  - first:
+      4: 400020
+    second: Gun_05_R
+  - first:
+      4: 400022
+    second: //RootNode
+  - first:
+      21: 2100000
+    second: Material #25
+  - first:
+      21: 2100002
+    second: Material #31
+  - first:
+      21: 2100004
+    second: Material #26
+  - first:
+      21: 2100006
+    second: Material #32
+  - first:
+      21: 2100008
+    second: Material #27
+  - first:
+      21: 2100010
+    second: Material #33
+  - first:
+      21: 2100012
+    second: Material #28
+  - first:
+      21: 2100014
+    second: Material #34
+  - first:
+      21: 2100016
+    second: Material #29
+  - first:
+      21: 2100018
+    second: Material #30
+  - first:
+      21: 2100020
+    second: Material #35
+  - first:
+      23: 2300000
+    second: Gun_01_H
+  - first:
+      23: 2300002
+    second: Gun_01_R
+  - first:
+      23: 2300004
+    second: Gun_02_H
+  - first:
+      23: 2300006
+    second: Gun_02_R
+  - first:
+      23: 2300008
+    second: Gun_03_H
+  - first:
+      23: 2300010
+    second: Gun_03_R
+  - first:
+      23: 2300012
+    second: Gun_04_H
+  - first:
+      23: 2300014
+    second: Gun_04_R
+  - first:
+      23: 2300016
+    second: Gun_05_H
+  - first:
+      23: 2300018
+    second: Gun_05_H1
+  - first:
+      23: 2300020
+    second: Gun_05_R
+  - first:
+      33: 3300000
+    second: Gun_01_H
+  - first:
+      33: 3300002
+    second: Gun_01_R
+  - first:
+      33: 3300004
+    second: Gun_02_H
+  - first:
+      33: 3300006
+    second: Gun_02_R
+  - first:
+      33: 3300008
+    second: Gun_03_H
+  - first:
+      33: 3300010
+    second: Gun_03_R
+  - first:
+      33: 3300012
+    second: Gun_04_H
+  - first:
+      33: 3300014
+    second: Gun_04_R
+  - first:
+      33: 3300016
+    second: Gun_05_H
+  - first:
+      33: 3300018
+    second: Gun_05_H1
+  - first:
+      33: 3300020
+    second: Gun_05_R
+  - first:
+      43: 4300000
+    second: Gun_01_H
+  - first:
+      43: 4300002
+    second: Gun_01_R
+  - first:
+      43: 4300004
+    second: Gun_02_H
+  - first:
+      43: 4300006
+    second: Gun_02_R
+  - first:
+      43: 4300008
+    second: Gun_03_H
+  - first:
+      43: 4300010
+    second: Gun_03_R
+  - first:
+      43: 4300012
+    second: Gun_04_H
+  - first:
+      43: 4300014
+    second: Gun_04_R
+  - first:
+      43: 4300016
+    second: Gun_05_H
+  - first:
+      43: 4300018
+    second: Gun_05_H1
+  - first:
+      43: 4300020
+    second: Gun_05_R
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -82,6 +218,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -99,32 +236,43 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -133,10 +281,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -146,13 +294,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

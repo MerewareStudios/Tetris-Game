@@ -86,7 +86,7 @@ MonoBehaviour:
       currentMoney:
         type: 0
         amount: 0
-      moneyCapacity: 50
+      moneyCapacity: 10
       breakInstance: 0
     upgradeMenuData:
       purchaseData:
