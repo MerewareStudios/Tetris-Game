@@ -33,7 +33,7 @@ public class ParticleManager : Singleton<ParticleManager>
         Transform pTransform = particleSystem.transform;
         pTransform.position = position;
         pTransform.rotation = rotation;
-        pTransform.localScale = scale == null ? Vector3.one : (Vector3)scale;
+        pTransform.localScale = scale == null ? Vector3.one : scale.Value;
 
         var main = particleSystem.main;
         main.stopAction = particleSystemStopAction;
@@ -56,7 +56,7 @@ public class ParticleManager : Singleton<ParticleManager>
         Transform pTransform = particleSystem.transform;
         pTransform.position = position;
         pTransform.rotation = rotation;
-        pTransform.localScale = scale == null ? Vector3.one : (Vector3)scale;
+        pTransform.localScale = scale == null ? Vector3.one : scale.Value;
 
         var main = particleSystem.main;
 
@@ -89,7 +89,7 @@ public class ParticleManager : Singleton<ParticleManager>
     
         if (color != null)
         {
-            main.startColor = (Color)color;
+            main.startColor = color.Value;
         }
         particleSystem.Emit(amount);
     
@@ -124,7 +124,7 @@ public class ParticleManager : Singleton<ParticleManager>
         var main = particleSystem.main;
         var shape = particleSystem.shape;
 
-        main.startColor = (Color)color;
+        main.startColor = color;
         shape.radius = radius;
         
         particleSystem.Emit(amount);
