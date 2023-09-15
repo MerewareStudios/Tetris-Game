@@ -192,7 +192,7 @@ namespace Game
 
                         crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.turnRate * smoothFactor);
                         crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor);
-                        crossHair.forward = transform.forward;
+                        // crossHair.forward = transform.forward;
                         
                         Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);

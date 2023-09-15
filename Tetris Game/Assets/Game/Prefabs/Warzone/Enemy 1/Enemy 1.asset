@@ -48,11 +48,10 @@ MonoBehaviour:
   - type: 3
     rewardAmount: 1
     rewardProbability: 1
-  damage: 1
   maxHealth: 6
   speed: 0.1
   radius: 0.5
   emitCount: 5
   deathEmitCount: 6
   wipeDelay: 0.7
-  crossSize: 2
+  crossSize: 1.75
