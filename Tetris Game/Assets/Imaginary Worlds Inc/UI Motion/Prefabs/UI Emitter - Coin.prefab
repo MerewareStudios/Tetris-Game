@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugSettings:
-    hideImagesInHierarchy: 0
+    hideImagesInHierarchy: 1
   imageSettings:
     sprite: {fileID: 21300000, guid: 894d83027ff997a43bb16aa4618d2d50, type: 3}
     raycastTarget: 0
@@ -86,6 +86,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     OnAllArrive:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
       m_PersistentCalls:
         m_Calls: []
 --- !u!223 &8604119203136572944

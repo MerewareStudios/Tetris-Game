@@ -196,7 +196,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCoin, piggyCoinCount));
         Wallet.PIGGY.Transaction(piggyCoinCount);
         // case PiggyReward.Type.Ad:
-        Debug.Log(_Data.breakInstance + " " + (_Data.breakInstance % 3));
         if (_Data.breakInstance % 3 == 0)
         {
             Helper.IsPossible(0.5f, () =>

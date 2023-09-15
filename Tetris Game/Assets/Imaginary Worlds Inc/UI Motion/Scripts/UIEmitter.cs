@@ -68,6 +68,7 @@ namespace IWI.UI
                 rectTransform.SetParent(this.transform);
                 rectTransform.localScale = Vector3.one;
                 rectTransform.localPosition = Vector3.zero;
+                rectTransform.localEulerAngles = Vector3.zero;
                 Image image = imagePrefab.AddComponent<Image>();
                 
                 image.sprite = imageSettings.sprite;

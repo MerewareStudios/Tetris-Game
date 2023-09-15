@@ -59,7 +59,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
             rewardDisplay.rectTransform.DOScale(Vector3.one * (scaleF + i * 0.01f), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
             
             rewardDisplay.rectTransform.localEulerAngles = Vector3.zero;
-            rewardDisplay.rectTransform.DORotate(new Vector3(0.0f, 0.0f, 20.0f + angleAddition * i), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+            rewardDisplay.rectTransform.DOLocalRotate(new Vector3(0.0f, 0.0f, 20.0f + angleAddition * i), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
             
             rewardDisplay.Set(rewardDatas[i], i);
             rewardDisplay.animator.enabled = i == rewardDatas.Count - 1;

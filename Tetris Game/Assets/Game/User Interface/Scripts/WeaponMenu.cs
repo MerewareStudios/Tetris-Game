@@ -145,7 +145,6 @@ namespace Game.UI
             int currentIndex = _weaponShopData.CurrentIndex(statType);
 
             bool max = _gunUpgradeData.IsFull(statType, currentIndex);
-            Debug.Log(max);
             
             stageBar
                 .SetMaxed(!max)
