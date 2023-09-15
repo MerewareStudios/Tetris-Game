@@ -353,7 +353,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.35f, delay, Ease.OutQuad, 
             
-            (value) => piggyCurrencyDisplay.Display(_Data.Percent2Money(value)), 
+            (value) => piggyCurrencyDisplay.Display(_Data.Percent2Money(value), _Data.moneyCapacity), 
             
             () =>
             {

@@ -45,11 +45,20 @@ public class Spawner : Singleton<Spawner>
     }
     public void DelayedSpawn(float delay)
     {
-        DOVirtual.DelayedCall(delay, () =>
+        delayedTween?.Kill();
+        delayedTween = DOVirtual.DelayedCall(delay, () =>
         {
             _currentBlock = SpawnSuggestedBlock();  
         });
     }
+    // public void TrySpawn()
+    // {
+    //     if (_currentBlock)
+    //     {
+    //         return;
+    //     }
+    //     _currentBlock = SpawnSuggestedBlock();  
+    // }
     public void Deconstruct()
     {
         while (_spawnedBlocks.Count > 0)
@@ -248,10 +257,7 @@ public class Spawner : Singleton<Spawner>
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
                 delayedTween?.Kill();
-                delayedTween = DOVirtual.DelayedCall(0.08f, () =>
-                {
-                    _currentBlock = SpawnSuggestedBlock();
-                });
+                DelayedSpawn(0.2f);
                 
                 return;
             }

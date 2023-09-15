@@ -28,7 +28,17 @@ namespace Game
         [System.NonSerialized] private float _currentAngle = 0.0f;
         [System.NonSerialized] private bool _shouldGetUp = false;
         [System.NonSerialized] private Coroutine _searchRoutine = null;
-        [System.NonSerialized] public Enemy CurrentEnemy = null;
+        [System.NonSerialized] private Enemy _currentEnemy = null;
+
+        public Enemy CurrentEnemy
+        {
+            set
+            {
+                this._currentEnemy = value;
+                crossHair.gameObject.SetActive(value);
+            }
+            get => this._currentEnemy;
+        }
         
         [System.NonSerialized] public static readonly int IDLE_HASH = Animator.StringToHash("Idle");
         [System.NonSerialized] public static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
@@ -204,7 +214,7 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        Debug.Log(gun._Data);
+                        // Debug.Log(gun._Data);
 
                         if ((_Data.time - gun._Data.prevShoot > gun._Data.FireInterval) && angleDif <= 1.0f)
                         {

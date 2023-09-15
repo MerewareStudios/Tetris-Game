@@ -384,7 +384,7 @@ namespace Game
         {
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-                if (place.Current && verticalIndex >= startLine)
+                if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
                 {
                     place.Current.MOVER = true;
                     place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
@@ -396,8 +396,7 @@ namespace Game
         {
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-                // if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
-                if (place.Current && horizontalIndex == x && verticalIndex >= y)
+                if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
                     place.Current.MOVER = true;
                     place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
@@ -408,34 +407,40 @@ namespace Game
         public int ConsumeBullet(int splitCount)
         {
             int ammoGiven = 0;
-            Call<Place>(places, (place) =>
+            
+            for (int j = 0; j < Size.y; j++)
             {
-                if (splitCount > 0 && place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
+                for (int i = 0; i < Size.x; i++)
                 {
-                    Pawn currentPawn = place.Current;
-                    int ammo = Mathf.Min(currentPawn.Amount, splitCount);
-                    currentPawn.Amount -= ammo;
-                    if (currentPawn.Amount > 0)
+                    if (splitCount <= 0)
                     {
-                        currentPawn.PunchScaleBullet(-0.4f);
-                        
-                        Particle.Square_Bullet.Emit(1, currentPawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
-
+                        return ammoGiven;
                     }
-                    else
+                    Place place = places[i, j];
+                    
+                    if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                     {
-                        place.Current = null;
-                        
-                        currentPawn.Hide(currentPawn.Deconstruct);
-                        
-                        MarkMovers(place.Index.x, place.Index.y);
-                    }
+                        Pawn currentPawn = place.Current;
+                        int ammo = Mathf.Min(currentPawn.Amount, splitCount);
+                        currentPawn.Amount -= ammo;
+                        if (currentPawn.Amount > 0)
+                        {
+                            currentPawn.PunchScaleBullet(-0.4f);
+                            Particle.Square_Bullet.Emit(1, currentPawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                        }
+                        else
+                        {
+                            place.Current = null;
+                            currentPawn.Hide(currentPawn.Deconstruct);
+                            MarkMovers(place.Index.x, place.Index.y);
+                        }
                 
-                    ammoGiven += ammo;
-                    splitCount-=ammo;
+                        ammoGiven += ammo;
+                        splitCount -= ammo;
+                    }
                 }
-            });
-
+            }
+            
             return ammoGiven;
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)

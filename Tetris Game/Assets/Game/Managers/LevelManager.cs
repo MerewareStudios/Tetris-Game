@@ -7,8 +7,16 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public static int CurrentLevel => LevelManager.THIS.CurrentLevel();
+    
+    #if UNITY_EDITOR
+        public static float LevelStart;
+    #endif
     public void LoadLevel()
     {
+#if UNITY_EDITOR
+    LevelStart = Time.time;
+#endif
+    
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();

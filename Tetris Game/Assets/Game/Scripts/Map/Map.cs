@@ -20,9 +20,13 @@ namespace Game
 
             IEnumerator MainLoop()
             {
+                yield return new WaitForSeconds(0.25f);
+
                 while (true)
                 {
                     Board.THIS.MoveAll(0.25f);
+                    // Spawner.THIS.TrySpawn();
+
                     yield return new WaitForSeconds(0.275f);
                     Board.THIS.CheckAll();
                     List<int> tetrisLines = Board.THIS.CheckTetris();

@@ -168,7 +168,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 4
-      m_ConstantMax: 100
+      m_ConstantMax: 85
     duration:
       m_Mode: 0
       m_CurveMultiplier: 0

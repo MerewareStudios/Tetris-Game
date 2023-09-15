@@ -129,15 +129,11 @@ namespace  Game
             }
             Warzone.THIS.RemoveEnemy(this);
             OnRemoved?.Invoke();
-            KamikazeDeconstruct();
-        }
-
-        public void KamikazeDeconstruct()
-        {
             thisTransform.DOKill();
             Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();
         }
+
         public void Kill()
         {
             thisTransform.DOKill();

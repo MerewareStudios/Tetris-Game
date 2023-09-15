@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy 2
   m_EditorClassIdentifier: 
   type: 1
-  color: {r: 0.99365455, g: 0.14509803, b: 1, a: 1}
+  color: {r: 1, g: 0.5504771, b: 0, a: 1}
   hitGradient:
     serializedVersion: 2
     key0: {r: 0, g: 0, b: 0, a: 1}
@@ -51,11 +51,10 @@ MonoBehaviour:
   - type: 4
     rewardAmount: 1
     rewardProbability: 0.5
-  damage: 2
-  maxHealth: 2
-  speed: 0.175
+  maxHealth: 10
+  speed: 0.125
   radius: 0.6
-  emitCount: 5
-  deathEmitCount: 10
+  emitCount: 10
+  deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 0.75
+  crossSize: 1.5

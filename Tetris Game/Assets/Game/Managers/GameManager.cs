@@ -94,6 +94,10 @@ public class GameManager : Singleton<GameManager>
 
     private void OnLevelEnd()
     {
+#if UNITY_EDITOR
+        Debug.Log(Time.time - LevelManager.LevelStart);
+#endif
+
         Board.THIS.OnLevelEnd();
         Map.THIS.OnLevelEnd();
         Spawner.THIS.OnLevelEnd();

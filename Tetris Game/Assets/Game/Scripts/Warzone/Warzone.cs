@@ -17,6 +17,7 @@ namespace  Game
         [Header("Zones")]
         [SerializeField] public Area Zone;
         [SerializeField] public ParticleSystem bloodPS;
+        [SerializeField] public Vector3 goreOffset;
         [System.NonSerialized] public ParticleSystem.MainModule psMain;
         [System.NonSerialized] public ParticleSystem.ShapeModule psShape;
         [System.NonSerialized] public Transform psTransform;
@@ -176,7 +177,7 @@ namespace  Game
 
         public void Emit(int amount, Vector3 position, Color color, float radius)
         {
-            psTransform.position = position;
+            psTransform.position = position + goreOffset;
 
             psMain.startColor = (Color)color;
             psShape.radius = radius;
