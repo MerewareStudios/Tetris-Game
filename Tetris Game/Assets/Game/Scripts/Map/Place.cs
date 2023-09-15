@@ -10,6 +10,7 @@ namespace Game
         [SerializeField] private Renderer gridTile;
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceColor _placeColor = PlaceColor.GREEN;
+        [System.NonSerialized] private Tween _colorTween;
         public Pawn Current { get; set; }
         public bool Occupied => Current;
         public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
@@ -31,25 +32,24 @@ namespace Game
             }
         }
         
-        public void OnVictory()
+        public void OnLevelEnd()
         {
             if (Occupied)
             {
-                Current.DeconstructAnimated(true);
-                Current = null;
+                Current.OnLevelEnd();
             }
         }
-        public void OnFail()
+        // public void OnFail()
+        // {
+        //     if (Occupied)
+        //     {
+        //         Current.Deconstruct();
+        //         Current = null;
+        //     }
+        // }
+        public void SetPlaceType(PlaceColor placeColor)
         {
-            if (Occupied)
-            {
-                Current.DeconstructAnimated(false);
-                Current = null;
-            }
-        }
-        public void SetPlaceType(PlaceColor placeColor, bool force = false)
-        {
-            if (!force && this._placeColor.Equals(placeColor))
+            if (this._placeColor.Equals(placeColor))
             {
                 return;
             }
@@ -57,13 +57,25 @@ namespace Game
             this._placeColor = placeColor;
             DoColor(Const.THIS.placeColorsDouble[(int)placeColor * 2 + (LinearIndex % 2)]);
         }
+        
+        public void SetPlaceTypeImmediate(PlaceColor placeColor)
+        {
+            if (this._placeColor.Equals(placeColor))
+            {
+                return;
+            }
+            this._placeColor = placeColor;
+            gridTile.SetColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, Const.THIS.placeColorsDouble[(int)placeColor * 2 + (LinearIndex % 2)]);
+        }
 
         private void DoColor(Color color)
         {
             gridTile.DOKill();
             gridTile.GetPropertyBlock(GameManager.MPB_GRID_TILE, 0);
             Color startColor = GameManager.MPB_GRID_TILE.GetColor(GameManager.BaseColor);
-            gridTile.DoColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, startColor, color, 0.125f, Ease.OutSine);
+            
+            _colorTween?.Kill();
+            _colorTween = gridTile.DoColor(GameManager.MPB_GRID_TILE, GameManager.BaseColor, startColor, color, 0.1f, Ease.OutSine);
         }
 
         public void Accept(Pawn pawn, float duration, System.Action OnComplete = null)

@@ -107,22 +107,22 @@ namespace Game
             RequiredPlaces = null;
             this.Despawn();
         }
-        public void DeconstructAnimated()
-        {
-            if (!PlacedOnGrid)
-            {
-                foreach (var pawn in Pawns)
-                {
-                    pawn.DeconstructAnimated(false);
-                }
-            }
-            _motionTween?.Kill();
-            Busy = false;
-            Pawns.Clear();
-            PlacedOnGrid = false;
-            RequiredPlaces = null;
-            this.Despawn();
-        }
+        // public void DeconstructAnimated()
+        // {
+        //     if (!PlacedOnGrid)
+        //     {
+        //         foreach (var pawn in Pawns)
+        //         {
+        //             pawn.DeconstructAnimated(false);
+        //         }
+        //     }
+        //     _motionTween?.Kill();
+        //     Busy = false;
+        //     Pawns.Clear();
+        //     PlacedOnGrid = false;
+        //     RequiredPlaces = null;
+        //     this.Despawn();
+        // }
         public void Detach()
         {
             foreach (var pawn in Pawns)

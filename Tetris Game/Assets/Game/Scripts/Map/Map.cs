@@ -76,5 +76,10 @@ namespace Game
         {
             StopLoop();
         }
+        
+        public void OnLevelEnd()
+        {
+            StopLoop();
+        }
     }
 }

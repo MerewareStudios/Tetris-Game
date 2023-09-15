@@ -107,6 +107,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             {
                 UIManagerExtensions.EmitLevelRewardCoin(currencyDisplay.iconPivot.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount, () =>
                 {
+                    GameManager.THIS.Deconstruct();
                     PiggyMenu.THIS.Open(0.225f);
                 });
             });

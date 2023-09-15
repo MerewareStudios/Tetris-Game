@@ -67,7 +67,7 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.THIS.OnVictory();
 
         
-        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.75f, this.CurrentLevel().GetVictoryReward());
+        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.25f, this.CurrentLevel().GetVictoryReward());
         this.NextLevel();
     }
     

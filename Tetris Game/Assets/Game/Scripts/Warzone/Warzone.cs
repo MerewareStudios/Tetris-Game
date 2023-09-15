@@ -185,28 +185,26 @@ namespace  Game
     
     #region IO
 
-        // public void Deconstruct()
-        // {
-        //     StopSpawning();
-        //     Player.Deconstruct();
-        //     foreach (var enemy in Enemies)
-        //     {
-        //         enemy.Deconstruct();
-        //
-        //     }
-        //     Enemies.Clear();
-        //     _busy = false;
-        // }
-
-        public void OnVictory()
+        public void Deconstruct()
         {
             StopSpawning();
-            Player.OnVictory();
+            // Player.Deconstruct();
             foreach (var enemy in Enemies)
             {
                 enemy.Deconstruct();
             }
             Enemies.Clear();
+        }
+
+        public void OnVictory()
+        {
+            StopSpawning();
+            Player.OnVictory();
+            // foreach (var enemy in Enemies)
+            // {
+                // enemy.Deconstruct();
+            // }
+            // Enemies.Clear();
         }
         
         public void OnFail()
@@ -214,22 +212,22 @@ namespace  Game
             StopSpawning();
             Player.OnFail();
             
-            int enemyCount = Enemies.Count;
-
-            if (enemyCount <= 0)
-            {
-                return;
-            }
+            // int enemyCount = Enemies.Count;
+        
+            // if (enemyCount <= 0)
+            // {
+            //     return;
+            // }
             
-            float delayIncrease = 1.0f / enemyCount;
-            float delay = 0.0f;
-            foreach (var enemy in Enemies)
-            {
-                enemy.enabled = false;
-                DOVirtual.DelayedCall(delay, enemy.KamikazeDeconstruct);
-                delay += delayIncrease;
-            }
-            Enemies.Clear();
+            // float delayIncrease = 1.0f / enemyCount;
+            // float delay = 0.0f;
+            // foreach (var enemy in Enemies)
+            // {
+            //     enemy.enabled = false;
+            //     DOVirtual.DelayedCall(delay, enemy.KamikazeDeconstruct);
+            //     delay += delayIncrease;
+            // }
+            // Enemies.Clear();
         }
         
     #endregion

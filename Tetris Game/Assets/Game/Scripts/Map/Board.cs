@@ -46,23 +46,29 @@ namespace Game
 
         public void Deconstruct()
         {
-            Dehighlight();
+            DehighlightImmediate();
             HideSuggestedPlaces();
+            
+            Call<Place>(places, (place) =>
+            {
+                place.Deconstruct();
+            });
         }
-        public void OnVictory()
+        
+        public void OnLevelEnd()
         {
             Call<Place>(places, (place) =>
             {
-                place.OnVictory();
+                place.OnLevelEnd();
             });
         }
-        public void OnFail()
-        {
-            Call<Place>(places, (place) =>
-            {
-                place.OnFail();
-            });
-        }
+        // public void OnFail()
+        // {
+        //     Call<Place>(places, (place) =>
+        //     {
+        //         place.OnFail();
+        //     });
+        // }
         public void MoveAll(float moveDuration)
         {
             _tick++;
@@ -179,7 +185,13 @@ namespace Game
                     place.SetPlaceType(Game.Place.PlaceColor.NORMAL);
                 });
         }
-
+        public void DehighlightImmediate()
+        {
+            Call<Place>(places, (place) => 
+            {
+                place.SetPlaceTypeImmediate(Game.Place.PlaceColor.NORMAL);
+            });
+        }
         public Place LinearIndex2Place(int index)
         {
             Vector2Int ind = index.ToIndex(Size.y);

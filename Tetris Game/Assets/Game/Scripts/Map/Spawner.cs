@@ -55,12 +55,18 @@ public class Spawner : Singleton<Spawner>
         while (_spawnedBlocks.Count > 0)
         {
             Block block = _spawnedBlocks[^1];
-            block.DeconstructAnimated();
+            block.Deconstruct();
             RemoveBlock(block);   
         }
 
         SpawnIndex = 0;
         StopAllRunningTasksOnBlock();
+    }
+    public void OnLevelEnd()
+    {
+        delayedTween?.Kill();
+        assertionTween?.Kill();
+        StopMovement();
     }
 
     private void StopAllRunningTasksOnBlock()
@@ -86,6 +92,10 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDown()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
         if (Input.touchCount > 1)
         {
             return;
@@ -131,6 +141,10 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnClick()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
         if (Input.touchCount > 1)
         {
             return;

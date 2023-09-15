@@ -71,26 +71,31 @@ public class GameManager : Singleton<GameManager>
     //     Warzone.THIS.Deconstruct();
     // }
    
-    public void OnVictory()
+    public void Deconstruct()
     {
         Spawner.THIS.Deconstruct();
-        Board.THIS.Deconstruct();
         Map.THIS.Deconstruct();
-        Board.THIS.OnVictory();
-        Warzone.THIS.OnVictory();
-        
+        Board.THIS.Deconstruct();
+        Warzone.THIS.Deconstruct();
         Onboarding.Deconstruct();
         CustomPower.THIS.Deconstruct();
     }
+
+    public void OnVictory()
+    {
+        Warzone.THIS.OnVictory();
+        OnLevelEnd();
+    }
     public void OnFail()
     {
-        Spawner.THIS.Deconstruct();
-        Board.THIS.Deconstruct();
-        Map.THIS.Deconstruct();
-        Board.THIS.OnFail();
         Warzone.THIS.OnFail();
-        
-        Onboarding.Deconstruct();
-        CustomPower.THIS.Deconstruct();
+        OnLevelEnd();
+    }
+
+    private void OnLevelEnd()
+    {
+        Board.THIS.OnLevelEnd();
+        Map.THIS.OnLevelEnd();
+        Spawner.THIS.OnLevelEnd();
     }
 }

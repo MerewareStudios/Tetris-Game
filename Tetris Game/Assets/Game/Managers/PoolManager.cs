@@ -7,6 +7,9 @@ public class PoolManager : Singleton<PoolManager>
 {
     [SerializeField] public List<PoolData> pools;
 
+#if UNITY_EDITOR
+    [SerializeField] public bool debug = true;
+#endif
     void Awake()
     {
         GeneratePool();
@@ -27,6 +30,11 @@ public class PoolManager : Singleton<PoolManager>
         #else
             leanGameObjectPool.Warnings = false;
         #endif
+            
+#if UNITY_EDITOR
+            go.hideFlags = debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
+    
             leanGameObjectPool.Notification = LeanGameObjectPool.NotificationType.None;
             leanGameObjectPool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
             leanGameObjectPool.Preload = poolData.preload;
