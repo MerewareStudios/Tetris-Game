@@ -38,6 +38,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform clickLocation_Invest;
     [SerializeField] private Transform clickLocation_Continue;
     [SerializeField] private Transform clickLocation_Break;
+    public const int PiggyCapIncrease = 10;
 
     
     #region Menu
@@ -169,7 +170,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             GiveRewards();
             _Data.breakInstance++;
             _Data.currentMoney.amount = 0;
-            _Data.moneyCapacity += 25;
+            _Data.moneyCapacity += PiggyCapIncrease;
         });
         
         if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
@@ -181,11 +182,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void GiveRewards()
     {
-
         List<PiggyMenu.PiggyReward> rewardDatas = new List<PiggyMenu.PiggyReward>();
         
-        
-        int capIndex = _Data.moneyCapacity / 25;
+        int capIndex = _Data.moneyCapacity / PiggyCapIncrease;
         
         // case PiggyReward.Type.Coin:
         int coinPercent = (int)(50 * 0.2f);
@@ -260,8 +259,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             Helper.IsPossible(0.25f, () =>
             {
-                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, 25));
-                _Data.moneyCapacity += 25;
+                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, PiggyCapIncrease));
+                _Data.moneyCapacity += PiggyCapIncrease;
             });
         }     
         RewardScreen.THIS.Show(rewardDatas);
@@ -456,6 +455,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             [SerializeField] public int moneyCapacity;
             [SerializeField] public int breakInstance;
 
+                
             public Data()
             {
                     
