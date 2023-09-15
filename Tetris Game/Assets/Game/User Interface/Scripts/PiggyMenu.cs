@@ -69,7 +69,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         Wallet.ScaleTransactors(1.5f, true);
         _Data = _data;
         
-        piggyCurrencyDisplay.Display(_Data.currentMoney);
+        piggyCurrencyDisplay.Display(_Data.currentMoney, _Data.moneyCapacity);
         _markedProgressPiggy._Progress = _Data.PiggyPercent;
 
         frame.DOKill();
@@ -272,6 +272,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         amount = Mathf.Clamp(amount, 0, _Data.Remaining);
         if (amount == 0)
         {
+            OnClick_ContinuePiggyBank();
             return;
         }
         
