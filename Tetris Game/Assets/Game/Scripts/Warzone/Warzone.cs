@@ -28,6 +28,7 @@ namespace  Game
         public bool HasEnemy => Enemies.Count > 0;
         public bool IsWarzoneCleared => !Spawning && !HasEnemy;
         public int EnemyCount => Enemies.Count;
+        public Enemy GetEnemy(int index) => Enemies[index];
         
     #region Warzone
         void Awake()

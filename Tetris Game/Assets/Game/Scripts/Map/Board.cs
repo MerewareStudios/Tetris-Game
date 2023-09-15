@@ -407,13 +407,13 @@ namespace Game
 
         public int ConsumeBullet(int splitCount)
         {
-            int totalAmmo = 0;
+            int ammoGiven = 0;
             Call<Place>(places, (place) =>
             {
                 if (splitCount > 0 && place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
                 {
                     Pawn currentPawn = place.Current;
-                    int ammo = 1;
+                    int ammo = Mathf.Min(currentPawn.Amount, splitCount);
                     currentPawn.Amount -= ammo;
                     if (currentPawn.Amount > 0)
                     {
@@ -431,12 +431,12 @@ namespace Game
                         MarkMovers(place.Index.x, place.Index.y);
                     }
                 
-                    totalAmmo += ammo;
-                    splitCount--;
+                    ammoGiven += ammo;
+                    splitCount-=ammo;
                 }
             });
 
-            return totalAmmo;
+            return ammoGiven;
         }
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {

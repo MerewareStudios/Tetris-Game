@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Game Constants
   m_EditorClassIdentifier: 
   Levels:
-  - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
+  - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
   - {fileID: 11400000, guid: 1bcbd2651be768b47b3b5cd6e9d92aa6, type: 2}
   - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
@@ -57,7 +57,7 @@ MonoBehaviour:
       lastIndex: 0
     weaponShopData:
       gunIndex: 0
-      equipIndex: 0
+      equipIndex: 2
       gunShopDatas:
       - purchased: 1
         upgradeIndexes: 000000000000000000000000

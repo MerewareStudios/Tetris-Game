@@ -141,7 +141,7 @@ namespace Game
             animator.SetTrigger(SHOOT_HASH);
             for (int i = 0; i < shootCount; i++)
             {
-               gun.Shoot(CurrentEnemy);
+               gun.Shoot(Warzone.THIS.GetEnemy(i));
             }
         }
 
@@ -208,8 +208,8 @@ namespace Game
 
                         if ((_Data.time - gun._Data.prevShoot > gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
-                            int bulletCount = Board.THIS.ConsumeBullet(_GunData.split);
-                            Shoot(bulletCount);
+                            int givenBulletCount = Board.THIS.ConsumeBullet(_GunData.split);
+                            Shoot(givenBulletCount);
                             gun._Data.prevShoot = _Data.time;
                         }
 
