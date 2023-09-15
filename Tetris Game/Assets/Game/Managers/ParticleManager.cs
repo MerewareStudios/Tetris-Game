@@ -26,7 +26,7 @@ public class ParticleManager : Singleton<ParticleManager>
     public static ParticleSystem Play(Particle key, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null, ParticleSystemStopAction particleSystemStopAction = ParticleSystemStopAction.Destroy)
     {
         int index = (int)key;
-        ParticleSystem particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
+        ParticleSystem particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
         particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
         particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
 
@@ -48,7 +48,7 @@ public class ParticleManager : Singleton<ParticleManager>
         ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
         if (!particleSystem)
         {
-            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
+            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
             particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
         }
@@ -75,7 +75,7 @@ public class ParticleManager : Singleton<ParticleManager>
         ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
         if (!particleSystem)
         {
-            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
+            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
             particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
         }
@@ -113,7 +113,7 @@ public class ParticleManager : Singleton<ParticleManager>
         ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
         if (!particleSystem)
         {
-            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], ParticleManager.THIS.transform);
+            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
             particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
         }

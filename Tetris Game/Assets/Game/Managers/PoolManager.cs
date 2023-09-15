@@ -5,11 +5,11 @@ using Lean.Pool;
 
 public class PoolManager : Singleton<PoolManager>
 {
-    [SerializeField] public List<PoolData> pools;
-
 #if UNITY_EDITOR
     [SerializeField] public bool debug = true;
 #endif
+    [SerializeField] public List<PoolData> pools;
+
     void Awake()
     {
         GeneratePool();
@@ -22,7 +22,7 @@ public class PoolManager : Singleton<PoolManager>
             PoolData poolData = pools[i];
             GameObject go = new GameObject(poolData.gameObject.name + " Pool");
             go.hideFlags = HideFlags.HideInHierarchy;
-            go.transform.SetParent(this.transform);
+            go.transform.SetParent(null);
             LeanGameObjectPool leanGameObjectPool = go.AddComponent<LeanGameObjectPool>();
             leanGameObjectPool.Prefab = poolData.gameObject;
         #if UNITY_EDITOR
