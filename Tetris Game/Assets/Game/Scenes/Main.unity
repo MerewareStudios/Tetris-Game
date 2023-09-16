@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 235757128}
   - component: {fileID: 235757127}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,10 +543,10 @@ MonoBehaviour:
   m_Cameras:
   - {fileID: 548236974}
   - {fileID: 514003530}
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
@@ -580,7 +580,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 4
-  m_BackGroundColor: {r: 1, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -910,10 +910,10 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 1
   m_Cameras: []
-  m_RendererIndex: 1
+  m_RendererIndex: 2
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
-  m_ClearDepth: 1
+  m_ClearDepth: 0
   m_AllowXRRendering: 1
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
@@ -985,7 +985,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!1 &527971352
@@ -1115,10 +1115,10 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 1
   m_Cameras: []
-  m_RendererIndex: 0
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
-  m_ClearDepth: 1
+  m_ClearDepth: 0
   m_AllowXRRendering: 1
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
@@ -1181,7 +1181,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 14967
+    m_Bits: 6775
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2166,7 +2166,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 6831134548334045991, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_Enabled
@@ -2828,7 +2828,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 8604119203136572944, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: m_SortingOrder
@@ -3247,7 +3247,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 8604119203136572944, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: m_SortingOrder
@@ -4170,18 +4170,23 @@ PrefabInstance:
     - target: {fileID: 3647917920111936274, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 395.35
+      value: 405.02
       objectReference: {fileID: 0}
     - target: {fileID: 3647917920111936274, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 149.95999
       objectReference: {fileID: 0}
+    - target: {fileID: 4826779958250209522, guid: 69d6fa9ea9d67a24a9a012260545db4b,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106314742807273286, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 6106314742807273286, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_Enabled
@@ -4215,7 +4220,7 @@ PrefabInstance:
     - target: {fileID: 8143056263563838961, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 299.35
+      value: 309.02
       objectReference: {fileID: 0}
     - target: {fileID: 8143056263563838961, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
@@ -4225,7 +4230,7 @@ PrefabInstance:
     - target: {fileID: 8143056263563838961, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 197.675
+      value: 202.51
       objectReference: {fileID: 0}
     - target: {fileID: 8143056263563838961, guid: 69d6fa9ea9d67a24a9a012260545db4b,
         type: 3}
@@ -4691,7 +4696,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 6831134548334045991, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_Enabled
@@ -5318,7 +5323,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 5313740321572908372, guid: c69b96b437fb76140b6848f8c301d7b3,
         type: 3}
       propertyPath: m_Enabled
@@ -5890,7 +5895,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 3226124756315118971, guid: ddc96344383e14940908e152b7cf7bb0,
         type: 3}
       propertyPath: m_Enabled
@@ -6222,11 +6227,6 @@ PrefabInstance:
       objectReference: {fileID: 1072706233}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
-      propertyPath: debugSettings.hideImagesInHierarchy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
-        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -6274,7 +6274,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 8604119203136572944, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: m_PlaneDistance
@@ -6485,7 +6485,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 6831134548334045991, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
       propertyPath: m_Enabled
@@ -7012,6 +7012,11 @@ PrefabInstance:
     - target: {fileID: 126877866178307819, guid: 65a8509b3039f7441997e2c52a11577c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407217645527652858, guid: 65a8509b3039f7441997e2c52a11577c,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 447142742275601109, guid: 65a8509b3039f7441997e2c52a11577c,
@@ -7693,7 +7698,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 7926199782054237460, guid: 65a8509b3039f7441997e2c52a11577c,
         type: 3}
       propertyPath: m_Enabled
@@ -8194,7 +8199,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 1764179146799194572, guid: a4d36a6ba437fca4c94e193850f865d4,
         type: 3}
       propertyPath: m_Enabled
@@ -8234,6 +8239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -64.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2024318750655970998, guid: a4d36a6ba437fca4c94e193850f865d4,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296684225761848570, guid: a4d36a6ba437fca4c94e193850f865d4,
         type: 3}
@@ -8942,7 +8952,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 632556369961824273, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
         type: 3}
       propertyPath: m_Enabled

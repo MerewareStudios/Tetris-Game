@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 883697966121431314}
   - component: {fileID: 3722881595414553395}
   - component: {fileID: 856002422718885476}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4145859513535074717}
   - component: {fileID: 5451346333877981331}
   - component: {fileID: 4863378009343664899}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 993592484967854342}
   - component: {fileID: 8031482905559498748}
   - component: {fileID: 9210005232359059380}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Purchase Option
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 7965805484580771857}
   - component: {fileID: 562967212938356418}
   - component: {fileID: 301069811159930593}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Badge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 950471704952077782}
   - component: {fileID: 7054309212306915020}
   - component: {fileID: 7236603781779816794}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +467,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7104760504146437089}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 2017901637525372040}
   - component: {fileID: 8260885984978191999}
   - component: {fileID: 6456196697108143691}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Glimmer Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 5807671850965983391}
   - component: {fileID: 786263843213746941}
   - component: {fileID: 2531852758915216150}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Title Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,7 +767,7 @@ GameObject:
   - component: {fileID: 2267834943267203887}
   - component: {fileID: 528897512896052489}
   - component: {fileID: 170977991493619044}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: "Frame Outl\u0131ne"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 6117819179246523727}
   - component: {fileID: 8240707948303753357}
   - component: {fileID: 2776447128923121542}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Details Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,6 +978,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7104760504146437089}
     m_Modifications:
+    - target: {fileID: 4693553668241250194, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_fontSize
@@ -987,6 +992,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Button (Spend)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7533636813428699342, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7533636813428699342, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
@@ -1205,10 +1215,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4169826850039515891, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_Name
       value: Money - Count (Display)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045048316467201704, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}

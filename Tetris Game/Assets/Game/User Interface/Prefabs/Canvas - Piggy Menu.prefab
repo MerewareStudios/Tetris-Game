@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7100656964006818768}
   - component: {fileID: 4996954126456135614}
   - component: {fileID: 6731088479894531031}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Blocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5793502018639281246}
   - component: {fileID: 1673273028812827168}
   - component: {fileID: 3141745724257768054}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478558925023052633}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: End Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 2266314000248898534}
   - component: {fileID: 8779502117283593368}
   - component: {fileID: 3890939278528465694}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Progress Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2573262911474528909}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2384813645451266346}
   - component: {fileID: 7562899834200846841}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 4927203265881713567}
   - component: {fileID: 6294486552673661992}
   - component: {fileID: 4894478315847033960}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 234744505692411323}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Click Location (Continue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 9116562232865366522}
   - component: {fileID: 8157740826318040187}
   - component: {fileID: 33006043650294359}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 517123983016925070}
   - component: {fileID: 6497118798185672174}
   - component: {fileID: 4832644811104869458}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -694,7 +694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4442708918579598577}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Reward Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 250759163000714566}
   - component: {fileID: 8819623906996942695}
   - component: {fileID: 6464887634853119416}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Reward Piggy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2452570680296169187}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Piggy Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 221342732115417062}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Coin Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 7506064267342695524}
   - component: {fileID: 768839422487261802}
   - component: {fileID: 1860617752551880045}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Continue Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 5788546401495193989}
   - component: {fileID: 2833052708956238554}
   - component: {fileID: 7905980204826347592}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1094,7 +1094,7 @@ GameObject:
   - component: {fileID: 3703440690872949326}
   - component: {fileID: 183552485749146767}
   - component: {fileID: 4373759297596524496}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Continue Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3120300218279758551}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1264,7 @@ GameObject:
   - component: {fileID: 6631120493131620616}
   - component: {fileID: 2243175038760789658}
   - component: {fileID: 8462893707534460794}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1337,7 +1337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4771277119412698009}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2255301356262323346}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Piggy Screen Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1412,7 +1412,7 @@ GameObject:
   - component: {fileID: 4454769508982945438}
   - component: {fileID: 1403309844496524427}
   - component: {fileID: 3841728907293853597}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1486,7 +1486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5266419092279755867}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Click Location (Invest)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1521,7 +1521,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5519008542638745780}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Click Location (Break)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1561,7 +1561,7 @@ GameObject:
   - component: {fileID: 4826779958250209522}
   - component: {fileID: 7133713484052423770}
   - component: {fileID: 1104892895495784995}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas - Piggy Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1672,7 +1672,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &7133713484052423770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,7 +1711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 115959864238598325}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Continue Default Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1748,7 +1748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3046912793031238492}
   - component: {fileID: 5437890640311185086}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Marked Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1807,7 +1807,7 @@ GameObject:
   - component: {fileID: 1620842131657129239}
   - component: {fileID: 7351817723820818215}
   - component: {fileID: 5531279646412427586}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Break Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1882,7 +1882,7 @@ GameObject:
   - component: {fileID: 5639832345137346711}
   - component: {fileID: 2839318924334489307}
   - component: {fileID: 6485760659860662498}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 183.95
+  m_fontSize: 18
   m_fontSizeBase: 96.5
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2014,7 +2014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2911292811842455799}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Current Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2052,7 +2052,7 @@ GameObject:
   - component: {fileID: 2008424311445947612}
   - component: {fileID: 4552815096294840993}
   - component: {fileID: 3019649554610062122}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2187,7 +2187,7 @@ GameObject:
   - component: {fileID: 4471068357874338530}
   - component: {fileID: 2843431817600183565}
   - component: {fileID: 7627228500863154562}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Piggy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2287,7 +2287,7 @@ GameObject:
   - component: {fileID: 1226172249319275343}
   - component: {fileID: 2915766647474618115}
   - component: {fileID: 8537267506465226131}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Invest Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2418,7 +2418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5887326660578556434}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Piggy Bank Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2457,7 +2457,7 @@ GameObject:
   - component: {fileID: 23580647682376004}
   - component: {fileID: 7530601471069944870}
   - component: {fileID: 352714330288184130}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Break
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2588,7 +2588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4241523688717228336}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: "Piggy Reward P\u0131vot"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2625,7 +2625,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6403461659398186727}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Start Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2709,10 +2709,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4169826850039515891, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_Name
       value: Icon - Count (Display) - Piggy Current
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045048316467201704, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}

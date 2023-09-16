@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1145810405533287142}
   - component: {fileID: 6395349637532072600}
   - component: {fileID: 6418727672121720061}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 1435952546312127445}
   - component: {fileID: 1440090770863094035}
   - component: {fileID: 7365480256753371260}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 3192418776282175102}
   - component: {fileID: 6910196366404232016}
   - component: {fileID: 4829113907413063973}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Reward Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 3355662149777077080}
   - component: {fileID: 8097925429269695283}
   - component: {fileID: 6209345968909015980}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 2653295417749533032}
   - component: {fileID: 6176611295914729205}
   - component: {fileID: 4903833016154797483}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Piggy Break Ps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5293,7 +5293,7 @@ GameObject:
   - component: {fileID: 5525390734417678991}
   - component: {fileID: 4248689820903391561}
   - component: {fileID: 2962361783017293928}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5382,7 +5382,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8920522709699635299}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Glow Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5420,7 +5420,7 @@ GameObject:
   - component: {fileID: 7484082228312709472}
   - component: {fileID: 9063771228267095420}
   - component: {fileID: 283812311991024460}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Bottom Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5555,7 +5555,7 @@ GameObject:
   - component: {fileID: 4083306141593984432}
   - component: {fileID: 7884112029890447310}
   - component: {fileID: 7987077183820182004}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5646,7 +5646,7 @@ GameObject:
   - component: {fileID: 105036716159186879}
   - component: {fileID: 8895724917231349418}
   - component: {fileID: 600114394965338530}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

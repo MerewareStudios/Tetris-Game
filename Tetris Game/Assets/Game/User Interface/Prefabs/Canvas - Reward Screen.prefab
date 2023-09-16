@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7916430564943521416}
   - component: {fileID: 7473796426122375561}
   - component: {fileID: 7327895397427504274}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas - Reward Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4832833213146253871}
   - component: {fileID: 1133075163560662606}
   - component: {fileID: 7883417224383963651}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 9098027131124908630}
   - component: {fileID: 2654160065882618145}
   - component: {fileID: 1452306189861225384}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Blocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 2216943484167868887}
   - component: {fileID: 3016895285807635093}
   - component: {fileID: 5759861189178363519}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Ribbon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 8746883968031857654}
   - component: {fileID: 578415136194262123}
   - component: {fileID: 1854533731206160181}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Piggy Break Ps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5320,7 +5320,7 @@ GameObject:
   - component: {fileID: 125470122116434741}
   - component: {fileID: 9000174857142418877}
   - component: {fileID: 1414419260196291312}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5397,7 +5397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2161064879629916995}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5486,6 +5486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043040389925880734, guid: 700e893773617df448f9fd6dc19b189c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3689060588610317735, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
@@ -5607,6 +5612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Next
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339478321634813345, guid: 700e893773617df448f9fd6dc19b189c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8503862253615843088, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}

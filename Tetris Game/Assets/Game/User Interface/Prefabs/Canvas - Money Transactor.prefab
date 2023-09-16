@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6354051493353788696}
   - component: {fileID: 6831134548334045991}
   - component: {fileID: 3188301439773104405}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas - Money Transactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2167331854267598999}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,10 +191,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4169826850039515891, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}
       propertyPath: m_Name
       value: Icon - Count (Display)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031515977818986554, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6045048316467201704, guid: d4d4a673d730ef248bac2359c69182e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7812470310311516468, guid: d4d4a673d730ef248bac2359c69182e2,
         type: 3}

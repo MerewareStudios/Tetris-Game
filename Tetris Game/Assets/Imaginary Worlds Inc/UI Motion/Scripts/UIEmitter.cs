@@ -58,6 +58,7 @@ namespace IWI.UI
             for (int i = 0; i < imageSettings.maxImageCount; i++)
             {
                 GameObject imagePrefab = new GameObject();
+                imagePrefab.layer = this.gameObject.layer;
                 imagePrefab.SetActive(false);
                 #if UNITY_EDITOR
                 imagePrefab.name = "Image";
