@@ -8,6 +8,7 @@ namespace Game
     public class Pawn : MonoBehaviour
     {
         [SerializeField] public MeshRenderer meshRenderer;
+        [SerializeField] private MeshRenderer iconMR;
         [SerializeField] private TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
         [SerializeField] public Transform pivot;
@@ -64,16 +65,16 @@ namespace Game
                 switch (UsageType)
                 {
                     case Usage.Ammo:
-                        levelText.text = UsageType.ToString().ToTMProKey(_amount);
+                        levelText.enabled = false;
+                        iconMR.enabled = true;
                         break;
                     case Usage.Shooter:
                         levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
+                        iconMR.enabled = false;
                         break;
                     case Usage.ShooterIdle:
                         levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
-                        break;
-                    default:
-                        levelText.text = UsageType.ToString().ToTMProKey();
+                        iconMR.enabled = false;
                         break;
                 }
             }
