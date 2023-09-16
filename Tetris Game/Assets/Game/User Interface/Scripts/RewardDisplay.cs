@@ -32,6 +32,6 @@ public class RewardDisplay : MonoBehaviour
 
     public void SetSortingBehind()
     {
-        canvas.sortingOrder = 7;
+        canvas.sortingOrder = 6;
     }
 }
