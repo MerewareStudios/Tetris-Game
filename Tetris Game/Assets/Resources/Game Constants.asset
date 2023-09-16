@@ -590,10 +590,10 @@ MonoBehaviour:
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
   piggyExplodeColor: {r: 1, g: 0.70980394, b: 0.85490197, a: 1}
   metaTextMaterials:
-  - {fileID: 2100000, guid: 4c8589fcb4a5e594ab7b1b23e9914251, type: 2}
-  - {fileID: 2100000, guid: a38b9df60192ebe4cacb977dc3a701c2, type: 2}
-  - {fileID: 2100000, guid: 3e094f0c967d4d446a513117d0a86ca8, type: 2}
-  - {fileID: 2100000, guid: d99996e072b9e7c4381ca7c796111a99, type: 2}
+  - {fileID: 2100000, guid: 4812700c5406ce844bf2780748e99ad1, type: 2}
+  - {fileID: 2100000, guid: 7ff1e9882c8111841ae0ecc13b72a9de, type: 2}
+  - {fileID: 2100000, guid: 4eae77f1d9538644c8d49dae9900c1d9, type: 2}
+  - {fileID: 2100000, guid: d8d87616088397b499596aaa0bdb5199, type: 2}
   metaTextColors:
   - {r: 0.99607843, g: 0.9490196, b: 0.2627451, a: 1}
   - {r: 1, g: 0.5137255, b: 0.79025674, a: 1}
