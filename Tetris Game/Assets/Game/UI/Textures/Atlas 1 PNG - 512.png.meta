@@ -1,0 +1,690 @@
+fileFormatVersion: 2
+guid: 0f1c8453cb5c1844fb4b4278ed474e0b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 409.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc8a9fb1605bd34aa352d6ad207cea9
+      internalID: 264525921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_1
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 409.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd869af1476026642932c8782737da37
+      internalID: 2008493456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_2
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 409.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db44956124fcad54fb94622442514f3e
+      internalID: -1707596028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_3
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 409.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e21e87eb2cc42441bd46e2500e5f4cc
+      internalID: 292577690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 409.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 720ca29cc2da4e944a727c9452c1af82
+      internalID: 772715174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 307.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 982aebd33b25df345ac1a11c9a7a028c
+      internalID: -1998071930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_6
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 307.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17ef802ad0b6c0d4cbf780cdb6b2aff2
+      internalID: -127298505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_7
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 307.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba37315fe67fc974a8dd7c945a523b22
+      internalID: 1469169086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_8
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 307.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80f9bb8429625664bb1c00e150f28b74
+      internalID: 1863192048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_9
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 307.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a34e7e96e201a54c89050cff756acea
+      internalID: -1577437007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 205.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 665ddcfda3abede448e63c353965a182
+      internalID: -320693741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_11
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 205.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 669507cf2f2b5f94cb7fcfc619c50b3b
+      internalID: -1319781183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_12
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 205.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bc80ff56d8cb7547b80ee64787ba240
+      internalID: -1789952587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_13
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 205.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26342ce5d295da949a255a5fedb2dd58
+      internalID: 1294849284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_14
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 205.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18d3e63d9811a07489d18b61bc900753
+      internalID: -592725769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 103.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3238db6820e95d8488e595b8bd2c79c8
+      internalID: -1070320978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_16
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 103.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63e7ca4fa0c19a448a52e64070759ba3
+      internalID: -1073822437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_17
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 103.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9f84410177d13a46939ab96e01c2109
+      internalID: -1793481837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_18
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 103.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64a96709451058e469024764c4d031c0
+      internalID: -1507974920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_19
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 103.6
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba57dd6089173047a551c87318248b0
+      internalID: -1971613076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b670f05855280fd4bb095e0d6e0341ee
+      internalID: -660608685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_21
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 1.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7b2ca2aeccba04eb2c202bced6968b
+      internalID: -484756056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_22
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b39e134871f8c1347a6de96e9ae06652
+      internalID: -399834614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_23
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 1.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ba71d0c2d3081c4bb4ff472f884c221
+      internalID: -538459159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atlas 1 PNG - 512_24
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 1.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b550d21a054b2f84f894c52332bba512
+      internalID: 1755121855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b5b037d41b4138c40808f609faae49eb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Atlas 1 PNG - 512_0: 264525921
+      Atlas 1 PNG - 512_1: 2008493456
+      Atlas 1 PNG - 512_10: -320693741
+      Atlas 1 PNG - 512_11: -1319781183
+      Atlas 1 PNG - 512_12: -1789952587
+      Atlas 1 PNG - 512_13: 1294849284
+      Atlas 1 PNG - 512_14: -592725769
+      Atlas 1 PNG - 512_15: -1070320978
+      Atlas 1 PNG - 512_16: -1073822437
+      Atlas 1 PNG - 512_17: -1793481837
+      Atlas 1 PNG - 512_18: -1507974920
+      Atlas 1 PNG - 512_19: -1971613076
+      Atlas 1 PNG - 512_2: -1707596028
+      Atlas 1 PNG - 512_20: -660608685
+      Atlas 1 PNG - 512_21: -484756056
+      Atlas 1 PNG - 512_22: -399834614
+      Atlas 1 PNG - 512_23: -538459159
+      Atlas 1 PNG - 512_24: 1755121855
+      Atlas 1 PNG - 512_3: 292577690
+      Atlas 1 PNG - 512_4: 772715174
+      Atlas 1 PNG - 512_5: -1998071930
+      Atlas 1 PNG - 512_6: -127298505
+      Atlas 1 PNG - 512_7: 1469169086
+      Atlas 1 PNG - 512_8: 1863192048
+      Atlas 1 PNG - 512_9: -1577437007
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
