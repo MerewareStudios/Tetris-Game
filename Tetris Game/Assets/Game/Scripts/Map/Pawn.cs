@@ -177,19 +177,19 @@ namespace Game
         #region Colors
         public void MarkDefaultColor()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.defaultColor);
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
         }
         public void MarkSteadyColor()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.steadyColor);
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
         }
         public void MarkMergerColor()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
         }
         public void MarkMergerColorHideNumber()
         {
-            meshRenderer.SetColor(GameManager.MPB_PAWN, GameManager.BaseColor, Const.THIS.mergerColor);
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
             levelText.text = "1";
         }
         #endregion

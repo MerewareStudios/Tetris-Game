@@ -7,15 +7,13 @@ namespace Visual.Effects
     public class Distortion : MonoBehaviour
     {
         [SerializeField] private MeshRenderer meshRenderer;
-        [System.NonSerialized] private static MaterialPropertyBlock mpb;
         [System.NonSerialized] private static int rampID;
         [System.NonSerialized] private static int powerID;
         [System.NonSerialized] public static System.Action<GameObject> OnComplete;
         [System.NonSerialized] private Tween animationTween;
     
-        public static void SetPropertyBlock(MaterialPropertyBlock materialPropertyBlock, int rampID, int powerID, System.Action<GameObject> OnComplete)
+        public static void SetPropertyBlock(int rampID, int powerID, System.Action<GameObject> OnComplete)
         {
-            Distortion.mpb = materialPropertyBlock;
             Distortion.rampID = rampID;
             Distortion.powerID = powerID;
             Distortion.OnComplete = OnComplete;
@@ -32,8 +30,8 @@ namespace Visual.Effects
 
         private void Animate(float startRamp, float endRamp, float startPower, float endPower, float duration, Ease ease, float delay)
         {
-            meshRenderer.SetFloat(mpb, rampID, startRamp);
-            meshRenderer.SetFloat(mpb, powerID, startPower);
+            meshRenderer.material.SetFloat(rampID, startRamp);
+            meshRenderer.material.SetFloat(powerID, startPower);
 
             float value = 0.0f;
             animationTween?.Kill();
@@ -41,10 +39,10 @@ namespace Visual.Effects
             animationTween.onUpdate = () =>
             {
                 float ramp = Mathf.Lerp(startRamp, endRamp, value);
-                meshRenderer.SetFloat(mpb, rampID, ramp);
+                meshRenderer.material.SetFloat(rampID, ramp);
 
                 float power = Mathf.Lerp(startPower, endPower, value);
-                meshRenderer.SetFloat(mpb, powerID, power);
+                meshRenderer.material.SetFloat(powerID, power);
             };
             animationTween.onComplete = () => OnComplete.Invoke(this.gameObject);
         }
