@@ -21,12 +21,10 @@ public class CubeExplosion : MonoBehaviour
             Vector3 direction = Random.insideUnitSphere.normalized;
             
             fragment.localScale = AnimConst.THIS.fragmentScale;
-            // fragment.localPosition = positions[i] + ((fragment.position - position).normalized * 0.15f);
             fragment.localPosition = AnimConst.THIS.explodeRadius * direction;
             fragment.rotation = Random.rotation;
             
-            // renderers[i].SetColor(GameManager.MPB_EXPLODE, GameManager.BaseColor, AnimConst.THIS.explodeGradient.Evaluate(0.0f));
-            fragment.DOScale(Vector3.zero, 0.4f).SetEase(Ease.InOutSine).SetDelay(Random.Range(0.35f, 0.5f)).onComplete = () =>
+            fragment.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.4f).SetUpdate(UpdateType.Fixed).SetEase(Ease.InOutSine).SetDelay(Random.Range(0.35f, 0.5f)).onComplete = () =>
             {
                 index++;
                 if (index == fragments.Count)
