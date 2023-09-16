@@ -87,7 +87,7 @@ namespace Game.UI
             if (!Wallet.Consume(lookUp.currency))
             {
                 purchaseOptions[purchaseIndex].PunchColor(Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
-                purchaseOptions[purchaseIndex].Punch(new Vector3(-50.0f, 0.0f));
+                purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, -50.0f));
                 return;
             }
             

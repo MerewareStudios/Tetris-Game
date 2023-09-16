@@ -608,15 +608,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: <bounce a=0.1 f=2>NEW!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 64f87d86dc2bea340917fa9857a01a35, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 49d8573018314cb46b72d1ee92293bc9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e24fc072f2494724486ae6d87006565c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255566
-  m_fontColor: {r: 0.80784315, g: 1, b: 0, a: 1}
+    rgba: 4294901963
+  m_fontColor: {r: 0.79607844, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -942,8 +942,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 64f87d86dc2bea340917fa9857a01a35, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 9d0f3a10ceefb304089622f89f8646bb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: ddd8728c73f00364b97fe2096efacbca, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

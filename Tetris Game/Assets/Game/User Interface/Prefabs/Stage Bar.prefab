@@ -273,9 +273,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: <sprite name=Damage>DAMAGE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 64f87d86dc2bea340917fa9857a01a35, type: 2}
-  m_sharedMaterial: {fileID: 8003077353371966180, guid: 64f87d86dc2bea340917fa9857a01a35,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 8eb3d8dd7286d24408355f4fb5edcfcb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1709,10 +1708,15 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: de9c72f682391cd4d88b16fce5400539, type: 2}
+      objectReference: {fileID: 2100000, guid: a11e77265dd550d4c94fb94c4b2dec33, type: 2}
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7533636813428699342, guid: 353850972df4ef844923b87166f1f0bf,
