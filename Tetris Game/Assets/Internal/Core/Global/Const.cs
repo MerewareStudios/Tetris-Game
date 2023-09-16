@@ -2,12 +2,9 @@ using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
-using Internal.Core;
 using IWI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]

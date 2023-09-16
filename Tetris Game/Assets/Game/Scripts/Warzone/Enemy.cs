@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace  Game
 {

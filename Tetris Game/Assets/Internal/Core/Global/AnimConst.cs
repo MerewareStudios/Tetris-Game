@@ -1,7 +1,4 @@
 using DG.Tweening;
-using Game;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Anim Const", menuName = "Game/Anim Const", order = 0)]

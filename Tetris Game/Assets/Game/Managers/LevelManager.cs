@@ -1,5 +1,3 @@
-using System;
-using DG.Tweening;
 using Game;
 using Internal.Core;
 using UnityEngine;

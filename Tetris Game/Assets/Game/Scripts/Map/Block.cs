@@ -1,12 +1,8 @@
-using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
-using Febucci.UI.Core;
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Game
 {

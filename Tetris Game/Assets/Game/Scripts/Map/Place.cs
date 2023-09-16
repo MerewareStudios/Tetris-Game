@@ -8,6 +8,7 @@ namespace Game
     {
         [SerializeField] public Transform segmentParent;
         [SerializeField] private Renderer gridTile;
+        [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceColor _placeColor = PlaceColor.GREEN;
         [System.NonSerialized] private Tween _colorTween;
@@ -17,6 +18,19 @@ namespace Game
         public Vector3 PlacePosition => gridTile.transform.position;
         
         public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
+        public Vector3 Position => _thisTransform.position;
+
+        public Vector3 LocalPosition
+        {
+            set => _thisTransform.localPosition = value;
+            get => _thisTransform.localPosition;
+        }
+        
+        void Awake()
+        {
+            this._thisTransform = this.transform;
+        }
+
 
         public void Construct()
         {

@@ -3,7 +3,6 @@ using Febucci.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Febucci.UI.Core;
 
 public class PurchaseOption : MonoBehaviour
 {

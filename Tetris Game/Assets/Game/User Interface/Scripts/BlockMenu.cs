@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Febucci.UI;
 
 
 namespace Game.UI

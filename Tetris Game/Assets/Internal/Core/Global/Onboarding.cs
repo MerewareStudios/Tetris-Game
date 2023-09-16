@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using Game;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Onboarding Data", menuName = "Game/Onboarding Data", order = 0)]
 public class Onboarding : SSingleton<Onboarding>

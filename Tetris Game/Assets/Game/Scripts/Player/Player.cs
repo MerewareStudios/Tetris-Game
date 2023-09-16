@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using Game.UI;
-using Internal.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 

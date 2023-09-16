@@ -1,7 +1,5 @@
 using DG.Tweening;
 using Internal.Core;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Visual.Effects
@@ -25,9 +23,10 @@ namespace Visual.Effects
 
         public void Distort(Vector3 worldPosition, Vector3 forward, float scale, float startRamp, float endRamp, float duration, Ease ease, float delay)
         {
-            transform.position = worldPosition;
-            transform.forward = forward;
-            transform.localScale = Vector3.one * scale;
+            var thisTransform = transform;
+            thisTransform.position = worldPosition;
+            thisTransform.forward = forward;
+            thisTransform.localScale = Vector3.one * scale;
             Animate(startRamp, endRamp, 0.135f, 0.0f, duration, ease, delay);
         }
 

@@ -1,4 +1,3 @@
-using System;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +9,19 @@ namespace Game
     {
         [SerializeField] private Vector3 indexOffset;
         [SerializeField] public Vector2Int Size;
+        [System.NonSerialized] private Transform _thisTransform;
+        [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] public System.Action OnMerge;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
 
         [System.NonSerialized] private Data _data;
+
+        void Awake()
+        {
+            this._thisTransform = this.transform;
+        }
 
         public Data _Data
         {
@@ -33,15 +39,16 @@ namespace Game
             {
                 for(int j = 0; j < Size.y; j++)
                 {
-                    Place place = Pool.Place.Spawn<Place>(this.transform);
-                    place.transform.localPosition = new Vector3(i, 0.0f, -j);
+                    Place place = Pool.Place.Spawn<Place>(_thisTransform);
+                    place.LocalPosition = new Vector3(i, 0.0f, -j);
                     places[i, j] = place;
                     place.Index = new Vector2Int(i, j);
                     place.Construct();
                 }
             }
 
-            transform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
+            _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
+            this._thisPosition = _thisTransform.position;
         }
 
         public void Deconstruct()
@@ -277,7 +284,7 @@ namespace Game
 
         private void SpawnMergedPawn(Place place, int level)
         {
-            Vector3 mergedPawnPosition = place.transform.position;
+            Vector3 mergedPawnPosition = place.Position;
             if (level <= 0)
             {
                 return;
@@ -359,13 +366,6 @@ namespace Game
                 {
                     int index = i;
                     Pawn pawn = pawns[i];
-                    // pawn.modelPivot.gameObject.SetActive(false);
-                    // if (pawn.UsageType.Equals(Pawn.Usage.Ammo))
-                    // {
-                        // pawn.MarkMergerColorHideNumber();
-                    // }
-                    
-                    // Particle.Square.Emit(1, pawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
                 
                     pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
@@ -375,7 +375,7 @@ namespace Game
 
                         if (index == pawns.Count - 1)
                         {
-                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.transform.position + new Vector3(0.0f, 0.6f, 0.0f));
+                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                         }
                     };
                 }
@@ -492,7 +492,7 @@ namespace Game
         }
         private Vector2Int? Pos2Index(Vector3 position)
         {
-            Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - transform.position + indexOffset;
+            Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
             Vector2 posFin = new Vector2(posDif.x, -posDif.z);
             Vector2Int? index = null;
             if (posFin.x >= 0.0f && posFin.x < Size.x && posFin.y >= 0.0f && posFin.y < Size.y)
@@ -599,7 +599,7 @@ namespace Game
             {
                 if (place.Current) return;
 
-                Particle.Blue_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                Particle.Blue_Zone.Emit(1, place.Position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
             });
         }
         
@@ -607,7 +607,7 @@ namespace Game
         {
             CallRow<Place>(places, 0, (place, horizontalIndex) =>
             {
-                Particle.Yellow_Zone.Emit(1, place.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                Particle.Yellow_Zone.Emit(1, place.Position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
             });
         }
         
@@ -673,8 +673,6 @@ namespace Game
         {
             List<List<Place>> allPlaces = new();
 
-            Vector3 boardPosition = transform.position;
-            
             List<Vector3> localPawnPositions = block.LocalPawnPositions;
             
             Vector3 zeroShift = Vector3.zero;
@@ -734,7 +732,7 @@ namespace Game
 
                             Vector3 shift = zeroShift + new Vector3(i, 0.0f, -j);
 
-                            Vector3 finalPos = boardPosition + shift + rotatedPosition;
+                            Vector3 finalPos = _thisPosition + shift + rotatedPosition;
 
                             Place place = IsEmpty(finalPos);
                             

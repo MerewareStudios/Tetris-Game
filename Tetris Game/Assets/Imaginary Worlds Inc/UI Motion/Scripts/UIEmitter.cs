@@ -4,7 +4,6 @@ using DG.Tweening;
 using IWI.Emitter.Enums;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Space = IWI.Emitter.Enums.Space;
