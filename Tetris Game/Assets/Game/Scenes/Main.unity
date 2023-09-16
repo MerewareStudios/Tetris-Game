@@ -1644,7 +1644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiTouchEnabled: 0
-  useNativeFrameRate: 1
+  useNativeFrameRate: 0
   targetFrameRate: 60
   fpsText: {fileID: 1411092491}
 --- !u!114 &715436866
