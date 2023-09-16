@@ -274,6 +274,17 @@ namespace Internal.Core
             };
             return tween;
         }
+        // public static Tween DoColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Color fromColor, Color toColor, float duration, Ease ease)
+        // {
+        //     float timeStep = 0.0f;
+        //     Tween tween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, duration).SetEase(ease);
+        //     tween.onUpdate = () =>
+        //     {
+        //         Color currentColor = Color.Lerp(fromColor, toColor, timeStep);
+        //         renderer.SetColor(mpb, key, currentColor);
+        //     };
+        //     return tween;
+        // }
         public static Tween AnimateShaderColor(this Renderer renderer, MaterialPropertyBlock mpb, int key, Color fromColor, Color toColor, float duration, Ease ease, params int[] indexes)
         {
             float timeStep = 0.0f;

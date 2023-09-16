@@ -161,5 +161,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segmentParent: {fileID: 5752552977826571303}
-  placementSprite: {fileID: 0}
   gridTile: {fileID: 1032695334825311344}
