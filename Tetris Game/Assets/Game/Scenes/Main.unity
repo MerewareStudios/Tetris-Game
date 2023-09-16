@@ -3361,7 +3361,7 @@ GameObject:
   - component: {fileID: 1411092490}
   - component: {fileID: 1411092492}
   - component: {fileID: 1411092491}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: FPS Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3625,7 +3625,7 @@ GameObject:
   - component: {fileID: 1438485445}
   - component: {fileID: 1438485448}
   - component: {fileID: 1438485447}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas - FPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3685,7 +3685,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 548236974}
+  m_Camera: {fileID: 514003530}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
