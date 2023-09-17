@@ -15,7 +15,11 @@
     ],
     "m_Keywords": [],
     "m_Dropdowns": [],
-    "m_CategoryData": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "1151e84e85cf40d1b5b990c738fe9433"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "e87056c86e394b908f7a0031489cb57b"
@@ -147,6 +151,20 @@
                     "m_Id": "506b5f455b934701afde41e88a246d1a"
                 },
                 "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "6de04b7d72ff43dbbe65bdb68a8b1465"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e87056c86e394b908f7a0031489cb57b"
+                },
+                "m_SlotId": 0
             }
         },
         {
@@ -394,6 +412,24 @@
         "e32": 0.0,
         "e33": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "1151e84e85cf40d1b5b990c738fe9433",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "12efb0bc59324bac9569869c79e52bc7"
+        },
+        {
+            "m_Id": "b82c481d63444c58affbce35711a7a90"
+        },
+        {
+            "m_Id": "15ae876377e142edb554dce990ae4002"
+        }
+    ]
 }
 
 {
@@ -1248,6 +1284,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "8fbc3adcdc744756a524d6b2a2c35b4e",
+    "m_Id": 0,
+    "m_DisplayName": "New",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "New",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "9562fe51fbe04b3c851277d4529b4958",
     "m_Id": 0,
@@ -1908,7 +1959,11 @@
             "height": 0.0
         }
     },
-    "m_Slots": [],
+    "m_Slots": [
+        {
+            "m_Id": "8fbc3adcdc744756a524d6b2a2c35b4e"
+        }
+    ],
     "synonyms": [],
     "m_Precision": 0,
     "m_PreviewExpanded": true,
