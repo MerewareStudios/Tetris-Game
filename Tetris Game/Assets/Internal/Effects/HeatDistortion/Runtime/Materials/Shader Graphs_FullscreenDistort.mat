@@ -38,7 +38,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Power: 0.25
+    - _Power: 2.5
     - _Ramp: 0.123
     - _Transition: 0.466
     m_Colors: []

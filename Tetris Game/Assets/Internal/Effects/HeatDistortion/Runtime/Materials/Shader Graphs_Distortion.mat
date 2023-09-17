@@ -84,5 +84,5 @@ Material:
     - _step: 0
     m_Colors:
     - _Center: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 0.17358485, b: 0.17358485, a: 1}
+    - _Color: {r: 1, g: 0.63584906, b: 0.63584906, a: 1}
   m_BuildTextureStacks: []
