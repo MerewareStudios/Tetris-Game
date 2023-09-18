@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6338918253107934900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0ef948bee3975418fd9c43f38032e0, type: 3}
+  m_Name: GrabPassRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _timing: 1
+  _grabbedTextureName: _GrabbedTexture
+  _shaderLightModes:
+  - UseColorTexture
+  _sortingCriteria: 23
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16,8 +34,9 @@ MonoBehaviour:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
       type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
-  m_RendererFeatures: []
-  m_RendererFeatureMap: 
+  m_RendererFeatures:
+  - {fileID: -6338918253107934900}
+  m_RendererFeatureMap: 4c09430f6fa307a8
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 0}
   shaders:

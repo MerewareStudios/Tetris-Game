@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: b95f09f919fb31b4097849f00b35638c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _MaskTexture: {instanceID: 0}
+  - _DistortionGuide: {instanceID: 0}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

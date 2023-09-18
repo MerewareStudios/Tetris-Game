@@ -1,6 +1,7 @@
 using Internal.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ApplicationManager : Singleton<ApplicationManager>
 {
@@ -8,10 +9,16 @@ public class ApplicationManager : Singleton<ApplicationManager>
     [SerializeField] public bool useNativeFrameRate = true;
     [SerializeField] public int targetFrameRate = 60;
     [SerializeField] public TextMeshProUGUI fpsText;
+    [SerializeField] public ScriptableRendererFeature grabTextureFeature;
     [System.NonSerialized] public int fps;
     [System.NonSerialized] public float fpsTimestamp;
     // static Setting HAPTIC;
     // public static Setting SOUND;
+
+    public bool GrabFeatureEnabled
+    {
+        set => grabTextureFeature.SetActive(value);
+    } 
 
     public virtual void Awake()
     {
@@ -23,6 +30,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
         Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.value : targetFrameRate;
         // LoadSettings();
         fpsTimestamp = Time.realtimeSinceStartup;
+        // GrabFeatureEnabled = false;
     }
     // private void LoadSettings()
     // {

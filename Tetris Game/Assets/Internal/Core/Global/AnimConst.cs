@@ -17,18 +17,14 @@ public class AnimConst : SSingleton<AnimConst>
     public float mergedPunchDuration = 0.35f;
     [Header("Distort")]
     public float distortScale = 4.0f;
-    public float distortStartRamp = -0.2f;
-    public float distortEndRamp = 0.6f;
+    public float distortPower;
     public float distortDuration = 0.55f;
     public Ease distortEase;
     [Header("Explode")]
     public Vector3 fragmentScale;
     public float explodePower;
-    public Gradient explodeGradient;
     public float explodeRadius;
     public float jumpPower;
-    public float jumpDuration;
-    public Ease explosionJumpEase;
     [Header("Glimmer")]
     public float glimmerSpeedBlock;
     public float glimmerSpeedWeapon;

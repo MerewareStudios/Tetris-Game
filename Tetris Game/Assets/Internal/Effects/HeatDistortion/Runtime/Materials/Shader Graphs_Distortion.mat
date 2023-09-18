@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_Distortion
-  m_Shader: {fileID: 4800000, guid: 97951562ee4ae434ca79007064a9f813, type: 3}
+  m_Shader: {fileID: 4800000, guid: b95f09f919fb31b4097849f00b35638c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -48,11 +48,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Distort:
+        m_Texture: {fileID: 2800000, guid: a4aa056ad0122b740a86111b807414bf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionGuide:
+        m_Texture: {fileID: 2800000, guid: a4aa056ad0122b740a86111b807414bf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GrabbedTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: ea01d51db4e30734a88dc950e26183ec, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainText:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -89,11 +105,13 @@ Material:
     - _Distance: -0.21
     - _Distance_Power: 23.49
     - _Distortion: 0.023
+    - _DistortionAmount: 0.1
     - _DrawOrder: 0
     - _End: 0.35
     - _Float: 1.33
     - _Mult: 1
-    - _Power: -31
+    - _Normal_Power: 1
+    - _Power: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Ramp: -0.026
@@ -102,10 +120,11 @@ Material:
     - _Transition: 0.125
     - _ZTest: 4
     - _ZWrite: 1
+    - _steap: 1
     - _step: 0
     m_Colors:
     - _Center: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _Color: {r: 1, g: 0.56037736, b: 0.56037736, a: 1}
     - _ColorA: {r: 0.64933443, g: 0.6603774, b: 0.51957995, a: 1}
     - _Map: {r: 0, g: 0, b: 3.07, a: 3.32}
   m_BuildTextureStacks: []

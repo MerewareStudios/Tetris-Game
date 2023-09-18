@@ -298,7 +298,7 @@ namespace Game
             mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
             {
-                UIManagerExtensions.Distort(mergedPawnPosition, 0.0f);
+                UIManagerExtensions.Distort(mergedPawnPosition + Vector3.up * 0.45f, 0.0f);
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
                 // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(mergedPawn.modelPivot.position + new Vector3(0.0f, 0.3516f, 0.0f));
                 mergedPawn.OnMerge();

@@ -10,13 +10,12 @@ public class GameManager : Singleton<GameManager>
     private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int RampID = Shader.PropertyToID("_Ramp");
-    public static readonly int PowerID = Shader.PropertyToID("_Power");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EnemyEmisColor = Shader.PropertyToID("_EmissionColor");
 
     void Start()
     {
-        Distortion.SetPropertyBlock(RampID, PowerID, (go) => go.Despawn());
+        Distortion.SetPropertyBlock((go) => go.Despawn());
         Board.THIS.Construct();
         LevelManager.THIS.LoadLevel();
     }
