@@ -143,7 +143,7 @@ public class Spawner : Singleton<Spawner>
                 float smoothFactor = 0.0f;
                 while (true)
                 {
-                    _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 24.0f * smoothFactor);
+                    _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
                     smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
                     yield return null;
                 }

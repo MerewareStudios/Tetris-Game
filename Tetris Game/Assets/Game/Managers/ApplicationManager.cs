@@ -9,7 +9,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     [SerializeField] public bool useNativeFrameRate = true;
     [SerializeField] public int targetFrameRate = 60;
     [SerializeField] public TextMeshProUGUI fpsText;
-    [SerializeField] public ScriptableRendererFeature grabTextureFeature;
+    [SerializeField] private ScriptableRendererFeature grabTextureFeature;
     [System.NonSerialized] public int fps;
     [System.NonSerialized] public float fpsTimestamp;
     // static Setting HAPTIC;
@@ -18,6 +18,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     public bool GrabFeatureEnabled
     {
         set => grabTextureFeature.SetActive(value);
+        get => grabTextureFeature.isActive;
     } 
 
     public virtual void Awake()
@@ -30,7 +31,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
         Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.value : targetFrameRate;
         // LoadSettings();
         fpsTimestamp = Time.realtimeSinceStartup;
-        // GrabFeatureEnabled = false;
+        GrabFeatureEnabled = false;
     }
     // private void LoadSettings()
     // {

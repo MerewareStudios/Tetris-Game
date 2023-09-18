@@ -164,19 +164,24 @@ public static class UIManagerExtensions
    }
    public static void Distort(Vector3 worldPosition, float delay)
    {
-       Transform camTransform = CameraManager.THIS.gameCamera.transform;
-       var forward = camTransform.forward;
+      if (!ApplicationManager.THIS.GrabFeatureEnabled)
+      {
+         ApplicationManager.THIS.GrabFeatureEnabled = true;
+      }
+      
+      Transform camTransform = CameraManager.THIS.gameCamera.transform;
+      var forward = camTransform.forward;
 
-       Plane plane = new Plane(forward, camTransform.position);
-       Ray ray = new Ray(worldPosition, -forward);
+      Plane plane = new Plane(forward, camTransform.position);
+      Ray ray = new Ray(worldPosition, -forward);
 
-       Vector3 hitPoint = Vector3.zero;
-       if (plane.Raycast(ray, out float enter))
-       {
-          hitPoint = ray.GetPoint(enter);
-       }
-       
-       Pool.Distortion.Spawn<Distortion>().Distort(hitPoint, forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortPower, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
+      Vector3 hitPoint = Vector3.zero;
+      if (plane.Raycast(ray, out float enter))
+      {
+       hitPoint = ray.GetPoint(enter);
+      }
+
+      Pool.Distortion.Spawn<Distortion>().Distort(hitPoint, forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortPower, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
    }
    
    public static void Glimmer(this Image image, float speed)

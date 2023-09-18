@@ -15,7 +15,14 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        Distortion.SetPropertyBlock((go) => go.Despawn());
+        Distortion.SetPropertyBlock((go, state) =>
+        {
+            go.Despawn();
+            if (state)
+            {
+                ApplicationManager.THIS.GrabFeatureEnabled = false;
+            }
+        });
         Board.THIS.Construct();
         LevelManager.THIS.LoadLevel();
     }

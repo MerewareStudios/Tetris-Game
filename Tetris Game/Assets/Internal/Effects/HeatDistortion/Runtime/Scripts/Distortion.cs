@@ -7,12 +7,13 @@ namespace Visual.Effects
     public class Distortion : MonoBehaviour
     {
         public static readonly int PowerID = Shader.PropertyToID("_Power");
+        public static Distortion Recent = null;
 
         [SerializeField] private MeshRenderer meshRenderer;
-        [System.NonSerialized] public static System.Action<GameObject> OnComplete;
+        [System.NonSerialized] public static System.Action<GameObject, bool> OnComplete;
         [System.NonSerialized] private Tween animationTween;
     
-        public static void SetPropertyBlock(System.Action<GameObject> OnComplete)
+        public static void SetPropertyBlock(System.Action<GameObject, bool> OnComplete)
         {
             // Distortion.rampID = rampID;
             // Distortion.powerID = powerID;
@@ -25,6 +26,8 @@ namespace Visual.Effects
             thisTransform.position = worldPosition;
             thisTransform.forward = forward;
             thisTransform.localScale = Vector3.zero;
+
+            Distortion.Recent = this;
             
             float value = 0.0f;
             animationTween?.Kill();
@@ -34,7 +37,7 @@ namespace Visual.Effects
                 meshRenderer.material.SetFloat(PowerID, power * (1.0f - value));
                 thisTransform.localScale = Vector3.one * scale * value;
             };
-            animationTween.onComplete = () => OnComplete.Invoke(this.gameObject);
+            animationTween.onComplete = () => OnComplete.Invoke(this.gameObject, Distortion.Recent == this);
         }
     }
 }

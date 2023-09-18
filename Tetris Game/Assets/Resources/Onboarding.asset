@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needAmmoText: Hey! I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
     </bounce></size>!
-  useAmmoBoxText: <size=125%>Move <bounce a=1 f=2 w=1><sprite name=MaxStack> </>
+  useAmmoBoxText: <size=125%>Move <bounce a=1 f=2 w=1><sprite name=Box> </>
   rotateText: <size=125%>Rotate <swing w=0.4><sprite name=MaxStack> </>
   stackText: <size=125%>Wait for <color=#40FFA8><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
