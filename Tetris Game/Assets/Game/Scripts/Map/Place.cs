@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -31,6 +32,11 @@ namespace Game
             this._thisTransform = this.transform;
         }
 
+        // private void Update()
+        // {
+        //     gridTile.material.SetColor(GameManager.BaseColor, Const.THIS.gridTileColors[LinearIndex % 2]);
+        //
+        // }
 
         public void Construct()
         {
