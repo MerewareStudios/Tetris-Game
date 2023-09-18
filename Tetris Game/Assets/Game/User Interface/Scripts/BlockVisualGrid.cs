@@ -7,11 +7,12 @@ using DG.Tweening;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlockVisualGrid : MonoBehaviour
 {
     [SerializeField] private GameObject[] blocks;
-    [SerializeField] private TextMeshProUGUI[] texts;
+    [SerializeField] private Image[] bullets;
     [SerializeField] private string ammoText;
 
     public void Display(int[] lookUp)
@@ -25,7 +26,8 @@ public class BlockVisualGrid : MonoBehaviour
                 blocks[i].transform.localScale = Vector3.one;
                 blocks[i].transform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
             }
-            texts[i].text = GetAmmoImage(lookUp[i]);
+            // bullets[i].text = GetAmmoImage(lookUp[i]);
+            // bullets[i].text = GetAmmoImage(lookUp[i]);
         }
     }
 

@@ -2419,16 +2419,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 3772746365000825070, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3772746365000825070, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6674382387691748398, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
@@ -2545,6 +2540,21 @@ PrefabInstance:
       propertyPath: offset.y
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 514003530}
+    - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: gameCamera
+      value: 
+      objectReference: {fileID: 548236974}
+    - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 548236974}
     - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: shortDragOffset.y
@@ -2800,6 +2810,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Emitter - Heart
       objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 514003530}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: gameCamera
+      value: 
+      objectReference: {fileID: 548236974}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 235757128}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: imageSettings.sprite
@@ -3219,6 +3244,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Emitter - Shield
       objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 514003530}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: gameCamera
+      value: 
+      objectReference: {fileID: 548236974}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 235757128}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: imageSettings.sprite
@@ -6221,6 +6261,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI Emitter - Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 514003530}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: gameCamera
+      value: 
+      objectReference: {fileID: 548236974}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 235757128}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: targetSettingsEnd.cam
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}

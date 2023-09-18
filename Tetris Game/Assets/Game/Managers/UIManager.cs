@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Visual.Effects;
-using Space = IWI.Emitter.Enums.Space;
+// using Space = IWI.Emitter.Enums.Space;
 using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>
@@ -191,52 +191,52 @@ public static class UIManagerExtensions
       glimmer.Show(image, rectTransform, speed, AnimConst.THIS.glimmerEase);
    }
 
-   public static void EmitBlockCoin(Vector3 worldPosition, int count, int totalValue)
-   {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Block);
-   }
-   public static void EmitEnemyCoin(Vector3 worldPosition, int count, int totalValue)
-   {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy);
-   }
+   // public static void EmitBlockCoin(Vector3 worldPosition, int count, int totalValue)
+   // {
+   //    TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+   //    ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+   //    UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Block);
+   // }
+   // public static void EmitEnemyCoin(Vector3 worldPosition, int count, int totalValue)
+   // {
+   //    TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+   //    ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+   //    UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy);
+   // }
    public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
    {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
    }
    public static void EmitLevelRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
    {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, canvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
    }
    public static void RequestCoinFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive)
    {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, Const.CurrencyType.Coin.IconPosition());
-      TargetSettings targetSettingsEnd = new TargetSettings(Space.Screen, null, targetCanvasWorldPosition);
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, Const.CurrencyType.Coin.IconPosition());
+      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.UI, null, targetCanvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_PiggyFill, OnArrive, OnAllArrive);
    }
    public static void EmitLevelShopCoin(Vector3 canvasWorldPosition, int count, int totalValue)
    {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.Screen, null, canvasWorldPosition);
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, canvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Shop, null, null);
    }
    public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
    }
    public static void ShieldToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
-      TargetSettings targetSettingsStart = new TargetSettings(Space.World, null, worldPosition);
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.shieldEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
    }

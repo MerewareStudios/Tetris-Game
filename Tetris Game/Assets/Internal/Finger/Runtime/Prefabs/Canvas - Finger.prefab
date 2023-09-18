@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 638598203877035779}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Position Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6674382387691748398}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 6168165331438284750}
   - component: {fileID: 6286103398764457979}
   - component: {fileID: 8104033352523330298}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4973,7 +4973,7 @@ GameObject:
   - component: {fileID: 9091413071697241721}
   - component: {fileID: 6804800853703635890}
   - component: {fileID: 1426258065846190729}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5047,7 +5047,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7339284612526388058}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Offset Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5083,7 +5083,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5674296735909550866}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Scale Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5123,7 +5123,7 @@ GameObject:
   - component: {fileID: 3772746365000825070}
   - component: {fileID: 2981565226958616638}
   - component: {fileID: 2559063755219903693}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Canvas - Finger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5178,6 +5178,8 @@ MonoBehaviour:
   downEase: 26
   upEase: 28
   ps: {fileID: 6286103398764457979}
+  gameCamera: {fileID: 0}
+  uiCamera: {fileID: 0}
 --- !u!223 &3772746365000825070
 Canvas:
   m_ObjectHideFlags: 0
@@ -5189,7 +5191,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 10
+  m_PlaneDistance: 0
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

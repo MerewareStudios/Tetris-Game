@@ -33,14 +33,9 @@ namespace IWI.Tutorial
         [System.NonSerialized] public System.Action OnDrag;
         [System.NonSerialized] public System.Action OnUp;
         
-        [System.NonSerialized] public Camera mainCamera;
-        [System.NonSerialized] public Camera uiCamera;
+        [SerializeField] public Camera gameCamera;
+        [SerializeField] public Camera uiCamera;
         
-        void Awake()
-        {
-            mainCamera = Camera.main;
-            uiCamera = canvas.worldCamera;
-        }
 
         public void ShortPressAndDrag(Vector3 position, bool worldSpace, float pressDuration)
         {
@@ -181,7 +176,7 @@ namespace IWI.Tutorial
         
         public Vector3 GetAnchor(Vector3 position, bool worldSpace)
         {
-            Camera cam = worldSpace ? this.mainCamera : this.uiCamera;
+            Camera cam = worldSpace ? this.gameCamera : this.uiCamera;
             Vector2 localPoint = cam.WorldToScreenPoint(position);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, localPoint, this.uiCamera, out Vector2 local);
             return local;

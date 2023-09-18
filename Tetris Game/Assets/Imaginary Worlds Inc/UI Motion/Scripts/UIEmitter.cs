@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using Space = IWI.Emitter.Enums.Space;
+// using Space = IWI.Emitter.Enums.Space;
 using ValueType = IWI.Emitter.Enums.ValueType;
 
 namespace IWI.UI
@@ -15,10 +15,21 @@ namespace IWI.UI
     public class UIEmitter : MonoBehaviour
     {
         // Components
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private Camera gameCamera;
+        [SerializeField] private Camera uiCamera;
+
+        [System.Serializable]
+        public enum Cam
+        {
+            Main,
+            Game,
+            UI,
+        }
         private Canvas _canvas;
         private RectTransform _canvasRect;
-        [System.NonSerialized] public Camera mainCamera;
-        [System.NonSerialized] public Camera uiCamera;
+        // [System.NonSerialized] public Camera mainCamera;
+        [System.NonSerialized] public Camera _thisCamera;
         private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
@@ -34,8 +45,8 @@ namespace IWI.UI
         {
             _canvas = GetComponent<Canvas>();
             _canvasRect = _canvas.GetComponent<RectTransform>();
-            mainCamera = Camera.main;
-            uiCamera = _canvas.worldCamera;
+            // mainCamera = Camera.main;
+            _thisCamera = _canvas.worldCamera;
             SetupPool();
 
             _timeOffset = Random.Range(0.0f, 100.0f);
@@ -208,19 +219,16 @@ namespace IWI.UI
         public Vector3 GetLocal(TargetSettings targetSettings)
         {
             Vector2 localPoint = Vector3.zero;
-            Camera cam = null;
-            switch (targetSettings.space)
+            Camera cam = targetSettings.cam switch
             {
-                case Space.Screen:
-                    cam = uiCamera;
-                    break;
-                case Space.World:
-                    cam = mainCamera;
-                    break;
-            }
+                Cam.Main => mainCamera,
+                Cam.Game => gameCamera,
+                Cam.UI => uiCamera,
+                _ => null
+            };
 
             localPoint = cam.WorldToScreenPoint(targetSettings.transform ? targetSettings.transform.position : targetSettings.Position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, uiCamera, out Vector2 local);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, _thisCamera, out Vector2 local);
             return local;
         }
         public void Restart()
@@ -297,14 +305,15 @@ namespace IWI.UI
     [Serializable]
     public struct TargetSettings
     {
-        [SerializeField] public IWI.Emitter.Enums.Space space;
+        // [SerializeField] public IWI.Emitter.Enums.Space space;
+        [SerializeField] public UIEmitter.Cam cam;
         [SerializeField] public Transform transform;
         [System.NonSerialized] public Vector3 Position;
 
 
-        public TargetSettings(Space space, Transform transform, Vector3 position)
+        public TargetSettings(UIEmitter.Cam cam, Transform transform, Vector3 position)
         {
-            this.space = space;
+            this.cam = cam;
             this.transform = transform;
             Position = position;
         }
@@ -342,11 +351,11 @@ namespace IWI.UI
 
 namespace IWI.Emitter.Enums
 {
-    public enum Space
-    {
-        Screen,
-        World,
-    }
+    // public enum Space
+    // {
+    //     Screen,
+    //     World,
+    // }
     public enum Shape
     {
         Circular,
