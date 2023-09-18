@@ -115,6 +115,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
         }
         
+        piggyCurrencyDisplay.gameObject.SetActive(!_Data.IsFull);
         
         _markedProgressPiggy.gameObject.SetActive(!_Data.IsFull);
         rewardedPiggy.gameObject.SetActive(_Data.IsFull);
@@ -349,7 +350,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         _Data.currentMoney.amount += count;
         _Data.currentMoney.amount = Mathf.Clamp(_Data.currentMoney.amount, 0, _Data.moneyCapacity);
         
-        _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.35f, delay, Ease.OutQuad, 
+        _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.5f, delay, Ease.OutQuad, 
             
             (value) => piggyCurrencyDisplay.Display(_Data.Percent2Money(value), _Data.moneyCapacity), 
             
@@ -357,7 +358,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 if (_Data.IsFull)
                 {
-                    DOVirtual.DelayedCall(0.15f, () =>
+                    DOVirtual.DelayedCall(0.2f, () =>
                     {
                         breakButton.targetGraphic.raycastTarget = false;
                         breakButton.gameObject.SetActive(true);
@@ -377,6 +378,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         };
                         
                         _markedProgressPiggy.gameObject.SetActive(false);
+                        piggyCurrencyDisplay.gameObject.SetActive(false);
                         
                         rewardedPiggyShakePivot.localScale = Vector3.one;
                         rewardedPiggyShakePivot.localEulerAngles = Vector3.zero;
