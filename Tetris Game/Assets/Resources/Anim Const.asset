@@ -22,7 +22,7 @@ MonoBehaviour:
   mergedPunchScale: -0.175
   mergedPunchDuration: 0.1
   distortScale: 8
-  distortPower: 0.05
+  distortPower: 0.04
   distortDuration: 0.8
   distortEase: 3
   fragmentScale: {x: 0.45, y: 0.45, z: 0.45}

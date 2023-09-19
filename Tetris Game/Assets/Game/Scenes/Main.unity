@@ -580,7 +580,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.5283019, g: 0.06678532, b: 0.3964401, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1862,7 +1862,7 @@ MonoBehaviour:
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
-  SKIP_ONBOARDING: 0
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6009,11 +6009,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1190124872483660895, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4328712298909553318, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
