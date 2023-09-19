@@ -71,7 +71,8 @@ namespace Game
                 
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
-                pawn.MarkDefaultColor();
+                pawn.MarkAmmoColor();
+                // pawn.ColorByUsageType(usage);
                 pawn.Show();
                 Pawns.Add(pawn);
             }

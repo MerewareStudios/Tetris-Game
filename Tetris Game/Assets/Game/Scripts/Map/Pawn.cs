@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -21,8 +22,27 @@ namespace Game
         
         [System.NonSerialized] public bool MOVER = false;
         [System.NonSerialized] public bool BUSY = false;
-        
-        [System.NonSerialized] public Pawn.Usage UsageType;
+        [System.NonSerialized] public bool CAN_TAKE_AMMO = false;
+
+        private Pawn.Usage _usageType;
+        public Pawn.Usage UsageType
+        {
+            set
+            {
+                _usageType = value;
+                switch (_usageType)
+                {
+                    case Usage.Ammo:
+                        MarkAmmoColor();
+                        break;
+                    case Usage.UnpackedAmmo:
+                        MarkUnpackedAmmoColor();
+                        break;
+                }
+            }
+
+            get => _usageType;
+        }
         
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
@@ -32,20 +52,21 @@ namespace Game
         {
             set => levelText.enabled = value;
         }
-        public bool CanPlaceAnywhere => UsageType.Equals(Usage.HorMerge);
+        // public bool CanPlaceAnywhere => UsageType.Equals(Usage.HorMerge);
         public Vector3 TextPosition => levelText.transform.position;
 
         public enum Usage
         {
             Ammo,
-            Shooter,
-            ShooterIdle,
-            Heart,
-            Shield,
-            Vertical,
-            HorMerge,
-            Area,
-            Speed,
+            UnpackedAmmo,
+            // Shooter,
+            // ShooterIdle,
+            // Heart,
+            // Shield,
+            // Vertical,
+            // HorMerge,
+            // Area,
+            // Speed,
         }
         
 
@@ -67,22 +88,22 @@ namespace Game
                         levelText.enabled = false;
                         iconMR.enabled = true;
                         break;
-                    case Usage.Shooter:
+                    case Usage.UnpackedAmmo:
                         levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
                         iconMR.enabled = false;
                         break;
-                    case Usage.ShooterIdle:
-                        levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
-                        iconMR.enabled = false;
-                        break;
+                    // case Usage.ShooterIdle:
+                    //     levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
+                    //     iconMR.enabled = false;
+                    //     break;
                 }
             }
         }
 
-        public void OnMerge()
-        {
-            UsageType = Pawn.Usage.Shooter;
-        }
+        // public void UnpackAmmo()
+        // {
+        //     UsageType = Pawn.Usage.UnpackedAmmo;
+        // }
 
         public bool Unbox(float delay)
         {
@@ -91,43 +112,43 @@ namespace Game
                 case Usage.Ammo:
                     
                     return true;
-                case Usage.Shooter:
+                case Usage.UnpackedAmmo:
                 
                     return true;
-                case Usage.ShooterIdle:
-                    
-                    return true;
-                case Usage.Heart:
-                    TextEnabled = false;
-                    
-                    // Earn heart upgrade
-
-                    // UIManager.THIS.ft_Icon.LerpHearth(levelText.transform.position, delay, 0.65f, endAction: () =>
-                    // {
-                    //     Warzone.THIS.GiveHeart(_amount);
-                    // });
-                    return false;
-                case Usage.Shield:
-                    TextEnabled = false;
-                    
-                    // Earn shield
-
-                    // UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
-                    // {
-                    //     Warzone.THIS.GiveShield(1);
-                    // });
-                    return false;
-                case Usage.Vertical:
-                    
-                case Usage.HorMerge:
-                    
-                    return false;
-                case Usage.Area:
-                    
-                    return false;
-                case Usage.Speed:
-                    
-                    return false;
+                // case Usage.ShooterIdle:
+                //     
+                //     return true;
+                // case Usage.Heart:
+                //     TextEnabled = false;
+                //     
+                //     // Earn heart upgrade
+                //
+                //     // UIManager.THIS.ft_Icon.LerpHearth(levelText.transform.position, delay, 0.65f, endAction: () =>
+                //     // {
+                //     //     Warzone.THIS.GiveHeart(_amount);
+                //     // });
+                //     return false;
+                // case Usage.Shield:
+                //     TextEnabled = false;
+                //     
+                //     // Earn shield
+                //
+                //     // UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
+                //     // {
+                //     //     Warzone.THIS.GiveShield(1);
+                //     // });
+                //     return false;
+                // case Usage.Vertical:
+                //     
+                // case Usage.HorMerge:
+                //     
+                //     return false;
+                // case Usage.Area:
+                //     
+                //     return false;
+                // case Usage.Speed:
+                //     
+                //     return false;
             }
 
             return true;
@@ -175,7 +196,8 @@ namespace Game
         }
 
         #region Colors
-        public void MarkDefaultColor()
+
+        public void MarkAmmoColor()
         {
             meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
         }
@@ -183,14 +205,9 @@ namespace Game
         {
             meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
         }
-        public void MarkMergerColor()
+        public void MarkUnpackedAmmoColor()
         {
             meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
-        }
-        public void MarkMergerColorHideNumber()
-        {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
-            levelText.text = "1";
         }
         #endregion
         public void AnimatedShow(float delay, float scale, float duration, System.Action start = null)
@@ -298,11 +315,11 @@ namespace Game
                 return;
             }
             
-            if (UsageType.Equals(Usage.HorMerge))
-            {
-                MOVER = false;
-                return;
-            }
+            // if (UsageType.Equals(Usage.HorMerge))
+            // {
+            //     MOVER = false;
+            //     return;
+            // }
         }
 
         private void CheckDetach()

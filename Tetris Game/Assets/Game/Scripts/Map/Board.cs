@@ -158,7 +158,7 @@ namespace Game
                         return;
                     }
                     
-                    if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
+                    if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
                     {
                         return;
                     }
@@ -261,11 +261,11 @@ namespace Game
                         continue;
                     }
 
-                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.HorMerge))
-                    {
-                        forceMerger = true;
-                        break;
-                    }
+                    // if (places[i, j].Current.UsageType.Equals(Pawn.Usage.HorMerge))
+                    // {
+                    //     forceMerger = true;
+                    //     break;
+                    // }
 
                     if (places[i, j].Current.MOVER)
                     {
@@ -289,19 +289,23 @@ namespace Game
             {
                 return;
             }
-            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, mergedPawnPosition, level, Pawn.Usage.ShooterIdle);
+            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, mergedPawnPosition, level, Pawn.Usage.UnpackedAmmo);
             
             place.AcceptNow(mergedPawn);
 
+            mergedPawn.CAN_TAKE_AMMO = false;
+
             
-            mergedPawn.MarkMergerColor();
             mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
             {
                 UIManagerExtensions.Distort(mergedPawnPosition + Vector3.up * 0.45f, 0.0f);
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
                 // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(mergedPawn.modelPivot.position + new Vector3(0.0f, 0.3516f, 0.0f));
-                mergedPawn.OnMerge();
+                
+                // mergedPawn.MarkUnpackedAmmoColor();
+                // mergedPawn.UnpackAmmo();
+                mergedPawn.CAN_TAKE_AMMO = true;
             });
 
 
@@ -423,7 +427,8 @@ namespace Game
                     }
                     Place place = places[i, j];
                     
-                    if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.Shooter))
+                    // if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
+                    if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CAN_TAKE_AMMO)
                     {
                         Pawn currentPawn = place.Current;
                         int ammo = Mathf.Min(currentPawn.Amount, splitCount);
@@ -511,10 +516,14 @@ namespace Game
             Vector2Int ind = (Vector2Int)index;
             Place place = GetPlace(ind);
             
-            if (Size.y - pawn.ParentBlock.blockData.FitHeight > ind.y && !pawn.CanPlaceAnywhere)
+            if (Size.y - pawn.ParentBlock.blockData.FitHeight > ind.y)
             {
                 return (place, false);
             }
+            // if (Size.y - pawn.ParentBlock.blockData.FitHeight > ind.y && !pawn.CanPlaceAnywhere)
+            // {
+            //     return (place, false);
+            // }
             if (place.Occupied)
             {
                 return (place, false);
