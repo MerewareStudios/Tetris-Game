@@ -38,6 +38,15 @@ namespace Game
                     case Usage.UnpackedAmmo:
                         MarkUnpackedAmmoColor();
                         break;
+                    case Usage.MagnetLR:
+                        MarkPowerupColor();
+                        break;
+                    case Usage.MagnetUD:
+                        MarkPowerupColor();
+                        break;
+                    case Usage.MagnetLRUD:
+                        MarkPowerupColor();
+                        break;
                 }
             }
 
@@ -59,6 +68,9 @@ namespace Game
         {
             Ammo,
             UnpackedAmmo,
+            MagnetLR,
+            MagnetUD,
+            MagnetLRUD,
             // Shooter,
             // ShooterIdle,
             // Heart,
@@ -92,10 +104,24 @@ namespace Game
                         levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
                         iconMR.enabled = false;
                         break;
-                    // case Usage.ShooterIdle:
-                    //     levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
-                    //     iconMR.enabled = false;
-                    //     break;
+                    case Usage.MagnetLR:
+                        levelText.enabled = false;
+                        iconMR.enabled = true;
+                        break;
+                    case Usage.MagnetUD:
+                        levelText.enabled = false;
+                        iconMR.enabled = true;
+                        break;
+                    case Usage.MagnetLRUD:
+                        levelText.enabled = false;
+                        iconMR.enabled = true;
+                        break;
+                }
+
+                Texture pawnIcon = Const.THIS.pawnIcons[(int)UsageType];
+                if (pawnIcon)
+                {
+                    iconMR.material.SetTexture(GameManager.BaseMap, pawnIcon);
                 }
             }
         }
@@ -208,6 +234,10 @@ namespace Game
         public void MarkUnpackedAmmoColor()
         {
             meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
+        }
+        public void MarkPowerupColor()
+        {
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.powerColor);
         }
         #endregion
         public void AnimatedShow(float delay, float scale, float duration, System.Action start = null)

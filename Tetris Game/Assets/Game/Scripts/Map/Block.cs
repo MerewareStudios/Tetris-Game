@@ -64,14 +64,13 @@ namespace Game
                 if (!target) continue;
                 
                 
-                if (usage.Equals(Pawn.Usage.Ammo) && LevelManager.THIS.CanSpawnBonus())
-                {
-                    Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
-                }
+                // if (usage.Equals(Pawn.Usage.Ammo) && LevelManager.THIS.CanSpawnBonus())
+                // {
+                //     Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
+                // }
                 
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
-                pawn.MarkAmmoColor();
                 // pawn.ColorByUsageType(usage);
                 pawn.Show();
                 Pawns.Add(pawn);

@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Visual.Effects;
-// using Space = IWI.Emitter.Enums.Space;
 using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>

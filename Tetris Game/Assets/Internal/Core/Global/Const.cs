@@ -31,6 +31,8 @@ public class Const : SSingleton<Const>
     public Color defaultColor;
     public Color steadyColor;
     public Color mergerColor;
+    public Color powerColor;
+    public Texture[] pawnIcons;
     public Color[] placeColorsDouble;
     public Color piggyExplodeColor;
     [Header("Meta Settings")] 

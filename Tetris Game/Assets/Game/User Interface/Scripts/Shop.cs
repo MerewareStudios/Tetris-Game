@@ -116,21 +116,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void ImmediateShow()
-    {
-        
-    }
-
-    public void AnimatedHide()
-    {
-        
-    }
-    
-    public void ImmediateHide()
-    {
-        
-    }
-    
     [System.Serializable]
     public class Data : ICloneable
     {

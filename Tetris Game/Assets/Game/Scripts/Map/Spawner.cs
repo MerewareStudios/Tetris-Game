@@ -383,6 +383,10 @@ public class Spawner : Singleton<Spawner>
         pawnTransform.localScale = Vector3.one;
         pawn.UsageType = usageType;
         pawn.Amount = level;
+        
+        
+        // pawn.MarkAmmoColor();
+
         // pawn.Construct();
         return pawn;
     }
