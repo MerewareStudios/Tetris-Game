@@ -135,7 +135,7 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.ticketMergeText, 0.2f);
 
             yield return new WaitForSeconds(0.25f);
-            Onboarding.ClickOn(CustomPower.THIS.clickTarget.position, true, CustomPower.THIS.HighlightPunch);
+            // Onboarding.ClickOn(CustomPower.THIS.clickTarget.position, true, CustomPower.THIS.HighlightPunch);
         }
     }
     

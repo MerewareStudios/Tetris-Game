@@ -21,7 +21,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private MenuNavigator menuNavigator;
    [SerializeField] private PiggyMenu piggyMenu;
    [SerializeField] private RewardScreen rewardScreen;
-   [SerializeField] private CustomPower customPower;
+   [SerializeField] private Powerup powerup;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [FormerlySerializedAs("particleImageCoin")]
@@ -61,7 +61,7 @@ public class UIManager : Singleton<UIManager>
          MenuNavigator.THIS = menuNavigator.Setup();
          PiggyMenu.THIS = piggyMenu;
          RewardScreen.THIS = rewardScreen;
-         CustomPower.THIS = customPower;
+         Powerup.THIS = powerup;
 
          RewardScreen.THIS.OnClose = () =>
          {
@@ -116,7 +116,7 @@ public class UIManager : Singleton<UIManager>
       if (Input.GetKeyDown(KeyCode.X))
       {
          bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
-         CustomPower.THIS.Show(!notLearnedTicketMerge);
+         Powerup.THIS.SetPowerup(Pawn.Usage.Magnet);
          if (notLearnedTicketMerge)
          {
             Onboarding.TalkAboutTicketMerge();

@@ -66,7 +66,7 @@ public class GameManager : Singleton<GameManager>
         Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
         Onboarding.Deconstruct();
-        CustomPower.THIS.Deconstruct();
+        Powerup.THIS.Deconstruct();
     }
 
     public void OnVictory()

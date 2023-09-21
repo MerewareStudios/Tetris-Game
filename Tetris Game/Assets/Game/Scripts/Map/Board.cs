@@ -117,8 +117,7 @@ namespace Game
         }
         public void CheckDeadLock()
         {
-            
-            if (CustomPower.THIS.Available)
+            if (Powerup.THIS.Available)
             {
                 return;
             }
@@ -183,12 +182,13 @@ namespace Game
                 return;
             }
 
-            bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
-            CustomPower.THIS.Show(!notLearnedTicketMerge);
-            if (notLearnedTicketMerge)
-            {
-                Onboarding.TalkAboutTicketMerge();
-            }
+            Debug.Log("deadlock");
+            // bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
+            // CustomPower.THIS.Show(!notLearnedTicketMerge);
+            // if (notLearnedTicketMerge)
+            // {
+            //     Onboarding.TalkAboutTicketMerge();
+            // }
         }
         public void Dehighlight()
         {
