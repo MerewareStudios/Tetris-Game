@@ -49,6 +49,10 @@ namespace Game
                         MarkPowerupColor();
                         Free2Place = true;
                         break;
+                    case Usage.Magnet:
+                        MarkPowerupColor();
+                        Free2Place = true;
+                        break;
                     // case Usage.MagnetLRUD:
                     //     MarkPowerupColor();
                     //     break;
@@ -85,7 +89,7 @@ namespace Game
             UnpackedAmmo,
             MagnetLR,
             MagnetUD,
-            // MagnetLRUD,
+            Magnet,
             // DamageDouble,
             // FirerateDouble,
             // SplitshotDouble,
@@ -131,6 +135,11 @@ namespace Game
                         iconMR.enabled = true;
                         this._amount = 0;
                         break;
+                    case Usage.Magnet:
+                        levelText.enabled = false;
+                        iconMR.enabled = true;
+                        this._amount = 0;
+                        break;
                     // case Usage.MagnetLRUD:
                     //     levelText.enabled = false;
                     //     iconMR.enabled = true;
@@ -164,6 +173,10 @@ namespace Game
 
         public bool Unpack(float delay)
         {
+            if (ParentBlock)
+            {
+                ParentBlock.DetachPawn(this);
+            }
             switch (UsageType)
             {
                 case Usage.Ammo:
@@ -176,6 +189,9 @@ namespace Game
                     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
                     return true;
                 case Usage.MagnetUD:
+                    UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                    return true;
+                case Usage.Magnet:
                     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
                     return true;
                 // case Usage.Heart:
@@ -386,7 +402,7 @@ namespace Game
                 return;
             }
             
-            if (UsageType.Equals(Usage.MagnetLR) || UsageType.Equals(Usage.MagnetUD))
+            if (UsageType.Equals(Usage.MagnetLR) || UsageType.Equals(Usage.MagnetUD) ||  UsageType.Equals(Usage.Magnet))
             {
                 Mover = false;
                 return;

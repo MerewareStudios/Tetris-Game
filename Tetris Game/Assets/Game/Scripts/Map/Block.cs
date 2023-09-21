@@ -133,6 +133,17 @@ namespace Game
 
             Deconstruct();
         }
+        
+        public void DetachPawn(Pawn pawn)
+        {
+            Pawns.Remove(pawn);
+            pawn.ParentBlock = null;
+            if (Pawns.Count == 0)
+            {
+                Spawner.THIS.RemoveBlock(this);
+                Deconstruct();
+            }
+        }
 
         public void ShakeRotation()
         {

@@ -246,7 +246,7 @@ namespace Game
         public Place GetPlace(Vector2Int index) => places[index.x, index.y];
 
         
-        public (bool, float, int) UsePowerups()
+        public List<Vector2Int> UsePowerups()
         {
             // Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             // {
@@ -256,7 +256,9 @@ namespace Game
             //         place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
             //     }
             // });
-            
+
+            List<Vector2Int> points = new();
+
             for (int j = 0; j < Size.y; j++)
             {
                 for (int i = 0; i < Size.x; i++)
@@ -268,16 +270,28 @@ namespace Game
 
                     if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetLR))
                     {
-                        return (true, CreatePawnAtHorizontal(i, j), j);
+                        CreatePawnAtHorizontal(i, j);
+                        for (int k = 0; k < Size.x; k++)
+                        {
+                            points.Add(new Vector2Int(k, j));
+                        }
+                        return points;
                     }
                     if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetUD))
                     {
-                        return (true, CreatePawnAtVertical(i, j), -1);
+                        CreatePawnAtVertical(i, j);
+                        points.Add(new Vector2Int(i, j));
+                        return points;
+                    }
+                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
+                    {
+                        CreatePawnAtCircular(i, j, points);
+                        return points;
                     }
                 }
             }
 
-            return (false, 0.0f, -1);
+            return points;
         }
         
         public List<int> CheckTetris()
@@ -347,9 +361,9 @@ namespace Game
 
         }
 
-        public float MergeLines(List<int> lines)
+        public void MergeLines(List<int> lines)
         {
-            float MergeLine(int lineIndex, int multiplier)
+            void MergeLine(int lineIndex, int multiplier)
             {
                 // List<Pawn> pawns = new();
 
@@ -395,7 +409,7 @@ namespace Game
                 //     return;
                 // }
 
-                return CreatePawnAtHorizontal(mergeIndex, lineIndex);
+                CreatePawnAtHorizontal(mergeIndex, lineIndex);
 
                 // Place spawnPlace = places[mergeIndex, lineIndex];
                 // for (int i = 0; i < pawns.Count; i++)
@@ -422,19 +436,15 @@ namespace Game
             
             OnMerge?.Invoke();
 
-            float duration = 0.0f;
-            
             for (int i = 0; i < lines.Count; i++)
             {
-                duration = MergeLine(lines[i], lines.Count);
+                MergeLine(lines[i], lines.Count);
             }
-            
-            return duration;
         }
 
-        private float CreatePawnAtHorizontal(int mergeIndex, int lineIndex)
+        private void CreatePawnAtHorizontal(int horizontal, int lineIndex)
         {
-            Place spawnPlace = places[mergeIndex, lineIndex];
+            Place spawnPlace = places[horizontal, lineIndex];
             int totalPoint = 0;
             Pawn lastPawn = null;
             
@@ -475,13 +485,11 @@ namespace Game
 
             totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
             SpawnMergedPawn(spawnPlace, totalPoint);
-
-            return AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
         }
         
-        private float CreatePawnAtVertical(int mergeIndex, int lineIndex)
+        private void CreatePawnAtVertical(int horizontal, int vertical)
         {
-            Place spawnPlace = places[mergeIndex, lineIndex];
+            Place spawnPlace = places[horizontal, vertical];
             int totalPoint = 0;
             Pawn lastPawn = null;
             
@@ -489,7 +497,7 @@ namespace Game
             
             for (int i = 0; i < Size.y; i++)
             {
-                Place place = places[mergeIndex, i];
+                Place place = places[horizontal, i];
                 Pawn pawn = place.Current;
                 if (!pawn)
                 {
@@ -520,20 +528,111 @@ namespace Game
 
             totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
             SpawnMergedPawn(spawnPlace, totalPoint);
-
-            return AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
         }
 
-        public void MarkAllMover(int startLine)
+        private void CreatePawnAtCircular(int horizontal, int vertical, List<Vector2Int> points)
+        {
+            Vector2Int center = new Vector2Int(horizontal, vertical);
+            
+            Place spawnPlace = places[horizontal, vertical];
+            int totalPoint = 0;
+            Pawn lastPawn = null;
+            
+            float delay = 0.0f;
+            
+            for (int i = 0; i < Size.x; i++)
+            {
+                for (int j = 0; j < Size.y; j++)
+                {
+                    Place place = places[i, j];
+                    Pawn pawn = place.Current;
+                    
+                    if (!pawn)
+                    {
+                        continue;
+                    }
+                    
+                    Vector2Int current = new Vector2Int(i, j);
+                    if (Vector2Int.Distance(center, current) > 2.5f)
+                    {
+                        continue;
+                    }
+
+                    bool placed = false;
+
+                    for (int k = 0; k < points.Count; k++)
+                    {
+                        if (current.x == points[k].x && current.y < points[k].y)
+                        {
+                            points[k] = current;
+                            placed = true;
+                            break;
+                        }
+                    }
+
+                    if (!placed)
+                    {
+                        points.Add(current);
+                    }
+
+                    lastPawn = pawn;
+
+                    totalPoint += pawn.Amount;
+                    
+                    pawn.Unpack(delay += 0.025f);
+
+                    pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                        .onComplete += () =>
+                    {
+                        pawn.Deconstruct();
+
+                        if (lastPawn == pawn)
+                        {
+                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                        }
+                    };
+
+                    place.Current = null;
+                }
+            }
+
+            totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
+            SpawnMergedPawn(spawnPlace, totalPoint);
+        }
+        public void MarkMover(int horizontal)
         {
             Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
             {
-                if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
+                if (place.Current && !place.Current.Connected && verticalIndex >= horizontal)
                 {
                     place.Current.Mover = true;
-                    place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
+                    place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - horizontal) * 0.075f + 0.25f);
                 }
             });
+        }
+        public void MarkMover(List<Vector2Int> moverPoints)
+        {
+            foreach (var point in moverPoints)
+            {
+                for (int j = point.y; j < Size.y; j++)
+                {
+                    Place place = places[point.x, j];
+                    if (place.Current && !place.Current.Connected)
+                    {
+                        place.Current.Mover = true;
+                        place.Current.JumpUp(0.2f, 0.3f, (j - point.y) * 0.075f + 0.25f);
+                    }
+                }
+            }
+            // Call<Place>(places, (place, i, j) =>
+            // {
+            //     if (place.Current && !place.Current.Connected && i == pos.x && j >= pos.y)
+            //     {
+            //         place.Current.Mover = true;
+            //         place.Current.JumpUp(0.2f, 0.3f, (j - pos.y) * 0.075f + 0.25f);
+            //     }
+            // });
         }
         
         public void MarkMovers(int x, int y)

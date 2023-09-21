@@ -33,22 +33,18 @@ namespace Game
                     Spawner.THIS.HighlightCurrentBlock();
 
 
-                    bool found = true;
-                    while (found)
+                    while (true)
                     {
-                        float powerWait;
-                        int lineIndex = 0;
-                        (found, powerWait, lineIndex) = Board.THIS.UsePowerups();
-                        if (lineIndex >= 0)
+                        List<Vector2Int> moverPoints = Board.THIS.UsePowerups();
+                        if (moverPoints.Count == 0)
                         {
-                            Board.THIS.MarkAllMover(lineIndex);
+                            break;
                         }
-                        if (found)
-                        {
-                            Board.THIS.CheckAll();
-                            Spawner.THIS.HighlightCurrentBlock();
-                            yield return new WaitForSeconds(powerWait);
-                        }
+
+                        Board.THIS.MarkMover(moverPoints);
+                        Board.THIS.CheckAll();
+                        Spawner.THIS.HighlightCurrentBlock();
+                        yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
                     }
 
                     
@@ -72,13 +68,13 @@ namespace Game
                             //UIManager.THIS.ft_Combo.FlyScreen("<size=125%>x" + tetrisLines.Count + "<size=100%>\nMAX", Vector3.zero,  0.0f);
                             // yield return new WaitForSeconds(0.25f);
                         // }
-                        float mergeWait = Board.THIS.MergeLines(tetrisLines);
+                        Board.THIS.MergeLines(tetrisLines);
                     
-                        Board.THIS.MarkAllMover(tetrisLines[0]);
+                        Board.THIS.MarkMover(tetrisLines[0]);
                         Board.THIS.CheckAll();
                         Spawner.THIS.HighlightCurrentBlock();
 
-                        yield return new WaitForSeconds(mergeWait);
+                        yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
                         Spawner.THIS.CheckedMergeAfterMove = true;
                     }
                     yield return new WaitForSeconds(0.25f);
