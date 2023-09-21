@@ -1,3 +1,4 @@
+using System.Collections;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
@@ -83,8 +84,8 @@ namespace Game
             Call<Place>(places, (place) =>
             {
                 if (!place.Current) return;
-                
-                bool mover = place.Current.MoveForward(place, _tick, moveDuration);
+                // bool mover = place.Current.MoveForward(place, _tick, moveDuration);
+                place.Current.MoveForward(place, _tick, moveDuration);
             });
         }
         public void CheckAll()
@@ -153,7 +154,7 @@ namespace Game
                         continue;
                     }
 
-                    if (place.Current.MOVER)
+                    if (place.Current.Mover)
                     {
                         return;
                     }
@@ -245,6 +246,41 @@ namespace Game
         }
         public Place GetPlace(Vector2Int index) => places[index.x, index.y];
 
+        
+        public (bool, float, int) UsePowerups()
+        {
+            // Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+            // {
+            //     if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
+            //     {
+            //         place.Current.MOVER = true;
+            //         place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
+            //     }
+            // });
+            
+            for (int j = 0; j < Size.y; j++)
+            {
+                for (int i = 0; i < Size.x; i++)
+                {
+                    if (!places[i, j].Occupied)
+                    {
+                        continue;
+                    }
+
+                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetLR))
+                    {
+                        return (true, CreatePawnAtHorizontal(i, j), j);
+                    }
+                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetUD))
+                    {
+                        return (true, CreatePawnAtVertical(i, j), -1);
+                    }
+                }
+            }
+
+            return (false, 0.0f, -1);
+        }
+        
         public List<int> CheckTetris()
         {
             List<int> tetrisLines = new();
@@ -267,7 +303,7 @@ namespace Game
                     //     break;
                     // }
 
-                    if (places[i, j].Current.MOVER)
+                    if (places[i, j].Current.Mover)
                     {
                         tetris = false;
                         continue;
@@ -293,7 +329,8 @@ namespace Game
             
             place.AcceptNow(mergedPawn);
 
-            mergedPawn.CAN_TAKE_AMMO = false;
+            mergedPawn.CanTakeAmmo = false;
+            mergedPawn.Mover = true;
 
             
             mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
@@ -305,26 +342,19 @@ namespace Game
                 
                 // mergedPawn.MarkUnpackedAmmoColor();
                 // mergedPawn.UnpackAmmo();
-                mergedPawn.CAN_TAKE_AMMO = true;
+                mergedPawn.CanTakeAmmo = true;
             });
 
 
         }
 
-        public void MergeLines(List<int> lines)
+        public float MergeLines(List<int> lines)
         {
-            OnMerge?.Invoke();
-            
-            for (int i = 0; i < lines.Count; i++)
+            float MergeLine(int lineIndex, int multiplier)
             {
-                MergeLine(lines[i], lines.Count);
-            }
-            
-            void MergeLine(int lineIndex, int multiplier)
-            {
-                List<Pawn> pawns = new();
+                // List<Pawn> pawns = new();
 
-                int totalPoint = 0;
+                // int totalPoint = 0;
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
                 float delay = 0.0f;
@@ -339,14 +369,15 @@ namespace Game
                         continue;
                     }
                 
-                    pawns.Add(place.Current);
+                    // pawns.Add(place.Current);
 
-                    int point = 0;
-                    if (place.Current.Unbox(delay += 0.025f))
-                    {
-                        point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
-                        totalPoint += point;
-                    }
+                    // int point = 0;
+                    place.Current.Unbox(delay += 0.025f);
+                    // if (place.Current.Unbox(delay += 0.025f))
+                    // {
+                        // point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
+                        // totalPoint += point;
+                    // }
 
                     if (place.Current.Tick > highestTick)
                     {
@@ -357,36 +388,131 @@ namespace Game
                     {
                         Helper.IsPossible(0.5f,() => { mergeIndex = index; } );
                     }
-                    place.Current = null;
+                    // place.Current = null;
                 }
 
-                if (pawns.Count == 0)
-                {
-                    return;
-                }
+                // if (pawns.Count == 0)
+                // {
+                //     return;
+                // }
 
-                Place spawnPlace = places[mergeIndex, lineIndex];
-                for (int i = 0; i < pawns.Count; i++)
-                {
-                    int index = i;
-                    Pawn pawn = pawns[i];
-                
-                    pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                        .onComplete += () =>
-                    {
-                        pawn.Deconstruct();
+                return CreatePawnAtHorizontal(mergeIndex, lineIndex);
 
-                        if (index == pawns.Count - 1)
-                        {
-                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                        }
-                    };
-                }
-
-                totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
-                SpawnMergedPawn(spawnPlace, totalPoint);
+                // Place spawnPlace = places[mergeIndex, lineIndex];
+                // for (int i = 0; i < pawns.Count; i++)
+                // {
+                //     int index = i;
+                //     Pawn pawn = pawns[i];
+                //
+                //     pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                //     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                //         .onComplete += () =>
+                //     {
+                //         pawn.Deconstruct();
+                //
+                //         if (index == pawns.Count - 1)
+                //         {
+                //             Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                //         }
+                //     };
+                // }
+                //
+                // totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
+                // SpawnMergedPawn(spawnPlace, totalPoint);
             }
+            
+            OnMerge?.Invoke();
+
+            float duration = 0.0f;
+            
+            for (int i = 0; i < lines.Count; i++)
+            {
+                duration = MergeLine(lines[i], lines.Count);
+            }
+            
+            return duration;
+        }
+
+        private float CreatePawnAtHorizontal(int mergeIndex, int lineIndex)
+        {
+            Place spawnPlace = places[mergeIndex, lineIndex];
+            int totalPoint = 0;
+            Pawn lastPawn = null;
+            for (int i = 0; i < Size.x; i++)
+            {
+                Place place = places[i, lineIndex];
+                Pawn pawn = place.Current;
+                if (!pawn)
+                {
+                    continue;
+                }
+
+
+                lastPawn = pawn;
+
+                totalPoint += pawn.Amount;
+                
+                
+                pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                    .onComplete += () =>
+                {
+                    pawn.Deconstruct();
+
+                    if (!lastPawn && lastPawn == pawn)
+                    {
+                        Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                    }
+                };
+
+                place.Current = null;
+            }
+
+            totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
+            SpawnMergedPawn(spawnPlace, totalPoint);
+
+            return AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
+        }
+        
+        private float CreatePawnAtVertical(int mergeIndex, int lineIndex)
+        {
+            Place spawnPlace = places[mergeIndex, lineIndex];
+            int totalPoint = 0;
+            Pawn lastPawn = null;
+            for (int i = 0; i < Size.y; i++)
+            {
+                Place place = places[mergeIndex, i];
+                Pawn pawn = place.Current;
+                if (!pawn)
+                {
+                    continue;
+                }
+
+
+                lastPawn = pawn;
+
+                totalPoint += pawn.Amount;
+                
+                
+                pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                    .onComplete += () =>
+                {
+                    pawn.Deconstruct();
+
+                    if (!lastPawn && lastPawn == pawn)
+                    {
+                        Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                    }
+                };
+
+                place.Current = null;
+            }
+
+            totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
+            SpawnMergedPawn(spawnPlace, totalPoint);
+
+            return AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
         }
 
         public void MarkAllMover(int startLine)
@@ -395,7 +521,7 @@ namespace Game
             {
                 if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
                 {
-                    place.Current.MOVER = true;
+                    place.Current.Mover = true;
                     place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
                 }
             });
@@ -407,7 +533,7 @@ namespace Game
             {
                 if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
-                    place.Current.MOVER = true;
+                    place.Current.Mover = true;
                     place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
                 }
             });
@@ -428,7 +554,7 @@ namespace Game
                     Place place = places[i, j];
                     
                     // if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
-                    if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CAN_TAKE_AMMO)
+                    if (place.Current && !place.Current.Mover && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
                     {
                         Pawn currentPawn = place.Current;
                         int ammo = Mathf.Min(currentPawn.Amount, splitCount);
@@ -466,6 +592,17 @@ namespace Game
             }
             return false;
         }
+
+        private bool ExpectedMoverComing(Vector2Int index)
+        {
+            if (index.y + 1 >= Size.y)
+            {
+                return false;
+            }
+            Place place = places[index.x, index.y + 1];
+            
+            return place.Current && place.Current.Mover;
+        }
         
         public void Place(Block block)
         {
@@ -473,15 +610,15 @@ namespace Game
             List<Pawn> temporary = new List<Pawn>(block.Pawns);
             foreach (Pawn pawn in temporary)
             {
-                Pawn tempPawn = pawn;
-                Place place = GetPlace(tempPawn);
-                tempPawn.MOVER = true;
-                tempPawn.BUSY = true;
+                Pawn currentPawn = pawn;
+                Place place = GetPlace(currentPawn);
+                currentPawn.Mover = true;
+                currentPawn.Busy = true;
 
-                tempPawn.Tick = _tick;
-                place.Accept(tempPawn, 0.1f, () =>
+                currentPawn.Tick = _tick;
+                place.Accept(currentPawn, 0.1f, () =>
                 {
-                    tempPawn.BUSY = false;
+                    currentPawn.Busy = false;
                     place.Current.Check(place);
                 });
             }
@@ -513,10 +650,23 @@ namespace Game
             {
                 return (null, false);
             }
-            Vector2Int ind = (Vector2Int)index;
-            Place place = GetPlace(ind);
+            Vector2Int indexValue = index.Value;
+            Place place = GetPlace(indexValue);
             
-            if (Size.y - pawn.ParentBlock.blockData.FitHeight > ind.y)
+            if (place.Occupied)
+            {
+                return (place, false);
+            }
+            if (ExpectedMoverComing(indexValue))
+            {
+                return (place, false);
+            }
+            if (pawn.Free2Place)
+            {
+                return (place, true);
+            }
+            
+            if (Size.y - pawn.ParentBlock.blockData.FitHeight > indexValue.y)
             {
                 return (place, false);
             }
@@ -524,15 +674,9 @@ namespace Game
             // {
             //     return (place, false);
             // }
-            if (place.Occupied)
-            {
-                return (place, false);
-            }
+            
             // if (HasForwardPawnAtColumn(ind) && !pawn.CanPlaceAnywhere)
-            // if (!pawn.CanPlaceAnywhere)
-            // {
-                // return (place, false);
-            // }
+            
             
             if (requiredPlaces is { Count: > 0 } && !requiredPlaces.Contains(place))
             {
@@ -571,10 +715,11 @@ namespace Game
         }
         public void HighlightPawnOnGrid(Block block)
         {
+            Board.THIS.Dehighlight();
             foreach (var pawn in block.Pawns)
             {
                 (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
-                if (place != null)
+                if (place)
                 {
                     place.SetPlaceType(canPlace ? Game.Place.PlaceColor.GREEN : Game.Place.PlaceColor.RED);
                 }

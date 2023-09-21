@@ -205,8 +205,19 @@ public class Spawner : Singleton<Spawner>
 
         UpdateTargetPosition();
 
+        HighlightCurrentBlock();
+    }
 
-        Board.THIS.Dehighlight();
+    public void HighlightCurrentBlock()
+    {
+        if (!_currentBlock)
+        {
+            return;
+        }
+        if (!_grabbedBlock)
+        {
+            return;
+        }
         Board.THIS.HighlightPawnOnGrid(_currentBlock);
     }
 

@@ -71,6 +71,7 @@ namespace Game
                 
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
+
                 // pawn.ColorByUsageType(usage);
                 pawn.Show();
                 Pawns.Add(pawn);
@@ -124,7 +125,7 @@ namespace Game
             foreach (var pawn in Pawns)
             {
                 pawn.ParentBlock = null;
-                pawn.MOVER = false;
+                pawn.Mover = false;
                 pawn.MarkSteadyColor();
                 pawn.PunchUp(-0.125f, 0.25f);
             }

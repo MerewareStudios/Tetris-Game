@@ -20,9 +20,10 @@ namespace Game
         [System.NonSerialized] private int _amount = 1;
         [System.NonSerialized] public int Tick;
         
-        [System.NonSerialized] public bool MOVER = false;
-        [System.NonSerialized] public bool BUSY = false;
-        [System.NonSerialized] public bool CAN_TAKE_AMMO = false;
+        [System.NonSerialized] public bool Mover = false;
+        [System.NonSerialized] public bool Busy = false;
+        [System.NonSerialized] public bool CanTakeAmmo = false;
+        [System.NonSerialized] public bool Free2Place = false;
 
         private Pawn.Usage _usageType;
         public Pawn.Usage UsageType
@@ -34,20 +35,34 @@ namespace Game
                 {
                     case Usage.Ammo:
                         MarkAmmoColor();
+                        Free2Place = false;
                         break;
                     case Usage.UnpackedAmmo:
                         MarkUnpackedAmmoColor();
+                        Free2Place = false;
                         break;
                     case Usage.MagnetLR:
                         MarkPowerupColor();
+                        Free2Place = true;
                         break;
                     case Usage.MagnetUD:
                         MarkPowerupColor();
+                        Free2Place = true;
                         break;
-                    case Usage.MagnetLRUD:
-                        MarkPowerupColor();
-                        break;
+                    // case Usage.MagnetLRUD:
+                    //     MarkPowerupColor();
+                    //     break;
+                    // case Usage.DamageDouble:
+                    //     MarkPowerupColor();
+                    //     break;
+                    // case Usage.FirerateDouble:
+                    //     MarkPowerupColor();
+                    //     break;
+                    // case Usage.SplitshotDouble:
+                    //     MarkPowerupColor();
+                    //     break;
                 }
+                
             }
 
             get => _usageType;
@@ -70,8 +85,10 @@ namespace Game
             UnpackedAmmo,
             MagnetLR,
             MagnetUD,
-            MagnetLRUD,
-            // Shooter,
+            // MagnetLRUD,
+            // DamageDouble,
+            // FirerateDouble,
+            // SplitshotDouble,
             // ShooterIdle,
             // Heart,
             // Shield,
@@ -107,21 +124,35 @@ namespace Game
                     case Usage.MagnetLR:
                         levelText.enabled = false;
                         iconMR.enabled = true;
+                        this._amount = 0;
                         break;
                     case Usage.MagnetUD:
                         levelText.enabled = false;
                         iconMR.enabled = true;
+                        this._amount = 0;
                         break;
-                    case Usage.MagnetLRUD:
-                        levelText.enabled = false;
-                        iconMR.enabled = true;
-                        break;
+                    // case Usage.MagnetLRUD:
+                    //     levelText.enabled = false;
+                    //     iconMR.enabled = true;
+                    //     break;
+                    // case Usage.DamageDouble:
+                    //     levelText.enabled = false;
+                    //     iconMR.enabled = true;
+                    //     break;
+                    // case Usage.FirerateDouble:
+                    //     levelText.enabled = false;
+                    //     iconMR.enabled = true;
+                    //     break;
+                    // case Usage.SplitshotDouble:
+                    //     levelText.enabled = false;
+                    //     iconMR.enabled = true;
+                    //     break;
                 }
 
-                Texture pawnIcon = Const.THIS.pawnIcons[(int)UsageType];
+                Sprite pawnIcon = Const.THIS.pawnIcons[(int)UsageType];
                 if (pawnIcon)
                 {
-                    iconMR.material.SetTexture(GameManager.BaseMap, pawnIcon);
+                    iconMR.material.SetTexture(GameManager.BaseMap, pawnIcon.texture);
                 }
             }
         }
@@ -229,7 +260,10 @@ namespace Game
         }
         public void MarkSteadyColor()
         {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
+            if (_usageType.Equals(Usage.Ammo))
+            {
+                meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
+            }
         }
         public void MarkUnpackedAmmoColor()
         {
@@ -302,11 +336,11 @@ namespace Game
 
         public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
-            if (BUSY)
+            if (Busy)
             {
                 return true;
             }
-            if (!MOVER)
+            if (!Mover)
             {
                 return false;
             }
@@ -314,6 +348,10 @@ namespace Game
             Tick = tick;
             
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
+            // if (!forwardPlace)
+            // {
+            //     Debug.Log(checkerPlace.gameObject.name, checkerPlace.gameObject);
+            // }
             forwardPlace.Accept(this, moveDuration);
             
             checkerPlace.Current = null;
@@ -322,7 +360,7 @@ namespace Game
 
         public void Check(Place checkerPlace)
         {
-            if (BUSY)
+            if (Busy)
             {
                 return;
             }
@@ -335,26 +373,26 @@ namespace Game
 
             if (!forwardPlace) // if at the edge of the map
             {
-                MOVER = false;
+                Mover = false;
                 return;
             }
 
-            if (forwardPlace.Occupied && !forwardPlace.Current.MOVER) // if front place is occupied and not a mover
+            if (forwardPlace.Occupied && !forwardPlace.Current.Mover) // if front place is occupied and not a mover
             {
-                MOVER = false;
+                Mover = false;
                 return;
             }
             
-            // if (UsageType.Equals(Usage.HorMerge))
-            // {
-            //     MOVER = false;
-            //     return;
-            // }
+            if (UsageType.Equals(Usage.MagnetLR) || UsageType.Equals(Usage.MagnetUD))
+            {
+                Mover = false;
+                return;
+            }
         }
 
         private void CheckDetach()
         {
-            if (MOVER)
+            if (Mover)
             {
                 return;
             }

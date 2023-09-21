@@ -11,7 +11,7 @@ namespace Game
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceColor _placeColor = PlaceColor.GREEN;
         [System.NonSerialized] private Tween _colorTween;
-        public Pawn Current { get; set; }
+        [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
         public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
         public Vector3 PlacePosition => gridTile.transform.position;
@@ -79,14 +79,14 @@ namespace Game
             _colorTween = gridTile.material.DOColor(color, 0.1f).SetEase(Ease.OutSine);
         }
 
-        public void Accept(Pawn pawn, float duration, System.Action OnComplete = null)
+        public void Accept(Pawn pawn, float duration, System.Action onComplete = null)
         {
             this.Current = pawn;
 
             pawn.transform.parent = segmentParent;
             pawn.Move(segmentParent.position, duration, AnimConst.THIS.moveEase, () =>
             {
-                OnComplete?.Invoke();
+                onComplete?.Invoke();
             });
         }
         public void AcceptNow(Pawn pawn)
