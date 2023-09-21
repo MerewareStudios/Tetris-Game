@@ -162,7 +162,7 @@ namespace Game
         //     UsageType = Pawn.Usage.UnpackedAmmo;
         // }
 
-        public bool Unbox(float delay)
+        public bool Unpack(float delay)
         {
             switch (UsageType)
             {
@@ -172,9 +172,12 @@ namespace Game
                 case Usage.UnpackedAmmo:
                 
                     return true;
-                // case Usage.ShooterIdle:
-                //     
-                //     return true;
+                case Usage.MagnetLR:
+                    UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                    return true;
+                case Usage.MagnetUD:
+                    UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                    return true;
                 // case Usage.Heart:
                 //     TextEnabled = false;
                 //     

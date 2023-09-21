@@ -84,7 +84,6 @@ namespace Game
             Call<Place>(places, (place) =>
             {
                 if (!place.Current) return;
-                // bool mover = place.Current.MoveForward(place, _tick, moveDuration);
                 place.Current.MoveForward(place, _tick, moveDuration);
             });
         }
@@ -357,7 +356,7 @@ namespace Game
                 // int totalPoint = 0;
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
-                float delay = 0.0f;
+                // float delay = 0.0f;
 
                 for (int i = 0; i < Size.x; i++)
                 {
@@ -372,7 +371,7 @@ namespace Game
                     // pawns.Add(place.Current);
 
                     // int point = 0;
-                    place.Current.Unbox(delay += 0.025f);
+                    // place.Current.Unpack(delay += 0.025f);
                     // if (place.Current.Unbox(delay += 0.025f))
                     // {
                         // point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
@@ -438,6 +437,10 @@ namespace Game
             Place spawnPlace = places[mergeIndex, lineIndex];
             int totalPoint = 0;
             Pawn lastPawn = null;
+            
+            float delay = 0.0f;
+
+            
             for (int i = 0; i < Size.x; i++)
             {
                 Place place = places[i, lineIndex];
@@ -452,6 +455,8 @@ namespace Game
 
                 totalPoint += pawn.Amount;
                 
+                pawn.Unpack(delay += 0.025f);
+                
                 
                 pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
@@ -459,7 +464,7 @@ namespace Game
                 {
                     pawn.Deconstruct();
 
-                    if (!lastPawn && lastPawn == pawn)
+                    if (lastPawn == pawn)
                     {
                         Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                     }
@@ -479,6 +484,9 @@ namespace Game
             Place spawnPlace = places[mergeIndex, lineIndex];
             int totalPoint = 0;
             Pawn lastPawn = null;
+            
+            float delay = 0.0f;
+            
             for (int i = 0; i < Size.y; i++)
             {
                 Place place = places[mergeIndex, i];
@@ -493,14 +501,15 @@ namespace Game
 
                 totalPoint += pawn.Amount;
                 
-                
+                pawn.Unpack(delay += 0.025f);
+
                 pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                     .onComplete += () =>
                 {
                     pawn.Deconstruct();
 
-                    if (!lastPawn && lastPawn == pawn)
+                    if (lastPawn == pawn)
                     {
                         Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                     }
@@ -554,7 +563,7 @@ namespace Game
                     Place place = places[i, j];
                     
                     // if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
-                    if (place.Current && !place.Current.Mover && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
+                    if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
                     {
                         Pawn currentPawn = place.Current;
                         int ammo = Mathf.Min(currentPawn.Amount, splitCount);

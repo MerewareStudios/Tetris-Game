@@ -21,6 +21,8 @@ namespace Game
 
                 while (true)
                 {
+                    Board.THIS.CheckAll();
+
                     Board.THIS.MoveAll(0.25f);
                     Spawner.THIS.HighlightCurrentBlock();
 

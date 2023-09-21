@@ -17,7 +17,7 @@ public class Powerup : MonoBehaviour
 
     void Start()
     {
-        SetPowerup(Pawn.Usage.MagnetUD);
+        SetPowerup(Pawn.Usage.MagnetLR);
     }
 
     public void SetPowerup(Pawn.Usage usage)
