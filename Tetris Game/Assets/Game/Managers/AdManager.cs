@@ -50,7 +50,7 @@ namespace IWI
                         Debug.LogWarning("Fake Ad Interstitial (On Finish)");
                         UIManager.Pause(false);
                     });
-                }, Wallet.HasFunds(Const.Currency.OneAd) ? 4 : 3);
+                }, 5);
                 
                 UIManager.Pause(true);
                 AdBreakScreen.THIS.Open();

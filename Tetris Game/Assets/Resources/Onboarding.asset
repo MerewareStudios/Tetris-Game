@@ -32,7 +32,7 @@ MonoBehaviour:
   splitShotText: <sprite name=Splitshot>
   adBreakText: AD BREAK
   earnText: EARN
-  useTicketText: Use <sprite name=Ticket> 1
+  useTicketText: Skip <sprite name=Ticket>  ?
   earnTicketText: <sprite name=Ticket> 1
-  skipButtonText: SKIP
+  skipButtonText: YES
   cancelButtonText: CANCEL
