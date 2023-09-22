@@ -1107,6 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2dc0f65fd4d23148817b9816b382a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUps: 020000000300000004000000
   canvas: {fileID: 9063586313887820818}
   pivot: {fileID: 8917067977922834733}
   icon: {fileID: 3492517242821289661}
