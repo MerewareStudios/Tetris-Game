@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
+using IWI.Tutorial;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -85,7 +86,7 @@ namespace Game.UI
             {
                 if (!purchasedBlock && hasFunds)
                 {
-                    Onboarding.ClickOn(buttonClickTarget.position, false, () =>
+                    Onboarding.ClickOn(buttonClickTarget.position, Finger.Cam.UI, () =>
                     {
                         purchaseButton.transform.DOKill();
                         purchaseButton.transform.localEulerAngles = Vector3.zero;

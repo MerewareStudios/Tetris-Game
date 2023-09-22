@@ -20,7 +20,7 @@ MonoBehaviour:
   mergedScalePunch: 0.35
   mergedScaleDuration: 0.35
   mergedPunchScale: -0.175
-  mergedPunchDuration: 0.1
+  mergedPunchDuration: 0.3
   distortScale: 8
   distortPower: 0.03
   distortDuration: 0.8

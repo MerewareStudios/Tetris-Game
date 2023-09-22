@@ -29,7 +29,7 @@ namespace IWI.UI
         private Canvas _canvas;
         private RectTransform _canvasRect;
         // [System.NonSerialized] public Camera mainCamera;
-        [System.NonSerialized] public Camera _thisCamera;
+        // [System.NonSerialized] public Camera _thisCamera;
         private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
@@ -46,7 +46,7 @@ namespace IWI.UI
             _canvas = GetComponent<Canvas>();
             _canvasRect = _canvas.GetComponent<RectTransform>();
             // mainCamera = Camera.main;
-            _thisCamera = _canvas.worldCamera;
+            // _thisCamera = _canvas.worldCamera;
             SetupPool();
 
             _timeOffset = Random.Range(0.0f, 100.0f);
@@ -228,7 +228,7 @@ namespace IWI.UI
             };
 
             localPoint = cam.WorldToScreenPoint(targetSettings.transform ? targetSettings.transform.position : targetSettings.Position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, _thisCamera, out Vector2 local);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, _canvas.worldCamera, out Vector2 local);
             return local;
         }
         public void Restart()

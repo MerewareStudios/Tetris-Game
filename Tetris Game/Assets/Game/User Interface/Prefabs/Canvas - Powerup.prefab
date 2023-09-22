@@ -121,6 +121,7 @@ RectTransform:
   m_Children:
   - {fileID: 1627624223680831510}
   - {fileID: 8917067977922834733}
+  - {fileID: 335523722041664409}
   m_Father: {fileID: 3044147871697632243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -1054,6 +1055,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6746657237394667702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335523722041664409}
+  m_Layer: 5
+  m_Name: Finger Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &335523722041664409
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746657237394667702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4453252784530441156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -82.7}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7220579938393695875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,8 +1143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2dc0f65fd4d23148817b9816b382a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUps: 020000000300000004000000
   canvas: {fileID: 9063586313887820818}
+  powerUps: 020000000300000004000000
   pivot: {fileID: 8917067977922834733}
   icon: {fileID: 3492517242821289661}
   currencyTarget: {fileID: 5514183999930175864}
@@ -1117,6 +1153,7 @@ MonoBehaviour:
   lockIcon: {fileID: 5514183999930175864}
   currencyDisplay: {fileID: 8339168810711358767}
   useDisplay: {fileID: 8766854639265508600}
+  fingerTarget: {fileID: 335523722041664409}
 --- !u!223 &9063586313887820818
 Canvas:
   m_ObjectHideFlags: 0

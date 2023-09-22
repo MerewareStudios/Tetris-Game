@@ -1572,6 +1572,7 @@ MonoBehaviour:
   piggyMenu: {fileID: 1972582886}
   rewardScreen: {fileID: 459138714224466592}
   powerup: {fileID: 8641608271372054861}
+  adBreakScreen: {fileID: 1096595428842437529}
   shop: {fileID: 213108305}
   coinEmitter: {fileID: 1775779537}
   heartEmitter: {fileID: 1175637157}
@@ -1824,6 +1825,9 @@ MonoBehaviour:
         amount: 0
     userData:
       level: 1
+      pupData:
+        available: 0
+        currentUsage: 0
       boardData:
         defaultStack: 6
         maxStack: 6
@@ -2556,7 +2560,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 235757128}
     - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: shortDragOffset.y
@@ -5642,6 +5646,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4235389810205702109}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1096595428842437529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+    type: 3}
+  m_PrefabInstance: {fileID: 4235389810205702109}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db4199ea58e46a439f5830cd56462d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1942942678038344289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6906,59 +6922,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2017990421}
     m_Modifications:
-    - target: {fileID: 101412962303523590, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 101412962303523590, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2846355456824160056, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 548236974}
+      objectReference: {fileID: 514003530}
     - target: {fileID: 2846355456824160056, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2846355456824160056, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812582251349638629, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812582251349638629, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812582251349638629, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812582251349638629, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812582251349638629, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4812582251349638629, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7600978494575268832, guid: 61dc09709f4686947b5c9064486c6f96,
@@ -6970,11 +6941,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7600978494575268832, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7600978494575268832, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}
@@ -7071,16 +7037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas - Ad Break Screen
       objectReference: {fileID: 0}
-    - target: {fileID: 8537120318261939295, guid: 61dc09709f4686947b5c9064486c6f96,
+    - target: {fileID: 8458527733264722160, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -4207045398725036055, guid: fa17cec9f1c579044b81a9fd32c488c4,
-        type: 2}
-    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

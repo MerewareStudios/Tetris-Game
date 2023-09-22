@@ -45,6 +45,10 @@ public class Shop : MonoBehaviour
     
     public void OnClick_Open()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
         this.Open = false;
         
         _Data.current = 0;

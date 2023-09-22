@@ -308,18 +308,18 @@ namespace Game
                 modelPivot.DOPunchScale(Vector3.one * scale, duration, 1);
             });
         }
-        public void PunchScaleBullet(float magnitude)
+        public void PunchScaleModelPivot(float magnitude, float duration = 0.3f)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
-            modelPivot.DOPunchScale(Vector3.one * magnitude, 0.3f, 1);
+            modelPivot.DOPunchScale(Vector3.one * magnitude, duration, 1);
         }
-        public void PunchScale(float magnitude, float duration)
-        {
-            modelPivot.DOKill();
-            modelPivot.localScale = Vector3.one;
-            modelPivot.DOScale(Vector3.one * magnitude, duration).SetRelative(true);
-        }
+        // public void PunchScale(float magnitude, float duration)
+        // {
+        //     modelPivot.DOKill();
+        //     modelPivot.localScale = Vector3.one;
+        //     modelPivot.DOScale(Vector3.one * magnitude, duration).SetRelative(true);
+        // }
         public void PunchUp(float magnitude, float duration)
         {
             pivot.DOKill();

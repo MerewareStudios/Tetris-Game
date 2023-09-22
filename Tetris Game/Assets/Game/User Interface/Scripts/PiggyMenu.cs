@@ -4,6 +4,7 @@ using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
+using IWI.Tutorial;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -95,7 +96,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             
                 if (ONBOARDING.LEARN_TO_INVEST.IsNotComplete())
                 {
-                    Onboarding.ClickOn(clickLocation_Invest.position, false, () =>
+                    Onboarding.ClickOn(clickLocation_Invest.position, Finger.Cam.UI, () =>
                     {
                         investButton.transform.DOKill();
                         investButton.transform.localScale = Vector3.one;
@@ -368,7 +369,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         {
                             if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
                             {
-                                Onboarding.ClickOn(clickLocation_Break.position, false, () =>
+                                Onboarding.ClickOn(clickLocation_Break.position, Finger.Cam.UI, () =>
                                 {
                                     breakButton.transform.DOKill();
                                     breakButton.transform.localScale = Vector3.one;
@@ -421,7 +422,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                             
                 if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
                 {
-                    Onboarding.ClickOn(clickLocation_Continue.position, false, () =>
+                    Onboarding.ClickOn(clickLocation_Continue.position, Finger.Cam.UI, () =>
                     {
                         continueButton.transform.DOKill();
                         continueButton.transform.localScale = Vector3.one;

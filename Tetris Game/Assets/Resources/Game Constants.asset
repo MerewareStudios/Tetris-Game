@@ -38,6 +38,9 @@ MonoBehaviour:
       amount: 0
   DefaultUserData:
     level: 1
+    pupData:
+      available: 0
+      currentUsage: 4
     boardData:
       defaultStack: 7
       maxStack: 7
@@ -581,7 +584,7 @@ MonoBehaviour:
   defaultColor: {r: 0.14242274, g: 0.47224385, b: 0.922, a: 1}
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
-  powerColor: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+  powerColor: {r: 0.8235294, g: 0.05882353, b: 0.83137256, a: 1}
   pawnIcons:
   - {fileID: 21300000, guid: 4bc76270b368f9847b21069fef5fac92, type: 3}
   - {fileID: 0}

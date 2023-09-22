@@ -23,12 +23,16 @@ MonoBehaviour:
   needMoreAmmoText: Need more <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>bullets</color>
     </bounce></size>!
   enemiesComingText: <wiggle a=0.5 f=1><size=120%>Enemies!
-  ticketMergeText: 'No empty space
-
-    <sprite name=Ad><sprite name=Arrow><color=#40FFA8>MERGE!'
+  ticketMergeText: '<size=80%><sprite name=Ticket><sprite name=Arrow><sprite name=Magnet> '
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=75%><sprite name=Check>
   plusText: +
   damageText: <sprite name=Damage>
   fireRateText: <sprite name=Firerate>
   splitShotText: <sprite name=Splitshot>
+  adBreakText: AD BREAK
+  earnText: EARN
+  useTicketText: Use <sprite name=Ticket> 1
+  earnTicketText: <sprite name=Ticket> 1
+  skipButtonText: SKIP
+  cancelButtonText: CANCEL

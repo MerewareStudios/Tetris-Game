@@ -3,6 +3,7 @@ using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using IWI.Tutorial;
 using UnityEngine;
 
 public class Spawner : Singleton<Spawner>
@@ -299,7 +300,7 @@ public class Spawner : Singleton<Spawner>
         
         if (ONBOARDING.TEACH_PICK.IsNotComplete())
         {
-            Onboarding.DragOn(transform.position, true, Lift);
+            Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift);
         }
 
         Mount();

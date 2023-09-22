@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Game;
 using Internal.Core;
 using UnityEngine;
@@ -11,8 +12,9 @@ namespace IWI
         [SerializeField] private bool showAds = true;
         [System.NonSerialized] private Data _data;
 
-        void Start()
+        IEnumerator Start()
         {
+            yield return new WaitForSeconds(0.25f);
             if (showAds)
             {
                 // FakeAdBanner.Show();
@@ -31,31 +33,54 @@ namespace IWI
                 //         Debug.LogWarning("Fake Ad Rewarded (On Skip)");
                 //     }
                 // );   
-                
-                AdBreakScreen.Set(Const.THIS.adSettings.adBreakSkipTime,
-                    () =>
-                    {
-                        FakeAdInterstitial.Show(() =>
-                        {
-                            Debug.LogWarning("Fake Ad Interstitial (On Finish)");
-                            UIManager.MenuMode(false);
-                        });   
-                    },
-                    () =>
-                    {
-                        // Toast.Show("Ad skipped!", 1.0f);
-                        UIManager.MenuMode(false);
-                    }, 
-                    () =>
-                    {
-                        bool state = Wallet.Transaction(Const.Currency.OneAdConsume);
-                        if (!state)
-                        {
-                            // Toast.Show("No Funds!", 1.0f);
-                        }
 
-                        return state;
+                AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
+                AdBreakScreen.THIS.OnClick(
+                    () =>
+                    {
+                        AdBreakScreen.THIS.Close();
+                        UIManager.Pause(false);
+                    },
+                    () => Wallet.Consume(Const.Currency.OneAd));
+                AdBreakScreen.THIS.OnTimesUp(() =>
+                {
+                    AdBreakScreen.THIS.CloseImmediate();
+                    FakeAdInterstitial.Show(() =>
+                    {
+                        Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+                        UIManager.Pause(false);
                     });
+                }, Wallet.HasFunds(Const.Currency.OneAd) ? 4 : 3);
+                
+                UIManager.Pause(true);
+                AdBreakScreen.THIS.Open();
+                
+                
+                Debug.Log("Show ads");
+                // AdBreakScreen.Set(Const.THIS.adSettings.adBreakSkipTime,
+                //     () =>
+                //     {
+                //         FakeAdInterstitial.Show(() =>
+                //         {
+                //             Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+                //             UIManager.MenuMode(false);
+                //         });   
+                //     },
+                //     () =>
+                //     {
+                //         // Toast.Show("Ad skipped!", 1.0f);
+                //         UIManager.MenuMode(false);
+                //     }, 
+                //     () =>
+                //     {
+                //         bool state = Wallet.Transaction(Const.Currency.OneAdConsume);
+                //         if (!state)
+                //         {
+                //             // Toast.Show("No Funds!", 1.0f);
+                //         }
+                //
+                //         return state;
+                //     });
             }
             
             Board.THIS.OnMerge += () =>
@@ -100,7 +125,7 @@ namespace IWI
             {
                 _Data.mergeCountForAdBreak = 0;
                 UIManager.MenuMode(true);
-                AdBreakScreen.Show();
+                // AdBreakScreen.Show();
             }
         }
         

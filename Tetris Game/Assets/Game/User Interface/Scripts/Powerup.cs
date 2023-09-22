@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class Powerup : Lazyingleton<Powerup>
 {
-    [SerializeField] private List<Pawn.Usage> powerUps;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private List<Pawn.Usage> powerUps;
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Image icon;
     [SerializeField] public RectTransform currencyTarget;
@@ -17,17 +17,38 @@ public class Powerup : Lazyingleton<Powerup>
     [SerializeField] private RectTransform lockIcon;
     [SerializeField] private RectTransform currencyDisplay;
     [SerializeField] private RectTransform useDisplay;
+    [SerializeField] public RectTransform fingerTarget;
     [System.NonSerialized] private bool _canUse = false;
     [System.NonSerialized] private Data _data;
     public bool Available => this._data.available;
+
+    public bool Enabled
+    {
+        set => canvas.enabled = value;
+    }
 
     public Data _Data
     {
         set
         {
             this._data = value;
+            OpenImmediate(_data.available);
+            SetPowerup(_data.currentUsage);
+
+            Enabled = ONBOARDING.LEARNED_POWERUP.IsComplete();
         }
         get => this._data;
+    }
+    public void OpenImmediate(bool open)
+    {
+        _canUse = open;
+        
+        lockIcon.DOKill();
+        lockIcon.localScale = open ? Vector3.zero : Vector3.one;
+        leftDoor.anchoredPosition = Vector2.right * (open ?  -75.0f : 0.0f);
+        rightDoor.anchoredPosition = Vector2.right * (open ? 75.0f : 0.0f);
+        currencyDisplay.anchoredPosition = Vector2.up * (open ? -130.0f : 0.0f);
+        useDisplay.anchoredPosition = Vector2.up * (open ? 0.0f : -130.0f);
     }
 
     public void OpenAnimated(bool open)
@@ -72,7 +93,7 @@ public class Powerup : Lazyingleton<Powerup>
         PunchFrame();
     }
 
-    private void PunchFrame(float amount = 0.4f)
+    public void PunchFrame(float amount = 0.4f)
     {
         pivot.DOKill();
         pivot.localScale = Vector3.one;
@@ -86,12 +107,23 @@ public class Powerup : Lazyingleton<Powerup>
     }
     public void OnClick_Use()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
         if (Available)
         {
             if (!_canUse)
             {
                 return;   
             }
+            
+            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+            {
+                ONBOARDING.LEARNED_POWERUP.SetComplete();
+                Onboarding.Deconstruct();
+            }
+            
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
 
@@ -104,9 +136,13 @@ public class Powerup : Lazyingleton<Powerup>
             PunchFrame(0.1f);
             if (Wallet.Consume(Const.Currency.OneAd))
             {
+                if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+                {
+                    UIManager.THIS.speechBubble.Hide();
+                }
+                _data.available = true;
                 SetPowerup(powerUps.Random());
                 PunchCost(50.0f);
-                _data.available = true;
                 UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
                     (value) =>
                     {

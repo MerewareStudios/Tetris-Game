@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DG.Tweening;
 using Internal.Core;
+using IWI.Tutorial;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -103,7 +104,7 @@ namespace Game.UI
             {
                 if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
                 {
-                    Onboarding.ClickOn(stageBarFireRate.clickTarget.position, false, () =>
+                    Onboarding.ClickOn(stageBarFireRate.clickTarget.position, Finger.Cam.UI, () =>
                     {
                         stageBarFireRate.PunchPurchaseButton(0.2f);
                     });
@@ -117,7 +118,7 @@ namespace Game.UI
             {
                 if (Wallet.HasFunds(_gunUpgradeData.currency))
                 {
-                    Onboarding.ClickOn(purchaseClickTarget.position, false, () =>
+                    Onboarding.ClickOn(purchaseClickTarget.position, Finger.Cam.UI, () =>
                     {
                         Transform buttonTransform = purchaseButton.transform;
                         buttonTransform.DOKill();

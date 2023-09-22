@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -33,11 +31,12 @@ namespace IWI.Tutorial
         [System.NonSerialized] public System.Action OnDrag;
         [System.NonSerialized] public System.Action OnUp;
         
+        [SerializeField] public Camera mainCamera;
         [SerializeField] public Camera gameCamera;
         [SerializeField] public Camera uiCamera;
         
 
-        public void ShortPressAndDrag(Vector3 position, bool worldSpace, float pressDuration)
+        public void ShortPressAndDrag(Vector3 position, Cam rendererCamera, float scale = 1.0f)
         {
             this.gameObject.SetActive(true);
 
@@ -57,8 +56,9 @@ namespace IWI.Tutorial
                 
                 canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
 
-                positionPivot.anchoredPosition = GetAnchor(position, worldSpace);
-                
+                positionPivot.anchoredPosition = GetLocal(position, rendererCamera);
+                positionPivot.localScale = Vector3.one * scale;
+
                 scalePivot.localScale = Vector3.one;
                 offsetPivot.localPosition = Vector3.zero;
                 offsetPivot.localRotation = Quaternion.identity;
@@ -105,7 +105,7 @@ namespace IWI.Tutorial
             }
         }
         
-        public void Click(Vector3 position, bool worldSpace)
+        public void Click(Vector3 position, Cam rendererCamera, float scale = 1.0f)
         {
             this.gameObject.SetActive(true);
 
@@ -127,7 +127,8 @@ namespace IWI.Tutorial
                 canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
 
                 
-                positionPivot.anchoredPosition = GetAnchor(position, worldSpace);
+                positionPivot.anchoredPosition = GetLocal(position, rendererCamera);
+                positionPivot.localScale = Vector3.one * scale;
                 
                 scalePivot.localScale = Vector3.one;
                 offsetPivot.localPosition = Vector3.zero;
@@ -174,11 +175,34 @@ namespace IWI.Tutorial
 
         }
         
-        public Vector3 GetAnchor(Vector3 position, bool worldSpace)
+        // public Vector3 GetAnchor(Vector3 position, bool worldSpace)
+        // {
+        //     Camera cam = worldSpace ? this.gameCamera : this.uiCamera;
+        //     Vector2 localPoint = cam.WorldToScreenPoint(position);
+        //     RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, localPoint, this.uiCamera, out Vector2 local);
+        //     return local;
+        // }
+        //
+        public enum Cam
         {
-            Camera cam = worldSpace ? this.gameCamera : this.uiCamera;
-            Vector2 localPoint = cam.WorldToScreenPoint(position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, localPoint, this.uiCamera, out Vector2 local);
+            Main,
+            Game,
+            UI,
+        }
+        
+        public Vector3 GetLocal(Vector3 position, Cam rendererCam)
+        {
+            Vector2 localPoint = Vector3.zero;
+            Camera cam = rendererCam switch
+            {
+                Cam.Main => mainCamera,
+                Cam.Game => gameCamera,
+                Cam.UI => uiCamera,
+                _ => null
+            };
+
+            localPoint = cam.WorldToScreenPoint(position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, localPoint,  canvas.worldCamera, out Vector2 local);
             return local;
         }
 

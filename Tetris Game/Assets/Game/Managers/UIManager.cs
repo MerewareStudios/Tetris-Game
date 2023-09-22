@@ -22,6 +22,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private PiggyMenu piggyMenu;
    [SerializeField] private RewardScreen rewardScreen;
    [SerializeField] private Powerup powerup;
+   [SerializeField] private AdBreakScreen adBreakScreen;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [FormerlySerializedAs("particleImageCoin")]
@@ -64,6 +65,7 @@ public class UIManager : Singleton<UIManager>
          PiggyMenu.THIS = piggyMenu;
          RewardScreen.THIS = rewardScreen;
          Powerup.THIS = powerup;
+         AdBreakScreen.THIS = adBreakScreen;
 
          RewardScreen.THIS.OnClose = () =>
          {
@@ -117,11 +119,14 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.X))
       {
-         bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
-         Powerup.THIS.SetPowerup(Pawn.Usage.Magnet);
-         if (notLearnedTicketMerge)
+         if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
          {
-            Onboarding.TalkAboutTicketMerge();
+            if (!Wallet.HasFunds(Const.Currency.OneAd))
+            {
+               Wallet.Transaction(Const.Currency.OneAd);
+            }
+            Powerup.THIS.Enabled = true;
+            Onboarding.TalkAboutPowerUp();
          }
       }
       if (Input.GetKeyDown(KeyCode.B))
@@ -172,6 +177,10 @@ public class UIManager : Singleton<UIManager>
       Time.timeScale = value ? 0.0f : 1.0f;
       
       OnMenuModeChanged?.Invoke(value);
+   }
+   public static void Pause(bool value)
+   {
+      Time.timeScale = value ? 0.0f : 1.0f;
    }
 }
 

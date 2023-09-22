@@ -1,5 +1,7 @@
 using System.Collections;
 using Game;
+using Internal.Core;
+using IWI.Tutorial;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Onboarding Data", menuName = "Game/Onboarding Data", order = 0)]
@@ -22,8 +24,15 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string damageText;
     [TextArea] [SerializeField] public string fireRateText;
     [TextArea] [SerializeField] public string splitShotText;
+    [Header("Ad Break")]
+    [TextArea] [SerializeField] public string adBreakText;
+    [TextArea] [SerializeField] public string earnText;
+    [TextArea] [SerializeField] public string useTicketText;
+    [TextArea] [SerializeField] public string earnTicketText;
+    [TextArea] [SerializeField] public string skipButtonText;
+    [TextArea] [SerializeField] public string cancelButtonText;
     
-    public Coroutine coroutine = null;
+    public Coroutine Coroutine = null;
 
     public static void Deconstruct()
     {
@@ -35,16 +44,16 @@ public class Onboarding : SSingleton<Onboarding>
     
     public static void StopRoutine()
     {
-        if (Onboarding.THIS.coroutine != null)
+        if (Onboarding.THIS.Coroutine != null)
         {
-            GameManager.THIS.StopCoroutine(Onboarding.THIS.coroutine);
-            Onboarding.THIS.coroutine = null;
+            GameManager.THIS.StopCoroutine(Onboarding.THIS.Coroutine);
+            Onboarding.THIS.Coroutine = null;
         }
     }
     
     public static void SpawnFirstBlockAndTeachPlacement()
     {
-       GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
@@ -63,19 +72,19 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            DragOn(Spawner.THIS.transform.position, true, Spawner.THIS.Lift);
+            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift);
         }
     }
 
-    public static void DragOn(Vector3 position, bool worldSpace, System.Action OnClick)
+    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f)
     {
         UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.ShortPressAndDrag(position, worldSpace, 0.75f);
+        UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale);
     }
-    public static void ClickOn(Vector3 position, bool worldSpace, System.Action OnClick)
+    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f)
     {
         UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.Click(position, worldSpace);
+        UIManager.THIS.finger.Click(position, rendererCamera, scale);
     }
     public static void HideFinger()
     {
@@ -84,7 +93,7 @@ public class Onboarding : SSingleton<Onboarding>
     
     public static void SpawnSecondBlockAndTeachRotation()
     {
-        GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
@@ -100,7 +109,7 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            ClickOn(Spawner.THIS.transform.position, true, Spawner.THIS.Shake);
+            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake);
 
             Spawner.THIS.DelayedSpawn(0.0f);
 
@@ -111,7 +120,7 @@ public class Onboarding : SSingleton<Onboarding>
     
     public static void TalkAboutMerge()
     {
-        GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
@@ -124,24 +133,23 @@ public class Onboarding : SSingleton<Onboarding>
             Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
         }
     }
-    public static void TalkAboutTicketMerge()
+    public static void TalkAboutPowerUp()
     {
-        Onboarding.THIS.coroutine = GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
             yield return new WaitForSeconds(0.1f);
-            
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.ticketMergeText, 0.2f);
 
             yield return new WaitForSeconds(0.25f);
-            // Onboarding.ClickOn(CustomPower.THIS.clickTarget.position, true, CustomPower.THIS.HighlightPunch);
+            Onboarding.ClickOn(Powerup.THIS.fingerTarget.position, Finger.Cam.Game, () => Powerup.THIS.PunchFrame(0.4f), 0.7f);
         }
     }
     
     public static void CheerForMerge()
     {
-        Onboarding.THIS.coroutine = GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
@@ -170,16 +178,13 @@ public class Onboarding : SSingleton<Onboarding>
     
     public static void TalkAboutNeedMoreAmmo()
     {
-        GameManager.THIS.StartCoroutine(Routine());
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
             yield return new WaitForSeconds(1.25f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
             Spawner.THIS.DelayedSpawn(0.0f);
-
-            
-            
 
             yield return new WaitForSeconds(2.0f);
             UIManager.THIS.speechBubble.Hide();
