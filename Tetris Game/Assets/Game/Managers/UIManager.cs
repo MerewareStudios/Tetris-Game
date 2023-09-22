@@ -29,6 +29,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public UIEmitter coinEmitter;
    [SerializeField] public UIEmitter heartEmitter;
    [SerializeField] public UIEmitter shieldEmitter;
+   [SerializeField] public UIEmitter ticketEmitter;
    [SerializeField] public MotionData motionData_Block;
    [SerializeField] public MotionData motionData_Enemy;
    [SerializeField] public MotionData motionData_Enemy_Burst;
@@ -36,13 +37,14 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public MotionData motionData_PiggyFill;
    [SerializeField] public MotionData motionData_Shop;
    [SerializeField] public MotionData motionData_UpgradeBurst;
+   [SerializeField] public MotionData motionData_Ticket;
    [Header("Level")]
    [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
    [System.NonSerialized] public static bool MENU_VISIBLE = false;
    [Header("Transactors")]
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
-   [SerializeField] public CurrencyTransactor ad;
+   [SerializeField] public CurrencyTransactor ticket;
    [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
@@ -70,7 +72,7 @@ public class UIManager : Singleton<UIManager>
             LevelManager.THIS.LoadLevel();
          };
 
-         Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.AD };
+         Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
          Glimmer.OnComplete = glimmer => glimmer.Despawn();
 
@@ -126,6 +128,26 @@ public class UIManager : Singleton<UIManager>
       {
          Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(Vector3.zero + new Vector3(0.0f, 0.3516f + 0.254f, 0.0f));
          UIManagerExtensions.Distort(Vector3.up * 0.45f, 0.0f);
+      }
+      
+      if (Input.GetKeyDown(KeyCode.C))
+      {
+         if (Wallet.Consume(Const.Currency.OneAd))
+         {
+            UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
+               (value) =>
+               {
+                  
+               },
+               () =>
+               {
+                  Powerup.THIS.OpenAnimated(true);
+               });
+         }
+      }
+      if (Input.GetKeyDown(KeyCode.T))
+      {
+         Wallet.TICKET.Transaction(1);
       }
    }
 #endif
@@ -238,5 +260,12 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.shieldEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
+   }
+   public static void RequestTicketFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, Const.CurrencyType.Ticket.IconPosition());
+      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, targetCanvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.ticketEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Ticket, OnArrive, OnAllArrive);
    }
 }

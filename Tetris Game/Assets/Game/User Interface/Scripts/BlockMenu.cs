@@ -24,9 +24,17 @@ namespace Game.UI
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _blockData;
 
+        public BlockShopData _Data
+        {
+            set
+            {
+                _blockShopData = value;
+            }
+            get => this._blockShopData;
+        }
+        
         public void Set(ref BlockShopData blockShopData)
         {
-            this._blockShopData = blockShopData;
         }
 
         public new bool Open(float duration = 0.5f)

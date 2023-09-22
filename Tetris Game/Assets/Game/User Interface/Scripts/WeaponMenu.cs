@@ -34,11 +34,15 @@ namespace Game.UI
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> OnGunDataChanged = null;
 
-        public void Set(ref WeaponShopData _weaponShopData)
+        public WeaponShopData _Data
         {
-            this._weaponShopData = _weaponShopData;
+            set
+            {
+                _weaponShopData = value;
+            }
+            get => this._weaponShopData;
         }
-
+        
         public new bool Open(float duration = 0.5f)
         {
             if (base.Open(duration))

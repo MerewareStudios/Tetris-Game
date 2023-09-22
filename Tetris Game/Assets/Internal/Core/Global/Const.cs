@@ -98,8 +98,8 @@ public class Const : SSingleton<Const>
             this.amount = amount;
         }
 
-        public static Currency OneAd = new Currency(CurrencyType.Ad, 1);
-        public static Currency OneAdConsume = new Currency(CurrencyType.Ad, -1);
+        public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);
+        public static Currency OneAdConsume = new Currency(CurrencyType.Ticket, -1);
     }
     
     [Serializable]
@@ -107,7 +107,7 @@ public class Const : SSingleton<Const>
     {
         Coin,
         PiggyCoin,
-        Ad,
+        Ticket,
         Dollar,
     }
 

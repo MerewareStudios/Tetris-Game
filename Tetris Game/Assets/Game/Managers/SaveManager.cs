@@ -38,15 +38,16 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Wallet.COIN.Active = ONBOARDING.LEARNED_META.IsComplete();
         Wallet.PIGGY.Set(ref saveData.userData.gemTransactionData);
         Wallet.PIGGY.Active = ONBOARDING.LEARNED_META.IsComplete();
-        Wallet.AD.Set(ref saveData.userData.adTransactionData);
-        Wallet.AD.Active = ONBOARDING.LEARNED_META.IsComplete();
+        Wallet.TICKET.Set(ref saveData.userData.adTransactionData);
+        Wallet.TICKET.Active = ONBOARDING.LEARNED_META.IsComplete();
 
         AdManager.THIS._Data = saveData.adData;
         
         UIManager.THIS.shop._Data = saveData.userData.shopData;
         
-        BlockMenu.THIS.Set(ref saveData.userData.blockShopData);
-        WeaponMenu.THIS.Set(ref saveData.userData.weaponShopData);
+        Powerup.THIS._Data = saveData.userData.pupData;
+        BlockMenu.THIS._Data = saveData.userData.blockShopData;
+        WeaponMenu.THIS._Data = saveData.userData.weaponShopData;
         PiggyMenu.THIS._Data = saveData.userData.piggyData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
@@ -135,6 +136,7 @@ namespace User
     public class Data : ICloneable
     {
         [SerializeField] public int level = 1;
+        [SerializeField] public Powerup.Data pupData;
         [SerializeField] public Board.Data boardData;
         [SerializeField] public TransactionData<int> coinTransactionData = new();
         [SerializeField] public TransactionData<int> gemTransactionData = new();
@@ -154,7 +156,10 @@ namespace User
         public Data(Data data)
         {
             level = data.level;
+            pupData = data.pupData.Clone() as Powerup.Data;
+            
             boardData = data.boardData.Clone() as Board.Data;
+            
             
             coinTransactionData = data.coinTransactionData.Clone() as TransactionData<int>;
             gemTransactionData = data.gemTransactionData.Clone() as TransactionData<int>;

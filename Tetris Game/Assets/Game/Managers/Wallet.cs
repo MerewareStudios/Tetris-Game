@@ -4,7 +4,7 @@ public static class Wallet
 {
     public static CurrencyTransactor COIN => UIManager.THIS.coin;
     public static CurrencyTransactor PIGGY => UIManager.THIS.gem;
-    public static CurrencyTransactor AD => UIManager.THIS.ad;
+    public static CurrencyTransactor TICKET => UIManager.THIS.ticket;
 
     public static CurrencyTransactor[] CurrencyTransactors;
     
@@ -61,7 +61,7 @@ public static class Wallet
     {
         COIN.Scale(scale, distance);
         PIGGY.Scale(scale, distance);
-        AD.Scale(scale, distance);
+        TICKET.Scale(scale, distance);
     }
     public static void HideTransactors()
     {

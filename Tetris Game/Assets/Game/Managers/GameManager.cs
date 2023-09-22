@@ -42,6 +42,10 @@ public class GameManager : Singleton<GameManager>
     {
        Wallet.COIN.Transaction(value);
     }
+    public static void AddTicket(int value)
+    {
+        Wallet.TICKET.Transaction(value);
+    }
     public static void AddHeart(int value)
     {
         Warzone.THIS.Player._CurrentHealth += value;

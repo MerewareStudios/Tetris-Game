@@ -202,7 +202,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Helper.IsPossible(0.5f, () =>
             {
                 rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
-                Wallet.AD.Transaction(1);
+                Wallet.TICKET.Transaction(1);
             });
         }
         // case PiggyReward.Type.Shield:
