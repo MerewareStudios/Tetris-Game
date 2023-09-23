@@ -121,10 +121,10 @@ public class UIManager : Singleton<UIManager>
       {
          if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
          {
-            if (!Wallet.HasFunds(Const.Currency.OneAd))
-            {
-               Wallet.Transaction(Const.Currency.OneAd);
-            }
+            // if (!Wallet.HasFunds(Const.Currency.OneAd))
+            // {
+            //    Wallet.Transaction(Const.Currency.OneAd);
+            // }
             Powerup.THIS.Enabled = true;
             Onboarding.TalkAboutPowerUp();
          }

@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using Game;
 using Internal.Core;
 using UnityEngine;
-
 
 namespace IWI
 {
@@ -12,9 +10,9 @@ namespace IWI
         [SerializeField] private bool showAds = true;
         [System.NonSerialized] private Data _data;
 
-        IEnumerator Start()
+        void Start()
         {
-            yield return new WaitForSeconds(0.25f);
+            // yield return new WaitForSeconds(0.25f);
             if (showAds)
             {
                 // FakeAdBanner.Show();
@@ -34,53 +32,7 @@ namespace IWI
                 //     }
                 // );   
 
-                AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
-                AdBreakScreen.THIS.OnClick(
-                    () =>
-                    {
-                        AdBreakScreen.THIS.Close();
-                        UIManager.Pause(false);
-                    },
-                    () => Wallet.Consume(Const.Currency.OneAd));
-                AdBreakScreen.THIS.OnTimesUp(() =>
-                {
-                    AdBreakScreen.THIS.CloseImmediate();
-                    FakeAdInterstitial.Show(() =>
-                    {
-                        Debug.LogWarning("Fake Ad Interstitial (On Finish)");
-                        UIManager.Pause(false);
-                    });
-                }, 5);
-                
-                UIManager.Pause(true);
-                AdBreakScreen.THIS.Open();
-                
-                
-                Debug.Log("Show ads");
-                // AdBreakScreen.Set(Const.THIS.adSettings.adBreakSkipTime,
-                //     () =>
-                //     {
-                //         FakeAdInterstitial.Show(() =>
-                //         {
-                //             Debug.LogWarning("Fake Ad Interstitial (On Finish)");
-                //             UIManager.MenuMode(false);
-                //         });   
-                //     },
-                //     () =>
-                //     {
-                //         // Toast.Show("Ad skipped!", 1.0f);
-                //         UIManager.MenuMode(false);
-                //     }, 
-                //     () =>
-                //     {
-                //         bool state = Wallet.Transaction(Const.Currency.OneAdConsume);
-                //         if (!state)
-                //         {
-                //             // Toast.Show("No Funds!", 1.0f);
-                //         }
-                //
-                //         return state;
-                //     });
+                // ShowAdBreak();
             }
             
             Board.THIS.OnMerge += () =>
@@ -98,6 +50,57 @@ namespace IWI
                     UIManager.THIS.shop.Increase();
                 }
             };
+        }
+
+        public static void ShowAdBreak()
+        {
+            AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
+            AdBreakScreen.THIS.SetPurchaseWindows(true, true);
+            AdBreakScreen.THIS.OnClick(
+                () =>
+                {
+                    AdBreakScreen.THIS.Close();
+                    UIManager.Pause(false);
+                },
+                () => Wallet.Consume(Const.Currency.OneAd));
+            AdBreakScreen.THIS.OnTimesUp(() =>
+            {
+                AdBreakScreen.THIS.CloseImmediate();
+                FakeAdInterstitial.Show(() =>
+                {
+                    Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+                    UIManager.Pause(false);
+                });
+            }, 5);
+                
+            UIManager.Pause(true);
+            AdBreakScreen.THIS.Open();
+        }
+
+        public static void ShowTicketAd(System.Action onReward)
+        {
+            AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
+            AdBreakScreen.THIS.SetPurchaseWindows(false, true);
+            AdBreakScreen.THIS.OnClick(
+                () =>
+                {
+                    AdBreakScreen.THIS.Close();
+                    UIManager.Pause(false);
+                },
+                () => true);
+            AdBreakScreen.THIS.OnTimesUp(() =>
+            {
+                AdBreakScreen.THIS.CloseImmediate();
+                FakeAdInterstitial.Show(() =>
+                {
+                    Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+                    onReward?.Invoke();
+                    UIManager.Pause(false);
+                });
+            }, 3);
+                
+            UIManager.Pause(true);
+            AdBreakScreen.THIS.Open();
         }
 
         public Data _Data

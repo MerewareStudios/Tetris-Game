@@ -33,6 +33,6 @@ MonoBehaviour:
   adBreakText: AD BREAK
   earnText: EARN
   useTicketText: Skip <sprite name=Ticket>  ?
-  earnTicketText: <sprite name=Ticket> 1
-  skipButtonText: YES
-  cancelButtonText: CANCEL
+  earnTicketText: <sprite name=Ticket> +1
+  skipButtonText: USE TICKET
+  cancelButtonText: NOT NOW

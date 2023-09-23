@@ -1,4 +1,3 @@
-using System.Collections;
 using DG.Tweening;
 using Internal.Core;
 using TMPro;
@@ -13,7 +12,8 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private TextMeshProUGUI topText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI buttonText;
-    // [System.NonSerialized] private int _skipDuration;
+    [SerializeField] private GameObject adPurchaseWindow;
+    [SerializeField] private GameObject ticketPurchaseWindow;
     [System.NonSerialized] private bool _canInteract = false;
     [System.NonSerialized] private System.Action _onTimesUp;
     [System.NonSerialized] private System.Action _onClick;
@@ -44,7 +44,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this._onTimesUp = onTimesUp;
         return this;
     }
-
+    public AdBreakScreen SetPurchaseWindows(bool adPurchaseEnable, bool ticketPurchaseEnable)
+    {
+        this.adPurchaseWindow.SetActive(adPurchaseEnable);
+        this.ticketPurchaseWindow.SetActive(ticketPurchaseEnable);
+        return this;
+    }
     private void StartTimer()
     {
         float value = 0.0f;
@@ -97,63 +102,14 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         _timerTween?.Kill();
         canvas.DOKill();
     }
-    // [System.NonSerialized] private System.Action _onSkip;
-    // [System.NonSerialized] private OnGetState _onCanSkip;
-    // [System.NonSerialized] private Coroutine _timerRoutine;
-    //
-    //
-    // public static void Set(int skipDuration, System.Action onShowAd, System.Action onSkip, OnGetState onCanSkip)
-    // {
-    //     AdBreakScreen.THIS._skipDuration = skipDuration;
-    //     AdBreakScreen.THIS._onShowAd = onShowAd;
-    //     AdBreakScreen.THIS._onSkip = onSkip;
-    //     AdBreakScreen.THIS._onCanSkip = onCanSkip;
-    // }
-    //
-    // private void StartTimer()
-    // {
-    //     _timerRoutine = StartCoroutine(TimerRoutine());
-    //
-    //     IEnumerator TimerRoutine()
-    //     {
-    //         for (int i = _skipDuration; i > 0; i--)
-    //         {
-    //             buttonText.text = "YES(" + i + ")";
-    //             yield return new WaitForSecondsRealtime(1.0f);
-    //         }
-    //         _onShowAd?.Invoke();
-    //         Hide();
-    //     }
-    // }
-    //
-    // private void StopTimer()
-    // {
-    //     if (_timerRoutine != null)
-    //     {
-    //         StopCoroutine(_timerRoutine);
-    //         _timerRoutine = null;
-    //     }
-    // }
-    //
-    // public static void Show()
-    // {
-    //     AdBreakScreen.THIS.canvas.enabled = true;
-    //     AdBreakScreen.THIS.FadeIn();
-    //     AdBreakScreen.THIS.StartTimer();
-    // }
-    //
-    // private void FadeIn()
-    // {
-    //     canvasGroup.DOKill();
-    //     canvasGroup.alpha = 0.0f;
-    //     canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
-    // }
-    //
-    // public void Hide()
-    // {
-    //     canvas.enabled = false;
-    // }
-    //
+    private void Pause()
+    {
+        _timerTween?.Pause();
+    }
+    private void Restart()
+    {
+        _timerTween?.Restart();
+    }
     public void OnClick()
     {
         if (!_canInteract)
@@ -166,6 +122,32 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         }
 
         _canInteract = false;
+        _onClick?.Invoke();
+        Stop();
+    }
+    public void OnClick_PurchaseAd()
+    {
+        if (!_canInteract)
+        {
+            return;
+        }
+        Pause();
+    }
+    public void OnClick_PurchaseTicket()
+    {
+        if (!_canInteract)
+        {
+            return;
+        }
+        Pause();
+    }
+
+    public void OnPurchaseFailed()
+    {
+        Restart();
+    }
+    public void OnPurchaseSuccessful()
+    {
         _onClick?.Invoke();
         Stop();
     }

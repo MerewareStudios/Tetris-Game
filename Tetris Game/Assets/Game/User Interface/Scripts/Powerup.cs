@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using Internal.Core;
+using IWI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -103,7 +104,7 @@ public class Powerup : Lazyingleton<Powerup>
     {
         currencyDisplay.DOKill();
         currencyDisplay.localPosition = Vector3.zero;
-        currencyDisplay.DOPunchAnchorPos(Vector3.up * amount, 0.25f, 1);
+        currencyDisplay.DOPunchAnchorPos(Vector3.up * amount, 0.25f, 1).SetUpdate(true);
     }
     public void OnClick_Use()
     {
@@ -134,30 +135,50 @@ public class Powerup : Lazyingleton<Powerup>
         else
         {
             PunchFrame(0.1f);
-            if (Wallet.Consume(Const.Currency.OneAd))
+            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+            {
+                Wallet.Transaction(Const.Currency.OneAd);
+            }
+
+            if (Try2Use())
             {
                 if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
                 {
                     UIManager.THIS.speechBubble.Hide();
                 }
-                _data.available = true;
-                SetPowerup(powerUps.Random());
-                PunchCost(50.0f);
-                UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
-                    (value) =>
-                    {
-                  
-                    },
-                    () =>
-                    {
-                        OpenAnimated(true);
-                    });
+                return;
             }
-            else
+            
+            PunchCost();
+            AdManager.ShowTicketAd(() =>
             {
-                PunchCost();
-            }
+                Wallet.Transaction(Const.Currency.OneAd);
+                Try2Use();
+            });
         }
+    }
+
+    private bool Try2Use()
+    {
+        if (!Wallet.Consume(Const.Currency.OneAd))
+        {
+            return false;
+        }
+        
+        _data.available = true;
+        SetPowerup(powerUps.Random());
+        PunchCost(50.0f);
+        UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
+            (value) =>
+            {
+                  
+            },
+            () =>
+            {
+                OpenAnimated(true);
+            });
+
+        return true;
     }
 
     public void Deconstruct()
