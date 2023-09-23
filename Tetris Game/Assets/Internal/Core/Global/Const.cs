@@ -58,16 +58,6 @@ public class Const : SSingleton<Const>
     public Ease rotationEase;
     public Ease piggyExplodeEase;
 
-    [Header("Ad Settings")] public AdSettings adSettings;
-    
-    [Serializable]
-    public struct AdSettings
-    {
-        [SerializeField] public float loanBarProtectionInterval;
-        [SerializeField] public int adBreakSkipTime;
-        [SerializeField] public int mergePerAdBreak;
-    }
-    
     [Serializable]
     public struct RewardData
     {

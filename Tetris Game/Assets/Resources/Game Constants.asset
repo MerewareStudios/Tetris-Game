@@ -422,7 +422,7 @@ MonoBehaviour:
       amount: 1
     sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
     title: <bounce a=0.05 f=1>SKIP TICKETS
-    info: <sprite name=Ad> x5
+    info: <sprite name=Ticket> x5
     best: 0
     seconds: 0
   - purchaseType: 2
@@ -481,7 +481,7 @@ MonoBehaviour:
       <sprite name=PiggyCoin> x10
 
       <sprite
-      name=Ad> x5'
+      name=Ticket> x5'
     best: 0
     seconds: 0
   - purchaseType: 8
@@ -495,7 +495,7 @@ MonoBehaviour:
       <sprite name=PiggyCoin> x50
 
       <sprite
-      name=Ad> x15'
+      name=Ticket> x15'
     best: 0
     seconds: 0
   - purchaseType: 9
@@ -509,7 +509,7 @@ MonoBehaviour:
       <sprite name=PiggyCoin> x100
 
       <sprite
-      name=Ad> x25'
+      name=Ticket> x25'
     best: 1
     seconds: 0
   - purchaseType: 10
@@ -592,10 +592,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8ccaa8a3b820d0f49abaa5c6854cf1d8, type: 3}
   - {fileID: 21300000, guid: c7defc4a3387ded4e83f7aaecfcf2f6e, type: 3}
   placeColorsDouble:
-  - {r: 0.18758793, g: 0.89199996, b: 0.21055792, a: 1}
-  - {r: 0.2117647, g: 1, b: 0.23673983, a: 1}
+  - {r: 0.18823528, g: 0.63201606, b: 0.8901961, a: 1}
+  - {r: 0.1882353, g: 0.6313726, b: 0.8901961, a: 1}
   - {r: 0.886, g: 0.18762352, b: 0.20847072, a: 1}
-  - {r: 1, g: 0.2113207, b: 0.23446302, a: 1}
+  - {r: 0.8862745, g: 0.1882353, b: 0.20784314, a: 1}
   - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
   piggyExplodeColor: {r: 1, g: 0.70980394, b: 0.85490197, a: 1}
@@ -674,7 +674,3 @@ MonoBehaviour:
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
   piggyExplodeEase: 12
-  adSettings:
-    loanBarProtectionInterval: 30
-    adBreakSkipTime: 4
-    mergePerAdBreak: 15

@@ -119,17 +119,17 @@ namespace IWI
                 return;
             }
             
-            Debug.LogWarning(_Data.MergeLeftForAdBreak + " Merges Left for an Ad Break");
+            // Debug.LogWarning(_Data.MergeLeftForAdBreak + " Merges Left for an Ad Break");
 
 
             _Data.mergeCountForAdBreak++;
 
-            if (_Data.CanShowAdBreak)
-            {
-                _Data.mergeCountForAdBreak = 0;
-                UIManager.MenuMode(true);
-                // AdBreakScreen.Show();
-            }
+            // if (_Data.CanShowAdBreak)
+            // {
+            //     _Data.mergeCountForAdBreak = 0;
+            //     UIManager.MenuMode(true);
+            //     // AdBreakScreen.Show();
+            // }
         }
         
         [System.Serializable]
@@ -148,8 +148,8 @@ namespace IWI
                 mergeCountForAdBreak = 0;
             }
 
-            public bool CanShowAdBreak => mergeCountForAdBreak >= Const.THIS.adSettings.mergePerAdBreak;
-            public int MergeLeftForAdBreak => Const.THIS.adSettings.mergePerAdBreak - mergeCountForAdBreak;
+            // public bool CanShowAdBreak => mergeCountForAdBreak >= Const.THIS.adSettings.mergePerAdBreak;
+            // public int MergeLeftForAdBreak => Const.THIS.adSettings.mergePerAdBreak - mergeCountForAdBreak;
 
             public object Clone()
             {

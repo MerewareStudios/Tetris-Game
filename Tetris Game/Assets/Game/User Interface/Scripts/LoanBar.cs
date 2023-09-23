@@ -59,7 +59,7 @@ public class LoanBar : MonoBehaviour
         {
             return;
         }
-        MakeUnavailable(Const.THIS.adSettings.loanBarProtectionInterval);
+        // MakeUnavailable(Const.THIS.adSettings.loanBarProtectionInterval);
         // Spawner.THIS.InterchangeBlock(Pool.Single_Block, Pawn.Usage.HorMerge);
     }
 }

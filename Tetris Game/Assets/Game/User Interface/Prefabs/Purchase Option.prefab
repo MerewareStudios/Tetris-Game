@@ -900,7 +900,7 @@ MonoBehaviour:
 
     <sprite name=PiggyCoin> +10
 
-    <sprite name=Ad>
+    <sprite name=Ticket>
     +2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
