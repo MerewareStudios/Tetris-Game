@@ -18,11 +18,11 @@ MonoBehaviour:
   rotateText: <size=125%>Rotate <swing w=0.4><sprite name=Box> </>
   stackText: <size=125%>Wait for <color=#40FFA8><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
-  greatCheerText: <wiggle a=0.6 f=2><size=120%>Great!</size>
+  greatCheerText: <wiggle a=0.8 f=3><size=120%>Great!</size>
   niceOneText: <wiggle a=1.3 f=3><size=150%>Nice one!</size>
   needMoreAmmoText: Need more <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>bullets</color>
     </bounce></size>!
-  enemiesComingText: <wiggle a=0.5 f=1><size=120%>Enemies!
+  enemiesComingText: <wiggle a=0.4 f=5><size=120%>Enemies!
   ticketMergeText: '<size=80%><sprite name=Ticket><sprite name=Arrow><sprite name=Magnet> '
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=75%><sprite name=Check>
