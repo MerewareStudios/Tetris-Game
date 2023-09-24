@@ -70,13 +70,6 @@ namespace Game
                 place.OnLevelEnd();
             });
         }
-        // public void OnFail()
-        // {
-        //     Call<Place>(places, (place) =>
-        //     {
-        //         place.OnFail();
-        //     });
-        // }
         public void MoveAll(float moveDuration)
         {
             _tick++;
@@ -122,15 +115,20 @@ namespace Game
                 // Already running a suggestion loop, skip
                 return;   
             }
+            if (Map.THIS.MapWaitForCycle)
+            {
+                // Still waiting for a map cycle after placement, wait to end & skip
+                return;
+            }
             if (!Spawner.THIS._currentBlock)
             {
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
-            if (Map.THIS.MapWaitForCycle)
+            if (Spawner.THIS._currentBlock.Pawns[0].Free2Place)
             {
-                // Debug.LogWarning("CheckedMergeAfterMove");
-                // Still waiting for a map cycle after placement, wait to end & skip
+                HighlightEmptyPlaces();
+                // There is no block to suggest place or check deadlock, skip
                 return;
             }
             if (Spawner.THIS._currentBlock.RequiredPlaces != null && Spawner.THIS._currentBlock.RequiredPlaces.Count > 0)
@@ -159,13 +157,6 @@ namespace Game
                         // Pawns are still moving, skip
                         return;
                     }
-                    
-                    // Bullets shooting is not enough reason to not say deadlock
-
-                    // if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
-                    // {
-                    //     return;
-                    // }
                 }
             }
 
@@ -179,14 +170,9 @@ namespace Game
                     Highlight(randomPlaces);
                     _delayedHighlightTween = null;
                 });
-                
-                // Debug.LogWarning("fit found");
                 // Found a fit, suggest/highlight it, skip
                 return;
             }
-            
-            // Debug.Log("deadlock");
-            
             if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
             {
                 if (!UIManager.THIS.finger.Visible)
@@ -258,15 +244,6 @@ namespace Game
         
         public List<Vector2Int> UsePowerups()
         {
-            // Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
-            // {
-            //     if (place.Current && !place.Current.Connected && verticalIndex >= startLine)
-            //     {
-            //         place.Current.MOVER = true;
-            //         place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - startLine) * 0.075f + 0.25f);
-            //     }
-            // });
-
             List<Vector2Int> points = new();
 
             for (int j = 0; j < Size.y; j++)
@@ -319,13 +296,6 @@ namespace Game
                         tetris = false;
                         continue;
                     }
-
-                    // if (places[i, j].Current.UsageType.Equals(Pawn.Usage.HorMerge))
-                    // {
-                    //     forceMerger = true;
-                    //     break;
-                    // }
-
                     if (places[i, j].Current.Mover)
                     {
                         tetris = false;
@@ -361,10 +331,6 @@ namespace Game
             {
                 UIManagerExtensions.Distort(mergedPawnPosition + Vector3.up * 0.45f, 0.0f);
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
-                // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(mergedPawn.modelPivot.position + new Vector3(0.0f, 0.3516f, 0.0f));
-                
-                // mergedPawn.MarkUnpackedAmmoColor();
-                // mergedPawn.UnpackAmmo();
                 mergedPawn.CanTakeAmmo = true;
             });
 
@@ -375,12 +341,8 @@ namespace Game
         {
             void MergeLine(int lineIndex, int multiplier)
             {
-                // List<Pawn> pawns = new();
-
-                // int totalPoint = 0;
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
-                // float delay = 0.0f;
 
                 for (int i = 0; i < Size.x; i++)
                 {
@@ -391,17 +353,6 @@ namespace Game
                     {
                         continue;
                     }
-                
-                    // pawns.Add(place.Current);
-
-                    // int point = 0;
-                    // place.Current.Unpack(delay += 0.025f);
-                    // if (place.Current.Unbox(delay += 0.025f))
-                    // {
-                        // point = place.Current.Amount == 1 ? multiplier : place.Current.Amount;
-                        // totalPoint += point;
-                    // }
-
                     if (place.Current.Tick > highestTick)
                     {
                         highestTick = place.Current.Tick;
@@ -411,37 +362,8 @@ namespace Game
                     {
                         Helper.IsPossible(0.5f,() => { mergeIndex = index; } );
                     }
-                    // place.Current = null;
                 }
-
-                // if (pawns.Count == 0)
-                // {
-                //     return;
-                // }
-
                 CreatePawnAtHorizontal(mergeIndex, lineIndex);
-
-                // Place spawnPlace = places[mergeIndex, lineIndex];
-                // for (int i = 0; i < pawns.Count; i++)
-                // {
-                //     int index = i;
-                //     Pawn pawn = pawns[i];
-                //
-                //     pawn.PunchScale(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                //     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                //         .onComplete += () =>
-                //     {
-                //         pawn.Deconstruct();
-                //
-                //         if (index == pawns.Count - 1)
-                //         {
-                //             Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                //         }
-                //     };
-                // }
-                //
-                // totalPoint = Mathf.Clamp(totalPoint, 0, _Data.maxStack);
-                // SpawnMergedPawn(spawnPlace, totalPoint);
             }
             
             OnMerge?.Invoke();
@@ -635,14 +557,6 @@ namespace Game
                     }
                 }
             }
-            // Call<Place>(places, (place, i, j) =>
-            // {
-            //     if (place.Current && !place.Current.Connected && i == pos.x && j >= pos.y)
-            //     {
-            //         place.Current.Mover = true;
-            //         place.Current.JumpUp(0.2f, 0.3f, (j - pos.y) * 0.075f + 0.25f);
-            //     }
-            // });
         }
         
         public void MarkMovers(int x, int y)
@@ -671,7 +585,6 @@ namespace Game
                     }
                     Place place = places[i, j];
                     
-                    // if (place.Current && !place.Current.MOVER && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
                     if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
                     {
                         Pawn currentPawn = place.Current;
@@ -789,14 +702,6 @@ namespace Game
             {
                 return (place, false);
             }
-            // if (Size.y - pawn.ParentBlock.blockData.FitHeight > ind.y && !pawn.CanPlaceAnywhere)
-            // {
-            //     return (place, false);
-            // }
-            
-            // if (HasForwardPawnAtColumn(ind) && !pawn.CanPlaceAnywhere)
-            
-            
             if (requiredPlaces is { Count: > 0 } && !requiredPlaces.Contains(place))
             {
                 return (place, false);
@@ -888,6 +793,17 @@ namespace Game
         {
             foreach (var place in places)
             {
+                Particle.Blue_Zone.Emit(1, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
+            }
+        }
+        public void HighlightEmptyPlaces()
+        {
+            foreach (var place in places)
+            {
+                if (place.Current)
+                {
+                    continue;
+                }
                 Particle.Blue_Zone.Emit(1, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
             }
         }
