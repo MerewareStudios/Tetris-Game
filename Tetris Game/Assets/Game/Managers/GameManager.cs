@@ -69,7 +69,7 @@ public class GameManager : Singleton<GameManager>
         Map.THIS.Deconstruct();
         Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
-        Onboarding.Deconstruct();
+        // Onboarding.Deconstruct();
         Powerup.THIS.Deconstruct();
     }
 
@@ -89,7 +89,7 @@ public class GameManager : Singleton<GameManager>
 #if UNITY_EDITOR
         Debug.Log(Time.time - LevelManager.LevelStart);
 #endif
-
+        Onboarding.Deconstruct();
         Board.THIS.OnLevelEnd();
         Map.THIS.OnLevelEnd();
         Spawner.THIS.OnLevelEnd();

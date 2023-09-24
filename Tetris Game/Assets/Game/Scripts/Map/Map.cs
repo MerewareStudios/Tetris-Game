@@ -8,7 +8,8 @@ namespace Game
     public class Map : Singleton<Map>
     {
         [System.NonSerialized] private Coroutine _mainRoutine = null;
-        [System.NonSerialized] private Queue<int> _queuedMergeLines = new();
+        // [System.NonSerialized] private Queue<int> _queuedMergeLines = new();
+        [System.NonSerialized] public bool MapWaitForCycle = false;
 
         public void StartMainLoop()
         {
@@ -31,6 +32,7 @@ namespace Game
                     yield return new WaitForSeconds(0.25f);
                     Board.THIS.CheckAll();
                     Spawner.THIS.HighlightCurrentBlock();
+                    
 
 
                     while (true)
@@ -50,14 +52,14 @@ namespace Game
                     
                     List<int> tetrisLines = Board.THIS.CheckTetris();
                     
-                    while (_queuedMergeLines.Count > 0)
-                    {
-                        int queuedIndex = _queuedMergeLines.Dequeue();
-                        if (!tetrisLines.Contains(queuedIndex))
-                        {
-                            tetrisLines.Add(queuedIndex);
-                        }
-                    }
+                    // while (_queuedMergeLines.Count > 0)
+                    // {
+                    //     int queuedIndex = _queuedMergeLines.Dequeue();
+                    //     if (!tetrisLines.Contains(queuedIndex))
+                    //     {
+                    //         tetrisLines.Add(queuedIndex);
+                    //     }
+                    // }
                     
                     if (tetrisLines.Count > 0)
                     {
@@ -75,10 +77,10 @@ namespace Game
                         Spawner.THIS.HighlightCurrentBlock();
 
                         yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
-                        Spawner.THIS.CheckedMergeAfterMove = true;
                     }
                     yield return new WaitForSeconds(0.25f);
                     Board.THIS.CheckDeadLock();
+                    MapWaitForCycle = false;
                 }
             }
         }
@@ -92,14 +94,15 @@ namespace Game
             }
         }
 
-        public void ForceMerge(int line)
-        {
-            _queuedMergeLines.Enqueue(line);
-        }
+        // public void ForceMerge(int line)
+        // {
+        //     _queuedMergeLines.Enqueue(line);
+        // }
 
         public void Deconstruct()
         {
             StopLoop();
+            Map.THIS.MapWaitForCycle = false;
         }
         
         public void OnLevelEnd()

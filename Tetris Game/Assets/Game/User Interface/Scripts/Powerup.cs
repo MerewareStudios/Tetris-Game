@@ -26,6 +26,7 @@ public class Powerup : Lazyingleton<Powerup>
     public bool Enabled
     {
         set => canvas.enabled = value;
+        get => canvas.enabled;
     }
 
     public Data _Data
@@ -119,12 +120,6 @@ public class Powerup : Lazyingleton<Powerup>
                 return;   
             }
             
-            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
-            {
-                ONBOARDING.LEARNED_POWERUP.SetComplete();
-                Onboarding.Deconstruct();
-            }
-            
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
 
@@ -144,7 +139,8 @@ public class Powerup : Lazyingleton<Powerup>
             {
                 if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
                 {
-                    UIManager.THIS.speechBubble.Hide();
+                    ONBOARDING.LEARNED_POWERUP.SetComplete();
+                    Onboarding.Deconstruct();
                 }
                 return;
             }

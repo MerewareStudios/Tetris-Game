@@ -117,16 +117,20 @@ namespace Game
         }
         public void CheckDeadLock()
         {
-            if (Powerup.THIS.Available)
-            {
-                return;
-            }
             if (_delayedHighlightTween != null)
             {
+                // Already running a suggestion loop, skip
                 return;   
             }
             if (!Spawner.THIS._currentBlock)
             {
+                // There is no block to suggest place or check deadlock, skip
+                return;
+            }
+            if (Map.THIS.MapWaitForCycle)
+            {
+                // Debug.LogWarning("CheckedMergeAfterMove");
+                // Still waiting for a map cycle after placement, wait to end & skip
                 return;
             }
             if (Spawner.THIS._currentBlock.RequiredPlaces != null && Spawner.THIS._currentBlock.RequiredPlaces.Count > 0)
@@ -137,11 +141,10 @@ namespace Game
                     Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
                     _delayedHighlightTween = null;
                 });
+                // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
            
-
-            
             for (int i = 0; i < Size.x; i++)
             {
                 for (int j = 0; j < Size.y; j++)
@@ -151,16 +154,18 @@ namespace Game
                     {
                         continue;
                     }
-
                     if (place.Current.Mover)
                     {
+                        // Pawns are still moving, skip
                         return;
                     }
                     
-                    if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
-                    {
-                        return;
-                    }
+                    // Bullets shooting is not enough reason to not say deadlock
+
+                    // if (place.Index.y == 0 && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo))
+                    // {
+                    //     return;
+                    // }
                 }
             }
 
@@ -174,21 +179,26 @@ namespace Game
                     Highlight(randomPlaces);
                     _delayedHighlightTween = null;
                 });
+                
+                // Debug.LogWarning("fit found");
+                // Found a fit, suggest/highlight it, skip
                 return;
             }
             
-            if (!Spawner.THIS.CheckedMergeAfterMove)
+            // Debug.Log("deadlock");
+            
+            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
             {
-                return;
+                if (!UIManager.THIS.finger.Visible)
+                {
+                    Powerup.THIS.Enabled = true;
+                    Onboarding.TalkAboutPowerUp();
+                }
             }
-
-            Debug.Log("deadlock");
-            // bool notLearnedTicketMerge = ONBOARDING.LEARN_TICKET_MERGE.IsNotComplete();
-            // CustomPower.THIS.Show(!notLearnedTicketMerge);
-            // if (notLearnedTicketMerge)
-            // {
-            //     Onboarding.TalkAboutTicketMerge();
-            // }
+            else
+            {
+                Powerup.THIS.PunchFrame(0.2f);
+            }
         }
         public void Dehighlight()
         {
@@ -728,6 +738,7 @@ namespace Game
                 {
                     currentPawn.Busy = false;
                     place.Current.Check(place);
+                    Map.THIS.MapWaitForCycle = true;
                 });
             }
         }

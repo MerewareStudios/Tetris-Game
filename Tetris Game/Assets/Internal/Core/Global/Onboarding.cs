@@ -142,8 +142,8 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.1f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.ticketMergeText, 0.2f);
 
-            yield return new WaitForSeconds(0.25f);
-            Onboarding.ClickOn(Powerup.THIS.fingerTarget.position, Finger.Cam.Game, () => Powerup.THIS.PunchFrame(0.4f), 0.7f);
+            // yield return new WaitForSeconds(0.25f);
+            ClickOn(Powerup.THIS.fingerTarget.position, Finger.Cam.Game, () => Powerup.THIS.PunchFrame(0.4f), 0.7f);
         }
     }
     

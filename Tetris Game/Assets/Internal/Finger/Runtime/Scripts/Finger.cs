@@ -30,6 +30,8 @@ namespace IWI.Tutorial
         [System.NonSerialized] public System.Action OnDown;
         [System.NonSerialized] public System.Action OnDrag;
         [System.NonSerialized] public System.Action OnUp;
+
+        public bool Visible => canvas.enabled;
         
         [SerializeField] public Camera mainCamera;
         [SerializeField] public Camera gameCamera;
