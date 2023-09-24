@@ -104,7 +104,7 @@ public class Onboarding : SSingleton<Onboarding>
             
             UIManager.THIS.speechBubble.Hide();
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.65f);
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);

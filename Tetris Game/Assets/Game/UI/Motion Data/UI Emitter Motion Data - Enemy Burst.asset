@@ -30,10 +30,10 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 75
-      m_ConstantMax: 85
+      m_ConstantMin: 150
+      m_ConstantMax: 175
     minDistance:
-      m_Mode: 3
+      m_Mode: 0
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -47,8 +47,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 75
-      m_ConstantMax: 75
+      m_ConstantMin: 85
+      m_ConstantMax: 50
     duration:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -64,8 +64,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0.2
-      m_ConstantMax: 0.2
+      m_ConstantMin: 0.1
+      m_ConstantMax: 0.15
     endDelay:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
       m_ConstantMin: 4
       m_ConstantMax: 85
     duration:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -184,7 +184,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0.5
+      m_ConstantMin: 0.4
       m_ConstantMax: 0.5
     ease: 26
     overshoot: 1.5

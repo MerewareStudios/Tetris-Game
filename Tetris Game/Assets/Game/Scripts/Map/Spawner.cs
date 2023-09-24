@@ -259,11 +259,11 @@ public class Spawner : Singleton<Spawner>
         if (Board.THIS.CanPlace(_currentBlock))
         {
             Board.THIS.Place(_currentBlock);
-            Board.THIS.KillDelayedHighlight();
+            // Board.THIS.KillDelayedHighlight();
+            Board.THIS.HideSuggestedPlaces();
 
             _currentBlock = null;
             
-            Board.THIS.HideSuggestedPlaces();
 
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
@@ -369,6 +369,7 @@ public class Spawner : Singleton<Spawner>
     {
         DespawnCurrentBlock();
         StopAllRunningTasksOnBlock();  
+        Board.THIS.HideSuggestedPlaces();
         _currentBlock = SpawnBlock(pool, usage, null);
     }
     private void DespawnCurrentBlock()

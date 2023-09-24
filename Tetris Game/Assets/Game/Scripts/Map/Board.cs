@@ -57,38 +57,41 @@ namespace Game
             DehighlightImmediate();
             HideSuggestedPlaces();
             
-            Call<Place>(places, (place) =>
+            foreach (var place in places)
             {
                 place.Deconstruct();
-            });
+            }
         }
         
         public void OnLevelEnd()
         {
-            Call<Place>(places, (place) =>
+            foreach (var place in places)
             {
                 place.OnLevelEnd();
-            });
+            }
         }
         public void MoveAll(float moveDuration)
         {
             _tick++;
 
-            Call<Place>(places, (place) =>
+            foreach (var place in places)
             {
-                if (!place.Current) return;
+                if (!place.Current)
+                {
+                    continue;
+                }
                 place.Current.MoveForward(place, _tick, moveDuration);
-            });
+            }
         }
         public void CheckAll()
         {
-            Call<Place>(places, (place) =>
+            foreach (var place in places)
             {
                 if (place.Current)
                 {
                     place.Current.Check(place);
                 }
-            });
+            }
         }
 
         public List<Place> Index2Place(List<int> indexes)
@@ -102,12 +105,7 @@ namespace Game
 
             return list;
         }
-
-        public void KillDelayedHighlight()
-        {
-            _delayedHighlightTween?.Kill();
-            _delayedHighlightTween = null;
-        }
+        
         public void CheckDeadLock()
         {
             if (_delayedHighlightTween != null)
@@ -128,6 +126,11 @@ namespace Game
             if (Spawner.THIS._currentBlock.Pawns[0].Free2Place)
             {
                 HighlightEmptyPlaces();
+                _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
+                {
+                    HighlightEmptyPlaces();
+                    _delayedHighlightTween = null;
+                });
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
@@ -188,32 +191,22 @@ namespace Game
         }
         public void Dehighlight()
         {
-            Call<Place>(places, (place) => 
-                {
-                    place.SetPlaceType(Game.Place.PlaceColor.NORMAL);
-                });
+            foreach (var place in places)
+            {
+                place.SetPlaceType(Game.Place.PlaceColor.NORMAL);
+            }
         }
         public void DehighlightImmediate()
         {
-            Call<Place>(places, (place) => 
+            foreach (var place in places)
             {
                 place.SetPlaceTypeImmediate(Game.Place.PlaceColor.NORMAL);
-            });
+            }
         }
         public Place LinearIndex2Place(int index)
         {
             Vector2Int ind = index.ToIndex(Size.y);
             return places[ind.x, ind.y];
-        }
-        private void Call<T>(T[,] array, System.Action<T> action)
-        {
-            for (int i = 0; i < Size.x; i++)
-            {
-                for (int j = 0; j < Size.y; j++)
-                {
-                    action.Invoke(array[i, j]);
-                }
-            }
         }
         private void Call<T>(T[,] array, System.Action<T, int, int> action)
         {
@@ -771,24 +764,6 @@ namespace Game
             return true;
         }
 
-        public void ShowAvailablePlaces()
-        {
-            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
-            {
-                if (place.Current) return;
-
-                Particle.Blue_Zone.Emit(1, place.Position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
-            });
-        }
-        
-        public void ShowTicketMergePlaces()
-        {
-            CallRow<Place>(places, 0, (place, horizontalIndex) =>
-            {
-                Particle.Yellow_Zone.Emit(1, place.Position, Quaternion.Euler(90.0f, 0.0f, 0.0f));
-            });
-        }
-        
         public void Highlight(List<Place> places)
         {
             foreach (var place in places)
@@ -812,7 +787,8 @@ namespace Game
         {
             Particle.Blue_Zone.StopAndClear();
             Particle.Yellow_Zone.StopAndClear();
-            KillDelayedHighlight();
+            _delayedHighlightTween?.Kill();
+            _delayedHighlightTween = null;
         }
         
         [System.Serializable]

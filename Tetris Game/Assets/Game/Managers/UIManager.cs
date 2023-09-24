@@ -150,6 +150,10 @@ public class UIManager : Singleton<UIManager>
       {
          Wallet.TICKET.Transaction(1);
       }
+      if (Input.GetKeyDown(KeyCode.H))
+      {
+         UIManagerExtensions.HeartToPlayer(Vector3.zero,  1, 1);
+      }
    }
 #endif
 
