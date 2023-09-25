@@ -96,7 +96,7 @@ namespace  Game
 
         private void ColorPunch()
         {
-            Debug.LogWarning("Color punch");
+            // Debug.LogWarning("Color punch");
             _colorPunchTween?.Kill();
             float timeStep = 0.0f;
             _colorPunchTween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, 0.35f).SetEase(Ease.Linear);
@@ -191,7 +191,7 @@ namespace  Game
         public class SpawnData
         {
             [SerializeField] public int spawnDelay = 3;
-            [SerializeField] public float spawnTimeOffset = 0.3f;
+            [SerializeField] public float spawnInterval = 6.0f;
             [SerializeField] public List<CountData> countDatas;
             [SerializeField] public List<BossData > bossDatas;
         } 

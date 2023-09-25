@@ -38,7 +38,7 @@ namespace Game
             totalHeartRevenue = 0;
             foreach (var enemyData in EnemySpawnData.countDatas)
             {
-                minTime += enemyData.count * (EnemySpawnData.spawnTimeOffset);
+                minTime += enemyData.count * (EnemySpawnData.spawnInterval);
                 foreach (var reward in enemyData.enemyType.Prefab<Enemy>().so.enemyRewards)
                 {
                     switch (reward.type)
