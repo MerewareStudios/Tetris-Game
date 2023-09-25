@@ -30,7 +30,7 @@ public class StatDisplay : MonoBehaviour
         return false;
     }
 
-    public void Show(int value, float timePercent, bool punch, bool setFront)
+    public void Show(int value, float timePercent, bool punch)
     {
         if (punch)
         {
@@ -44,11 +44,6 @@ public class StatDisplay : MonoBehaviour
             return;
         }
 
-        if (setFront && !this.gameObject.activeSelf)
-        {
-            this.transform.SetAsFirstSibling();
-        }
-        
         this.gameObject.SetActive(true);
         animationPivot.DOKill();
         animationPivot.localScale = Vector3.one;
@@ -103,9 +98,9 @@ public class StatDisplay : MonoBehaviour
     public enum Type
     {
         Health,
-        // Damage,
-        // Splitshot,
-        // Firerate,
         Shield,
+        Damage,
+        Firerate,
+        Splitshot,
     }
 }

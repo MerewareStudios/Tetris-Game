@@ -5,11 +5,11 @@ using UnityEngine;
 public class StatDisplayArranger : Singleton<StatDisplayArranger>
 {
     [SerializeField] private List<StatDisplay> _statDisplays;
-    [System.NonSerialized] public const float UpdateInterval = 0.05f;
+    // [System.NonSerialized] public const float UpdateInterval = 0.05f;
 
-    public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false, bool setFront = false)
+    public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false)
     {
-        _statDisplays[(int)statType].Show(value, timePercent, punch, setFront);
+        _statDisplays[(int)statType].Show(value, timePercent, punch);
     }
     public void UpdateFill(StatDisplay.Type statType, float percent)
     {

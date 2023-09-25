@@ -86,7 +86,7 @@ public class Shield : MonoBehaviour
         
         if (_Data.Available)
         {
-            StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.Amount, _Data.Percent, false, false);
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.Amount, _Data.Percent, false);
         }
     }
 

@@ -19,9 +19,9 @@ public class Gun : MonoBehaviour
             
             transform.Set(GunSo.holsterTransformData);
             
-            // SetStat(StatDisplay.Type.Damage, _data.damage);
-            // SetStat(StatDisplay.Type.Splitshot, _data.split);
-            // SetStat(StatDisplay.Type.Firerate, _data.FireRate);
+            SetStat(StatDisplay.Type.Damage, _data.damage);
+            SetStat(StatDisplay.Type.Splitshot, _data.split);
+            SetStat(StatDisplay.Type.Firerate, _data.FireRate);
         }
         get => _data;
     }
@@ -30,11 +30,11 @@ public class Gun : MonoBehaviour
     {
         if (value <= 1)
         {
-            StatDisplayArranger.THIS.Hide(statType);
+            StatDisplayArranger.THIS.HideImmediate(statType);
         }
         else
         {
-            StatDisplayArranger.THIS.Show(statType, value);
+            StatDisplayArranger.THIS.UpdateAmount(statType, value, 0.5f);
         }
     }
     
