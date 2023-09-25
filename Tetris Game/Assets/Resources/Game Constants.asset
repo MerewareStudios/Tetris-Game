@@ -42,8 +42,8 @@ MonoBehaviour:
       available: 0
       currentUsage: 4
     boardData:
-      defaultStack: 7
-      maxStack: 7
+      defaultStack: 6
+      maxStack: 6
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
