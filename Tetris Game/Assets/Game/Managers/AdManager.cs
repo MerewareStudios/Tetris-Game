@@ -97,7 +97,7 @@ namespace IWI
                     onReward?.Invoke();
                     UIManager.Pause(false);
                 });
-            }, 3);
+            }, 5);
                 
             UIManager.Pause(true);
             AdBreakScreen.THIS.Open();
