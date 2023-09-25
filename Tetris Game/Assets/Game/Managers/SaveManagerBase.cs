@@ -18,7 +18,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
     public void Save()
     {
         var outputString = JsonUtility.ToJson(saveData);
-        Debug.Log(outputString);
+        // Debug.Log(outputString);
         if (!outputString.Equals(""))
         {
             PlayerPrefs.SetString(nameof(SaveData), outputString);
@@ -33,7 +33,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         }
         else
         {
-            Debug.Log(inputString);
+            // Debug.Log(inputString);
             saveData = JsonUtility.FromJson<SaveData>(inputString);
         }
     }
