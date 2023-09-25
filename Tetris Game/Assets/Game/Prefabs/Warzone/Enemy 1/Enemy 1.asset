@@ -46,8 +46,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    rewardAmount: 6
-    rewardProbability: 1
+    amount: 6
+    probability: 1
   maxHealth: 6
   speed: 0.075
   radius: 0.5

@@ -16,6 +16,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string needMoreAmmoText;
     [TextArea] [SerializeField] public string enemiesComingText;
     [TextArea] [SerializeField] public string ticketMergeText;
+    [TextArea] [SerializeField] public string freePlacementText;
     [Header("Other")]
     [TextArea] [SerializeField] public string waveText;
     [Header("Block Menu")]
@@ -131,6 +132,20 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, 0.2f);
             
             Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
+        }
+    }
+    public static void TalkAboutFreePlacement()
+    {
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            UIManager.THIS.speechBubble.Hide();
+            yield return new WaitForSeconds(0.1f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.freePlacementText, 0.2f);
+            yield return new WaitForSeconds(2.5f);
+            UIManager.THIS.speechBubble.Hide();
+            ONBOARDING.PLACE_POWERUP.SetComplete();
         }
     }
     public static void TalkAboutPowerUp()

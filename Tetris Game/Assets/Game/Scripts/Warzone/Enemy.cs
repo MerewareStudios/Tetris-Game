@@ -17,7 +17,7 @@ namespace  Game
         [SerializeField] public Transform modelPivot;
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
-        [SerializeField] private EnemyData so;
+        [SerializeField] public EnemyData so;
         [Header("Stats")]
         [System.NonSerialized] private int _health;
         [System.NonSerialized] public System.Action OnRemoved = null;
@@ -152,18 +152,18 @@ namespace  Game
         {
             foreach (var reward in so.enemyRewards)
             {
-                Helper.IsPossible(reward.rewardProbability, () =>
+                Helper.IsPossible(reward.probability, () =>
                 {
                     switch (reward.type)
                     {
                         case UpgradeMenu.PurchaseType.Coin:
-                            UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                            UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                         case UpgradeMenu.PurchaseType.Heart:
-                            UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                            UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                         case UpgradeMenu.PurchaseType.Shield:
-                            UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.rewardAmount, 0, 15), reward.rewardAmount);
+                            UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
                 });

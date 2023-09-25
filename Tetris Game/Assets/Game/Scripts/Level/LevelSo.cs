@@ -1,4 +1,7 @@
+using System;
 using Game;
+using Game.UI;
+using IWI;
 using UnityEngine;
 
 namespace Game
@@ -11,6 +14,55 @@ namespace Game
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
+        #if UNITY_EDITOR
+        [Header("Data")]
+        [ReadOnly] [SerializeField] private int totalCoinRevenue;
+        [SerializeField] private int totalPiggyRevenue;
+        [SerializeField] private int totalTicketRevenue;
+        [SerializeField] private int totalHeartRevenue;
+        private void OnValidate()
+        {
+            totalCoinRevenue = 0;
+            totalPiggyRevenue = 0;
+            totalTicketRevenue = 0;
+            totalHeartRevenue = 0;
+            foreach (var enemyData in EnemySpawnData.countDatas)
+            {
+                foreach (var reward in enemyData.enemyType.Prefab<Enemy>().so.enemyRewards)
+                {
+                    switch (reward.type)
+                    {
+                        case UpgradeMenu.PurchaseType.Coin:
+                            totalCoinRevenue += reward.amount * enemyData.count;
+                            break;
+                        case UpgradeMenu.PurchaseType.PiggyCoin:
+                            totalPiggyRevenue += reward.amount * enemyData.count;
+                            break;
+                        case UpgradeMenu.PurchaseType.SkipTicket:
+                            totalTicketRevenue += reward.amount * enemyData.count;
+                            break;
+                        case UpgradeMenu.PurchaseType.Heart:
+                            totalHeartRevenue += reward.amount * enemyData.count;
+                            break;
+                    }
+                }
+            }
+
+
+            switch (victoryReward.type)
+            {
+                case Const.CurrencyType.Coin:
+                    totalCoinRevenue += victoryReward.amount;
+                    break;
+                case Const.CurrencyType.PiggyCoin:
+                    totalPiggyRevenue += victoryReward.amount;
+                    break;
+                case Const.CurrencyType.Ticket:
+                    totalTicketRevenue += victoryReward.amount;
+                    break;
+            }
+        }
+#endif
     }
 }
 

@@ -23,7 +23,7 @@ public class EnemyData : ScriptableObject
     public class EnemyReward
     {
         public UpgradeMenu.PurchaseType type;
-        public int rewardAmount;
-        [Range(0.0f, 1.0f)] public float rewardProbability;
+        public int amount;
+        [Range(0.0f, 1.0f)] public float probability;
     }
 }

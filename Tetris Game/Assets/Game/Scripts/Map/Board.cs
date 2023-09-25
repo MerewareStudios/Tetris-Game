@@ -125,12 +125,16 @@ namespace Game
             }
             if (Spawner.THIS._currentBlock.Pawns[0].Free2Place)
             {
+                Debug.Log("running");
+                if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
+                {
+                    Onboarding.TalkAboutFreePlacement();
+                }
                 HighlightEmptyPlaces();
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
                     HighlightEmptyPlaces();
-                    _delayedHighlightTween = null;
-                });
+                }).SetLoops(-1);
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
@@ -140,8 +144,7 @@ namespace Game
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
                     Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
-                    _delayedHighlightTween = null;
-                });
+                }).SetLoops(-1);;
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
@@ -171,8 +174,7 @@ namespace Game
                 _delayedHighlightTween = DOVirtual.DelayedCall(4.0f, () =>
                 {
                     Highlight(randomPlaces);
-                    _delayedHighlightTween = null;
-                });
+                }).SetLoops(-1);;
                 // Found a fit, suggest/highlight it, skip
                 return;
             }
