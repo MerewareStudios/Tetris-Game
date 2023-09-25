@@ -130,7 +130,7 @@ public class Powerup : Lazyingleton<Powerup>
         else
         {
             PunchFrame(0.1f);
-            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete() && !Wallet.HasFunds(Const.Currency.OneAd))
             {
                 Wallet.Transaction(Const.Currency.OneAd);
             }

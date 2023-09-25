@@ -23,6 +23,10 @@ namespace  Game
         //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
         [SerializeField] private List<Enemy> Enemies = new();
+        [System.NonSerialized] private float _spawnRange = 0.5f;
+        [System.NonSerialized] private const float SpawnRange = 1.6f;
+        [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
+        [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
 
         public bool Spawning => _spawnRoutine != null;
         public bool HasEnemy => Enemies.Count > 0;
@@ -119,6 +123,8 @@ namespace  Game
                 }
                 
                 enemyPool.Shuffle();
+
+                _spawnRange = 0.0f;
                 
                 Player.StartSearching();
 
@@ -155,7 +161,7 @@ namespace  Game
         private Enemy SpawnEnemy(Pool pool)
         {
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
-            enemy.OnSpawn(RandomSpawnPosition);
+            enemy.OnSpawn(NextSpawnPosition());
             return enemy;
         }
         public void RemoveEnemy(Enemy enemy)
@@ -170,9 +176,13 @@ namespace  Game
                 .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - Zone.endLine))
                 .FirstOrDefault();
         }
-        private Vector3 RandomSpawnPosition => new Vector3(Random.Range(-1.5f, 1.5f), 0.0f, Zone.startLine);
-            
-    #endregion
+        private Vector3 NextSpawnPosition()
+        {
+            _spawnRange = Mathf.Repeat(_spawnRange + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
+            return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRange), 0.0f, Zone.startLine);
+        }
+
+        #endregion
 
         public void Emit(int amount, Vector3 position, Color color, float radius)
         {
@@ -189,7 +199,6 @@ namespace  Game
         public void Deconstruct()
         {
             StopSpawning();
-            // Player.Deconstruct();
             foreach (var enemy in Enemies)
             {
                 enemy.Deconstruct();
@@ -201,34 +210,12 @@ namespace  Game
         {
             StopSpawning();
             Player.OnVictory();
-            // foreach (var enemy in Enemies)
-            // {
-                // enemy.Deconstruct();
-            // }
-            // Enemies.Clear();
         }
         
         public void OnFail()
         {
             StopSpawning();
             Player.OnFail();
-            
-            // int enemyCount = Enemies.Count;
-        
-            // if (enemyCount <= 0)
-            // {
-            //     return;
-            // }
-            
-            // float delayIncrease = 1.0f / enemyCount;
-            // float delay = 0.0f;
-            // foreach (var enemy in Enemies)
-            // {
-            //     enemy.enabled = false;
-            //     DOVirtual.DelayedCall(delay, enemy.KamikazeDeconstruct);
-            //     delay += delayIncrease;
-            // }
-            // Enemies.Clear();
         }
         
     #endregion

@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 1.5
+    spawnInterval: 10
     countDatas:
     - enemyType: 19
-      count: 12
-    - enemyType: 36
       count: 4
+    - enemyType: 36
+      count: 1
     bossDatas: []
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 20
+    amount: 19
   failReward:
     type: 0
     amount: 5

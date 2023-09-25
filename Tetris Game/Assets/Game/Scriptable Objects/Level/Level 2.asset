@@ -24,8 +24,8 @@ MonoBehaviour:
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 55
+    amount: 17
   failReward:
     type: 0
-    amount: 1
+    amount: 5
   suggestedBlocks: []
