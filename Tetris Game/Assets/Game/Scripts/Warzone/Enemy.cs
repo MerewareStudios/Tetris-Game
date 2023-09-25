@@ -191,7 +191,7 @@ namespace  Game
         public class SpawnData
         {
             [SerializeField] public int spawnDelay = 3;
-            [SerializeField] public float spawnInterval = 0.2f;
+            [SerializeField] public float spawnTimeOffset = 0.3f;
             [SerializeField] public List<CountData> countDatas;
             [SerializeField] public List<BossData > bossDatas;
         } 

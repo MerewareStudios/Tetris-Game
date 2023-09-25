@@ -14,14 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 6
+    spawnTimeOffset: 0.2
     countDatas:
-    - enemyType: 19
-      count: 2
-    - enemyType: 36
-      count: 4
     - enemyType: 37
-      count: 2
+      count: 6
     bossDatas: []
   canGiveBonus: 0
   victoryReward:
@@ -31,8 +27,8 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
-  minTime: 51
-  totalCoinRevenue: 117
+  minTime: 4.2
+  totalCoinRevenue: 125
   totalPiggyRevenue: 0
   totalTicketRevenue: 0
-  totalHeartRevenue: 4
+  totalHeartRevenue: 0

@@ -133,16 +133,21 @@ namespace  Game
 
                 while (Spawning)
                 {
-                    _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
-                    if (!Player.CurrentEnemy)
+                    bool spawnCondition = _enemies.Count < Player._GunData.split;
+                    if (spawnCondition)
                     {
-                        AssignClosestEnemy();
+                        yield return new WaitForSeconds(EnemySpawnData.spawnTimeOffset);
+                        _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
+                        if (!Player.CurrentEnemy)
+                        {
+                            AssignClosestEnemy();
+                        }
+                        if (enemyIndex >= enemyPool.Count)
+                        {
+                            break;
+                        }
                     }
-                    if (enemyIndex >= enemyPool.Count)
-                    {
-                        break;
-                    }
-                    yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
+                    yield return null;
                 }
 
                 _spawnRoutine = null;
