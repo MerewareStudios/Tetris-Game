@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Powerup : Lazyingleton<Powerup>
 {
     [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject connection;
     [SerializeField] private List<Pawn.Usage> powerUps;
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Image icon;
@@ -25,7 +26,11 @@ public class Powerup : Lazyingleton<Powerup>
 
     public bool Enabled
     {
-        set => canvas.enabled = value;
+        set
+        {
+            canvas.enabled = value;
+            connection.SetActive(value);
+        }
         get => canvas.enabled;
     }
 
@@ -49,8 +54,8 @@ public class Powerup : Lazyingleton<Powerup>
         lockIcon.localScale = open ? Vector3.zero : Vector3.one;
         leftDoor.anchoredPosition = Vector2.right * (open ?  -75.0f : 0.0f);
         rightDoor.anchoredPosition = Vector2.right * (open ? 75.0f : 0.0f);
-        currencyDisplay.anchoredPosition = Vector2.up * (open ? -130.0f : 0.0f);
-        useDisplay.anchoredPosition = Vector2.up * (open ? 0.0f : -130.0f);
+        currencyDisplay.anchoredPosition = Vector2.up * (open ? 130.0f : 0.0f);
+        useDisplay.anchoredPosition = Vector2.up * (open ? 0.0f : 130.0f);
     }
 
     public void OpenAnimated(bool open)
@@ -67,11 +72,11 @@ public class Powerup : Lazyingleton<Powerup>
         rightDoor.DOAnchorPosX(open ? 75.0f : 0.0f, open ? 0.125f : 0.3f).SetDelay(open ? 0.1f : 0.0f).SetEase(open ? Ease.InCubic : Ease.OutBounce);
 
         currencyDisplay.DOKill();
-        currencyDisplay.DOAnchorPosY(open ? -130.0f : 0.0f, 0.25f).SetDelay(open ? 0.0f : 0.2f)
+        currencyDisplay.DOAnchorPosY(open ? 130.0f : 0.0f, 0.25f).SetDelay(open ? 0.0f : 0.2f)
             .SetEase(open ? Ease.InBack : Ease.OutBack, 2.0f);
 
         useDisplay.DOKill();
-        useDisplay.DOAnchorPosY(open ? 0.0f : -130.0f, 0.25f).SetDelay(open ? 0.2f : 0.0f)
+        useDisplay.DOAnchorPosY(open ? 0.0f : 130.0f, 0.25f).SetDelay(open ? 0.2f : 0.0f)
             .SetEase(open ? Ease.OutBack : Ease.InBack).onComplete = () =>
         {
             _canUse = open;

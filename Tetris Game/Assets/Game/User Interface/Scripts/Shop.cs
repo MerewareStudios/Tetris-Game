@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private Canvas _canvas;
-    [SerializeField] private RectTransform pivot;
+    [SerializeField] private GameObject connection;
+    // [SerializeField] private RectTransform pivot;
     [SerializeField] private RectTransform bigIconTransform;
     [SerializeField] private RectTransform leftPivot;
     [SerializeField] private RectTransform smallIconTransform;
@@ -36,7 +37,7 @@ public class Shop : MonoBehaviour
         }
 
         _Data.current++;
-        Debug.LogWarning("SHOP POINT : " + _Data.current + "/" + _Data.max);
+        // Debug.LogWarning("SHOP POINT : " + _Data.current + "/" + _Data.max);
         if (_Data.IsEnough)
         {
             AnimatedShow();
@@ -52,11 +53,15 @@ public class Shop : MonoBehaviour
         this.Open = false;
         
         _Data.current = 0;
+        connection.SetActive(false);
         button.targetGraphic.raycastTarget = false;
         buttonTransform.DOKill();
-        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true);
+        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        {
+            MenuNavigator.THIS.Open();
+
+        };
         
-        MenuNavigator.THIS.Open();
     }
     
     public void AnimatedShow()
@@ -72,7 +77,7 @@ public class Shop : MonoBehaviour
             _canvas.enabled = true;
 
             bigIconTransform.gameObject.SetActive(true);
-            pivot.gameObject.SetActive(false);
+            buttonTransform.gameObject.SetActive(false);
             
             trailRenderer.transform.SetParent(bigIconTransform);
             trailRenderer.transform.localPosition = Vector3.zero;
@@ -100,15 +105,17 @@ public class Shop : MonoBehaviour
                 trailRenderer.transform.SetParent(_canvas.transform);
 
                 trailRenderer.emitting = false;
+                
+                connection.SetActive(true);
 
                 bigIconTransform.gameObject.SetActive(false);
-                pivot.gameObject.SetActive(true);
-                pivot.localScale = Vector3.one;
-                pivot.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
+                buttonTransform.gameObject.SetActive(true);
+                // pivot.localScale = Vector3.one;
+                // pivot.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
                 buttonTransform.DOKill();
                 buttonTransform.localScale = Vector3.one;
-
+                buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
 
                 animator.enabled = true;
 
