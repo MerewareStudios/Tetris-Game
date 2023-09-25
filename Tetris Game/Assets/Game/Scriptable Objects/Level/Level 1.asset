@@ -43,6 +43,7 @@ MonoBehaviour:
     requiredPlaces: 
     blockRot: 0
     canRotate: 1
-  totalCoinRevenue: 18
+  totalCoinRevenue: 33
   totalPiggyRevenue: 0
   totalTicketRevenue: 0
+  totalHeartRevenue: 0

@@ -16,18 +16,29 @@ namespace Game
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
         #if UNITY_EDITOR
         [Header("Data")]
+        [ReadOnly] [SerializeField] private float minTime;
         [ReadOnly] [SerializeField] private int totalCoinRevenue;
-        [SerializeField] private int totalPiggyRevenue;
-        [SerializeField] private int totalTicketRevenue;
-        [SerializeField] private int totalHeartRevenue;
-        private void OnValidate()
+        [ReadOnly] [SerializeField] private int totalPiggyRevenue;
+        [ReadOnly] [SerializeField] private int totalTicketRevenue;
+        [ReadOnly] [SerializeField] private int totalHeartRevenue;
+        private void OnEnable()
         {
+            UpdateData();
+        }
+        void OnValidate()
+        {
+            UpdateData();
+        }
+        private void UpdateData()
+        {
+            minTime = EnemySpawnData.spawnDelay;
             totalCoinRevenue = 0;
             totalPiggyRevenue = 0;
             totalTicketRevenue = 0;
             totalHeartRevenue = 0;
             foreach (var enemyData in EnemySpawnData.countDatas)
             {
+                minTime += enemyData.count * (EnemySpawnData.spawnInterval + 4);
                 foreach (var reward in enemyData.enemyType.Prefab<Enemy>().so.enemyRewards)
                 {
                     switch (reward.type)
@@ -47,8 +58,6 @@ namespace Game
                     }
                 }
             }
-
-
             switch (victoryReward.type)
             {
                 case Const.CurrencyType.Coin:
