@@ -22,17 +22,17 @@ namespace  Game
         [System.NonSerialized] public Transform psTransform;
         //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
-        [SerializeField] private List<Enemy> Enemies = new();
+        [System.NonSerialized] private List<Enemy> _enemies = new();
         [System.NonSerialized] private float _spawnRange = 0.5f;
         [System.NonSerialized] private const float SpawnRange = 1.6f;
         [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
         [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
 
-        public bool Spawning => _spawnRoutine != null;
-        public bool HasEnemy => Enemies.Count > 0;
-        public bool IsWarzoneCleared => !Spawning && !HasEnemy;
-        public int EnemyCount => Enemies.Count;
-        public Enemy GetEnemy(int index) => Enemies[index];
+        public bool Spawning { get; set; }
+        public bool HasEnemy => _enemies.Count > 0;
+        public bool IsCleared => !Spawning && !HasEnemy;
+        public int EnemyCount => _enemies.Count;
+        public Enemy GetEnemy(int index) => _enemies[index];
         
     #region Warzone
         void Awake()
@@ -61,9 +61,9 @@ namespace  Game
     void Update()
     {
 
-        for (int i = Enemies.Count - 1; i >= 0; i--)
+        for (int i = _enemies.Count - 1; i >= 0; i--)
         {
-            Enemies[i].Walk();
+            _enemies[i].Walk();
         }
     }
 
@@ -103,6 +103,7 @@ namespace  Game
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             IEnumerator SpawnRoutine()
             {
+                Spawning = true;
                 if (countdown)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
@@ -130,17 +131,22 @@ namespace  Game
 
                 this.enabled = true;
 
-                while (enemyIndex < enemyPool.Count)
+                while (Spawning)
                 {
-                    Enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
+                    _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
                     if (!Player.CurrentEnemy)
                     {
                         AssignClosestEnemy();
+                    }
+                    if (enemyIndex >= enemyPool.Count)
+                    {
+                        break;
                     }
                     yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
                 }
 
                 _spawnRoutine = null;
+                Spawning = false;
             }
         }
 
@@ -157,6 +163,7 @@ namespace  Game
                 _spawnRoutine = null;
             }
             this.enabled = false;
+            Spawning = false;
         }
         private Enemy SpawnEnemy(Pool pool)
         {
@@ -166,13 +173,14 @@ namespace  Game
         }
         public void RemoveEnemy(Enemy enemy)
         {
-            Enemies.Remove(enemy);
+            _enemies.Remove(enemy);
+            enemy.OnRemoved?.Invoke();
             AssignClosestEnemy();
         }
 
         public void AssignClosestEnemy()
         {
-            Player.CurrentEnemy = Enemies
+            Player.CurrentEnemy = _enemies
                 .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - Zone.endLine))
                 .FirstOrDefault();
         }
@@ -199,11 +207,11 @@ namespace  Game
         public void Deconstruct()
         {
             StopSpawning();
-            foreach (var enemy in Enemies)
+            foreach (var enemy in _enemies)
             {
                 enemy.Deconstruct();
             }
-            Enemies.Clear();
+            _enemies.Clear();
         }
 
         public void OnVictory()

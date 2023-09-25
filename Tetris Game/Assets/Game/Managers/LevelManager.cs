@@ -56,7 +56,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             OnFail();
         }
-        if (Warzone.THIS.IsWarzoneCleared)
+        if (Warzone.THIS.IsCleared)
         {
             OnVictory();
         }

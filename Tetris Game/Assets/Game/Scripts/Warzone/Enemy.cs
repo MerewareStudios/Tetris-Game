@@ -126,7 +126,6 @@ namespace  Game
                 GiveRewards();
             }
             Warzone.THIS.RemoveEnemy(this);
-            OnRemoved?.Invoke();
             thisTransform.DOKill();
             Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();
