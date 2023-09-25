@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 5
+  m_Name: Level 6
   m_EditorClassIdentifier: 
   EnemySpawnData:
     spawnDelay: 3
@@ -19,18 +19,20 @@ MonoBehaviour:
     - enemyType: 19
       count: 2
     - enemyType: 36
-      count: 5
+      count: 4
+    - enemyType: 37
+      count: 1
     bossDatas: []
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 25
+    amount: 30
   failReward:
     type: 0
     amount: 5
   suggestedBlocks: []
   minTime: 38
-  totalCoinRevenue: 87
+  totalCoinRevenue: 97
   totalPiggyRevenue: 0
   totalTicketRevenue: 0
-  totalHeartRevenue: 5
+  totalHeartRevenue: 4

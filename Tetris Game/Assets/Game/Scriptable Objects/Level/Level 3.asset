@@ -29,3 +29,8 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
+  minTime: 53
+  totalCoinRevenue: 53
+  totalPiggyRevenue: 0
+  totalTicketRevenue: 0
+  totalHeartRevenue: 1

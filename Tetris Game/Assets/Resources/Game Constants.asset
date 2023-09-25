@@ -16,18 +16,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
-  - {fileID: 11400000, guid: 1bcbd2651be768b47b3b5cd6e9d92aa6, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
-  - {fileID: 11400000, guid: 7a2f4154e05be84439c3fba1ad36a014, type: 2}
+  - {fileID: 11400000, guid: cc2355365b2a36a468897a57acafc510, type: 2}
+  - {fileID: 11400000, guid: 697abf42c7c6e414aa0f7914f30195ba, type: 2}
+  - {fileID: 11400000, guid: 7d49978dce3697f4bbe6a1bb4c64c32d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   PowerUps: 0300000004000000
   DefaultPlayerData:
     time: 0
@@ -116,13 +116,13 @@ MonoBehaviour:
     damagePrice: []
     fireRatePrice:
     - type: 0
-      amount: 10
+      amount: 15
     - type: 0
       amount: 20
     splitShotPrice: []
   - currency:
       type: 0
-      amount: 50
+      amount: 75
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
     defaultValues: 010000000200000001000000
@@ -349,7 +349,7 @@ MonoBehaviour:
   - blockType: 10
     currency:
       type: 0
-      amount: 10
+      amount: 25
     lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000001000000
   - blockType: 7
     currency:
@@ -410,7 +410,7 @@ MonoBehaviour:
   - purchaseType: 0
     currency:
       type: 1
-      amount: 50
+      amount: 5
     sprite: {fileID: 21300000, guid: 7b1fd934843bbc24e82b1f48879499b6, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: +1 Stack
