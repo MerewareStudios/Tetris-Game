@@ -14,7 +14,7 @@ namespace  Game
         [SerializeField] private RectTransform healthRT;
         [Header("Model")]
         [SerializeField] public Transform thisTransform;
-        [SerializeField] public Transform modelPivot;
+        // [SerializeField] public Transform modelPivot;
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
         [SerializeField] public EnemyData so;
@@ -96,6 +96,7 @@ namespace  Game
 
         private void ColorPunch()
         {
+            Debug.LogWarning("Color punch");
             _colorPunchTween?.Kill();
             float timeStep = 0.0f;
             _colorPunchTween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, 0.35f).SetEase(Ease.Linear);

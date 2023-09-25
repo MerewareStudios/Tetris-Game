@@ -125,7 +125,6 @@ namespace Game
             }
             if (Spawner.THIS._currentBlock.Pawns[0].Free2Place)
             {
-                Debug.Log("running");
                 if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
                 {
                     Onboarding.TalkAboutFreePlacement();

@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc2355365b2a36a468897a57acafc510, type: 2}
   - {fileID: 11400000, guid: 697abf42c7c6e414aa0f7914f30195ba, type: 2}
   - {fileID: 11400000, guid: 7d49978dce3697f4bbe6a1bb4c64c32d, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 93177f79eff97fc4d976d2d8e3715414, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -128,39 +128,41 @@ MonoBehaviour:
     defaultValues: 010000000200000001000000
     damagePrice:
     - type: 0
-      amount: 15
+      amount: 40
     fireRatePrice:
     - type: 0
       amount: 25
     - type: 0
-      amount: 30
+      amount: 35
     - type: 0
-      amount: 30
+      amount: 45
     splitShotPrice:
     - type: 1
       amount: 5
   - currency:
       type: 0
-      amount: 100
+      amount: 150
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
     defaultValues: 010000000100000002000000
-    damagePrice: []
+    damagePrice:
+    - type: 1
+      amount: 7
     fireRatePrice:
     - type: 0
-      amount: 15
-    - type: 0
-      amount: 20
-    - type: 0
       amount: 25
+    - type: 0
+      amount: 35
+    - type: 0
+      amount: 45
     splitShotPrice:
     - type: 0
-      amount: 25
-    - type: 0
       amount: 50
+    - type: 0
+      amount: 75
   - currency:
       type: 0
-      amount: 200
+      amount: 350
     gunType: 27
     sprite: {fileID: 21300000, guid: 766cfd5cf91c19c4791d88b97e6c532d, type: 3}
     defaultValues: 010000000500000002000000
