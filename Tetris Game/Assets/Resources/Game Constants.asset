@@ -126,9 +126,7 @@ MonoBehaviour:
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
     defaultValues: 010000000200000001000000
-    damagePrice:
-    - type: 0
-      amount: 40
+    damagePrice: []
     fireRatePrice:
     - type: 0
       amount: 25
@@ -137,8 +135,8 @@ MonoBehaviour:
     - type: 0
       amount: 45
     splitShotPrice:
-    - type: 1
-      amount: 5
+    - type: 0
+      amount: 25
   - currency:
       type: 0
       amount: 150

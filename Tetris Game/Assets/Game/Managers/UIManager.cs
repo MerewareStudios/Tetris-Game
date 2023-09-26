@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
@@ -13,6 +14,16 @@ using Visual.Effects;
 public class UIManager : Singleton<UIManager>
 {
    [SerializeField] public TextMeshProUGUI levelText;
+   [SerializeField] private Image levelProgress;
+   public float LevelProgress
+   {
+      set
+      {
+         levelProgress.DOKill();
+         levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad);
+      }
+   }
+
    [Header("Canvases")]
    [SerializeField] private BlockMenu blockMenu;
    [SerializeField] private WeaponMenu weaponMenu;

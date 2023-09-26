@@ -104,6 +104,9 @@ namespace  Game
             IEnumerator SpawnRoutine()
             {
                 Spawning = true;
+                
+                UIManager.THIS.LevelProgress = 1.0f;
+
                 if (countdown)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
@@ -131,9 +134,11 @@ namespace  Game
 
                 this.enabled = true;
 
+
                 while (enemyIndex < enemyPool.Count)
                 {
                     _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
+                    UIManager.THIS.LevelProgress = 1.0f - ((float)enemyIndex / enemyPool.Count);
                     if (!Player.CurrentEnemy)
                     {
                         AssignClosestEnemy();
@@ -144,8 +149,6 @@ namespace  Game
                     {
                         yield return new WaitForSeconds(1.0f);
                     }
-                    // TODO : either wait for max time while enemy spawned or spawn next if we are waiting for long time for the next enemy
-                    // yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
                 }
 
                 Spawning = false;

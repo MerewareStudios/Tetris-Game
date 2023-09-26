@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 {
@@ -33,15 +29,8 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
         {
             base.TransactionData.value = value;
             currencyDisplay.Display(currencyType, value);
-            // pivot.gameObject.SetActive(true);
         }
     }
-    //
-    // public static Currency operator -(Currency currency, int amount)
-    // {
-    //     currency.amount -= amount;
-    //     return currency;
-    // }
     
     public Const.Currency Currency => new Const.Currency(currencyType, base.TransactionData.value);
 

@@ -8,8 +8,6 @@ using Random = UnityEngine.Random;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private Canvas _canvas;
-    [SerializeField] private GameObject connection;
-    // [SerializeField] private RectTransform pivot;
     [SerializeField] private RectTransform bigIconTransform;
     [SerializeField] private RectTransform leftPivot;
     [SerializeField] private RectTransform smallIconTransform;
@@ -53,7 +51,6 @@ public class Shop : MonoBehaviour
         this.Open = false;
         
         _Data.current = 0;
-        connection.SetActive(false);
         button.targetGraphic.raycastTarget = false;
         buttonTransform.DOKill();
         buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
@@ -106,8 +103,6 @@ public class Shop : MonoBehaviour
 
                 trailRenderer.emitting = false;
                 
-                connection.SetActive(true);
-
                 bigIconTransform.gameObject.SetActive(false);
                 buttonTransform.gameObject.SetActive(true);
                 // pivot.localScale = Vector3.one;

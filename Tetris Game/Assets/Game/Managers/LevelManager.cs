@@ -49,6 +49,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             OnFail();
         }
+        Debug.LogError(Warzone.THIS.HasEnemy + " " + Warzone.THIS.Spawning);
         if (Warzone.THIS.IsCleared)
         {
             OnVictory();

@@ -311,6 +311,7 @@ namespace Game.UI
                 if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
+                    ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
                     Onboarding.HideFinger();
                 }
                 

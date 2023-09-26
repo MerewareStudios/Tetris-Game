@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class Powerup : Lazyingleton<Powerup>
 {
     [SerializeField] private Canvas canvas;
-    [SerializeField] private GameObject connection;
     [SerializeField] private List<Pawn.Usage> powerUps;
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Image icon;
@@ -29,7 +28,6 @@ public class Powerup : Lazyingleton<Powerup>
         set
         {
             canvas.enabled = value;
-            connection.SetActive(value);
         }
         get => canvas.enabled;
     }
