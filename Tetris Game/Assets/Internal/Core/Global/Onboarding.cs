@@ -32,6 +32,9 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string earnTicketText;
     [TextArea] [SerializeField] public string skipButtonText;
     [TextArea] [SerializeField] public string cancelButtonText;
+    [Header("Stat Color")]
+    [SerializeField] public Color specialStatColor;
+    [SerializeField] public Color normalStatColor;
     
     public Coroutine Coroutine = null;
 

@@ -14,7 +14,7 @@ namespace Game
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] places;
         [System.NonSerialized] private int _tick = 0;
-        [System.NonSerialized] public System.Action OnMerge;
+        [System.NonSerialized] public System.Action<int> OnMerge;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
 
         [System.NonSerialized] private Data _data;
@@ -333,7 +333,7 @@ namespace Game
 
         public void MergeLines(List<int> lines)
         {
-            void MergeLine(int lineIndex, int multiplier)
+            void MergeLine(int lineIndex)
             {
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
@@ -360,11 +360,11 @@ namespace Game
                 CreatePawnAtHorizontal(mergeIndex, lineIndex);
             }
             
-            OnMerge?.Invoke();
+            OnMerge?.Invoke(lines.Count);
 
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i], lines.Count);
+                MergeLine(lines[i]);
             }
         }
 

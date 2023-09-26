@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public Transform muzzle; 
     [SerializeField] public Game.GunSo GunSo; 
     [System.NonSerialized] private Data _data;
+    [System.NonSerialized] private Tween _boostTween = null;
 
     
     public Data _Data
@@ -18,15 +19,44 @@ public class Gun : MonoBehaviour
             _data = value;
             
             transform.Set(GunSo.holsterTransformData);
+
+            _data.Mult = 1;
             
-            SetStat(StatDisplay.Type.Damage, _data.damage);
-            SetStat(StatDisplay.Type.Splitshot, _data.split);
-            SetStat(StatDisplay.Type.Firerate, _data.FireRate);
+            UpdateAllStats();
         }
         get => _data;
     }
 
-    private void SetStat(StatDisplay.Type statType, int value)
+    public void Boost(int mult)
+    {
+        this._Data.Mult = mult;
+        
+        UpdateAllStats(true);
+        
+        _boostTween?.Kill();
+        float percent = 0.0f;
+        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 6.0f).SetEase(Ease.Linear);
+        _boostTween.onUpdate = () =>
+        {
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Damage, percent);
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Splitshot, percent);
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Firerate, percent);
+        };
+        _boostTween.onComplete = () =>
+        {
+            _Data.Mult = 1;
+            UpdateAllStats();
+        };
+    }
+
+    private void UpdateAllStats(bool markSpecial = false)
+    {
+        SetStat(StatDisplay.Type.Damage, _data.DamageAmount, markSpecial);
+        SetStat(StatDisplay.Type.Splitshot, _data.SplitAmount, markSpecial);
+        SetStat(StatDisplay.Type.Firerate, _data.RateAmount, markSpecial);
+    }
+
+    private void SetStat(StatDisplay.Type statType, int value, bool markSpecial = false)
     {
         if (value <= 1)
         {
@@ -34,7 +64,7 @@ public class Gun : MonoBehaviour
         }
         else
         {
-            StatDisplayArranger.THIS.UpdateAmount(statType, value, 0.5f);
+            StatDisplayArranger.THIS.UpdateAmount(statType, value, 0.5f, markSpecial);
         }
     }
     
@@ -75,11 +105,16 @@ public class Gun : MonoBehaviour
         {
             if (enemyTransform)
             {
-                enemy.TakeDamage(_Data.damage);
+                enemy.TakeDamage(_Data.DamageAmount);
             }
             bullet.Despawn();
             trail.gameObject.Despawn();
         };
+    }
+
+    public void ResetSelf()
+    {
+        _boostTween?.Kill(true);
     }
     
     [Serializable]
@@ -98,10 +133,14 @@ public class Gun : MonoBehaviour
         [SerializeField] public Pool gunType;
         [SerializeField] public float prevShoot = 0.0f;
         [SerializeField] private int rate = 1;
-        [SerializeField] public int split = 1;
-        [SerializeField] public int damage = 1;
+        [SerializeField] private int split = 1;
+        [SerializeField] private int damage = 1;
+        [System.NonSerialized] public int Mult = 1;
 
         public float FireInterval { get; set; }
+        public int RateAmount => rate * Mult;
+        public int SplitAmount => rate * Mult;
+        public int DamageAmount => rate * Mult;
 
         public int FireRate
         {

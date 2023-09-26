@@ -23,6 +23,29 @@ public class UIManager : Singleton<UIManager>
          levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad);
       }
    }
+   [SerializeField] private TextMeshProUGUI comboText;
+   [System.NonSerialized] private Sequence _comboSequence = null;
+
+   public void ShowCombo(int value)
+   {
+      comboText.text = "x" + value;
+      
+      RectTransform comboTextRect = comboText.rectTransform;
+      
+      comboText.color = Color.white;
+      comboTextRect.transform.DOKill();
+      comboTextRect.localScale = Vector3.zero;
+      
+      Tween scaleUp = comboTextRect.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
+      Tween scaleDown = comboTextRect.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCirc).SetDelay(0.2f);
+      Tween colorTween = comboText.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.2f).SetEase(Ease.InCirc);
+
+      _comboSequence?.Kill();
+      _comboSequence = DOTween.Sequence();
+      _comboSequence.Append(scaleUp);
+      _comboSequence.Append(scaleDown);
+      _comboSequence.Join(colorTween);
+   }
 
    [Header("Canvases")]
    [SerializeField] private BlockMenu blockMenu;

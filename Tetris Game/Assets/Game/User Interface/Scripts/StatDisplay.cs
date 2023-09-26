@@ -18,7 +18,7 @@ public class StatDisplay : MonoBehaviour
         image.sprite = sprite;
     }
 
-    private bool SetAmount(int value)
+    private bool SetAmount(int value, bool markSpecial = false)
     {
         if (_currentValue == value)
         {
@@ -26,7 +26,8 @@ public class StatDisplay : MonoBehaviour
         }
 
         _currentValue = value;
-        text.text = value.ToString();
+        text.color = markSpecial ? Onboarding.THIS.specialStatColor : Onboarding.THIS.normalStatColor;
+        text.text = value + (markSpecial ? "*" : "");
         return false;
     }
 
@@ -54,9 +55,9 @@ public class StatDisplay : MonoBehaviour
     {
         timerFill.fillAmount = timePercent;
     }
-    public void UpdateAmount(int amount, float punch)
+    public void UpdateAmount(int amount, float punch, bool markSpecial = false)
     {
-        if (SetAmount(amount))
+        if (SetAmount(amount, markSpecial))
         {
             return;
         }

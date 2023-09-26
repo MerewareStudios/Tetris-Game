@@ -60,7 +60,6 @@ namespace  Game
 
     void Update()
     {
-
         for (int i = _enemies.Count - 1; i >= 0; i--)
         {
             _enemies[i].Walk();
@@ -89,9 +88,9 @@ namespace  Game
             enemy.Kill();
         }
         
-        public void Reset()
+        public void ResetSelf()
         {
-            Player.Reset();
+            Player.ResetSelf();
         }
         public void Begin(bool countdown = true)
         {
@@ -218,6 +217,8 @@ namespace  Game
                 enemy.Deconstruct();
             }
             _enemies.Clear();
+            
+            ResetSelf();
         }
 
         public void OnVictory()

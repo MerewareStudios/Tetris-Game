@@ -27,14 +27,14 @@ public class Shop : MonoBehaviour
         get => this.data;
     }
 
-    public void Increase()
+    public void Increase(int count)
     {
         if (this.Open || _Data.IsEnough)
         {
             return;
         }
 
-        _Data.current++;
+        _Data.current += count;
         // Debug.LogWarning("SHOP POINT : " + _Data.current + "/" + _Data.max);
         if (_Data.IsEnough)
         {
@@ -105,8 +105,6 @@ public class Shop : MonoBehaviour
                 
                 bigIconTransform.gameObject.SetActive(false);
                 buttonTransform.gameObject.SetActive(true);
-                // pivot.localScale = Vector3.one;
-                // pivot.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
                 buttonTransform.DOKill();
                 buttonTransform.localScale = Vector3.one;

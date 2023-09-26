@@ -11,13 +11,13 @@ public class StatDisplayArranger : Singleton<StatDisplayArranger>
     {
         _statDisplays[(int)statType].Show(value, timePercent, punch);
     }
-    public void UpdateFill(StatDisplay.Type statType, float percent)
+    public void UpdatePercent(StatDisplay.Type statType, float percent)
     {
         _statDisplays[(int)statType].UpdatePercent(percent);
     }
-    public void UpdateAmount(StatDisplay.Type statType, int amount, float punch)
+    public void UpdateAmount(StatDisplay.Type statType, int amount, float punch, bool markSpecial = false)
     {
-        _statDisplays[(int)statType].UpdateAmount(amount, punch);
+        _statDisplays[(int)statType].UpdateAmount(amount, punch, markSpecial);
     }
     public void Hide(StatDisplay.Type statType)
     {

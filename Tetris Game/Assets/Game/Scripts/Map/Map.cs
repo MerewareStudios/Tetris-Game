@@ -52,24 +52,13 @@ namespace Game
                     
                     List<int> tetrisLines = Board.THIS.CheckTetris();
                     
-                    // while (_queuedMergeLines.Count > 0)
-                    // {
-                    //     int queuedIndex = _queuedMergeLines.Dequeue();
-                    //     if (!tetrisLines.Contains(queuedIndex))
-                    //     {
-                    //         tetrisLines.Add(queuedIndex);
-                    //     }
-                    // }
-                    
                     if (tetrisLines.Count > 0)
                     {
-                        // if (tetrisLines.Count > 1)
-                        // {
-                            // Combo text emission
-                            // UIManagerExtensions.EmitComboText(tetrisLines.Count);
-                            //UIManager.THIS.ft_Combo.FlyScreen("<size=125%>x" + tetrisLines.Count + "<size=100%>\nMAX", Vector3.zero,  0.0f);
-                            // yield return new WaitForSeconds(0.25f);
-                        // }
+                        if (tetrisLines.Count > 1)
+                        {
+                            UIManager.THIS.ShowCombo(tetrisLines.Count);
+                            Warzone.THIS.Player.Gun.Boost(tetrisLines.Count);
+                        }
                         Board.THIS.MergeLines(tetrisLines);
                     
                         Board.THIS.MarkMover(tetrisLines[0]);

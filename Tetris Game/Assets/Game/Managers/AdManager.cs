@@ -35,7 +35,7 @@ namespace IWI
                 // ShowAdBreak();
             }
             
-            Board.THIS.OnMerge += () =>
+            Board.THIS.OnMerge += (amount) =>
             {
                 // Try2AdBreak();
                 
@@ -47,7 +47,7 @@ namespace IWI
                 }
                 if (ONBOARDING.EARN_SHOP_POINT.IsComplete())
                 {
-                    UIManager.THIS.shop.Increase();
+                    UIManager.THIS.shop.Increase(amount);
                 }
             };
         }

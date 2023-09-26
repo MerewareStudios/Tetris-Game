@@ -19,7 +19,7 @@ namespace Game
         [SerializeField] public SpriteRenderer crossHairSpriteRenderer;
         [System.NonSerialized] private Tween _crossColorTween;
 
-        [System.NonSerialized] private Gun gun;
+        [System.NonSerialized] public Gun Gun;
 
         [System.NonSerialized] private Data _data;
 
@@ -106,19 +106,19 @@ namespace Game
         {
             set
             {
-                if (gun && !gun._Data.gunType.Equals(value.gunType))
+                if (Gun && !Gun._Data.gunType.Equals(value.gunType))
                 {
-                    gun.Despawn();
-                    gun = null;
+                    Gun.Despawn();
+                    Gun = null;
                 }
-                if (!gun)
+                if (!Gun)
                 {
-                    gun = value.gunType.Spawn<Gun>(holster);
+                    Gun = value.gunType.Spawn<Gun>(holster);
                 }
 
-                gun._Data = value;
+                Gun._Data = value;
             }
-            get => gun._Data;
+            get => Gun._Data;
         }
         
         public void ReplenishHealth()
@@ -135,7 +135,7 @@ namespace Game
             if (shootCount == 0)
             {
                 animator.SetTrigger(SHOOT_HASH);
-                gun.Bubble();
+                Gun.Bubble();
 
                 if (ONBOARDING.NEED_MORE_AMMO_SPEECH.IsNotComplete())
                 {
@@ -150,7 +150,7 @@ namespace Game
             animator.SetTrigger(SHOOT_HASH);
             for (int i = 0; i < shootCount; i++)
             {
-               gun.Shoot(Warzone.THIS.GetEnemy(i));
+               Gun.Shoot(Warzone.THIS.GetEnemy(i));
             }
         }
 
@@ -161,10 +161,10 @@ namespace Game
             _currentAngle = 0.0f;
             transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 
-            if (gun)
+            if (Gun)
             {
-                gun.Despawn();
-                gun = null;
+                Gun.Despawn();
+                Gun = null;
             }
         }
         
@@ -215,11 +215,11 @@ namespace Game
                         
                         // Debug.Log(gun._Data);
 
-                        if ((_Data.time - gun._Data.prevShoot > gun._Data.FireInterval) && angleDif <= 1.0f)
+                        if ((_Data.time - Gun._Data.prevShoot > Gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
-                            int givenBulletCount = Board.THIS.ConsumeBullet(_GunData.split);
+                            int givenBulletCount = Board.THIS.ConsumeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
-                            gun._Data.prevShoot = _Data.time;
+                            Gun._Data.prevShoot = _Data.time;
                         }
 
                         _Data.time += Time.deltaTime;
@@ -274,10 +274,11 @@ namespace Game
             transform.DORotate(new Vector3(0.0f, 180.0f, 0.0f), rotateDuration);
         }
         
-        public void Reset()
+        public void ResetSelf()
         {
-            _CurrentHealth = 0;
-            _Data = _data;
+            // _CurrentHealth = 0;
+            // _Data = _data;
+            Gun.ResetSelf();
         }
         
         [System.Serializable]

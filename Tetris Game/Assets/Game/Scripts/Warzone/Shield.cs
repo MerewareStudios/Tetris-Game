@@ -93,7 +93,7 @@ public class Shield : MonoBehaviour
     void Update()
     {
         _Data.ConsumeTime(Time.deltaTime);
-        StatDisplayArranger.THIS.UpdateFill(StatDisplay.Type.Shield, _Data.Percent);
+        StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Shield, _Data.Percent);
 
         if (!_Data.Available)
         {
