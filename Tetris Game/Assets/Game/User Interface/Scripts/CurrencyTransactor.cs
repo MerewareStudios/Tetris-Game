@@ -6,7 +6,8 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 {
     [SerializeField] private Const.CurrencyType currencyType;
     [SerializeField] public CurrencyDisplay currencyDisplay;
-    [SerializeField] private RectTransform pivot;
+    [SerializeField] private RectTransform anchorPivot;
+    [SerializeField] private RectTransform scalePivot;
     [SerializeField] private Vector3 defaultAnchor;
     [SerializeField] private Vector3 scaledAnchor;
     [System.NonSerialized] private float _targetScale = 1.0f;
@@ -19,7 +20,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 
     public bool Active
     {
-        set => pivot.gameObject.SetActive(value);
+        set => anchorPivot.gameObject.SetActive(value);
     }
     
     public int Amount
@@ -49,17 +50,18 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     private void Punch(float amount)
     {
         Active = true;
-        pivot.DOKill();
-        pivot.localScale = Vector3.one * _targetScale;
-        pivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);
+        scalePivot.DOKill();
+        scalePivot.localScale = Vector3.one * _targetScale;
+        scalePivot.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true);
     }
     
     public void Scale(float amount, bool useScaledAnchor)
     {
         _targetScale = amount;
         
-        pivot.DOKill();
-        pivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
-        pivot.DOAnchorPos(useScaledAnchor ? scaledAnchor : defaultAnchor, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
+        scalePivot.DOKill();
+        scalePivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
+        anchorPivot.DOKill();
+        anchorPivot.DOAnchorPos(useScaledAnchor ? scaledAnchor : defaultAnchor, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
     }
 }
