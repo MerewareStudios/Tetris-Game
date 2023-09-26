@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
     {
         SaveManager.THIS.saveData.playTime += Time.deltaTime;
 
-        if (UIManager.MENU_VISIBLE)
+        if (UIManager.MenuVisible)
         {
             Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
         }

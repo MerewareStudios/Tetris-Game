@@ -1,6 +1,7 @@
 using Game;
 using Game.UI;
 using Internal.Core;
+using IWI.Emitter.Enums;
 using IWI.Tutorial;
 using IWI.UI;
 using TMPro;
@@ -8,7 +9,6 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Visual.Effects;
-using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -31,8 +31,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public UIEmitter heartEmitter;
    [SerializeField] public UIEmitter shieldEmitter;
    [SerializeField] public UIEmitter ticketEmitter;
-   [SerializeField] public MotionData motionData_Block;
-   [SerializeField] public MotionData motionData_Enemy;
    [SerializeField] public MotionData motionData_Enemy_Burst;
    [SerializeField] public MotionData motionData_LevelReward;
    [SerializeField] public MotionData motionData_PiggyFill;
@@ -40,8 +38,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public MotionData motionData_UpgradeBurst;
    [SerializeField] public MotionData motionData_Ticket;
    [Header("Level")]
-   [System.NonSerialized] public static string NO_FUNDS_TEXT = "NO FUNDS";
-   [System.NonSerialized] public static bool MENU_VISIBLE = false;
+   [System.NonSerialized] public static bool MenuVisible = false;
    [Header("Transactors")]
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
@@ -50,10 +47,8 @@ public class UIManager : Singleton<UIManager>
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
    [SerializeField] public Finger finger;
-   [System.NonSerialized] public static IMenu currentMenu = null;
+   [System.NonSerialized] public static IMenu CurrentMenu = null;
 
-
-   // Make them info list
 
     void Awake()
     {
@@ -78,8 +73,8 @@ public class UIManager : Singleton<UIManager>
 
          Glimmer.OnComplete = glimmer => glimmer.Despawn();
 
-         MENU_VISIBLE = false;
-         currentMenu = null;
+         MenuVisible = false;
+         CurrentMenu = null;
     }
 
 #if UNITY_EDITOR
@@ -159,21 +154,21 @@ public class UIManager : Singleton<UIManager>
 
    public static void ForceUpdateAvailableMenu()
    {
-      if (UIManager.currentMenu != null)
+      if (UIManager.CurrentMenu != null)
       {
-         UIManager.currentMenu.Show();
+         UIManager.CurrentMenu.Show();
       }
    }
 
    public static void MenuMode(bool value)
    {
-      if (MENU_VISIBLE == value)
+      if (MenuVisible == value)
       {
          return;
       }
 
       CameraManager.THIS.gameCamera.enabled = !value;
-      MENU_VISIBLE = value;
+      MenuVisible = value;
       Time.timeScale = value ? 0.0f : 1.0f;
       
       OnMenuModeChanged?.Invoke(value);
@@ -220,19 +215,6 @@ public static class UIManagerExtensions
       RectTransform rectTransform = image.rectTransform;
       glimmer.Show(image, rectTransform, speed, AnimConst.THIS.glimmerEase);
    }
-
-   // public static void EmitBlockCoin(Vector3 worldPosition, int count, int totalValue)
-   // {
-   //    TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
-   //    ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-   //    UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Block);
-   // }
-   // public static void EmitEnemyCoin(Vector3 worldPosition, int count, int totalValue)
-   // {
-   //    TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
-   //    ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-   //    UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy);
-   // }
    public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);

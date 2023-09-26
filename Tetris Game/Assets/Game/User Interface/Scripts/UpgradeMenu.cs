@@ -62,7 +62,7 @@ namespace Game.UI
             }
         }
 
-        public new void Show()
+        private void Show(bool glimmerByBadge = true)
         {
             base.Show();
             SetOneTimeData();
@@ -74,13 +74,19 @@ namespace Game.UI
                 bool hasFunds = Wallet.HasFunds(lookUp.currency);
 
                 purchaseOption.SetPurchase(lookUp.currency, hasFunds);
-                purchaseOption.Glimmer();
+                if (glimmerByBadge)
+                {
+                    purchaseOption.GlimmerByBadge();
+                }
             }
         }
 
         public void OnClick_Purchase(int purchaseIndex)
         {
-            PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
+           
+
+            
+            // PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
 
@@ -93,12 +99,13 @@ namespace Game.UI
             
             purchaseOptions[purchaseIndex].PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
             purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, 30.0f));
+            purchaseOptions[purchaseIndex].Glimmer();
 
 
             switch ((PurchaseType)purchaseIndex)
             {
                 case PurchaseType.MaxStack:
-                    
+                    Board.THIS._Data.maxStack++;
                     break;
                 case PurchaseType.SkipTicket:
                     
@@ -131,30 +138,7 @@ namespace Game.UI
                     
                     break;
             }
-            // Toast.Show(purchaseOption.GetPurchaseInfo(purchaseData.gain), 0.5f);
-            
-            // UpgradeType upgradeType = (UpgradeType)purchaseIndex;
-            // switch (upgradeType)
-            // {
-            //     case UpgradeType.Heart:
-            //         Warzone.THIS.GiveHeart(purchaseData.gain);
-            //         break;
-            //     case UpgradeType.Shield:
-            //         Warzone.THIS.GiveShield(purchaseData.gain);
-            //         break;
-            //     case UpgradeType.MaxStack:
-            //         Board.THIS.MaxStack = purchaseData.gain;
-            //         break;
-            //     case UpgradeType.MaxPiggyLevel:
-            //         PiggyMenu.THIS.MaxPiggyLevel++;
-            //         break;
-            //     default:
-            //         throw new ArgumentOutOfRangeException();
-            // }
-            //
-            // purchaseData.gain += purchaseData.increasePerUse;
-            // purchaseData.purchaseInstance++;
-            Show();
+            Show(false);
         }
 
         [Serializable]

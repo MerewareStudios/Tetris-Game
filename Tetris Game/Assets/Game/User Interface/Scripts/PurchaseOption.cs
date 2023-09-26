@@ -71,11 +71,15 @@ public class PurchaseOption : MonoBehaviour
         animationPivot.DOPunchAnchorPos(anchor, 0.25f).SetUpdate(true);
     }
 
-    public void Glimmer()
+    public void GlimmerByBadge()
     {
         if (bestBadge.activeSelf)
         {
             glimmerFrame.Glimmer(AnimConst.THIS.glimmerSpeedUpgrade);
         }
+    }
+    public void Glimmer()
+    {
+        glimmerFrame.Glimmer(AnimConst.THIS.glimmerSpeedUpgrade);
     }
 }

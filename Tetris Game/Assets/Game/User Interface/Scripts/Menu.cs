@@ -40,7 +40,7 @@ namespace Game.UI
 
             if (updateOnMoneyChange)
             {
-                UIManager.currentMenu = this;
+                UIManager.CurrentMenu = this;
             }
             
             return false;
@@ -65,7 +65,7 @@ namespace Game.UI
 
             if (updateOnMoneyChange)
             {
-                UIManager.currentMenu = null;
+                UIManager.CurrentMenu = null;
             }            
             return false;
         }
