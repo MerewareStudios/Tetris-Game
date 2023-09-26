@@ -30,6 +30,8 @@ namespace Game.UI
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private Button equipButton;
         [SerializeField] private TextMeshProUGUI gunStatText;
+        [SerializeField] private GameObject nextButton;
+        [SerializeField] private GameObject previousButton;
 
         [System.NonSerialized] private WeaponShopData _weaponShopData;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
@@ -133,6 +135,8 @@ namespace Game.UI
                 }
             }
             
+            previousButton.SetActive(_weaponShopData.gunIndex != 0);
+            nextButton.SetActive(purchasedWeapon);
             
             if (!purchasedWeapon)
             {
