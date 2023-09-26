@@ -131,23 +131,25 @@ namespace  Game
 
                 this.enabled = true;
 
-                while (Spawning)
+                while (enemyIndex < enemyPool.Count)
                 {
                     _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
                     if (!Player.CurrentEnemy)
                     {
                         AssignClosestEnemy();
                     }
-                    if (enemyIndex >= enemyPool.Count)
+
+                    float stamp = Time.time;
+                    while(HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
                     {
-                        break;
+                        yield return new WaitForSeconds(1.0f);
                     }
                     // TODO : either wait for max time while enemy spawned or spawn next if we are waiting for long time for the next enemy
-                    yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
+                    // yield return new WaitForSeconds(EnemySpawnData.spawnInterval);
                 }
 
-                _spawnRoutine = null;
                 Spawning = false;
+                _spawnRoutine = null;
             }
         }
 

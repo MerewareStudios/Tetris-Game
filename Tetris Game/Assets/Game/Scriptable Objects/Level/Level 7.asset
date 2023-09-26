@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySpawnData:
     spawnDelay: 3
-    spawnTimeOffset: 0.2
+    spawnInterval: 7
     countDatas:
     - enemyType: 37
       count: 6
@@ -27,7 +27,6 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
-  minTime: 4.2
   totalCoinRevenue: 125
   totalPiggyRevenue: 0
   totalTicketRevenue: 0
