@@ -69,7 +69,6 @@ public class GameManager : Singleton<GameManager>
         Map.THIS.Deconstruct();
         Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
-        // Onboarding.Deconstruct();
         Powerup.THIS.Deconstruct();
     }
 

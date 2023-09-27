@@ -51,14 +51,6 @@ public class Spawner : Singleton<Spawner>
             _currentBlock = SpawnSuggestedBlock();  
         });
     }
-    // public void TrySpawn()
-    // {
-    //     if (_currentBlock)
-    //     {
-    //         return;
-    //     }
-    //     _currentBlock = SpawnSuggestedBlock();  
-    // }
     public void Deconstruct()
     {
         while (_spawnedBlocks.Count > 0)
@@ -76,6 +68,8 @@ public class Spawner : Singleton<Spawner>
         delayedTween?.Kill();
         assertionTween?.Kill();
         StopMovement();
+        Mount();
+        Board.THIS.Dehighlight();
     }
 
     private void StopAllRunningTasksOnBlock()
@@ -202,7 +196,6 @@ public class Spawner : Singleton<Spawner>
         }
 
         UpdateTargetPosition();
-
         HighlightCurrentBlock();
     }
 
@@ -259,7 +252,6 @@ public class Spawner : Singleton<Spawner>
         if (Board.THIS.CanPlace(_currentBlock))
         {
             Board.THIS.Place(_currentBlock);
-            // Board.THIS.KillDelayedHighlight();
             Board.THIS.HideSuggestedPlaces();
 
             _currentBlock = null;
@@ -357,8 +349,6 @@ public class Spawner : Singleton<Spawner>
         block.Rotation = suggestedBlockData?.blockRot ?? Board.BlockRot.UP;
         _spawnedBlocks.Add(block);
 
-        // Board.THIS.ShowSuggestedPlaces(block);
-        
         SpawnTime = (int)Time.time;
         SpawnIndex++;
 

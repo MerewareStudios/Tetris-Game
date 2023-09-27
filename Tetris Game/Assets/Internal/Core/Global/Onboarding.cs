@@ -183,8 +183,9 @@ public class Onboarding : SSingleton<Onboarding>
             // yield return new WaitForSeconds(1.0f);
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.25f);
-            ONBOARDING.LEARNED_LEVEL_TEXT.SetComplete();
+            ONBOARDING.LEARNED_LEVEL_VISUALS.SetComplete();
             UIManager.THIS.levelText.enabled = true;
+            UIManager.THIS.levelProgressbar.SetActive(true);
             yield return new WaitForSeconds(0.35f);
             Warzone.THIS.Begin(false);
             

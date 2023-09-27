@@ -12,13 +12,12 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_TEXT.IsComplete();
+        UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
+        UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
         UIManager.THIS.levelText.text = "LEVEL " + CurrentLevel;
         
         Warzone.THIS.EnemySpawnData = CurrentLevel.GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
-        
-        // UIManager.THIS.loanBar.MakeUnavailable(10.0f);
         
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
@@ -49,7 +48,6 @@ public class LevelManager : Singleton<LevelManager>
         {
             OnFail();
         }
-        Debug.LogError(Warzone.THIS.HasEnemy + " " + Warzone.THIS.Spawning);
         if (Warzone.THIS.IsCleared)
         {
             OnVictory();

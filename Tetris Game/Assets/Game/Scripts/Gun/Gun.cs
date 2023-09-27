@@ -21,6 +21,9 @@ public class Gun : MonoBehaviour
             transform.Set(GunSo.holsterTransformData);
 
             _data.Mult = 1;
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Damage, 1.0f);
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Splitshot, 1.0f);
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Firerate, 1.0f);
             
             UpdateAllStats();
         }
@@ -94,8 +97,8 @@ public class Gun : MonoBehaviour
         bullet.transform.position = muzzle.position;
         
         trail.Clear();
-
-        Tween bulletTween = bullet.DOJump(enemyTransform.position + enemyTransform.forward * 0.25f, 2.25f, 1, 0.45f).SetEase(Ease.Linear);
+        
+        Tween bulletTween = bullet.DOJump(enemyTransform.position, GunSo.jumpPower, 1, GunSo.travelDur).SetEase(Ease.Linear);
         // bulletTween.onUpdate = () =>
         // {
         //     if (enemyTransform)
@@ -128,8 +131,6 @@ public class Gun : MonoBehaviour
         Splitshot,
     }
     
-    
-    
     [System.Serializable]
     public class Data : ICloneable
     {
@@ -142,8 +143,8 @@ public class Gun : MonoBehaviour
 
         public float FireInterval { get; set; }
         public int RateAmount => rate * Mult;
-        public int SplitAmount => rate * Mult;
-        public int DamageAmount => rate * Mult;
+        public int SplitAmount => split * Mult;
+        public int DamageAmount => damage * Mult;
 
         public int FireRate
         {

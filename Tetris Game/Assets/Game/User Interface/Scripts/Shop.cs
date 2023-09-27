@@ -16,7 +16,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Button button;
     [SerializeField] private Data data;
-    [System.NonSerialized] public bool Open = false;
+    [System.NonSerialized] private bool _open = false;
 
     public Data _Data
     {
@@ -29,13 +29,12 @@ public class Shop : MonoBehaviour
 
     public void Increase(int count)
     {
-        if (this.Open || _Data.IsEnough)
+        if (this._open || _Data.IsEnough)
         {
             return;
         }
 
         _Data.current += count;
-        // Debug.LogWarning("SHOP POINT : " + _Data.current + "/" + _Data.max);
         if (_Data.IsEnough)
         {
             AnimatedShow();
@@ -48,7 +47,7 @@ public class Shop : MonoBehaviour
         {
             return;
         }
-        this.Open = false;
+        this._open = false;
         
         _Data.current = 0;
         button.targetGraphic.raycastTarget = false;
@@ -63,7 +62,7 @@ public class Shop : MonoBehaviour
     
     public void AnimatedShow()
     {
-        this.Open = true;
+        this._open = true;
 
         trailRenderer.emitting = false;
         button.targetGraphic.raycastTarget = false;

@@ -8,6 +8,8 @@ namespace Game
     public class GunSo : ScriptableObject
     {
         [SerializeField] public TransformData holsterTransformData;
+        [SerializeField] public float jumpPower = 2.25f;
+        [SerializeField] public float travelDur = 0.45f;
     }
 
     [Serializable]

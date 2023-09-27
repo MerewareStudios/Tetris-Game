@@ -96,7 +96,6 @@ namespace  Game
 
         private void ColorPunch()
         {
-            // Debug.LogWarning("Color punch");
             _colorPunchTween?.Kill();
             float timeStep = 0.0f;
             _colorPunchTween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, 0.35f).SetEase(Ease.Linear);

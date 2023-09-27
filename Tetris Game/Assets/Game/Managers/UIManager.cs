@@ -14,6 +14,7 @@ using Visual.Effects;
 public class UIManager : Singleton<UIManager>
 {
    [SerializeField] public TextMeshProUGUI levelText;
+   [SerializeField] public GameObject levelProgressbar;
    [SerializeField] private Image levelProgress;
    public float LevelProgress
    {

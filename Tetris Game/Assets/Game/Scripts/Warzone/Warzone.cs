@@ -134,7 +134,7 @@ namespace  Game
                 this.enabled = true;
 
 
-                while (enemyIndex < enemyPool.Count)
+                while (Spawning)
                 {
                     _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
                     UIManager.THIS.LevelProgress = 1.0f - ((float)enemyIndex / enemyPool.Count);
@@ -143,6 +143,10 @@ namespace  Game
                         AssignClosestEnemy();
                     }
 
+                    if (enemyIndex >= enemyPool.Count)
+                    {
+                        break;
+                    }
                     float stamp = Time.time;
                     while(HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
                     {
@@ -247,11 +251,4 @@ namespace  Game
             }
         }
     }
-}
-
-   
-
-namespace  Level
-{
-    
 }
