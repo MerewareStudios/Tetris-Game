@@ -2155,7 +2155,7 @@ MonoBehaviour:
   Player: {fileID: 1480287695}
   Zone:
     startLine: 10.17
-    endLine: 7.26
+    endLine: 7.25
   bloodPS: {fileID: 2023912881}
   goreOffset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &837164017

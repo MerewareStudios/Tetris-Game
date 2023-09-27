@@ -20,7 +20,7 @@ namespace  Game
         [SerializeField] public EnemyData so;
         [Header("Stats")]
         [System.NonSerialized] private int _health;
-        [System.NonSerialized] public System.Action OnRemoved = null;
+        // [System.NonSerialized] public System.Action OnRemoved = null;
         [System.NonSerialized] private Tween _colorPunchTween;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
@@ -173,7 +173,7 @@ namespace  Game
 
         public void Deconstruct()
         {
-            OnRemoved = null;
+            // OnRemoved = null;
             this.Despawn();
         }
         

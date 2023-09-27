@@ -179,7 +179,7 @@ namespace  Game
         public void RemoveEnemy(Enemy enemy)
         {
             _enemies.Remove(enemy);
-            enemy.OnRemoved?.Invoke();
+            // enemy.OnRemoved?.Invoke();
             AssignClosestEnemy();
         }
 

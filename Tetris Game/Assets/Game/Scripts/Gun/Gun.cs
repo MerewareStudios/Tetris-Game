@@ -76,31 +76,34 @@ public class Gun : MonoBehaviour
     public void Shoot(Enemy enemy)
     {
         Transform enemyTransform = enemy.transform;
-        Vector3 targetPosition = enemyTransform.position;
+        
+        // Vector3 targetPosition = enemyTransform.position;
 
-        enemy.OnRemoved = () =>
-        {
-            enemyTransform = null;
-        };
+
+        // enemy.OnRemoved = () =>
+        // {
+        //     enemyTransform = null;
+        // };
             
         Transform bullet = Pool.Bullet.Spawn().transform;
         
         TrailRenderer trail = Pool.Trail.Spawn<TrailRenderer>(bullet);
         
         bullet.DOKill();
+
         bullet.transform.position = muzzle.position;
         
         trail.Clear();
-        
-        Tween bulletTween = bullet.DOJump(enemyTransform.position, 2.25f, 1, 0.45f).SetEase(Ease.Linear);
-        bulletTween.onUpdate = () =>
-        {
-            if (enemyTransform)
-            {
-                targetPosition = enemyTransform.position;
-            }
-            bulletTween.SetTarget(targetPosition);
-        };
+
+        Tween bulletTween = bullet.DOJump(enemyTransform.position + enemyTransform.forward * 0.25f, 2.25f, 1, 0.45f).SetEase(Ease.Linear);
+        // bulletTween.onUpdate = () =>
+        // {
+        //     if (enemyTransform)
+        //     {
+        //         targetPosition = enemyTransform.position;
+        //     }
+        //     bulletTween.SetTarget(targetPosition);
+        // };
         bulletTween.onComplete = () =>
         {
             if (enemyTransform)
