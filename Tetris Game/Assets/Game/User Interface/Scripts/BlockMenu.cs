@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
+using IWI;
 using IWI.Tutorial;
 using UnityEngine;
 using UnityEngine.UI;
@@ -148,7 +149,7 @@ namespace Game.UI
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            purchaseButton.Available = hasFunds;
+            purchaseButton.Available = hasFunds || currency.type.Equals(Const.CurrencyType.Ticket);
             
             if (hasFunds)
             {   
@@ -188,6 +189,17 @@ namespace Game.UI
                 }
                 Show();
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
+            }
+            else
+            {
+                if (_blockData.currency.type.Equals(Const.CurrencyType.Ticket))
+                {
+                    AdManager.ShowTicketAd(() =>
+                    {
+                        Wallet.Transaction(Const.Currency.OneAd);
+                        OnClick_Purchase();
+                    });
+                }
             }
         }
         

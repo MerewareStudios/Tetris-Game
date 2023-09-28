@@ -215,6 +215,13 @@ public class UIManager : Singleton<UIManager>
    }
    public static void Pause(bool value)
    {
+      if (!value)
+      {
+         if (MenuVisible)
+         {
+            return;
+         }
+      }
       Time.timeScale = value ? 0.0f : 1.0f;
    }
 }

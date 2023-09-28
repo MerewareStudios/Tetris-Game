@@ -138,14 +138,14 @@ MonoBehaviour:
     - type: 1
       amount: 2
   - currency:
-      type: 0
-      amount: 150
+      type: 2
+      amount: 1
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
     defaultValues: 010000000300000002000000
     damagePrice:
-    - type: 1
-      amount: 6
+    - type: 0
+      amount: 80
     fireRatePrice:
     - type: 0
       amount: 25
@@ -156,8 +156,8 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 2
-    - type: 1
-      amount: 2
+    - type: 2
+      amount: 1
   - currency:
       type: 0
       amount: 350
@@ -353,8 +353,8 @@ MonoBehaviour:
     lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000001000000
   - blockType: 7
     currency:
-      type: 0
-      amount: 75
+      type: 1
+      amount: 4
     lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000000000000
   - blockType: 11
     currency:
@@ -363,8 +363,8 @@ MonoBehaviour:
     lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000000000000
   - blockType: 8
     currency:
-      type: 0
-      amount: 75
+      type: 1
+      amount: 4
     lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000001000000
   - blockType: 9
     currency:
@@ -388,8 +388,8 @@ MonoBehaviour:
     lookUp: 000000000000000000000000000000000000000000000000010000000000000000000000000000000100000000000000
   - blockType: 18
     currency:
-      type: 0
-      amount: 250
+      type: 1
+      amount: 10
     lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000
   - blockType: 15
     currency:

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DG.Tweening;
 using Internal.Core;
+using IWI;
 using IWI.Tutorial;
 using TMPro;
 using UnityEngine;
@@ -172,7 +173,7 @@ namespace Game.UI
 
             stageBar
                 .SetPrice(price)
-                .SetInteractable(Wallet.HasFunds(price));
+                .SetInteractable(Wallet.HasFunds(price) || price.type.Equals(Const.CurrencyType.Ticket));
         }
         
         public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)
@@ -199,8 +200,9 @@ namespace Game.UI
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            purchaseButton.Available = hasFunds;
-            
+            // purchaseButton.Available = hasFunds;
+            purchaseButton.Available = hasFunds || currency.type.Equals(Const.CurrencyType.Ticket);
+
             if (hasFunds)
             {   
                 PunchButton(0.2f);
@@ -301,6 +303,17 @@ namespace Game.UI
                 }
                 
                 CustomShow(0.2f, true);
+            } 
+            else
+            {
+                if (price.type.Equals(Const.CurrencyType.Ticket))
+                {
+                    AdManager.ShowTicketAd(() =>
+                    {
+                        Wallet.Transaction(Const.Currency.OneAd);
+                        OnClick_PurchaseUpgrade(statType);
+                    });
+                }
             }
         }
         
@@ -325,6 +338,17 @@ namespace Game.UI
                 _weaponShopData.Purchase();
 
                 OnClick_Equip();
+            }
+            else
+            {
+                if (_gunUpgradeData.currency.type.Equals(Const.CurrencyType.Ticket))
+                {
+                    AdManager.ShowTicketAd(() =>
+                    {
+                        Wallet.Transaction(Const.Currency.OneAd);
+                        OnClick_PurchaseWeapon();
+                    });
+                }
             }
         }
         
