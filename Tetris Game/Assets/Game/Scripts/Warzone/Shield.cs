@@ -8,7 +8,7 @@ public class Shield : MonoBehaviour
     [SerializeField] private Vector3 targetHideScale;
     [System.NonSerialized] private Data _data;
 
-    private bool EffectEnabled
+    public bool ShieldEnabled
     {
         set
         {
@@ -31,6 +31,7 @@ public class Shield : MonoBehaviour
                 };
             }
         }
+        get => zonePs.isPlaying;
     }
     
     public Data _Data
@@ -45,16 +46,17 @@ public class Shield : MonoBehaviour
     public void Add(int value)
     {
         _Data.Amount += value;
-        StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Shield, _Data.Amount, 0.5f);
+        // StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Shield, _Data.Amount, 0.5f);
         Resume();
     }
     public void AddOnly(int value)
     {
         _Data.Amount += value;
+        StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.Amount, _Data.Percent, false);
     }
     public bool Remove()
     {
-        if (!_Data.Available)
+        if (!_Data.Protecting)
         {
             return false;
         }
@@ -74,17 +76,17 @@ public class Shield : MonoBehaviour
     
     public void Stop()
     {
-        EffectEnabled = false;
+        ShieldEnabled = false;
         this.enabled = false;
         StatDisplayArranger.THIS.Hide(StatDisplay.Type.Shield);
     }
     
     public void Resume()
     {
-        EffectEnabled = _Data.Available;
+        ShieldEnabled = _Data.Protecting;
         this.enabled = true;
         
-        if (_Data.Available)
+        if (_Data.Protecting)
         {
             StatDisplayArranger.THIS.Show(StatDisplay.Type.Shield, _Data.Amount, _Data.Percent, false);
         }
@@ -95,7 +97,7 @@ public class Shield : MonoBehaviour
         _Data.ConsumeTime(Time.deltaTime);
         StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Shield, _Data.Percent);
 
-        if (!_Data.Available)
+        if (!_Data.Protecting)
         {
             Stop();
         }
@@ -123,7 +125,7 @@ public class Shield : MonoBehaviour
         }
 
         public float Percent => timeLeft / MaxTime;
-        public bool Available => AvailableByTime && AvailableByCount;
+        public bool Protecting => AvailableByTime && AvailableByCount;
         public bool AvailableByTime => timeLeft > 0.0f;
         public bool AvailableByCount => amount > 0;
 

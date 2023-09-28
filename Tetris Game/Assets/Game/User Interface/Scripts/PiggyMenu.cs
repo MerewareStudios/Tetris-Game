@@ -229,9 +229,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         // case PiggyReward.Type.Shield:
         if (capIndex >= 3)
         {
-            Helper.IsPossible(0.75f, () =>
+            Helper.IsPossible(0.25f, () =>
             {
-                int shieldAmount = capIndex * 5;
+                // int shieldAmount = capIndex * 5;
+                int shieldAmount = 1;
                 rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Shield, shieldAmount));
                 Warzone.THIS.Player.shield.AddOnly(shieldAmount);
             });

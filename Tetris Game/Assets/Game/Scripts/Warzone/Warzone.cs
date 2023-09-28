@@ -245,9 +245,14 @@ namespace  Game
         {
             [SerializeField] public float startLine;
             [SerializeField] public float endLine;
+            [SerializeField] public float endLineShield;
 
             public bool IsOutside(Transform transform)
             {
+                if (Warzone.THIS.Player.shield.ShieldEnabled)
+                {
+                    return transform.position.z < endLineShield;
+                }
                 return transform.position.z < endLine;
             }
         }
