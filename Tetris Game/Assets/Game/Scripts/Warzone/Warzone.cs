@@ -151,6 +151,12 @@ namespace  Game
                     float stamp = Time.time;
                     while(HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
                     {
+                        // if (EnemyCount < Player.Gun._Data.SplitAmount)
+                        // {
+                        //     float innerDelay = (EnemySpawnData.spawnInterval - (Time.time - stamp)) * 0.35f;
+                        //     yield return new WaitForSeconds(innerDelay);
+                        //     break;
+                        // }
                         yield return new WaitForSeconds(1.0f);
                     }
                 }

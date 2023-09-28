@@ -108,6 +108,10 @@ namespace Game
             _thisTransform = transform;
         }
 
+        public void SetAmount(int value, bool maxed = false)
+        {
+            
+        }
         public int Amount 
         { 
             get => this._amount;
@@ -122,7 +126,12 @@ namespace Game
                         iconMR.enabled = true;
                         break;
                     case Usage.UnpackedAmmo:
-                        levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
+                        if (value == 6)
+                        {
+                            _amount = Board.THIS._Data.maxStack;
+                        }
+                        // levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
+                        levelText.text = "MAX";
                         iconMR.enabled = false;
                         break;
                     case Usage.MagnetLR:

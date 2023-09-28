@@ -27,7 +27,7 @@ public class StatDisplay : MonoBehaviour
 
         _currentValue = value;
         text.color = markSpecial ? Onboarding.THIS.specialStatColor : Onboarding.THIS.normalStatColor;
-        text.text = value + (markSpecial ? "*" : "");
+        text.text = value.ToString();
         return false;
     }
 

@@ -184,6 +184,11 @@ public class UIManager : Singleton<UIManager>
       {
          UIManagerExtensions.HeartToPlayer(Vector3.zero,  1, 1);
       }
+      if (Input.GetKeyDown(KeyCode.I))
+      {
+         Warzone.THIS.Player.Gun.Boost(4);
+
+      }
    }
 #endif
 

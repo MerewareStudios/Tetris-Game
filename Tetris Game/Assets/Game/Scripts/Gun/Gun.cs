@@ -80,9 +80,6 @@ public class Gun : MonoBehaviour
     {
         Transform enemyTransform = enemy.transform;
         
-        // Vector3 targetPosition = enemyTransform.position;
-
-
         // enemy.OnRemoved = () =>
         // {
         //     enemyTransform = null;
