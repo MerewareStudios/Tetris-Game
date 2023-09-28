@@ -298,6 +298,10 @@ public class Spawner : Singleton<Spawner>
 
     private void Mount()
     {
+        if (!_currentBlock)
+        {
+            return;
+        }
         _currentBlock.Move(spawnedBlockLocation.position + _currentBlock.blockData.spawnerOffset, 25.0f, Ease.OutQuad, true);
     }
 
