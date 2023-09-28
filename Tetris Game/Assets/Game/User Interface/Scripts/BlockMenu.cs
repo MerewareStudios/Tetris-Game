@@ -178,7 +178,7 @@ namespace Game.UI
             {
                 _blockShopData.AddUnlockedBlock(_blockData);
                 
-                Spawner.THIS.InterchangeBlock(_blockData.blockType, Pawn.Usage.Ammo);
+                Spawner.THIS.InterchangeBlock(_blockData.blockType, Pawn.Usage.UnpackedAmmo);
 
                 if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
                 {

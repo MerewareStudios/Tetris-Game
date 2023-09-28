@@ -586,8 +586,8 @@ MonoBehaviour:
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
   powerColor: {r: 0.8235294, g: 0.05882353, b: 0.83137256, a: 1}
   pawnIcons:
-  - {fileID: 21300000, guid: 4bc76270b368f9847b21069fef5fac92, type: 3}
   - {fileID: 0}
+  - {fileID: 21300000, guid: 4bc76270b368f9847b21069fef5fac92, type: 3}
   - {fileID: 21300000, guid: 6ae02d9be4c305e4989d6f394cbe04a0, type: 3}
   - {fileID: 21300000, guid: 8ccaa8a3b820d0f49abaa5c6854cf1d8, type: 3}
   - {fileID: 21300000, guid: c7defc4a3387ded4e83f7aaecfcf2f6e, type: 3}

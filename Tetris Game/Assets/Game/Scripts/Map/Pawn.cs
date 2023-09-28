@@ -22,7 +22,7 @@ namespace Game
         
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
-        [System.NonSerialized] public bool CanTakeAmmo = false;
+        [System.NonSerialized] public bool CanTakeContent = false;
         [System.NonSerialized] public bool Free2Place = false;
 
         private Pawn.Usage _usageType;
@@ -66,6 +66,7 @@ namespace Game
                     //     MarkPowerupColor();
                     //     break;
                 }
+                CanTakeContent = false;
                 
             }
 
@@ -108,12 +109,8 @@ namespace Game
             _thisTransform = transform;
         }
 
-        public void SetAmount(int value, bool maxed = false)
+        public int Amount
         {
-            
-        }
-        public int Amount 
-        { 
             get => this._amount;
             set
             {
@@ -122,17 +119,12 @@ namespace Game
                 switch (UsageType)
                 {
                     case Usage.Ammo:
-                        levelText.enabled = false;
-                        iconMR.enabled = true;
+                        levelText.text = value == Board.THIS._Data.maxStack ? "MAX" : _amount.ToString();
+                        iconMR.enabled = false;
                         break;
                     case Usage.UnpackedAmmo:
-                        if (value == 6)
-                        {
-                            _amount = Board.THIS._Data.maxStack;
-                        }
-                        // levelText.text = (_amount >= Board.THIS._Data.maxStack) ? "MAX" : _amount.ToString();
-                        levelText.text = "MAX";
-                        iconMR.enabled = false;
+                        levelText.enabled = false;
+                        iconMR.enabled = true;
                         break;
                     case Usage.MagnetLR:
                         levelText.enabled = false;
@@ -173,6 +165,7 @@ namespace Game
                     iconMR.material.SetTexture(GameManager.BaseMap, pawnIcon.texture);
                 }
             }
+
         }
 
         // public void UnpackAmmo()
@@ -284,25 +277,25 @@ namespace Game
 
         public void MarkAmmoColor()
         {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
         }
         public void MarkSteadyColor()
         {
-            if (_usageType.Equals(Usage.Ammo))
+            if (_usageType.Equals(Usage.UnpackedAmmo))
             {
                 meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
             }
         }
         public void MarkUnpackedAmmoColor()
         {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
+            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
         }
         public void MarkPowerupColor()
         {
             meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.powerColor);
         }
         #endregion
-        public void AnimatedShow(float delay, float scale, float duration, System.Action start = null)
+        public void UnpackAmmo(float delay, float scale, float duration, System.Action start = null)
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.zero;
@@ -314,7 +307,10 @@ namespace Game
 
                 modelPivot.DOKill();
                 modelPivot.localScale = Vector3.one;
-                modelPivot.DOPunchScale(Vector3.one * scale, duration, 1);
+                modelPivot.DOPunchScale(Vector3.one * scale, duration, 1).onComplete = () =>
+                {
+                    CanTakeContent = true;
+                };
             });
         }
         public void PunchScaleModelPivot(float magnitude, float duration = 0.3f)

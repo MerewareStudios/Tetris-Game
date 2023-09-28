@@ -305,30 +305,23 @@ namespace Game
             return tetrisLines;
         }
 
-        private void SpawnMergedPawn(Place place, int level)
+        private void SpawnMergedPawn(Place place, int amount)
         {
             Vector3 mergedPawnPosition = place.Position;
-            if (level <= 0)
+            if (amount <= 0)
             {
                 return;
             }
-            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, mergedPawnPosition, level, Pawn.Usage.UnpackedAmmo);
-            
-            place.AcceptNow(mergedPawn);
-
-            mergedPawn.CanTakeAmmo = false;
+            Pawn mergedPawn = Spawner.THIS.SpawnPawn(null, mergedPawnPosition, amount, Pawn.Usage.Ammo);
             mergedPawn.Mover = true;
-
-            
-            mergedPawn.AnimatedShow(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
+            mergedPawn.UnpackAmmo(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                 () =>
             {
                 UIManagerExtensions.Distort(mergedPawnPosition + Vector3.up * 0.45f, 0.0f);
                 Particle.Merge_Circle.Play(mergedPawnPosition  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
-                mergedPawn.CanTakeAmmo = true;
             });
-
-
+            
+            place.AcceptNow(mergedPawn);
         }
 
         public void MergeLines(List<int> lines)
@@ -376,7 +369,6 @@ namespace Game
             
             float delay = 0.0f;
 
-            
             for (int i = 0; i < Size.x; i++)
             {
                 Place place = places[i, lineIndex];
@@ -385,7 +377,6 @@ namespace Game
                 {
                     continue;
                 }
-
 
                 lastPawn = pawn;
 
@@ -429,8 +420,7 @@ namespace Game
                 {
                     continue;
                 }
-
-
+                
                 lastPawn = pawn;
 
                 totalPoint += pawn.Amount;
@@ -579,7 +569,8 @@ namespace Game
                     }
                     Place place = places[i, j];
                     
-                    if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
+                    // if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
+                    if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent)
                     {
                         Pawn currentPawn = place.Current;
                         int ammo = Mathf.Min(currentPawn.Amount, splitCount);

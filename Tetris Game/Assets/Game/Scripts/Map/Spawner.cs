@@ -336,7 +336,7 @@ public class Spawner : Singleton<Spawner>
             pool = this.RandomBlock();
         }
         
-        return SpawnBlock(pool, Pawn.Usage.Ammo, suggestedBlockData);
+        return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
     {
@@ -378,7 +378,7 @@ public class Spawner : Singleton<Spawner>
     {
         _spawnedBlocks.Remove(block);
     }
-    public Pawn SpawnPawn(Transform parent, Vector3 position, int level, Pawn.Usage usageType)
+    public Pawn SpawnPawn(Transform parent, Vector3 position, int amount, Pawn.Usage usageType)
     {
         Pawn pawn = Pool.Pawn.Spawn<Pawn>(parent);
         Transform pawnTransform = pawn.transform;
@@ -386,12 +386,7 @@ public class Spawner : Singleton<Spawner>
         pawnTransform.rotation = Quaternion.identity;
         pawnTransform.localScale = Vector3.one;
         pawn.UsageType = usageType;
-        pawn.Amount = level;
-        
-        
-        // pawn.MarkAmmoColor();
-
-        // pawn.Construct();
+        pawn.Amount = amount;
         return pawn;
     }
     #endregion
