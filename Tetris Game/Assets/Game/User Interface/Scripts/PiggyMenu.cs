@@ -106,14 +106,16 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             };
 
         }
-        
-        continueButton.transform.DOKill();
-        continueButton.transform.localScale = Vector3.zero;
+
+        continueButton.gameObject.SetActive(true);
+        Transform continueTrans = continueButton.transform;
+        continueTrans.DOKill();
+        continueTrans.localScale = Vector3.zero;
         if (ONBOARDING.LEARN_TO_INVEST.IsComplete())
         {
             continueText.text = "LATER";
-            continueButton.transform.localPosition = Vector3.zero;
-            continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
+            continueTrans.localPosition = Vector3.zero;
+            continueTrans.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
         }
         
         piggyCurrencyDisplay.gameObject.SetActive(!_Data.IsFull);
@@ -328,9 +330,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             investButton.gameObject.SetActive(false);
         };
         
+        Transform continueTrans = continueButton.transform;
         continueButton.targetGraphic.raycastTarget = false;
-        continueButton.transform.DOKill();
-        continueButton.transform.DOScale(Vector3.zero, 0.45f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        continueTrans.DOKill();
+        continueTrans.DOScale(Vector3.zero, 0.45f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
         {
             continueButton.gameObject.SetActive(false);
         };
@@ -453,11 +456,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     private void ShowContinueButton()
     {
+        Transform continueTrans = continueButton.transform;
+
         continueButton.gameObject.SetActive(true);
         continueText.text = "CONTINUE";
-        continueButton.transform.DOKill();
-        continueButton.transform.position = investButton.transform.position;
-        continueButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
+        continueTrans.DOKill();
+        continueTrans.position = investButton.transform.position;
+        continueTrans.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
             () =>
             {
                 continueButton.targetGraphic.raycastTarget = true;
@@ -467,9 +472,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 {
                     Onboarding.ClickOn(clickLocation_Continue.position, Finger.Cam.UI, () =>
                     {
-                        continueButton.transform.DOKill();
-                        continueButton.transform.localScale = Vector3.one;
-                        continueButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                        continueTrans.DOKill();
+                        continueTrans.localScale = Vector3.one;
+                        continueTrans.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
                     });
                 }
                             
