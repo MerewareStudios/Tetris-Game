@@ -75,11 +75,12 @@ namespace  Game
             if (blocked)
             {
                 UIManagerExtensions.ShieldPs(enemy.thisTransform.position);
-                return;
             }
-            
-            CameraManager.THIS.Shake();
-            this.Player._CurrentHealth -= enemy.Damage;
+            else
+            {
+                CameraManager.THIS.Shake();
+                this.Player._CurrentHealth -= enemy.Damage;
+            }
             
             LevelManager.THIS.CheckEndLevel();
         } 
