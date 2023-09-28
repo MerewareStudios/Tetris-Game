@@ -95,7 +95,15 @@ public class Gun : MonoBehaviour
         
         trail.Clear();
         
-        Tween bulletTween = bullet.DOJump(enemyTransform.position, GunSo.jumpPower, 1, GunSo.travelDur).SetEase(Ease.Linear);
+        Tween bulletTween = null;
+        if (GunSo.jump)
+        {
+            bulletTween = bullet.DOJump(enemyTransform.position, GunSo.jumpPower, 1, GunSo.travelDur).SetEase(Ease.Linear);
+        }
+        else
+        {
+            bulletTween = bullet.DOMove(enemyTransform.position, GunSo.travelDur).SetEase(Ease.Linear);
+        }
         // bulletTween.onUpdate = () =>
         // {
         //     if (enemyTransform)

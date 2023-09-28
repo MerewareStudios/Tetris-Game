@@ -123,7 +123,9 @@ namespace Game.UI
                     
                     break;
                 case PurchaseType.PiggyCapacity:
-                    
+                    PiggyMenu.THIS._Data.moneyCapacity -= 10;
+                    PiggyMenu.THIS._Data.moneyCapacity = Mathf.Clamp(PiggyMenu.THIS._Data.moneyCapacity, 0, 10);
+                    PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
                     break;
                 case PurchaseType.BasicChest:
                     

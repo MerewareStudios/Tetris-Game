@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 697abf42c7c6e414aa0f7914f30195ba, type: 2}
   - {fileID: 11400000, guid: 7d49978dce3697f4bbe6a1bb4c64c32d, type: 2}
   - {fileID: 11400000, guid: 93177f79eff97fc4d976d2d8e3715414, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 5d8612ad561cbda43b01161943d013f8, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -129,23 +129,23 @@ MonoBehaviour:
     damagePrice: []
     fireRatePrice:
     - type: 0
+      amount: 20
+    - type: 0
       amount: 25
     - type: 0
-      amount: 35
-    - type: 0
-      amount: 45
+      amount: 30
     splitShotPrice:
-    - type: 0
-      amount: 25
+    - type: 1
+      amount: 2
   - currency:
       type: 0
       amount: 150
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
-    defaultValues: 010000000100000002000000
+    defaultValues: 010000000300000002000000
     damagePrice:
     - type: 1
-      amount: 7
+      amount: 6
     fireRatePrice:
     - type: 0
       amount: 25
@@ -154,10 +154,10 @@ MonoBehaviour:
     - type: 0
       amount: 45
     splitShotPrice:
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 75
+    - type: 1
+      amount: 2
+    - type: 1
+      amount: 2
   - currency:
       type: 0
       amount: 350
@@ -422,7 +422,7 @@ MonoBehaviour:
       amount: 1
     sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
     title: <bounce a=0.05 f=1>SKIP TICKETS
-    info: <sprite name=Ticket> x5
+    info: <sprite name=Ticket> +5
     best: 0
     seconds: 0
   - purchaseType: 2
@@ -431,7 +431,7 @@ MonoBehaviour:
       amount: 50
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
-    info: <sprite name=Heart> x10
+    info: <sprite name=Heart> +10
     best: 0
     seconds: 0
   - purchaseType: 3
@@ -440,7 +440,7 @@ MonoBehaviour:
       amount: 1
     sprite: {fileID: 21300000, guid: db3f127cf7e28f546820257b12c577db, type: 3}
     title: <bounce a=0.05 f=1>COIN PACK
-    info: <sprite name=Coin> x200
+    info: <sprite name=Coin> +200
     best: 0
     seconds: 0
   - purchaseType: 4
@@ -449,7 +449,7 @@ MonoBehaviour:
       amount: 50
     sprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
     title: <bounce a=0.05 f=1>EXTRA SHIELD
-    info: <sprite name=Shield> x25
+    info: <sprite name=Shield> +25
     best: 0
     seconds: 0
   - purchaseType: 5
@@ -458,7 +458,7 @@ MonoBehaviour:
       amount: 1
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: <bounce a=0.05 f=1>PIGGY COIN PACK
-    info: <sprite name=PiggyCoin> x100
+    info: <sprite name=PiggyCoin> +100
     best: 0
     seconds: 0
   - purchaseType: 6
@@ -467,7 +467,7 @@ MonoBehaviour:
       amount: 25
     sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
     title: <bounce a=0.05 f=1>PIGGY CAPACITY
-    info: +25
+    info: Reduce
     best: 0
     seconds: 0
   - purchaseType: 7
@@ -476,12 +476,12 @@ MonoBehaviour:
       amount: 5
     sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
     title: <bounce a=0.05 f=1>BASIC CHEST
-    info: '<sprite name=Coin> x25
+    info: '<sprite name=Coin> +25
 
-      <sprite name=PiggyCoin> x10
+      <sprite name=PiggyCoin> +10
 
       <sprite
-      name=Ticket> x5'
+      name=Ticket> +5'
     best: 0
     seconds: 0
   - purchaseType: 8
@@ -490,12 +490,12 @@ MonoBehaviour:
       amount: 7
     sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
     title: <bounce a=0.05 f=1>PRIME CHEST
-    info: '<sprite name=Coin> x50
+    info: '<sprite name=Coin> +50
 
-      <sprite name=PiggyCoin> x50
+      <sprite name=PiggyCoin> +50
 
       <sprite
-      name=Ticket> x15'
+      name=Ticket> +15'
     best: 0
     seconds: 0
   - purchaseType: 9
@@ -504,12 +504,12 @@ MonoBehaviour:
       amount: 9
     sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
     title: <bounce a=0.05 f=1>PRESTIGE CHEST
-    info: '<sprite name=Coin> x100
+    info: '<sprite name=Coin> +100
 
-      <sprite name=PiggyCoin> x100
+      <sprite name=PiggyCoin> +100
 
       <sprite
-      name=Ticket> x25'
+      name=Ticket> +25'
     best: 1
     seconds: 0
   - purchaseType: 10

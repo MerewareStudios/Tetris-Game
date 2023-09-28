@@ -342,7 +342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 1190124872483660895}
-  connection: {fileID: 0}
   bigIconTransform: {fileID: 7106145440745692789}
   leftPivot: {fileID: 2546913695575768982}
   smallIconTransform: {fileID: 3266537033055958848}
@@ -778,11 +777,11 @@ RectTransform:
   - {fileID: 4701173876687227622}
   m_Father: {fileID: 4360266885142093565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 186.3, y: 443.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -186.3, y: 443.5}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0}
 --- !u!1 &8648173373975500838
 GameObject:
   m_ObjectHideFlags: 0
