@@ -37,5 +37,7 @@ MonoBehaviour:
   earnTicketText: <sprite name=Ticket> +1
   skipButtonText: USE TICKET
   cancelButtonText: NOT NOW
-  specialStatColor: {r: 0.5882353, g: 1, b: 0.6901961, a: 1}
+  specialStatColor: {r: 0.5254902, g: 0.9019608, b: 1, a: 1}
   normalStatColor: {r: 1, g: 1, b: 1, a: 1}
+  weaponStatUnchange: <color=#FFFFFF>
+  weaponStatChange: <color=#8EFF00>

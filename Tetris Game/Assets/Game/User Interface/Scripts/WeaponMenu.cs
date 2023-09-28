@@ -99,7 +99,11 @@ namespace Game.UI
             int rate = CurrentFireRate(_gunUpgradeData);
             int split = CurrentSplitShot(_gunUpgradeData);
 
-            SetStats(damage, rate, split);
+            int damageDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Damage);
+            int rateDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Firerate);
+            int splitDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Splitshot);
+
+            SetStats(damage, damage != damageDefault, rate, rate != rateDefault, split, split != splitDefault);
             
             
             if (stageBarParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
@@ -171,17 +175,20 @@ namespace Game.UI
                 .SetInteractable(Wallet.HasFunds(price));
         }
         
-        public void SetStats(int damage, int rate, int split)
+        public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)
         {
             StringBuilder stringBuilder = new();
             
             stringBuilder.Append(Onboarding.THIS.damageText);
+            stringBuilder.Append(changedDamage ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
             stringBuilder.Append(damage);
             
             stringBuilder.Append(Onboarding.THIS.fireRateText);
+            stringBuilder.Append(changedRate ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
             stringBuilder.Append(rate);
             
             stringBuilder.Append(Onboarding.THIS.splitShotText);
+            stringBuilder.Append(changedSplit ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
             stringBuilder.Append(split);
 
 
@@ -252,22 +259,22 @@ namespace Game.UI
 
         private int CurrentDamage(Gun.UpgradeData gunUpgradeData)
         {
-            int currentIndex_Damage = _weaponShopData.CurrentIndex(Gun.StatType.Damage);
-            int damage = gunUpgradeData.UpgradedValue(Gun.StatType.Damage, currentIndex_Damage);
+            int currentIndexDamage = _weaponShopData.CurrentIndex(Gun.StatType.Damage);
+            int damage = gunUpgradeData.UpgradedValue(Gun.StatType.Damage, currentIndexDamage);
             return damage;
         }
         
         private int CurrentFireRate(Gun.UpgradeData gunUpgradeData)
         {
-            int currentIndex_FireRate = _weaponShopData.CurrentIndex(Gun.StatType.Firerate);
-            int rate = gunUpgradeData.UpgradedValue(Gun.StatType.Firerate, currentIndex_FireRate);
+            int currentIndexFireRate = _weaponShopData.CurrentIndex(Gun.StatType.Firerate);
+            int rate = gunUpgradeData.UpgradedValue(Gun.StatType.Firerate, currentIndexFireRate);
             return rate;
         }
 
         private int CurrentSplitShot(Gun.UpgradeData gunUpgradeData)
         {
-            int currentIndex_SplitShot = _weaponShopData.CurrentIndex(Gun.StatType.Splitshot);
-            int split = gunUpgradeData.UpgradedValue(Gun.StatType.Splitshot, currentIndex_SplitShot);
+            int currentIndexSplitShot = _weaponShopData.CurrentIndex(Gun.StatType.Splitshot);
+            int split = gunUpgradeData.UpgradedValue(Gun.StatType.Splitshot, currentIndexSplitShot);
             return split;
         }
 

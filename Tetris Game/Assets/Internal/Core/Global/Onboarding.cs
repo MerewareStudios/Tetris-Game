@@ -35,6 +35,9 @@ public class Onboarding : SSingleton<Onboarding>
     [Header("Stat Color")]
     [SerializeField] public Color specialStatColor;
     [SerializeField] public Color normalStatColor;
+    [Header("Weapon Stat")]
+    [TextArea] [SerializeField] public string weaponStatUnchange;
+    [TextArea] [SerializeField] public string weaponStatChange;
     
     public Coroutine Coroutine = null;
 
