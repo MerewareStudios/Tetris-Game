@@ -473,6 +473,7 @@ MonoBehaviour:
   - {fileID: 1549615307751310297}
   - {fileID: 1864016991554617182}
   - {fileID: 3602557477536648883}
+  barParent: {fileID: 1540715969661715683}
 --- !u!223 &1190124872483660895
 Canvas:
   m_ObjectHideFlags: 0

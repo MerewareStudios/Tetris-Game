@@ -353,6 +353,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             ONBOARDING.LEARN_TO_CONTINUE.SetComplete();
             ONBOARDING.EARN_SHOP_POINT.SetComplete();
+            UIManager.THIS.shop.BarEnabled = true;
             Onboarding.HideFinger();
         }
         this.Close();

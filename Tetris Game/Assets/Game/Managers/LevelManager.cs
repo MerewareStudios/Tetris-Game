@@ -12,10 +12,11 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
-        UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
+        // UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
+        // UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
         UIManager.THIS.levelText.text = "LEVEL " + CurrentLevel;
-        
+        // UIManager.THIS.shop.BarEnabled = ONBOARDING.EARN_SHOP_POINT.IsComplete();
+
         Warzone.THIS.EnemySpawnData = CurrentLevel.GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
         

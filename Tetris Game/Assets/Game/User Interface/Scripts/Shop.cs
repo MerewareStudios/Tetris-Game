@@ -19,8 +19,13 @@ public class Shop : MonoBehaviour
     [SerializeField] private Color emptyColor;
     [SerializeField] private Color filledColor;
     [SerializeField] private Image[] bars;
+    [SerializeField] private GameObject barParent;
     [System.NonSerialized] private bool _open = false;
 
+    public bool BarEnabled
+    {
+        set => barParent.SetActive(value);
+    }
     public Data _Data
     {
         set

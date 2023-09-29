@@ -54,6 +54,10 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
+        
+        UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
+        UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
+        UIManager.THIS.shop.BarEnabled = ONBOARDING.EARN_SHOP_POINT.IsComplete();
     }
 
     void Start()
