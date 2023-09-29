@@ -563,18 +563,19 @@ namespace Game
             {
                 for (int i = 0; i < Size.x; i++)
                 {
-                    if (splitCount <= 0)
-                    {
-                        return ammoGiven;
-                    }
+                    // if (splitCount <= 0)
+                    // {
+                    //     return ammoGiven;
+                    // }
                     Place place = places[i, j];
                     
                     // if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
                     if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent)
                     {
                         Pawn currentPawn = place.Current;
-                        int ammo = Mathf.Min(currentPawn.Amount, splitCount);
-                        currentPawn.Amount -= ammo;
+                        // int ammo = Mathf.Min(currentPawn.Amount, splitCount);
+                        // currentPawn.Amount -= ammo;
+                        currentPawn.Amount -= 1;
                         if (currentPawn.Amount > 0)
                         {
                             currentPawn.PunchScaleModelPivot(-0.4f);
@@ -587,8 +588,9 @@ namespace Game
                             MarkMovers(place.Index.x, place.Index.y);
                         }
                 
-                        ammoGiven += ammo;
-                        splitCount -= ammo;
+                        ammoGiven += splitCount;
+                        return ammoGiven;
+                        // splitCount -= 1;
                     }
                 }
             }

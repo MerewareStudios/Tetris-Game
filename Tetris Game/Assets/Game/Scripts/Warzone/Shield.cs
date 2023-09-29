@@ -65,6 +65,7 @@ public class Shield : MonoBehaviour
         if (!_Data.AvailableByCount)
         {
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Shield);
+            ShieldEnabled = false;
         }
         return true;
     }
@@ -106,7 +107,7 @@ public class Shield : MonoBehaviour
     [System.Serializable]
     public class Data : System.ICloneable
     {
-        [System.NonSerialized] private const float MaxTime = 30.0f;
+        [System.NonSerialized] private const float MaxTime = 15.0f;
         [SerializeField] public float timeLeft = 0.0f;
         [SerializeField] private int amount;
 

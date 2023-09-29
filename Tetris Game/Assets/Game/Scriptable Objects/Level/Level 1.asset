@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 9
+    spawnInterval: 1
     countDatas:
     - enemyType: 19
       count: 3
@@ -43,7 +43,3 @@ MonoBehaviour:
     requiredPlaces: 
     blockRot: 0
     canRotate: 1
-  totalCoinRevenue: 33
-  totalPiggyRevenue: 0
-  totalTicketRevenue: 0
-  totalHeartRevenue: 0

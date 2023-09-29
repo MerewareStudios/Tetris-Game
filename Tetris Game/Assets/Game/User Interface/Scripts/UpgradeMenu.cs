@@ -101,12 +101,22 @@ namespace Game.UI
                         break;
                 }
 
+                UseCondition useCondition = lookUp.useCondition;
+                switch (useCondition)
+                {
+                    case UseCondition.Always:
+                        
+                        break;
+                    case UseCondition.HasPiggyCapacity:
+                        hasFunds &= PiggyMenu.THIS._Data.moneyCapacity > 10;
+                        break;
+                }
+
                 purchaseOption.SetPurchase(lookUp.currency, hasFunds);
                 if (glimmerByBadge)
                 {
                     purchaseOption.GlimmerByBadge();
                     purchaseOption.SetPurchaseText(purchaseText);
-
                 }
             }
         }
@@ -150,38 +160,41 @@ namespace Game.UI
                     Board.THIS._Data.maxStack++;
                     break;
                 case PurchaseType.SkipTicket:
-                    
+                    Wallet.TICKET.Transaction(15);
                     break;
                 case PurchaseType.MedKit:
-                    
+                    Warzone.THIS.Player._CurrentHealth += 15;
                     break;
                 case PurchaseType.Coin:
-                    
+                    Wallet.COIN.Transaction(1500);
                     break;
                 case PurchaseType.Shield:
                     
                     break;
                 case PurchaseType.PiggyCoin:
-                    
+                    Wallet.PIGGY.Transaction(250);
                     break;
                 case PurchaseType.PiggyCapacity:
-                    Debug.Log("cap");
-
-                    PiggyMenu.THIS._Data.moneyCapacity -= 10;
+                    PiggyMenu.THIS._Data.moneyCapacity -= 50;
                     PiggyMenu.THIS._Data.moneyCapacity = Mathf.Clamp(PiggyMenu.THIS._Data.moneyCapacity, 0, 10);
                     PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
                     break;
                 case PurchaseType.BasicChest:
-                    
+                    Wallet.COIN.Transaction(1000);
+                    Wallet.PIGGY.Transaction(5);
                     break;
                 case PurchaseType.PrimeChest:
-                    
+                    Wallet.COIN.Transaction(750);
+                    Wallet.PIGGY.Transaction(150);
+                    Wallet.TICKET.Transaction(10);
                     break;
                 case PurchaseType.PrestigeChest:
-                    
+                    Wallet.COIN.Transaction(1000);
+                    Wallet.PIGGY.Transaction(250);
+                    Wallet.TICKET.Transaction(25);
                     break;
                 case PurchaseType.RemoveAds:
-                    
+                    AdManager.THIS._Data.adBreakEnabled = false;
                     break;
             }
             Show(false);
@@ -249,8 +262,15 @@ namespace Game.UI
             [SerializeField] public Sprite sprite;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
+            [SerializeField] public UseCondition useCondition;
             [SerializeField] public bool best = false;
         } 
         
+    }
+
+    public enum UseCondition
+    {
+        Always,
+        HasPiggyCapacity
     }
 }

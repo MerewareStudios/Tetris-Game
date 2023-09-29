@@ -7,34 +7,10 @@ namespace IWI
 {
     public class AdManager : Singleton<AdManager>
     {
-        [SerializeField] private bool showAds = true;
         [System.NonSerialized] private Data _data;
 
         void Start()
         {
-            // yield return new WaitForSeconds(0.25f);
-            if (showAds)
-            {
-                // FakeAdBanner.Show();
-                // FakeAdInterstitial.Show(() =>
-                // {
-                //     Debug.LogWarning("Fake Ad Interstitial (On Finish)");
-                // });   
-                //
-                // FakeAdRewarded.Show(
-                //     () =>
-                //     {
-                //         Debug.LogWarning("Fake Ad Rewarded (On Reward)");
-                //     },
-                //     () =>
-                //     {
-                //         Debug.LogWarning("Fake Ad Rewarded (On Skip)");
-                //     }
-                // );   
-
-                // ShowAdBreak();
-            }
-            
             Board.THIS.OnMerge += (amount) =>
             {
                 // Try2AdBreak();
@@ -120,8 +96,6 @@ namespace IWI
             }
             
             // Debug.LogWarning(_Data.MergeLeftForAdBreak + " Merges Left for an Ad Break");
-
-
             _Data.mergeCountForAdBreak++;
 
             // if (_Data.CanShowAdBreak)
@@ -147,10 +121,6 @@ namespace IWI
                 adBreakEnabled = data.adBreakEnabled;
                 mergeCountForAdBreak = 0;
             }
-
-            // public bool CanShowAdBreak => mergeCountForAdBreak >= Const.THIS.adSettings.mergePerAdBreak;
-            // public int MergeLeftForAdBreak => Const.THIS.adSettings.mergePerAdBreak - mergeCountForAdBreak;
-
             public object Clone()
             {
                 return new Data(this);

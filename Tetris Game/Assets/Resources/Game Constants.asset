@@ -136,26 +136,20 @@ MonoBehaviour:
       amount: 30
     splitShotPrice:
     - type: 1
-      amount: 2
+      amount: 5
   - currency:
       type: 2
       amount: 1
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
-    defaultValues: 010000000300000002000000
+    defaultValues: 010000000100000002000000
     damagePrice:
     - type: 0
-      amount: 80
-    fireRatePrice:
-    - type: 0
-      amount: 25
-    - type: 0
-      amount: 35
-    - type: 0
-      amount: 45
+      amount: 100
+    fireRatePrice: []
     splitShotPrice:
     - type: 1
-      amount: 2
+      amount: 5
     - type: 2
       amount: 1
   - currency:
@@ -414,6 +408,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 7b1fd934843bbc24e82b1f48879499b6, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: <size=%150>+<sprite name=Ammo>
+    useCondition: 0
     best: 0
   - purchaseType: 1
     currency:
@@ -422,6 +417,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
     title: <bounce a=0.05 f=1>TICKET PACK
     info: <sprite name=Ticket> +15
+    useCondition: 0
     best: 0
   - purchaseType: 2
     currency:
@@ -430,6 +426,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
     info: <sprite name=Heart> +15
+    useCondition: 0
     best: 0
   - purchaseType: 3
     currency:
@@ -438,6 +435,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
     title: <bounce a=0.05 f=1>COIN PACK
     info: <sprite name=Coin> +1500
+    useCondition: 0
     best: 0
   - purchaseType: 4
     currency:
@@ -446,6 +444,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: 
     info: 
+    useCondition: 0
     best: 0
   - purchaseType: 5
     currency:
@@ -454,6 +453,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
     title: <bounce a=0.05 f=1>EXTRA SHIELD
     info: <sprite name=Shield> +25
+    useCondition: 0
     best: 0
   - purchaseType: 6
     currency:
@@ -462,6 +462,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: <bounce a=0.05 f=1>PIGGY COIN PACK
     info: <sprite name=PiggyCoin> +250
+    useCondition: 0
     best: 0
   - purchaseType: 7
     currency:
@@ -472,6 +473,7 @@ MonoBehaviour:
     info: 'Reduce
 
       50<size=%85><sprite name=Coin>'
+    useCondition: 1
     best: 0
   - purchaseType: 8
     currency:
@@ -482,6 +484,7 @@ MonoBehaviour:
     info: '<sprite name=Coin> +100
 
       <sprite name=PiggyCoin> +5'
+    useCondition: 0
     best: 0
   - purchaseType: 9
     currency:
@@ -495,6 +498,7 @@ MonoBehaviour:
 
       <sprite
       name=Ticket> +10'
+    useCondition: 0
     best: 0
   - purchaseType: 10
     currency:
@@ -508,6 +512,7 @@ MonoBehaviour:
 
       <sprite
       name=Ticket> +25'
+    useCondition: 0
     best: 1
   - purchaseType: 11
     currency:
@@ -518,6 +523,7 @@ MonoBehaviour:
     info: 'Remove
 
       All Ads'
+    useCondition: 0
     best: 0
   rewardDatas:
   - type: 0
