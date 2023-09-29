@@ -19,6 +19,7 @@ public class Powerup : Lazyingleton<Powerup>
     [SerializeField] private RectTransform currencyDisplay;
     [SerializeField] private RectTransform useDisplay;
     [SerializeField] public RectTransform fingerTarget;
+    [SerializeField] public ParticleSystem ps;
     [System.NonSerialized] private bool _canUse = false;
     [System.NonSerialized] private Data _data;
     public bool Available => this._data.available;
@@ -103,6 +104,8 @@ public class Powerup : Lazyingleton<Powerup>
         pivot.DOKill();
         pivot.localScale = Vector3.one;
         pivot.DOPunchScale(Vector3.one * amount, 0.3f, 1);
+        
+        ps.Emit(1);
     }
     private void PunchCost(float amount = 35.0f)
     {

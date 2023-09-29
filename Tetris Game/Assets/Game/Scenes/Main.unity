@@ -2074,7 +2074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d95fc6de03ab74ab6c44a4332aace6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showAds: 1
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3994,9 +3993,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: FPS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fa17cec9f1c579044b81a9fd32c488c4, type: 2}
-  m_sharedMaterial: {fileID: -4207045398725036055, guid: fa17cec9f1c579044b81a9fd32c488c4,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4020,8 +4018,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.13
-  m_fontSizeBase: 30.13
+  m_fontSize: 37.87
+  m_fontSizeBase: 37.87
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7135,20 +7133,15 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 548236974}
-    - target: {fileID: 1190124872483660895, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
+    - target: {fileID: 2107934112712211533, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4328712298909553318, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_Name
       value: Canvas - Shop
-      objectReference: {fileID: 0}
-    - target: {fileID: 4328712298909553318, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4360266885142093565, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}

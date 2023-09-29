@@ -16,6 +16,9 @@ public class Shop : MonoBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Button button;
     [SerializeField] private Data data;
+    [SerializeField] private Color emptyColor;
+    [SerializeField] private Color filledColor;
+    [SerializeField] private Image[] bars;
     [System.NonSerialized] private bool _open = false;
 
     public Data _Data
@@ -26,6 +29,24 @@ public class Shop : MonoBehaviour
         }
         get => this.data;
     }
+    
+    public int Current
+    {
+        get => _Data.current;
+        set
+        {
+            _Data.current = value;
+            for (int i = 0; i < _Data.max; i++)
+            {
+                Color targetColor = (i < Current) ? filledColor : emptyColor;
+                if (bars[i].color != targetColor)
+                {
+                    bars[i].DOKill();
+                    bars[i].DOColor(targetColor, 0.2f);
+                }
+            }
+        }
+    }
 
     public void Increase(int count)
     {
@@ -34,7 +55,7 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        _Data.current += count;
+        Current += count;
         if (_Data.IsEnough)
         {
             AnimatedShow();
@@ -49,7 +70,7 @@ public class Shop : MonoBehaviour
         }
         this._open = false;
         
-        _Data.current = 0;
+        Current = 0;
         button.targetGraphic.raycastTarget = false;
         buttonTransform.DOKill();
         buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
@@ -124,7 +145,9 @@ public class Shop : MonoBehaviour
     {
         [SerializeField] public int current = 0;
         [SerializeField] public int max = 6;
-            
+
+        
+        
         public Data()
         {
                 

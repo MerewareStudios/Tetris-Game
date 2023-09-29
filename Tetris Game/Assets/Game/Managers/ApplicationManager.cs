@@ -1,3 +1,4 @@
+using System;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -52,7 +53,15 @@ public class ApplicationManager : Singleton<ApplicationManager>
         fps++;
         if (Time.realtimeSinceStartup - fpsTimestamp > 1.0f)
         {
-            fpsText.text = fps.ToString();
+            TimeSpan t = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
+
+            string stamp = string.Format("{0}:{1}", 
+                t.Minutes, 
+                t.Seconds
+                );
+            
+            
+            fpsText.text = fps.ToString() + " | " + stamp;
             fps = 0;
             fpsTimestamp = Time.realtimeSinceStartup;
         }
