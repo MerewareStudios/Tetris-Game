@@ -171,9 +171,12 @@ namespace Game.UI
             }
             Const.Currency price = _gunUpgradeData.Price(statType, currentIndex);
 
+            bool ticket = price.type.Equals(Const.CurrencyType.Ticket);
+            // purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+            
             stageBar
                 .SetPrice(price)
-                .SetInteractable(Wallet.HasFunds(price) || price.type.Equals(Const.CurrencyType.Ticket));
+                .SetInteractable(Wallet.HasFunds(price) || ticket);
         }
         
         public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)
@@ -201,8 +204,10 @@ namespace Game.UI
             bool hasFunds = Wallet.HasFunds(currency);
 
             // purchaseButton.Available = hasFunds;
+            bool ticket = currency.type.Equals(Const.CurrencyType.Ticket);
             purchaseButton.Available = hasFunds || currency.type.Equals(Const.CurrencyType.Ticket);
-
+            purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+            
             if (hasFunds)
             {   
                 PunchButton(0.2f);

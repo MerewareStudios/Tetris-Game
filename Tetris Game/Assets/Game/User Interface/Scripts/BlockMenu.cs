@@ -149,8 +149,11 @@ namespace Game.UI
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            purchaseButton.Available = hasFunds || currency.type.Equals(Const.CurrencyType.Ticket);
+            bool ticket = currency.type.Equals(Const.CurrencyType.Ticket);
             
+            purchaseButton.Available = hasFunds || ticket;
+            purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+
             if (hasFunds)
             {   
                 PunchButton(0.2f);

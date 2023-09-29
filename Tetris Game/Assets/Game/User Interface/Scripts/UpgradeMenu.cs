@@ -94,7 +94,7 @@ namespace Game.UI
                         purchaseText = "GET";
                         break;
                     case Const.CurrencyType.Ticket:
-                        purchaseText = Wallet.HasFunds(Const.Currency.OneAd) ? "GET" : "WATCH";
+                        purchaseText = "GET";
                         break;
                     case Const.CurrencyType.Dollar:
                         purchaseText = "BUY";

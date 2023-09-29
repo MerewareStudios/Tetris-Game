@@ -71,7 +71,7 @@ namespace IWI
                     Debug.LogWarning("Fake Ad Interstitial (On Finish)");
                     UIManager.Pause(false);
                 });
-            }, 5);
+            }, 4);
                 
             UIManager.Pause(true);
             AdBreakScreen.THIS.Open();
@@ -97,7 +97,7 @@ namespace IWI
                     onReward?.Invoke();
                     UIManager.Pause(false);
                 });
-            }, 5);
+            }, 4);
                 
             UIManager.Pause(true);
             AdBreakScreen.THIS.Open();
