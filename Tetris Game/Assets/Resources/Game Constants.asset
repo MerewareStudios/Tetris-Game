@@ -413,9 +413,8 @@ MonoBehaviour:
       amount: 5
     sprite: {fileID: 21300000, guid: 7b1fd934843bbc24e82b1f48879499b6, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
-    info: +1 Stack
+    info: <size=%150>+<sprite name=Ammo>
     best: 0
-    seconds: 0
   - purchaseType: 1
     currency:
       type: 3
@@ -424,7 +423,6 @@ MonoBehaviour:
     title: <bounce a=0.05 f=1>SKIP TICKETS
     info: <sprite name=Ticket> +5
     best: 0
-    seconds: 0
   - purchaseType: 2
     currency:
       type: 1
@@ -433,17 +431,23 @@ MonoBehaviour:
     title: <bounce a=0.05 f=1>MEDKIT
     info: <sprite name=Heart> +10
     best: 0
-    seconds: 0
   - purchaseType: 3
     currency:
       type: 3
       amount: 1
-    sprite: {fileID: 21300000, guid: db3f127cf7e28f546820257b12c577db, type: 3}
+    sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
     title: <bounce a=0.05 f=1>COIN PACK
     info: <sprite name=Coin> +200
     best: 0
-    seconds: 0
   - purchaseType: 4
+    currency:
+      type: 0
+      amount: 1
+    sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
+    title: 
+    info: 
+    best: 0
+  - purchaseType: 5
     currency:
       type: 1
       amount: 50
@@ -451,29 +455,26 @@ MonoBehaviour:
     title: <bounce a=0.05 f=1>EXTRA SHIELD
     info: <sprite name=Shield> +25
     best: 0
-    seconds: 0
-  - purchaseType: 5
+  - purchaseType: 6
     currency:
       type: 3
       amount: 1
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: <bounce a=0.05 f=1>PIGGY COIN PACK
-    info: <sprite name=PiggyCoin> +100
+    info: <sprite name=PiggyCoin> +250
     best: 0
-    seconds: 0
-  - purchaseType: 6
-    currency:
-      type: 1
-      amount: 25
-    sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
-    title: <bounce a=0.05 f=1>PIGGY CAPACITY
-    info: Reduce
-    best: 0
-    seconds: 0
   - purchaseType: 7
     currency:
       type: 3
-      amount: 5
+      amount: 10
+    sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
+    title: <bounce a=0.05 f=1>PIGGY CAPACITY
+    info: -10 Capacity
+    best: 0
+  - purchaseType: 8
+    currency:
+      type: 2
+      amount: 1
     sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
     title: <bounce a=0.05 f=1>BASIC CHEST
     info: '<sprite name=Coin> +25
@@ -483,8 +484,7 @@ MonoBehaviour:
       <sprite
       name=Ticket> +5'
     best: 0
-    seconds: 0
-  - purchaseType: 8
+  - purchaseType: 9
     currency:
       type: 3
       amount: 7
@@ -497,8 +497,7 @@ MonoBehaviour:
       <sprite
       name=Ticket> +15'
     best: 0
-    seconds: 0
-  - purchaseType: 9
+  - purchaseType: 10
     currency:
       type: 3
       amount: 9
@@ -511,8 +510,7 @@ MonoBehaviour:
       <sprite
       name=Ticket> +25'
     best: 1
-    seconds: 0
-  - purchaseType: 10
+  - purchaseType: 11
     currency:
       type: 3
       amount: 10
@@ -522,7 +520,6 @@ MonoBehaviour:
 
       All Ads'
     best: 0
-    seconds: 0
   rewardDatas:
   - type: 0
     backgroundSprite: {fileID: 21300000, guid: 96fd97f606dbbd0479c5d83c6d8c0d8a, type: 3}
@@ -611,6 +608,7 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   getButtonTexture: {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
   buyButtonTexture: {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
+  watchButtonTexture: {fileID: 21300000, guid: 52185db7d0765e943a6b8bb4975e0c9e, type: 3}
   currenyButtonNormalColor: {r: 1, g: 1, b: 1, a: 1}
   currenyButtonFadedColor: {r: 1, g: 1, b: 1, a: 0.5882353}
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.8117647}

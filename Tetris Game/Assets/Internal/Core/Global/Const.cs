@@ -41,6 +41,7 @@ public class Const : SSingleton<Const>
     [Header("Button Textures")] 
     public Sprite getButtonTexture;
     public Sprite buyButtonTexture;
+    public Sprite watchButtonTexture;
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;

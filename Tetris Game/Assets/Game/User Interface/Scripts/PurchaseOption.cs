@@ -34,6 +34,11 @@ public class PurchaseOption : MonoBehaviour
             priceCurrencyDisplay.DisplayRealMoneyWithFraction(currency);
             purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
         }
+        else if (currency.type.Equals(Const.CurrencyType.Ticket))
+        {
+            priceCurrencyDisplay.Display(currency);
+            purchaseButton.ButtonSprite = Const.THIS.watchButtonTexture;
+        }
         else
         {
             priceCurrencyDisplay.Display(currency);

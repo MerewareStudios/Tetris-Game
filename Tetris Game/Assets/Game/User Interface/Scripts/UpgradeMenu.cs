@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Internal.Core;
+using IWI;
 using UnityEngine;
 
 
@@ -50,12 +51,16 @@ namespace Game.UI
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
+                if (!purchaseOption)
+                {
+                    continue;
+                }
+                
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
-                // bool hasFunds = Wallet.HasFunds(lookUp.currency);
 
+                
                 purchaseOption
-                    .SetPurchaseText(lookUp.currency.type.Equals(Const.CurrencyType.Dollar) ? "BUY" : "GET")
                     .SetIcon(lookUp.sprite)
                     .SetBestBadge(lookUp.best)
                     .SetInfo(lookUp.title, lookUp.info);
@@ -69,31 +74,68 @@ namespace Game.UI
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
+                if (!purchaseOption)
+                {
+                    continue;
+                }
+                
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
-                bool hasFunds = Wallet.HasFunds(lookUp.currency);
+                bool hasFunds = Wallet.HasFunds(lookUp.currency) || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
+                
+                string purchaseText = "";
+
+                switch (lookUp.currency.type)
+                {
+                    case Const.CurrencyType.Coin:
+                        purchaseText = "GET";
+                        break;
+                    case Const.CurrencyType.PiggyCoin:
+                        purchaseText = "GET";
+                        break;
+                    case Const.CurrencyType.Ticket:
+                        purchaseText = Wallet.HasFunds(Const.Currency.OneAd) ? "GET" : "WATCH";
+                        break;
+                    case Const.CurrencyType.Dollar:
+                        purchaseText = "BUY";
+                        break;
+                }
 
                 purchaseOption.SetPurchase(lookUp.currency, hasFunds);
                 if (glimmerByBadge)
                 {
                     purchaseOption.GlimmerByBadge();
+                    purchaseOption.SetPurchaseText(purchaseText);
+
                 }
             }
         }
 
         public void OnClick_Purchase(int purchaseIndex)
         {
-           
-
-            
             // PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
 
+            Debug.Log("c");
             if (!Wallet.Consume(lookUp.currency))
             {
-                purchaseOptions[purchaseIndex].PunchColor(Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
-                purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, -50.0f));
+                Debug.Log("b");
+
+                if (lookUp.currency.type.Equals(Const.CurrencyType.Ticket))
+                {
+                    Debug.Log("a");
+                    AdManager.ShowTicketAd(() =>
+                    {
+                        Wallet.Transaction(Const.Currency.OneAd);
+                        OnClick_Purchase(purchaseIndex);
+                    });
+                }
+                else
+                {
+                    purchaseOptions[purchaseIndex].PunchColor(Const.THIS.deniedFrameColor, Const.THIS.defaultFrameColor);
+                    purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, -50.0f));
+                }
                 return;
             }
             
@@ -123,6 +165,8 @@ namespace Game.UI
                     
                     break;
                 case PurchaseType.PiggyCapacity:
+                    Debug.Log("cap");
+
                     PiggyMenu.THIS._Data.moneyCapacity -= 10;
                     PiggyMenu.THIS._Data.moneyCapacity = Mathf.Clamp(PiggyMenu.THIS._Data.moneyCapacity, 0, 10);
                     PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
@@ -206,7 +250,6 @@ namespace Game.UI
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
             [SerializeField] public bool best = false;
-            [SerializeField] public int seconds;
         } 
         
     }
