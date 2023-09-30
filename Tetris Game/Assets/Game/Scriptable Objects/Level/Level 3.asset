@@ -27,9 +27,5 @@ MonoBehaviour:
     amount: 19
   failReward:
     type: 0
-    amount: 5
+    amount: 7
   suggestedBlocks: []
-  totalCoinRevenue: 53
-  totalPiggyRevenue: 0
-  totalTicketRevenue: 0
-  totalHeartRevenue: 1

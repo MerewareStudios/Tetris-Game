@@ -9,12 +9,9 @@ namespace  Game
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private Canvas canvas;
-        [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private RectTransform healthRT;
+        [SerializeField] private HealthCanvas healthCanvas;
         [Header("Model")]
         [SerializeField] public Transform thisTransform;
-        // [SerializeField] public Transform modelPivot;
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
         [SerializeField] public EnemyData so;
@@ -34,19 +31,16 @@ namespace  Game
             set
             {
                 this._health = value;
-                healthText.text = value <= 0 ? "" : value.ToString();
-
-                healthRT.DOKill();
-                healthRT.localPosition = Vector3.zero;
-                healthRT.DOPunchAnchorPos(new Vector2(0.0f, 10.0f), 0.75f, 1);
+                healthCanvas.Health = value;
             }
             get => this._health;
         }
+
         public Vector3 CrossSize => new Vector3(so.crossSize, so.crossSize, so.crossSize);
 
         void Awake()
         {
-            canvas.worldCamera = CameraManager.THIS.gameCamera;
+            healthCanvas.canvas.worldCamera = CameraManager.THIS.gameCamera;
         }
 
         #region  Mono
@@ -75,6 +69,7 @@ namespace  Game
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.color, so.radius);
             Health -= value;
+            healthCanvas.DisplayDamage(-value);
             Warzone.THIS.Player.PunchCrossHair();
             if (Health <= 0)
             {
