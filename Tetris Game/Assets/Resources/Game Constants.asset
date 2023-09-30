@@ -409,7 +409,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 5
-    sprite: {fileID: 21300000, guid: 39584ded2539f80428fc34b10efc6994, type: 3}
+    sprite: {fileID: 21300000, guid: bea6a6482ff6f124cbb37ea7ca4a6069, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: <size=%150>+<sprite name=Ammo>
     useCondition: 0
@@ -529,31 +529,12 @@ MonoBehaviour:
       All Ads'
     useCondition: 0
     best: 0
-  rewardDatas:
-  - type: 0
-    backgroundSprite: {fileID: 21300000, guid: 4e304ee3521a50e45923ad738ed29e4d, type: 3}
-    iconSprite: {fileID: 21300000, guid: 0de77a5daf01621489ebd6c2126943f6, type: 3}
-    formatText: +{0}
-    title: COIN
-    color: {r: 1, g: 0, b: 0.11764706, a: 1}
-  - type: 1
-    backgroundSprite: {fileID: 21300000, guid: 96fd97f606dbbd0479c5d83c6d8c0d8a, type: 3}
-    iconSprite: {fileID: 21300000, guid: 0e5a2b8e665292d4fb2826ab0913ded0, type: 3}
-    formatText: +{0}
-    title: PIGGY COIN
-    color: {r: 1, g: 0, b: 0.11764706, a: 1}
-  - type: 2
-    backgroundSprite: {fileID: 21300000, guid: 4463ebb5336889446849651851967306, type: 3}
-    iconSprite: {fileID: 21300000, guid: a73848d7df1de344ab9981b1c39958d4, type: 3}
-    formatText: +{0}
-    title: SKIP TICKET
-    color: {r: 1, g: 0, b: 0.118227005, a: 1}
   gridTileColors:
   - {r: 0.6801091, g: 0.24705881, b: 0.8666667, a: 1}
   - {r: 0.6971073, g: 0.30853334, b: 0.8666667, a: 1}
   defaultColor: {r: 0.14242274, g: 0.47224385, b: 0.922, a: 1}
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
-  mergerMaxColor: {r: 1, g: 0.6, b: 0.09803922, a: 1}
+  mergerMaxColor: {r: 1, g: 0.6627451, b: 0.09803922, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
   powerColor: {r: 0.8235294, g: 0.05882353, b: 0.83137256, a: 1}
   pawnIcons:

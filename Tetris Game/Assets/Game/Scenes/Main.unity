@@ -1882,7 +1882,7 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
-  - gameObject: {fileID: 2840851278670590169, guid: 1b25df69c600a1e4ca9b98885ba43c04,
+  - gameObject: {fileID: 6409661743272111104, guid: f9eb030effb1c624194e0646ec34f9e8,
       type: 3}
     preload: 0
     capacity: 250
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0

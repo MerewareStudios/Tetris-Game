@@ -23,7 +23,7 @@ public enum Pool
     Bullet = 20,
     Trail = 21,
     Distortion = 22,
-    Reward_Display = 23,
+    Enemy_7 = 23,
     Gun_1 = 24,
     Gun_2 = 25,
     Gun_3 = 26,
