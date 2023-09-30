@@ -258,12 +258,12 @@ namespace Game
                         }
                         return points;
                     }
-                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetUD))
-                    {
-                        CreatePawnAtVertical(i, j);
-                        points.Add(new Vector2Int(i, j));
-                        return points;
-                    }
+                    // if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetUD))
+                    // {
+                    //     CreatePawnAtVertical(i, j);
+                    //     points.Add(new Vector2Int(i, j));
+                    //     return points;
+                    // }
                     if (places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j, points);

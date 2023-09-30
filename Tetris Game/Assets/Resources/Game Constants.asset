@@ -40,14 +40,14 @@ MonoBehaviour:
     level: 1
     pupData:
       available: 0
-      currentUsage: 4
+      currentUsage: 3
     boardData:
       defaultStack: 6
       maxStack: 6
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 111
+      value: 0
     gemTransactionData:
       value: 0
     adTransactionData:
@@ -116,13 +116,17 @@ MonoBehaviour:
     damagePrice: []
     fireRatePrice:
     - type: 0
-      amount: 15
+      amount: 25
     - type: 0
-      amount: 20
-    splitShotPrice: []
+      amount: 25
+    - type: 0
+      amount: 25
+    splitShotPrice:
+    - type: 2
+      amount: 1
   - currency:
       type: 0
-      amount: 75
+      amount: 150
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
     defaultValues: 010000000200000001000000
@@ -591,7 +595,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4bc76270b368f9847b21069fef5fac92, type: 3}
   - {fileID: 21300000, guid: 6ae02d9be4c305e4989d6f394cbe04a0, type: 3}
-  - {fileID: 21300000, guid: 8ccaa8a3b820d0f49abaa5c6854cf1d8, type: 3}
   - {fileID: 21300000, guid: c7defc4a3387ded4e83f7aaecfcf2f6e, type: 3}
   placeColorsDouble:
   - {r: 0.18823528, g: 0.63201606, b: 0.8901961, a: 1}

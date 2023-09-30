@@ -409,7 +409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4f004328d7c9547edae34787869f3e8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2323358c16953446e9b2cb27fde07104, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5371,7 +5371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: cdc78e9ee0b2b5a41932eea26cc4b62b, type: 2}
-  m_Color: {r: 0.1882353, g: 0.1882353, b: 0.1882353, a: 1}
+  m_Color: {r: 0.64014816, g: 0, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -5501,12 +5501,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cb37917483ee24fea8fab306393441e5,
+      objectReference: {fileID: 21300000, guid: 8587e022ecb71854885be6a2d1afc1a9,
         type: 3}
     - target: {fileID: 3689060588610317735, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 1
+      value: 10.25
       objectReference: {fileID: 0}
     - target: {fileID: 6433757765341751923, guid: 700e893773617df448f9fd6dc19b189c,
         type: 3}

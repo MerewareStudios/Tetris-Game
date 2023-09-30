@@ -121,7 +121,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
         {
             if (lastOne)
             {
-                _canvasGroup.DOFade(0.0f, 0.35f).SetDelay(0.2f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+                _canvasGroup.DOFade(0.0f, 0.15f).SetDelay(0.2f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
                 {
                     Close();
                 };

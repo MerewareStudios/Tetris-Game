@@ -45,10 +45,10 @@ namespace Game
                         MarkPowerupColor();
                         Free2Place = true;
                         break;
-                    case Usage.MagnetUD:
-                        MarkPowerupColor();
-                        Free2Place = true;
-                        break;
+                    // case Usage.MagnetUD:
+                    //     MarkPowerupColor();
+                    //     Free2Place = true;
+                    //     break;
                     case Usage.Magnet:
                         MarkPowerupColor();
                         Free2Place = true;
@@ -89,7 +89,7 @@ namespace Game
             Ammo,
             UnpackedAmmo,
             MagnetLR,
-            MagnetUD,
+            // MagnetUD,
             Magnet,
             // DamageDouble,
             // FirerateDouble,
@@ -131,11 +131,11 @@ namespace Game
                         iconMR.enabled = true;
                         this._amount = 0;
                         break;
-                    case Usage.MagnetUD:
-                        levelText.enabled = false;
-                        iconMR.enabled = true;
-                        this._amount = 0;
-                        break;
+                    // case Usage.MagnetUD:
+                    //     levelText.enabled = false;
+                    //     iconMR.enabled = true;
+                    //     this._amount = 0;
+                    //     break;
                     case Usage.Magnet:
                         levelText.enabled = false;
                         iconMR.enabled = true;
@@ -190,9 +190,9 @@ namespace Game
                 case Usage.MagnetLR:
                     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
                     return true;
-                case Usage.MagnetUD:
-                    UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                    return true;
+                // case Usage.MagnetUD:
+                //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                //     return true;
                 case Usage.Magnet:
                     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
                     return true;
@@ -407,7 +407,8 @@ namespace Game
                 return;
             }
             
-            if (UsageType.Equals(Usage.MagnetLR) || UsageType.Equals(Usage.MagnetUD) ||  UsageType.Equals(Usage.Magnet))
+            if (UsageType.Equals(Usage.MagnetLR) ||  UsageType.Equals(Usage.Magnet))
+            // if (UsageType.Equals(Usage.MagnetLR) || UsageType.Equals(Usage.MagnetUD) ||  UsageType.Equals(Usage.Magnet))
             {
                 Mover = false;
                 return;
