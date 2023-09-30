@@ -26,36 +26,36 @@ public class RewardButton : MonoBehaviour
         OnClickAction?.Invoke();
     }
 
-    public void ShowReward(PiggyMenu.PiggyReward piggyReward)
-    {
-        ActionButton.image.raycastTarget = false;
-
-        piggyIcon.rectTransform.DOKill();
-        piggyIcon.rectTransform.localScale = Vector3.one;
-        piggyIcon.rectTransform.localRotation = Quaternion.identity;
-        piggyIcon.DOColor(Const.THIS.piggyExplodeColor, 0.25f).SetUpdate(true);
-        piggyIcon.rectTransform.DOScale(Vector3.one * 1.25f, 0.25f).SetEase(Const.THIS.piggyExplodeEase).SetUpdate(true).onComplete += () =>
-        {
-            // piggyReward.GiveReward();
-            
-            Particle.Piggy_Break_Ps.Emit(100, piggyIcon.rectTransform.position);
-        
-            piggyIcon.enabled = false;
-
-            iconText.text = piggyReward.type.ToString().ToTMProKey();
-            amountText.text = piggyReward.amount.ToString();
-            
-            iconText.gameObject.SetActive(true);
-            iconText.rectTransform.DOKill();
-            iconText.rectTransform.localScale = Vector3.zero;
-            iconText.rectTransform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
-            
-            amountText.gameObject.SetActive(true);
-            amountText.rectTransform.DOKill();
-            amountText.rectTransform.localScale = Vector3.zero;
-            amountText.rectTransform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
-        };
-    }
+    // public void ShowReward(PiggyMenu.PiggyReward piggyReward)
+    // {
+    //     ActionButton.image.raycastTarget = false;
+    //
+    //     piggyIcon.rectTransform.DOKill();
+    //     piggyIcon.rectTransform.localScale = Vector3.one;
+    //     piggyIcon.rectTransform.localRotation = Quaternion.identity;
+    //     piggyIcon.DOColor(Const.THIS.piggyExplodeColor, 0.25f).SetUpdate(true);
+    //     piggyIcon.rectTransform.DOScale(Vector3.one * 1.25f, 0.25f).SetEase(Const.THIS.piggyExplodeEase).SetUpdate(true).onComplete += () =>
+    //     {
+    //         // piggyReward.GiveReward();
+    //         
+    //         Particle.Piggy_Break_Ps.Emit(100, piggyIcon.rectTransform.position);
+    //     
+    //         piggyIcon.enabled = false;
+    //
+    //         iconText.text = piggyReward.type.ToString().ToTMProKey();
+    //         amountText.text = piggyReward.amount.ToString();
+    //         
+    //         iconText.gameObject.SetActive(true);
+    //         iconText.rectTransform.DOKill();
+    //         iconText.rectTransform.localScale = Vector3.zero;
+    //         iconText.rectTransform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
+    //         
+    //         amountText.gameObject.SetActive(true);
+    //         amountText.rectTransform.DOKill();
+    //         amountText.rectTransform.localScale = Vector3.zero;
+    //         amountText.rectTransform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
+    //     };
+    // }
     public RewardButton Show(Vector3 start, Vector3 end, float delay)
     {
         this.gameObject.SetActive(true);

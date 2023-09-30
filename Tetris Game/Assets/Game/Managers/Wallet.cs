@@ -63,6 +63,7 @@ public static class Wallet
         PIGGY.Scale(scale, distance);
         TICKET.Scale(scale, distance);
     }
+    
     public static void HideTransactors()
     {
         

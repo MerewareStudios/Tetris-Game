@@ -15,45 +15,45 @@ public class RewardScreen : Lazyingleton<RewardScreen>
     [System.NonSerialized] private bool _canClaim = false;
     [System.NonSerialized] public System.Action OnClose;
     
-    public void Show(List<PiggyMenu.PiggyReward> rewardDatas)
-    {
-        _canvas.enabled = true;
-        _canvasGroup.alpha = 1.0f;
-        this.gameObject.SetActive(true);
-        
-        piggyBlowPS.Play();
-        _rewardDisplays.Clear();
-
-        float angleAddition = -20.0f / rewardDatas.Count;
-        float scaleF = 1.0f - 0.01f * rewardDatas.Count;
-        
-        for (int i = 0; i < rewardDatas.Count; i++)
-        {
-            RewardDisplay rewardDisplay = Pool.Reward_Display.Spawn<RewardDisplay>();
-            rewardDisplay.rectTransform.SetParent(rewardDisplayParent);
-            rewardDisplay.rectTransform.localPosition = Vector3.zero;
-            
-            rewardDisplay.rectTransform.DOKill();
-            
-            rewardDisplay.rectTransform.localScale = Vector3.one * 0.15f;
-            rewardDisplay.rectTransform.DOScale(Vector3.one * (scaleF + i * 0.01f), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
-            
-            rewardDisplay.rectTransform.localEulerAngles = Vector3.zero;
-            rewardDisplay.rectTransform.DOLocalRotate(new Vector3(0.0f, 0.0f, 20.0f + angleAddition * i), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
-            
-            rewardDisplay.Set(rewardDatas[i], i);
-            rewardDisplay.animator.enabled = i == rewardDatas.Count - 1;
-            
-            _rewardDisplays.Add(rewardDisplay);
-        }
-
-        claimButton.transform.DOKill();
-        claimButton.transform.localScale = Vector3.zero;
-        claimButton.transform.DOScale(Vector3.one, 0.25f).SetDelay(0.3f + 0.1f * rewardDatas.Count).SetEase(Ease.OutBack).SetUpdate(true);
-
-        _canClaim = true;
-
-    }
+    // public void Show(List<PiggyMenu.PiggyReward> rewardDatas)
+    // {
+    //     _canvas.enabled = true;
+    //     _canvasGroup.alpha = 1.0f;
+    //     this.gameObject.SetActive(true);
+    //     
+    //     piggyBlowPS.Play();
+    //     _rewardDisplays.Clear();
+    //
+    //     float angleAddition = -20.0f / rewardDatas.Count;
+    //     float scaleF = 1.0f - 0.01f * rewardDatas.Count;
+    //     
+    //     for (int i = 0; i < rewardDatas.Count; i++)
+    //     {
+    //         RewardDisplay rewardDisplay = Pool.Reward_Display.Spawn<RewardDisplay>();
+    //         rewardDisplay.rectTransform.SetParent(rewardDisplayParent);
+    //         rewardDisplay.rectTransform.localPosition = Vector3.zero;
+    //         
+    //         rewardDisplay.rectTransform.DOKill();
+    //         
+    //         rewardDisplay.rectTransform.localScale = Vector3.one * 0.15f;
+    //         rewardDisplay.rectTransform.DOScale(Vector3.one * (scaleF + i * 0.01f), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+    //         
+    //         rewardDisplay.rectTransform.localEulerAngles = Vector3.zero;
+    //         rewardDisplay.rectTransform.DOLocalRotate(new Vector3(0.0f, 0.0f, 20.0f + angleAddition * i), 0.1f * i + 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+    //         
+    //         rewardDisplay.Set(rewardDatas[i], i);
+    //         rewardDisplay.animator.enabled = i == rewardDatas.Count - 1;
+    //         
+    //         _rewardDisplays.Add(rewardDisplay);
+    //     }
+    //
+    //     claimButton.transform.DOKill();
+    //     claimButton.transform.localScale = Vector3.zero;
+    //     claimButton.transform.DOScale(Vector3.one, 0.25f).SetDelay(0.3f + 0.1f * rewardDatas.Count).SetEase(Ease.OutBack).SetUpdate(true);
+    //
+    //     _canClaim = true;
+    //
+    // }
 
     public void Deconstruct()
     {

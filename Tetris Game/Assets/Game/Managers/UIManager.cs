@@ -16,6 +16,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public TextMeshProUGUI levelText;
    [SerializeField] public GameObject levelProgressbar;
    [SerializeField] private Image levelProgress;
+   [SerializeField] public ParticleSystem piggyPS;
+
    public float LevelProgress
    {
       set
@@ -55,7 +57,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private SlashScreen slashScreen;
    [SerializeField] private MenuNavigator menuNavigator;
    [SerializeField] private PiggyMenu piggyMenu;
-   [SerializeField] private RewardScreen rewardScreen;
+   // [SerializeField] private RewardScreen rewardScreen;
    [SerializeField] private Powerup powerup;
    [SerializeField] private AdBreakScreen adBreakScreen;
    [Header("Bars")]
@@ -63,11 +65,13 @@ public class UIManager : Singleton<UIManager>
    [FormerlySerializedAs("particleImageCoin")]
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;
+   [SerializeField] public UIEmitter piggyCoinEmitter;
+   [SerializeField] public UIEmitter ticketEmitter;
    [SerializeField] public UIEmitter heartEmitter;
    [SerializeField] public UIEmitter shieldEmitter;
-   [SerializeField] public UIEmitter ticketEmitter;
    [SerializeField] public MotionData motionData_Enemy_Burst;
    [SerializeField] public MotionData motionData_LevelReward;
+   [SerializeField] public MotionData motionData_PiggyReward;
    [SerializeField] public MotionData motionData_PiggyFill;
    [SerializeField] public MotionData motionData_Shop;
    [SerializeField] public MotionData motionData_UpgradeBurst;
@@ -93,16 +97,16 @@ public class UIManager : Singleton<UIManager>
          SlashScreen.THIS = slashScreen;
          MenuNavigator.THIS = menuNavigator.Setup();
          PiggyMenu.THIS = piggyMenu;
-         RewardScreen.THIS = rewardScreen;
+         // RewardScreen.THIS = rewardScreen;
          Powerup.THIS = powerup;
          AdBreakScreen.THIS = adBreakScreen;
 
-         RewardScreen.THIS.OnClose = () =>
-         {
-            MenuMode(false);
-            Wallet.ScaleTransactors(1.0f);
-            LevelManager.THIS.LoadLevel();
-         };
+         // RewardScreen.THIS.OnClose = () =>
+         // {
+         //    MenuMode(false);
+         //    Wallet.ScaleTransactors(1.0f);
+         //    LevelManager.THIS.LoadLevel();
+         // };
 
          Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
@@ -273,6 +277,24 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, canvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
+   }
+   public static void EmitPiggyRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, canvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_PiggyReward, null, OnAllArrive);
+   }
+   public static void EmitPiggyRewardPiggy(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, canvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_PiggyReward, null, OnAllArrive);
+   }
+   public static void EmitPiggyRewardTicket(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, canvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.ticketEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_PiggyReward, null, OnAllArrive);
    }
    public static void RequestCoinFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive)
    {

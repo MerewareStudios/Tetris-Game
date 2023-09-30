@@ -24,8 +24,8 @@ public class Const : SSingleton<Const>
     public BlockMenu.BlockData[] DefaultBlockData;
     public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
     
-    [Header("Reward")] 
-    public RewardData[] rewardDatas;
+    // [Header("Reward")] 
+    // public RewardData[] rewardDatas;
     [Header("Colors")] 
     public Color[] gridTileColors;
     public Color defaultColor;
@@ -60,16 +60,16 @@ public class Const : SSingleton<Const>
     public Ease rotationEase;
     public Ease piggyExplodeEase;
 
-    [Serializable]
-    public struct RewardData
-    {
-        [SerializeField] public PiggyMenu.PiggyReward.Type type;
-        [SerializeField] public Sprite backgroundSprite;
-        [SerializeField] public Sprite iconSprite;
-        [TextArea][SerializeField] public string formatText;
-        [TextArea][SerializeField] public string title;
-        [SerializeField] public Color color;
-    }
+    // [Serializable]
+    // public struct RewardData
+    // {
+    //     [SerializeField] public PiggyMenu.PiggyReward.Type type;
+    //     [SerializeField] public Sprite backgroundSprite;
+    //     [SerializeField] public Sprite iconSprite;
+    //     [TextArea][SerializeField] public string formatText;
+    //     [TextArea][SerializeField] public string title;
+    //     [SerializeField] public Color color;
+    // }
     
     [Serializable]
     public struct DirectionRadiusPair
@@ -112,10 +112,10 @@ public class Const : SSingleton<Const>
     }
 }
 
-public static class ConstExtensions
-{
-    public static Const.RewardData RewardData(this PiggyMenu.PiggyReward.Type type)
-    {
-        return Const.THIS.rewardDatas[(int)type];
-    }
-}
+// public static class ConstExtensions
+// {
+//     public static Const.RewardData RewardData(this PiggyMenu.PiggyReward.Type type)
+//     {
+//         return Const.THIS.rewardDatas[(int)type];
+//     }
+// }

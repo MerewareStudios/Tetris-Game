@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ParticleManager : Singleton<ParticleManager>
 {
+#if UNITY_EDITOR
+    [SerializeField] public bool debug = true;
+#endif
     [SerializeField] public List<ParticleSystem> particleSystems;
     [System.NonSerialized] public List<ParticleData> particleData = new();
 
@@ -28,6 +31,10 @@ public class ParticleManager : Singleton<ParticleManager>
         ParticleSystem particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
         particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
         particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
+        
+#if UNITY_EDITOR
+        particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
 
         Transform pTransform = particleSystem.transform;
         pTransform.position = position;
@@ -50,6 +57,10 @@ public class ParticleManager : Singleton<ParticleManager>
             particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
             particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            
+#if UNITY_EDITOR
+            particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
         }
 
         Transform pTransform = particleSystem.transform;
@@ -77,6 +88,10 @@ public class ParticleManager : Singleton<ParticleManager>
             particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
             particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            
+#if UNITY_EDITOR
+            particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
         }
     
         Transform pTransform = particleSystem.transform;
@@ -115,6 +130,10 @@ public class ParticleManager : Singleton<ParticleManager>
             particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
             particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
             particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            
+#if UNITY_EDITOR
+            particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
         }
 
         Transform pTransform = particleSystem.transform;

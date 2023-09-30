@@ -42,6 +42,10 @@ public class GameManager : Singleton<GameManager>
     {
        Wallet.COIN.Transaction(value);
     }
+    public static void AddPiggyCoin(int value)
+    {
+        Wallet.PIGGY.Transaction(value);
+    }
     public static void AddTicket(int value)
     {
         Wallet.TICKET.Transaction(value);

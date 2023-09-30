@@ -167,7 +167,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             rewardedPiggy.gameObject.SetActive(false);
             shakeTween?.Kill();
             
-            Particle.Piggy_Break_Ps.Emit(100, rewardedPiggyShakePivot.position);
+            // Particle.Piggy_Break_Ps.Emit(100, rewardedPiggyShakePivot.position);
 
             base.CloseImmediate();
 
@@ -186,42 +186,42 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void GiveRewards()
     {
-        List<PiggyMenu.PiggyReward> rewardDatas = new List<PiggyMenu.PiggyReward>();
+        // List<PiggyMenu.PiggyReward> rewardDatas = new List<PiggyMenu.PiggyReward>();
         
-        int capIndex = _Data.moneyCapacity / PiggyCapIncrease;
-        
-        
-        
-        // case PiggyReward.Type.Coin:
-        int coinCount = (int)((_Data.moneyCapacity) * Random.Range(0.2f, 0.3f));
-        rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Coin, coinCount));
-        Wallet.COIN.Transaction(coinCount);
-        
-        
-        
-        
-        // case PiggyReward.Type.PiggyCoin:
-        int piggyCoinCount = Random.Range(3, 7) + Random.Range(0, _Data.breakInstance);
-        rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCoin, piggyCoinCount));
-        Wallet.PIGGY.Transaction(piggyCoinCount);
-        
-        
-        
-        
-        // case PiggyReward.Type.Ad:
-        if (_Data.breakInstance == 0)
-        {
-            rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
-            Wallet.TICKET.Transaction(1);
-        }
-        else if (_Data.breakInstance % 3 == 0)
-        {
-            Helper.IsPossible(0.5f, () =>
-            {
-                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
-                Wallet.TICKET.Transaction(1);
-            });
-        }
+        // int capIndex = _Data.moneyCapacity / PiggyCapIncrease;
+        //
+        //
+        //
+        // // case PiggyReward.Type.Coin:
+        // int coinCount = (int)((_Data.moneyCapacity) * Random.Range(0.2f, 0.3f));
+        // // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Coin, coinCount));
+        // Wallet.COIN.Transaction(coinCount);
+        //
+        //
+        //
+        //
+        // // case PiggyReward.Type.PiggyCoin:
+        // int piggyCoinCount = Random.Range(3, 7) + Random.Range(0, _Data.breakInstance);
+        // // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCoin, piggyCoinCount));
+        // Wallet.PIGGY.Transaction(piggyCoinCount);
+        //
+        //
+        //
+        //
+        // // case PiggyReward.Type.Ad:
+        // if (_Data.breakInstance == 0)
+        // {
+        //     // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
+        //     Wallet.TICKET.Transaction(1);
+        // }
+        // else if (_Data.breakInstance % 3 == 0)
+        // {
+        //     Helper.IsPossible(0.5f, () =>
+        //     {
+        //         // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
+        //         Wallet.TICKET.Transaction(1);
+        //     });
+        // }
         
         
         
@@ -305,12 +305,34 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, PiggyCapIncrease));
         //         _Data.moneyCapacity += PiggyCapIncrease;
         //     });
-        // }   
+        // }  
+
+        UIManager.THIS.piggyPS.Play();
         
+        int coinReward = 20;
+        GiveMeta(coinReward, 20, Wallet.COIN, UIManagerExtensions.EmitPiggyRewardCoin);
+        int piggyReward = 5;
+        GiveMeta(piggyReward, 20, Wallet.PIGGY, UIManagerExtensions.EmitPiggyRewardPiggy);
+        int ticketReward = 1;
+        GiveMeta(ticketReward, 5, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
         
+        // RewardScreen.THIS.Show(rewardDatas);
         
-        
-        RewardScreen.THIS.Show(rewardDatas);
+        UIManager.MenuMode(false);
+        LevelManager.THIS.LoadLevel();
+    }
+
+    private void GiveMeta(int amount, int limit, CurrencyTransactor transactor, System.Action<Vector3, int, int, System.Action> act)
+    {
+        if (amount == 0)
+        {
+            Wallet.TICKET.Scale(1.0f, false);
+            return;
+        }
+        act.Invoke(rewardedPiggy.position, Mathf.Min(amount, limit), amount, () =>
+        {
+            transactor.Scale(1.0f, false);
+        });
     }
     public void OnClick_InvestPiggyBank()
     {
@@ -531,49 +553,49 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 return new Data(this);
             }
         } 
-    [System.Serializable]
-    public class PiggyReward : ICloneable
-    {
-        [SerializeField] public Type type;
-        [SerializeField] public int amount;
-        
-        
-        public PiggyReward()
-        {
-                
-        }
-        public PiggyReward(PiggyReward piggyReward)
-        {
-            this.type = piggyReward.type;
-            this.amount = piggyReward.amount;
-        }
-        public PiggyReward(PiggyReward.Type type, int amount)
-        {
-            this.type = type;
-            this.amount = amount;
-        }
-        
-        public object Clone()
-        {
-            return new PiggyReward(this);
-        }
+    // [System.Serializable]
+    // public class PiggyReward : ICloneable
+    // {
+    //     [SerializeField] public Type type;
+    //     [SerializeField] public int amount;
+    //     
+    //     
+    //     public PiggyReward()
+    //     {
+    //             
+    //     }
+    //     public PiggyReward(PiggyReward piggyReward)
+    //     {
+    //         this.type = piggyReward.type;
+    //         this.amount = piggyReward.amount;
+    //     }
+    //     public PiggyReward(PiggyReward.Type type, int amount)
+    //     {
+    //         this.type = type;
+    //         this.amount = amount;
+    //     }
+    //     
+    //     public object Clone()
+    //     {
+    //         return new PiggyReward(this);
+    //     }
 
-        public enum Type
-        {
-            Coin,
-            PiggyCoin,
-            Ad,
-            // Shield,
-            // Heart,
-            // Medkit,
-            // Protection,
-            // MaxStack,
-            // PiggyCapacity,
-            // Damage,
-            // Firerate,
-            // Splitshot,
-            // Weapon
-        }
-    } 
+        // public enum Type
+        // {
+        //     // Coin,
+        //     // PiggyCoin,
+        //     // Ad,
+        //     // Shield,
+        //     // Heart,
+        //     // Medkit,
+        //     // Protection,
+        //     // MaxStack,
+        //     // PiggyCapacity,
+        //     // Damage,
+        //     // Firerate,
+        //     // Splitshot,
+        //     // Weapon
+        // }
+    // } 
     #endregion
 }
