@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
     public static readonly int BaseMap = Shader.PropertyToID("_BaseMap");
     public static readonly int RampID = Shader.PropertyToID("_Ramp");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
-    public static readonly int EnemyEmisColor = Shader.PropertyToID("_EmissionColor");
+    public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
 
     void Start()
     {

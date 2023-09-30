@@ -68,7 +68,7 @@ namespace  Game
             
             animator.SetTrigger(WALK_HASH);
             // skin.SetColor(GameManager.MPB_ENEMY, GameManager.EnemyEmisColor, Color.black);
-            skin.material.SetColor(GameManager.EnemyEmisColor, Color.black);
+            skin.material.SetColor(GameManager.EmissionKey, Color.black);
         }
         public void TakeDamage(int value)
         {
@@ -101,7 +101,7 @@ namespace  Game
             _colorPunchTween = DOTween.To((x) => timeStep = x, 0.0f, 1.0f, 0.35f).SetEase(Ease.Linear);
             _colorPunchTween.onUpdate = () =>
             {
-                skin.material.SetColor(GameManager.EnemyEmisColor, so.hitGradient.Evaluate(timeStep));
+                skin.material.SetColor(GameManager.EmissionKey, so.hitGradient.Evaluate(timeStep));
             };
         }
         

@@ -11,7 +11,6 @@ public class Gun : MonoBehaviour
     [System.NonSerialized] private Data _data;
     [System.NonSerialized] private Tween _boostTween = null;
 
-    
     public Data _Data
     {
         set
@@ -21,11 +20,8 @@ public class Gun : MonoBehaviour
             transform.Set(GunSo.holsterTransformData);
 
             _data.Mult = 1;
-            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Damage, 1.0f);
-            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Splitshot, 1.0f);
-            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Firerate, 1.0f);
-            
-            UpdateAllStats();
+            StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
+            Warzone.THIS.Player.Emission = 0.0f;
         }
         get => _data;
     }
@@ -34,43 +30,26 @@ public class Gun : MonoBehaviour
     {
         this._Data.Mult = mult;
         
-        UpdateAllStats(true);
+        StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Boost, mult, 0.5f, true);
+
         
         _boostTween?.Kill();
         float percent = 0.0f;
         _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 6.0f).SetEase(Ease.Linear);
         _boostTween.onUpdate = () =>
         {
-            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Damage, percent);
-            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Splitshot, percent);
-            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Firerate, percent);
+            StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Boost, percent);
+
+            Warzone.THIS.Player.Emission = Mathf.Repeat(percent * 10.0f, 1.0f);
         };
         _boostTween.onComplete = () =>
         {
             _Data.Mult = 1;
-            UpdateAllStats();
+            StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
+            Warzone.THIS.Player.Emission = 0.0f;
         };
     }
 
-    private void UpdateAllStats(bool markSpecial = false)
-    {
-        SetStat(StatDisplay.Type.Damage, _data.DamageAmount, markSpecial);
-        SetStat(StatDisplay.Type.Splitshot, _data.SplitAmount, markSpecial);
-        SetStat(StatDisplay.Type.Firerate, _data.RateAmount, markSpecial);
-    }
-
-    private void SetStat(StatDisplay.Type statType, int value, bool markSpecial = false)
-    {
-        if (value <= 1)
-        {
-            StatDisplayArranger.THIS.HideImmediate(statType);
-        }
-        else
-        {
-            StatDisplayArranger.THIS.UpdateAmount(statType, value, 0.5f, markSpecial);
-        }
-    }
-    
     public void Bubble()
     {
         Particle.Bubble.EmitForward(1, muzzle.position, muzzle.forward);
@@ -79,7 +58,6 @@ public class Gun : MonoBehaviour
     public void Shoot(Enemy enemy)
     {
         Transform enemyTransform = enemy.transform;
-        
         // enemy.OnRemoved = () =>
         // {
         //     enemyTransform = null;

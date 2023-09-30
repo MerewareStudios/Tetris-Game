@@ -91,10 +91,6 @@ public static class SaveManagerExtensions
     {
         return SaveManager.THIS.saveData.userData.blockShopData.GetRandomBlock();
     }
-    // public static int[] GetLookUp(this Block block, Pool pool)
-    // {
-    //     return SaveManager.THIS.saveData.userData.blockShopData.LookUps(pool);
-    // }
     public static int CurrentLevel(this LevelManager levelManager)
     {
         return SaveManager.THIS.saveData.userData.level;

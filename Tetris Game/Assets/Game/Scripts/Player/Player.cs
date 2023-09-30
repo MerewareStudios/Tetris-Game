@@ -10,6 +10,7 @@ namespace Game
     public class Player : MonoBehaviour
     {
         [SerializeField] public Shield shield;
+        [SerializeField] public Renderer skin;
         [FormerlySerializedAs("_animator")]
         [Header("Motion Settings")]
         [SerializeField] public Animator animator;
@@ -17,6 +18,7 @@ namespace Game
         [SerializeField] private Transform crossHair;
         [SerializeField] private Transform crossHairScalePivot;
         [SerializeField] public SpriteRenderer crossHairSpriteRenderer;
+        [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
         [System.NonSerialized] private Tween _crossColorTween;
 
         [System.NonSerialized] public Gun Gun;
@@ -28,6 +30,11 @@ namespace Game
         [System.NonSerialized] private bool _shouldGetUp = false;
         [System.NonSerialized] private Coroutine _searchRoutine = null;
         [System.NonSerialized] private Enemy _currentEnemy = null;
+
+        public float Emission
+        {
+            set => skin.sharedMaterial.SetColor(GameManager.EmissionKey, emissionGradient.Evaluate(value));
+        }
 
         public Enemy CurrentEnemy
         {
@@ -245,6 +252,8 @@ namespace Game
         public void Replenish()
         {
             ReplenishHealth();
+            
+            Emission = 0.0f;
 
             if (_shouldGetUp)
             {

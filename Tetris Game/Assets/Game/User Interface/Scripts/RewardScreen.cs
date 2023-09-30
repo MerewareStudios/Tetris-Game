@@ -102,8 +102,8 @@ public class RewardScreen : Lazyingleton<RewardScreen>
         const float cardDragDur = 0.4f;
 
 
-        Tween upTween = rewardDisplay.rectTransform.DOScale(Vector3.one * 1.1f, 0.45f).SetEase(Ease.OutQuad).SetUpdate(true);
-        Tween rotationTween = rewardDisplay.rectTransform.DOLocalRotate(Vector3.zero, 0.25f).SetEase(Ease.OutQuad).SetUpdate(true);
+        Tween upTween = rewardDisplay.rectTransform.DOScale(Vector3.one * 1.1f, 0.25f).SetEase(Ease.OutQuad).SetUpdate(true);
+        Tween rotationTween = rewardDisplay.rectTransform.DOLocalRotate(Vector3.zero, 0.15f).SetEase(Ease.OutQuad).SetUpdate(true);
         Tween punchScaleUp = rewardDisplay.rectTransform.DOScale(Vector3.one * 0.3f, 0.15f).SetRelative(true).SetEase(Ease.OutBack).SetUpdate(true);
         upTween.onComplete =
             () =>
@@ -138,7 +138,7 @@ public class RewardScreen : Lazyingleton<RewardScreen>
             return;
         }
         
-        Tween dragUpTween = rewardDisplay.rectTransform.DOAnchorPosY(750.0f, cardDragDur).SetDelay(0.325f).SetRelative(true).SetEase(Ease.InOutSine).SetUpdate(true);
+        Tween dragUpTween = rewardDisplay.rectTransform.DOAnchorPosY(750.0f, cardDragDur).SetDelay(0.1f).SetRelative(true).SetEase(Ease.InOutSine).SetUpdate(true);
         dragUpTween.onComplete =
             () =>
             {

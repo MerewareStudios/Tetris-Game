@@ -26,8 +26,8 @@ public class StatDisplay : MonoBehaviour
         }
 
         _currentValue = value;
-        text.color = markSpecial ? Onboarding.THIS.specialStatColor : Onboarding.THIS.normalStatColor;
-        text.text = value.ToString();
+        // text.color = markSpecial ? Onboarding.THIS.specialStatColor : Onboarding.THIS.normalStatColor;
+        text.text = markSpecial ? ("x" + value) : value.ToString();
         return false;
     }
 
@@ -100,8 +100,8 @@ public class StatDisplay : MonoBehaviour
     {
         Health,
         Shield,
-        Damage,
-        Firerate,
-        Splitshot,
+        Boost,
+        // Firerate,
+        // Splitshot,
     }
 }

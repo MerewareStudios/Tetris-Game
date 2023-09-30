@@ -34,8 +34,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
     private void Activate()
     {
-      
-        
         bool weaponActive = ONBOARDING.ABLE_TO_USE_WEAPON_TAB.IsComplete();
         bool upgradeActive = ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.IsComplete();
         

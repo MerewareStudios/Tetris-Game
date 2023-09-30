@@ -47,7 +47,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 0
+      value: 111
     gemTransactionData:
       value: 0
     adTransactionData:

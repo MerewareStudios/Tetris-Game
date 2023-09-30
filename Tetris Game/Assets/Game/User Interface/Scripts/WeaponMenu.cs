@@ -337,6 +337,7 @@ namespace Game.UI
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
                     ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
+                    ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
                     Onboarding.HideFinger();
                 }
                 
