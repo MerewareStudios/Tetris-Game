@@ -128,6 +128,12 @@ public class Powerup : Lazyingleton<Powerup>
             
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
+            
+            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+            {
+                ONBOARDING.LEARNED_POWERUP.SetComplete();
+                Onboarding.Deconstruct();
+            }
 
             PunchFrame(0.2f);
             icon.enabled = false;
@@ -136,18 +142,13 @@ public class Powerup : Lazyingleton<Powerup>
         else
         {
             PunchFrame(0.1f);
-            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete() && !Wallet.HasFunds(Const.Currency.OneAd))
-            {
-                Wallet.Transaction(Const.Currency.OneAd);
-            }
+            // if (ONBOARDING.LEARNED_POWERUP.IsNotComplete() && !Wallet.HasFunds(Const.Currency.OneAd))
+            // {
+            //     Wallet.Transaction(Const.Currency.OneAd);
+            // }
 
             if (Try2Use())
             {
-                if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
-                {
-                    ONBOARDING.LEARNED_POWERUP.SetComplete();
-                    Onboarding.Deconstruct();
-                }
                 return;
             }
             
