@@ -117,11 +117,11 @@ public class RewardScreen : Lazyingleton<RewardScreen>
         sequence.Append(upTween).Join(rotationTween).Append(punchScaleUp);
 
         
-        DOVirtual.DelayedCall(0.9f, () =>
+        DOVirtual.DelayedCall(0.5f, () =>
         {
             if (lastOne)
             {
-                _canvasGroup.DOFade(0.0f, 0.15f).SetDelay(0.2f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+                _canvasGroup.DOFade(0.0f, 0.35f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
                 {
                     Close();
                 };

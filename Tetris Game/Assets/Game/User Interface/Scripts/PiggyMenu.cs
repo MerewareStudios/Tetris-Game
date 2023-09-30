@@ -285,14 +285,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         
         // case PiggyReward.Type.MaxStack:
-        if (capIndex >= 3)
-        {
-            Helper.IsPossible(0.2f, () =>
-            {
-                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.MaxStack, 1));
-                Board.THIS._Data.maxStack++;
-            });
-        }   
+        // if (capIndex >= 3)
+        // {
+            // Helper.IsPossible(0.2f, () =>
+            // {
+                // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.MaxStack, 1));
+                // Board.THIS._Data.maxStack++;
+            // });
+        // }   
         
         
         
@@ -567,7 +567,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Heart,
             Medkit,
             Protection,
-            MaxStack,
+            // MaxStack,
             PiggyCapacity,
             // Damage,
             // Firerate,

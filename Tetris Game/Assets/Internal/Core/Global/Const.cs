@@ -30,6 +30,7 @@ public class Const : SSingleton<Const>
     public Color[] gridTileColors;
     public Color defaultColor;
     public Color steadyColor;
+    public Color mergerMaxColor;
     public Color mergerColor;
     public Color powerColor;
     public Sprite[] pawnIcons;

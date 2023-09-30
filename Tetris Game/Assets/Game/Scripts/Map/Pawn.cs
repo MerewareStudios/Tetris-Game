@@ -119,7 +119,11 @@ namespace Game
                 switch (UsageType)
                 {
                     case Usage.Ammo:
-                        levelText.text = value == Board.THIS._Data.maxStack ? "MAX" : _amount.ToString();
+                        bool max = value == Board.THIS._Data.maxStack;
+                        meshRenderer.material.SetColor(GameManager.BaseColor, max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor);
+                        // levelText.text = max ? "MAX" : _amount.ToString();
+                        // levelText.fontStyle = max ? FontStyles.Bold | FontStyles.Underline : FontStyles.Bold;
+                        levelText.text = _amount.ToString();
                         iconMR.enabled = false;
                         break;
                     case Usage.UnpackedAmmo:
@@ -281,7 +285,7 @@ namespace Game
         }
         public void MarkSteadyColor()
         {
-            if (_usageType.Equals(Usage.UnpackedAmmo))
+            if (_usageType.Equals(Usage.UnpackedAmmo)) // not powerup
             {
                 meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
             }

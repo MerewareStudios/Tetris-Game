@@ -47,7 +47,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 0
+      value: 222
     gemTransactionData:
       value: 0
     adTransactionData:
@@ -409,7 +409,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 5
-    sprite: {fileID: 21300000, guid: 7b1fd934843bbc24e82b1f48879499b6, type: 3}
+    sprite: {fileID: 21300000, guid: 39584ded2539f80428fc34b10efc6994, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: <size=%150>+<sprite name=Ammo>
     useCondition: 0
@@ -573,8 +573,8 @@ MonoBehaviour:
     title: PROTECTION
     color: {r: 0.4758805, g: 1, b: 0, a: 1}
   - type: 7
-    backgroundSprite: {fileID: 21300000, guid: 9eddb81331e2b3e428d2e322d244eb18, type: 3}
-    iconSprite: {fileID: 21300000, guid: 7b1fd934843bbc24e82b1f48879499b6, type: 3}
+    backgroundSprite: {fileID: 21300000, guid: 4463ebb5336889446849651851967306, type: 3}
+    iconSprite: {fileID: 21300000, guid: 9cc1604d587b357458e5d4a02e3bf6e6, type: 3}
     formatText: +{0}
     title: MAX STACK
     color: {r: 0.13333334, g: 0.83921576, b: 0.9215687, a: 1}
@@ -589,6 +589,7 @@ MonoBehaviour:
   - {r: 0.6971073, g: 0.30853334, b: 0.8666667, a: 1}
   defaultColor: {r: 0.14242274, g: 0.47224385, b: 0.922, a: 1}
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  mergerMaxColor: {r: 1, g: 0.6, b: 0.09803922, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
   powerColor: {r: 0.8235294, g: 0.05882353, b: 0.83137256, a: 1}
   pawnIcons:

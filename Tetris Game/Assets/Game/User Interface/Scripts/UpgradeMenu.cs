@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Internal.Core;
 using IWI;
+using TMPro;
 using UnityEngine;
 
 
@@ -11,6 +12,7 @@ namespace Game.UI
     {
         [Header("Purchase Options")]
         [SerializeField] private PurchaseOption[] purchaseOptions;
+        [SerializeField] private TextMeshProUGUI maxStackText;
         [System.NonSerialized] private Data _data;
         [System.NonSerialized] private bool oneTimeDataSet = false;
 
@@ -119,6 +121,8 @@ namespace Game.UI
                     purchaseOption.SetPurchaseText(purchaseText);
                 }
             }
+
+            maxStackText.text = Board.THIS._Data.maxStack.ToString();
         }
 
         public void OnClick_Purchase(int purchaseIndex)
@@ -126,15 +130,10 @@ namespace Game.UI
             // PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
-
-            Debug.Log("c");
             if (!Wallet.Consume(lookUp.currency))
             {
-                Debug.Log("b");
-
                 if (lookUp.currency.type.Equals(Const.CurrencyType.Ticket))
                 {
-                    Debug.Log("a");
                     AdManager.ShowTicketAd(() =>
                     {
                         Wallet.Transaction(Const.Currency.OneAd);
