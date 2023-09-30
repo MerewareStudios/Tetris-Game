@@ -227,30 +227,30 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         
         // case PiggyReward.Type.Shield:
-        if (capIndex >= 3)
-        {
-            Helper.IsPossible(0.25f, () =>
-            {
-                // int shieldAmount = capIndex * 5;
-                int shieldAmount = 1;
-                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Shield, shieldAmount));
-                Warzone.THIS.Player.shield.AddOnly(shieldAmount);
-            });
-        }
-        
-        
-        
-        
-        // case PiggyReward.Type.Heart:
-        if (capIndex >= 3)
-        {
-            Helper.IsPossible(0.85f, () =>
-            {
-                int heartAmount = capIndex;
-                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Heart, heartAmount));
-                Warzone.THIS.Player._CurrentHealth += heartAmount;
-            });
-        }
+        // if (capIndex >= 3)
+        // {
+        //     Helper.IsPossible(0.25f, () =>
+        //     {
+        //         // int shieldAmount = capIndex * 5;
+        //         int shieldAmount = 1;
+        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Shield, shieldAmount));
+        //         Warzone.THIS.Player.shield.AddOnly(shieldAmount);
+        //     });
+        // }
+        //
+        //
+        //
+        //
+        // // case PiggyReward.Type.Heart:
+        // if (capIndex >= 3)
+        // {
+        //     Helper.IsPossible(0.85f, () =>
+        //     {
+        //         int heartAmount = capIndex;
+        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Heart, heartAmount));
+        //         Warzone.THIS.Player._CurrentHealth += heartAmount;
+        //     });
+        // }
         
         
         
@@ -298,14 +298,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         
         // case PiggyReward.Type.PiggyCapacity:
-        if (capIndex >= 6)
-        {
-            Helper.IsPossible(0.25f, () =>
-            {
-                rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, PiggyCapIncrease));
-                _Data.moneyCapacity += PiggyCapIncrease;
-            });
-        }   
+        // if (capIndex >= 6)
+        // {
+        //     Helper.IsPossible(0.25f, () =>
+        //     {
+        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, PiggyCapIncrease));
+        //         _Data.moneyCapacity += PiggyCapIncrease;
+        //     });
+        // }   
         
         
         
@@ -563,12 +563,12 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Coin,
             PiggyCoin,
             Ad,
-            Shield,
-            Heart,
-            Medkit,
-            Protection,
+            // Shield,
+            // Heart,
+            // Medkit,
+            // Protection,
             // MaxStack,
-            PiggyCapacity,
+            // PiggyCapacity,
             // Damage,
             // Firerate,
             // Splitshot,

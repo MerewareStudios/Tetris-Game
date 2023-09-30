@@ -531,7 +531,7 @@ MonoBehaviour:
     best: 0
   rewardDatas:
   - type: 0
-    backgroundSprite: {fileID: 21300000, guid: 96fd97f606dbbd0479c5d83c6d8c0d8a, type: 3}
+    backgroundSprite: {fileID: 21300000, guid: 4e304ee3521a50e45923ad738ed29e4d, type: 3}
     iconSprite: {fileID: 21300000, guid: 0de77a5daf01621489ebd6c2126943f6, type: 3}
     formatText: +{0}
     title: COIN
@@ -543,47 +543,11 @@ MonoBehaviour:
     title: PIGGY COIN
     color: {r: 1, g: 0, b: 0.11764706, a: 1}
   - type: 2
-    backgroundSprite: {fileID: 21300000, guid: 96fd97f606dbbd0479c5d83c6d8c0d8a, type: 3}
+    backgroundSprite: {fileID: 21300000, guid: 4463ebb5336889446849651851967306, type: 3}
     iconSprite: {fileID: 21300000, guid: a73848d7df1de344ab9981b1c39958d4, type: 3}
     formatText: +{0}
     title: SKIP TICKET
     color: {r: 1, g: 0, b: 0.118227005, a: 1}
-  - type: 3
-    backgroundSprite: {fileID: 21300000, guid: c276cc6e59c7d2043adf4f3de1975110, type: 3}
-    iconSprite: {fileID: 21300000, guid: 6154f4b7348bf4049be534a6bcc55c53, type: 3}
-    formatText: +{0}
-    title: SHIELD
-    color: {r: 0.023529412, g: 0.52156866, b: 1, a: 1}
-  - type: 4
-    backgroundSprite: {fileID: 21300000, guid: c276cc6e59c7d2043adf4f3de1975110, type: 3}
-    iconSprite: {fileID: 21300000, guid: e02256ae6c381004f9fb0cb702f0c47f, type: 3}
-    formatText: +{0}
-    title: LIFE
-    color: {r: 0.02264148, g: 0.5231022, b: 1, a: 1}
-  - type: 5
-    backgroundSprite: {fileID: 21300000, guid: e023307bb676e404ab0195d399461081, type: 3}
-    iconSprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
-    formatText: x{0}
-    title: MEDKIT
-    color: {r: 0.4745098, g: 1, b: 0, a: 1}
-  - type: 6
-    backgroundSprite: {fileID: 21300000, guid: e023307bb676e404ab0195d399461081, type: 3}
-    iconSprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
-    formatText: x{0}
-    title: PROTECTION
-    color: {r: 0.4758805, g: 1, b: 0, a: 1}
-  - type: 7
-    backgroundSprite: {fileID: 21300000, guid: 4463ebb5336889446849651851967306, type: 3}
-    iconSprite: {fileID: 21300000, guid: 9cc1604d587b357458e5d4a02e3bf6e6, type: 3}
-    formatText: +{0}
-    title: MAX STACK
-    color: {r: 0.13333334, g: 0.83921576, b: 0.9215687, a: 1}
-  - type: 8
-    backgroundSprite: {fileID: 21300000, guid: 4463ebb5336889446849651851967306, type: 3}
-    iconSprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
-    formatText: +{0}
-    title: CAPACITY
-    color: {r: 0.800529, g: 0, b: 1, a: 1}
   gridTileColors:
   - {r: 0.6801091, g: 0.24705881, b: 0.8666667, a: 1}
   - {r: 0.6971073, g: 0.30853334, b: 0.8666667, a: 1}
