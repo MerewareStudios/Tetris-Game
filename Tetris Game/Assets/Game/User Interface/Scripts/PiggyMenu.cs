@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
-using Game;
 using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
@@ -167,8 +165,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             rewardedPiggy.gameObject.SetActive(false);
             shakeTween?.Kill();
             
-            // Particle.Piggy_Break_Ps.Emit(100, rewardedPiggyShakePivot.position);
-
             base.CloseImmediate();
 
             GiveRewards();
@@ -186,137 +182,20 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void GiveRewards()
     {
-        // List<PiggyMenu.PiggyReward> rewardDatas = new List<PiggyMenu.PiggyReward>();
-        
-        // int capIndex = _Data.moneyCapacity / PiggyCapIncrease;
-        //
-        //
-        //
-        // // case PiggyReward.Type.Coin:
-        // int coinCount = (int)((_Data.moneyCapacity) * Random.Range(0.2f, 0.3f));
-        // // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Coin, coinCount));
-        // Wallet.COIN.Transaction(coinCount);
-        //
-        //
-        //
-        //
-        // // case PiggyReward.Type.PiggyCoin:
-        // int piggyCoinCount = Random.Range(3, 7) + Random.Range(0, _Data.breakInstance);
-        // // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCoin, piggyCoinCount));
-        // Wallet.PIGGY.Transaction(piggyCoinCount);
-        //
-        //
-        //
-        //
-        // // case PiggyReward.Type.Ad:
-        // if (_Data.breakInstance == 0)
-        // {
-        //     // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
-        //     Wallet.TICKET.Transaction(1);
-        // }
-        // else if (_Data.breakInstance % 3 == 0)
-        // {
-        //     Helper.IsPossible(0.5f, () =>
-        //     {
-        //         // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Ad, 1));
-        //         Wallet.TICKET.Transaction(1);
-        //     });
-        // }
-        
-        
-        
-        
-        // case PiggyReward.Type.Shield:
-        // if (capIndex >= 3)
-        // {
-        //     Helper.IsPossible(0.25f, () =>
-        //     {
-        //         // int shieldAmount = capIndex * 5;
-        //         int shieldAmount = 1;
-        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Shield, shieldAmount));
-        //         Warzone.THIS.Player.shield.AddOnly(shieldAmount);
-        //     });
-        // }
-        //
-        //
-        //
-        //
-        // // case PiggyReward.Type.Heart:
-        // if (capIndex >= 3)
-        // {
-        //     Helper.IsPossible(0.85f, () =>
-        //     {
-        //         int heartAmount = capIndex;
-        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Heart, heartAmount));
-        //         Warzone.THIS.Player._CurrentHealth += heartAmount;
-        //     });
-        // }
-        
-        
-        
-        
-        // // case PiggyReward.Type.Medkit:
-        // if (capIndex >= 4)
-        // {
-        //     Helper.IsPossible(0.5f, () =>
-        //     {
-        //         int medkitAmount = capIndex;
-        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Medkit, medkitAmount));
-        //         Warzone.THIS.Player._CurrentHealth += medkitAmount * 10;
-        //     });
-        // }
-        
-        
-        
-        
-        
-        // // case PiggyReward.Type.Protection:
-        // if (capIndex >= 5)
-        // {
-        //     Helper.IsPossible(0.5f, () =>
-        //     {
-        //         int protectionAmount = capIndex;
-        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.Protection, protectionAmount));
-        //         Warzone.THIS.Player.shield.AddOnly(protectionAmount * 10);
-        //     });
-        // }
-        
-        
-        
-        
-        // case PiggyReward.Type.MaxStack:
-        // if (capIndex >= 3)
-        // {
-            // Helper.IsPossible(0.2f, () =>
-            // {
-                // rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.MaxStack, 1));
-                // Board.THIS._Data.maxStack++;
-            // });
-        // }   
-        
-        
-        
-        
-        // case PiggyReward.Type.PiggyCapacity:
-        // if (capIndex >= 6)
-        // {
-        //     Helper.IsPossible(0.25f, () =>
-        //     {
-        //         rewardDatas.Add(new PiggyMenu.PiggyReward(PiggyMenu.PiggyReward.Type.PiggyCapacity, PiggyCapIncrease));
-        //         _Data.moneyCapacity += PiggyCapIncrease;
-        //     });
-        // }  
-
         UIManager.THIS.piggyPS.Play();
         
-        int coinReward = 20;
+        int coinReward = (int)(_Data.currentMoney.amount * 0.25f);
         GiveMeta(coinReward, 20, Wallet.COIN, UIManagerExtensions.EmitPiggyRewardCoin);
-        int piggyReward = 5;
+        int piggyReward = Mathf.Min(_Data.breakInstance + 1, Random.Range(4, 7));
         GiveMeta(piggyReward, 20, Wallet.PIGGY, UIManagerExtensions.EmitPiggyRewardPiggy);
-        int ticketReward = 1;
-        GiveMeta(ticketReward, 5, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
+        int ticketReward = 0;
         
-        // RewardScreen.THIS.Show(rewardDatas);
+        if (_Data.breakInstance == 0 || (_Data.breakInstance % 3 == 0 && Helper.IsPossible(0.5f)))
+        {
+            ticketReward += 1;
+        }
+        
+        GiveMeta(ticketReward, 5, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
         
         UIManager.MenuMode(false);
         LevelManager.THIS.LoadLevel();
@@ -396,16 +275,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         get => _data;
     }
    
-    public int MaxPiggyLevel
-    {
-        set
-        {
-            int newValue = Mathf.Clamp(value, 0, 9);
-            _Data.maxPiggyLevel = newValue;
-        }
-        get => _Data.maxPiggyLevel;
-    }
-
     #endregion
     #region Animations
     private void PunchPiggyIcon(float amount = 0.25f)
@@ -524,7 +393,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         [System.Serializable]
         public class Data : ICloneable
         {
-            [SerializeField] public int maxPiggyLevel = 9;
             [SerializeField] public Const.Currency currentMoney;
             [SerializeField] public int moneyCapacity;
             [SerializeField] public int breakInstance;
@@ -537,7 +405,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             
             public Data(Data data)
             {
-                this.maxPiggyLevel = data.maxPiggyLevel;
                 this.currentMoney = data.currentMoney;
                 this.moneyCapacity = data.moneyCapacity;
                 this.breakInstance = data.breakInstance;
@@ -553,49 +420,5 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 return new Data(this);
             }
         } 
-    // [System.Serializable]
-    // public class PiggyReward : ICloneable
-    // {
-    //     [SerializeField] public Type type;
-    //     [SerializeField] public int amount;
-    //     
-    //     
-    //     public PiggyReward()
-    //     {
-    //             
-    //     }
-    //     public PiggyReward(PiggyReward piggyReward)
-    //     {
-    //         this.type = piggyReward.type;
-    //         this.amount = piggyReward.amount;
-    //     }
-    //     public PiggyReward(PiggyReward.Type type, int amount)
-    //     {
-    //         this.type = type;
-    //         this.amount = amount;
-    //     }
-    //     
-    //     public object Clone()
-    //     {
-    //         return new PiggyReward(this);
-    //     }
-
-        // public enum Type
-        // {
-        //     // Coin,
-        //     // PiggyCoin,
-        //     // Ad,
-        //     // Shield,
-        //     // Heart,
-        //     // Medkit,
-        //     // Protection,
-        //     // MaxStack,
-        //     // PiggyCapacity,
-        //     // Damage,
-        //     // Firerate,
-        //     // Splitshot,
-        //     // Weapon
-        // }
-    // } 
     #endregion
 }

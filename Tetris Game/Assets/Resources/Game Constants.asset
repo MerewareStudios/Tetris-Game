@@ -21,8 +21,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d49978dce3697f4bbe6a1bb4c64c32d, type: 2}
   - {fileID: 11400000, guid: 93177f79eff97fc4d976d2d8e3715414, type: 2}
   - {fileID: 11400000, guid: 5d8612ad561cbda43b01161943d013f8, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ec00dd5be8faa774bb6151061b540e9a, type: 2}
+  - {fileID: 11400000, guid: 52563b67359e95e478aff348b818c166, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 222
+      value: 0
     gemTransactionData:
       value: 0
     adTransactionData:
@@ -85,7 +85,6 @@ MonoBehaviour:
     menuNavData:
       lastMenuType: 0
     piggyData:
-      maxPiggyLevel: 3
       currentMoney:
         type: 0
         amount: 0
@@ -129,33 +128,35 @@ MonoBehaviour:
       amount: 150
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
-    defaultValues: 010000000200000001000000
+    defaultValues: 010000000300000001000000
     damagePrice: []
     fireRatePrice:
     - type: 0
-      amount: 20
-    - type: 0
-      amount: 25
-    - type: 0
       amount: 30
+    - type: 0
+      amount: 35
+    - type: 0
+      amount: 40
     splitShotPrice:
     - type: 1
-      amount: 5
+      amount: 3
   - currency:
       type: 2
       amount: 1
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
-    defaultValues: 010000000100000002000000
+    defaultValues: 010000000300000002000000
     damagePrice:
     - type: 0
       amount: 100
-    fireRatePrice: []
+    fireRatePrice:
+    - type: 0
+      amount: 35
+    - type: 0
+      amount: 30
     splitShotPrice:
     - type: 1
       amount: 5
-    - type: 2
-      amount: 1
   - currency:
       type: 0
       amount: 350

@@ -567,21 +567,21 @@ namespace Internal.Core
 
         public static bool IsPossible(this float chance)
         {
-            bool possible = UnityEngine.Random.Range(0.0f, 1.0f) < chance;
+            bool possible = UnityEngine.Random.Range(0.0f, 1.0f) <= chance;
             return possible;
         }
         public static bool IsPossible(this float chance, float max)
         {
-            bool possible = UnityEngine.Random.Range(0.0f, max) < chance;
+            bool possible = UnityEngine.Random.Range(0.0f, max) <= chance;
             return possible;
         }
-        public static void IsPossible(float change, System.Action action)
-        {
-            if (Possible(change))
-            {
-                action.Invoke();
-            }
-        }
+        // public static void IsPossible(float change, System.Action action)
+        // {
+        //     if (IsPossible(change))
+        //     {
+        //         action.Invoke();
+        //     }
+        // }
         public static bool NotInRange(this List<Vector3> list, Vector3 position, float distance)
         {
             for (int i = 0; i < list.Count; i++)
@@ -593,11 +593,6 @@ namespace Internal.Core
                 }
             }
             return true;
-        }
-        public static bool Possible(float chance)
-        {
-            bool possible = UnityEngine.Random.Range(0.0f, 1.0f) < chance;
-            return possible;
         }
         public static bool Possible(float chance, float max)
         {

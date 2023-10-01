@@ -347,7 +347,10 @@ namespace Game
                     }
                     else if(place.Current.Tick == highestTick)
                     {
-                        Helper.IsPossible(0.5f,() => { mergeIndex = index; } );
+                        if(Helper.IsPossible(0.5f))
+                        {
+                            mergeIndex = index;
+                        }
                     }
                 }
                 CreatePawnAtHorizontal(mergeIndex, lineIndex, lines.Count);

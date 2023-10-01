@@ -146,7 +146,7 @@ namespace  Game
         {
             foreach (var reward in so.enemyRewards)
             {
-                Helper.IsPossible(reward.probability, () =>
+                if(Helper.IsPossible(reward.probability))
                 {
                     switch (reward.type)
                     {
@@ -160,7 +160,7 @@ namespace  Game
                             UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
-                });
+                }
             }
         }
     #endregion
