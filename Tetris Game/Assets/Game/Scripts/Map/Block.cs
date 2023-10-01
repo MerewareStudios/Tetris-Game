@@ -20,29 +20,29 @@ namespace Game
         [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public bool CanRotate;
 
-        private void OnDrawGizmos()
-        {
-            for (int x = 0; x < 3; x++)
-            {
-                for (int y = 0; y < 4; y++)
-                {
-                    Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
-                    Gizmos.DrawCube( transform.position + new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
-                }
-            }
-        
-            foreach (var segmentTransform in segmentTransforms)
-            {
-                if (segmentTransform)
-                {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
-                }
-            }
-            
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(rotatePivot.position, 0.1f);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     for (int x = 0; x < 3; x++)
+        //     {
+        //         for (int y = 0; y < 4; y++)
+        //         {
+        //             Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
+        //             Gizmos.DrawCube( transform.position + new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
+        //         }
+        //     }
+        //
+        //     foreach (var segmentTransform in segmentTransforms)
+        //     {
+        //         if (segmentTransform)
+        //         {
+        //             Gizmos.color = Color.green;
+        //             Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
+        //         }
+        //     }
+        //     
+        //     Gizmos.color = Color.white;
+        //     Gizmos.DrawSphere(rotatePivot.position, 0.1f);
+        // }
 
         public List<Vector3> LocalPawnPositions => (from segmentTransform in segmentTransforms where segmentTransform select segmentTransform.localPosition).ToList();
 
