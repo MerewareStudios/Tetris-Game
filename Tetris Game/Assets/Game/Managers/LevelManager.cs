@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public static int CurrentLevel => LevelManager.THIS.CurrentLevel();
+    public static float DeltaMult = 1.0f;
     
     public void LoadLevel()
     {
@@ -12,10 +13,8 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        // UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
-        // UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
         UIManager.THIS.levelText.text = "LEVEL " + CurrentLevel;
-        // UIManager.THIS.shop.BarEnabled = ONBOARDING.EARN_SHOP_POINT.IsComplete();
+        LevelManager.DeltaMult = CurrentLevel.DeltaMult();
 
         Warzone.THIS.EnemySpawnData = CurrentLevel.GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();

@@ -308,6 +308,7 @@ namespace Game
 
         private void SpawnMergedPawn(Place place, int amount)
         {
+
             Vector3 mergedPawnPosition = place.Position;
             if (amount <= 0)
             {
@@ -397,6 +398,8 @@ namespace Game
 
                     if (lastPawn == pawn)
                     {
+                        CameraManager.THIS.Shake(0.2f + (0.1f * (multiplier - 1)), 0.5f);
+
                         Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                     }
                 };
@@ -408,47 +411,49 @@ namespace Game
             SpawnMergedPawn(spawnPlace, totalPoint);
         }
         
-        private void CreatePawnAtVertical(int horizontal, int vertical)
-        {
-            Place spawnPlace = places[horizontal, vertical];
-            int totalPoint = 0;
-            Pawn lastPawn = null;
-            
-            float delay = 0.0f;
-            
-            for (int i = 0; i < Size.y; i++)
-            {
-                Place place = places[horizontal, i];
-                Pawn pawn = place.Current;
-                if (!pawn)
-                {
-                    continue;
-                }
-                
-                lastPawn = pawn;
-
-                totalPoint += pawn.Amount;
-                
-                pawn.Unpack(delay += 0.025f);
-
-                pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                    .onComplete += () =>
-                {
-                    pawn.Deconstruct();
-
-                    if (lastPawn == pawn)
-                    {
-                        Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                    }
-                };
-
-                place.Current = null;
-            }
-
-            totalPoint = Mathf.Min(totalPoint,_Data.maxStack);
-            SpawnMergedPawn(spawnPlace, totalPoint);
-        }
+        // private void CreatePawnAtVertical(int horizontal, int vertical)
+        // {
+        //     Place spawnPlace = places[horizontal, vertical];
+        //     int totalPoint = 0;
+        //     Pawn lastPawn = null;
+        //     
+        //     float delay = 0.0f;
+        //     
+        //     for (int i = 0; i < Size.y; i++)
+        //     {
+        //         Place place = places[horizontal, i];
+        //         Pawn pawn = place.Current;
+        //         if (!pawn)
+        //         {
+        //             continue;
+        //         }
+        //         
+        //         lastPawn = pawn;
+        //
+        //         totalPoint += pawn.Amount;
+        //         
+        //         pawn.Unpack(delay += 0.025f);
+        //
+        //         pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+        //         pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+        //             .onComplete += () =>
+        //         {
+        //             pawn.Deconstruct();
+        //
+        //             if (lastPawn == pawn)
+        //             {
+        //                 CameraManager.THIS.Shake(0.2f, 0.5f);
+        //
+        //                 Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+        //             }
+        //         };
+        //
+        //         place.Current = null;
+        //     }
+        //
+        //     totalPoint = Mathf.Min(totalPoint,_Data.maxStack);
+        //     SpawnMergedPawn(spawnPlace, totalPoint);
+        // }
 
         private void CreatePawnAtCircular(int horizontal, int vertical, List<Vector2Int> points)
         {
@@ -509,6 +514,8 @@ namespace Game
 
                         if (lastPawn == pawn)
                         {
+                            CameraManager.THIS.Shake(0.2f, 0.5f);
+
                             Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                         }
                     };

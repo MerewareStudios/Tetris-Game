@@ -65,7 +65,7 @@ namespace Game
             {
                 if (Index.y >= Board.THIS.Size.y - block.blockData.FitHeight)
                 {
-                    targetColor = targetColor.AddHueAddValue(0.00125f, 0.06f);
+                    targetColor = targetColor.AddHueAddValue(0.00125f, 0.08f);
                 }
             }
             DoColor(targetColor);

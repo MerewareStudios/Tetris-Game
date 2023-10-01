@@ -24,7 +24,7 @@ namespace Game
                 {
                     Board.THIS.CheckAll();
 
-                    Board.THIS.MoveAll(0.25f);
+                    Board.THIS.MoveAll(0.2f);
                     Spawner.THIS.HighlightCurrentBlock();
 
                     // yield return new WaitWhile(() => moving);

@@ -46,7 +46,7 @@ namespace  Game
         #region  Mono
         public void Walk()
         {
-            thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed));
+            thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * LevelManager.DeltaMult));
             if (Warzone.THIS.Zone.IsOutside(thisTransform))
             {
                 Warzone.THIS.EnemyKamikaze(this);
@@ -76,14 +76,6 @@ namespace  Game
                 Warzone.THIS.EnemyKilled(this);
             }
             else
-            {
-                animator.SetTrigger(HIT_HASH);
-            }
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.O))
             {
                 animator.SetTrigger(HIT_HASH);
             }

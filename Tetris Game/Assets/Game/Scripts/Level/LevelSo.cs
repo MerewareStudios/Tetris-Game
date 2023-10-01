@@ -9,6 +9,7 @@ namespace Game
     [CreateAssetMenu(fileName = "Level", menuName = "Game/Level Data", order = 0)]
     public class LevelSo : ScriptableObject
     {
+        [SerializeField] public float deltaMult = 1.0f;
         [SerializeField] public Enemy.SpawnData EnemySpawnData;
         [SerializeField] public bool canGiveBonus = true;
         [SerializeField] public Const.Currency victoryReward;
@@ -98,5 +99,9 @@ public static class LevelSoExtension
     public static Board.SuggestedBlock[] GetSuggestedBlocks(this int level)
     {
         return Const.THIS.Levels[level - 1].suggestedBlocks;
+    }
+    public static float DeltaMult(this int level)
+    {
+        return Const.THIS.Levels[level - 1].deltaMult;
     }
 }
