@@ -69,7 +69,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -59.4, y: 137.7}
+  m_AnchoredPosition: {x: -77, y: 175}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1518097922814120980
@@ -4997,8 +4997,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56.9, y: -118.5}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: 72, y: -171}
+  m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6804800853703635890
 CanvasRenderer:
@@ -5129,7 +5129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7827162823437580552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5170,14 +5170,15 @@ MonoBehaviour:
   scalePivot: {fileID: 5674296735909550866}
   offsetPivot: {fileID: 7339284612526388058}
   scaleDown: {x: 0.8125, y: 0.9, z: 0.8125}
-  offset: {x: 0, y: 20}
-  shortDragOffset: {x: 0, y: 125}
+  offset: {x: 0, y: 40}
+  shortDragOffset: {x: 350, y: 600}
   downDuration: 0.15
   upDuration: 0.25
   shortDragDuration: 0.6
   downEase: 26
   upEase: 28
   ps: {fileID: 6286103398764457979}
+  mainCamera: {fileID: 0}
   gameCamera: {fileID: 0}
   uiCamera: {fileID: 0}
 --- !u!223 &3772746365000825070
@@ -5187,7 +5188,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9098571809227225480}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -5218,7 +5219,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1440, y: 2960}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3

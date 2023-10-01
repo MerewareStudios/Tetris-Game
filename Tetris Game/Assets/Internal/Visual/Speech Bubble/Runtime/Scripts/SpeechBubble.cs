@@ -35,7 +35,7 @@ public class SpeechBubble : MonoBehaviour
         if (autoCloseDelay != null)
         {
             _delayTween?.Kill();
-            _delayTween = DOVirtual.DelayedCall((float)autoCloseDelay, Hide);
+            _delayTween = DOVirtual.DelayedCall((float)autoCloseDelay, Hide, false);
         }
     }
     

@@ -150,12 +150,12 @@ namespace Game
             shakePivot.DOKill();
             shakePivot.localPosition = Vector3.zero;
             shakePivot.localEulerAngles = Vector3.zero;
-            shakePivot.DOPunchRotation(new Vector3(0.0f, 15.0f, 0.0f), 0.4f, 1);
+            shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
         }
-        public void Lift()
+        public void Lift(Vector3 tutorialLift)
         {
             _motionTween?.Kill();
-            _motionTween = transform.DOPunchPosition(new Vector3(0.0f, 2.0f, 0.0f), 2.0f, 1);
+            _motionTween = transform.DOPunchPosition(tutorialLift, 1.75f, 1);
         }
 
         public void CancelLift()

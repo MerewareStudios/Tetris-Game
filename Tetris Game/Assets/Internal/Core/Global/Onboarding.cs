@@ -204,7 +204,7 @@ public class Onboarding : SSingleton<Onboarding>
 
         IEnumerator Routine()
         {
-            yield return new WaitForSeconds(1.25f);
+            yield return new WaitForSeconds(0.75f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
             Spawner.THIS.DelayedSpawn(0.0f);
 

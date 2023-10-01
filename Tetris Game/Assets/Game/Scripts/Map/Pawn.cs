@@ -315,7 +315,7 @@ namespace Game
                 {
                     CanTakeContent = true;
                 };
-            });
+            }, false);
         }
         public void PunchScaleModelPivot(float magnitude, float duration = 0.3f)
         {

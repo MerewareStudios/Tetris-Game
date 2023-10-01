@@ -55,7 +55,7 @@ namespace Game
         public void Deconstruct()
         {
             DehighlightImmediate();
-            HideSuggestedPlaces();
+            // HideSuggestedPlaces();
             
             foreach (var place in places)
             {
@@ -65,6 +65,7 @@ namespace Game
         
         public void OnLevelEnd()
         {
+            HideSuggestedPlaces();
             foreach (var place in places)
             {
                 place.OnLevelEnd();
@@ -133,7 +134,7 @@ namespace Game
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
                     HighlightEmptyPlaces();
-                }).SetLoops(-1);
+                }, false).SetLoops(-1);
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
@@ -143,7 +144,7 @@ namespace Game
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
                     Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
-                }).SetLoops(-1);;
+                }, false).SetLoops(-1);;
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
@@ -170,10 +171,10 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(4.0f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(8.5f, () =>
                 {
                     Highlight(randomPlaces);
-                }).SetLoops(-1);;
+                }, false).SetLoops(-1);
                 // Found a fit, suggest/highlight it, skip
                 return;
             }

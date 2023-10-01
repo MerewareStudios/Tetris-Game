@@ -139,7 +139,7 @@ namespace  Game
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
                 this.Deconstruct();
                 LevelManager.THIS.CheckEndLevel();
-            });
+            }, false);
         }
 
         private void GiveRewards()

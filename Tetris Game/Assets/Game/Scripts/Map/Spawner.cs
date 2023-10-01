@@ -17,6 +17,7 @@ public class Spawner : Singleton<Spawner>
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
+    [SerializeField] public Vector3 tutorialLift;
 
     [System.NonSerialized] public Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
@@ -40,7 +41,7 @@ public class Spawner : Singleton<Spawner>
     {
         if (_currentBlock)
         {
-            _currentBlock.Lift();
+            _currentBlock.Lift(tutorialLift);
         }
     }
     public void DelayedSpawn(float delay)
@@ -49,7 +50,7 @@ public class Spawner : Singleton<Spawner>
         delayedTween = DOVirtual.DelayedCall(delay, () =>
         {
             _currentBlock = SpawnSuggestedBlock();  
-        });
+        }, false);
     }
     public void Deconstruct()
     {
@@ -108,7 +109,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
 
-        assertionTween = DOVirtual.DelayedCall(0.2f, null);
+        assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
         assertionTween.onComplete = () =>
         {
             _grabbedBlock = true;

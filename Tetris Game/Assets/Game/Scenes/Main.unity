@@ -1242,6 +1242,7 @@ MonoBehaviour:
   spawnedBlockLocation: {fileID: 860089792}
   distanceFromDraggingFinger: {x: 0, y: 1, z: 2}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.5}
+  tutorialLift: {x: 1.55, y: 1, z: 3}
 --- !u!1 &548236970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,7 +2034,6 @@ MonoBehaviour:
       menuNavData:
         lastMenuType: 0
       piggyData:
-        maxPiggyLevel: 9
         currentMoney:
           type: 0
           amount: 0
@@ -2720,41 +2720,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2017990421}
     m_Modifications:
-    - target: {fileID: 2981565226958616638, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2981565226958616638, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1440
-      objectReference: {fileID: 0}
-    - target: {fileID: 2981565226958616638, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 2960
-      objectReference: {fileID: 0}
     - target: {fileID: 3772746365000825070, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 514003530}
-    - target: {fileID: 3772746365000825070, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674382387691748398, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -77
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674382387691748398, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 175
-      objectReference: {fileID: 0}
     - target: {fileID: 7827162823437580552, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2857,11 +2827,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
-      propertyPath: offset.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
       propertyPath: uiCamera
       value: 
       objectReference: {fileID: 514003530}
@@ -2877,38 +2842,13 @@ PrefabInstance:
       objectReference: {fileID: 235757128}
     - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
-      propertyPath: shortDragOffset.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 9091413071697241721, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 9091413071697241721, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 9091413071697241721, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 9091413071697241721, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -171
+      propertyPath: dragEndDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9098571809227225480, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Name
       value: Canvas - Finger
-      objectReference: {fileID: 0}
-    - target: {fileID: 9098571809227225480, guid: 30730262a1683ea41825cb988b76190c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5353,7 +5293,7 @@ Light:
     m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.475
+    m_Strength: 0.229
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2

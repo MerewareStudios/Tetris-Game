@@ -45,6 +45,10 @@ public class LevelManager : Singleton<LevelManager>
 
     public void CheckEndLevel()
     {
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
         if (Warzone.THIS.Player._CurrentHealth <= 0)
         {
             OnFail();
@@ -57,11 +61,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void OnVictory()
     {
-        if (!GameManager.PLAYING)
-        {
-            return;
-        }
-        
         GameManager.PLAYING = false;
         GameManager.THIS.OnVictory();
 
@@ -72,11 +71,6 @@ public class LevelManager : Singleton<LevelManager>
     
     public void OnFail()
     {
-        if (!GameManager.PLAYING)
-        {
-            return;
-        }
-        
         GameManager.PLAYING = false;
         GameManager.THIS.OnFail();
         SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, this.CurrentLevel().GetFailReward());
