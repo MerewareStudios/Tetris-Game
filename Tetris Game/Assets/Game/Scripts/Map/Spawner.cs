@@ -166,9 +166,9 @@ public class Spawner : Singleton<Spawner>
         AnimateTap();
         _currentBlock.Rotate();
             
-        if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.LEARN_ROTATION.IsNotComplete())
+        if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.TEACH_ROTATION.IsNotComplete())
         {
-            ONBOARDING.LEARN_ROTATION.SetComplete();
+            ONBOARDING.TEACH_ROTATION.SetComplete();
             Onboarding.HideFinger();
         }
     }
@@ -324,7 +324,8 @@ public class Spawner : Singleton<Spawner>
 
     private Block SpawnSuggestedBlock()
     {
-        Board.SuggestedBlock[] suggestedBlocks = LevelManager.THIS.GetSuggestedBlocks();
+        bool learnedRotation = ONBOARDING.TEACH_ROTATION.IsComplete();
+        Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.THIS.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
         if (suggestedBlocks != null && suggestedBlocks.Length > SpawnIndex)
