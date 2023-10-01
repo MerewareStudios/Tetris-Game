@@ -75,6 +75,16 @@ namespace Internal.Core
             color.a = alpha;
             return color;
         }
+        public static Color ChangeValue(this Color color, float value)
+        {
+            Color.RGBToHSV(color, out float H, out float S, out float V);
+            return Color.HSVToRGB(H, S, value);
+        }
+        public static Color AddHueAddValue(this Color color, float addHue, float addValue)
+        {
+            Color.RGBToHSV(color, out float H, out float S, out float V);
+            return Color.HSVToRGB(H + addHue, S, V + addValue);
+        }
         public static int LoopIndex(this int index, int count)
         {
             if (index >= count)

@@ -19,6 +19,7 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
 
+    [System.NonSerialized] public bool FitColorPass = true;
     [System.NonSerialized] public Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
@@ -332,9 +333,11 @@ public class Spawner : Singleton<Spawner>
         {
             suggestedBlockData = suggestedBlocks[SpawnIndex];
             pool = suggestedBlockData.type;
+            FitColorPass = false;
         }
         else
         {
+            FitColorPass = true;
             pool = this.RandomBlock();
         }
         

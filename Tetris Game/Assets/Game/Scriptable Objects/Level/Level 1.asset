@@ -17,7 +17,7 @@ MonoBehaviour:
     spawnInterval: 9
     countDatas:
     - enemyType: 19
-      count: 3
+      count: 2
     bossDatas: []
   canGiveBonus: 0
   victoryReward:
@@ -33,13 +33,5 @@ MonoBehaviour:
     canRotate: 0
   - type: 4
     requiredPlaces: 05000000060000000c00000013000000
-    blockRot: 0
-    canRotate: 1
-  - type: 6
-    requiredPlaces: 
-    blockRot: 0
-    canRotate: 1
-  - type: 13
-    requiredPlaces: 
     blockRot: 0
     canRotate: 1

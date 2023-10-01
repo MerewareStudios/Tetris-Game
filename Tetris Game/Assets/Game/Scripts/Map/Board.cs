@@ -191,18 +191,18 @@ namespace Game
                 Powerup.THIS.PunchFrame(0.2f);
             }
         }
-        public void Dehighlight()
+        public void Dehighlight(Block block = null)
         {
             foreach (var place in places)
             {
-                place.SetPlaceType(Game.Place.PlaceColor.NORMAL);
+                place.SetPlaceType(block ? Game.Place.PlaceColorType.NORMAL_LIMIT : Game.Place.PlaceColorType.NORMAL, block);
             }
         }
         public void DehighlightImmediate()
         {
             foreach (var place in places)
             {
-                place.SetPlaceTypeImmediate(Game.Place.PlaceColor.NORMAL);
+                place.SetPlaceTypeImmediate(Game.Place.PlaceColorType.NORMAL);
             }
         }
         public Place LinearIndex2Place(int index)
@@ -730,13 +730,13 @@ namespace Game
         }
         public void HighlightPawnOnGrid(Block block)
         {
-            Board.THIS.Dehighlight();
+            Board.THIS.Dehighlight(block);
             foreach (var pawn in block.Pawns)
             {
                 (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
                 if (place)
                 {
-                    place.SetPlaceType(canPlace ? Game.Place.PlaceColor.GREEN : Game.Place.PlaceColor.RED);
+                    place.SetPlaceType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
                 }
             }
         }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Internal.Core;
 using UnityEngine;
 
 namespace Game
@@ -9,7 +10,7 @@ namespace Game
         [SerializeField] private Renderer gridTile;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Vector2Int Index;
-        [System.NonSerialized] private PlaceColor _placeColor = PlaceColor.GREEN;
+        [System.NonSerialized] private PlaceColorType _placeColorType = PlaceColorType.GREEN;
         [System.NonSerialized] private Tween _colorTween;
         [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
@@ -32,7 +33,7 @@ namespace Game
 
         public void Construct()
         {
-            this._placeColor = PlaceColor.GREEN;
+            this._placeColorType = PlaceColorType.GREEN;
             gridTile.material.SetColor(GameManager.BaseColor, Const.THIS.gridTileColors[LinearIndex % 2]);
         }
         public void Deconstruct()
@@ -51,25 +52,33 @@ namespace Game
                 Current.OnLevelEnd();
             }
         }
-        public void SetPlaceType(PlaceColor placeColor)
+        public void SetPlaceType(PlaceColorType placeColorType, Block block = null)
         {
-            if (this._placeColor.Equals(placeColor))
+            if (this._placeColorType.Equals(placeColorType))
             {
                 return;
             }
 
-            this._placeColor = placeColor;
-            DoColor(Const.THIS.placeColorsDouble[(int)placeColor * 2 + (LinearIndex % 2)]);
+            this._placeColorType = placeColorType;
+            Color targetColor = Const.THIS.placeColorsDouble[(int)placeColorType * 2 + (LinearIndex % 2)];
+            if (Spawner.THIS.FitColorPass &&block && placeColorType.Equals(PlaceColorType.NORMAL_LIMIT))
+            {
+                if (Index.y >= Board.THIS.Size.y - block.blockData.FitHeight)
+                {
+                    targetColor = targetColor.AddHueAddValue(0.00125f, 0.06f);
+                }
+            }
+            DoColor(targetColor);
         }
         
-        public void SetPlaceTypeImmediate(PlaceColor placeColor)
+        public void SetPlaceTypeImmediate(PlaceColorType placeColorType)
         {
-            if (this._placeColor.Equals(placeColor))
+            if (this._placeColorType.Equals(placeColorType))
             {
                 return;
             }
-            this._placeColor = placeColor;
-            gridTile.material.SetColor(GameManager.BaseColor, Const.THIS.placeColorsDouble[(int)placeColor * 2 + (LinearIndex % 2)]);
+            this._placeColorType = placeColorType;
+            gridTile.material.SetColor(GameManager.BaseColor, Const.THIS.placeColorsDouble[(int)placeColorType * 2 + (LinearIndex % 2)]);
         }
 
         private void DoColor(Color color)
@@ -95,11 +104,12 @@ namespace Game
             pawn.Set(segmentParent, segmentParent.position);
         }
 
-        public enum PlaceColor
+        public enum PlaceColorType
         {
             GREEN,
             RED,
             NORMAL,
+            NORMAL_LIMIT,
         }
     }
 }

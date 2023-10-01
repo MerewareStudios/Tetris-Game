@@ -17,7 +17,7 @@ MonoBehaviour:
     spawnInterval: 9
     countDatas:
     - enemyType: 19
-      count: 3
+      count: 2
     - enemyType: 36
       count: 1
     bossDatas: []
