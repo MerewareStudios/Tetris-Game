@@ -12,7 +12,8 @@ namespace Game
         [SerializeField] public Vector2Int Size;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector3 _thisPosition;
-        [System.NonSerialized] private Place[,] places;
+        [System.NonSerialized] private Place[,] _places;
+        [System.NonSerialized] private bool[] rayArray;
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] public System.Action<int> OnMerge;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
@@ -35,14 +36,15 @@ namespace Game
         
         public void Construct()
         {
-            places = new Place[Size.x, Size.y];
+            _places = new Place[Size.x, Size.y];
+            rayArray = new bool[Size.x];
             for (int i = 0; i < Size.x; i++)
             {
                 for(int j = 0; j < Size.y; j++)
                 {
                     Place place = Pool.Place.Spawn<Place>(_thisTransform);
                     place.LocalPosition = new Vector3(i, 0.0f, -j);
-                    places[i, j] = place;
+                    _places[i, j] = place;
                     place.Index = new Vector2Int(i, j);
                     place.Construct();
                 }
@@ -52,12 +54,20 @@ namespace Game
             this._thisPosition = _thisTransform.position;
         }
 
+        public void ClearRayArray()
+        {
+            for (int i = 0; i < rayArray.Length; i++)
+            {
+                rayArray[i] = false;
+            }
+        }
+
         public void Deconstruct()
         {
             DehighlightImmediate();
             // HideSuggestedPlaces();
             
-            foreach (var place in places)
+            foreach (var place in _places)
             {
                 place.Deconstruct();
             }
@@ -66,7 +76,7 @@ namespace Game
         public void OnLevelEnd()
         {
             HideSuggestedPlaces();
-            foreach (var place in places)
+            foreach (var place in _places)
             {
                 place.OnLevelEnd();
             }
@@ -75,7 +85,7 @@ namespace Game
         {
             _tick++;
 
-            foreach (var place in places)
+            foreach (var place in _places)
             {
                 if (!place.Current)
                 {
@@ -86,7 +96,7 @@ namespace Game
         }
         public void CheckAll()
         {
-            foreach (var place in places)
+            foreach (var place in _places)
             {
                 if (place.Current)
                 {
@@ -153,7 +163,7 @@ namespace Game
             {
                 for (int j = 0; j < Size.y; j++)
                 {
-                    Place place = places[i, j];
+                    Place place = _places[i, j];
                     if (!place.Current)
                     {
                         continue;
@@ -191,24 +201,41 @@ namespace Game
                 Powerup.THIS.PunchFrame(0.2f);
             }
         }
-        public void Dehighlight(Block block = null)
-        {
-            foreach (var place in places)
+
+        #region Highlight
+            public void Dehighlight(Block block = null)
             {
-                place.SetPlaceType(block ? Game.Place.PlaceColorType.NORMAL_LIMIT : Game.Place.PlaceColorType.NORMAL, block);
+                foreach (var place in _places)
+                {
+                    place.SetPlaceType(block ? Game.Place.PlaceColorType.NORMAL_LIMIT : Game.Place.PlaceColorType.NORMAL, block);
+                }
             }
-        }
-        public void DehighlightImmediate()
-        {
-            foreach (var place in places)
+            private void DehighlightImmediate()
             {
-                place.SetPlaceTypeImmediate(Game.Place.PlaceColorType.NORMAL);
+                foreach (var place in _places)
+                {
+                    place.SetPlaceTypeImmediate(Game.Place.PlaceColorType.NORMAL);
+                }
             }
-        }
+            public void HighlightPawnOnGrid(Block block)
+            {
+                ClearRayArray();
+                Board.THIS.Dehighlight(block);
+                foreach (var pawn in block.Pawns)
+                {
+                    (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
+                    if (place)
+                    {
+                        place.SetPlaceType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
+                        rayArray[place.Index.x] = true;
+                    }
+                }
+            }
+        #endregion
         public Place LinearIndex2Place(int index)
         {
             Vector2Int ind = index.ToIndex(Size.y);
-            return places[ind.x, ind.y];
+            return _places[ind.x, ind.y];
         }
         private void Call<T>(T[,] array, System.Action<T, int, int> action)
         {
@@ -234,7 +261,7 @@ namespace Game
                 action.Invoke(array[columnIndex, j], j);
             }
         }
-        public Place GetPlace(Vector2Int index) => places[index.x, index.y];
+        public Place GetPlace(Vector2Int index) => _places[index.x, index.y];
 
         
         public List<Vector2Int> UsePowerups()
@@ -245,12 +272,12 @@ namespace Game
             {
                 for (int i = 0; i < Size.x; i++)
                 {
-                    if (!places[i, j].Occupied)
+                    if (!_places[i, j].Occupied)
                     {
                         continue;
                     }
 
-                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetLR))
+                    if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetLR))
                     {
                         CreatePawnAtHorizontal(i, j);
                         for (int k = 0; k < Size.x; k++)
@@ -265,7 +292,7 @@ namespace Game
                     //     points.Add(new Vector2Int(i, j));
                     //     return points;
                     // }
-                    if (places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
+                    if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j, points);
                         return points;
@@ -286,12 +313,12 @@ namespace Game
                 for (int i = 0; i < Size.x; i++)
                 {
                     
-                    if (!places[i, j].Occupied)
+                    if (!_places[i, j].Occupied)
                     {
                         tetris = false;
                         continue;
                     }
-                    if (places[i, j].Current.Mover)
+                    if (_places[i, j].Current.Mover)
                     {
                         tetris = false;
                         continue;
@@ -336,7 +363,7 @@ namespace Game
                 for (int i = 0; i < Size.x; i++)
                 {
                     int index = i;
-                    Place place = places[index, lineIndex];
+                    Place place = _places[index, lineIndex];
 
                     if (!place.Current)
                     {
@@ -368,7 +395,7 @@ namespace Game
 
         private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier = 1)
         {
-            Place spawnPlace = places[horizontal, lineIndex];
+            Place spawnPlace = _places[horizontal, lineIndex];
             int totalPoint = 0;
             Pawn lastPawn = null;
             
@@ -376,7 +403,7 @@ namespace Game
 
             for (int i = 0; i < Size.x; i++)
             {
-                Place place = places[i, lineIndex];
+                Place place = _places[i, lineIndex];
                 Pawn pawn = place.Current;
                 if (!pawn)
                 {
@@ -459,7 +486,7 @@ namespace Game
         {
             Vector2Int center = new Vector2Int(horizontal, vertical);
             
-            Place spawnPlace = places[horizontal, vertical];
+            Place spawnPlace = _places[horizontal, vertical];
             int totalPoint = 0;
             Pawn lastPawn = null;
             
@@ -469,7 +496,7 @@ namespace Game
             {
                 for (int j = 0; j < Size.y; j++)
                 {
-                    Place place = places[i, j];
+                    Place place = _places[i, j];
                     Pawn pawn = place.Current;
                     
                     if (!pawn)
@@ -529,7 +556,7 @@ namespace Game
         }
         public void MarkMover(int horizontal)
         {
-            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+            Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
             {
                 if (place.Current && !place.Current.Connected && verticalIndex >= horizontal)
                 {
@@ -544,7 +571,7 @@ namespace Game
             {
                 for (int j = point.y; j < Size.y; j++)
                 {
-                    Place place = places[point.x, j];
+                    Place place = _places[point.x, j];
                     if (place.Current && !place.Current.Connected)
                     {
                         place.Current.Mover = true;
@@ -556,7 +583,7 @@ namespace Game
         
         public void MarkMovers(int x, int y)
         {
-            Call<Place>(places, (place, horizontalIndex, verticalIndex) =>
+            Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
             {
                 if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
@@ -578,7 +605,7 @@ namespace Game
                     // {
                     //     return ammoGiven;
                     // }
-                    Place place = places[i, j];
+                    Place place = _places[i, j];
                     
                     // if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
                     if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent)
@@ -613,7 +640,7 @@ namespace Game
             
             for (int j = 0; j < Size.y; j++)
             {
-                Place place = places[index.x, j];
+                Place place = _places[index.x, j];
                 if (index.y <= j && place.Current != null)
                 {
                     return true;
@@ -628,7 +655,7 @@ namespace Game
             {
                 return false;
             }
-            Place place = places[index.x, index.y + 1];
+            Place place = _places[index.x, index.y + 1];
             
             return place.Current && place.Current.Mover;
         }
@@ -735,18 +762,7 @@ namespace Game
             }
             return forwardPlace;
         }
-        public void HighlightPawnOnGrid(Block block)
-        {
-            Board.THIS.Dehighlight(block);
-            foreach (var pawn in block.Pawns)
-            {
-                (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
-                if (place)
-                {
-                    place.SetPlaceType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
-                }
-            }
-        }
+       
         private bool CanPlacePawnOnGrid(Pawn pawn, List<Place> requiredPlaces)
         {
             (Place place, bool canPlace) = Project(pawn, requiredPlaces);
@@ -778,7 +794,7 @@ namespace Game
         }
         public void HighlightEmptyPlaces()
         {
-            foreach (var place in places)
+            foreach (var place in _places)
             {
                 if (place.Current)
                 {
