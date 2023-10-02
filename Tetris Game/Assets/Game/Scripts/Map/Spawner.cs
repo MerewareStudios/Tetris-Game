@@ -71,7 +71,7 @@ public class Spawner : Singleton<Spawner>
         assertionTween?.Kill();
         StopMovement();
         Mount();
-        Board.THIS.Dehighlight();
+        Board.THIS.HighlightBlock();
     }
 
     private void StopAllRunningTasksOnBlock()
@@ -211,7 +211,7 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        Board.THIS.HighlightPawnOnGrid(_currentBlock);
+        Board.THIS.HighlightBlock(_currentBlock);
     }
 
     private void CalculateFingerOffset()
@@ -249,7 +249,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         _grabbedBlock = false;
-        Board.THIS.Dehighlight();
+        Board.THIS.HighlightBlock();
 
         if (Board.THIS.CanPlace(_currentBlock))
         {

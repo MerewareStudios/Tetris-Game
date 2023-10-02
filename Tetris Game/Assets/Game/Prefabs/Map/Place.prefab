@@ -161,4 +161,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segmentParent: {fileID: 5752552977826571303}
+  tileTransform: {fileID: 7996738006433439514}
   gridTile: {fileID: 1032695334825311344}

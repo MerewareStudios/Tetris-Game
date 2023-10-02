@@ -13,7 +13,7 @@ namespace Game
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
-        [System.NonSerialized] private bool[] rayArray;
+        // [System.NonSerialized] private int[] _rayMins;
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] public System.Action<int> OnMerge;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
@@ -37,7 +37,7 @@ namespace Game
         public void Construct()
         {
             _places = new Place[Size.x, Size.y];
-            rayArray = new bool[Size.x];
+            // _rayMins = new int[Size.x];
             for (int i = 0; i < Size.x; i++)
             {
                 for(int j = 0; j < Size.y; j++)
@@ -52,14 +52,6 @@ namespace Game
 
             _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
             this._thisPosition = _thisTransform.position;
-        }
-
-        public void ClearRayArray()
-        {
-            for (int i = 0; i < rayArray.Length; i++)
-            {
-                rayArray[i] = false;
-            }
         }
 
         public void Deconstruct()
@@ -203,32 +195,94 @@ namespace Game
         }
 
         #region Highlight
-            public void Dehighlight(Block block = null)
+            private void Dehighlight(Block block = null)
             {
                 foreach (var place in _places)
                 {
-                    place.SetPlaceType(block ? Game.Place.PlaceColorType.NORMAL_LIMIT : Game.Place.PlaceColorType.NORMAL, block);
+                    place.SetTargetColorType((block && place.Index.y >= Size.y - block.blockData.FitHeight) ? place.LimitDarkLight : place.NormalDarkLight);
                 }
             }
             private void DehighlightImmediate()
             {
                 foreach (var place in _places)
                 {
-                    place.SetPlaceTypeImmediate(Game.Place.PlaceColorType.NORMAL);
+                    place.SetTargetColorType(place.NormalDarkLight);
+                    place.FinalizeColorImmediate();
                 }
             }
-            public void HighlightPawnOnGrid(Block block)
+            public void HighlightBlock(Block block = null)
             {
-                ClearRayArray();
                 Board.THIS.Dehighlight(block);
-                foreach (var pawn in block.Pawns)
+                if (block)
                 {
-                    (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
-                    if (place)
+                    List<Vector2Int> projectedPlaces = new();
+                    bool canProjectFuture = true;
+                    // for (int i = 0; i < _rayMins.Length; i++)
+                    // {
+                    //     _rayMins[i] = Size.y;
+                    // }
+                    foreach (var pawn in block.Pawns)
                     {
-                        place.SetPlaceType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
-                        rayArray[place.Index.x] = true;
+                        (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
+                        if (!place)
+                        {
+                            continue;
+                        }
+                        
+                        place.SetTargetColorType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
+
+                        if (canProjectFuture)
+                        {
+                            if (canPlace && place)
+                            {
+                                projectedPlaces.Add(place.Index);
+                            }
+                            else
+                            {
+                                canProjectFuture = false;
+                            }
+                        }
                     }
+
+                    if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
+                    {
+                        HideSuggestedPlaces();
+                        
+                        int minShift = Size.y;
+                        
+                        for (int i = 0; i < projectedPlaces.Count; i++)
+                        {
+                            Vector2Int currentIndex = projectedPlaces[i];
+                            int currentShift = 0;
+                            for (int v = currentIndex.y; v >= 0; v--)
+                            {
+                                if (_places[currentIndex.x, v].Current)
+                                {
+                                    // currentShift--;
+                                    break;
+                                }
+                                
+                                currentShift++;
+                            }
+
+                            currentShift--;
+                            minShift = Mathf.Min(minShift, currentShift);
+                        }
+
+                        if (minShift > 0)
+                        {
+                            for (int i = 0; i < projectedPlaces.Count; i++)
+                            {
+                                Vector2Int shiftedIndex = projectedPlaces[i] - new Vector2Int(0, minShift);
+                                _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(_places[shiftedIndex.x, shiftedIndex.y].RayDarkLight);
+                            }
+                        }
+                    }
+                }
+                
+                foreach (var place in _places)
+                {
+                    place.FinalizeColor();
                 }
             }
         #endregion

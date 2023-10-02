@@ -35,6 +35,7 @@ public class Const : SSingleton<Const>
     public Color powerColor;
     public Sprite[] pawnIcons;
     public Color[] placeColorsDouble;
+    public Vector3[] placePosDouble;
     public Color piggyExplodeColor;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
