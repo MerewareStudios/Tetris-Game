@@ -23,23 +23,22 @@ public class Spawner : Singleton<Spawner>
 
     public void UpdatePosition()
     {
-        this.WaitForNull(() =>
+        if (meshColliderSpawner.Raycast(new Ray(spawnerPin.position, CameraManager.THIS.gameCamera.transform.forward), out var hit, 500.0f))
         {
-            if (meshColliderSpawner.Raycast(new Ray(spawnerPin.position, CameraManager.THIS.gameCamera.transform.forward), out var hit, 500.0f))
-            {
-                Debug.Log("hit");
-                Vector3 start = hit.point;
-                transform.position = start;
-            }
-            // distanceFromDraggingFinger.z = forwardDistance;
-        });
+            transform.position = hit.point;
+        }
+    }
+
+    public void UpdateFingerDelta(Vector3 pivot)
+    {
+        distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
     }
 
     [System.NonSerialized] public bool FitColorPass = true;
     [System.NonSerialized] public Block _currentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
-    [System.NonSerialized] private Vector3 _fingerOffset;
+    [System.NonSerialized] private Vector3 _dragOffset;
     [System.NonSerialized] private Vector3 _finalPosition;
     [System.NonSerialized] private Tween delayedTween;
     [System.NonSerialized] private Tween assertionTween;
@@ -132,7 +131,7 @@ public class Spawner : Singleton<Spawner>
             _grabbedBlock = true;
 
 
-            CalculateFingerOffset();
+            RecordFingerStart();
             UpdateTargetPosition();
             
             _moveRoutine = StartCoroutine(MoveRoutine());
@@ -230,22 +229,22 @@ public class Spawner : Singleton<Spawner>
         Board.THIS.HighlightBlock(_currentBlock);
     }
 
-    private void CalculateFingerOffset()
+    private void RecordFingerStart()
     {
-        Vector3 startPosition = new Vector3(0.00f, 0.26f, -3.30f);
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
         {
-            _fingerOffset = hit.point - startPosition - _currentBlock.blockData.spawnerOffset;
+            _dragOffset = hit.point - _currentBlock.transform.position;
         }
     }
     private void UpdateTargetPosition()
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
+        
         if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
         {
             Vector3 targetPosition = hit.point + distanceFromDraggingFinger;
-            _finalPosition = targetPosition - _fingerOffset;
+            _finalPosition = targetPosition - _dragOffset;
         }
     }
     public void Input_OnUp()

@@ -11,10 +11,10 @@ namespace Game
         [SerializeField] private Vector3 indexOffset;
         [SerializeField] public Vector2Int Size;
         [SerializeField] public RectTransform visualFrame;
-        [SerializeField] public RectTransform visualFrameShadow;
         [SerializeField] public Transform ground;
         [SerializeField] public Transform playerPivot;
         [SerializeField] public RectTransform deadline;
+        [SerializeField] public RectTransform bottomPin;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
@@ -39,6 +39,9 @@ namespace Game
         
         public void Construct()
         {
+            CameraManager.THIS.OrtoSize = Size.x + 1.82f;
+            
+            
             _places = new Place[Size.x, Size.y];
             for (int i = 0; i < Size.x; i++)
             {
@@ -52,23 +55,46 @@ namespace Game
                 }
             }
             
-            CameraManager.THIS.OrtoSize = Size.x + 1.82f;
-
-            _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
-            this._thisPosition = _thisTransform.position;
-
             visualFrame.sizeDelta = new Vector2(Size.x * 100.0f + 42.7f, Size.y * 100.0f + 42.7f);
-            visualFrameShadow.sizeDelta = new Vector2(Size.x * 100.0f + 39.6f, Size.y * 100.0f + 39.6f);
-
-
-            Spawner.THIS.UpdatePosition();
             
-            Vector3 playerPos = playerPivot.position;
-            playerPos.y = 0.0f;
-            Warzone.THIS.Player.transform.position = playerPos;
+            _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
 
-            ground.localScale = Vector3.one * (25.0f + (Size.y - 7) * 2.5f);
-            deadline.localPosition = new Vector3(Size.x * 50.0f + 25.0f, 130.0f, 23.9f);
+            
+            this.WaitForNull(() =>
+            {
+                Spawner.THIS.UpdatePosition();
+                
+                
+                GameObject goPin = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                goPin.transform.position = bottomPin.position;
+                goPin.transform.localScale = Vector3.one * 0.2f;
+                
+                GameObject goSpawner = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                goSpawner.transform.position = Spawner.THIS.transform.position;
+                goSpawner.transform.localScale = Vector3.one * 0.1f;
+                
+                
+                
+                float offset = (bottomPin.position - Spawner.THIS.transform.position).z;
+                Debug.Log(offset);
+                offset += -1.362756f;
+                Debug.Log(offset);
+                
+                
+                _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
+                this._thisPosition = _thisTransform.position;
+                
+
+                Vector3 playerPos = playerPivot.position;
+                playerPos.y = 0.0f;
+                Warzone.THIS.Player.transform.position = playerPos;
+
+                ground.localScale = Vector3.one * (25.0f + (Size.x - 6) * 2.5f);
+                deadline.localPosition = new Vector3(Size.x * 50.0f + 25.0f, 130.0f, 23.9f);
+                
+                
+                Spawner.THIS.UpdateFingerDelta(bottomPin.position);
+            });
         }
 
         public void Deconstruct()
