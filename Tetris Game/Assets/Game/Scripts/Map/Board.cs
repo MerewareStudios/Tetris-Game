@@ -15,7 +15,6 @@ namespace Game
         [SerializeField] public Transform ground;
         [SerializeField] public Transform playerPivot;
         [SerializeField] public RectTransform deadline;
-        [SerializeField] public RectTransform spawnerPivot;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
@@ -52,6 +51,8 @@ namespace Game
                     place.Construct();
                 }
             }
+            
+            CameraManager.THIS.OrtoSize = Size.x + 1.82f;
 
             _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
             this._thisPosition = _thisTransform.position;
@@ -59,11 +60,8 @@ namespace Game
             visualFrame.sizeDelta = new Vector2(Size.x * 100.0f + 42.7f, Size.y * 100.0f + 42.7f);
             visualFrameShadow.sizeDelta = new Vector2(Size.x * 100.0f + 39.6f, Size.y * 100.0f + 39.6f);
 
-            CameraManager.THIS.GameFOV = Size.x + 1.82f;
 
-            Vector3 spawnerPosition = spawnerPivot.position;
-            spawnerPosition.y = 0.0f;
-            Spawner.THIS.transform.position = spawnerPosition;
+            Spawner.THIS.UpdatePosition();
             
             Vector3 playerPos = playerPivot.position;
             playerPos.y = 0.0f;

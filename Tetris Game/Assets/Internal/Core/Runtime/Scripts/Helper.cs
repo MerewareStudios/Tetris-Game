@@ -33,23 +33,23 @@ namespace Internal.Core
         }
         private static System.Random rnd = new System.Random();
         
-        public static void WaitForNull(this MonoBehaviour mono, System.Action action)
+        public static Coroutine WaitForNull(this MonoBehaviour mono, System.Action action)
         {
-            mono.StartCoroutine(Wait());
             IEnumerator Wait()
             {
                 yield return null;
                 action.Invoke();
             }
+            return mono.StartCoroutine(Wait());
         }
-        public static void WaitForFrame(this MonoBehaviour mono, System.Action action)
+        public static Coroutine WaitForFrame(this MonoBehaviour mono, System.Action action)
         {
-            mono.StartCoroutine(Wait());
             IEnumerator Wait()
             {
                 yield return new WaitForEndOfFrame();
                 action.Invoke();
             }
+            return mono.StartCoroutine(Wait());
         }
         
         public static int Abs(this int value)

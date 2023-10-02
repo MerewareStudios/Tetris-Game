@@ -9,9 +9,10 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] public Camera uiCamera;
     [SerializeField] private Transform shakePivot;
 
-    public float GameFOV
+    public float OrtoSize
     {
         set => gameCamera.orthographicSize = value;
+        get => gameCamera.orthographicSize;
     }
     public void Shake(float amplitude = 1.0f, float duration = 0.35f)
     {

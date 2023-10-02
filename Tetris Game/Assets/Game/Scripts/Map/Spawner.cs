@@ -9,6 +9,7 @@ using UnityEngine;
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
+    [SerializeField] private MeshCollider meshColliderSpawner;
     [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private LayerMask spawnerLayer;
     [Header("Locations")]
@@ -18,6 +19,21 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
+    [SerializeField] public RectTransform spawnerPin;
+
+    public void UpdatePosition()
+    {
+        this.WaitForNull(() =>
+        {
+            if (meshColliderSpawner.Raycast(new Ray(spawnerPin.position, CameraManager.THIS.gameCamera.transform.forward), out var hit, 500.0f))
+            {
+                Debug.Log("hit");
+                Vector3 start = hit.point;
+                transform.position = start;
+            }
+            // distanceFromDraggingFinger.z = forwardDistance;
+        });
+    }
 
     [System.NonSerialized] public bool FitColorPass = true;
     [System.NonSerialized] public Block _currentBlock;
