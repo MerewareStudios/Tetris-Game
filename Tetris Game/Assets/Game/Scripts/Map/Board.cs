@@ -10,14 +10,18 @@ namespace Game
     {
         [SerializeField] private Vector3 indexOffset;
         [SerializeField] public Vector2Int Size;
+        [SerializeField] public RectTransform visualFrame;
+        [SerializeField] public RectTransform visualFrameShadow;
+        [SerializeField] public Transform ground;
+        [SerializeField] public Transform playerPivot;
+        [SerializeField] public RectTransform deadline;
+        [SerializeField] public RectTransform spawnerPivot;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
-        // [System.NonSerialized] private int[] _rayMins;
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] public System.Action<int> OnMerge;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
-
         [System.NonSerialized] private Data _data;
 
         void Awake()
@@ -37,7 +41,6 @@ namespace Game
         public void Construct()
         {
             _places = new Place[Size.x, Size.y];
-            // _rayMins = new int[Size.x];
             for (int i = 0; i < Size.x; i++)
             {
                 for(int j = 0; j < Size.y; j++)
@@ -52,12 +55,27 @@ namespace Game
 
             _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
             this._thisPosition = _thisTransform.position;
+
+            visualFrame.sizeDelta = new Vector2(Size.x * 100.0f + 42.7f, Size.y * 100.0f + 42.7f);
+            visualFrameShadow.sizeDelta = new Vector2(Size.x * 100.0f + 39.6f, Size.y * 100.0f + 39.6f);
+
+            CameraManager.THIS.GameFOV = Size.x + 1.82f;
+
+            Vector3 spawnerPosition = spawnerPivot.position;
+            spawnerPosition.y = 0.0f;
+            Spawner.THIS.transform.position = spawnerPosition;
+            
+            Vector3 playerPos = playerPivot.position;
+            playerPos.y = 0.0f;
+            Warzone.THIS.Player.transform.position = playerPos;
+
+            ground.localScale = Vector3.one * (25.0f + (Size.y - 7) * 2.5f);
+            deadline.localPosition = new Vector3(Size.x * 50.0f + 25.0f, 130.0f, 23.9f);
         }
 
         public void Deconstruct()
         {
             DehighlightImmediate();
-            // HideSuggestedPlaces();
             
             foreach (var place in _places)
             {
