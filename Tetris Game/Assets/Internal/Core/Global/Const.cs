@@ -27,7 +27,7 @@ public class Const : SSingleton<Const>
     // [Header("Reward")] 
     // public RewardData[] rewardDatas;
     [Header("Colors")] 
-    public Color[] gridTileColors;
+    // public Color[] gridTileColors;
     public Color defaultColor;
     public Color steadyColor;
     public Color mergerMaxColor;
@@ -36,7 +36,7 @@ public class Const : SSingleton<Const>
     public Sprite[] pawnIcons;
     public Color[] placeColorsDouble;
     public Vector3[] placePosDouble;
-    public Color piggyExplodeColor;
+    // public Color piggyExplodeColor;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
@@ -59,7 +59,7 @@ public class Const : SSingleton<Const>
     public float jumpDuration = 0.15f;
     public Vector3 jumpPower;
     public Ease rotationEase;
-    public Ease piggyExplodeEase;
+    // public Ease piggyExplodeEase;
 
     // [Serializable]
     // public struct RewardData
@@ -72,12 +72,12 @@ public class Const : SSingleton<Const>
     //     [SerializeField] public Color color;
     // }
     
-    [Serializable]
-    public struct DirectionRadiusPair
-    {
-        [SerializeField] public Vector3 dir;
-        [SerializeField] public float radius;
-    }
+    // [Serializable]
+    // public struct DirectionRadiusPair
+    // {
+    //     [SerializeField] public Vector3 dir;
+    //     [SerializeField] public float radius;
+    // }
     
     [Serializable]
     public struct Currency
@@ -92,7 +92,7 @@ public class Const : SSingleton<Const>
         }
 
         public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);
-        public static Currency OneAdConsume = new Currency(CurrencyType.Ticket, -1);
+        // public static Currency OneAdConsume = new Currency(CurrencyType.Ticket, -1);
     }
     
     [Serializable]

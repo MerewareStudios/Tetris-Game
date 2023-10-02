@@ -256,7 +256,8 @@ namespace Game
                             int currentShift = 0;
                             for (int v = currentIndex.y; v >= 0; v--)
                             {
-                                if (_places[currentIndex.x, v].Current)
+                                // if (_places[currentIndex.x, v].Current)
+                                if (_places[currentIndex.x, v].Current && !_places[currentIndex.x, v].Current.Mover)
                                 {
                                     // currentShift--;
                                     break;

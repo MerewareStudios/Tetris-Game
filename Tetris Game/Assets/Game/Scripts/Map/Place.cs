@@ -7,7 +7,7 @@ namespace Game
     public class Place : MonoBehaviour
     {
         [SerializeField] public Transform segmentParent;
-        // [SerializeField] public Transform tileTransform;
+        [SerializeField] public Transform tileTransform;
         [SerializeField] private Renderer gridTile;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Vector2Int Index;
@@ -16,7 +16,7 @@ namespace Game
         [System.NonSerialized] private Tween _colorTween;
         [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
-        public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
+        // public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
         public Vector3 PlacePosition => gridTile.transform.position;
         
         public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
@@ -71,8 +71,8 @@ namespace Game
             Color targetColor = Const.THIS.placeColorsDouble[(int)_colorType];
             DoColor(targetColor);
             
-            // Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
-            // DoPos(targetPos);
+            Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
+            DoPos(targetPos);
         }
         public void FinalizeColorImmediate()
         {
@@ -84,9 +84,9 @@ namespace Game
             Color targetColor = Const.THIS.placeColorsDouble[(int)_colorType];
             gridTile.material.SetColor(GameManager.BaseColor, targetColor);
             
-            // Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
-            // tileTransform.DOKill();
-            // tileTransform.localScale = targetPos;
+            Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
+            tileTransform.DOKill();
+            tileTransform.localPosition = targetPos;
         }
 
         private void DoColor(Color color)
@@ -95,11 +95,11 @@ namespace Game
             _colorTween?.Kill();
             _colorTween = gridTile.material.DOColor(color, 0.1f).SetEase(Ease.OutSine);
         }
-        // private void DoPos(Vector3 pos)
-        // {
-            // tileTransform.DOKill();
-            // tileTransform.DOScale(pos, 0.25f);
-        // }
+        private void DoPos(Vector3 pos)
+        {
+            tileTransform.DOKill();
+            tileTransform.DOLocalMove(pos, 0.15f);
+        }
         
 
         public void Accept(Pawn pawn, float duration, System.Action onComplete = null)
