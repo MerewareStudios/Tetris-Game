@@ -6,13 +6,9 @@ public class LevelManager : Singleton<LevelManager>
 {
     public static int CurrentLevel => LevelManager.THIS.CurrentLevel();
     public static float DeltaMult = 1.0f;
-    // public static System.Action OnLevelLoad = null;
-    
-    // public void LoadLevel(System.Action onLoad = null)
+
     public void LoadLevel()
     {
-        // OnLevelLoad = onLoad;
-        
         Board.THIS.Construct(CurrentLevel.BoardSize());
 
         GameManager.PLAYING = true;

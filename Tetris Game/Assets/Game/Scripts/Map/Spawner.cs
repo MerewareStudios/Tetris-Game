@@ -10,7 +10,6 @@ using UnityEngine;
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
-    // [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private LayerMask spawnerLayer;
     [Header("Locations")]
     [SerializeField] private Transform modelPivot;
@@ -19,37 +18,10 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
-    [System.NonSerialized] private Plane _plane;
-
-    private void Awake()
-    {
-        _plane = new Plane(Vector3.up, Vector3.zero);
-    }
-
-    public Vector3 HitPoint(Ray ray)
-    {
-        if (_plane.Raycast(ray, out float enter))
-        {
-            return ray.GetPoint(enter);
-        }
-        
-        // if (meshCollider.Raycast(ray, out var hit, 200.0f))
-        // {
-        //     return hit.point;
-        // }
-        Debug.LogWarning("Not Found");
-        return Vector3.zero;
-    }
-    public void UpdatePosition(Vector3 pivot)
-    {
-        transform.position = HitPoint(new Ray(pivot, CameraManager.THIS.gameCamera.transform.forward));
-    }
-    public void UpdateFingerDelta(Vector3 pivot)
-    {
-        distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
-    }
-
+   
     [System.NonSerialized] public Block CurrentBlock;
+    
+    [System.NonSerialized] private Plane _plane;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
     [System.NonSerialized] private Vector3 _dragOffset;
@@ -58,6 +30,23 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Tween _assertionTween;
     [System.NonSerialized] private int _spawnIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
+
+    private void Awake()
+    {
+        _plane = new Plane(Vector3.up, Vector3.zero);
+    }
+
+    public Vector3 MountPosition => spawnedBlockLocation.position + CurrentBlock.blockData.spawnerOffset;
+    public Vector3 HitPoint(Ray ray) => _plane.Raycast(ray, out float enter) ? ray.GetPoint(enter) : Vector3.zero;
+    
+    public void UpdatePosition(Vector3 pivot)
+    {
+        transform.position = HitPoint(new Ray(pivot, CameraManager.THIS.gameCamera.transform.forward));
+    }
+    public void UpdateFingerDelta(Vector3 pivot)
+    {
+        distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
+    }
 
     public void Shake()
     {
@@ -246,21 +235,14 @@ public class Spawner : Singleton<Spawner>
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 hitPoint = HitPoint(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward));
-        // if (meshCollider.Raycast(, out RaycastHit hit, 100.0f))
-        // {
-            // _dragOffset = hit.point - CurrentBlock.transform.position;
-            _dragOffset = hitPoint - CurrentBlock.transform.position;
-        // }
+        _dragOffset = hitPoint - MountPosition;
     }
     private void UpdateTargetPosition()
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 hitPoint = HitPoint(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward));
-        // if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
-        // {
-            Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
-            _finalPosition = targetPosition - _dragOffset;
-        // }
+        Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
+        _finalPosition = targetPosition - _dragOffset;
     }
     public void Input_OnUp()
     {
@@ -334,7 +316,7 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        CurrentBlock.Move(spawnedBlockLocation.position + CurrentBlock.blockData.spawnerOffset, 25.0f, Ease.OutQuad, true);
+        CurrentBlock.Move(MountPosition, 25.0f, Ease.OutQuad, true);
     }
 
     private void StopMovement()

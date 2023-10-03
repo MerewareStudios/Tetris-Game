@@ -73,18 +73,9 @@ namespace Game
             _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
             ground.localScale = Vector3.one * (25.0f + (_size.x - 6) * 2.5f);
 
-            // Debug.Log(UIManager.THIS.levelProgressbar.transform.position);
-            // CameraManager.THIS.gameCamera.Render();
-            // Canvas.ForceUpdateCanvases();
-            
-            // CameraManager.THIS.gameCamera.Render();
-
-            // Debug.Log(CameraManager.THIS.gameCamera.enabled);
-            this.WaitForFrame(() =>
+            this.WaitForNull(() =>
             {
                 Spawner.THIS.UpdatePosition(spawnerPin.position);
-            // Debug.Log(CameraManager.THIS.gameCamera.enabled);
-                
                 
                 float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.362756f;
                 
@@ -101,21 +92,11 @@ namespace Game
                 Spawner.THIS.UpdateFingerDelta(bottomPin.position);
                 
 
-            // Debug.Log(UIManager.THIS.levelProgressbar.transform.position);
                 Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward));
-                
-                // Debug.DrawLine(UIManager.THIS.levelProgressbar.transform.position, UIManager.THIS.levelProgressbar.transform.position + CameraManager.THIS.gameCamera.transform.forward * 20.0f, Color.blue, 10.0f);
-                // Transform t = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
-                // t.localScale = Vector3.one * 0.2f;
-                // t.position = topProjection;
-                
                 Warzone.THIS.StartLine = topProjection.z - 1.4f;
                 Warzone.THIS.EndLine = deadline.position.z;
 
                 StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
-                
-                
-                // LevelManager.OnLevelLoad?.Invoke();
             });
         }
 

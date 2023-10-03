@@ -20,30 +20,6 @@ namespace Game
         [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public bool CanRotate;
 
-        // private void OnDrawGizmos()
-        // {
-        //     for (int x = 0; x < 3; x++)
-        //     {
-        //         for (int y = 0; y < 4; y++)
-        //         {
-        //             Gizmos.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
-        //             Gizmos.DrawCube( transform.position + new Vector3(x - 1.0f, 0.0f, y - 1.5f), Vector3.one * 0.95f);
-        //         }
-        //     }
-        //
-        //     foreach (var segmentTransform in segmentTransforms)
-        //     {
-        //         if (segmentTransform)
-        //         {
-        //             Gizmos.color = Color.green;
-        //             Gizmos.DrawCube(segmentTransform.position, Vector3.one * 0.9f);
-        //         }
-        //     }
-        //     
-        //     Gizmos.color = Color.white;
-        //     Gizmos.DrawSphere(rotatePivot.position, 0.1f);
-        // }
-
         public List<Vector3> LocalPawnPositions => (from segmentTransform in segmentTransforms where segmentTransform select segmentTransform.localPosition).ToList();
 
         public Board.BlockRot Rotation
@@ -63,16 +39,9 @@ namespace Game
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
                 
-                
-                // if (usage.Equals(Pawn.Usage.Ammo) && LevelManager.THIS.CanSpawnBonus())
-                // {
-                //     Helper.IsPossible(0.025f, () => OverrideUsage(out usage));
-                // }
-                
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
                 pawn.ParentBlock = this;
 
-                // pawn.ColorByUsageType(usage);
                 pawn.Show();
                 Pawns.Add(pawn);
             }
@@ -104,22 +73,6 @@ namespace Game
             RequiredPlaces = null;
             this.Despawn();
         }
-        // public void DeconstructAnimated()
-        // {
-        //     if (!PlacedOnGrid)
-        //     {
-        //         foreach (var pawn in Pawns)
-        //         {
-        //             pawn.DeconstructAnimated(false);
-        //         }
-        //     }
-        //     _motionTween?.Kill();
-        //     Busy = false;
-        //     Pawns.Clear();
-        //     PlacedOnGrid = false;
-        //     RequiredPlaces = null;
-        //     this.Despawn();
-        // }
         public void Detach()
         {
             foreach (var pawn in Pawns)
@@ -152,6 +105,7 @@ namespace Game
             shakePivot.localEulerAngles = Vector3.zero;
             shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
         }
+        
         public void Lift(Vector3 tutorialLift)
         {
             _motionTween?.Kill();

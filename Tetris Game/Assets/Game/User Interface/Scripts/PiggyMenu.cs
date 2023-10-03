@@ -196,8 +196,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         GiveMeta(ticketReward, 5, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
 
         SwitchToGame(false);
-        // UIManager.MenuMode(false);
-        // LevelManager.THIS.LoadLevel();
     }
 
     private void SwitchToGame(bool scaleTransactors)

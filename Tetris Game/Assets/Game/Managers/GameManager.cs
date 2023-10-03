@@ -23,11 +23,7 @@ public class GameManager : Singleton<GameManager>
                 ApplicationManager.THIS.GrabFeatureEnabled = false;
             }
         };
-        
-        // LevelManager.THIS.LoadLevel(() =>
-        // {
-        //     CameraManager.THIS.gameCamera.enabled = true;
-        // });
+
         LevelManager.THIS.LoadLevel();
     }
 
