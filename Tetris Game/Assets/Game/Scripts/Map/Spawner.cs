@@ -9,7 +9,7 @@ using UnityEngine;
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
-    [SerializeField] private MeshCollider meshColliderSpawner;
+    // [SerializeField] private MeshCollider meshColliderSpawner;
     [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private LayerMask spawnerLayer;
     [Header("Locations")]
@@ -23,10 +23,16 @@ public class Spawner : Singleton<Spawner>
 
     public void UpdatePosition()
     {
-        if (meshColliderSpawner.Raycast(new Ray(spawnerPin.position, CameraManager.THIS.gameCamera.transform.forward), out var hit, 500.0f))
+        transform.position = HitPoint(new Ray(spawnerPin.position, CameraManager.THIS.gameCamera.transform.forward));
+    }
+    
+    public Vector3 HitPoint(Ray ray)
+    {
+        if (meshCollider.Raycast(ray, out var hit, 100.0f))
         {
-            transform.position = hit.point;
+            return hit.point;
         }
+        return Vector3.zero;
     }
 
     public void UpdateFingerDelta(Vector3 pivot)

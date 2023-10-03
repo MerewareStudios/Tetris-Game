@@ -2,9 +2,22 @@ using System.Collections.Generic;
 using Internal.Core;
 using UnityEngine;
 
-public class StatDisplayArranger : Singleton<StatDisplayArranger>
+public class StatDisplayArranger : Lazyingleton<StatDisplayArranger>
 {
+    [SerializeField] private Canvas _canvas;
+    [SerializeField] private RectTransform _canvasRect;
     [SerializeField] private List<StatDisplay> _statDisplays;
+    [SerializeField] private RectTransform pivot;
+
+    public Vector3 World2ScreenPosition
+    {
+        set
+        {
+            Vector2 localPoint = CameraManager.THIS.gameCamera.WorldToScreenPoint(value);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, _canvas.worldCamera, out Vector2 local);
+            pivot.localPosition = local;
+        }
+    }
     // [System.NonSerialized] public const float UpdateInterval = 0.05f;
 
     public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false)

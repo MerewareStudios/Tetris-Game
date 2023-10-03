@@ -47,7 +47,7 @@ namespace  Game
         public void Walk()
         {
             thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * LevelManager.DeltaMult));
-            if (Warzone.THIS.Zone.IsOutside(thisTransform))
+            if (Warzone.THIS.IsOutside(thisTransform))
             {
                 Warzone.THIS.EnemyKamikaze(this);
             }

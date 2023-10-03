@@ -9,21 +9,22 @@ namespace  Game
 {
     public class Warzone : Singleton<Warzone>
     {
-        [Header("Level")]
-        [System.NonSerialized] public Enemy.SpawnData EnemySpawnData;
-        [Header("Players")]
-        [SerializeField] public Player Player;
-        [Header("Zones")]
-        [SerializeField] public Area Zone;
-        [SerializeField] public ParticleSystem bloodPS;
+        [Header("Level")] [System.NonSerialized]
+        public Enemy.SpawnData EnemySpawnData;
+
+        [Header("Players")] [SerializeField] public Player Player;
+        [Header("Zones")] [SerializeField] public ParticleSystem bloodPS;
         [SerializeField] public Vector3 goreOffset;
         [System.NonSerialized] public ParticleSystem.MainModule psMain;
         [System.NonSerialized] public ParticleSystem.ShapeModule psShape;
         [System.NonSerialized] public Transform psTransform;
+        [System.NonSerialized] public float StartLine;
+        [System.NonSerialized] public float EndLine;
+
         //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
         [System.NonSerialized] private List<Enemy> _enemies = new();
-        [System.NonSerialized] private float _spawnRange = 0.5f;
+        [System.NonSerialized] private float _spawnRangeNorm = 0.5f;
         [System.NonSerialized] private const float SpawnRange = 1.6f;
         [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
         [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
@@ -33,14 +34,15 @@ namespace  Game
         public bool IsCleared => !Spawning && !HasEnemy;
         public int EnemyCount => _enemies.Count;
         public Enemy GetEnemy(int index) => _enemies[index];
-        
-    #region Warzone
+
+        #region Warzone
+
         void Awake()
         {
             psMain = bloodPS.main;
             psShape = bloodPS.shape;
             psTransform = bloodPS.transform;
-            
+
             UIManager.OnMenuModeChanged = state =>
             {
                 if (state)
@@ -56,22 +58,24 @@ namespace  Game
                 }
             };
         }
-    #endregion
 
-    void Update()
-    {
-        for (int i = _enemies.Count - 1; i >= 0; i--)
+        #endregion
+
+        void Update()
         {
-            _enemies[i].Walk();
+            for (int i = _enemies.Count - 1; i >= 0; i--)
+            {
+                _enemies[i].Walk();
+            }
         }
-    }
 
-    #region Warzone
+        #region Warzone
+
         public void EnemyKamikaze(Enemy enemy)
         {
             bool blocked = Player.shield.Remove();
             enemy.Kamikaze(blocked);
-            
+
             if (blocked)
             {
                 UIManagerExtensions.ShieldPs(enemy.thisTransform.position);
@@ -81,30 +85,33 @@ namespace  Game
                 CameraManager.THIS.Shake();
                 this.Player._CurrentHealth -= enemy.Damage;
             }
-            
+
             LevelManager.THIS.CheckEndLevel();
-        } 
+        }
+
         public void EnemyKilled(Enemy enemy)
         {
             enemy.Kill();
         }
-        
+
         public void ResetSelf()
         {
             Player.ResetSelf();
         }
+
         public void Begin(bool countdown = true)
         {
             if (this.enabled)
             {
                 return;
             }
-            
+
             _spawnRoutine = StartCoroutine(SpawnRoutine());
+
             IEnumerator SpawnRoutine()
             {
                 Spawning = true;
-                
+
                 UIManager.THIS.LevelProgress = 1.0f;
 
                 if (countdown)
@@ -112,24 +119,24 @@ namespace  Game
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
                     yield return Announcer.THIS.Count(startingText, EnemySpawnData.spawnDelay);
                 }
-                
+
 
 
                 List<Pool> enemyPool = new();
                 int enemyIndex = 0;
-                
+
                 foreach (var countData in EnemySpawnData.countDatas)
                 {
                     for (int i = 0; i < countData.count; i++)
                     {
-                        enemyPool.Add(countData.enemyType);                        
+                        enemyPool.Add(countData.enemyType);
                     }
                 }
-                
+
                 enemyPool.Shuffle();
 
-                _spawnRange = 0.0f;
-                
+                _spawnRangeNorm = 0.0f;
+
                 Player.StartSearching();
 
                 this.enabled = true;
@@ -148,8 +155,9 @@ namespace  Game
                     {
                         break;
                     }
+
                     float stamp = Time.time;
-                    while(HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
+                    while (HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
                     {
                         // if (EnemyCount < Player.Gun._Data.SplitAmount)
                         // {
@@ -178,15 +186,18 @@ namespace  Game
                 StopCoroutine(_spawnRoutine);
                 _spawnRoutine = null;
             }
+
             this.enabled = false;
             Spawning = false;
         }
+
         private Enemy SpawnEnemy(Pool pool)
         {
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
             enemy.OnSpawn(NextSpawnPosition());
             return enemy;
         }
+
         public void RemoveEnemy(Enemy enemy)
         {
             _enemies.Remove(enemy);
@@ -197,13 +208,14 @@ namespace  Game
         public void AssignClosestEnemy()
         {
             Player.CurrentEnemy = _enemies
-                .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - Zone.endLine))
+                .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - EndLine))
                 .FirstOrDefault();
         }
+
         private Vector3 NextSpawnPosition()
         {
-            _spawnRange = Mathf.Repeat(_spawnRange + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
-            return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRange), 0.0f, Zone.startLine);
+            _spawnRangeNorm = Mathf.Repeat(_spawnRangeNorm + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
+            return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRangeNorm), 0.0f, StartLine);
         }
 
         #endregion
@@ -214,11 +226,11 @@ namespace  Game
 
             psMain.startColor = (Color)color;
             psShape.radius = radius;
-        
+
             bloodPS.Emit(amount);
         }
-    
-    #region IO
+
+        #region IO
 
         public void Deconstruct()
         {
@@ -227,8 +239,9 @@ namespace  Game
             {
                 enemy.Deconstruct();
             }
+
             _enemies.Clear();
-            
+
             ResetSelf();
         }
 
@@ -237,30 +250,19 @@ namespace  Game
             StopSpawning();
             Player.OnVictory();
         }
-        
+
         public void OnFail()
         {
             StopSpawning();
             Player.OnFail();
         }
-        
-    #endregion
 
-        [System.Serializable]
-        public class Area
+        #endregion
+
+        public bool IsOutside(Transform transform)
         {
-            [SerializeField] public float startLine;
-            [SerializeField] public float endLine;
-            [SerializeField] public float endLineShield;
-
-            public bool IsOutside(Transform transform)
-            {
-                if (Warzone.THIS.Player.shield.ShieldEnabled)
-                {
-                    return transform.position.z < endLineShield;
-                }
-                return transform.position.z < endLine;
-            }
+            return false;
+            return transform.position.z < EndLine;
         }
     }
 }

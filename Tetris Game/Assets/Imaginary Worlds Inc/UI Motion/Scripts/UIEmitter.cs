@@ -14,7 +14,6 @@ namespace IWI.UI
     [RequireComponent(typeof(Canvas))]
     public class UIEmitter : MonoBehaviour
     {
-        // Components
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Camera gameCamera;
         [SerializeField] private Camera uiCamera;
@@ -28,8 +27,6 @@ namespace IWI.UI
         }
         private Canvas _canvas;
         private RectTransform _canvasRect;
-        // [System.NonSerialized] public Camera mainCamera;
-        // [System.NonSerialized] public Camera _thisCamera;
         private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
@@ -45,8 +42,6 @@ namespace IWI.UI
         {
             _canvas = GetComponent<Canvas>();
             _canvasRect = _canvas.GetComponent<RectTransform>();
-            // mainCamera = Camera.main;
-            // _thisCamera = _canvas.worldCamera;
             SetupPool();
 
             _timeOffset = Random.Range(0.0f, 100.0f);

@@ -57,9 +57,9 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private SlashScreen slashScreen;
    [SerializeField] private MenuNavigator menuNavigator;
    [SerializeField] private PiggyMenu piggyMenu;
-   // [SerializeField] private RewardScreen rewardScreen;
    [SerializeField] private Powerup powerup;
    [SerializeField] private AdBreakScreen adBreakScreen;
+   [SerializeField] private StatDisplayArranger statDisplayArranger;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [FormerlySerializedAs("particleImageCoin")]
@@ -100,6 +100,7 @@ public class UIManager : Singleton<UIManager>
          // RewardScreen.THIS = rewardScreen;
          Powerup.THIS = powerup;
          AdBreakScreen.THIS = adBreakScreen;
+         StatDisplayArranger.THIS = statDisplayArranger;
 
          // RewardScreen.THIS.OnClose = () =>
          // {

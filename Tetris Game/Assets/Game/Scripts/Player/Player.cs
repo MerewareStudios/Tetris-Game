@@ -159,6 +159,7 @@ namespace Game
             {
                Gun.Shoot(Warzone.THIS.GetEnemy(i));
             }
+            // CameraManager.THIS.Shake(0.1f, 0.3f);
         }
 
         public void Deconstruct()

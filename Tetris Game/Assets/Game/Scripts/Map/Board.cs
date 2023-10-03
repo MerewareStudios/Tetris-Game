@@ -15,6 +15,7 @@ namespace Game
         [SerializeField] public Transform playerPivot;
         [SerializeField] public RectTransform deadline;
         [SerializeField] public RectTransform bottomPin;
+        [SerializeField] public RectTransform statsPin;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
@@ -56,8 +57,9 @@ namespace Game
             }
             
             visualFrame.sizeDelta = new Vector2(Size.x * 100.0f + 42.7f, Size.y * 100.0f + 42.7f);
-            
+            // deadline.localPosition = new Vector3(Size.x * 50.0f + 25.0f, 130.0f, 23.9f);
             _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
+            ground.localScale = Vector3.one * (25.0f + (Size.x - 6) * 2.5f);
 
             
             this.WaitForNull(() =>
@@ -65,20 +67,7 @@ namespace Game
                 Spawner.THIS.UpdatePosition();
                 
                 
-                GameObject goPin = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                goPin.transform.position = bottomPin.position;
-                goPin.transform.localScale = Vector3.one * 0.2f;
-                
-                GameObject goSpawner = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                goSpawner.transform.position = Spawner.THIS.transform.position;
-                goSpawner.transform.localScale = Vector3.one * 0.1f;
-                
-                
-                
-                float offset = (bottomPin.position - Spawner.THIS.transform.position).z;
-                Debug.Log(offset);
-                offset += -1.362756f;
-                Debug.Log(offset);
+                float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.362756f;
                 
                 
                 _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
@@ -89,11 +78,16 @@ namespace Game
                 playerPos.y = 0.0f;
                 Warzone.THIS.Player.transform.position = playerPos;
 
-                ground.localScale = Vector3.one * (25.0f + (Size.x - 6) * 2.5f);
-                deadline.localPosition = new Vector3(Size.x * 50.0f + 25.0f, 130.0f, 23.9f);
                 
                 
                 Spawner.THIS.UpdateFingerDelta(bottomPin.position);
+
+                Warzone.THIS.StartLine = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward)).z - 1.4f;
+                Debug.Log(Warzone.THIS.StartLine);
+                Warzone.THIS.EndLine = deadline.position.z;
+
+
+                StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
             });
         }
 
