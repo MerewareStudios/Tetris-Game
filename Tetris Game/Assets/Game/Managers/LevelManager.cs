@@ -9,6 +9,8 @@ public class LevelManager : Singleton<LevelManager>
     
     public void LoadLevel()
     {
+        Board.THIS.Construct(CurrentLevel.BoardSize());
+
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();

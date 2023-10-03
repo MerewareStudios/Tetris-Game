@@ -63,6 +63,10 @@ public class PoolManager : Singleton<PoolManager>
     {
         PoolManager.THIS.pools[((int)key)].pool.Despawn(gameObject);
     }
+    public static void Despawn(int key, GameObject gameObject)
+    {
+        PoolManager.THIS.pools[key].pool.Despawn(gameObject);
+    }
     #endregion
 
     [System.Serializable]
@@ -95,7 +99,7 @@ public static class PoolManagerExtensions
     }
     public static void Despawn(this GameObject gameObject, int key)
     {
-        PoolManager.Despawn((Pool)key, gameObject);
+        PoolManager.Despawn(key, gameObject);
     }
     public static void Despawn(this GameObject gameObject)
     {
@@ -110,6 +114,10 @@ public static class PoolManagerExtensions
         PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), mono.gameObject.name.Replace(" ", "_").Replace("-", "_")), mono.gameObject);
     }
     public static void Despawn(this MonoBehaviour mono, Pool key)
+    {
+        PoolManager.Despawn(key, mono.gameObject);
+    }
+    public static void Despawn(this MonoBehaviour mono, int key)
     {
         PoolManager.Despawn(key, mono.gameObject);
     }

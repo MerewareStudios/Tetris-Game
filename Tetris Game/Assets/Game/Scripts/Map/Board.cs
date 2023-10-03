@@ -1,4 +1,3 @@
-using System.Collections;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Game
     public class Board : Singleton<Board>
     {
         [SerializeField] private Vector3 indexOffset;
-        [SerializeField] public Vector2Int Size;
+        [System.NonSerialized] public Vector2Int Size;
         [SerializeField] public RectTransform visualFrame;
         [SerializeField] public Transform ground;
         [SerializeField] public Transform playerPivot;
@@ -38,10 +37,19 @@ namespace Game
             get => _data;
         }
         
-        public void Construct()
+        public void Construct(Vector2Int size)
         {
-            CameraManager.THIS.OrtoSize = Size.x + 1.82f;
+            this.Size = size;
             
+            CameraManager.THIS.OrtoSize = Size.x + 1.82f;
+
+            if (_places != null)
+            {
+                foreach (var place in _places)
+                {
+                    place.Despawn(0);
+                }
+            }
             
             _places = new Place[Size.x, Size.y];
             for (int i = 0; i < Size.x; i++)
@@ -83,9 +91,7 @@ namespace Game
                 Spawner.THIS.UpdateFingerDelta(bottomPin.position);
 
                 Warzone.THIS.StartLine = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward)).z - 1.4f;
-                Debug.Log(Warzone.THIS.StartLine);
                 Warzone.THIS.EndLine = deadline.position.z;
-
 
                 StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
             });

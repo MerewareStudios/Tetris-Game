@@ -13,13 +13,6 @@ namespace Visual.Effects
         [System.NonSerialized] public static System.Action<GameObject, bool> OnComplete;
         [System.NonSerialized] private Tween animationTween;
     
-        public static void SetPropertyBlock(System.Action<GameObject, bool> OnComplete)
-        {
-            // Distortion.rampID = rampID;
-            // Distortion.powerID = powerID;
-            Distortion.OnComplete = OnComplete;
-        }
-
         public void Distort(Vector3 worldPosition, Vector3 forward, float scale, float power, float duration, Ease ease, float delay)
         {
             var thisTransform = transform;

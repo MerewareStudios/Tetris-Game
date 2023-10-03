@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 4
   m_EditorClassIdentifier: 
+  deltaMult: 1
+  boardSize: {x: 9, y: 10}
   EnemySpawnData:
     spawnDelay: 3
     spawnInterval: 9

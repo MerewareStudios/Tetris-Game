@@ -10,21 +10,20 @@ public class GameManager : Singleton<GameManager>
     private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int BaseMap = Shader.PropertyToID("_BaseMap");
-    public static readonly int RampID = Shader.PropertyToID("_Ramp");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
 
     void Start()
     {
-        Distortion.SetPropertyBlock((go, state) =>
+        Distortion.OnComplete = (go, state) =>
         {
             go.Despawn();
             if (state)
             {
                 ApplicationManager.THIS.GrabFeatureEnabled = false;
             }
-        });
-        Board.THIS.Construct();
+        };
+        
         LevelManager.THIS.LoadLevel();
     }
 
@@ -59,14 +58,6 @@ public class GameManager : Singleton<GameManager>
         Warzone.THIS.Player.shield.Add(value);
     }
     
-    // public void Deconstruct()
-    // {
-    //     Spawner.THIS.Deconstruct();
-    //     Map.THIS.Deconstruct();
-    //     Board.THIS.Deconstruct();
-    //     Warzone.THIS.Deconstruct();
-    // }
-   
     public void Deconstruct()
     {
         Spawner.THIS.Deconstruct();

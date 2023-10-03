@@ -10,69 +10,12 @@ namespace Game
     public class LevelSo : ScriptableObject
     {
         [SerializeField] public float deltaMult = 1.0f;
+        [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);
         [SerializeField] public Enemy.SpawnData EnemySpawnData;
         [SerializeField] public bool canGiveBonus = true;
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
-// #if UNITY_EDITOR
-//         [Header("Data")]
-//         // [ReadOnly] [SerializeField] private float minTime;
-//         [ReadOnly] [SerializeField] private int totalCoinRevenue;
-//         [ReadOnly] [SerializeField] private int totalPiggyRevenue;
-//         [ReadOnly] [SerializeField] private int totalTicketRevenue;
-//         [ReadOnly] [SerializeField] private int totalHeartRevenue;
-//         private void OnEnable()
-//         {
-//             UpdateData();
-//         }
-//         void OnValidate()
-//         {
-//             UpdateData();
-//         }
-//         private void UpdateData()
-//         {
-//             // minTime = EnemySpawnData.spawnDelay;
-//             totalCoinRevenue = 0;
-//             totalPiggyRevenue = 0;
-//             totalTicketRevenue = 0;
-//             totalHeartRevenue = 0;
-//             foreach (var enemyData in EnemySpawnData.countDatas)
-//             {
-//                 // minTime += enemyData.count * (EnemySpawnData.spawnInterval);
-//                 foreach (var reward in enemyData.enemyType.Prefab<Enemy>().so.enemyRewards)
-//                 {
-//                     switch (reward.type)
-//                     {
-//                         case UpgradeMenu.PurchaseType.Coin:
-//                             totalCoinRevenue += reward.amount * enemyData.count;
-//                             break;
-//                         case UpgradeMenu.PurchaseType.PiggyCoin:
-//                             totalPiggyRevenue += reward.amount * enemyData.count;
-//                             break;
-//                         case UpgradeMenu.PurchaseType.SkipTicket:
-//                             totalTicketRevenue += reward.amount * enemyData.count;
-//                             break;
-//                         case UpgradeMenu.PurchaseType.Heart:
-//                             totalHeartRevenue += reward.amount * enemyData.count;
-//                             break;
-//                     }
-//                 }
-//             }
-//             switch (victoryReward.type)
-//             {
-//                 case Const.CurrencyType.Coin:
-//                     totalCoinRevenue += victoryReward.amount;
-//                     break;
-//                 case Const.CurrencyType.PiggyCoin:
-//                     totalPiggyRevenue += victoryReward.amount;
-//                     break;
-//                 case Const.CurrencyType.Ticket:
-//                     totalTicketRevenue += victoryReward.amount;
-//                     break;
-//             }
-//         }
-// #endif
     }
 }
 
@@ -103,5 +46,9 @@ public static class LevelSoExtension
     public static float DeltaMult(this int level)
     {
         return Const.THIS.Levels[level - 1].deltaMult;
+    }
+    public static Vector2Int BoardSize(this int level)
+    {
+        return Const.THIS.Levels[level - 1].boardSize;
     }
 }

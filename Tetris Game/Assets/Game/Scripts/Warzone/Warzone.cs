@@ -261,7 +261,6 @@ namespace  Game
 
         public bool IsOutside(Transform transform)
         {
-            return false;
             return transform.position.z < EndLine;
         }
     }
