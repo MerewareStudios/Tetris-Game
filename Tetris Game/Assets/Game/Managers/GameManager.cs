@@ -24,6 +24,10 @@ public class GameManager : Singleton<GameManager>
             }
         };
         
+        // LevelManager.THIS.LoadLevel(() =>
+        // {
+        //     CameraManager.THIS.gameCamera.enabled = true;
+        // });
         LevelManager.THIS.LoadLevel();
     }
 

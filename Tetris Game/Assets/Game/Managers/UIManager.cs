@@ -255,7 +255,7 @@ public static class UIManagerExtensions
       Vector3 hitPoint = Vector3.zero;
       if (plane.Raycast(ray, out float enter))
       {
-       hitPoint = ray.GetPoint(enter);
+         hitPoint = ray.GetPoint(enter);
       }
 
       Pool.Distortion.Spawn<Distortion>().Distort(hitPoint, forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortPower, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);

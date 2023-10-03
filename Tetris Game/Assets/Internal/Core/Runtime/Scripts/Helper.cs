@@ -51,6 +51,24 @@ namespace Internal.Core
             }
             return mono.StartCoroutine(Wait());
         }
+        public static Coroutine WaitForSeconds(this MonoBehaviour mono, float seconds, System.Action action)
+        {
+            IEnumerator Wait()
+            {
+                yield return new WaitForSeconds(seconds);
+                action.Invoke();
+            }
+            return mono.StartCoroutine(Wait());
+        }
+        public static Coroutine WaitForSecondsRealtime(this MonoBehaviour mono, float seconds, System.Action action)
+        {
+            IEnumerator Wait()
+            {
+                yield return new WaitForSecondsRealtime(seconds);
+                action.Invoke();
+            }
+            return mono.StartCoroutine(Wait());
+        }
         
         public static int Abs(this int value)
         {

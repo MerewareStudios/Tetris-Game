@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Game;
 using Internal.Core;
@@ -9,8 +10,7 @@ using UnityEngine;
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
-    // [SerializeField] private MeshCollider meshColliderSpawner;
-    [SerializeField] private MeshCollider meshCollider;
+    // [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private LayerMask spawnerLayer;
     [Header("Locations")]
     [SerializeField] private Transform modelPivot;
@@ -19,59 +19,66 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
-    [SerializeField] public RectTransform spawnerPin;
+    [System.NonSerialized] private Plane _plane;
 
-    public void UpdatePosition()
+    private void Awake()
     {
-        transform.position = HitPoint(new Ray(spawnerPin.position, CameraManager.THIS.gameCamera.transform.forward));
+        _plane = new Plane(Vector3.up, Vector3.zero);
     }
-    
+
     public Vector3 HitPoint(Ray ray)
     {
-        if (meshCollider.Raycast(ray, out var hit, 100.0f))
+        if (_plane.Raycast(ray, out float enter))
         {
-            return hit.point;
+            return ray.GetPoint(enter);
         }
+        
+        // if (meshCollider.Raycast(ray, out var hit, 200.0f))
+        // {
+        //     return hit.point;
+        // }
+        Debug.LogWarning("Not Found");
         return Vector3.zero;
     }
-
+    public void UpdatePosition(Vector3 pivot)
+    {
+        transform.position = HitPoint(new Ray(pivot, CameraManager.THIS.gameCamera.transform.forward));
+    }
     public void UpdateFingerDelta(Vector3 pivot)
     {
         distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
     }
 
-    [System.NonSerialized] public bool FitColorPass = true;
-    [System.NonSerialized] public Block _currentBlock;
+    [System.NonSerialized] public Block CurrentBlock;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
     [System.NonSerialized] private Vector3 _dragOffset;
     [System.NonSerialized] private Vector3 _finalPosition;
-    [System.NonSerialized] private Tween delayedTween;
-    [System.NonSerialized] private Tween assertionTween;
-    [System.NonSerialized] public int SpawnIndex = 0;
-    [System.NonSerialized] public int SpawnTime = 0;
+    [System.NonSerialized] private Tween _delayedTween;
+    [System.NonSerialized] private Tween _assertionTween;
+    [System.NonSerialized] private int _spawnIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
 
     public void Shake()
     {
-        if (_currentBlock)
+        if (CurrentBlock)
         {
-            _currentBlock.ShakeRotation();
+            CurrentBlock.ShakeRotation();
         }
     }
     public void Lift()
     {
-        if (_currentBlock)
+        if (CurrentBlock)
         {
-            _currentBlock.Lift(tutorialLift);
+            CurrentBlock.Lift(tutorialLift);
         }
     }
     public void DelayedSpawn(float delay)
     {
-        delayedTween?.Kill();
-        delayedTween = DOVirtual.DelayedCall(delay, () =>
+        _delayedTween?.Kill();
+        _delayedTween = DOVirtual.DelayedCall(delay, () =>
         {
-            _currentBlock = SpawnSuggestedBlock();  
+            CurrentBlock = SpawnSuggestedBlock();  
         }, false);
     }
     public void Deconstruct()
@@ -83,13 +90,13 @@ public class Spawner : Singleton<Spawner>
             RemoveBlock(block);   
         }
 
-        SpawnIndex = 0;
+        _spawnIndex = 0;
         StopAllRunningTasksOnBlock();
     }
     public void OnLevelEnd()
     {
-        delayedTween?.Kill();
-        assertionTween?.Kill();
+        _delayedTween?.Kill();
+        _assertionTween?.Kill();
         StopMovement();
         Mount();
         Board.THIS.HighlightBlock();
@@ -97,16 +104,16 @@ public class Spawner : Singleton<Spawner>
 
     private void StopAllRunningTasksOnBlock()
     {
-        delayedTween?.Kill();
+        _delayedTween?.Kill();
 
-        assertionTween?.Kill();
+        _assertionTween?.Kill();
         StopMovement();
 
-        _currentBlock = null;
+        CurrentBlock = null;
     }
     public void OnLevelLoad()
     {
-        SpawnIndex = 0;
+        _spawnIndex = 0;
     }
 
     #region User Input
@@ -126,13 +133,13 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        if (!IsTouchingSpawner(Input.mousePosition) || !_currentBlock)
+        if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock)
         {
             return;
         }
 
-        assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
-        assertionTween.onComplete = () =>
+        _assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
+        _assertionTween.onComplete = () =>
         {
             _grabbedBlock = true;
 
@@ -144,10 +151,10 @@ public class Spawner : Singleton<Spawner>
             
             IEnumerator MoveRoutine()
             {
-                if (_currentBlock)
+                if (CurrentBlock)
                 {
-                    _currentBlock.OnPickUp();
-                    _currentBlock.CancelLift();
+                    CurrentBlock.OnPickUp();
+                    CurrentBlock.CancelLift();
             
                     if (ONBOARDING.TEACH_PICK.IsNotComplete())
                     {
@@ -158,7 +165,7 @@ public class Spawner : Singleton<Spawner>
                 float smoothFactor = 0.0f;
                 while (true)
                 {
-                    _currentBlock.transform.position = Vector3.Lerp(_currentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
+                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
                     smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
                     yield return null;
                 }
@@ -175,18 +182,18 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        if (!IsTouchingSpawner(Input.mousePosition) || !_currentBlock || _grabbedBlock)
+        if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock || _grabbedBlock)
         {
             return;
         }
 
-        if (_currentBlock.Busy)
+        if (CurrentBlock.Busy)
         {
             return;
         }
         
         AnimateTap();
-        _currentBlock.Rotate();
+        CurrentBlock.Rotate();
             
         if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.TEACH_ROTATION.IsNotComplete())
         {
@@ -200,18 +207,18 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        if (!_currentBlock)
+        if (!CurrentBlock)
         {
             return;
         }
-        if (_currentBlock.Busy)
+        if (CurrentBlock.Busy)
         {
             return;
         }
-        if (assertionTween != null)
+        if (_assertionTween != null)
         {
-            assertionTween.Kill(true);
-            assertionTween = null;
+            _assertionTween.Kill(true);
+            _assertionTween = null;
         }
         if (!_grabbedBlock)
         {
@@ -224,7 +231,7 @@ public class Spawner : Singleton<Spawner>
 
     public void HighlightCurrentBlock()
     {
-        if (!_currentBlock)
+        if (!CurrentBlock)
         {
             return;
         }
@@ -232,26 +239,28 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        Board.THIS.HighlightBlock(_currentBlock);
+        Board.THIS.HighlightBlock(CurrentBlock);
     }
 
     private void RecordFingerStart()
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
-        if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
-        {
-            _dragOffset = hit.point - _currentBlock.transform.position;
-        }
+        Vector3 hitPoint = HitPoint(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward));
+        // if (meshCollider.Raycast(, out RaycastHit hit, 100.0f))
+        // {
+            // _dragOffset = hit.point - CurrentBlock.transform.position;
+            _dragOffset = hitPoint - CurrentBlock.transform.position;
+        // }
     }
     private void UpdateTargetPosition()
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
-        
-        if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
-        {
-            Vector3 targetPosition = hit.point + distanceFromDraggingFinger;
+        Vector3 hitPoint = HitPoint(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward));
+        // if (meshCollider.Raycast(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward), out RaycastHit hit, 100.0f))
+        // {
+            Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
             _finalPosition = targetPosition - _dragOffset;
-        }
+        // }
     }
     public void Input_OnUp()
     {
@@ -263,26 +272,26 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        assertionTween?.Kill();
+        _assertionTween?.Kill();
         StopMovement();
-        if (!_grabbedBlock || _currentBlock == null)
+        if (!_grabbedBlock || CurrentBlock == null)
         {
             return;
         }
         _grabbedBlock = false;
         Board.THIS.HighlightBlock();
 
-        if (Board.THIS.CanPlace(_currentBlock))
+        if (Board.THIS.CanPlace(CurrentBlock))
         {
-            Board.THIS.Place(_currentBlock);
+            Board.THIS.Place(CurrentBlock);
             Board.THIS.HideSuggestedPlaces();
 
-            _currentBlock = null;
+            CurrentBlock = null;
             
 
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
-                delayedTween?.Kill();
+                _delayedTween?.Kill();
                 DelayedSpawn(0.2f);
                 
                 return;
@@ -321,11 +330,11 @@ public class Spawner : Singleton<Spawner>
 
     private void Mount()
     {
-        if (!_currentBlock)
+        if (!CurrentBlock)
         {
             return;
         }
-        _currentBlock.Move(spawnedBlockLocation.position + _currentBlock.blockData.spawnerOffset, 25.0f, Ease.OutQuad, true);
+        CurrentBlock.Move(spawnedBlockLocation.position + CurrentBlock.blockData.spawnerOffset, 25.0f, Ease.OutQuad, true);
     }
 
     private void StopMovement()
@@ -350,15 +359,13 @@ public class Spawner : Singleton<Spawner>
         Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.THIS.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
-        if (suggestedBlocks != null && suggestedBlocks.Length > SpawnIndex)
+        if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
         {
-            suggestedBlockData = suggestedBlocks[SpawnIndex];
+            suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
-            FitColorPass = false;
         }
         else
         {
-            FitColorPass = true;
             pool = this.RandomBlock();
         }
         
@@ -379,8 +386,7 @@ public class Spawner : Singleton<Spawner>
         block.Rotation = suggestedBlockData?.blockRot ?? Board.BlockRot.UP;
         _spawnedBlocks.Add(block);
 
-        SpawnTime = (int)Time.time;
-        SpawnIndex++;
+        _spawnIndex++;
 
         return block;
     }
@@ -390,14 +396,14 @@ public class Spawner : Singleton<Spawner>
         DespawnCurrentBlock();
         StopAllRunningTasksOnBlock();  
         Board.THIS.HideSuggestedPlaces();
-        _currentBlock = SpawnBlock(pool, usage, null);
+        CurrentBlock = SpawnBlock(pool, usage, null);
     }
     private void DespawnCurrentBlock()
     {
-        if (_currentBlock)
+        if (CurrentBlock)
         {
-            _currentBlock.Deconstruct();
-            RemoveBlock(_currentBlock);   
+            CurrentBlock.Deconstruct();
+            RemoveBlock(CurrentBlock);   
         }    
     }
     public void RemoveBlock(Block block)

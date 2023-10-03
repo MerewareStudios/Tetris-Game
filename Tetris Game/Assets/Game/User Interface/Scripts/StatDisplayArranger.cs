@@ -18,7 +18,6 @@ public class StatDisplayArranger : Lazyingleton<StatDisplayArranger>
             pivot.localPosition = local;
         }
     }
-    // [System.NonSerialized] public const float UpdateInterval = 0.05f;
 
     public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false)
     {

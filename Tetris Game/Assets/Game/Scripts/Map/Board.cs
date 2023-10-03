@@ -8,18 +8,23 @@ namespace Game
     public class Board : Singleton<Board>
     {
         [SerializeField] private Vector3 indexOffset;
-        [System.NonSerialized] public Vector2Int Size;
+        
         [SerializeField] public RectTransform visualFrame;
         [SerializeField] public Transform ground;
         [SerializeField] public Transform playerPivot;
         [SerializeField] public RectTransform deadline;
         [SerializeField] public RectTransform bottomPin;
         [SerializeField] public RectTransform statsPin;
+        [SerializeField] public RectTransform spawnerPin;
+        [SerializeField] public RectTransform spawnerGenericRect;
+
+        [System.NonSerialized] public System.Action<int> OnMerge;
+        
         [System.NonSerialized] private Transform _thisTransform;
+        [System.NonSerialized] private Vector2Int _size;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
         [System.NonSerialized] private int _tick = 0;
-        [System.NonSerialized] public System.Action<int> OnMerge;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
 
@@ -39,9 +44,9 @@ namespace Game
         
         public void Construct(Vector2Int size)
         {
-            this.Size = size;
+            this._size = size;
             
-            CameraManager.THIS.OrtoSize = Size.x + 1.82f;
+            CameraManager.THIS.OrtoSize = _size.x + 1.82f;
 
             if (_places != null)
             {
@@ -51,10 +56,10 @@ namespace Game
                 }
             }
             
-            _places = new Place[Size.x, Size.y];
-            for (int i = 0; i < Size.x; i++)
+            _places = new Place[_size.x, _size.y];
+            for (int i = 0; i < _size.x; i++)
             {
-                for(int j = 0; j < Size.y; j++)
+                for(int j = 0; j < _size.y; j++)
                 {
                     Place place = Pool.Place.Spawn<Place>(_thisTransform);
                     place.LocalPosition = new Vector3(i, 0.0f, -j);
@@ -64,22 +69,28 @@ namespace Game
                 }
             }
             
-            visualFrame.sizeDelta = new Vector2(Size.x * 100.0f + 42.7f, Size.y * 100.0f + 42.7f);
-            // deadline.localPosition = new Vector3(Size.x * 50.0f + 25.0f, 130.0f, 23.9f);
-            _thisTransform.localPosition = new Vector3(-Size.x * 0.5f + 0.5f, 0.0f, Size.y * 0.5f + 1.75f);
-            ground.localScale = Vector3.one * (25.0f + (Size.x - 6) * 2.5f);
+            visualFrame.sizeDelta = new Vector2(_size.x * 100.0f + 42.7f, _size.y * 100.0f + 42.7f);
+            _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
+            ground.localScale = Vector3.one * (25.0f + (_size.x - 6) * 2.5f);
 
+            // Debug.Log(UIManager.THIS.levelProgressbar.transform.position);
+            // CameraManager.THIS.gameCamera.Render();
+            // Canvas.ForceUpdateCanvases();
             
-            this.WaitForNull(() =>
+            // CameraManager.THIS.gameCamera.Render();
+
+            // Debug.Log(CameraManager.THIS.gameCamera.enabled);
+            this.WaitForFrame(() =>
             {
-                Spawner.THIS.UpdatePosition();
+                Spawner.THIS.UpdatePosition(spawnerPin.position);
+            // Debug.Log(CameraManager.THIS.gameCamera.enabled);
                 
                 
                 float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.362756f;
                 
                 
                 _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
-                this._thisPosition = _thisTransform.position;
+                _thisPosition = _thisTransform.position;
                 
 
                 Vector3 playerPos = playerPivot.position;
@@ -87,13 +98,24 @@ namespace Game
                 Warzone.THIS.Player.transform.position = playerPos;
 
                 
-                
                 Spawner.THIS.UpdateFingerDelta(bottomPin.position);
+                
 
-                Warzone.THIS.StartLine = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward)).z - 1.4f;
+            // Debug.Log(UIManager.THIS.levelProgressbar.transform.position);
+                Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward));
+                
+                // Debug.DrawLine(UIManager.THIS.levelProgressbar.transform.position, UIManager.THIS.levelProgressbar.transform.position + CameraManager.THIS.gameCamera.transform.forward * 20.0f, Color.blue, 10.0f);
+                // Transform t = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
+                // t.localScale = Vector3.one * 0.2f;
+                // t.position = topProjection;
+                
+                Warzone.THIS.StartLine = topProjection.z - 1.4f;
                 Warzone.THIS.EndLine = deadline.position.z;
 
                 StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
+                
+                
+                // LevelManager.OnLevelLoad?.Invoke();
             });
         }
 
@@ -163,12 +185,12 @@ namespace Game
                 // Still waiting for a map cycle after placement, wait to end & skip
                 return;
             }
-            if (!Spawner.THIS._currentBlock)
+            if (!Spawner.THIS.CurrentBlock)
             {
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
-            if (Spawner.THIS._currentBlock.Pawns[0].Free2Place)
+            if (Spawner.THIS.CurrentBlock.Pawns[0].Free2Place)
             {
                 if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
                 {
@@ -182,20 +204,20 @@ namespace Game
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
-            if (Spawner.THIS._currentBlock.RequiredPlaces != null && Spawner.THIS._currentBlock.RequiredPlaces.Count > 0)
+            if (Spawner.THIS.CurrentBlock.RequiredPlaces != null && Spawner.THIS.CurrentBlock.RequiredPlaces.Count > 0)
             {
-                Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
+                Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces);
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
-                    Highlight(Spawner.THIS._currentBlock.RequiredPlaces);
+                    Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces);
                 }, false).SetLoops(-1);;
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
            
-            for (int i = 0; i < Size.x; i++)
+            for (int i = 0; i < _size.x; i++)
             {
-                for (int j = 0; j < Size.y; j++)
+                for (int j = 0; j < _size.y; j++)
                 {
                     Place place = _places[i, j];
                     if (!place.Current)
@@ -210,7 +232,7 @@ namespace Game
                 }
             }
 
-            List<List<Place>> allPlaces = DetectFit(Spawner.THIS._currentBlock);
+            List<List<Place>> allPlaces = DetectFit(Spawner.THIS.CurrentBlock);
 
             if (allPlaces.Count > 0)
             {
@@ -241,7 +263,7 @@ namespace Game
             {
                 foreach (var place in _places)
                 {
-                    place.SetTargetColorType((block && place.Index.y >= Size.y - block.blockData.FitHeight) ? place.LimitDarkLight : place.NormalDarkLight);
+                    place.SetTargetColorType((block && place.Index.y >= _size.y - block.blockData.FitHeight) ? place.LimitDarkLight : place.NormalDarkLight);
                 }
             }
             private void DehighlightImmediate()
@@ -259,10 +281,6 @@ namespace Game
                 {
                     List<Vector2Int> projectedPlaces = new();
                     bool canProjectFuture = true;
-                    // for (int i = 0; i < _rayMins.Length; i++)
-                    // {
-                    //     _rayMins[i] = Size.y;
-                    // }
                     foreach (var pawn in block.Pawns)
                     {
                         (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
@@ -290,7 +308,7 @@ namespace Game
                     {
                         HideSuggestedPlaces();
                         
-                        int minShift = Size.y;
+                        int minShift = _size.y;
                         
                         for (int i = 0; i < projectedPlaces.Count; i++)
                         {
@@ -298,10 +316,8 @@ namespace Game
                             int currentShift = 0;
                             for (int v = currentIndex.y; v >= 0; v--)
                             {
-                                // if (_places[currentIndex.x, v].Current)
                                 if (_places[currentIndex.x, v].Current && !_places[currentIndex.x, v].Current.Mover)
                                 {
-                                    // currentShift--;
                                     break;
                                 }
                                 
@@ -331,14 +347,14 @@ namespace Game
         #endregion
         public Place LinearIndex2Place(int index)
         {
-            Vector2Int ind = index.ToIndex(Size.y);
+            Vector2Int ind = index.ToIndex(_size.y);
             return _places[ind.x, ind.y];
         }
         private void Call<T>(T[,] array, System.Action<T, int, int> action)
         {
-            for (int i = 0; i < Size.x; i++)
+            for (int i = 0; i < _size.x; i++)
             {
-                for (int j = 0; j < Size.y; j++)
+                for (int j = 0; j < _size.y; j++)
                 {
                     action.Invoke(array[i, j], i, j);
                 }
@@ -346,14 +362,14 @@ namespace Game
         }
         private void CallRow<T>(T[,] array, int lineIndex, System.Action<T, int> action)
         {
-            for (int i = 0; i < Size.x; i++)
+            for (int i = 0; i < _size.x; i++)
             {
                 action.Invoke(array[i, lineIndex], i);
             }
         } 
         private void CallColumn<T>(T[,] array, int columnIndex, System.Action<T, int> action)
         {
-            for (int j = 0; j < Size.y; j++)
+            for (int j = 0; j < _size.y; j++)
             {
                 action.Invoke(array[columnIndex, j], j);
             }
@@ -365,9 +381,9 @@ namespace Game
         {
             List<Vector2Int> points = new();
 
-            for (int j = 0; j < Size.y; j++)
+            for (int j = 0; j < _size.y; j++)
             {
-                for (int i = 0; i < Size.x; i++)
+                for (int i = 0; i < _size.x; i++)
                 {
                     if (!_places[i, j].Occupied)
                     {
@@ -377,18 +393,12 @@ namespace Game
                     if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetLR))
                     {
                         CreatePawnAtHorizontal(i, j);
-                        for (int k = 0; k < Size.x; k++)
+                        for (int k = 0; k < _size.x; k++)
                         {
                             points.Add(new Vector2Int(k, j));
                         }
                         return points;
                     }
-                    // if (places[i, j].Current.UsageType.Equals(Pawn.Usage.MagnetUD))
-                    // {
-                    //     CreatePawnAtVertical(i, j);
-                    //     points.Add(new Vector2Int(i, j));
-                    //     return points;
-                    // }
                     if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j, points);
@@ -403,11 +413,11 @@ namespace Game
         public List<int> CheckTetris()
         {
             List<int> tetrisLines = new();
-            for (int j = 0; j < Size.y; j++)
+            for (int j = 0; j < _size.y; j++)
             {
                 bool tetris = true;
                 bool forceMerger = false;
-                for (int i = 0; i < Size.x; i++)
+                for (int i = 0; i < _size.x; i++)
                 {
                     
                     if (!_places[i, j].Occupied)
@@ -457,7 +467,7 @@ namespace Game
                 int highestTick = int.MinValue;
                 int mergeIndex = 0;
 
-                for (int i = 0; i < Size.x; i++)
+                for (int i = 0; i < _size.x; i++)
                 {
                     int index = i;
                     Place place = _places[index, lineIndex];
@@ -498,7 +508,7 @@ namespace Game
             
             float delay = 0.0f;
 
-            for (int i = 0; i < Size.x; i++)
+            for (int i = 0; i < _size.x; i++)
             {
                 Place place = _places[i, lineIndex];
                 Pawn pawn = place.Current;
@@ -534,50 +544,6 @@ namespace Game
             totalPoint = Mathf.Min(totalPoint * multiplier,_Data.maxStack);
             SpawnMergedPawn(spawnPlace, totalPoint);
         }
-        
-        // private void CreatePawnAtVertical(int horizontal, int vertical)
-        // {
-        //     Place spawnPlace = places[horizontal, vertical];
-        //     int totalPoint = 0;
-        //     Pawn lastPawn = null;
-        //     
-        //     float delay = 0.0f;
-        //     
-        //     for (int i = 0; i < Size.y; i++)
-        //     {
-        //         Place place = places[horizontal, i];
-        //         Pawn pawn = place.Current;
-        //         if (!pawn)
-        //         {
-        //             continue;
-        //         }
-        //         
-        //         lastPawn = pawn;
-        //
-        //         totalPoint += pawn.Amount;
-        //         
-        //         pawn.Unpack(delay += 0.025f);
-        //
-        //         pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-        //         pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-        //             .onComplete += () =>
-        //         {
-        //             pawn.Deconstruct();
-        //
-        //             if (lastPawn == pawn)
-        //             {
-        //                 CameraManager.THIS.Shake(0.2f, 0.5f);
-        //
-        //                 Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-        //             }
-        //         };
-        //
-        //         place.Current = null;
-        //     }
-        //
-        //     totalPoint = Mathf.Min(totalPoint,_Data.maxStack);
-        //     SpawnMergedPawn(spawnPlace, totalPoint);
-        // }
 
         private void CreatePawnAtCircular(int horizontal, int vertical, List<Vector2Int> points)
         {
@@ -589,9 +555,9 @@ namespace Game
             
             float delay = 0.0f;
             
-            for (int i = 0; i < Size.x; i++)
+            for (int i = 0; i < _size.x; i++)
             {
-                for (int j = 0; j < Size.y; j++)
+                for (int j = 0; j < _size.y; j++)
                 {
                     Place place = _places[i, j];
                     Pawn pawn = place.Current;
@@ -666,7 +632,7 @@ namespace Game
         {
             foreach (var point in moverPoints)
             {
-                for (int j = point.y; j < Size.y; j++)
+                for (int j = point.y; j < _size.y; j++)
                 {
                     Place place = _places[point.x, j];
                     if (place.Current && !place.Current.Connected)
@@ -694,22 +660,15 @@ namespace Game
         {
             int ammoGiven = 0;
             
-            for (int j = 0; j < Size.y; j++)
+            for (int j = 0; j < _size.y; j++)
             {
-                for (int i = 0; i < Size.x; i++)
+                for (int i = 0; i < _size.x; i++)
                 {
-                    // if (splitCount <= 0)
-                    // {
-                    //     return ammoGiven;
-                    // }
                     Place place = _places[i, j];
                     
-                    // if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.UnpackedAmmo) && place.Current.CanTakeAmmo)
                     if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent)
                     {
                         Pawn currentPawn = place.Current;
-                        // int ammo = Mathf.Min(currentPawn.Amount, splitCount);
-                        // currentPawn.Amount -= ammo;
                         currentPawn.Amount -= 1;
                         if (currentPawn.Amount > 0)
                         {
@@ -725,7 +684,6 @@ namespace Game
                 
                         ammoGiven += splitCount;
                         return ammoGiven;
-                        // splitCount -= 1;
                     }
                 }
             }
@@ -735,7 +693,7 @@ namespace Game
         public bool HasForwardPawnAtColumn(Vector2Int index)
         {
             
-            for (int j = 0; j < Size.y; j++)
+            for (int j = 0; j < _size.y; j++)
             {
                 Place place = _places[index.x, j];
                 if (index.y <= j && place.Current != null)
@@ -748,7 +706,7 @@ namespace Game
 
         private bool ExpectedMoverComing(Vector2Int index)
         {
-            if (index.y + 1 >= Size.y)
+            if (index.y + 1 >= _size.y)
             {
                 return false;
             }
@@ -791,7 +749,7 @@ namespace Game
             Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
             Vector2 posFin = new Vector2(posDif.x, -posDif.z);
             Vector2Int? index = null;
-            if (posFin.x >= 0.0f && posFin.x < Size.x && posFin.y >= 0.0f && posFin.y < Size.y)
+            if (posFin.x >= 0.0f && posFin.x < _size.x && posFin.y >= 0.0f && posFin.y < _size.y)
             {
                 index = new Vector2Int((int)posFin.x, (int)posFin.y);
             }
@@ -820,7 +778,7 @@ namespace Game
                 return (place, true);
             }
             
-            if (Size.y - pawn.ParentBlock.blockData.FitHeight > indexValue.y)
+            if (_size.y - pawn.ParentBlock.blockData.FitHeight > indexValue.y)
             {
                 return (place, false);
             }
@@ -974,30 +932,30 @@ namespace Game
                     case 0:
                         zeroShift = new Vector3(1.0f, 0.0f, 1.5f);
                         totalHorShiftStart = 0;
-                        totalHorShiftEnd = Size.x - block.blockData.NormalWidth + 1;
-                        totalVertShiftStart = block.blockData.NormalHeight - 1 + (Size.y - block.blockData.FitHeight);
-                        totalVertShiftEnd = Size.y;
+                        totalHorShiftEnd = _size.x - block.blockData.NormalWidth + 1;
+                        totalVertShiftStart = block.blockData.NormalHeight - 1 + (_size.y - block.blockData.FitHeight);
+                        totalVertShiftEnd = _size.y;
                         break;
                     case 90:
                         zeroShift = new Vector3(1.5f, 0.0f, -1.0f);
                         totalHorShiftStart = 0;
-                        totalHorShiftEnd = Size.x - block.blockData.NormalHeight + 1;
-                        totalVertShiftStart = Size.y - block.blockData.FitHeight;
-                        totalVertShiftEnd = Size.y - block.blockData.NormalWidth + 1;
+                        totalHorShiftEnd = _size.x - block.blockData.NormalHeight + 1;
+                        totalVertShiftStart = _size.y - block.blockData.FitHeight;
+                        totalVertShiftEnd = _size.y - block.blockData.NormalWidth + 1;
                         break;
                     case 180:
                         zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);
                         totalHorShiftStart = block.blockData.NormalWidth - 1;
-                        totalHorShiftEnd = Size.x;
-                        totalVertShiftStart = Size.y - block.blockData.FitHeight;
-                        totalVertShiftEnd = Size.y - block.blockData.NormalHeight + 1;
+                        totalHorShiftEnd = _size.x;
+                        totalVertShiftStart = _size.y - block.blockData.FitHeight;
+                        totalVertShiftEnd = _size.y - block.blockData.NormalHeight + 1;
                         break;
                     case 270:
                         zeroShift = new Vector3(-1.5f, 0.0f, 1.0f);
                         totalHorShiftStart = block.blockData.NormalHeight - 1;
-                        totalHorShiftEnd = Size.x;
-                        totalVertShiftStart = block.blockData.NormalWidth - 1 + Size.y - block.blockData.FitHeight;
-                        totalVertShiftEnd = Size.y;
+                        totalHorShiftEnd = _size.x;
+                        totalVertShiftStart = block.blockData.NormalWidth - 1 + _size.y - block.blockData.FitHeight;
+                        totalVertShiftEnd = _size.y;
                         break;
                 }
 

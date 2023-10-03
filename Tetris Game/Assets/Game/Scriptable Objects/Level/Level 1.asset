@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   deltaMult: 0.75
-  boardSize: {x: 8, y: 8}
+  boardSize: {x: 6, y: 7}
   EnemySpawnData:
     spawnDelay: 3
     spawnInterval: 9
