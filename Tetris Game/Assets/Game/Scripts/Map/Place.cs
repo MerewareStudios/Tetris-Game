@@ -16,15 +16,15 @@ namespace Game
         [System.NonSerialized] private Tween _colorTween;
         [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
-        // public bool IsBorderPlace => Index.y == Board.THIS.Size.y - 1;
         public Vector3 PlacePosition => gridTile.transform.position;
         
-        public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
+        // public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
         public Vector3 Position => _thisTransform.position;
-        public PlaceColorType NormalDarkLight => (LinearIndex % 2 == 0) ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;
-        public PlaceColorType LimitDarkLight => (LinearIndex % 2 == 0) ? PlaceColorType.LIMIT_DARK : PlaceColorType.LIMIT_LIGHT;
-        public PlaceColorType RayDarkLight => (LinearIndex % 2 == 0) ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
-
+        public PlaceColorType NormalDarkLight => Even ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;
+        public PlaceColorType LimitDarkLight => Even ? PlaceColorType.LIMIT_DARK : PlaceColorType.LIMIT_LIGHT;
+        public PlaceColorType RayDarkLight => Even ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
+        public bool Even => (Index.x + Index.y) % 2 == 0;
+        
         public Vector3 LocalPosition
         {
             set => _thisTransform.localPosition = value;
