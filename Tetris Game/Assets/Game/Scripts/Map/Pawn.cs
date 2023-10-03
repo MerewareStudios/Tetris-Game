@@ -45,26 +45,10 @@ namespace Game
                         MarkPowerupColor();
                         Free2Place = true;
                         break;
-                    // case Usage.MagnetUD:
-                    //     MarkPowerupColor();
-                    //     Free2Place = true;
-                    //     break;
                     case Usage.Magnet:
                         MarkPowerupColor();
                         Free2Place = true;
                         break;
-                    // case Usage.MagnetLRUD:
-                    //     MarkPowerupColor();
-                    //     break;
-                    // case Usage.DamageDouble:
-                    //     MarkPowerupColor();
-                    //     break;
-                    // case Usage.FirerateDouble:
-                    //     MarkPowerupColor();
-                    //     break;
-                    // case Usage.SplitshotDouble:
-                    //     MarkPowerupColor();
-                    //     break;
                 }
                 CanTakeContent = false;
                 
@@ -81,26 +65,13 @@ namespace Game
         {
             set => levelText.enabled = value;
         }
-        // public bool CanPlaceAnywhere => UsageType.Equals(Usage.HorMerge);
-        public Vector3 TextPosition => levelText.transform.position;
 
         public enum Usage
         {
             Ammo,
             UnpackedAmmo,
             MagnetLR,
-            // MagnetUD,
             Magnet,
-            // DamageDouble,
-            // FirerateDouble,
-            // SplitshotDouble,
-            // ShooterIdle,
-            // Heart,
-            // Shield,
-            // Vertical,
-            // HorMerge,
-            // Area,
-            // Speed,
         }
         
 
@@ -121,8 +92,6 @@ namespace Game
                     case Usage.Ammo:
                         bool max = value == Board.THIS._Data.maxStack;
                         meshRenderer.material.SetColor(GameManager.BaseColor, max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor);
-                        // levelText.text = max ? "MAX" : _amount.ToString();
-                        // levelText.fontStyle = max ? FontStyles.Bold | FontStyles.Underline : FontStyles.Bold;
                         levelText.text = _amount.ToString();
                         iconMR.enabled = false;
                         break;
@@ -133,34 +102,13 @@ namespace Game
                     case Usage.MagnetLR:
                         levelText.enabled = false;
                         iconMR.enabled = true;
-                        this._amount = 0;
+                        _amount = 0;
                         break;
-                    // case Usage.MagnetUD:
-                    //     levelText.enabled = false;
-                    //     iconMR.enabled = true;
-                    //     this._amount = 0;
-                    //     break;
                     case Usage.Magnet:
                         levelText.enabled = false;
                         iconMR.enabled = true;
-                        this._amount = 0;
+                        _amount = 0;
                         break;
-                    // case Usage.MagnetLRUD:
-                    //     levelText.enabled = false;
-                    //     iconMR.enabled = true;
-                    //     break;
-                    // case Usage.DamageDouble:
-                    //     levelText.enabled = false;
-                    //     iconMR.enabled = true;
-                    //     break;
-                    // case Usage.FirerateDouble:
-                    //     levelText.enabled = false;
-                    //     iconMR.enabled = true;
-                    //     break;
-                    // case Usage.SplitshotDouble:
-                    //     levelText.enabled = false;
-                    //     iconMR.enabled = true;
-                    //     break;
                 }
 
                 Sprite pawnIcon = Const.THIS.pawnIcons[(int)UsageType];
@@ -171,11 +119,6 @@ namespace Game
             }
 
         }
-
-        // public void UnpackAmmo()
-        // {
-        //     UsageType = Pawn.Usage.UnpackedAmmo;
-        // }
 
         public bool Unpack(float delay)
         {
@@ -194,43 +137,9 @@ namespace Game
                 case Usage.MagnetLR:
                     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
                     return true;
-                // case Usage.MagnetUD:
-                //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                //     return true;
                 case Usage.Magnet:
                     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
                     return true;
-                // case Usage.Heart:
-                //     TextEnabled = false;
-                //     
-                //     // Earn heart upgrade
-                //
-                //     // UIManager.THIS.ft_Icon.LerpHearth(levelText.transform.position, delay, 0.65f, endAction: () =>
-                //     // {
-                //     //     Warzone.THIS.GiveHeart(_amount);
-                //     // });
-                //     return false;
-                // case Usage.Shield:
-                //     TextEnabled = false;
-                //     
-                //     // Earn shield
-                //
-                //     // UIManager.THIS.ft_Icon.LerpShield(levelText.transform.position, delay, 0.65f, endAction: () =>
-                //     // {
-                //     //     Warzone.THIS.GiveShield(1);
-                //     // });
-                //     return false;
-                // case Usage.Vertical:
-                //     
-                // case Usage.HorMerge:
-                //     
-                //     return false;
-                // case Usage.Area:
-                //     
-                //     return false;
-                // case Usage.Speed:
-                //     
-                //     return false;
             }
 
             return true;
@@ -323,12 +232,6 @@ namespace Game
             modelPivot.localScale = Vector3.one;
             modelPivot.DOPunchScale(Vector3.one * magnitude, duration, 1);
         }
-        // public void PunchScale(float magnitude, float duration)
-        // {
-        //     modelPivot.DOKill();
-        //     modelPivot.localScale = Vector3.one;
-        //     modelPivot.DOScale(Vector3.one * magnitude, duration).SetRelative(true);
-        // }
         public void PunchUp(float magnitude, float duration)
         {
             pivot.DOKill();
@@ -376,10 +279,6 @@ namespace Game
             Tick = tick;
             
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-            // if (!forwardPlace)
-            // {
-            //     Debug.Log(checkerPlace.gameObject.name, checkerPlace.gameObject);
-            // }
             forwardPlace.Accept(this, moveDuration);
             
             checkerPlace.Current = null;
@@ -412,10 +311,8 @@ namespace Game
             }
             
             if (UsageType.Equals(Usage.MagnetLR) ||  UsageType.Equals(Usage.Magnet))
-            // if (UsageType.Equals(Usage.MagnetLR) || UsageType.Equals(Usage.MagnetUD) ||  UsageType.Equals(Usage.Magnet))
             {
                 Mover = false;
-                return;
             }
         }
 
