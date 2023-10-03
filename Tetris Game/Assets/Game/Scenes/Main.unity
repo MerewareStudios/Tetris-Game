@@ -1315,7 +1315,7 @@ MonoBehaviour:
   spawnedBlockLocation: {fileID: 860089792}
   distanceFromDraggingFinger: {x: 0, y: 1, z: 0}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.5}
-  tutorialLift: {x: 1.575, y: 1, z: 3}
+  tutorialLift: {x: 0.5, y: 1, z: 0.5}
 --- !u!1 &548236970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2781,6 +2781,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 514003530}
+    - target: {fileID: 3772746365000825070, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7827162823437580552, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2901,10 +2906,20 @@ PrefabInstance:
       propertyPath: dragEndDuration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: shortDragOffset.x
+      value: 375
+      objectReference: {fileID: 0}
     - target: {fileID: 9098571809227225480, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Name
       value: Canvas - Finger
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098571809227225480, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

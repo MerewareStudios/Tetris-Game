@@ -86,10 +86,13 @@ namespace IWI.Tutorial
                 scaleDownTween.onComplete = () =>
                 {
                     ps.transform.position = tip.position;
-                    ps.Emit(1);
+                    ps.Play();
                     OnClick?.Invoke();
                 };
-                
+                dragTween.onComplete = () =>
+                {
+                    ps.Stop();
+                };
                 _routine = StartCoroutine(Loop());
 
                 IEnumerator Loop()

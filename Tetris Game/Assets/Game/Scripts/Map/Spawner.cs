@@ -30,6 +30,7 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Tween _assertionTween;
     [System.NonSerialized] private int _spawnIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
+    [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
 
     private void Awake()
     {
@@ -155,7 +156,7 @@ public class Spawner : Singleton<Spawner>
                 while (true)
                 {
                     CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
-                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
+                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * _smoothFactorLerp);
                     yield return null;
                 }
             }
@@ -343,11 +344,13 @@ public class Spawner : Singleton<Spawner>
         Pool pool;
         if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
         {
+            _smoothFactorLerp = 3.0f;
             suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
         }
         else
         {
+            _smoothFactorLerp = 10.0f;
             pool = this.RandomBlock();
         }
         
