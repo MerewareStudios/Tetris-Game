@@ -128,7 +128,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
 
-        _assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
+        _assertionTween = DOVirtual.DelayedCall(0.2f, null, true);
         _assertionTween.onComplete = () =>
         {
             _grabbedBlock = true;

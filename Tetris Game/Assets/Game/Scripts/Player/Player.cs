@@ -17,7 +17,7 @@ namespace Game
         [SerializeField] private Transform holster;
         [SerializeField] private Transform crossHair;
         [SerializeField] private Transform crossHairScalePivot;
-        [SerializeField] public SpriteRenderer crossHairSpriteRenderer;
+        [SerializeField] public MeshRenderer crossHairMR;
         [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
         [System.NonSerialized] private Tween _crossColorTween;
 
@@ -272,7 +272,7 @@ namespace Game
             _crossColorTween.onUpdate = () =>
             {
                 Color currentColor = Const.THIS.hitGradient.Evaluate(timeStep);
-                crossHairSpriteRenderer.color = currentColor;
+                crossHairMR.sharedMaterial.SetColor(GameManager.BaseColor, currentColor);
 
                 crossHairScalePivot.localScale = Vector3.one * Const.THIS.hitScaleCurve.Evaluate(timeStep);
             };
