@@ -1833,7 +1833,6 @@ MonoBehaviour:
   piggyCoinEmitter: {fileID: 1754738092}
   ticketEmitter: {fileID: 1216542766}
   heartEmitter: {fileID: 1175637157}
-  shieldEmitter: {fileID: 0}
   motionData_Enemy_Burst: {fileID: 11400000, guid: 20479afacb54b1d4ca007042b406f67b,
     type: 2}
   motionData_LevelReward: {fileID: 11400000, guid: 7dbd65f44c20a9d428ad94ff4cf87161,
@@ -2076,9 +2075,6 @@ MonoBehaviour:
       time: 0
       currentHealth: 1
       turnRate: 6
-      shieldData:
-        timeLeft: 0
-        amount: 0
     userData:
       level: 1
       pupData:
@@ -2123,7 +2119,7 @@ MonoBehaviour:
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
