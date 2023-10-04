@@ -17,8 +17,8 @@ namespace Game
         [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
         public Vector3 PlacePosition => gridTile.transform.position;
-        
-        // public int LinearIndex => Index.x * Board.THIS.Size.y + Index.y;
+        [System.NonSerialized] private GameObject _ghostPawn = null;
+
         public Vector3 Position => _thisTransform.position;
         public PlaceColorType NormalDarkLight => Even ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;
         public PlaceColorType LimitDarkLight => Even ? PlaceColorType.LIMIT_DARK : PlaceColorType.LIMIT_LIGHT;
@@ -39,7 +39,7 @@ namespace Game
         public void Construct()
         {
             SetTargetColorType(NormalDarkLight);
-            FinalizeColorImmediate();
+            FinalizeImmediate();
         }
         public void Deconstruct()
         {
@@ -61,20 +61,27 @@ namespace Game
         {
             this._targetColorType = placeColorType;
         }
-        public void FinalizeColor()
+        public void FinalizeState()
         {
             if (_targetColorType.Equals(_colorType))
             {
                 return;
             }
+            
             _colorType = _targetColorType;
-            Color targetColor = Const.THIS.placeColorsDouble[(int)_colorType];
+            
+            int enumIndex = (int)_colorType;
+            
+            Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
             DoColor(targetColor);
             
-            Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
+            Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
             DoPos(targetPos);
+            
+            bool targetState = Const.THIS.ghostPawnStateDouble[enumIndex];
+            DoGhostPawn(targetState);
         }
-        public void FinalizeColorImmediate()
+        public void FinalizeImmediate()
         {
             if (_targetColorType.Equals(_colorType))
             {
@@ -85,7 +92,7 @@ namespace Game
             gridTile.material.SetColor(GameManager.BaseColor, targetColor);
             
             Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
-            tileTransform.DOKill();
+            // tileTransform.DOKill();
             tileTransform.localPosition = targetPos;
         }
 
@@ -93,14 +100,30 @@ namespace Game
         {
             gridTile.DOKill();
             _colorTween?.Kill();
-            _colorTween = gridTile.material.DOColor(color, 0.1f).SetEase(Ease.OutSine);
+            _colorTween = gridTile.material.DOColor(color, 0.15f).SetEase(Ease.OutQuad);
         }
         private void DoPos(Vector3 pos)
         {
-            tileTransform.DOKill();
-            tileTransform.DOLocalMove(pos, 0.15f);
+            tileTransform.localPosition = pos;
+            // tileTransform.DOKill();
+            // tileTransform.DOLocalMove(pos, 0.15f);
         }
-        
+        private void DoGhostPawn(bool add)
+        {
+            if (add)
+            {
+                _ghostPawn = Board.THIS.AddGhostPawn(segmentParent.position);
+            }
+            else
+            {
+                if (!_ghostPawn)
+                {
+                    return;
+                }
+                Board.THIS.RemoveGhostPawn(this._ghostPawn);
+                _ghostPawn = null;
+            }
+        }
 
         public void Accept(Pawn pawn, float duration, System.Action onComplete = null)
         {

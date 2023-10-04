@@ -24,10 +24,7 @@ public class Const : SSingleton<Const>
     public BlockMenu.BlockData[] DefaultBlockData;
     public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
     
-    // [Header("Reward")] 
-    // public RewardData[] rewardDatas;
     [Header("Colors")] 
-    // public Color[] gridTileColors;
     public Color defaultColor;
     public Color steadyColor;
     public Color mergerMaxColor;
@@ -36,7 +33,7 @@ public class Const : SSingleton<Const>
     public Sprite[] pawnIcons;
     public Color[] placeColorsDouble;
     public Vector3[] placePosDouble;
-    // public Color piggyExplodeColor;
+    public bool[] ghostPawnStateDouble;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
@@ -59,25 +56,6 @@ public class Const : SSingleton<Const>
     public float jumpDuration = 0.15f;
     public Vector3 jumpPower;
     public Ease rotationEase;
-    // public Ease piggyExplodeEase;
-
-    // [Serializable]
-    // public struct RewardData
-    // {
-    //     [SerializeField] public PiggyMenu.PiggyReward.Type type;
-    //     [SerializeField] public Sprite backgroundSprite;
-    //     [SerializeField] public Sprite iconSprite;
-    //     [TextArea][SerializeField] public string formatText;
-    //     [TextArea][SerializeField] public string title;
-    //     [SerializeField] public Color color;
-    // }
-    
-    // [Serializable]
-    // public struct DirectionRadiusPair
-    // {
-    //     [SerializeField] public Vector3 dir;
-    //     [SerializeField] public float radius;
-    // }
     
     [Serializable]
     public struct Currency
@@ -92,7 +70,6 @@ public class Const : SSingleton<Const>
         }
 
         public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);
-        // public static Currency OneAdConsume = new Currency(CurrencyType.Ticket, -1);
     }
     
     [Serializable]
@@ -112,11 +89,3 @@ public class Const : SSingleton<Const>
         text.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
     }
 }
-
-// public static class ConstExtensions
-// {
-//     public static Const.RewardData RewardData(this PiggyMenu.PiggyReward.Type type)
-//     {
-//         return Const.THIS.rewardDatas[(int)type];
-//     }
-// }

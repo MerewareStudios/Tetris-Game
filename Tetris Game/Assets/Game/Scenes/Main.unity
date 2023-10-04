@@ -1314,7 +1314,7 @@ MonoBehaviour:
   modelPivot: {fileID: 1847584227}
   spawnedBlockLocation: {fileID: 860089792}
   distanceFromDraggingFinger: {x: 0, y: 1, z: 0}
-  distanceOfBlockCast: {x: 0, y: 0, z: 0.5}
+  distanceOfBlockCast: {x: 0, y: 0, z: 0.45}
   tutorialLift: {x: 0.5, y: 1, z: 0.5}
 --- !u!1 &548236970
 GameObject:
@@ -1957,7 +1957,7 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
-  - gameObject: {fileID: 6409661743272111104, guid: f9eb030effb1c624194e0646ec34f9e8,
+  - gameObject: {fileID: 4364077435366406661, guid: 899016a8168aa5d43b22985422bc2adf,
       type: 3}
     preload: 0
     capacity: 250
@@ -3681,7 +3681,7 @@ MonoBehaviour:
   bottomPin: {fileID: 377670156}
   statsPin: {fileID: 1929752300}
   spawnerPin: {fileID: 1625464941}
-  spawnerGenericRect: {fileID: 2198614826665659772}
+  spawnerGenericRect: {fileID: 0}
 --- !u!1 &1310369798
 GameObject:
   m_ObjectHideFlags: 0
@@ -7228,7 +7228,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -512
+      value: -512.00006
       objectReference: {fileID: 0}
     - target: {fileID: 3172885704285704321, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
@@ -8289,7 +8289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -65.22003, y: 560.30035}
+  m_AnchoredPosition: {x: -65.21997, y: 560.30035}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1001 &4796545755359660297

@@ -20,6 +20,7 @@ namespace Game
 
         [System.NonSerialized] public System.Action<int> OnMerge;
         
+        [System.NonSerialized] private List<GameObject> _ghostPawns = new();
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector2Int _size;
         [System.NonSerialized] private Vector3 _thisPosition;
@@ -252,7 +253,7 @@ namespace Game
                 foreach (var place in _places)
                 {
                     place.SetTargetColorType(place.NormalDarkLight);
-                    place.FinalizeColorImmediate();
+                    place.FinalizeImmediate();
                 }
             }
             public void HighlightBlock(Block block = null)
@@ -287,8 +288,6 @@ namespace Game
 
                     if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
                     {
-                        HideSuggestedPlaces();
-                        
                         int minShift = _size.y;
                         
                         for (int i = 0; i < projectedPlaces.Count; i++)
@@ -297,7 +296,7 @@ namespace Game
                             int currentShift = 0;
                             for (int v = currentIndex.y; v >= 0; v--)
                             {
-                                if (_places[currentIndex.x, v].Current && !_places[currentIndex.x, v].Current.Mover)
+                                if (_places[currentIndex.x, v].Current)
                                 {
                                     break;
                                 }
@@ -322,9 +321,59 @@ namespace Game
                 
                 foreach (var place in _places)
                 {
-                    place.FinalizeColor();
+                    place.FinalizeState();
                 }
             }
+            
+            
+            // private void HideGhostPawns()
+            // {
+            //     foreach (var ghostPawn in _ghostPawns)
+            //     {
+            //         ghostPawn.transform.DOKill();
+            //         ghostPawn.Despawn(Pool.Ghost_Pawn);
+            //     }
+            //     _ghostPawns.Clear();
+            // }
+            // private void HideGhostPawnsImmediate()
+            // {
+            //     foreach (var ghostPawn in _ghostPawns)
+            //     {
+            //         ghostPawn.transform.DOKill();
+            //         ghostPawn.Despawn(Pool.Ghost_Pawn);
+            //     }
+            //     _ghostPawns.Clear();
+            // }
+            
+            public GameObject AddGhostPawn(Vector3 position)
+            {
+                GameObject ghostPawn = Pool.Ghost_Pawn.Spawn();
+                Transform ghostPawnTransform = ghostPawn.transform;
+                
+                ghostPawnTransform.position = position;
+                
+                // ghostPawnTransform.DOKill();
+                ghostPawnTransform.localScale = Vector3.one;
+                // ghostPawnTransform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
+                                
+                                
+                _ghostPawns.Add(ghostPawn);
+            
+                return ghostPawn;
+            }
+            public void RemoveGhostPawn(GameObject ghostPawn)
+            {
+                // Transform ghostPawnTransform = ghostPawn.transform;
+                //
+                // ghostPawnTransform.DOKill();
+                // ghostPawnTransform.DOScale(Vector3.zero, 0.05f).SetEase(Ease.Linear).onComplete = () =>
+                // {
+                    ghostPawn.Despawn(Pool.Ghost_Pawn);
+                // };
+                
+                _ghostPawns.Remove(ghostPawn);
+            }
+            
         #endregion
         public Place LinearIndex2Place(int index)
         {
