@@ -91,7 +91,10 @@ public class Spawner : Singleton<Spawner>
         Mount();
         Board.THIS.HighlightBlock();
     }
-
+    public void OnLevelLoad()
+    {
+        _spawnIndex = 0;
+    }
     private void StopAllRunningTasksOnBlock()
     {
         _delayedTween?.Kill();
@@ -101,10 +104,7 @@ public class Spawner : Singleton<Spawner>
 
         CurrentBlock = null;
     }
-    public void OnLevelLoad()
-    {
-        _spawnIndex = 0;
-    }
+    
 
     #region User Input
     private bool IsTouchingSpawner(Vector3 screenPosition)

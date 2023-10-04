@@ -19,6 +19,7 @@ namespace Game
         [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public bool CanRotate;
+        [System.NonSerialized] public int _currentRotation;
 
         public List<Vector3> LocalPawnPositions => (from segmentTransform in segmentTransforms where segmentTransform select segmentTransform.localPosition).ToList();
 
@@ -26,7 +27,8 @@ namespace Game
         {
             set
             {
-                rotatePivot.localRotation = Quaternion.Euler(0.0f, 90.0f * (int)value, 0.0f);
+                _currentRotation = (int)value;
+                rotatePivot.localRotation = Quaternion.Euler(0.0f, 90.0f * _currentRotation, 0.0f);
                 ResetSegmentRotations();
             }
         }
@@ -127,6 +129,9 @@ namespace Game
             shakePivot.DOKill();
             shakePivot.localEulerAngles = Vector3.zero;
 
+            rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
+            _currentRotation++;
+
             _motionTween?.Kill();
             _motionTween = rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
             _motionTween.onUpdate = ResetSegmentRotations;
@@ -146,8 +151,11 @@ namespace Game
         public void Move(Vector3 position, float duration, Ease ease, bool speedBased = false)
         {
             Busy = true;
-
             _motionTween?.Kill();
+            
+            rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
+            ResetSegmentRotations();
+
             _motionTween = transform.DOMove(position, duration).SetEase(ease).SetSpeedBased(speedBased);
             _motionTween.onComplete += () =>
             {
