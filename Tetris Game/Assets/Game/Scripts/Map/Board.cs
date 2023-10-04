@@ -16,7 +16,6 @@ namespace Game
         [SerializeField] public RectTransform bottomPin;
         [SerializeField] public RectTransform statsPin;
         [SerializeField] public RectTransform spawnerPin;
-        [SerializeField] public RectTransform spawnerGenericRect;
 
         [System.NonSerialized] public System.Action<int> OnMerge;
         
