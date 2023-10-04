@@ -776,13 +776,13 @@ namespace Game
         private Vector2Int? Pos2Index(Vector3 position)
         {
             Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
-            Vector2 posFin = new Vector2(posDif.x, -posDif.z);
-            Vector2Int? index = null;
-            if (posFin.x >= 0.0f && posFin.x < _size.x && posFin.y >= 0.0f && posFin.y < _size.y)
+            Vector2Int index = new Vector2Int((int)posDif.x, -(int)(posDif.z));
+            
+            if (index.x >= 0 && index.x < _size.x && index.y >= 0 && index.y < _size.y)
             {
-                index = new Vector2Int((int)posFin.x, (int)posFin.y);
+                return index;
             }
-            return index;
+            return null;
         }
         private (Place, bool) Project(Pawn pawn, List<Place> requiredPlaces)
         {
