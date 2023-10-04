@@ -9,7 +9,6 @@ namespace Game
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] public Shield shield;
         [SerializeField] public Renderer skin;
         [FormerlySerializedAs("_animator")]
         [Header("Motion Settings")]
@@ -81,7 +80,6 @@ namespace Game
                 _CurrentHealth = _data.currentHealth;
 
                 _GunData = WeaponMenu.THIS.EquippedGunData;
-                shield._Data = _data.shieldData;
 
                 if (ONBOARDING.INSPECT_HEART_DISPLAY.IsNotComplete())
                 {
@@ -192,7 +190,6 @@ namespace Game
             Warzone.THIS.Player.animator.SetTrigger(Player.IDLE_HASH);
 
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
-            shield.Resume();
 
             
             IEnumerator SearchEnemyRoutine()
@@ -209,7 +206,6 @@ namespace Game
 
                         crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.turnRate * smoothFactor);
                         crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor);
-                        // crossHair.forward = transform.forward;
                         
                         Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
@@ -221,8 +217,6 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        // Debug.Log(gun._Data);
-
                         if ((_Data.time - Gun._Data.prevShoot > Gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
                             int givenBulletCount = Board.THIS.ConsumeBullet(_GunData.SplitAmount);
@@ -247,7 +241,6 @@ namespace Game
             }
 
             CurrentEnemy = null;
-            shield.Pause();
             crossHair.gameObject.SetActive(false);
         }
         public void Replenish()
@@ -297,8 +290,6 @@ namespace Game
             [SerializeField] public float time;
             [SerializeField] public int currentHealth = 0;
             [SerializeField] public int turnRate = 6;
-            // [SerializeField] public Gun.Data gunData;
-            [SerializeField] public Shield.Data shieldData;
 
             
             public Data()
@@ -306,16 +297,12 @@ namespace Game
                 this.time = 0.0f;
                 this.currentHealth = 0;
                 this.turnRate = 6;
-                // this.gunData = null;
-                this.shieldData = null;
             }
             public Data(Data data)
             {
                 this.time = data.time;
                 this.currentHealth = data.currentHealth;
                 this.turnRate = data.turnRate;
-                // this.gunData = data.gunData.Clone() as Gun.Data;
-                this.shieldData = data.shieldData.Clone() as Shield.Data;
             }
 
             public object Clone()

@@ -106,12 +106,8 @@ namespace  Game
 
             this.enabled = true;
         }
-        public void Kamikaze(bool giveRewards)
+        public void Kamikaze()
         {
-            if (giveRewards)
-            {
-                GiveRewards();
-            }
             Warzone.THIS.RemoveEnemy(this);
             thisTransform.DOKill();
             Particle.Kamikaze.Play(thisTransform.position);
@@ -147,9 +143,6 @@ namespace  Game
                             break;
                         case UpgradeMenu.PurchaseType.Heart:
                             UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
-                            break;
-                        case UpgradeMenu.PurchaseType.Shield:
-                            UIManagerExtensions.ShieldToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
                 }

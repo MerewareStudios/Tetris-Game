@@ -68,7 +68,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public UIEmitter piggyCoinEmitter;
    [SerializeField] public UIEmitter ticketEmitter;
    [SerializeField] public UIEmitter heartEmitter;
-   [SerializeField] public UIEmitter shieldEmitter;
    [SerializeField] public MotionData motionData_Enemy_Burst;
    [SerializeField] public MotionData motionData_LevelReward;
    [SerializeField] public MotionData motionData_PiggyReward;
@@ -82,7 +81,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
    [SerializeField] public CurrencyTransactor ticket;
-   [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
    [SerializeField] public Finger finger;
@@ -135,10 +133,6 @@ public class UIManager : Singleton<UIManager>
       if (Input.GetKeyDown(KeyCode.M))
       {
          Warzone.THIS.Player._CurrentHealth += 1;
-      }
-      if (Input.GetKeyDown(KeyCode.N))
-      {
-         Warzone.THIS.Player.shield.Add(1);
       }
       if (Input.GetKeyDown(KeyCode.G))
       {
@@ -215,8 +209,6 @@ public class UIManager : Singleton<UIManager>
       CameraManager.THIS.gameCamera.enabled = !value;
       MenuVisible = value;
       Time.timeScale = value ? 0.0f : 1.0f;
-      
-      OnMenuModeChanged?.Invoke(value);
    }
    public static void Pause(bool value)
    {
@@ -315,12 +307,6 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
-   }
-   public static void ShieldToPlayer(Vector3 worldPosition, int count, int totalValue)
-   {
-      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.shieldEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
    }
    public static void RequestTicketFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive)
    {

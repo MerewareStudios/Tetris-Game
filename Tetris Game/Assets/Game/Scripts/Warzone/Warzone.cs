@@ -42,21 +42,6 @@ namespace  Game
             psMain = bloodPS.main;
             psShape = bloodPS.shape;
             psTransform = bloodPS.transform;
-
-            UIManager.OnMenuModeChanged = state =>
-            {
-                if (state)
-                {
-                    this.Player.shield.Pause();
-                }
-                else
-                {
-                    if (Spawning)
-                    {
-                        this.Player.shield.Resume();
-                    }
-                }
-            };
         }
 
         #endregion
@@ -73,18 +58,10 @@ namespace  Game
 
         public void EnemyKamikaze(Enemy enemy)
         {
-            bool blocked = Player.shield.Remove();
-            enemy.Kamikaze(blocked);
+            enemy.Kamikaze();
 
-            if (blocked)
-            {
-                UIManagerExtensions.ShieldPs(enemy.thisTransform.position);
-            }
-            else
-            {
-                CameraManager.THIS.Shake();
-                this.Player._CurrentHealth -= enemy.Damage;
-            }
+            CameraManager.THIS.Shake();
+            this.Player._CurrentHealth -= enemy.Damage;
 
             LevelManager.THIS.CheckEndLevel();
         }
