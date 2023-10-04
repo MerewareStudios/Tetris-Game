@@ -17,7 +17,7 @@ namespace Game
         [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
         public Vector3 PlacePosition => gridTile.transform.position;
-        [System.NonSerialized] private GameObject _ghostPawn = null;
+        [System.NonSerialized] private GhostPawn _ghostPawn = null;
 
         public Vector3 Position => _thisTransform.position;
         public PlaceColorType NormalDarkLight => Even ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;

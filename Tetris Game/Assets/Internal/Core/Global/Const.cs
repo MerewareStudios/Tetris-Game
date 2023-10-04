@@ -30,6 +30,8 @@ public class Const : SSingleton<Const>
     public Color mergerMaxColor;
     public Color mergerColor;
     public Color powerColor;
+    public Color ghostNormal;
+    public Color ghostFade;
     public Sprite[] pawnIcons;
     public Color[] placeColorsDouble;
     public Vector3[] placePosDouble;

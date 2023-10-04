@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805476550463839250}
+  - component: {fileID: 1807341309824973307}
   m_Layer: 0
   m_Name: Ghost Pawn
   m_TagString: Untagged
@@ -115,3 +116,17 @@ Transform:
   - {fileID: 1475366696148282200}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807341309824973307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4364077435366406661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d33788496b04cd43acb6c29afc7682a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisTransform: {fileID: 1805476550463839250}
+  meshRenderer: {fileID: 539373785548880513}

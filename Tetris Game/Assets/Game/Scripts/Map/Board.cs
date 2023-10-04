@@ -19,7 +19,7 @@ namespace Game
 
         [System.NonSerialized] public System.Action<int> OnMerge;
         
-        [System.NonSerialized] private List<GameObject> _ghostPawns = new();
+        [System.NonSerialized] private List<GhostPawn> _ghostPawns = new();
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector2Int _size;
         [System.NonSerialized] private Vector3 _thisPosition;
@@ -324,21 +324,27 @@ namespace Game
                 }
             }
             
-            public GameObject AddGhostPawn(Vector3 position)
+            public GhostPawn AddGhostPawn(Vector3 position)
             {
-                GameObject ghostPawn = Pool.Ghost_Pawn.Spawn();
-                Transform ghostPawnTransform = ghostPawn.transform;
+                GhostPawn ghostPawn = Pool.Ghost_Pawn.Spawn<GhostPawn>();
                 
-                ghostPawnTransform.position = position;
-                ghostPawnTransform.localScale = Vector3.one;
+                ghostPawn.thisTransform.position = position;
+                
+                ghostPawn.meshRenderer.material.DOKill();
+                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f);
                 
                 _ghostPawns.Add(ghostPawn);
             
                 return ghostPawn;
             }
-            public void RemoveGhostPawn(GameObject ghostPawn)
+            public void RemoveGhostPawn(GhostPawn ghostPawn)
             {
-                ghostPawn.Despawn(Pool.Ghost_Pawn);
+                ghostPawn.meshRenderer.material.DOKill();
+                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostFade, 0.15f).onComplete = () =>
+                {
+                    ghostPawn.Despawn(Pool.Ghost_Pawn);
+                };
+                
                 _ghostPawns.Remove(ghostPawn);
             }
             
