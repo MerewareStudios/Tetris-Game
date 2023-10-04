@@ -708,10 +708,11 @@ namespace Game
             {
                 Pawn currentPawn = pawn;
                 Place place = GetPlace(currentPawn);
+                
                 currentPawn.Mover = true;
                 currentPawn.Busy = true;
-
                 currentPawn.Tick = _tick;
+                
                 place.Accept(currentPawn, 0.1f, () =>
                 {
                     currentPawn.Busy = false;
