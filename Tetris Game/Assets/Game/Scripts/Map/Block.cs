@@ -13,13 +13,25 @@ namespace Game
         [SerializeField] private Transform rotatePivot;
         [SerializeField] public  BlockData blockData;
         
-        [System.NonSerialized] public readonly List<Pawn> Pawns = new();
+        [System.NonSerialized] private int _currentRotation;
         [System.NonSerialized] private Tween _motionTween;
+        
+        [System.NonSerialized] public List<Place> RequiredPlaces;
+        [System.NonSerialized] public readonly List<Pawn> Pawns = new();
+        
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
-        [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public bool CanRotate;
-        [System.NonSerialized] public int _currentRotation;
+        
+        public Pawn PivotPawn => Pawns[0];
+        [System.NonSerialized] public Vector2Int UnsafePivotIndex;
+        public bool IsPivotPawn(Pawn pawn) => pawn.Equals(PivotPawn);
+
+        public Vector2Int GetUnsafeIndex(Pawn pawn)
+        {
+            Vector3 dif = pawn.transform.position - PivotPawn.transform.position;
+            return UnsafePivotIndex + new Vector2Int(Mathf.RoundToInt(dif.x), -Mathf.RoundToInt(dif.z));
+        }
 
         public List<Vector3> LocalPawnPositions => (from segmentTransform in segmentTransforms where segmentTransform select segmentTransform.localPosition).ToList();
 
@@ -40,18 +52,14 @@ namespace Game
             {
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
-                
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, target.position, 1, usage);
+
+                var targetPosition = target.position;
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, 1, usage);
                 pawn.ParentBlock = this;
 
                 pawn.Show();
                 Pawns.Add(pawn);
             }
-        }
-
-        public void OnPickUp()
-        {
-            
         }
 
         private void OverrideUsage(out Pawn.Usage usage)

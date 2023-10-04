@@ -324,52 +324,21 @@ namespace Game
                 }
             }
             
-            
-            // private void HideGhostPawns()
-            // {
-            //     foreach (var ghostPawn in _ghostPawns)
-            //     {
-            //         ghostPawn.transform.DOKill();
-            //         ghostPawn.Despawn(Pool.Ghost_Pawn);
-            //     }
-            //     _ghostPawns.Clear();
-            // }
-            // private void HideGhostPawnsImmediate()
-            // {
-            //     foreach (var ghostPawn in _ghostPawns)
-            //     {
-            //         ghostPawn.transform.DOKill();
-            //         ghostPawn.Despawn(Pool.Ghost_Pawn);
-            //     }
-            //     _ghostPawns.Clear();
-            // }
-            
             public GameObject AddGhostPawn(Vector3 position)
             {
                 GameObject ghostPawn = Pool.Ghost_Pawn.Spawn();
                 Transform ghostPawnTransform = ghostPawn.transform;
                 
                 ghostPawnTransform.position = position;
-                
-                // ghostPawnTransform.DOKill();
                 ghostPawnTransform.localScale = Vector3.one;
-                // ghostPawnTransform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
-                                
-                                
+                
                 _ghostPawns.Add(ghostPawn);
             
                 return ghostPawn;
             }
             public void RemoveGhostPawn(GameObject ghostPawn)
             {
-                // Transform ghostPawnTransform = ghostPawn.transform;
-                //
-                // ghostPawnTransform.DOKill();
-                // ghostPawnTransform.DOScale(Vector3.zero, 0.05f).SetEase(Ease.Linear).onComplete = () =>
-                // {
-                    ghostPawn.Despawn(Pool.Ghost_Pawn);
-                // };
-                
+                ghostPawn.Despawn(Pool.Ghost_Pawn);
                 _ghostPawns.Remove(ghostPawn);
             }
             
@@ -389,21 +358,8 @@ namespace Game
                 }
             }
         }
-        private void CallRow<T>(T[,] array, int lineIndex, System.Action<T, int> action)
-        {
-            for (int i = 0; i < _size.x; i++)
-            {
-                action.Invoke(array[i, lineIndex], i);
-            }
-        } 
-        private void CallColumn<T>(T[,] array, int columnIndex, System.Action<T, int> action)
-        {
-            for (int j = 0; j < _size.y; j++)
-            {
-                action.Invoke(array[columnIndex, j], j);
-            }
-        }
-        public Place GetPlace(Vector2Int index) => _places[index.x, index.y];
+
+        private Place GetPlace(Vector2Int index) => _places[index.x, index.y];
 
         
         public List<Vector2Int> UsePowerups()
@@ -766,27 +722,47 @@ namespace Game
         }
         private Place GetPlace(Pawn pawn)
         {
-            Vector2Int? index = Pos2Index(pawn.transform.position);
-            if (index != null)
+            Vector2Int? index = Project2Index(pawn);
+            return index != null ? GetPlace(index.Value) : null;
+        }
+        private Vector2Int? Project2Index(Pawn pawn)
+        {
+            if (pawn.ParentBlock.IsPivotPawn(pawn))
             {
-                return GetPlace((Vector2Int)index);
+                pawn.ParentBlock.UnsafePivotIndex = Pos2UnsafeIndex(pawn.transform.position);
             }
-            return null;
+            return Unsafe2SafeIndex(pawn.ParentBlock.GetUnsafeIndex(pawn));
         }
         private Vector2Int? Pos2Index(Vector3 position)
         {
             Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
             Vector2Int index = new Vector2Int((int)posDif.x, -(int)(posDif.z));
             
-            if (index.x >= 0 && index.x < _size.x && index.y >= 0 && index.y < _size.y)
+            if (IsIndexValid(index))
             {
                 return index;
             }
             return null;
         }
+        
+        private Vector2Int Pos2UnsafeIndex(Vector3 position)
+        {
+            Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
+            return new Vector2Int((int)posDif.x, -(int)(posDif.z));
+        }
+        private Vector2Int? Unsafe2SafeIndex(Vector2Int index)
+        {
+            if (IsIndexValid(index))
+            {
+                return index;
+            }
+            return null;
+        }
+        private bool IsIndexValid(Vector2Int index) => index.x >= 0 && index.x < _size.x && index.y >= 0 && index.y < _size.y;
+        
         private (Place, bool) Project(Pawn pawn, List<Place> requiredPlaces)
         {
-            Vector2Int? index = Pos2Index(pawn.transform.position);
+            Vector2Int? index = Project2Index(pawn);
             if (index == null)
             {
                 return (null, false);

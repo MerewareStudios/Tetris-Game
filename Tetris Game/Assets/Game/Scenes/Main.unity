@@ -3673,7 +3673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a473c96d2ba73459bbd97278c3e00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indexOffset: {x: 0.5, y: 0, z: -0.5}
+  indexOffset: {x: 0.5, y: 0, z: -0.45}
   visualFrame: {fileID: 1375155152}
   ground: {fileID: 159866424}
   playerPivot: {fileID: 1803195824}

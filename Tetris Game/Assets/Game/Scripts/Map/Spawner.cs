@@ -143,7 +143,6 @@ public class Spawner : Singleton<Spawner>
             {
                 if (CurrentBlock)
                 {
-                    CurrentBlock.OnPickUp();
                     CurrentBlock.CancelLift();
             
                     if (ONBOARDING.TEACH_PICK.IsNotComplete())
