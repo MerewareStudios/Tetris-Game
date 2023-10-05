@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 {
     [SerializeField] private Canvas canvas;
-    [SerializeField] private CanvasScaler canvasScaler;
+    [SerializeField] private RectTransform offerFrame;
+    [SerializeField] private Button enableButton;
     [SerializeField] private RectTransform fakeBanner;
     [SerializeField] private Color backgroundColor;
     [System.NonSerialized] private bool _loaded = false;
