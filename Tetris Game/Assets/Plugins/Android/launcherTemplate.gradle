@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 dependencies {
     implementation project(':unityLibrary')
+    implementation 'androidx.multidex:multidex:2.0.1'
     }
 
 android {
@@ -9,6 +10,7 @@ android {
 
     compileSdkVersion **APIVERSION**
     buildToolsVersion '**BUILDTOOLS**'
+    
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -24,6 +26,7 @@ android {
         }
         versionCode **VERSIONCODE**
         versionName '**VERSIONNAME**'
+        multiDexEnabled true
     }
 
     aaptOptions {

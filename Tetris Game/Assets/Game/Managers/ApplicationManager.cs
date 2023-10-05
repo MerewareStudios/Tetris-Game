@@ -61,7 +61,8 @@ public class ApplicationManager : Singleton<ApplicationManager>
                 );
             
             
-            fpsText.text = fps.ToString() + " | " + stamp + " | " + Helper.ScreenDPI() + " | " + Helper.ScreenHeightDP();
+            fpsText.text = fps.ToString() + " | " + stamp;
+            // fpsText.text = fps.ToString() + " | " + stamp + " | " + Helper.ScreenDPI() + " | " + Helper.ScreenHeightDP();
             fps = 0;
             fpsTimestamp = Time.realtimeSinceStartup;
         }

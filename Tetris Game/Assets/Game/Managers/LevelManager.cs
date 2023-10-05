@@ -1,5 +1,6 @@
 using Game;
 using Internal.Core;
+using IWI;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
@@ -7,6 +8,8 @@ public class LevelManager : Singleton<LevelManager>
     public static int CurrentLevel => LevelManager.THIS.CurrentLevel();
     public static float DeltaMult = 1.0f;
 
+    public static bool AdsEnabled => CurrentLevel.AdsEnabled();
+    
     public void LoadLevel()
     {
         Board.THIS.Construct(CurrentLevel.BoardSize());
@@ -32,6 +35,9 @@ public class LevelManager : Singleton<LevelManager>
         {
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
+        
+        
+        AdManager.THIS.ShowBanner();
     }
 
     public bool CanSpawnBonus()

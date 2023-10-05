@@ -11,6 +11,7 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
+        [SerializeField] public int adBreakMarchLimit = 6;
         [System.NonSerialized] private Data _data;
 
         void Awake()
@@ -41,13 +42,22 @@ namespace IWI
             InitAdSDK();
 
             FakeAdBanner.THIS.Initialize();
-            FakeAdBanner.Show();
+            FakeAdBanner.THIS.Show();
+            FakeAdBanner.THIS.OnAdLoadedInternal = ShowBanner;
             
             
             Board.THIS.OnMerge += (amount) =>
             {
-                // Try2AdBreak();
+                
             };
+        }
+
+        public void ShowBanner()
+        {
+            if (_Data.bannerEnabled && LevelManager.AdsEnabled)
+            {
+                FakeAdBanner.THIS.Show();
+            }
         }
 
         public static void ShowAdBreak()
@@ -118,7 +128,7 @@ namespace IWI
             }
             
             // Debug.LogWarning(_Data.MergeLeftForAdBreak + " Merges Left for an Ad Break");
-            _Data.mergeCountForAdBreak++;
+            _Data.AdBreakMarch++;
 
             // if (_Data.CanShowAdBreak)
             // {
@@ -132,7 +142,8 @@ namespace IWI
         public class Data : ICloneable
         {
             [SerializeField] public bool adBreakEnabled = true;
-            [SerializeField] public int mergeCountForAdBreak = 0;
+            [System.NonSerialized] public int AdBreakMarch = 0;
+            [SerializeField] public bool bannerEnabled = false;
             
             public Data()
             {
@@ -141,7 +152,7 @@ namespace IWI
             public Data(Data data)
             {
                 adBreakEnabled = data.adBreakEnabled;
-                mergeCountForAdBreak = 0;
+                bannerEnabled = data.bannerEnabled;
             }
             public object Clone()
             {

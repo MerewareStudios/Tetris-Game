@@ -101,7 +101,7 @@ MonoBehaviour:
       - purchaseStamp: 0
   DefaultAdData:
     adBreakEnabled: 1
-    mergeCountForAdBreak: 0
+    bannerEnabled: 1
   GunUpgradeData:
   - currency:
       type: 0
