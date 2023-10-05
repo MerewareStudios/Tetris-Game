@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Internal.Core;
 using UnityEngine;
 
-public class FakeAdInterstitial : Singleton<FakeAdInterstitial>
+public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 {
     [SerializeField] private Canvas canvas;
 

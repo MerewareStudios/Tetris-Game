@@ -77,7 +77,7 @@ namespace Game
             {
                 Spawner.THIS.UpdatePosition(spawnerPin.position);
                 
-                float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.362756f;
+                float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.1f;
                 
                 
                 _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);

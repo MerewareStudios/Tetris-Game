@@ -27,6 +27,33 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static float ScreenDPI()
+        {
+            #if UNITY_EDITOR
+                return Screen.dpi;
+            #elif PLATFORM_ANDROID
+                AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                AndroidJavaObject activity = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
+     
+                AndroidJavaObject metrics = new AndroidJavaObject("android.util.DisplayMetrics");
+                activity.Call<AndroidJavaObject>("getWindowManager").Call<AndroidJavaObject>("getDefaultDisplay").Call("getMetrics", metrics);
+     
+                return (metrics.Get<float>("xdpi") + metrics.Get<float>("ydpi")) * 0.5f;
+            #endif
+            
+        }
+        public static float ScreenHeightDP()
+        {
+            return Pixel2Dp(ScreenDPI());
+        }
+        public static float Dp2Pixel(float dp)
+        {
+            return dp * ScreenDPI() / 160;
+        }
+        public static float Pixel2Dp(float px)
+        {
+            return px * 160 / ScreenDPI();
+        }
         public static Vector3 RotatePointAroundPivot(this Vector3 point, Vector3 pivot, Quaternion angles)
         {
             return angles * (point - pivot) + pivot;

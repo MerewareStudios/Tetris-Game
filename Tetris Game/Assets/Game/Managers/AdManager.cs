@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Game;
 using Internal.Core;
 using UnityEngine;
@@ -7,24 +8,45 @@ namespace IWI
 {
     public class AdManager : Singleton<AdManager>
     {
+        [SerializeField] public FakeAdBanner fakeAdBanner;
+        [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
+        [SerializeField] public FakeAdRewarded fakeAdRewarded;
         [System.NonSerialized] private Data _data;
 
-        void Start()
+        void Awake()
         {
+            FakeAdBanner.THIS = fakeAdBanner;
+            FakeAdInterstitial.THIS = fakeAdInterstitial;
+            FakeAdRewarded.THIS = fakeAdRewarded;
+        }
+
+        
+
+        private void InitAdSDK()
+        {
+            MaxSdkCallbacks.OnSdkInitializedEvent += 
+                (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
+                {
+                    // AppLovin SDK is initialized, start loading ads
+                };
+
+            MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
+            // MaxSdk.SetUserId("USER_ID");
+            MaxSdk.InitializeSdk();
+            
+        }
+        
+        private void Start()
+        {
+            InitAdSDK();
+
+            FakeAdBanner.THIS.Initialize();
+            FakeAdBanner.Show();
+            
+            
             Board.THIS.OnMerge += (amount) =>
             {
                 // Try2AdBreak();
-                
-                if (ONBOARDING.HAVE_MERGED.IsNotComplete())
-                {
-                    Onboarding.CheerForMerge();
-                    
-                    ONBOARDING.HAVE_MERGED.SetComplete();
-                }
-                if (ONBOARDING.EARN_SHOP_POINT.IsComplete())
-                {
-                    UIManager.THIS.shop.Increase(amount);
-                }
             };
         }
 

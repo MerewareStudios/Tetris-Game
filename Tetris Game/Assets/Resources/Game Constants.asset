@@ -33,9 +33,6 @@ MonoBehaviour:
     time: 0
     currentHealth: 1
     turnRate: 12
-    shieldData:
-      timeLeft: 0
-      amount: 0
   DefaultUserData:
     level: 1
     pupData:

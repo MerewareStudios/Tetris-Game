@@ -23,6 +23,20 @@ public class GameManager : Singleton<GameManager>
                 ApplicationManager.THIS.GrabFeatureEnabled = false;
             }
         };
+        
+        Board.THIS.OnMerge += (amount) =>
+        {
+            if (ONBOARDING.HAVE_MERGED.IsNotComplete())
+            {
+                Onboarding.CheerForMerge();
+                    
+                ONBOARDING.HAVE_MERGED.SetComplete();
+            }
+            if (ONBOARDING.EARN_SHOP_POINT.IsComplete())
+            {
+                UIManager.THIS.shop.Increase(amount);
+            }
+        };
 
         LevelManager.THIS.LoadLevel();
     }

@@ -4,7 +4,7 @@ using Internal.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class FakeAdRewarded : Singleton<FakeAdRewarded>
+public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 {
     [SerializeField] private Canvas canvas;
     private static System.Action _onReward;
