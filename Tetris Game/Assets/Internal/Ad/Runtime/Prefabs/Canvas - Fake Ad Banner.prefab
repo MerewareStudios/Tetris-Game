@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -235.20001, y: -4.6000123}
+  m_AnchoredPosition: {x: -235.20001, y: -4.6000137}
   m_SizeDelta: {x: -669.5999, y: -9.199975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6776527624656669144
@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 7095512850039993012}
-  offerFrame: {fileID: 0}
-  enableButton: {fileID: 0}
+  offerFrame: {fileID: 2548696987691843111}
+  enableButton: {fileID: 9026643122109125703}
   fakeBanner: {fileID: 2548696987691843111}
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.09803922}
 --- !u!223 &7095512850039993012
@@ -200,9 +200,9 @@ Canvas:
   m_GameObject: {fileID: 2551211136394660796}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 0
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -211,7 +211,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -259044405
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2221368382941546113
@@ -342,7 +342,7 @@ PrefabInstance:
     - target: {fileID: 1723230643441107532, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8.3
+      value: 8.300003
       objectReference: {fileID: 0}
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
@@ -472,7 +472,7 @@ PrefabInstance:
     - target: {fileID: 8220688171497981974, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -6.2
+      value: -6.199997
       objectReference: {fileID: 0}
     - target: {fileID: 8220688171497981974, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
@@ -500,3 +500,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 549885935647293098}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9026643122109125703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8855345980631214829, guid: 353850972df4ef844923b87166f1f0bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 549885935647293098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

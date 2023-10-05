@@ -18,8 +18,10 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
+    [SerializeField] private GameObject[] nextBlockPawns;
    
     [System.NonSerialized] public Block CurrentBlock;
+    [System.NonSerialized] public Pool nextBlock;
     
     [System.NonSerialized] private Plane _plane;
     [System.NonSerialized] private bool _grabbedBlock = false;
@@ -94,6 +96,7 @@ public class Spawner : Singleton<Spawner>
     public void OnLevelLoad()
     {
         _spawnIndex = 0;
+        nextBlock = this.RandomBlock();
     }
     private void StopAllRunningTasksOnBlock()
     {
@@ -350,7 +353,11 @@ public class Spawner : Singleton<Spawner>
         else
         {
             _smoothFactorLerp = 10.0f;
-            pool = this.RandomBlock();
+            
+            pool = nextBlock;
+            
+            nextBlock = this.RandomBlock();
+            DisplayNextBlock();
         }
         
         return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
@@ -406,4 +413,15 @@ public class Spawner : Singleton<Spawner>
         return pawn;
     }
     #endregion
+
+
+    private void DisplayNextBlock()
+    {
+        List<Transform> segmentTransforms = nextBlock.Prefab<Block>().segmentTransforms;
+
+        for (int i = 0; i < segmentTransforms.Count; i++)
+        {
+            nextBlockPawns[i].SetActive(segmentTransforms[i]);
+        }
+    }
 }

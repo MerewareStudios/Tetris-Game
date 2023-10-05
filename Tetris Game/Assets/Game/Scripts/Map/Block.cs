@@ -9,7 +9,7 @@ namespace Game
     public class Block : MonoBehaviour
     {
         [SerializeField] private Transform shakePivot;
-        [SerializeField] private List<Transform> segmentTransforms;
+        [SerializeField] public List<Transform> segmentTransforms;
         [SerializeField] private Transform rotatePivot;
         [SerializeField] public  BlockData blockData;
         
