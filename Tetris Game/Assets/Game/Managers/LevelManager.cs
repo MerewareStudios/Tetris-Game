@@ -28,16 +28,16 @@ public class LevelManager : Singleton<LevelManager>
         {
             Warzone.THIS.Begin(true);
             Spawner.THIS.DelayedSpawn(0.45f);
-            return;
         }
-        
-        if (ONBOARDING.TEACH_PICK.IsNotComplete())
+        else if (ONBOARDING.TEACH_PICK.IsNotComplete())
         {
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
-        
-        
-        AdManager.THIS.ShowBanner();
+
+        if (AdsEnabled)
+        {
+            AdManager.THIS.ShowBanner();
+        }
     }
 
     public bool CanSpawnBonus()

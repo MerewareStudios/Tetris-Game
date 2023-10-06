@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,27 +10,70 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform offerFrame;
     [SerializeField] private Button enableButton;
-    [SerializeField] private RectTransform fakeBanner;
+    [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
     [System.NonSerialized] private bool _loaded = false;
     [System.NonSerialized] public System.Action OnAdLoadedInternal;
+    [System.NonSerialized] public System.Action OnOfferAccepted;
+    public Vector3 ButtonPosition => enableButton.transform.position;
 
     private const string BannerAdUnitId = "85fc6bf5a70ecf37";
     
-    public void Show()
+    public void ShowOffer()
+    {
+        this.gameObject.SetActive(true);
+        canvas.enabled = true;
+        enableButton.targetGraphic.raycastTarget = false;
+        offerFrame.DOKill();
+
+        offerFrame.anchoredPosition = new Vector2(0.0f, -185.0f);
+        offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetDelay(0.5f).onComplete = () =>
+        {
+            enableButton.targetGraphic.raycastTarget = true;
+        };
+
+        Loading = !_loaded;
+    }
+
+    public bool Loading
+    {
+        set
+        {
+            loadingBar.SetActive(value);
+            enableButton.gameObject.SetActive(!value);
+        }
+    }
+    public void HideOffer()
+    {
+        enableButton.targetGraphic.raycastTarget = false;
+        offerFrame.DOKill();
+        OnOfferAccepted?.Invoke();
+
+        offerFrame.DOAnchorPosY(-185.0f, 0.25f).SetEase(Ease.InSine).onComplete = () =>
+        {
+            canvas.enabled = false;
+            this.gameObject.SetActive(false);
+        };
+    }
+
+    public void OnClick_AcceptOffer()
+    {
+        HideOffer();
+    }
+
+    
+    public void ShowAd()
     {
         if (!_loaded)
         {
             return;
         }
         MaxSdk.ShowBanner(BannerAdUnitId);
-        FakeAdBanner.THIS.OnBannerAdShownEvent();
     }
     
-    public void Hide()
+    public void HideAd()
     {
         MaxSdk.HideBanner(BannerAdUnitId);
-        FakeAdBanner.THIS.OnBannerAdHideEvent();
     } 
     
     public void Initialize()
@@ -46,18 +90,10 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
     }
 
-    private void OnBannerAdShownEvent()
-    {
-        Debug.Log("OnBannerAdShownEvent");
-    }
-    private void OnBannerAdHideEvent()
-    {
-        Debug.Log("OnBannerAdShownEvent");
-    }
-    
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         _loaded = true;
+        Loading = !_loaded;
         OnAdLoadedInternal?.Invoke();
     }
 

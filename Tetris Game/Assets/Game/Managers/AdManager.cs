@@ -42,21 +42,55 @@ namespace IWI
             InitAdSDK();
 
             FakeAdBanner.THIS.Initialize();
-            FakeAdBanner.THIS.Show();
-            FakeAdBanner.THIS.OnAdLoadedInternal = ShowBanner;
+            FakeAdBanner.THIS.ShowAd();
+            // FakeAdBanner.THIS.OnAdLoadedInternal = ShowBanner;
+            FakeAdBanner.THIS.OnOfferAccepted = () =>
+            {
+                _Data.bannerEnabled = true;
+                ShowBanner();
+                Spawner.THIS.NextBlockEnabled = true;
+            };
             
             
             Board.THIS.OnMerge += (amount) =>
             {
                 
             };
+            
+            UIManager.OnMenuModeChanged += (menuVisible) =>
+            {
+                SetBannerVisibility(!menuVisible);
+            };
         }
 
         public void ShowBanner()
         {
-            if (_Data.bannerEnabled && LevelManager.AdsEnabled)
+            if (_Data.bannerEnabled)
             {
-                FakeAdBanner.THIS.Show();
+                FakeAdBanner.THIS.ShowAd();
+            }
+            else
+            {
+                FakeAdBanner.THIS.ShowOffer();
+            }
+        }
+
+        public void CloseBanner()
+        {
+            _Data.bannerEnabled = false;
+            FakeAdBanner.THIS.HideAd();
+            Spawner.THIS.NextBlockEnabled = false;
+        }
+        
+        public void SetBannerVisibility(bool visible)
+        {
+            if (visible && _Data.bannerEnabled)
+            {
+                FakeAdBanner.THIS.ShowAd();
+            }
+            else
+            {
+                FakeAdBanner.THIS.HideAd();
             }
         }
 

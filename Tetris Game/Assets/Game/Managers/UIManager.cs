@@ -81,6 +81,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
    [SerializeField] public CurrencyTransactor ticket;
+   [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
    [SerializeField] public Finger finger;
@@ -209,6 +210,8 @@ public class UIManager : Singleton<UIManager>
       CameraManager.THIS.gameCamera.enabled = !value;
       MenuVisible = value;
       Time.timeScale = value ? 0.0f : 1.0f;
+      
+      OnMenuModeChanged?.Invoke(value);
    }
    public static void Pause(bool value)
    {

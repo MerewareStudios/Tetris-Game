@@ -19,10 +19,12 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
     [SerializeField] private GameObject[] nextBlockPawns;
+    [SerializeField] private GameObject nextBlockVisual;
+    [SerializeField] private RectTransform nextBlockPivot;
    
     [System.NonSerialized] public Block CurrentBlock;
-    [System.NonSerialized] public Pool nextBlock;
     
+    [System.NonSerialized] private Pool _nextBlock;
     [System.NonSerialized] private Plane _plane;
     [System.NonSerialized] private bool _grabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
@@ -34,6 +36,22 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
     [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
 
+    public bool NextBlockEnabled
+    {
+        set
+        {
+            nextBlockVisual.SetActive(value);
+            if (value)
+            {
+                nextBlockPivot.DOKill();
+                nextBlockPivot.position = FakeAdBanner.THIS.ButtonPosition;
+                nextBlockPivot.DOAnchorPos(Vector2.zero, 0.5f).SetEase(Ease.OutSine);
+                DisplayNextBlock();
+            }
+        }
+        get => nextBlockVisual.activeSelf;
+    }
+    
     private void Awake()
     {
         _plane = new Plane(Vector3.up, Vector3.zero);
@@ -96,7 +114,7 @@ public class Spawner : Singleton<Spawner>
     public void OnLevelLoad()
     {
         _spawnIndex = 0;
-        nextBlock = this.RandomBlock();
+        _nextBlock = this.RandomBlock();
     }
     private void StopAllRunningTasksOnBlock()
     {
@@ -354,10 +372,14 @@ public class Spawner : Singleton<Spawner>
         {
             _smoothFactorLerp = 10.0f;
             
-            pool = nextBlock;
+            pool = _nextBlock;
             
-            nextBlock = this.RandomBlock();
-            DisplayNextBlock();
+            _nextBlock = this.RandomBlock();
+
+            if (NextBlockEnabled)
+            {
+                DisplayNextBlock();
+            }
         }
         
         return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
@@ -417,7 +439,7 @@ public class Spawner : Singleton<Spawner>
 
     private void DisplayNextBlock()
     {
-        List<Transform> segmentTransforms = nextBlock.Prefab<Block>().segmentTransforms;
+        List<Transform> segmentTransforms = _nextBlock.Prefab<Block>().segmentTransforms;
 
         for (int i = 0; i < segmentTransforms.Count; i++)
         {
