@@ -27,7 +27,12 @@ namespace Game
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
+        
+        [System.NonSerialized] public bool BoostingStack = false;
 
+
+        public int StackLimit => _Data.maxStack + (BoostingStack ? 1 : 0);
+        
         void Awake()
         {
             this._thisTransform = this.transform;
@@ -494,7 +499,7 @@ namespace Game
         private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier = 1)
         {
             Place spawnPlace = _places[horizontal, lineIndex];
-            int totalPoint = 0;
+            int totalAmmo = 0;
             Pawn lastPawn = null;
             
             float delay = 0.0f;
@@ -510,7 +515,7 @@ namespace Game
 
                 lastPawn = pawn;
 
-                totalPoint += pawn.Amount;
+                totalAmmo += pawn.Amount;
                 
                 pawn.Unpack(delay += 0.025f);
                 
@@ -532,8 +537,8 @@ namespace Game
                 place.Current = null;
             }
 
-            totalPoint = Mathf.Min(totalPoint * multiplier,_Data.maxStack);
-            SpawnMergedPawn(spawnPlace, totalPoint);
+            totalAmmo = Mathf.Min(totalAmmo * multiplier,StackLimit);
+            SpawnMergedPawn(spawnPlace, totalAmmo);
         }
 
         private void CreatePawnAtCircular(int horizontal, int vertical, List<Vector2Int> points)
@@ -605,7 +610,7 @@ namespace Game
                 }
             }
 
-            totalPoint = Mathf.Min(totalPoint,_Data.maxStack);
+            totalPoint = Mathf.Min(totalPoint,StackLimit);
             SpawnMergedPawn(spawnPlace, totalPoint);
         }
         public void MarkMover(int horizontal)

@@ -1,7 +1,6 @@
 using Game;
 using Internal.Core;
 using IWI;
-using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -36,7 +35,7 @@ public class LevelManager : Singleton<LevelManager>
 
         if (AdsEnabled)
         {
-            AdManager.THIS.ShowBanner();
+            AdManager.THIS.ShowBannerOrOffer();
         }
     }
 

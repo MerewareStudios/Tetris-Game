@@ -15,14 +15,15 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [System.NonSerialized] private bool _loaded = false;
     [System.NonSerialized] public System.Action OnAdLoadedInternal;
     [System.NonSerialized] public System.Action OnOfferAccepted;
+    [System.NonSerialized] public System.Action<bool> OnVisibilityChanged;
     public Vector3 ButtonPosition => enableButton.transform.position;
 
     private const string BannerAdUnitId = "85fc6bf5a70ecf37";
     
     public void ShowOffer()
     {
-        this.gameObject.SetActive(true);
-        canvas.enabled = true;
+        SetOfferState(true);
+
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
 
@@ -47,18 +48,23 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
-        OnOfferAccepted?.Invoke();
 
         offerFrame.DOAnchorPosY(-185.0f, 0.25f).SetEase(Ease.InSine).onComplete = () =>
         {
-            canvas.enabled = false;
-            this.gameObject.SetActive(false);
+            SetOfferState(false);
         };
+    }
+
+    public void SetOfferState(bool value)
+    {
+        canvas.enabled = value;
+        this.gameObject.SetActive(value);
     }
 
     public void OnClick_AcceptOffer()
     {
         HideOffer();
+        OnOfferAccepted?.Invoke();
     }
 
     
@@ -69,12 +75,19 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
             return;
         }
         MaxSdk.ShowBanner(BannerAdUnitId);
+        OnVisibilityChanged?.Invoke(true);
     }
     
     public void HideAd()
     {
         MaxSdk.HideBanner(BannerAdUnitId);
-    } 
+        OnVisibilityChanged?.Invoke(false);
+    }
+
+    public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
+    {
+        MaxSdk.UpdateBannerPosition(BannerAdUnitId, bannerPosition);
+    }
     
     public void Initialize()
     {

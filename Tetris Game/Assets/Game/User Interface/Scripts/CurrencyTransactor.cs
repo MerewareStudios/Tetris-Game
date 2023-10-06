@@ -59,8 +59,8 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     {
         _targetScale = amount;
         
-        scalePivot.DOKill();
-        scalePivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
+        // scalePivot.DOKill();
+        // scalePivot.DOScale(Vector3.one * amount, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
         anchorPivot.DOKill();
         anchorPivot.DOAnchorPos(useScaledAnchor ? scaledAnchor : defaultAnchor, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
     }

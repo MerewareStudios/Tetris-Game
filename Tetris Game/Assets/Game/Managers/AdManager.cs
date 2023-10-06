@@ -13,6 +13,7 @@ namespace IWI
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
         [SerializeField] public int adBreakMarchLimit = 6;
         [System.NonSerialized] private Data _data;
+        
 
         void Awake()
         {
@@ -47,8 +48,12 @@ namespace IWI
             FakeAdBanner.THIS.OnOfferAccepted = () =>
             {
                 _Data.bannerEnabled = true;
-                ShowBanner();
-                Spawner.THIS.NextBlockEnabled = true;
+                ShowBannerOrOffer();
+            };
+            FakeAdBanner.THIS.OnVisibilityChanged = (visible) =>
+            {
+                Spawner.THIS.NextBlockEnabled = visible;
+                Board.THIS.BoostingStack = visible;
             };
             
             
@@ -59,11 +64,12 @@ namespace IWI
             
             UIManager.OnMenuModeChanged += (menuVisible) =>
             {
-                SetBannerVisibility(!menuVisible);
+                FakeAdBanner.THIS.SetBannerPosition(menuVisible ? MaxSdkBase.BannerPosition.TopRight : MaxSdkBase.BannerPosition.BottomCenter);
+                // SetBannerVisibility(!menuVisible);
             };
         }
 
-        public void ShowBanner()
+        public void ShowBannerOrOffer()
         {
             if (_Data.bannerEnabled)
             {
@@ -79,21 +85,23 @@ namespace IWI
         {
             _Data.bannerEnabled = false;
             FakeAdBanner.THIS.HideAd();
-            Spawner.THIS.NextBlockEnabled = false;
         }
-        
-        public void SetBannerVisibility(bool visible)
+
+        private void SetBannerVisibility(bool visible)
         {
-            if (visible && _Data.bannerEnabled)
+            if (visible)
             {
-                FakeAdBanner.THIS.ShowAd();
+                if (_Data.bannerEnabled)
+                {
+                    FakeAdBanner.THIS.ShowAd();
+                }
             }
             else
             {
                 FakeAdBanner.THIS.HideAd();
             }
         }
-
+        
         public static void ShowAdBreak()
         {
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);

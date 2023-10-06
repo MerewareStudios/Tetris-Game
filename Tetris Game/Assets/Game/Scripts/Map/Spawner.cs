@@ -40,6 +40,10 @@ public class Spawner : Singleton<Spawner>
     {
         set
         {
+            if (nextBlockVisual.activeSelf == value)
+            {
+                return;
+            }
             nextBlockVisual.SetActive(value);
             if (value)
             {

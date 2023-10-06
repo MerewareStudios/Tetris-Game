@@ -90,7 +90,7 @@ namespace Game
                 switch (UsageType)
                 {
                     case Usage.Ammo:
-                        bool max = value == Board.THIS._Data.maxStack;
+                        bool max = value == Board.THIS.StackLimit;
                         meshRenderer.material.SetColor(GameManager.BaseColor, max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor);
                         levelText.text = _amount.ToString();
                         iconMR.enabled = false;
