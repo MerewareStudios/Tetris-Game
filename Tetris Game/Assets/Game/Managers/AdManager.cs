@@ -54,6 +54,7 @@ namespace IWI
             {
                 Spawner.THIS.NextBlockEnabled = visible;
                 Board.THIS.BoostingStack = visible;
+                Wallet.ReduceCosts = visible;
             };
             
             

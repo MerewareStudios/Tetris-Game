@@ -13,13 +13,13 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private Button enableButton;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
-    // [SerializeField] private TextMeshProUGUI infoText;
-    // [TextArea] [SerializeField] private string infoStr;
     [System.NonSerialized] private bool _loaded = false;
     [System.NonSerialized] public System.Action OnAdLoadedInternal;
     [System.NonSerialized] public System.Action OnOfferAccepted;
     [System.NonSerialized] public System.Action<bool> OnVisibilityChanged;
     public Vector3 ButtonPosition => enableButton.transform.position;
+
+    private const float OfferDistance = -220.0f;
 
     private const string BannerAdUnitId = "85fc6bf5a70ecf37";
     
@@ -32,7 +32,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
 
-        offerFrame.anchoredPosition = new Vector2(0.0f, -185.0f);
+        offerFrame.anchoredPosition = new Vector2(0.0f, OfferDistance);
         offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetDelay(0.5f).onComplete = () =>
         {
             enableButton.targetGraphic.raycastTarget = true;
@@ -54,7 +54,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
 
-        offerFrame.DOAnchorPosY(-185.0f, 0.25f).SetEase(Ease.InSine).onComplete = () =>
+        offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetEase(Ease.InSine).onComplete = () =>
         {
             SetOfferState(false);
         };

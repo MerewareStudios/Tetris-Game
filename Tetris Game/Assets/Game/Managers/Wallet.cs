@@ -7,6 +7,16 @@ public static class Wallet
     public static CurrencyTransactor TICKET => UIManager.THIS.ticket;
 
     public static CurrencyTransactor[] CurrencyTransactors;
+
+    public static float CostReduction = 0.0f;
+    public static bool ReduceCosts
+    {
+        set
+        {
+            CostReduction = value ? 10.0f : 0.0f;
+            MenuNavigator.THIS.CostRedStamp = value;
+        }
+    }
     
     public static Vector3 IconPosition(this Const.CurrencyType currencyType)
     {
