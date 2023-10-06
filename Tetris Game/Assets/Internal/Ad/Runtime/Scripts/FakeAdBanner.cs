@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private Button enableButton;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
+    // [SerializeField] private TextMeshProUGUI infoText;
+    // [TextArea] [SerializeField] private string infoStr;
     [System.NonSerialized] private bool _loaded = false;
     [System.NonSerialized] public System.Action OnAdLoadedInternal;
     [System.NonSerialized] public System.Action OnOfferAccepted;
@@ -23,6 +26,8 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     public void ShowOffer()
     {
         SetOfferState(true);
+
+        // infoText.text = infoStr;
 
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();

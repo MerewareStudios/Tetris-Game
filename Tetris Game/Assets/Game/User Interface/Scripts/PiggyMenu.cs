@@ -64,7 +64,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         base.Show();
         
         UIManager.MenuMode(true);
-        Wallet.ScaleTransactors(1.5f, true);
+        Wallet.ScaleTransactors(1.1f, true);
         _Data = _data;
         
         piggyCurrencyDisplay.Display(_Data.currentMoney, _Data.moneyCapacity);

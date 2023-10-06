@@ -64,7 +64,7 @@ namespace IWI
             
             UIManager.OnMenuModeChanged += (menuVisible) =>
             {
-                FakeAdBanner.THIS.SetBannerPosition(menuVisible ? MaxSdkBase.BannerPosition.TopRight : MaxSdkBase.BannerPosition.BottomCenter);
+                FakeAdBanner.THIS.SetBannerPosition(menuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter);
                 // SetBannerVisibility(!menuVisible);
             };
         }

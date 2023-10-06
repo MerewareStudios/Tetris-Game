@@ -27,7 +27,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
         UIManager.MenuMode(true);
         
-        Wallet.ScaleTransactors(1.5f, true);
+        Wallet.ScaleTransactors(1.1f, true);
         Activate();
         OpenLastMenu();
     }
