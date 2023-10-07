@@ -9,6 +9,12 @@ using TMPro;
 
 namespace Internal.Core
 {
+    public enum LoadState
+    {
+        Success,
+        Fail,
+        Loading,
+    }
     [Serializable]
     public struct PosRotData
     {

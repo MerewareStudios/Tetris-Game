@@ -14,6 +14,13 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private GameObject adPurchaseWindow;
     [SerializeField] private GameObject ticketPurchaseWindow;
+    [SerializeField] private GameObject adIcon;
+    [SerializeField] private GameObject loadingIcon;
+    [SerializeField] private GameObject warningIcon;
+    
+    [System.NonSerialized] public AdState CurrentAdState = AdState.None;
+    [System.NonSerialized] private LoadState _currentLoadState;
+    
     [System.NonSerialized] private bool _canInteract = false;
     [System.NonSerialized] private System.Action _onTimesUp;
     [System.NonSerialized] private System.Action _onClick;
@@ -24,6 +31,34 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public delegate bool ButtonUseCondition();
     private ButtonUseCondition _clickCondition;
 
+    public enum AdState
+    {
+        None,
+        Interstitial,
+        Rewarded,
+    }
+
+    public AdBreakScreen SetAdState(AdState adState)
+    {
+        this.CurrentAdState = adState;
+        return this;
+    }
+    
+    public AdBreakScreen SetLoadState(LoadState loadState)
+    {
+        this._currentLoadState = loadState;
+        
+        loadingIcon.SetActive(_currentLoadState.Equals(LoadState.Loading));
+        adIcon.SetActive(_currentLoadState.Equals(LoadState.Success));
+        warningIcon.SetActive(_currentLoadState.Equals(LoadState.Fail));
+        
+        if (loadState.Equals(Internal.Core.LoadState.Success) && _canInteract)
+        {
+            StartTimer();
+        }
+        
+        return this;
+    }
 
     public AdBreakScreen SetInfo(string topStr, string infoStr, string buttonStr)
     {
@@ -52,6 +87,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     }
     private void StartTimer()
     {
+        if (!_currentLoadState.Equals(LoadState.Success) || !_canInteract)
+        {
+            return;
+        }
+        Debug.LogWarning("started timer from open state" + CurrentAdState);
+
         float value = 0.0f;
         _timerTween = DOTween.To(x => value = x, 1.0f, 0.0f, _duration).SetEase(Ease.OutSine, 8.0f).SetUpdate(true);
         _timerTween.onUpdate = () =>
@@ -67,19 +108,23 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 
         this.gameObject.SetActive(true);
         canvas.enabled = true;
+        
+        fillImage.fillAmount = 1.0f;
 
         canvasGroup.alpha = 0.0f;
         canvasGroup.DOKill();
         canvasGroup.DOFade(1.0f, 0.25f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
         {
             _canInteract = true;
+            StartTimer();
         };
-        
-        StartTimer();
     }
 
     public void Close()
     {
+        Stop();
+
+        SetAdState(AdState.None);
         _canInteract = false;
         
         canvasGroup.DOKill();
@@ -93,8 +138,10 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public void CloseImmediate()
     {
         Stop();
+        SetAdState(AdState.None);
         this.gameObject.SetActive(false);
         canvas.enabled = false;
+        _canInteract = false;
     }
 
     private void Stop()
@@ -123,7 +170,6 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 
         _canInteract = false;
         _onClick?.Invoke();
-        Stop();
     }
     public void OnClick_PurchaseAd()
     {

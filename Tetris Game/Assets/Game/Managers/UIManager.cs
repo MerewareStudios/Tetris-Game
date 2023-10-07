@@ -2,6 +2,7 @@ using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
+using IWI;
 using IWI.Emitter.Enums;
 using IWI.Tutorial;
 using IWI.UI;
@@ -96,17 +97,9 @@ public class UIManager : Singleton<UIManager>
          SlashScreen.THIS = slashScreen;
          MenuNavigator.THIS = menuNavigator.Setup();
          PiggyMenu.THIS = piggyMenu;
-         // RewardScreen.THIS = rewardScreen;
          Powerup.THIS = powerup;
          AdBreakScreen.THIS = adBreakScreen;
          StatDisplayArranger.THIS = statDisplayArranger;
-
-         // RewardScreen.THIS.OnClose = () =>
-         // {
-         //    MenuMode(false);
-         //    Wallet.ScaleTransactors(1.0f);
-         //    LevelManager.THIS.LoadLevel();
-         // };
 
          Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
@@ -114,6 +107,11 @@ public class UIManager : Singleton<UIManager>
 
          MenuVisible = false;
          CurrentMenu = null;
+    }
+
+    public void AdLayerClick_OpenShop()
+    {
+       AdManager.THIS.MarchInterstitial(shop.OnClick_Open);
     }
 
 #if UNITY_EDITOR

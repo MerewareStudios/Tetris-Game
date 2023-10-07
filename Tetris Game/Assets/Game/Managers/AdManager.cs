@@ -52,25 +52,48 @@ namespace IWI
                 Wallet.ReduceCosts = visible;
             };
             
-            Board.THIS.OnMerge += (amount) =>
+            FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
             {
-                if (!_Data.adBreakEnabled)
+                // Debug.LogWarning("FakeAdInterstitial OnLoadedStateChanged " + state);
+                if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Interstitial))
                 {
                     return;
                 }
-                _Data.AdBreakMarch++;
-                if (_Data.AdBreakMarch >= this.adBreakMarchLimit)
-                {
-                    _Data.AdBreakMarch = 0;
-                    ShowAdBreak();
-                }
+                AdBreakScreen.THIS.SetLoadState(state);
             };
+            
+            FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
+            {
+                // Debug.LogWarning("FakeAdRewarded OnLoadedStateChanged " + state);
+                if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Rewarded))
+                {
+                    return;
+                }
+                AdBreakScreen.THIS.SetLoadState(state);
+            };
+
             
             UIManager.OnMenuModeChanged += (menuVisible) =>
             {
                 FakeAdBanner.THIS.SetBannerPosition(menuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter);
-                // SetBannerVisibility(!menuVisible);
             };
+        }
+
+        public void MarchInterstitial(System.Action onSuccess)
+        {
+            if (!_Data.adBreakEnabled)
+            {
+                onSuccess?.Invoke();
+                return;
+            }
+            _Data.AdBreakMarch++;
+            if (_Data.AdBreakMarch >= this.adBreakMarchLimit)
+            {
+                _Data.AdBreakMarch = 0;
+                ShowAdBreak(onSuccess);
+                return;
+            }
+            onSuccess?.Invoke();
         }
 
         public void ShowBannerOrOffer()
@@ -91,14 +114,16 @@ namespace IWI
             FakeAdBanner.THIS.HideAd();
         }
 
-        public void ShowAdBreak()
+        public void ShowAdBreak(System.Action onFinish)
         {
             if (!FakeAdInterstitial.THIS.Ready)
             {
                 _Data.AdBreakMarch = adBreakMarchLimit;
                 return;
             }
-            
+
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Interstitial);
+            AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
             AdBreakScreen.THIS.SetPurchaseWindows(true, true);
             AdBreakScreen.THIS.OnClick(
@@ -111,14 +136,17 @@ namespace IWI
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
                 AdBreakScreen.THIS.CloseImmediate();
-                FakeAdInterstitial.THIS.Show(() =>
+                FakeAdInterstitial.THIS.Show(
+                () =>
                 {
                     this.adBreakMarchLimit++;
                     UIManager.Pause(false);
-                    UIManagerExtensions.EmitPiggyRewardCoin(Vector3.zero, 15, 15, null);
-                }, () =>
+                    onFinish?.Invoke();
+                }, 
+                () =>
                 {
                     UIManager.Pause(false);
+                    onFinish?.Invoke();
                 });
             }, 4);
                 
@@ -128,11 +156,8 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward)
         {
-            if (!FakeAdRewarded.THIS.Ready)
-            {
-                return;
-            }
-            
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Rewarded);
+            AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
             AdBreakScreen.THIS.SetPurchaseWindows(false, true);
             AdBreakScreen.THIS.OnClick(
