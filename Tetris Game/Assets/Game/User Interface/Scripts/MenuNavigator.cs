@@ -7,8 +7,13 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 {
     [System.NonSerialized] private List<IMenu> _menus = new();
     [SerializeField] private List<Tab> tabs = new();
+    [SerializeField] private GameObject costReductionStamp;
     [System.NonSerialized] private Data _data;
 
+    public bool CostRedStamp
+    {
+        set => costReductionStamp.SetActive(value);
+    }
     
     public MenuNavigator Setup()
     {
