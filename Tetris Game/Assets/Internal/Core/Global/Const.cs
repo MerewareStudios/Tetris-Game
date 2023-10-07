@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
+using Internal.Core;
 using IWI;
 using TMPro;
 using UnityEngine;
@@ -69,6 +70,16 @@ public class Const : SSingleton<Const>
         {
             this.type = type;
             this.amount = amount;
+        }
+
+        public Currency ReduceCost(Const.CurrencyType specificType, float percent)
+        {
+            if (!type.Equals(specificType))
+            {
+                return this;
+            }
+            int reducedCost = amount.ReduceFloor(percent);
+            return new Const.Currency(type, reducedCost);
         }
 
         public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);

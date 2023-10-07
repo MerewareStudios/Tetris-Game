@@ -24,7 +24,7 @@ namespace Game.UI
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
         [System.NonSerialized] private BlockShopData _blockShopData;
-        [System.NonSerialized] private BlockData _blockData;
+        [System.NonSerialized] private BlockData _selectedBlockData;
 
         public BlockShopData _Data
         {
@@ -63,12 +63,12 @@ namespace Game.UI
 
             int showIndex = _blockShopData.lastIndex;
             string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
-            this._blockData = Const.THIS.DefaultBlockData[showIndex];
+            this._selectedBlockData = Const.THIS.DefaultBlockData[showIndex];
             
-            bool hasFunds = SetPrice(_blockData.currency);
-            SetLookUp(_blockData.lookUp);
+            bool hasFunds = SetPrice(_selectedBlockData.Cost);
+            SetLookUp(_selectedBlockData.lookUp);
 
-            bool purchasedBlock = _blockShopData.HaveBlock(_blockData.blockType);
+            bool purchasedBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
             
@@ -172,17 +172,17 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
-            bool haveBlock = _blockShopData.HaveBlock(_blockData.blockType);
+            bool haveBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
             if (haveBlock)
             {
                 return;
             }
             
-            if (Wallet.Consume(_blockData.currency))
+            if (Wallet.Consume(_selectedBlockData.Cost))
             {
-                _blockShopData.AddUnlockedBlock(_blockData);
+                _blockShopData.AddUnlockedBlock(_selectedBlockData);
                 
-                Spawner.THIS.InterchangeBlock(_blockData.blockType, Pawn.Usage.UnpackedAmmo);
+                Spawner.THIS.InterchangeBlock(_selectedBlockData.blockType, Pawn.Usage.UnpackedAmmo);
 
                 if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
                 {
@@ -195,7 +195,7 @@ namespace Game.UI
             }
             else
             {
-                if (_blockData.currency.type.Equals(Const.CurrencyType.Ticket))
+                if (_selectedBlockData.Cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {
@@ -246,26 +246,23 @@ namespace Game.UI
         } 
         
         [Serializable]
-        public class BlockData : ICloneable
+        public class BlockData
         {
             [SerializeField] public Pool blockType;
-            [SerializeField] public Const.Currency currency;
+            [SerializeField] private Const.Currency currency;
             [SerializeField] public int[] lookUp;
-            
-            public BlockData()
-            {
-                
-            }
-            public BlockData(BlockData blockData)
-            {
-                this.blockType = blockData.blockType;
-                this.currency = blockData.currency;
-                this.lookUp = blockData.lookUp.Clone() as int[];
-            }
-            public object Clone()
-            {
-                return new BlockData(this);
-            }
+
+            public Const.Currency Cost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+            // public BlockData(BlockData blockData)
+            // {
+            //     this.blockType = blockData.blockType;
+            //     this.currency = blockData.currency;
+            //     this.lookUp = blockData.lookUp.Clone() as int[];
+            // }
+            // public object Clone()
+            // {
+            //     return new BlockData(this);
+            // }
         }
     }
 }

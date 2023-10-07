@@ -27,6 +27,10 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static int ReduceFloor(this int amount, float percent)
+        {
+            return Mathf.FloorToInt(amount * (1.0f - percent * 0.01f));
+        }
         public static float ScreenDPI()
         {
             // #if UNITY_EDITOR

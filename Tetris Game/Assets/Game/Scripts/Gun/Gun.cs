@@ -182,19 +182,21 @@ public class Gun : MonoBehaviour
     [Serializable]
     public class UpgradeData
     {
-        [SerializeField] public Const.Currency currency;
+        [SerializeField] private Const.Currency currency;
         [SerializeField] public Pool gunType;
         [SerializeField] public Sprite sprite;
-        [SerializeField] public int[] defaultValues;
-        [SerializeField] public Const.Currency[] damagePrice;
-        [SerializeField] public Const.Currency[] fireRatePrice;
-        [SerializeField] public Const.Currency[] splitShotPrice;
-        // [System.NonSerialized] private List<Const.Currency[]> _upgradePrices = new();
+        [SerializeField] private int[] defaultValues;
+        [SerializeField] private Const.Currency[] damagePrice;
+        [SerializeField] private Const.Currency[] fireRatePrice;
+        [SerializeField] private Const.Currency[] splitShotPrice;
             
+        public Const.Currency GunCost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+        public Const.Currency UpgradePrice(Gun.StatType statType, int upgradeIndex) => (Prices(statType)[upgradeIndex]).ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+
         public int DefaultValue(Gun.StatType statType) => defaultValues[(int)statType];
         public int UpgradedValue(Gun.StatType statType, int upgradeIndex) => DefaultValue(statType) + upgradeIndex;
-        public Const.Currency Price(Gun.StatType statType, int upgradeIndex) => Prices(statType)[upgradeIndex];
         public int UpgradeCount(Gun.StatType statType) => Prices(statType).Length;
+        
         public bool HasAvailableUpgrade(Gun.StatType statType, int upgradeIndex) => upgradeIndex < Prices(statType).Length;
         public bool IsFull(Gun.StatType statType, int upgradeIndex) => upgradeIndex >= Prices(statType).Length;
 

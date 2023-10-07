@@ -123,7 +123,7 @@ namespace Game.UI
             }
             if (purchaseParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
             {
-                if (Wallet.HasFunds(_gunUpgradeData.currency))
+                if (Wallet.HasFunds(_gunUpgradeData.GunCost))
                 {
                     Onboarding.ClickOn(purchaseClickTarget.position, Finger.Cam.UI, () =>
                     {
@@ -145,7 +145,7 @@ namespace Game.UI
             
             if (!purchasedWeapon)
             {
-                SetPrice(_gunUpgradeData.currency);
+                SetPrice(_gunUpgradeData.GunCost);
                 return;
             }
             
@@ -169,7 +169,7 @@ namespace Game.UI
             {
                 return;
             }
-            Const.Currency price = _gunUpgradeData.Price(statType, currentIndex);
+            Const.Currency price = _gunUpgradeData.UpgradePrice(statType, currentIndex);
 
             bool ticket = price.type.Equals(Const.CurrencyType.Ticket);
             // purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
@@ -289,7 +289,7 @@ namespace Game.UI
         {
             Gun.StatType type = (Gun.StatType)statType;
 
-            Const.Currency price = _gunUpgradeData.Price(type, _weaponShopData.CurrentIndex(type));
+            Const.Currency price = _gunUpgradeData.UpgradePrice(type, _weaponShopData.CurrentIndex(type));
 
             if (Wallet.Consume(price))
             {
@@ -331,7 +331,7 @@ namespace Game.UI
                 return;
             }
             
-            if (Wallet.Consume(_gunUpgradeData.currency))
+            if (Wallet.Consume(_gunUpgradeData.GunCost))
             {
                 if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
                 {
@@ -347,7 +347,7 @@ namespace Game.UI
             }
             else
             {
-                if (_gunUpgradeData.currency.type.Equals(Const.CurrencyType.Ticket))
+                if (_gunUpgradeData.GunCost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {
