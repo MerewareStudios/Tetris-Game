@@ -1,23 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Internal.Core;
 using UnityEngine;
 
 public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 {
-    [SerializeField] private Canvas canvas;
+    private const string AdUnitId = "c447e9a9232d8a7e";
+    private int _retryAttempt;
+    [System.NonSerialized] public System.Action OnFinish;
+    [System.NonSerialized] public System.Action OnFailedDisplay;
 
-    private static System.Action _onFinish;
+    public bool Ready => MaxSdk.IsInterstitialReady(AdUnitId);
+
+    public void Show(System.Action onFinish = null, System.Action onFailedDisplay = null)
+    {
+        this.OnFinish = onFinish;
+        this.OnFailedDisplay = onFailedDisplay;
+        if (MaxSdk.IsInterstitialReady(AdUnitId))
+        {
+            MaxSdk.ShowInterstitial(AdUnitId);
+        }
+    }
     
-    public static void Show(System.Action onFinish)
+    public void Initialize()
     {
-        FakeAdInterstitial.THIS.canvas.enabled = true;
-        _onFinish = onFinish;
+        MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialLoadedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnInterstitialLoadFailedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += OnInterstitialDisplayedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdClickedEvent += OnInterstitialClickedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnInterstitialHiddenEvent;
+        MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnInterstitialAdFailedToDisplayEvent;
+        
+        LoadInterstitial();
     }
 
-    public void OnClick_OnFinish()
+    private void LoadInterstitial()
     {
-        _onFinish?.Invoke();
-        FakeAdInterstitial.THIS.canvas.enabled = false;
+        MaxSdk.LoadInterstitial(AdUnitId);
     }
+
+    private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        _retryAttempt = 0;
+    }
+
+    private void OnInterstitialLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
+    {
+        _retryAttempt++;
+        Invoke("LoadInterstitial", Mathf.Pow(2, Math.Min(6, _retryAttempt)));
+    }
+
+    private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        
+    }
+
+    private void OnInterstitialAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)
+    {
+        this.OnFailedDisplay?.Invoke();
+        LoadInterstitial();
+    }
+
+    private void OnInterstitialClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        
+        
+    }
+
+    private void OnInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        this.OnFinish?.Invoke();
+
+        LoadInterstitial();
+    }
+    
 }

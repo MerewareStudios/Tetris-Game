@@ -8,13 +8,14 @@ using UnityEngine.UI;
 
 public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 {
+    private const string BannerAdUnitId = "85fc6bf5a70ecf37";
+    
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform offerFrame;
     [SerializeField] private Button enableButton;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
     [System.NonSerialized] private bool _loaded = false;
-    [System.NonSerialized] public System.Action OnAdLoadedInternal;
     [System.NonSerialized] public System.Action OnOfferAccepted;
     [System.NonSerialized] public System.Action<bool> OnVisibilityChanged;
     [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
@@ -22,7 +23,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 
     private const float OfferDistance = -220.0f;
 
-    public const string BannerAdUnitId = "85fc6bf5a70ecf37";
     
     public void ShowOffer()
     {
@@ -120,31 +120,30 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
         _loaded = true;
         Loading = !_loaded;
-        OnAdLoadedInternal?.Invoke();
     }
 
     private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
-        Debug.Log("OnBannerAdLoadFailedEvent");
+        // Debug.Log("OnBannerAdLoadFailedEvent");
     }
 
     private void OnBannerAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("OnBannerAdClickedEvent");
+        // Debug.Log("OnBannerAdClickedEvent");
     }
 
     private void OnBannerAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("OnBannerAdRevenuePaidEvent");
+        // Debug.Log("OnBannerAdRevenuePaidEvent");
     }
 
     private void OnBannerAdExpandedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("OnBannerAdExpandedEvent");
+        // Debug.Log("OnBannerAdExpandedEvent");
     }
 
     private void OnBannerAdCollapsedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("OnBannerAdCollapsedEvent");
+        // Debug.Log("OnBannerAdCollapsedEvent");
     }
 }

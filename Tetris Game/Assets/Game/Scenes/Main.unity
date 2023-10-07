@@ -2524,7 +2524,7 @@ MonoBehaviour:
         purchaseData: []
     adData:
       adBreakEnabled: 0
-      bannerEnabled: 0
+      AdBreakMarch: 0
     baseInfo: SAVE END
   DELETE_AT_START: 1
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
@@ -2558,7 +2558,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 1069194588}
   fakeAdRewarded: {fileID: 1910559824}
-  adBreakMarchLimit: 6
+  adBreakMarchLimit: 12
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0

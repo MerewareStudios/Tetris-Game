@@ -23,8 +23,6 @@ namespace IWI
             FakeAdRewarded.THIS = fakeAdRewarded;
         }
 
-        
-
         private void InitAdSDK()
         {
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
@@ -32,8 +30,8 @@ namespace IWI
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {
-                    Debug.Log("init");
                     FakeAdBanner.THIS.Initialize();
+                    FakeAdInterstitial.THIS.Initialize();
                 };
         }
         
@@ -43,7 +41,7 @@ namespace IWI
             
             FakeAdBanner.THIS.OnOfferAccepted = () =>
             {
-                _Data.bannerEnabled = true;
+                _Data.BannerEnabled = true;
                 ShowBannerOrOffer();
             };
             FakeAdBanner.THIS.OnVisibilityChanged = (visible) =>
@@ -52,17 +50,19 @@ namespace IWI
                 Board.THIS.BoostingStack = visible;
                 Wallet.ReduceCosts = visible;
             };
-            // FakeAdBanner.THIS.OnAdLoadedInternal = () =>
-            // {
-            //     if (_Data.bannerEnabled)
-            //     {
-            //         FakeAdBanner.THIS.ShowAd();
-            //     }
-            // };
             
             Board.THIS.OnMerge += (amount) =>
             {
-                
+                if (!_Data.adBreakEnabled)
+                {
+                    return;
+                }
+                _Data.AdBreakMarch++;
+                if (_Data.AdBreakMarch >= this.adBreakMarchLimit)
+                {
+                    _Data.AdBreakMarch = 0;
+                    ShowAdBreak();
+                }
             };
             
             UIManager.OnMenuModeChanged += (menuVisible) =>
@@ -74,7 +74,7 @@ namespace IWI
 
         public void ShowBannerOrOffer()
         {
-            if (_Data.bannerEnabled)
+            if (_Data.BannerEnabled)
             {
                 FakeAdBanner.THIS.ShowAd();
             }
@@ -86,12 +86,18 @@ namespace IWI
 
         public void CloseBanner()
         {
-            _Data.bannerEnabled = false;
+            _Data.BannerEnabled = false;
             FakeAdBanner.THIS.HideAd();
         }
 
-        public static void ShowAdBreak()
+        public void ShowAdBreak()
         {
+            if (!FakeAdInterstitial.THIS.Ready)
+            {
+                _Data.AdBreakMarch = adBreakMarchLimit;
+                return;
+            }
+            
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
             AdBreakScreen.THIS.SetPurchaseWindows(true, true);
             AdBreakScreen.THIS.OnClick(
@@ -104,9 +110,13 @@ namespace IWI
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
                 AdBreakScreen.THIS.CloseImmediate();
-                FakeAdInterstitial.Show(() =>
+                FakeAdInterstitial.THIS.Show(() =>
                 {
-                    Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+                    this.adBreakMarchLimit++;
+                    UIManager.Pause(false);
+                    UIManagerExtensions.EmitPiggyRewardCoin(Vector3.zero, 15, 15, null);
+                }, () =>
+                {
                     UIManager.Pause(false);
                 });
             }, 4);
@@ -129,7 +139,7 @@ namespace IWI
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
                 AdBreakScreen.THIS.CloseImmediate();
-                FakeAdInterstitial.Show(() =>
+                FakeAdRewarded.Show(() =>
                 {
                     Debug.LogWarning("Fake Ad Interstitial (On Finish)");
                     onReward?.Invoke();
@@ -191,8 +201,9 @@ namespace IWI
         public class Data : ICloneable
         {
             [SerializeField] public bool adBreakEnabled = true;
-            [System.NonSerialized] public int AdBreakMarch = 0;
-            [System.NonSerialized] public bool bannerEnabled = false;
+            
+            [SerializeField] public int AdBreakMarch = 0;
+            [System.NonSerialized] public bool BannerEnabled = false;
             
             public Data()
             {

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 {
@@ -10,7 +7,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
     private static System.Action _onReward;
     private static System.Action _onSkip;
     
-    public static void Show(System.Action onReward, System.Action onSkip)
+    public static void Show(System.Action onReward, System.Action onSkip = null)
     {
         FakeAdRewarded.THIS.canvas.enabled = true;
         _onReward = onReward;
