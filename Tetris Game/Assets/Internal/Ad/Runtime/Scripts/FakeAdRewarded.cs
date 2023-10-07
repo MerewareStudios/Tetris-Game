@@ -1,27 +1,90 @@
+using System;
 using Internal.Core;
 using UnityEngine;
 
 public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 {
-    [SerializeField] private Canvas canvas;
-    private static System.Action _onReward;
-    private static System.Action _onSkip;
-    
-    public static void Show(System.Action onReward, System.Action onSkip = null)
+    private const string AdUnitId = "3a4b26d73c5511e1";
+    private int _retryAttempt;
+    [System.NonSerialized] public System.Action OnFinish;
+    [System.NonSerialized] public System.Action OnReward;
+    [System.NonSerialized] public System.Action OnFailedDisplay;
+
+    public bool Ready => MaxSdk.IsRewardedAdReady(AdUnitId);
+
+    public void Show(System.Action onFinish = null, System.Action onReward = null, System.Action onFailedDisplay = null)
     {
-        FakeAdRewarded.THIS.canvas.enabled = true;
-        _onReward = onReward;
-        _onSkip = onSkip;
+        this.OnFinish = onFinish;
+        this.OnReward = onReward;
+        this.OnFailedDisplay = onFailedDisplay;
+        if (MaxSdk.IsRewardedAdReady(AdUnitId))
+        {
+            MaxSdk.ShowRewardedAd(AdUnitId);
+        }
+    }
+    
+    public void Initialize()
+    {
+        MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnRewardedAdLoadedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += OnRewardedAdLoadFailedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnRewardedAdDisplayedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdClickedEvent += OnRewardedAdClickedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnRewardedAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnRewardedAdHiddenEvent;
+        MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += OnRewardedAdFailedToDisplayEvent;
+        MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnRewardedAdReceivedRewardEvent;
+            
+        LoadRewardedAd();
+    }
+    
+    
+
+    private void LoadRewardedAd()
+    {
+        MaxSdk.LoadRewardedAd(AdUnitId);
     }
 
-    public void OnClick_OnReward()
+    private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        _onReward?.Invoke();
-        FakeAdRewarded.THIS.canvas.enabled = false;
+        _retryAttempt = 0;
     }
-    public void OnClick_OnSkip()
+
+    private void OnRewardedAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
-        _onSkip?.Invoke();
-        FakeAdRewarded.THIS.canvas.enabled = false;
+        _retryAttempt++;
+        Invoke("LoadRewardedAd", Mathf.Pow(2, Math.Min(6, _retryAttempt)));
+    }
+
+    private void OnRewardedAdDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        
+    }
+
+    private void OnRewardedAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)
+    {
+        this.OnFailedDisplay?.Invoke();
+        LoadRewardedAd();
+    }
+
+    private void OnRewardedAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        
+    }
+
+    private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        this.OnFinish?.Invoke();
+
+        LoadRewardedAd();
+    }
+
+    private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward, MaxSdkBase.AdInfo adInfo)
+    {
+        OnReward?.Invoke();
+    }
+
+    private void OnRewardedAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        
     }
 }

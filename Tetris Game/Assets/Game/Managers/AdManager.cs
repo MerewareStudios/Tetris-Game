@@ -32,6 +32,7 @@ namespace IWI
                 {
                     FakeAdBanner.THIS.Initialize();
                     FakeAdInterstitial.THIS.Initialize();
+                    FakeAdRewarded.THIS.Initialize();
                 };
         }
         
@@ -127,6 +128,11 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward)
         {
+            if (!FakeAdRewarded.THIS.Ready)
+            {
+                return;
+            }
+            
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
             AdBreakScreen.THIS.SetPurchaseWindows(false, true);
             AdBreakScreen.THIS.OnClick(
@@ -139,10 +145,17 @@ namespace IWI
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
                 AdBreakScreen.THIS.CloseImmediate();
-                FakeAdRewarded.Show(() =>
+                FakeAdRewarded.THIS.Show(
+                () =>
                 {
-                    Debug.LogWarning("Fake Ad Interstitial (On Finish)");
+                    UIManager.Pause(false);
+                }, 
+                () =>
+                {
                     onReward?.Invoke();
+                },
+                () =>
+                {
                     UIManager.Pause(false);
                 });
             }, 4);
