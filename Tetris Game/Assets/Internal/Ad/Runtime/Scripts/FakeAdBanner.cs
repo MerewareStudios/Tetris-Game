@@ -17,11 +17,12 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [System.NonSerialized] public System.Action OnAdLoadedInternal;
     [System.NonSerialized] public System.Action OnOfferAccepted;
     [System.NonSerialized] public System.Action<bool> OnVisibilityChanged;
+    [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
     public Vector3 ButtonPosition => enableButton.transform.position;
 
     private const float OfferDistance = -220.0f;
 
-    private const string BannerAdUnitId = "85fc6bf5a70ecf37";
+    public const string BannerAdUnitId = "85fc6bf5a70ecf37";
     
     public void ShowOffer()
     {
@@ -91,21 +92,28 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 
     public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
     {
+        _lastBannerPosition = bannerPosition;
         MaxSdk.UpdateBannerPosition(BannerAdUnitId, bannerPosition);
     }
     
     public void Initialize()
     {
-        MaxSdk.CreateBanner(BannerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
+        MaxSdk.CreateBanner(BannerAdUnitId, _lastBannerPosition);
         MaxSdk.SetBannerExtraParameter(BannerAdUnitId, "adaptive_banner", "true");
         MaxSdk.SetBannerBackgroundColor(BannerAdUnitId, backgroundColor);
 
+        
         MaxSdkCallbacks.Banner.OnAdLoadedEvent      += OnBannerAdLoadedEvent;
         MaxSdkCallbacks.Banner.OnAdLoadFailedEvent  += OnBannerAdLoadFailedEvent;
         MaxSdkCallbacks.Banner.OnAdClickedEvent     += OnBannerAdClickedEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdExpandedEvent    += OnBannerAdExpandedEvent;
         MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
+    }
+
+    public void DestroyBanner()
+    {
+        MaxSdk.DestroyBanner(BannerAdUnitId);
     }
 
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)

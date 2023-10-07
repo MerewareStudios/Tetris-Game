@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using Game;
 using Internal.Core;
 using UnityEngine;
@@ -26,25 +27,20 @@ namespace IWI
 
         private void InitAdSDK()
         {
-            MaxSdkCallbacks.OnSdkInitializedEvent += 
-                (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
-                {
-                    // AppLovin SDK is initialized, start loading ads
-                };
-
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
             // MaxSdk.SetUserId("USER_ID");
             MaxSdk.InitializeSdk();
-            
+            MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
+                {
+                    Debug.Log("init");
+                    FakeAdBanner.THIS.Initialize();
+                };
         }
         
         private void Start()
         {
             InitAdSDK();
-
-            FakeAdBanner.THIS.Initialize();
-            FakeAdBanner.THIS.ShowAd();
-            // FakeAdBanner.THIS.OnAdLoadedInternal = ShowBanner;
+            
             FakeAdBanner.THIS.OnOfferAccepted = () =>
             {
                 _Data.bannerEnabled = true;
@@ -56,7 +52,13 @@ namespace IWI
                 Board.THIS.BoostingStack = visible;
                 Wallet.ReduceCosts = visible;
             };
-            
+            // FakeAdBanner.THIS.OnAdLoadedInternal = () =>
+            // {
+            //     if (_Data.bannerEnabled)
+            //     {
+            //         FakeAdBanner.THIS.ShowAd();
+            //     }
+            // };
             
             Board.THIS.OnMerge += (amount) =>
             {
@@ -88,21 +90,6 @@ namespace IWI
             FakeAdBanner.THIS.HideAd();
         }
 
-        private void SetBannerVisibility(bool visible)
-        {
-            if (visible)
-            {
-                if (_Data.bannerEnabled)
-                {
-                    FakeAdBanner.THIS.ShowAd();
-                }
-            }
-            else
-            {
-                FakeAdBanner.THIS.HideAd();
-            }
-        }
-        
         public static void ShowAdBreak()
         {
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
@@ -181,12 +168,31 @@ namespace IWI
             // }
         }
         
+// #if !UNITY_EDITOR
+//     private void OnApplicationPause(bool pause)
+//     {
+//         if (pause)
+//         {
+//             // FakeAdBanner.THIS.DestroyBanner();
+//         }
+//         else
+//         {
+//             DOVirtual.DelayedCall(2.5f, () =>
+//             {
+//                 MaxSdk.ShowBanner(FakeAdBanner.BannerAdUnitId);
+//                 FakeAdBanner.THIS.SetBannerPosition(MaxSdkBase.BannerPosition.BottomCenter);
+//                 MaxSdk.ShowBanner(FakeAdBanner.BannerAdUnitId);
+//             });
+//         }
+//     }
+// #endif
+        
         [System.Serializable]
         public class Data : ICloneable
         {
             [SerializeField] public bool adBreakEnabled = true;
             [System.NonSerialized] public int AdBreakMarch = 0;
-            [SerializeField] public bool bannerEnabled = false;
+            [System.NonSerialized] public bool bannerEnabled = false;
             
             public Data()
             {
@@ -195,7 +201,7 @@ namespace IWI
             public Data(Data data)
             {
                 adBreakEnabled = data.adBreakEnabled;
-                bannerEnabled = data.bannerEnabled;
+                // bannerEnabled = data.bannerEnabled;
             }
             public object Clone()
             {
