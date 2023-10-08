@@ -89,7 +89,10 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         {
             return "No Connection";
         }
-        return _productCollection.WithID(PurchaseType2ID(purchaseType)).metadata.localizedPriceString;
+
+        string localString = _productCollection.WithID(PurchaseType2ID(purchaseType)).metadata.localizedPriceString;
+        Debug.Log(localString);
+        return localString;
     }
 
 
