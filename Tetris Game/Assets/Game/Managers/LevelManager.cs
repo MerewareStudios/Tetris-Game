@@ -7,7 +7,7 @@ public class LevelManager : Singleton<LevelManager>
     public static int CurrentLevel => LevelManager.THIS.CurrentLevel();
     public static float DeltaMult = 1.0f;
 
-    public static bool AdsEnabled => CurrentLevel.AdsEnabled();
+    public static bool BannerOfferEnabled => CurrentLevel.AdsEnabled();
     
     public void LoadLevel()
     {
@@ -33,7 +33,7 @@ public class LevelManager : Singleton<LevelManager>
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
 
-        if (AdsEnabled)
+        if (BannerOfferEnabled)
         {
             AdManager.THIS.ShowBannerOrOffer();
         }

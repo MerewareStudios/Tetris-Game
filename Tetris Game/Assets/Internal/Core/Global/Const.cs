@@ -11,19 +11,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]
 public class Const : SSingleton<Const>
 {
-    #if UNITY_EDITOR
-    public bool deleteAtStart = true;
-    public bool skipOnboarding = true;
-    public bool shopAvailable = true;
-
-    private void OnValidate()
-    {
-        SaveManager.THIS.DELETE_AT_START = deleteAtStart;
-        SaveManager.THIS.SKIP_ONBOARDING = skipOnboarding;
-        DefaultUserData.shopData.available = skipOnboarding;
-    }
-#endif
-    
     [Header("Look Up")]
     public LevelSo[] Levels;
     public Pawn.Usage[] PowerUps;

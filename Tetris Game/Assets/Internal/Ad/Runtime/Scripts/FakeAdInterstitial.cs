@@ -36,6 +36,11 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
         LoadInterstitial();
     }
 
+    public void DestroyInterstitial()
+    {
+        
+    }
+
     private void LoadInterstitial()
     {
         LoadState = LoadState.Loading;

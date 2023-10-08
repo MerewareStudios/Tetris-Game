@@ -211,8 +211,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 21
     m_Scale: 1
-    m_Name: Atlas 1 PNG - 512_21
-    m_HashCode: 949102308
+    m_Name: Uncheck
+    m_HashCode: -1235932035
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 22
@@ -572,8 +572,8 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 102.4
       m_Height: 102.4
-      m_HorizontalBearingX: -51.2
-      m_HorizontalBearingY: 51.2
+      m_HorizontalBearingX: -1.5
+      m_HorizontalBearingY: 92.54
       m_HorizontalAdvance: 102.4
     m_GlyphRect:
       m_X: 102

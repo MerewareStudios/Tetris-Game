@@ -148,11 +148,6 @@ namespace User
         [SerializeField] public PiggyMenu.Data piggyData;
         [SerializeField] public UpgradeMenu.Data upgradeMenuData;
 
-        
-        public Data()
-        {
-            
-        }
         public Data(Data data)
         {
             level = data.level;

@@ -2517,10 +2517,9 @@ MonoBehaviour:
         moneyCapacity: 0
         breakInstance: 0
       upgradeMenuData:
-        purchaseData: []
+        hiddenData: 
     adData:
-      adBreakEnabled: 0
-      AdBreakMarch: 0
+      removeAds: 0
     baseInfo: SAVE END
   DELETE_AT_START: 1
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
@@ -2554,7 +2553,8 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  adBreakMarchLimit: 2
+  adBreakMarchMax: 3
+  adBreakMarchLimit: 3
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -141,7 +141,7 @@ namespace  Game
                         case UpgradeMenu.PurchaseType.CoinPack:
                             UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
-                        case UpgradeMenu.PurchaseType.Heart:
+                        case UpgradeMenu.PurchaseType.Reserved1:
                             UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }

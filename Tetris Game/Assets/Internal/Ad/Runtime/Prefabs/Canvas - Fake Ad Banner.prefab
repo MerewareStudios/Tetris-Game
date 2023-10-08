@@ -284,7 +284,12 @@ PrefabInstance:
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_fontSize
-      value: 98.4
+      value: 96.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 100.6
       objectReference: {fileID: 0}
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
@@ -299,7 +304,7 @@ PrefabInstance:
     - target: {fileID: 5194960142148293578, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_enableAutoSizing
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7533636813428699342, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
@@ -477,7 +482,7 @@ PrefabInstance:
       propertyPath: m_text
       value: '<size=150%><color=#FFFF>10%</color></size>
 
-        COST
+        <color=#FF3872>COST
 
         REDUCTION'
       objectReference: {fileID: 0}
@@ -485,6 +490,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 64.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551772904412375416, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278245553
       objectReference: {fileID: 0}
     - target: {fileID: 7707755656801220128, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
         type: 3}
@@ -685,7 +695,7 @@ PrefabInstance:
       propertyPath: m_text
       value: '<size=150%><color=#FFFF>+1<sprite name=Ammo></color></size>
 
-        EXTRA
+        <color=#FFC738>EXTRA
 
         STACK'
       objectReference: {fileID: 0}
@@ -693,6 +703,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 64.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551772904412375416, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278245553
       objectReference: {fileID: 0}
     - target: {fileID: 7707755656801220128, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
         type: 3}
@@ -823,15 +838,20 @@ PrefabInstance:
       propertyPath: m_text
       value: '<size=150%><sprite name=Hidden></size>
 
-        SEE THE
+        <color=#38D6FF>SEE
+        THE
 
-        NEXT
-        BLOCK'
+        NEXT BLOCK'
       objectReference: {fileID: 0}
     - target: {fileID: 4551772904412375416, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
         type: 3}
       propertyPath: m_fontSize
       value: 64.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551772904412375416, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278245553
       objectReference: {fileID: 0}
     - target: {fileID: 7707755656801220128, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
         type: 3}

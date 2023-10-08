@@ -58,6 +58,13 @@ namespace Game.UI
                     continue;
                 }
                 
+                purchaseOption.gameObject.SetActive(!_Data.hiddenData[i]);
+
+                if (!purchaseOption.gameObject.activeSelf)
+                {
+                    continue;
+                }
+                
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
 
@@ -80,6 +87,14 @@ namespace Game.UI
                 {
                     continue;
                 }
+
+                purchaseOption.gameObject.SetActive(!_Data.hiddenData[i]);
+
+                if (!purchaseOption.gameObject.activeSelf)
+                {
+                    continue;
+                }
+                
                 
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
@@ -168,7 +183,6 @@ namespace Game.UI
 
 
             OnPurchase((PurchaseType)purchaseIndex);
-            Show(false);
         }
 
         public void OnPurchase(PurchaseType purchaseType)
@@ -188,9 +202,9 @@ namespace Game.UI
                 case PurchaseType.CoinPack:
                     Wallet.COIN.Transaction(1500);
                     break;
-                case PurchaseType.Heart:
+                case PurchaseType.Reserved1:
                     break;
-                case PurchaseType.Shield:
+                case PurchaseType.Reserved2:
                     break;
                 case PurchaseType.PiggyCoinPack:
                     Wallet.PIGGY.Transaction(250);
@@ -215,10 +229,16 @@ namespace Game.UI
                     Wallet.TICKET.Transaction(25);
                     break;
                 case PurchaseType.RemoveAdBreak:
-                    AdManager.THIS._Data.adBreakEnabled = false;
+                    AdManager.Bypass.Ads();
+                    _Data.hiddenData[(int)PurchaseType.RemoveAdBreak] = true;
                     break;
                 default:
                     break;
+            }
+
+            if (base.Visible)
+            {
+                Show(false);
             }
         }
 
@@ -229,8 +249,8 @@ namespace Game.UI
             TicketPack,
             MedKit,
             CoinPack,
-            Heart,
-            Shield,
+            Reserved1,
+            Reserved2,
             PiggyCoinPack,
             PiggyCapacity,
             BasicChest,
@@ -242,38 +262,16 @@ namespace Game.UI
         [System.Serializable]
         public class Data : ICloneable
         {
-            [SerializeField] public List<PurchaseData> purchaseData = new();
-            public Data()
-            {
-                
-            }
+            [SerializeField] public bool[] hiddenData;
+            
             public Data(Data data)
             {
-                purchaseData.CopyFrom(data.purchaseData);   
+                hiddenData = data.hiddenData.Clone() as bool[];
             }
 
             public object Clone()
             {
                 return new Data(this);
-            }
-        } 
-        [System.Serializable]
-        public class PurchaseData : ICloneable
-        {
-            [SerializeField] public long purchaseStamp;
-            
-            public PurchaseData()
-            {
-                
-            }
-            public PurchaseData(PurchaseData purchaseData)
-            {
-                this.purchaseStamp = purchaseData.purchaseStamp;
-            }
-
-            public object Clone()
-            {
-                return new PurchaseData(this);
             }
         } 
         [System.Serializable]

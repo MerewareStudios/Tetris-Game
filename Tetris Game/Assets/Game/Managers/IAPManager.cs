@@ -1,19 +1,23 @@
 using System;
+using System.Collections.Generic;
 using Game.UI;
 using Internal.Core;
+using IWI;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
+using UnityEngine.Purchasing.Security;
 
 
 public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
 {
     IStoreController _storeController;
     ProductCollection _productCollection;
+
     private const string BasicChestID = "com.iwi.combatris.basicchest";
-    private const string RemoveAdBreakID = "com.iwi.combatris.removeadbreak";
+    private const string RemoveAdBreakID = "com.iwi.combatris.noads";
     private const string PiggyCoinPackID = "com.iwi.combatris.piggycoinpack";
     private const string TicketPackID = "com.iwi.combatris.ticketpack";
     private const string PrestigeChestID = "com.iwi.combatris.prestigechest";
@@ -69,13 +73,13 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     public void Initialize()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        builder.AddProduct(BasicChestID, ProductType.NonConsumable);
+        builder.AddProduct(BasicChestID, ProductType.Consumable);
         builder.AddProduct(RemoveAdBreakID, ProductType.NonConsumable);
-        builder.AddProduct(PiggyCoinPackID, ProductType.NonConsumable);
-        builder.AddProduct(TicketPackID , ProductType.NonConsumable);
-        builder.AddProduct(PrestigeChestID, ProductType.NonConsumable);
-        builder.AddProduct(CoinPackID, ProductType.NonConsumable);
-        builder.AddProduct(PrimeChestID, ProductType.NonConsumable);
+        builder.AddProduct(PiggyCoinPackID, ProductType.Consumable);
+        builder.AddProduct(TicketPackID , ProductType.Consumable);
+        builder.AddProduct(PrestigeChestID, ProductType.Consumable);
+        builder.AddProduct(CoinPackID, ProductType.Consumable);
+        builder.AddProduct(PrimeChestID, ProductType.Consumable);
         UnityPurchasing.Initialize(this, builder);
     }
 
@@ -90,9 +94,9 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
             return "No Connection";
         }
 
-        string localString = _productCollection.WithID(PurchaseType2ID(purchaseType)).metadata.localizedPriceString;
-        Debug.Log(localString);
-        return localString;
+        return "₺ 60,00";
+        Product product = _productCollection.WithID(PurchaseType2ID(purchaseType));
+        return product.metadata.localizedPriceString;
     }
 
 
@@ -139,7 +143,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
                 return UpgradeMenu.PurchaseType.PrestigeChest;
         }
         Debug.LogError("Purchase Type Not Found");
-        return UpgradeMenu.PurchaseType.Shield;
+        return UpgradeMenu.PurchaseType.Reserved2;
     }
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
@@ -147,7 +151,16 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         Debug.Log("In-App Purchasing successfully initialized");
         _storeController = controller;
         this._productCollection = _storeController.products;
+        
+        
+        Product productRemoveAdBreak = _productCollection.WithID(RemoveAdBreakID);
+        if (productRemoveAdBreak != null && productRemoveAdBreak.hasReceipt)
+        {
+            AdManager.Bypass.Ads();
+        }
     }
+    
+    
     public void OnInitializeFailed(InitializationFailureReason error)
     {
         OnInitializeFailed(error, null);
@@ -170,6 +183,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         Debug.Log($"Purchase Complete - Product: {product.definition.id}");
         return PurchaseProcessingResult.Complete;
     }
+
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
         Debug.Log($"Purchase failed - Product: '{product.definition.id}', PurchaseFailureReason: {failureReason}");

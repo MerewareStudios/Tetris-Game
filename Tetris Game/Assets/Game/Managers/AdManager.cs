@@ -10,7 +10,8 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        [SerializeField] public int adBreakMarchLimit = 6;
+        [SerializeField] public int adBreakMarchMax = 3;
+        [SerializeField] public int adBreakMarchLimit = 5;
         [System.NonSerialized] private Data _data;
         
 
@@ -28,64 +29,56 @@ namespace IWI
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {
-                    FakeAdBanner.THIS.Initialize();
-                    FakeAdInterstitial.THIS.Initialize();
                     FakeAdRewarded.THIS.Initialize();
+                    FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
+                    {
+                        // Debug.LogWarning("FakeAdRewarded OnLoadedStateChanged " + state);
+                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Rewarded))
+                        {
+                            return;
+                        }
+                        AdBreakScreen.THIS.SetLoadState(state);
+                    };
+                    
+                    
+                    if (_Data.removeAds)
+                    {
+                        SetBannerBonuses(true);
+                        return;
+                    }
+                    
+                    
+                    InitBanner();
+                    
+                    
+                    FakeAdInterstitial.THIS.Initialize();
+                    FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
+                    {
+                        // Debug.LogWarning("FakeAdInterstitial OnLoadedStateChanged " + state);
+                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Interstitial))
+                        {
+                            return;
+                        }
+                        AdBreakScreen.THIS.SetLoadState(state);
+                    };
                 };
         }
         
         private void Start()
         {
             InitAdSDK();
-            
-            FakeAdBanner.THIS.OnOfferAccepted = () =>
-            {
-                _Data.BannerEnabled = true;
-                ShowBannerOrOffer();
-            };
-            FakeAdBanner.THIS.OnVisibilityChanged = (visible) =>
-            {
-                Spawner.THIS.NextBlockEnabled = visible;
-                Board.THIS.BoostingStack = visible;
-                Wallet.ReduceCosts = visible;
-            };
-            
-            FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
-            {
-                // Debug.LogWarning("FakeAdInterstitial OnLoadedStateChanged " + state);
-                if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Interstitial))
-                {
-                    return;
-                }
-                AdBreakScreen.THIS.SetLoadState(state);
-            };
-            
-            FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
-            {
-                // Debug.LogWarning("FakeAdRewarded OnLoadedStateChanged " + state);
-                if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Rewarded))
-                {
-                    return;
-                }
-                AdBreakScreen.THIS.SetLoadState(state);
-            };
-
-            
-            UIManager.OnMenuModeChanged += (menuVisible) =>
-            {
-                FakeAdBanner.THIS.SetBannerPosition(menuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter);
-            };
         }
 
         public void MarchInterstitial(System.Action onSuccess)
         {
-            if (!_Data.adBreakEnabled)
+            if (_Data.removeAds)
             {
                 onSuccess?.Invoke();
                 return;
             }
             _Data.AdBreakMarch++;
-            if (_Data.AdBreakMarch >= this.adBreakMarchLimit)
+            _Data.AdBreakMarch = Mathf.Min(_Data.AdBreakMarch, adBreakMarchLimit);
+            if (_Data.AdBreakMarch >= this.adBreakMarchMax)
             {
                 _Data.AdBreakMarch = 0;
                 ShowAdBreak(onSuccess);
@@ -96,7 +89,11 @@ namespace IWI
 
         public void ShowBannerOrOffer()
         {
-            if (_Data.BannerEnabled)
+            if (_Data.removeAds)
+            {
+                return;
+            }
+            if (_Data.BannerAccepted)
             {
                 FakeAdBanner.THIS.ShowAd();
             }
@@ -106,17 +103,48 @@ namespace IWI
             }
         }
 
-        public void CloseBanner()
+        private void ChangeBannerPosition(bool top)
         {
-            _Data.BannerEnabled = false;
-            FakeAdBanner.THIS.HideAd();
+            FakeAdBanner.THIS.SetBannerPosition(top ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter);
+        }
+
+
+        private void InitBanner()
+        {
+            FakeAdBanner.THIS.Initialize();
+            FakeAdBanner.THIS.OnOfferAccepted = () =>
+            {
+                _Data.BannerAccepted = true;
+                ShowBannerOrOffer();
+            };
+            FakeAdBanner.THIS.OnVisibilityChanged = (visible) =>
+            {
+                SetBannerBonuses(visible);
+            };
+            UIManager.OnMenuModeChanged += ChangeBannerPosition;
+        }
+        private void DestroyBanner()
+        {
+            _Data.BannerAccepted = false;
+            FakeAdBanner.THIS.DestroyBanner();
+
+            FakeAdBanner.THIS.OnOfferAccepted = null;
+            FakeAdBanner.THIS.OnVisibilityChanged = null;
+            UIManager.OnMenuModeChanged -= ChangeBannerPosition;
+        }
+        
+        private void SetBannerBonuses(bool state)
+        {
+            Spawner.THIS.NextBlockEnabled = state;
+            Board.THIS.BoostingStack = state;
+            Wallet.ReduceCosts = state;
         }
 
         public void ShowAdBreak(System.Action onFinish)
         {
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                _Data.AdBreakMarch = adBreakMarchLimit;
+                _Data.AdBreakMarch = adBreakMarchMax;
                 return;
             }
 
@@ -137,7 +165,7 @@ namespace IWI
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    this.adBreakMarchLimit++;
+                    this.adBreakMarchMax++;
                     UIManager.Pause(false);
                     onFinish?.Invoke();
                 }, 
@@ -195,51 +223,38 @@ namespace IWI
             }
             get => _data;
         }
-
-        public void Try2AdBreak()
+        
+        
+        public static class Bypass
         {
-            if (!_Data.adBreakEnabled)
+            public static void Ads()
             {
-                return;
+                if (AdManager.THIS._Data.removeAds)
+                {
+                    return;
+                }
+                AdBreak();
+                Banner();
             }
-            
-            // Debug.LogWarning(_Data.MergeLeftForAdBreak + " Merges Left for an Ad Break");
-            _Data.AdBreakMarch++;
-
-            // if (_Data.CanShowAdBreak)
-            // {
-            //     _Data.mergeCountForAdBreak = 0;
-            //     UIManager.MenuMode(true);
-            //     // AdBreakScreen.Show();
-            // }
+            private static void AdBreak()
+            {
+                AdManager.THIS._Data.removeAds = true;
+            }
+            private static void Banner()
+            {
+                AdManager.THIS.DestroyBanner();
+                AdManager.THIS.SetBannerBonuses(true);
+                
+            }
         }
         
-// #if !UNITY_EDITOR
-//     private void OnApplicationPause(bool pause)
-//     {
-//         if (pause)
-//         {
-//             // FakeAdBanner.THIS.DestroyBanner();
-//         }
-//         else
-//         {
-//             DOVirtual.DelayedCall(2.5f, () =>
-//             {
-//                 MaxSdk.ShowBanner(FakeAdBanner.BannerAdUnitId);
-//                 FakeAdBanner.THIS.SetBannerPosition(MaxSdkBase.BannerPosition.BottomCenter);
-//                 MaxSdk.ShowBanner(FakeAdBanner.BannerAdUnitId);
-//             });
-//         }
-//     }
-// #endif
-        
+
         [System.Serializable]
         public class Data : ICloneable
         {
-            [SerializeField] public bool adBreakEnabled = true;
-            
-            [SerializeField] public int AdBreakMarch = 0;
-            [System.NonSerialized] public bool BannerEnabled = false;
+            [SerializeField] public bool removeAds = false;
+            [System.NonSerialized] public bool BannerAccepted = false;
+            [System.NonSerialized] public int AdBreakMarch = 0;
             
             public Data()
             {
@@ -247,8 +262,7 @@ namespace IWI
             }
             public Data(Data data)
             {
-                adBreakEnabled = data.adBreakEnabled;
-                // bannerEnabled = data.bannerEnabled;
+                removeAds = data.removeAds;
             }
             public object Clone()
             {

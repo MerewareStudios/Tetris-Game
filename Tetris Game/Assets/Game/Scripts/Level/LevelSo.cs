@@ -10,7 +10,7 @@ namespace Game
     public class LevelSo : ScriptableObject
     {
         [SerializeField] public float deltaMult = 1.0f;
-        [SerializeField] public bool adsEnabled = true;
+        [SerializeField] public bool showBannerOffer = true;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);
         [SerializeField] public Enemy.SpawnData EnemySpawnData;
         [SerializeField] public bool canGiveBonus = true;
@@ -54,6 +54,6 @@ public static class LevelSoExtension
     }
     public static bool AdsEnabled(this int level)
     {
-        return Const.THIS.Levels[level - 1].adsEnabled;
+        return Const.THIS.Levels[level - 1].showBannerOffer;
     }
 }
