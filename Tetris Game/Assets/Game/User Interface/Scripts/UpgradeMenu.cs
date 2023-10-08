@@ -98,7 +98,7 @@ namespace Game.UI
                     case Const.CurrencyType.Ticket:
                         purchaseText = "GET";
                         break;
-                    case Const.CurrencyType.Dollar:
+                    case Const.CurrencyType.Local:
                         purchaseText = "BUY";
                         break;
                 }
@@ -114,7 +114,15 @@ namespace Game.UI
                         break;
                 }
 
-                purchaseOption.SetPurchase(lookUp.currency, hasFunds);
+                if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
+                {
+                    purchaseOption.SetLocalPrice(lookUp.GetLocalPrice(), hasFunds);
+                }
+                else
+                {
+                    purchaseOption.SetPrice(lookUp.currency, hasFunds);
+                }
+                
                 if (glimmerByBadge)
                 {
                     purchaseOption.GlimmerByBadge();
@@ -158,19 +166,19 @@ namespace Game.UI
                 case PurchaseType.MaxStack:
                     Board.THIS._Data.maxStack++;
                     break;
-                case PurchaseType.SkipTicket:
+                case PurchaseType.TicketPack:
                     Wallet.TICKET.Transaction(15);
                     break;
                 case PurchaseType.MedKit:
                     Warzone.THIS.Player._CurrentHealth += 15;
                     break;
-                case PurchaseType.Coin:
+                case PurchaseType.CoinPack:
                     Wallet.COIN.Transaction(1500);
                     break;
                 case PurchaseType.Shield:
                     
                     break;
-                case PurchaseType.PiggyCoin:
+                case PurchaseType.PiggyCoinPack:
                     Wallet.PIGGY.Transaction(250);
                     break;
                 case PurchaseType.PiggyCapacity:
@@ -192,8 +200,17 @@ namespace Game.UI
                     Wallet.PIGGY.Transaction(250);
                     Wallet.TICKET.Transaction(25);
                     break;
-                case PurchaseType.RemoveAds:
-                    AdManager.THIS._Data.adBreakEnabled = false;
+                case PurchaseType.RemoveAdBreak:
+                    
+                    IAPManager.THIS.Purchase(PurchaseType.RemoveAdBreak, 
+                    () =>
+                    {
+                        AdManager.THIS._Data.adBreakEnabled = false;
+                    }, 
+                    () =>
+                    {
+                        
+                    });
                     break;
             }
             Show(false);
@@ -203,17 +220,17 @@ namespace Game.UI
         public enum PurchaseType
         {
             MaxStack,
-            SkipTicket,
+            TicketPack,
             MedKit,
-            Coin,
+            CoinPack,
             Heart,
             Shield,
-            PiggyCoin,
+            PiggyCoinPack,
             PiggyCapacity,
             BasicChest,
             PrimeChest,
             PrestigeChest,
-            RemoveAds,
+            RemoveAdBreak,
         }
 
         [System.Serializable]
@@ -263,6 +280,11 @@ namespace Game.UI
             [TextArea] [SerializeField] public string info;
             [SerializeField] public UseCondition useCondition;
             [SerializeField] public bool best = false;
+
+            public string GetLocalPrice()
+            {
+                return IAPManager.THIS.GetLocalPrice(purchaseType);
+            }
         } 
         
     }

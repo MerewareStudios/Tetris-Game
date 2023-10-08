@@ -138,7 +138,7 @@ namespace  Game
                 {
                     switch (reward.type)
                     {
-                        case UpgradeMenu.PurchaseType.Coin:
+                        case UpgradeMenu.PurchaseType.CoinPack:
                             UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                         case UpgradeMenu.PurchaseType.Heart:

@@ -8,6 +8,12 @@ public class CurrencyDisplay : MonoBehaviour
     [SerializeField] public RectTransform iconPivot;
     [System.NonSerialized] private Const.CurrencyType currencyType;
 
+    
+    public void DisplayLocalCurrency(string localCurrency)
+    {
+        text.text = localCurrency;
+        UpdateVisual(Const.CurrencyType.Local);
+    }
     public void Display(Const.Currency overridenCurrency)
     {
         text.text = overridenCurrency.type.ToTMProKey() + " " + overridenCurrency.amount;

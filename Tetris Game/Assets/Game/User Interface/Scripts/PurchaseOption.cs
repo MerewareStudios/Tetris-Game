@@ -27,23 +27,17 @@ public class PurchaseOption : MonoBehaviour
         icon.sprite = sprite;
         return this;
     }
-    public PurchaseOption SetPurchase(Const.Currency currency, bool available)
+    public PurchaseOption SetPrice(Const.Currency currency, bool available)
     {
-        if (currency.type.Equals(Const.CurrencyType.Dollar))
-        {
-            priceCurrencyDisplay.DisplayRealMoneyWithFraction(currency);
-            purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
-        }
-        else if (currency.type.Equals(Const.CurrencyType.Ticket))
-        {
-            priceCurrencyDisplay.Display(currency);
-            purchaseButton.ButtonSprite = Const.THIS.watchButtonTexture;
-        }
-        else
-        {
-            priceCurrencyDisplay.Display(currency);
-            purchaseButton.ButtonSprite = Const.THIS.getButtonTexture;
-        }
+        priceCurrencyDisplay.Display(currency);
+        purchaseButton.ButtonSprite = Const.THIS.buttonTextures[(int)currency.type];
+        purchaseButton.Available = available;
+        return this;
+    }
+    public PurchaseOption SetLocalPrice(string localCurrency, bool available)
+    {
+        priceCurrencyDisplay.DisplayLocalCurrency(localCurrency);
+        purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
 
         purchaseButton.Available = available;
         return this;

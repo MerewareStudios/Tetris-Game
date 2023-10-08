@@ -11,6 +11,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]
 public class Const : SSingleton<Const>
 {
+    #if UNITY_EDITOR
+    public bool deleteAtStart = true;
+    public bool skipOnboarding = true;
+    public bool shopAvailable = true;
+
+    private void OnValidate()
+    {
+        SaveManager.THIS.DELETE_AT_START = deleteAtStart;
+        SaveManager.THIS.SKIP_ONBOARDING = skipOnboarding;
+        DefaultUserData.shopData.available = skipOnboarding;
+    }
+#endif
+    
     [Header("Look Up")]
     public LevelSo[] Levels;
     public Pawn.Usage[] PowerUps;
@@ -41,6 +54,7 @@ public class Const : SSingleton<Const>
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
     [Header("Button Textures")] 
+    public Sprite[] buttonTextures;
     public Sprite getButtonTexture;
     public Sprite buyButtonTexture;
     public Sprite watchButtonTexture;
@@ -91,7 +105,7 @@ public class Const : SSingleton<Const>
         Coin,
         PiggyCoin,
         Ticket,
-        Dollar,
+        Local,
     }
 
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)

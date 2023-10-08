@@ -31,6 +31,10 @@ public class Shop : MonoBehaviour
         set
         {
             this.data = value;
+            if (data.available)
+            {
+                ImmediateShow();
+            }
         }
         get => this.data;
     }
@@ -85,6 +89,15 @@ public class Shop : MonoBehaviour
         };
         
     }
+
+    private void ImmediateShow()
+    {
+        buttonTransform.gameObject.SetActive(true);
+        buttonTransform.localScale = Vector3.one;
+        animator.enabled = true;
+        
+        button.targetGraphic.raycastTarget = true;
+    }
     
     public void AnimatedShow()
     {
@@ -125,21 +138,15 @@ public class Shop : MonoBehaviour
             sequence.onComplete  = () =>
             {
                 trailRenderer.transform.SetParent(_canvas.transform);
-
                 trailRenderer.emitting = false;
-                
                 bigIconTransform.gameObject.SetActive(false);
-                buttonTransform.gameObject.SetActive(true);
+
+                ImmediateShow();
                 
                 buttonTransform.DOKill();
-                buttonTransform.localScale = Vector3.one;
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
-
-                animator.enabled = true;
-
+                
                 int rewardAmount = Random.Range(8, 15);
-                button.targetGraphic.raycastTarget = true;
-
                 UIManagerExtensions.EmitLevelShopCoin(smallIconTransform.position, rewardAmount, rewardAmount);
             };
         }
@@ -148,10 +155,9 @@ public class Shop : MonoBehaviour
     [System.Serializable]
     public class Data : ICloneable
     {
+        [SerializeField] public bool available = false    ;
         [SerializeField] public int current = 0;
         [SerializeField] public int max = 6;
-
-        
         
         public Data()
         {
@@ -159,6 +165,7 @@ public class Shop : MonoBehaviour
         }
         public Data(Data data)
         {
+            this.available = data.available;
             this.current = data.current;
             this.max = data.max;
         }
