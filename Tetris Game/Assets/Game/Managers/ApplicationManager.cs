@@ -1,6 +1,7 @@
 using System;
 using Internal.Core;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -61,7 +62,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
                 );
             
             
-            fpsText.text = fps.ToString() + " | " + stamp;
+            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + ")";
             // fpsText.text = fps.ToString() + " | " + stamp + " | " + Helper.ScreenDPI() + " | " + Helper.ScreenHeightDP();
             fps = 0;
             fpsTimestamp = Time.realtimeSinceStartup;

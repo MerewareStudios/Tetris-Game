@@ -138,6 +138,12 @@ namespace Game.UI
             // PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
+            if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
+            {
+                IAPManager.THIS.Purchase((PurchaseType)purchaseIndex);
+                return;
+            }
+            
             if (!Wallet.Consume(lookUp.currency))
             {
                 if (lookUp.currency.type.Equals(Const.CurrencyType.Ticket))
@@ -161,7 +167,14 @@ namespace Game.UI
             purchaseOptions[purchaseIndex].Glimmer();
 
 
-            switch ((PurchaseType)purchaseIndex)
+            OnPurchase((PurchaseType)purchaseIndex);
+            Show(false);
+        }
+
+        public void OnPurchase(PurchaseType purchaseType)
+        {
+            Debug.Log("Purchased : " + purchaseType);
+            switch (purchaseType)
             {
                 case PurchaseType.MaxStack:
                     Board.THIS._Data.maxStack++;
@@ -175,8 +188,9 @@ namespace Game.UI
                 case PurchaseType.CoinPack:
                     Wallet.COIN.Transaction(1500);
                     break;
+                case PurchaseType.Heart:
+                    break;
                 case PurchaseType.Shield:
-                    
                     break;
                 case PurchaseType.PiggyCoinPack:
                     Wallet.PIGGY.Transaction(250);
@@ -201,19 +215,11 @@ namespace Game.UI
                     Wallet.TICKET.Transaction(25);
                     break;
                 case PurchaseType.RemoveAdBreak:
-                    
-                    IAPManager.THIS.Purchase(PurchaseType.RemoveAdBreak, 
-                    () =>
-                    {
-                        AdManager.THIS._Data.adBreakEnabled = false;
-                    }, 
-                    () =>
-                    {
-                        
-                    });
+                    AdManager.THIS._Data.adBreakEnabled = false;
+                    break;
+                default:
                     break;
             }
-            Show(false);
         }
 
         [Serializable]

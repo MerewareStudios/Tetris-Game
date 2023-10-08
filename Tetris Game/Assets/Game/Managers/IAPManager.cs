@@ -21,9 +21,6 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     private const string PrimeChestID = "com.iwi.combatris.primechest";
 
 
-    private System.Action _onSuccess = null;
-    private System.Action _onFailed = null;
-    
     void Awake()
     {
         void InitializeGamingServies(Action onSuccess, Action<string> onError)
@@ -43,8 +40,8 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         InitializeGamingServies(
             () =>
             {
-                // var text = "Congratulations!\nUnity Gaming Services has been successfully initialized.";
-                // Debug.Log(text);
+                var text = "Congratulations!\nUnity Gaming Services has been successfully initialized.";
+                Debug.Log(text);
             },
             message =>
             {
@@ -69,21 +66,21 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     }
 
    
-    
-
-
     public void Initialize()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+        builder.AddProduct(BasicChestID, ProductType.NonConsumable);
         builder.AddProduct(RemoveAdBreakID, ProductType.NonConsumable);
+        builder.AddProduct(PiggyCoinPackID, ProductType.NonConsumable);
+        builder.AddProduct(TicketPackID , ProductType.NonConsumable);
+        builder.AddProduct(PrestigeChestID, ProductType.NonConsumable);
+        builder.AddProduct(CoinPackID, ProductType.NonConsumable);
+        builder.AddProduct(PrimeChestID, ProductType.NonConsumable);
         UnityPurchasing.Initialize(this, builder);
     }
 
-    public void Purchase(UpgradeMenu.PurchaseType purchaseType, System.Action onSuccess, System.Action onFail)
+    public void Purchase(UpgradeMenu.PurchaseType purchaseType)
     {
-        this._onSuccess = onSuccess;
-        this._onFailed = onFail;
-        
         _storeController.InitiatePurchase(PurchaseType2ID(purchaseType));
     }
     public string GetLocalPrice(UpgradeMenu.PurchaseType purchaseType)
@@ -102,17 +99,12 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         {
             case UpgradeMenu.PurchaseType.RemoveAdBreak:
                 return RemoveAdBreakID;
-            // case UpgradeMenu.PurchaseType.MaxStack:
             case UpgradeMenu.PurchaseType.TicketPack:
                 return TicketPackID;
-            // case UpgradeMenu.PurchaseType.MedKit:
             case UpgradeMenu.PurchaseType.CoinPack:
                 return CoinPackID;
-            // case UpgradeMenu.PurchaseType.Heart:
-            // case UpgradeMenu.PurchaseType.Shield:
             case UpgradeMenu.PurchaseType.PiggyCoinPack:
                 return PiggyCoinPackID;
-            // case UpgradeMenu.PurchaseType.PiggyCapacity:
             case UpgradeMenu.PurchaseType.BasicChest:
                 return BasicChestID;
             case UpgradeMenu.PurchaseType.PrimeChest:
@@ -123,10 +115,33 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         Debug.LogError("Purchase Type Not Found");
         return "";
     }
+    
+    private UpgradeMenu.PurchaseType ID2PurchaseType(string id)
+    {
+        switch (id)
+        {
+            case RemoveAdBreakID:
+                return UpgradeMenu.PurchaseType.RemoveAdBreak;
+            case TicketPackID:
+                return UpgradeMenu.PurchaseType.TicketPack;
+            case CoinPackID:
+                return UpgradeMenu.PurchaseType.CoinPack;
+            case PiggyCoinPackID:
+                return UpgradeMenu.PurchaseType.PiggyCoinPack;
+            case BasicChestID:
+                return UpgradeMenu.PurchaseType.BasicChest;
+            case PrimeChestID:
+                return UpgradeMenu.PurchaseType.PrimeChest;
+            case PrestigeChestID:
+                return UpgradeMenu.PurchaseType.PrestigeChest;
+        }
+        Debug.LogError("Purchase Type Not Found");
+        return UpgradeMenu.PurchaseType.Shield;
+    }
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
-        // Debug.Log("In-App Purchasing successfully initialized");
+        Debug.Log("In-App Purchasing successfully initialized");
         _storeController = controller;
         this._productCollection = _storeController.products;
     }
@@ -147,23 +162,9 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     }
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
-        //Retrieve the purchased product
-
-        _onSuccess?.Invoke();
-        //Add the purchased product to the players inventory
-        // if (product.definition.id == goldProductId)
-        // {
-        //     AddGold();
-        // }
-        // else if (product.definition.id == diamondProductId)
-        // {
-        //     AddDiamond();
-        // }
-
         var product = args.purchasedProduct;
+        UpgradeMenu.THIS.OnPurchase(ID2PurchaseType(product.definition.id));
         Debug.Log($"Purchase Complete - Product: {product.definition.id}");
-
-        //We return Complete, informing IAP that the processing on our side is done and the transaction can be closed.
         return PurchaseProcessingResult.Complete;
     }
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
