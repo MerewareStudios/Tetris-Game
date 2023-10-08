@@ -93,8 +93,6 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         {
             return "No Connection";
         }
-
-        return "₺ 60,00";
         Product product = _productCollection.WithID(PurchaseType2ID(purchaseType));
         return product.metadata.localizedPriceString;
     }

@@ -462,6 +462,7 @@ MonoBehaviour:
   trailRenderer: {fileID: 4601177542302468294}
   button: {fileID: 8715802640014057094}
   data:
+    available: 0
     current: 0
     max: 6
   emptyColor: {r: 0, g: 0, b: 0, a: 0.4627451}
@@ -842,7 +843,7 @@ MonoBehaviour:
   m_text: SHOP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 9f22b890cfbee9440b4fe62e797cad82, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 2c1235f3429ac394895a1d2f6429673a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
