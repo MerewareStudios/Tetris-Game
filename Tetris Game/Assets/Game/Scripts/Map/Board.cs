@@ -884,48 +884,6 @@ namespace Game
             _delayedHighlightTween = null;
         }
         
-        [System.Serializable]
-        public class SuggestedBlock
-        {
-            [SerializeField] public Pool type;
-            [SerializeField] public List<int> requiredPlaces;
-            [SerializeField] public BlockRot blockRot;
-            [SerializeField] public bool canRotate = true;
-        }
-
-        public enum BlockRot
-        {
-            UP,
-            RIGHT,
-            DOWN,
-            LEFT
-        }
-        
-        [System.Serializable]
-        public class Data : System.ICloneable
-        {
-            [SerializeField] public int defaultStack = 6;
-            [SerializeField] public int maxStack = 6;
-            [SerializeField] public int defaultSupplyLine = 6;
-            [SerializeField] public int pawnSat = 75;
-            
-            public Data()
-            {
-                
-            }
-            public Data(Data data)
-            {
-                this.defaultStack = data.defaultStack;
-                this.maxStack = data.maxStack;
-                this.defaultSupplyLine = data.defaultSupplyLine;
-                this.pawnSat = data.pawnSat;
-            }
-
-            public object Clone()
-            {
-                return new Data(this);
-            }
-        }
 
         private List<List<Place>> DetectFit(Block block)
         {
@@ -1011,6 +969,49 @@ namespace Game
                 }
             }
             return allPlaces;
+        }
+        
+        [System.Serializable]
+        public class SuggestedBlock
+        {
+            [SerializeField] public Pool type;
+            [SerializeField] public List<int> requiredPlaces;
+            [SerializeField] public BlockRot blockRot;
+            [SerializeField] public bool canRotate = true;
+        }
+
+        public enum BlockRot
+        {
+            UP,
+            RIGHT,
+            DOWN,
+            LEFT
+        }
+        
+        [System.Serializable]
+        public class Data : System.ICloneable
+        {
+            [SerializeField] public int defaultStack = 6;
+            [SerializeField] public int maxStack = 6;
+            [SerializeField] public int defaultSupplyLine = 6;
+            [SerializeField] public int pawnSat = 75;
+            
+            public Data()
+            {
+                
+            }
+            public Data(Data data)
+            {
+                this.defaultStack = data.defaultStack;
+                this.maxStack = data.maxStack;
+                this.defaultSupplyLine = data.defaultSupplyLine;
+                this.pawnSat = data.pawnSat;
+            }
+
+            public object Clone()
+            {
+                return new Data(this);
+            }
         }
     }
 }
