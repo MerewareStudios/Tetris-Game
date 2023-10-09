@@ -1,10 +1,10 @@
-using System;
 using DG.Tweening;
 using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
 using IWI.Tutorial;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class Spawner : Singleton<Spawner>
@@ -23,10 +23,9 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private RectTransform nextBlockPivot;
    
     [System.NonSerialized] public Block CurrentBlock;
-    
     [System.NonSerialized] private Pool _nextBlock;
     [System.NonSerialized] private Plane _plane;
-    [System.NonSerialized] private bool _grabbedBlock = false;
+    [System.NonSerialized] public bool GrabbedBlock = false;
     [System.NonSerialized] private Coroutine _moveRoutine = null;
     [System.NonSerialized] private Vector3 _dragOffset;
     [System.NonSerialized] private Vector3 _finalPosition;
@@ -95,6 +94,11 @@ public class Spawner : Singleton<Spawner>
             CurrentBlock = SpawnSuggestedBlock();  
         }, false);
     }
+    public void UndelayedSpawn()
+    {
+        _delayedTween?.Kill();
+        CurrentBlock = SpawnSuggestedBlock();  
+    }
     public void Deconstruct()
     {
         while (_spawnedBlocks.Count > 0)
@@ -113,7 +117,7 @@ public class Spawner : Singleton<Spawner>
         _assertionTween?.Kill();
         StopMovement();
         Mount();
-        Board.THIS.HighlightBlock();
+        // Board.THIS.HighlightPlaces();
     }
     public void OnLevelLoad()
     {
@@ -156,7 +160,7 @@ public class Spawner : Singleton<Spawner>
         _assertionTween = DOVirtual.DelayedCall(0.2f, null, true);
         _assertionTween.onComplete = () =>
         {
-            _grabbedBlock = true;
+            GrabbedBlock = true;
 
 
             RecordFingerStart();
@@ -196,7 +200,7 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock || _grabbedBlock)
+        if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock || GrabbedBlock)
         {
             return;
         }
@@ -234,26 +238,13 @@ public class Spawner : Singleton<Spawner>
             _assertionTween.Kill(true);
             _assertionTween = null;
         }
-        if (!_grabbedBlock)
+        if (!GrabbedBlock)
         {
             return;
         }
 
         UpdateTargetPosition();
-        HighlightCurrentBlock();
-    }
-
-    public void HighlightCurrentBlock()
-    {
-        if (!CurrentBlock)
-        {
-            return;
-        }
-        if (!_grabbedBlock)
-        {
-            return;
-        }
-        Board.THIS.HighlightBlock(CurrentBlock);
+        Board.THIS.HighlightPlaces();
     }
 
     private void RecordFingerStart()
@@ -271,6 +262,12 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnUp()
     {
+        InputUpWrap();
+        Board.THIS.HighlightPlaces();
+    }
+
+    private void InputUpWrap()
+    {
         if (Input.touchCount > 1)
         {
             return;
@@ -281,25 +278,27 @@ public class Spawner : Singleton<Spawner>
         }
         _assertionTween?.Kill();
         StopMovement();
-        if (!_grabbedBlock || CurrentBlock == null)
+        if (!GrabbedBlock || CurrentBlock == null)
         {
             return;
         }
-        _grabbedBlock = false;
-        Board.THIS.HighlightBlock();
+        GrabbedBlock = false;
+        
 
         if (Board.THIS.CanPlace(CurrentBlock))
         {
             Board.THIS.Place(CurrentBlock);
-            Board.THIS.HideSuggestedPlaces();
 
             CurrentBlock = null;
             
+            Board.THIS.HideSuggestedPlaces();
+
 
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
                 _delayedTween?.Kill();
-                DelayedSpawn(0.2f);
+                // UndelayedSpawn();
+                DelayedSpawn(0.25f);
                 
                 return;
             }
@@ -325,6 +324,10 @@ public class Spawner : Singleton<Spawner>
             
             return;
         }
+        // else
+        // {
+        // Board.THIS.HighlightPlaces();
+        // }
         
         if (ONBOARDING.TEACH_PICK.IsNotComplete())
         {
@@ -385,7 +388,6 @@ public class Spawner : Singleton<Spawner>
                 DisplayNextBlock();
             }
         }
-        
         return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
@@ -404,7 +406,6 @@ public class Spawner : Singleton<Spawner>
         _spawnedBlocks.Add(block);
 
         _spawnIndex++;
-
         return block;
     }
 

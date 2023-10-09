@@ -21,7 +21,8 @@ namespace Game
 
         public Vector3 Position => _thisTransform.position;
         public PlaceColorType NormalDarkLight => Even ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;
-        public PlaceColorType LimitDarkLight => Even ? PlaceColorType.LIMIT_DARK : PlaceColorType.LIMIT_LIGHT;
+        public PlaceColorType LimitDarkLightUp => Even ? PlaceColorType.LIMIT_DARK_UP : PlaceColorType.LIMIT_LIGHT_UP;
+        public PlaceColorType LimitDarkLightDown => Even ? PlaceColorType.LIMIT_DARK_DOWN : PlaceColorType.LIMIT_LIGHT_DOWN;
         public PlaceColorType RayDarkLight => Even ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
         public bool Even => (Index.x + Index.y) % 2 == 0;
         
@@ -71,15 +72,18 @@ namespace Game
             _colorType = _targetColorType;
             
             int enumIndex = (int)_colorType;
-            
-            Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
-            DoColor(targetColor);
-            
-            Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
-            DoPos(targetPos);
-            
+
             bool targetState = Const.THIS.ghostPawnStateDouble[enumIndex];
             DoGhostPawn(targetState);
+            
+            if (!targetState)
+            {
+                Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
+                DoColor(targetColor);
+            }
+                
+            Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
+            DoPos(targetPos);
         }
         public void FinalizeImmediate()
         {
@@ -98,9 +102,13 @@ namespace Game
 
         private void DoColor(Color color)
         {
-            gridTile.DOKill();
             _colorTween?.Kill();
-            _colorTween = gridTile.material.DOColor(color, 0.15f).SetEase(Ease.OutQuad);
+            _colorTween = gridTile.material.DOColor(color, 0.2f).SetEase(Ease.OutQuad);
+        }
+
+        private Color GrayScale(Color color, float weight)
+        {
+            return new Color(color.r * 0.3f * weight, color.g * 0.59f * weight, color.b * 0.11f * weight);
         }
         private void DoPos(Vector3 pos)
         {
@@ -112,6 +120,10 @@ namespace Game
         {
             if (add)
             {
+                if (_ghostPawn)
+                {
+                    return;
+                }
                 _ghostPawn = Board.THIS.AddGhostPawn(segmentParent.position);
             }
             else
@@ -147,8 +159,10 @@ namespace Game
             RED,
             NORMAL_DARK,
             NORMAL_LIGHT,
-            LIMIT_DARK,
-            LIMIT_LIGHT,
+            LIMIT_DARK_UP,
+            LIMIT_LIGHT_UP,
+            LIMIT_DARK_DOWN,
+            LIMIT_LIGHT_DOWN,
             RAY_DARK,
             RAY_LIGHT,
         }

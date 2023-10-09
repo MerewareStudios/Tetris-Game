@@ -46,74 +46,192 @@ namespace Game
             }
             get => _data;
         }
-        
-        public void Construct(Vector2Int size)
-        {
-            this._size = size;
-            
-            CameraManager.THIS.OrtoSize = _size.x + 1.82f;
 
-            if (_places != null)
+        #region Construct - Deconstruct
+            public void Construct(Vector2Int size)
+            {
+                this._size = size;
+                
+                CameraManager.THIS.OrtoSize = _size.x + 1.82f;
+
+                if (_places != null)
+                {
+                    foreach (var place in _places)
+                    {
+                        place.Despawn(0);
+                    }
+                }
+                
+                _places = new Place[_size.x, _size.y];
+                for (int i = 0; i < _size.x; i++)
+                {
+                    for(int j = 0; j < _size.y; j++)
+                    {
+                        Place place = Pool.Place.Spawn<Place>(_thisTransform);
+                        place.LocalPosition = new Vector3(i, 0.0f, -j);
+                        _places[i, j] = place;
+                        place.Index = new Vector2Int(i, j);
+                        place.Construct();
+                    }
+                }
+                
+                visualFrame.sizeDelta = new Vector2(_size.x * 100.0f + 42.7f, _size.y * 100.0f + 42.7f);
+                _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
+                ground.localScale = Vector3.one * (25.0f + (_size.x - 6) * 2.5f);
+
+                this.WaitForNull(() =>
+                {
+                    Spawner.THIS.UpdatePosition(spawnerPin.position);
+                    
+                    float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.1f;
+                    
+                    
+                    _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
+                    _thisPosition = _thisTransform.position;
+                    
+
+                    Vector3 playerPos = playerPivot.position;
+                    playerPos.y = 0.0f;
+                    Warzone.THIS.Player.transform.position = playerPos;
+
+                    
+                    Spawner.THIS.UpdateFingerDelta(bottomPin.position);
+                    
+
+                    Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward));
+                    Warzone.THIS.StartLine = topProjection.z - 1.4f;
+                    Warzone.THIS.EndLine = deadline.position.z;
+
+                    StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
+                });
+            }
+
+            public void Deconstruct()
+            {
+                DehighlightImmediate();
+                foreach (var place in _places)
+                {
+                    place.Deconstruct();
+                }
+            }
+        #endregion
+        #region Highlight - Pawn
+            private void DehighlightImmediate()
             {
                 foreach (var place in _places)
                 {
-                    place.Despawn(0);
+                    place.SetTargetColorType(place.NormalDarkLight);
+                    place.FinalizeImmediate();
                 }
             }
-            
-            _places = new Place[_size.x, _size.y];
-            for (int i = 0; i < _size.x; i++)
+            public void HighlightPlaces()
             {
-                for(int j = 0; j < _size.y; j++)
+                Block block = Spawner.THIS.CurrentBlock;
+                bool grabbed = Spawner.THIS.GrabbedBlock;
+                
+                foreach (var place in _places)
                 {
-                    Place place = Pool.Place.Spawn<Place>(_thisTransform);
-                    place.LocalPosition = new Vector3(i, 0.0f, -j);
-                    _places[i, j] = place;
-                    place.Index = new Vector2Int(i, j);
-                    place.Construct();
+                    if (block && grabbed)
+                    {
+                        place.SetTargetColorType((place.Index.y >= _size.y - block.blockData.FitHeight) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
+                    }
+                    else
+                    {
+                        place.SetTargetColorType(place.NormalDarkLight);
+                    }
+                }
+                
+                
+                if (block && grabbed)
+                {
+                    List<Vector2Int> projectedPlaces = new();
+                    bool canProjectFuture = true;
+                    foreach (var pawn in block.Pawns)
+                    {
+                        (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
+                        if (!place)
+                        {
+                            continue;
+                        }
+                        
+                        place.SetTargetColorType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
+
+                        if (canProjectFuture)
+                        {
+                            if (canPlace && place)
+                            {
+                                projectedPlaces.Add(place.Index);
+                            }
+                            else
+                            {
+                                canProjectFuture = false;
+                            }
+                        }
+                    }
+
+                    if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
+                    {
+                        int minShift = _size.y;
+                        
+                        for (int i = 0; i < projectedPlaces.Count; i++)
+                        {
+                            Vector2Int currentIndex = projectedPlaces[i];
+                            int currentShift = 0;
+                            for (int v = currentIndex.y; v >= 0; v--)
+                            {
+                                if (_places[currentIndex.x, v].Current)
+                                {
+                                    break;
+                                }
+                                
+                                currentShift++;
+                            }
+
+                            currentShift--;
+                            minShift = Mathf.Min(minShift, currentShift);
+                        }
+
+                        if (minShift > 0)
+                        {
+                            for (int i = 0; i < projectedPlaces.Count; i++)
+                            {
+                                Vector2Int shiftedIndex = projectedPlaces[i] - new Vector2Int(0, minShift);
+                                _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(_places[shiftedIndex.x, shiftedIndex.y].RayDarkLight);
+                            }
+                        }
+                    }
+                }
+                
+                foreach (var place in _places)
+                {
+                    place.FinalizeState();
                 }
             }
             
-            visualFrame.sizeDelta = new Vector2(_size.x * 100.0f + 42.7f, _size.y * 100.0f + 42.7f);
-            _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
-            ground.localScale = Vector3.one * (25.0f + (_size.x - 6) * 2.5f);
-
-            this.WaitForNull(() =>
+            public GhostPawn AddGhostPawn(Vector3 position)
             {
-                Spawner.THIS.UpdatePosition(spawnerPin.position);
+                GhostPawn ghostPawn = Pool.Ghost_Pawn.Spawn<GhostPawn>();
                 
-                float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.1f;
+                ghostPawn.thisTransform.position = position;
                 
+                ghostPawn.meshRenderer.material.DOKill();
+                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f);
                 
-                _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
-                _thisPosition = _thisTransform.position;
-                
-
-                Vector3 playerPos = playerPivot.position;
-                playerPos.y = 0.0f;
-                Warzone.THIS.Player.transform.position = playerPos;
-
-                
-                Spawner.THIS.UpdateFingerDelta(bottomPin.position);
-                
-
-                Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward));
-                Warzone.THIS.StartLine = topProjection.z - 1.4f;
-                Warzone.THIS.EndLine = deadline.position.z;
-
-                StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
-            });
-        }
-
-        public void Deconstruct()
-        {
-            DehighlightImmediate();
+                _ghostPawns.Add(ghostPawn);
             
-            foreach (var place in _places)
-            {
-                place.Deconstruct();
+                return ghostPawn;
             }
-        }
+            public void RemoveGhostPawn(GhostPawn ghostPawn)
+            {
+                ghostPawn.meshRenderer.material.DOKill();
+                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostFade, 0.15f).onComplete = () =>
+                {
+                    ghostPawn.Despawn(Pool.Ghost_Pawn);
+                };
+                
+                _ghostPawns.Remove(ghostPawn);
+            }
+        #endregion
         
         public void OnLevelEnd()
         {
@@ -244,116 +362,6 @@ namespace Game
             }
         }
 
-        #region Highlight
-            private void Dehighlight(Block block = null)
-            {
-                foreach (var place in _places)
-                {
-                    place.SetTargetColorType((block && place.Index.y >= _size.y - block.blockData.FitHeight) ? place.LimitDarkLight : place.NormalDarkLight);
-                }
-            }
-            private void DehighlightImmediate()
-            {
-                foreach (var place in _places)
-                {
-                    place.SetTargetColorType(place.NormalDarkLight);
-                    place.FinalizeImmediate();
-                }
-            }
-            public void HighlightBlock(Block block = null)
-            {
-                Board.THIS.Dehighlight(block);
-                if (block)
-                {
-                    List<Vector2Int> projectedPlaces = new();
-                    bool canProjectFuture = true;
-                    foreach (var pawn in block.Pawns)
-                    {
-                        (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
-                        if (!place)
-                        {
-                            continue;
-                        }
-                        
-                        place.SetTargetColorType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
-
-                        if (canProjectFuture)
-                        {
-                            if (canPlace && place)
-                            {
-                                projectedPlaces.Add(place.Index);
-                            }
-                            else
-                            {
-                                canProjectFuture = false;
-                            }
-                        }
-                    }
-
-                    if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
-                    {
-                        int minShift = _size.y;
-                        
-                        for (int i = 0; i < projectedPlaces.Count; i++)
-                        {
-                            Vector2Int currentIndex = projectedPlaces[i];
-                            int currentShift = 0;
-                            for (int v = currentIndex.y; v >= 0; v--)
-                            {
-                                if (_places[currentIndex.x, v].Current)
-                                {
-                                    break;
-                                }
-                                
-                                currentShift++;
-                            }
-
-                            currentShift--;
-                            minShift = Mathf.Min(minShift, currentShift);
-                        }
-
-                        if (minShift > 0)
-                        {
-                            for (int i = 0; i < projectedPlaces.Count; i++)
-                            {
-                                Vector2Int shiftedIndex = projectedPlaces[i] - new Vector2Int(0, minShift);
-                                _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(_places[shiftedIndex.x, shiftedIndex.y].RayDarkLight);
-                            }
-                        }
-                    }
-                }
-                
-                foreach (var place in _places)
-                {
-                    place.FinalizeState();
-                }
-            }
-            
-            public GhostPawn AddGhostPawn(Vector3 position)
-            {
-                GhostPawn ghostPawn = Pool.Ghost_Pawn.Spawn<GhostPawn>();
-                
-                ghostPawn.thisTransform.position = position;
-                
-                ghostPawn.meshRenderer.material.DOKill();
-                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f);
-                
-                _ghostPawns.Add(ghostPawn);
-            
-                return ghostPawn;
-            }
-            public void RemoveGhostPawn(GhostPawn ghostPawn)
-            {
-                ghostPawn.meshRenderer.material.DOKill();
-                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostFade, 0.15f).onComplete = () =>
-                {
-                    ghostPawn.Despawn(Pool.Ghost_Pawn);
-                };
-                
-                _ghostPawns.Remove(ghostPawn);
-            }
-            
-        #endregion
         public Place LinearIndex2Place(int index)
         {
             Vector2Int ind = index.ToIndex(_size.y);

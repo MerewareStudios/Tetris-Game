@@ -25,13 +25,13 @@ namespace Game
                     Board.THIS.CheckAll();
 
                     Board.THIS.MoveAll(0.2f);
-                    Spawner.THIS.HighlightCurrentBlock();
+                    Board.THIS.HighlightPlaces();
 
                     // yield return new WaitWhile(() => moving);
                     
                     yield return new WaitForSeconds(0.25f);
                     Board.THIS.CheckAll();
-                    Spawner.THIS.HighlightCurrentBlock();
+                    Board.THIS.HighlightPlaces();
                     
 
 
@@ -45,7 +45,7 @@ namespace Game
 
                         Board.THIS.MarkMover(moverPoints);
                         Board.THIS.CheckAll();
-                        Spawner.THIS.HighlightCurrentBlock();
+                        Board.THIS.HighlightPlaces();
                         yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
                     }
 
@@ -63,7 +63,7 @@ namespace Game
                     
                         Board.THIS.MarkMover(tetrisLines[0]);
                         Board.THIS.CheckAll();
-                        Spawner.THIS.HighlightCurrentBlock();
+                        Board.THIS.HighlightPlaces();
 
                         yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
                     }
