@@ -26,6 +26,7 @@ namespace IWI.Tutorial
         [SerializeField] private Ease upEase;
         [SerializeField] private ParticleSystem ps;
         [SerializeField] private TextMeshProUGUI infoText;
+        [SerializeField] private GameObject infoParent;
         [System.NonSerialized] private Coroutine _routine;
         [System.NonSerialized] private Sequence _sequence;
         [System.NonSerialized] public System.Action OnClick;
@@ -52,6 +53,7 @@ namespace IWI.Tutorial
             canvasGroup.DOKill();
             canvasGroup.alpha = 0.0f;
 
+            infoParent.SetActive(true);
             infoText.text = "DRAG AND DROP";
             
             this.WaitForNull(Task);
@@ -126,6 +128,7 @@ namespace IWI.Tutorial
             canvasGroup.DOKill();
             canvasGroup.alpha = 0.0f;
             
+            infoParent.SetActive(infoEnabled);
             infoText.text = "CLICK TO ROTATE";
 
 

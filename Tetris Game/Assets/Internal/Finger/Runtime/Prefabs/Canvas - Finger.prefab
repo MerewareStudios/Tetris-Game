@@ -5468,6 +5468,7 @@ MonoBehaviour:
   upEase: 28
   ps: {fileID: 6286103398764457979}
   infoText: {fileID: 6072722776528541385}
+  infoParent: {fileID: 7374866661906527273}
   mainCamera: {fileID: 0}
   gameCamera: {fileID: 0}
   uiCamera: {fileID: 0}
