@@ -88,10 +88,10 @@ public class Onboarding : SSingleton<Onboarding>
         UIManager.THIS.finger.OnClick = OnClick;
         UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale);
     }
-    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f)
+    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f, bool infoEnabled = false)
     {
         UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.Click(position, rendererCamera, scale);
+        UIManager.THIS.finger.Click(position, rendererCamera, scale, infoEnabled);
     }
     public static void HideFinger()
     {
@@ -113,10 +113,10 @@ public class Onboarding : SSingleton<Onboarding>
 
             yield return new WaitForSeconds(0.65f);
             
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
+            // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake);
+            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true);
 
             Spawner.THIS.DelayedSpawn(0.0f);
 

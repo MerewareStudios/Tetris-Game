@@ -34,6 +34,9 @@ public class ApplicationManager : Singleton<ApplicationManager>
         // LoadSettings();
         fpsTimestamp = Time.realtimeSinceStartup;
         GrabFeatureEnabled = false;
+
+
+        // Debug.Log(PlayerSettings.Android.bundleVersionCode);
     }
     // private void LoadSettings()
     // {
@@ -62,7 +65,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
                 );
             
             
-            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + ")";
+            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + " " + Const.THIS.bundleVersionCode + ")";
             // fpsText.text = fps.ToString() + " | " + stamp + " | " + Helper.ScreenDPI() + " | " + Helper.ScreenHeightDP();
             fps = 0;
             fpsTimestamp = Time.realtimeSinceStartup;

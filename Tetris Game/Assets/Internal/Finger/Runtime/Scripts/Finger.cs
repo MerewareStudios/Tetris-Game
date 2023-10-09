@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using Internal.Core;
+using TMPro;
 using UnityEngine;
 
 namespace IWI.Tutorial
@@ -24,6 +25,7 @@ namespace IWI.Tutorial
         [SerializeField] private Ease downEase;
         [SerializeField] private Ease upEase;
         [SerializeField] private ParticleSystem ps;
+        [SerializeField] private TextMeshProUGUI infoText;
         [System.NonSerialized] private Coroutine _routine;
         [System.NonSerialized] private Sequence _sequence;
         [System.NonSerialized] public System.Action OnClick;
@@ -49,6 +51,8 @@ namespace IWI.Tutorial
             
             canvasGroup.DOKill();
             canvasGroup.alpha = 0.0f;
+
+            infoText.text = "DRAG AND DROP";
             
             this.WaitForNull(Task);
 
@@ -110,7 +114,7 @@ namespace IWI.Tutorial
             }
         }
         
-        public void Click(Vector3 position, Cam rendererCamera, float scale = 1.0f)
+        public void Click(Vector3 position, Cam rendererCamera, float scale = 1.0f, bool infoEnabled = false)
         {
             this.gameObject.SetActive(true);
 
@@ -121,6 +125,9 @@ namespace IWI.Tutorial
             
             canvasGroup.DOKill();
             canvasGroup.alpha = 0.0f;
+            
+            infoText.text = "CLICK TO ROTATE";
+
 
             this.WaitForNull(Task);
 

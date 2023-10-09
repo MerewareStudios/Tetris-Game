@@ -167,6 +167,7 @@ namespace Game
             _motionTween = transform.DOMove(position, duration).SetEase(ease).SetSpeedBased(speedBased);
             _motionTween.onComplete += () =>
             {
+                ResetSegmentRotations();
                 Busy = false;
             };
         }

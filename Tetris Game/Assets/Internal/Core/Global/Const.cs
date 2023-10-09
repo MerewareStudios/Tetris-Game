@@ -11,6 +11,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]
 public class Const : SSingleton<Const>
 {
+    [ReadOnly] public int bundleVersionCode;
     [Header("Look Up")]
     public LevelSo[] Levels;
     public Pawn.Usage[] PowerUps;
