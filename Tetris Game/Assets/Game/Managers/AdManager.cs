@@ -10,7 +10,6 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        [SerializeField] public int adBreakMarchMax = 3;
         [SerializeField] public int adBreakMarchLimit = 5;
         [System.NonSerialized] private Data _data;
         
@@ -77,8 +76,7 @@ namespace IWI
                 return;
             }
             _Data.AdBreakMarch++;
-            _Data.AdBreakMarch = Mathf.Min(_Data.AdBreakMarch, adBreakMarchLimit);
-            if (_Data.AdBreakMarch >= this.adBreakMarchMax)
+            if (_Data.AdBreakMarch >= this.adBreakMarchLimit)
             {
                 _Data.AdBreakMarch = 0;
                 ShowAdBreak(onSuccess);
@@ -144,7 +142,7 @@ namespace IWI
         {
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                _Data.AdBreakMarch = adBreakMarchMax;
+                _Data.AdBreakMarch = adBreakMarchLimit;
                 return;
             }
 
@@ -165,7 +163,6 @@ namespace IWI
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    this.adBreakMarchMax++;
                     UIManager.Pause(false);
                     onFinish?.Invoke();
                 }, 
