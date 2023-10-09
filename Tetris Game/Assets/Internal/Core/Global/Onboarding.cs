@@ -76,7 +76,7 @@ public class Onboarding : SSingleton<Onboarding>
             
             yield return new WaitForSeconds(0.1f);
 
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
+            // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
             DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift);
