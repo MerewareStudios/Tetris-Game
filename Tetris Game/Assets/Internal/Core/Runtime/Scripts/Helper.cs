@@ -33,6 +33,14 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static void Sphere(Vector3 position, float radius, Color color, float alpha)
+        {
+            GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            gameObject.transform.position = position;
+            gameObject.transform.localScale = Vector3.one * radius;
+
+            gameObject.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, alpha);
+        }
         public static int ReduceFloor(this int amount, float percent)
         {
             return Mathf.FloorToInt(amount * (1.0f - percent * 0.01f));

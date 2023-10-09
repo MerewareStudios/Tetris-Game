@@ -205,8 +205,7 @@ namespace Game.UI
                 }
             }
         }
-        
-        
+
         [System.Serializable]
         public class BlockShopData : ICloneable
         {

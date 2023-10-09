@@ -341,7 +341,7 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(8.5f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(2.5f, () =>
                 {
                     Highlight(randomPlaces);
                 }, false).SetLoops(-1);
@@ -892,7 +892,6 @@ namespace Game
             _delayedHighlightTween = null;
         }
         
-
         private List<List<Place>> DetectFit(Block block)
         {
             List<List<Place>> allPlaces = new();
@@ -960,12 +959,16 @@ namespace Game
 
                             Place place = IsEmpty(finalPos);
                             
+                            Helper.Sphere(finalPos + Vector3.up, 0.5f, Color.red, 0.5f);
+
+                            
                             if (!place)
                             {
                                 found = false;
                                 break;
                             }
-                            
+                            Helper.Sphere(place.Position + Vector3.up * 1.5f, 0.15f, Color.blue, 0.5f);
+
                             foundPlaces.Add(place);
                         }
 
