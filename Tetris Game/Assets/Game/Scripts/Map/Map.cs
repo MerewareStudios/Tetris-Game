@@ -29,7 +29,7 @@ namespace Game
 
                     // yield return new WaitWhile(() => moving);
                     
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.225f);
                     Board.THIS.CheckAll();
                     Board.THIS.HighlightPlaces();
                     
@@ -67,7 +67,7 @@ namespace Game
 
                         yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
                     }
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.2f);
                     Board.THIS.CheckDeadLock();
                     MapWaitForCycle = false;
                 }

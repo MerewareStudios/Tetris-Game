@@ -24,6 +24,7 @@ namespace Game
         public PlaceColorType LimitDarkLightUp => Even ? PlaceColorType.LIMIT_DARK_UP : PlaceColorType.LIMIT_LIGHT_UP;
         public PlaceColorType LimitDarkLightDown => Even ? PlaceColorType.LIMIT_DARK_DOWN : PlaceColorType.LIMIT_LIGHT_DOWN;
         public PlaceColorType RayDarkLight => Even ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
+        public bool Limit => _colorType.Equals(PlaceColorType.LIMIT_DARK_UP) || _colorType.Equals(PlaceColorType.LIMIT_DARK_DOWN);
         public bool Even => (Index.x + Index.y) % 2 == 0;
         
         public Vector3 LocalPosition
@@ -103,7 +104,7 @@ namespace Game
         private void DoColor(Color color)
         {
             _colorTween?.Kill();
-            _colorTween = gridTile.material.DOColor(color, 0.2f).SetEase(Ease.OutQuad);
+            _colorTween = gridTile.material.DOColor(color, Limit ? 0.2f : 0.15f).SetEase(Ease.OutQuad);
         }
 
         private Color GrayScale(Color color, float weight)
