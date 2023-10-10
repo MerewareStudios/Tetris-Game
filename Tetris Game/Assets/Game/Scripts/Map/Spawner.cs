@@ -107,8 +107,8 @@ public class Spawner : Singleton<Spawner>
             block.Deconstruct();
             RemoveBlock(block);   
         }
-
         _spawnIndex = 0;
+        GrabbedBlock = false;
         StopAllRunningTasksOnBlock();
     }
     public void OnLevelEnd()
@@ -117,7 +117,8 @@ public class Spawner : Singleton<Spawner>
         _assertionTween?.Kill();
         StopMovement();
         Mount();
-        // Board.THIS.HighlightPlaces();
+        GrabbedBlock = false;
+        Board.THIS.HighlightPlaces();
     }
     public void OnLevelLoad()
     {

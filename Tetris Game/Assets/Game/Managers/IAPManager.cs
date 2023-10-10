@@ -44,8 +44,8 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         InitializeGamingServies(
             () =>
             {
-                var text = "Congratulations!\nUnity Gaming Services has been successfully initialized.";
-                Debug.Log(text);
+                // var text = "Congratulations!\nUnity Gaming Services has been successfully initialized.";
+                // Debug.Log(text);
             },
             message =>
             {
@@ -146,7 +146,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
-        Debug.Log("In-App Purchasing successfully initialized");
+        // Debug.Log("In-App Purchasing successfully initialized");
         _storeController = controller;
         this._productCollection = _storeController.products;
         

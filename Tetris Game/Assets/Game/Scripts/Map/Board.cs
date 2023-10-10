@@ -128,7 +128,6 @@ namespace Game
             {
                 Block block = Spawner.THIS.CurrentBlock;
                 bool grabbed = Spawner.THIS.GrabbedBlock;
-                
                 foreach (var place in _places)
                 {
                     if (block && grabbed && !block.Free2Place)
