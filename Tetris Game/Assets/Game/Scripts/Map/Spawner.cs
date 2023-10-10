@@ -180,11 +180,19 @@ public class Spawner : Singleton<Spawner>
                     }
                 }
 
+                // Vector3 prev = CurrentBlock.transform.position;
                 float smoothFactor = 0.0f;
                 while (true)
                 {
                     CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
                     smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * _smoothFactorLerp);
+
+                    // if ((CurrentBlock.transform.position - prev).sqrMagnitude > 0.15f)
+                    // {
+                        Board.THIS.HighlightPlaces();
+                        // prev = CurrentBlock.transform.position;
+                    // }
+
                     yield return null;
                 }
             }
@@ -244,7 +252,7 @@ public class Spawner : Singleton<Spawner>
         }
 
         UpdateTargetPosition();
-        Board.THIS.HighlightPlaces();
+        // Board.THIS.HighlightPlaces();
     }
 
     private void RecordFingerStart()
