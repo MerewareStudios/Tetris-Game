@@ -146,8 +146,8 @@ public class Shop : MonoBehaviour
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
-                int rewardAmount = Random.Range(8, 15);
-                UIManagerExtensions.EmitLevelShopCoin(smallIconTransform.position, rewardAmount, rewardAmount);
+                // int rewardAmount = Random.Range(8, 15);
+                // UIManagerExtensions.EmitLevelShopCoin(smallIconTransform.position, rewardAmount, rewardAmount);
             };
         }
     }

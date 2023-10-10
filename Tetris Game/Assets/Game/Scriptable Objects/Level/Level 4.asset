@@ -23,7 +23,7 @@ MonoBehaviour:
     - enemyType: 19
       count: 2
     - enemyType: 37
-      count: 3
+      count: 1
     bossDatas: []
   canGiveBonus: 0
   victoryReward:

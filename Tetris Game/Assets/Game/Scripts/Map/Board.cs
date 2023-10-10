@@ -333,7 +333,7 @@ namespace Game
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
                     Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces);
-                }, false).SetLoops(-1);;
+                }, false).SetLoops(-1);
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
