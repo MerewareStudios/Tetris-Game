@@ -755,8 +755,7 @@ namespace Game
         }
         private Vector2Int? Pos2Index(Vector3 position)
         {
-            Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
-            Vector2Int index = new Vector2Int((int)posDif.x, -(int)(posDif.z));
+            Vector2Int index = Pos2UnsafeIndex(position);
             
             if (IsIndexValid(index))
             {
@@ -814,7 +813,7 @@ namespace Game
             
             return (place, true);
         }
-        public Place IsEmpty(Vector3 position)
+        public Place Project(Vector3 position)
         {
             Vector2Int? index = Pos2Index(position);
             if (index == null)
@@ -822,6 +821,7 @@ namespace Game
                 return null;
             }
             Vector2Int ind = (Vector2Int)index;
+            Debug.Log(ind);
             Place place = GetPlace(ind);
             
             if (place.Occupied)
@@ -957,17 +957,16 @@ namespace Game
 
                             Vector3 finalPos = _thisPosition + shift + rotatedPosition;
 
-                            Place place = IsEmpty(finalPos);
+                            Place place = Project(finalPos);
                             
-                            Helper.Sphere(finalPos + Vector3.up, 0.5f, Color.red, 0.5f);
+                            // Helper.Sphere(finalPos + Vector3.up, 0.5f, Color.red, 0.5f);
 
-                            
                             if (!place)
                             {
                                 found = false;
                                 break;
                             }
-                            Helper.Sphere(place.Position + Vector3.up * 1.5f, 0.15f, Color.blue, 0.5f);
+                            // Helper.Sphere(place.Position + Vector3.up * 1.5f, 0.15f, Color.blue, 0.5f);
 
                             foundPlaces.Add(place);
                         }
