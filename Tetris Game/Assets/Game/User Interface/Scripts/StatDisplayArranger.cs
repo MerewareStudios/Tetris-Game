@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class StatDisplayArranger : Lazyingleton<StatDisplayArranger>
 {
-    [SerializeField] private Canvas _canvas;
-    [SerializeField] private RectTransform _canvasRect;
     [SerializeField] private List<StatDisplay> _statDisplays;
     [SerializeField] private RectTransform pivot;
 
-    public Vector3 World2ScreenPosition
+    public void SetLocalY(float y)
     {
-        set
-        {
-            Vector2 localPoint = CameraManager.THIS.gameCamera.WorldToScreenPoint(value);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, localPoint, _canvas.worldCamera, out Vector2 local);
-            pivot.localPosition = local;
-        }
+        Vector3 localPosition = pivot.localPosition;
+        localPosition = new Vector3(localPosition.x, y, localPosition.z);
+        pivot.localPosition = localPosition;
     }
 
     public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false)

@@ -1,7 +1,9 @@
+using System;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -11,11 +13,16 @@ namespace Game
         
         [SerializeField] public RectTransform visualFrame;
         [SerializeField] public Transform ground;
+        [Header("Ground")]
         [SerializeField] public Transform playerPivot;
         [SerializeField] public RectTransform deadline;
+        [Header("Pins")]
         [SerializeField] public RectTransform bottomPin;
         [SerializeField] public RectTransform statsPin;
         [SerializeField] public RectTransform spawnerPin;
+        [SerializeField] public RectTransform enemySpawnPin;
+        [Header("Rect")]
+        [SerializeField] public RectTransform projectionRect;
 
         [System.NonSerialized] public System.Action<int> OnMerge;
         
@@ -79,31 +86,11 @@ namespace Game
                 _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
                 ground.localScale = Vector3.one * (25.0f + (_size.x - 6) * 2.5f);
 
-                this.WaitForNull(() =>
-                {
-                    Spawner.THIS.UpdatePosition(spawnerPin.position);
-                    
-                    float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.1f;
-                    
-                    
-                    _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
-                    _thisPosition = _thisTransform.position;
-                    
-
-                    Vector3 playerPos = playerPivot.position;
-                    playerPos.y = 0.0f;
-                    Warzone.THIS.Player.transform.position = playerPos;
-
-                    
-                    Spawner.THIS.UpdateFingerDelta(bottomPin.position);
-                    
-
-                    Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(UIManager.THIS.levelProgressbar.transform.position, CameraManager.THIS.gameCamera.transform.forward));
-                    Warzone.THIS.StartLine = topProjection.z - 1.4f;
-                    Warzone.THIS.EndLine = deadline.position.z;
-
-                    StatDisplayArranger.THIS.World2ScreenPosition = statsPin.position;
-                });
+                
+                this.enabled = true;
+                projectionRect.ForceUpdateRectTransforms();
+                projectionRect.gameObject.SetActive(false);
+                projectionRect.gameObject.SetActive(true);
             }
 
             public void Deconstruct()
@@ -114,7 +101,40 @@ namespace Game
                     place.Deconstruct();
                 }
             }
-        #endregion
+
+            private void LateUpdate()
+            {
+                Spawner.THIS.UpdatePosition(spawnerPin.position);
+                    
+                float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.1f;
+                    
+                    
+                _thisTransform.localPosition += new Vector3(0.0f, 0.0f, -offset);
+                _thisPosition = _thisTransform.position;
+                    
+
+                Vector3 playerPos = playerPivot.position;
+                playerPos.y = 0.0f;
+                Warzone.THIS.Player.transform.position = playerPos;
+
+                    
+                Spawner.THIS.UpdateFingerDelta(bottomPin.position);
+                    
+
+                Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(enemySpawnPin.position, CameraManager.THIS.gameCamera.transform.forward));
+                Warzone.THIS.StartLine = topProjection.z - 1.4f;
+                Warzone.THIS.EndLine = deadline.position.z;
+
+                
+                Vector2 localPoint = CameraManager.THIS.gameCamera.WorldToScreenPoint(statsPin.position);
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(projectionRect, localPoint, CameraManager.THIS.gameCamera, out Vector2 local);
+                StatDisplayArranger.THIS.SetLocalY(local.y);
+                
+                
+                this.enabled = false;
+            }
+
+            #endregion
         #region Highlight - Pawn
             private void DehighlightImmediate()
             {
