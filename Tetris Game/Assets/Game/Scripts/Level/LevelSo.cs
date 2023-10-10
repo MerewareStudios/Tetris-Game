@@ -9,6 +9,7 @@ namespace Game
     [CreateAssetMenu(fileName = "Level", menuName = "Game/Level Data", order = 0)]
     public class LevelSo : ScriptableObject
     {
+        [SerializeField] public bool bonusLevel = false;
         [SerializeField] public float deltaMult = 1.0f;
         [SerializeField] public bool showBannerOffer = true;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);

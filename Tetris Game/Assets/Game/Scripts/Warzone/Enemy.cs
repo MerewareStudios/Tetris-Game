@@ -67,7 +67,7 @@ namespace  Game
         public void TakeDamage(int value)
         {
             ColorPunch();
-            Warzone.THIS.Emit(so.emitCount, transform.position, so.color, so.radius);
+            Warzone.THIS.Emit(so.emitCount, transform.position, so.colorGrad, so.radius);
             Health -= value;
             healthCanvas.DisplayDamage(-value);
             Warzone.THIS.Player.PunchCrossHair();
@@ -124,7 +124,7 @@ namespace  Game
             DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
                 GiveRewards();
-                Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.color, so.radius);
+                Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
                 this.Deconstruct();
                 LevelManager.THIS.CheckEndLevel();
             }, false);

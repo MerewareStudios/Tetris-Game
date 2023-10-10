@@ -8,6 +8,7 @@ public class EnemyData : ScriptableObject
 {
     public Enemy.Type type;
     public Color color;
+    public ParticleSystem.MinMaxGradient colorGrad;
     public Gradient hitGradient;
     public List<EnemyReward> enemyRewards;
     public int maxHealth;

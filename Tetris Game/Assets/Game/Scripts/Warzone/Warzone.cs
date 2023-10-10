@@ -197,11 +197,11 @@ namespace  Game
 
         #endregion
 
-        public void Emit(int amount, Vector3 position, Color color, float radius)
+        public void Emit(int amount, Vector3 position, ParticleSystem.MinMaxGradient color, float radius)
         {
             psTransform.position = position + goreOffset;
 
-            psMain.startColor = (Color)color;
+            psMain.startColor = color;
             psShape.radius = radius;
 
             bloodPS.Emit(amount);
