@@ -131,7 +131,7 @@ namespace Game
                 
                 foreach (var place in _places)
                 {
-                    if (block && grabbed)
+                    if (block && grabbed && !block.Free2Place)
                     {
                         place.SetTargetColorType((place.Index.y >= _size.y - block.blockData.FitHeight) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
                     }
@@ -145,7 +145,7 @@ namespace Game
                 if (block && grabbed)
                 {
                     List<Vector2Int> projectedPlaces = new();
-                    bool canProjectFuture = true;
+                    bool canProjectFuture = !block.Free2Place;
                     foreach (var pawn in block.Pawns)
                     {
                         (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
@@ -294,17 +294,17 @@ namespace Game
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
-            if (Spawner.THIS.CurrentBlock.Pawns[0].Free2Place)
+            if (Spawner.THIS.CurrentBlock.Free2Place)
             {
                 if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
                 {
                     Onboarding.TalkAboutFreePlacement();
                 }
-                HighlightEmptyPlaces();
-                _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
-                {
-                    HighlightEmptyPlaces();
-                }, false).SetLoops(-1);
+                // HighlightEmptyPlaces();
+                // _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
+                // {
+                //     HighlightEmptyPlaces();
+                // }, false).SetLoops(-1);
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
@@ -341,10 +341,12 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(2.5f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(8.5f, () =>
                 {
                     Highlight(randomPlaces);
-                }, false).SetLoops(-1);
+                    _delayedHighlightTween?.Kill();
+                    _delayedHighlightTween = null;
+                }, false);
                 // Found a fit, suggest/highlight it, skip
                 return;
             }
@@ -821,7 +823,6 @@ namespace Game
                 return null;
             }
             Vector2Int ind = (Vector2Int)index;
-            Debug.Log(ind);
             Place place = GetPlace(ind);
             
             if (place.Occupied)

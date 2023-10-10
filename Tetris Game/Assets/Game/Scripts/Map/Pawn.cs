@@ -23,7 +23,8 @@ namespace Game
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool CanTakeContent = false;
-        [System.NonSerialized] public bool Free2Place = false;
+        
+        public bool Free2Place => _usageType.Equals(Usage.MagnetLR) || _usageType.Equals(Usage.Magnet);
 
         private Pawn.Usage _usageType;
         public Pawn.Usage UsageType
@@ -35,19 +36,19 @@ namespace Game
                 {
                     case Usage.Ammo:
                         MarkAmmoColor();
-                        Free2Place = false;
+                        // Free2Place = false;
                         break;
                     case Usage.UnpackedAmmo:
                         MarkUnpackedAmmoColor();
-                        Free2Place = false;
+                        // Free2Place = false;
                         break;
                     case Usage.MagnetLR:
                         MarkPowerupColor();
-                        Free2Place = true;
+                        // Free2Place = true;
                         break;
                     case Usage.Magnet:
                         MarkPowerupColor();
-                        Free2Place = true;
+                        // Free2Place = true;
                         break;
                 }
                 CanTakeContent = false;

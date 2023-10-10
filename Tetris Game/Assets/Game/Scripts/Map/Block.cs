@@ -23,6 +23,8 @@ namespace Game
         [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public bool CanRotate;
         
+        [System.NonSerialized] public bool Free2Place = false;
+        
         public Pawn PivotPawn => Pawns[0];
         [System.NonSerialized] public Vector2Int UnsafePivotIndex;
         public bool IsPivotPawn(Pawn pawn) => pawn.Equals(PivotPawn);
@@ -48,6 +50,7 @@ namespace Game
         public void Construct(Pawn.Usage usage)
         {
             this.rotatePivot.localEulerAngles = Vector3.zero;
+            Free2Place = false;
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
@@ -56,6 +59,11 @@ namespace Game
                 var targetPosition = target.position;
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, 1, usage);
                 pawn.ParentBlock = this;
+
+                if (!Free2Place)
+                {
+                    Free2Place = pawn.Free2Place;
+                }
 
                 pawn.Show();
                 Pawns.Add(pawn);
