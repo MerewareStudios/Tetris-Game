@@ -57,4 +57,8 @@ public static class LevelSoExtension
     {
         return Const.THIS.Levels[level - 1].showBannerOffer;
     }
+    public static bool IsBonus(this int level)
+    {
+        return Const.THIS.Levels[level - 1].bonusLevel;
+    }
 }
