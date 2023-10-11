@@ -16,10 +16,6 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 7
     countDatas:
-    - enemyType: 19
-      count: 3
-    - enemyType: 36
-      count: 1
     - enemyType: 37
       count: 6
     bossDatas: []
@@ -29,5 +25,5 @@ MonoBehaviour:
     amount: 35
   failReward:
     type: 0
-    amount: 12
+    amount: 11
   suggestedBlocks: []

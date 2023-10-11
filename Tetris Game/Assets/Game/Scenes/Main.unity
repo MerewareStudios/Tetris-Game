@@ -2544,6 +2544,10 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
+  - gameObject: {fileID: 6409661743272111104, guid: 2ac00630844e8724b833de5652f26ada,
+      type: 3}
+    preload: 0
+    capacity: 250
 --- !u!114 &715436860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7917,28 +7921,6 @@ PrefabInstance:
     - target: {fileID: 3276470233934764210, guid: ec8a6bc1406600f48a8de782d017fc74,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3276470233934764210, guid: ec8a6bc1406600f48a8de782d017fc74,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5846015776154656285, guid: ec8a6bc1406600f48a8de782d017fc74,
-        type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: f94e4677e001ea14bb6cde1db8999c3a,
-        type: 2}
-    - target: {fileID: 5846015776154656285, guid: ec8a6bc1406600f48a8de782d017fc74,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 3728323029208710497, guid: f94e4677e001ea14bb6cde1db8999c3a,
-        type: 2}
-    - target: {fileID: 5846015776154656285, guid: ec8a6bc1406600f48a8de782d017fc74,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

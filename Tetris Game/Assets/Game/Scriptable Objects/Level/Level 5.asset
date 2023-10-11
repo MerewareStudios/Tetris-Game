@@ -18,8 +18,12 @@ MonoBehaviour:
   boardSize: {x: 6, y: 7}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 7
-    countDatas: []
+    spawnInterval: 10
+    countDatas:
+    - enemyType: 19
+      count: 2
+    - enemyType: 37
+      count: 1
     bossDatas: []
   canGiveBonus: 0
   victoryReward:

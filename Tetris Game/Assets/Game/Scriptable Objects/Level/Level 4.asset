@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Level 4
   m_EditorClassIdentifier: 
   bonusLevel: 0
-  deltaMult: 1
+  deltaMult: 0.75
   showBannerOffer: 1
   boardSize: {x: 6, y: 7}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 10
+    spawnInterval: 9
     countDatas:
     - enemyType: 19
       count: 2
-    - enemyType: 37
+    - enemyType: 36
       count: 1
     bossDatas: []
   canGiveBonus: 0

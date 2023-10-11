@@ -76,7 +76,7 @@ namespace  Game
             Player.ResetSelf();
         }
 
-        public void Begin(bool countdown = true)
+        public void Begin()
         {
             if (this.enabled)
             {
@@ -91,7 +91,9 @@ namespace  Game
 
                 UIManager.THIS.LevelProgress = 1.0f;
 
-                if (countdown)
+                yield return new WaitForSeconds(0.25f);
+                
+                if (EnemySpawnData.spawnDelay > 0)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
                     yield return Announcer.THIS.Count(startingText, EnemySpawnData.spawnDelay);
@@ -136,12 +138,6 @@ namespace  Game
                     float stamp = Time.time;
                     while (HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
                     {
-                        // if (EnemyCount < Player.Gun._Data.SplitAmount)
-                        // {
-                        //     float innerDelay = (EnemySpawnData.spawnInterval - (Time.time - stamp)) * 0.35f;
-                        //     yield return new WaitForSeconds(innerDelay);
-                        //     break;
-                        // }
                         yield return new WaitForSeconds(1.0f);
                     }
                 }
@@ -171,7 +167,7 @@ namespace  Game
         private Enemy SpawnEnemy(Pool pool)
         {
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
-            enemy.OnSpawn(NextSpawnPosition());
+            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.25f) : NextSpawnPosition());
             return enemy;
         }
 
@@ -193,6 +189,10 @@ namespace  Game
         {
             _spawnRangeNorm = Mathf.Repeat(_spawnRangeNorm + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
             return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRangeNorm), 0.0f, StartLine);
+        }
+        private Vector3 MidSpawnPosition(float factor)
+        {
+            return new Vector3(0.0f, 0.0f, Mathf.Lerp(StartLine, EndLine, factor));
         }
 
         #endregion

@@ -17,11 +17,11 @@ MonoBehaviour:
   showBannerOffer: 0
   boardSize: {x: 6, y: 7}
   EnemySpawnData:
-    spawnDelay: 3
+    spawnDelay: 0
     spawnInterval: 9
     countDatas:
-    - enemyType: 19
-      count: 2
+    - enemyType: 41
+      count: 1
     bossDatas: []
   canGiveBonus: 0
   victoryReward:

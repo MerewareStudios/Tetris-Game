@@ -25,7 +25,7 @@ public class LevelManager : Singleton<LevelManager>
         
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
-            Warzone.THIS.Begin(true);
+            Warzone.THIS.Begin();
             Spawner.THIS.DelayedSpawn(0.45f);
         }
         else if (ONBOARDING.TEACH_PICK.IsNotComplete())

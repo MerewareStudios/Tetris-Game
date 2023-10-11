@@ -16,7 +16,7 @@ public class UIManager : Singleton<UIManager>
 {
    [SerializeField] public TextMeshProUGUI levelText;
    [SerializeField] public GameObject levelProgressbar;
-   [SerializeField] private Image levelProgress;
+   [SerializeField] public Image levelProgress;
    [SerializeField] public ParticleSystem piggyPS;
 
    public float LevelProgress

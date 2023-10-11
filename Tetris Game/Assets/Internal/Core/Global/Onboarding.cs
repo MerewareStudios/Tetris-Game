@@ -1,5 +1,6 @@
 using System.Collections;
 using Game;
+using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
 using UnityEngine;
@@ -185,12 +186,15 @@ public class Onboarding : SSingleton<Onboarding>
             // UIManager.THIS.speechBubble.Hide();
             // yield return new WaitForSeconds(1.0f);
             
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.25f);
+            // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.5f);
+            Announcer.THIS.Show("Target Practice", 0.5f);
+
             ONBOARDING.LEARNED_LEVEL_VISUALS.SetComplete();
             UIManager.THIS.levelText.enabled = true;
             UIManager.THIS.levelProgressbar.SetActive(true);
-            yield return new WaitForSeconds(0.35f);
-            Warzone.THIS.Begin(false);
+            UIManager.THIS.levelProgress.fillAmount = 1.0f;
+            yield return new WaitForSeconds(1.15f);
+            Warzone.THIS.Begin();
             
             ONBOARDING.LEARNED_META.SetComplete();
             ONBOARDING.INSPECT_HEART_DISPLAY.SetComplete();
