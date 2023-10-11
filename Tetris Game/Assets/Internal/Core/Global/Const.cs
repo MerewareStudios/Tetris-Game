@@ -62,6 +62,9 @@ public class Const : SSingleton<Const>
     public Vector3 jumpPower;
     public Ease rotationEase;
     
+    [Header("Pawn")] 
+    public Pawn.VisualData[] pawnVisualData;
+    
     [Serializable]
     public struct Currency
     {

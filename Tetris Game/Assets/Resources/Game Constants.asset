@@ -642,3 +642,24 @@ MonoBehaviour:
   jumpDuration: 0.1875
   jumpPower: {x: 0, y: 0.5, z: 0}
   rotationEase: 0
+  pawnVisualData:
+  - usage: 0
+    model: 42
+    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultScale: {x: 0, y: 0, z: 0}
+  - usage: 1
+    model: 42
+    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultScale: {x: 0, y: 0, z: 0}
+  - usage: 2
+    model: 0
+    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultScale: {x: 0, y: 0, z: 0}
+  - usage: 3
+    model: 0
+    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultScale: {x: 0, y: 0, z: 0}
+  - usage: 4
+    model: 0
+    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultScale: {x: 0, y: 0, z: 0}

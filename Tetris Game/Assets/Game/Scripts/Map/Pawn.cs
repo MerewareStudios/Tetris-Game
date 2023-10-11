@@ -67,13 +67,7 @@ namespace Game
             set => levelText.enabled = value;
         }
 
-        public enum Usage
-        {
-            Ammo,
-            UnpackedAmmo,
-            MagnetLR,
-            Magnet,
-        }
+       
         
 
         void Awake()
@@ -327,6 +321,24 @@ namespace Game
             {
                 ParentBlock.Detach();
             }
+        }
+        
+        public enum Usage
+        {
+            Ammo,
+            UnpackedAmmo,
+            MagnetLR,
+            Magnet,
+            Nugget,
+        }
+
+        [Serializable]
+        public class VisualData
+        {
+            [SerializeField] public Pawn.Usage usage;
+            [SerializeField] public Pool model;
+            [SerializeField] public Vector3 defaultPosition;
+            [SerializeField] public Vector3 defaultScale;
         }
     }
 }
