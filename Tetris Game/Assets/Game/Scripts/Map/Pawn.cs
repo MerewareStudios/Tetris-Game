@@ -341,6 +341,7 @@ namespace Game
             [SerializeField] public Color startColor;
             [SerializeField] public bool amountTextEnabled = false;
             [SerializeField] public Sprite icon;
+            [SerializeField] public bool hoverOnMerge = false;
         }
     }
 }

@@ -646,6 +646,7 @@ MonoBehaviour:
     startColor: {r: 0, g: 0, b: 0, a: 0}
     amountTextEnabled: 0
     icon: {fileID: 0}
+    hoverOnMerge: 0
   - usage: 1
     model: 42
     defaultPosition: {x: 0, y: 0.301, z: 0}
@@ -655,6 +656,7 @@ MonoBehaviour:
     startColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
     amountTextEnabled: 1
     icon: {fileID: 0}
+    hoverOnMerge: 1
   - usage: 2
     model: 42
     defaultPosition: {x: 0, y: 0.301, z: 0}
@@ -664,6 +666,7 @@ MonoBehaviour:
     startColor: {r: 0.14117648, g: 0.47058824, b: 0.92156863, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 21300000, guid: 4bc76270b368f9847b21069fef5fac92, type: 3}
+    hoverOnMerge: 1
   - usage: 3
     model: 42
     defaultPosition: {x: 0, y: 0, z: 0}
@@ -673,6 +676,7 @@ MonoBehaviour:
     startColor: {r: 0, g: 0, b: 0, a: 0}
     amountTextEnabled: 0
     icon: {fileID: 21300000, guid: 6ae02d9be4c305e4989d6f394cbe04a0, type: 3}
+    hoverOnMerge: 0
   - usage: 4
     model: 42
     defaultPosition: {x: 0, y: 0.301, z: 0}
@@ -682,6 +686,7 @@ MonoBehaviour:
     startColor: {r: 0, g: 0, b: 0, a: 0}
     amountTextEnabled: 0
     icon: {fileID: 0}
+    hoverOnMerge: 0
   - usage: 5
     model: 44
     defaultPosition: {x: 0, y: 0, z: 0}
@@ -691,6 +696,7 @@ MonoBehaviour:
     startColor: {r: 1, g: 0.52156866, b: 0, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 0}
+    hoverOnMerge: 0
   - usage: 6
     model: 43
     defaultPosition: {x: 0, y: 0.044, z: 0}
@@ -700,3 +706,4 @@ MonoBehaviour:
     startColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 0}
+    hoverOnMerge: 0

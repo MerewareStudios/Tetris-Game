@@ -152,7 +152,7 @@ namespace  Game
 
                 if (EnemySpawnData.bossData)
                 {
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.1f);
                     _enemies.Add(SpawnEnemyOverride(EnemySpawnData.bossType, EnemySpawnData.bossData));
                     if (!Player.CurrentEnemy)
                     {

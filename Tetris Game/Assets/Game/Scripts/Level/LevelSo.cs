@@ -18,6 +18,7 @@ namespace Game
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
+        [SerializeField] public Board.PawnPlacement[] pawnPlacements;
     }
 }
 
@@ -60,5 +61,9 @@ public static class LevelSoExtension
     public static bool IsBonus(this int level)
     {
         return Const.THIS.Levels[level - 1].bonusLevel;
+    }
+    public static Board.PawnPlacement[] PawnPlacements(this int level)
+    {
+        return Const.THIS.Levels[level - 1].pawnPlacements;
     }
 }

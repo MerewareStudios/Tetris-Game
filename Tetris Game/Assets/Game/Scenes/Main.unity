@@ -13644,6 +13644,8 @@ MonoBehaviour:
   motionData_Shop: {fileID: 11400000, guid: ee2cc07ecd90dee47b507f117c2996f5, type: 2}
   motionData_UpgradeBurst: {fileID: 11400000, guid: e64ce41cc2d05fd488a96f11618f7dbf,
     type: 2}
+  motionData_BoardBurst: {fileID: 11400000, guid: 71c2a1189f7b1974893260fda009ab4d,
+    type: 2}
   motionData_Ticket: {fileID: 11400000, guid: f4b1f76071dc32a458569ea41fa9b0c5, type: 2}
   coin: {fileID: 3508429568297795679}
   gem: {fileID: 863494056}

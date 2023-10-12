@@ -75,6 +75,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public MotionData motionData_PiggyFill;
    [SerializeField] public MotionData motionData_Shop;
    [SerializeField] public MotionData motionData_UpgradeBurst;
+   [SerializeField] public MotionData motionData_BoardBurst;
    [SerializeField] public MotionData motionData_Ticket;
    [Header("Level")]
    [System.NonSerialized] public static bool MenuVisible = false;
@@ -302,6 +303,12 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, canvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Shop, null, null);
+   }
+   public static void BoardCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
    }
    public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {

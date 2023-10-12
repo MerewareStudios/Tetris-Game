@@ -113,4 +113,8 @@ public static class ConstExtensions
     {
         return Const.THIS.pawnVisualData[(int)usage].model; 
     }
+    public static bool HoverOnMerge(this Pawn pawn)
+    {
+        return Const.THIS.pawnVisualData[(int)pawn.UsageType].hoverOnMerge; 
+    }
 }
