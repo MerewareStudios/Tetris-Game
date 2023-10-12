@@ -396,7 +396,7 @@ public class Spawner : Singleton<Spawner>
                 DisplayNextBlock();
             }
         }
-        return SpawnBlock(pool, Pawn.Usage.Nugget, suggestedBlockData);
+        return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
     {

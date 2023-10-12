@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 0
+  m_Name: Dummy - Bonus Level 6
   m_EditorClassIdentifier: 
   type: 0
   colorGrad:
@@ -111,7 +111,8 @@ MonoBehaviour:
   - type: 3
     amount: 5
     probability: 1
-  maxHealth: 7
+  rewardPerHit: 1
+  maxHealth: 40
   speed: 0
   radius: 0.5
   emitCount: 15

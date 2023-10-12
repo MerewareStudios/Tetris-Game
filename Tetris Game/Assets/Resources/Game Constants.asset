@@ -545,7 +545,7 @@ MonoBehaviour:
   - {r: 0.5647059, g: 0.27058825, b: 1, a: 1}
   - {r: 0.5647059, g: 0.27058825, b: 1, a: 1}
   placePosDouble:
-  - {x: 0, y: 0.24, z: 0}
+  - {x: 0, y: 0.24, z: -0.025}
   - {x: 0, y: 0.24, z: 0}
   - {x: 0, y: 0.24, z: 0}
   - {x: 0, y: 0.24, z: 0}
@@ -675,9 +675,9 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 6ae02d9be4c305e4989d6f394cbe04a0, type: 3}
   - usage: 4
     model: 42
-    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultPosition: {x: 0, y: 0.301, z: 0}
     defaultRotation: {x: 0, y: 0, z: 0}
-    defaultScale: {x: 0, y: 0, z: 0}
+    defaultScale: {x: 0.7, y: 0.5983369, z: 0.7}
     free2Place: 0
     startColor: {r: 0, g: 0, b: 0, a: 0}
     amountTextEnabled: 0
@@ -688,7 +688,7 @@ MonoBehaviour:
     defaultRotation: {x: 0, y: 0, z: 0}
     defaultScale: {x: 1, y: 1, z: 1}
     free2Place: 0
-    startColor: {r: 1, g: 1, b: 1, a: 1}
+    startColor: {r: 1, g: 0.52156866, b: 0, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 0}
   - usage: 6

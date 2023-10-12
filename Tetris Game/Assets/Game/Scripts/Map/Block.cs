@@ -98,7 +98,7 @@ namespace Game
                 pawn.ParentBlock = null;
                 pawn.Mover = false;
                 pawn.MarkSteadyColor();
-                pawn.PunchUp(-0.125f, 0.25f);
+                pawn.PunchUp(-0.175f, 0.25f);
             }
             Spawner.THIS.RemoveBlock(this);
 

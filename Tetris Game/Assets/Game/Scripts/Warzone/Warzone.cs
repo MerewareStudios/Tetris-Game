@@ -98,6 +98,14 @@ namespace  Game
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
                     yield return Announcer.THIS.Count(startingText, EnemySpawnData.spawnDelay);
                 }
+                else
+                {
+                    if (LevelManager.CurrentLevel.IsBonus())
+                    {
+                        string startingText = Onboarding.THIS.targetPracticeText;
+                        yield return Announcer.THIS.Show(startingText, 0.5f);
+                    }
+                }
 
 
 
@@ -120,8 +128,8 @@ namespace  Game
 
                 this.enabled = true;
 
-
-                while (Spawning)
+                
+                while (enemyIndex < enemyPool.Count)
                 {
                     _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
                     UIManager.THIS.LevelProgress = 1.0f - ((float)enemyIndex / enemyPool.Count);
@@ -141,6 +149,17 @@ namespace  Game
                         yield return new WaitForSeconds(1.0f);
                     }
                 }
+
+                if (EnemySpawnData.bossData)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                    _enemies.Add(SpawnEnemyOverride(EnemySpawnData.bossType, EnemySpawnData.bossData));
+                    if (!Player.CurrentEnemy)
+                    {
+                        AssignClosestEnemy();
+                    }
+                }
+                
 
                 Spawning = false;
                 _spawnRoutine = null;
@@ -167,7 +186,16 @@ namespace  Game
         private Enemy SpawnEnemy(Pool pool)
         {
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
-            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.25f) : NextSpawnPosition());
+            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition());
+            enemy.Replenish();
+            return enemy;
+        }
+        private Enemy SpawnEnemyOverride(Pool pool, EnemyData enemyData)
+        {
+            Enemy enemy = pool.Spawn<Enemy>(this.transform);
+            enemy.so = enemyData;
+            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition());
+            enemy.Replenish();
             return enemy;
         }
 

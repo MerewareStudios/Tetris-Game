@@ -15,7 +15,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string greatCheerText;
     [TextArea] [SerializeField] public string niceOneText;
     [TextArea] [SerializeField] public string needMoreAmmoText;
-    [TextArea] [SerializeField] public string enemiesComingText;
+    [TextArea] [SerializeField] public string targetPracticeText;
     [TextArea] [SerializeField] public string ticketMergeText;
     [TextArea] [SerializeField] public string freePlacementText;
     [Header("Other")]
@@ -183,11 +183,8 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Hide();
             yield return new WaitForSeconds(0.25f);
 
-            // UIManager.THIS.speechBubble.Hide();
-            // yield return new WaitForSeconds(1.0f);
             
-            // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.enemiesComingText, 0.5f, 1.5f);
-            Announcer.THIS.Show("Target Practice", 0.5f);
+            Announcer.THIS.Show(Onboarding.THIS.targetPracticeText, 0.5f);
 
             ONBOARDING.LEARNED_LEVEL_VISUALS.SetComplete();
             UIManager.THIS.levelText.enabled = true;

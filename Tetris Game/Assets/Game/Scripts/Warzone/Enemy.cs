@@ -56,7 +56,7 @@ namespace  Game
 
     #region  Warzone
 
-        private void Replenish()
+        public void Replenish()
         {
             Health = so.maxHealth;
             
@@ -66,6 +66,10 @@ namespace  Game
         }
         public void TakeDamage(int value)
         {
+            if (so.rewardPerHit)
+            {
+                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(value, 0, 15), value);
+            }
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.colorGrad, so.radius);
             Health -= value;
@@ -94,8 +98,6 @@ namespace  Game
         
         public void OnSpawn(Vector3 position)
         {
-            Replenish();
-
             thisTransform.DOKill();
             
             thisTransform.position = position;
@@ -172,7 +174,8 @@ namespace  Game
             [SerializeField] public int spawnDelay = 3;
             [SerializeField] public float spawnInterval = 6.0f;
             [SerializeField] public List<CountData> countDatas;
-            [SerializeField] public List<BossData > bossDatas;
+            [SerializeField] public Pool bossType;
+            [SerializeField] public EnemyData bossData;
         } 
         [System.Serializable]
         public class CountData

@@ -17,10 +17,11 @@ MonoBehaviour:
   showBannerOffer: 1
   boardSize: {x: 6, y: 7}
   EnemySpawnData:
-    spawnDelay: 3
+    spawnDelay: 0
     spawnInterval: 7
     countDatas: []
-    bossDatas: []
+    bossType: 41
+    bossData: {fileID: 11400000, guid: f72928690e81f5040bbb3121475d9535, type: 2}
   canGiveBonus: 0
   victoryReward:
     type: 0
