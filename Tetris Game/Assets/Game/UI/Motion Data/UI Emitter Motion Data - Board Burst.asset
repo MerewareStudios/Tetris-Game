@@ -31,7 +31,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 50
-      m_ConstantMax: 400
+      m_ConstantMax: 225
     minDistance:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 25
-      m_ConstantMax: 25
+      m_ConstantMin: 50
+      m_ConstantMax: 50
     duration:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -64,10 +64,10 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0.2
-      m_ConstantMax: 0.4
+      m_ConstantMin: 0.15
+      m_ConstantMax: 0.25
     endDelay:
-      m_Mode: 3
+      m_Mode: 0
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -81,9 +81,9 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0.1
-      m_ConstantMax: 0.2
-    ease: 3
+      m_ConstantMin: 0
+      m_ConstantMax: 0
+    ease: 6
     overshoot: 1
     easeCurve:
       serializedVersion: 2
@@ -114,21 +114,21 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.75
-        inSlope: 0.25
-        outSlope: 0.25
+        value: 1
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.33333334
+        outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0.25
-        outSlope: 0.25
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -153,7 +153,7 @@ MonoBehaviour:
       m_ConstantMin: 1
       m_ConstantMax: 10
     startSize:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -167,10 +167,10 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 4
+      m_ConstantMin: 90
       m_ConstantMax: 100
     duration:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -184,10 +184,10 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0.5
-      m_ConstantMax: 0.5
+      m_ConstantMin: 0.4
+      m_ConstantMax: 0.6
     ease: 26
-    overshoot: 1
+    overshoot: 0.5
     easeCurve:
       serializedVersion: 2
       m_Curve:
@@ -218,12 +218,12 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 2.2557414
-        outSlope: 2.2557414
+        inSlope: 1.809313
+        outSlope: 1.809313
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.024521826
+        outWeight: 0.027560847
       - serializedVersion: 3
         time: 1
         value: 1

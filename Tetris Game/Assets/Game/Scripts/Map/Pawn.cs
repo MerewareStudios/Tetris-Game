@@ -109,7 +109,7 @@ namespace Game
             _thisTransform = transform;
         }
 
-        public bool Unpack(float delay)
+        public void Unpack(float delay)
         {
             if (ParentBlock)
             {
@@ -117,21 +117,40 @@ namespace Game
             }
             switch (UsageType)
             {
+                //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                //     return true;
+                // case Usage.Magnet:
+                //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                //     return true;
+                // case Usage.Empty:
+                //     break;
+                // case Usage.Nugget:
+                //     break;
+                // case Usage.Medic:
+                //     break;
+                // default:
+                //     throw new ArgumentOutOfRangeException();
+                case Usage.Empty:
+                    break;
                 case Usage.Ammo:
-                    
-                    return true;
+                    break;
                 case Usage.UnpackedAmmo:
-                
-                    return true;
+                    break;
                 case Usage.MagnetLR:
-                    UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                    return true;
+                    break;
                 case Usage.Magnet:
-                    UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                    return true;
+                    break;
+                case Usage.Nugget:
+                    // UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                    UIManagerExtensions.BoardCoinToPlayer(modelPivot.position,  10, 10);
+                    break;
+                case Usage.Medic:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            return true;
+            // return true;
         }
         
         public void Deconstruct()
@@ -254,6 +273,7 @@ namespace Game
             modelPivot.localScale = Vector3.zero;
             modelPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
         }
+
 
         public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
         {

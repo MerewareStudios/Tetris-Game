@@ -563,7 +563,6 @@ namespace Game
                 }
                 else
                 {
-                    UIManagerExtensions.BoardCoinToPlayer(place.Position,  10, 10);
                     pawn.Deconstruct();
                 }
                 
@@ -636,20 +635,31 @@ namespace Game
                     totalAmmo += pawn.Amount;
                     
                     pawn.Unpack(delay += 0.025f);
+                    
+                    
+                    if (pawn.HoverOnMerge())
+                    {
+                        pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                        pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                            .onComplete += () =>
+                        {
+                            pawn.Deconstruct();
 
-                    pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                        .onComplete += () =>
+                            if (lastPawn == pawn)
+                            {
+                                CameraManager.THIS.Shake(0.2f, 0.5f);
+
+                                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                            }
+                        };
+                    }
+                    else
                     {
                         pawn.Deconstruct();
+                    }
+                    
 
-                        if (lastPawn == pawn)
-                        {
-                            CameraManager.THIS.Shake(0.2f, 0.5f);
-
-                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                        }
-                    };
+                    
 
                     place.Current = null;
                 }
