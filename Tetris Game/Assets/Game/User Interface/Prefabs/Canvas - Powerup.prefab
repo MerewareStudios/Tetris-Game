@@ -6035,7 +6035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 9063586313887820818}
-  powerUps: 0200000003000000
+  powerUps: 0300000004000000
   pivot: {fileID: 8917067977922834733}
   icon: {fileID: 3492517242821289661}
   currencyTarget: {fileID: 5514183999930175864}

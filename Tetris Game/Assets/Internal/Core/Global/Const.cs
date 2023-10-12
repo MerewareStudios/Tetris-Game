@@ -14,7 +14,7 @@ public class Const : SSingleton<Const>
     [ReadOnly] public int bundleVersionCode;
     [Header("Look Up")]
     public LevelSo[] Levels;
-    public Pawn.Usage[] PowerUps;
+    // public Pawn.Usage[] PowerUps;
     
     
     [Header("Save Default")]
@@ -34,7 +34,6 @@ public class Const : SSingleton<Const>
     public Color powerColor;
     public Color ghostNormal;
     public Color ghostFade;
-    public Sprite[] pawnIcons;
     public Color[] placeColorsDouble;
     public Vector3[] placePosDouble;
     public bool[] ghostPawnStateDouble;
@@ -105,5 +104,13 @@ public class Const : SSingleton<Const>
 
         text.color = Const.THIS.metaTextColors[enumInt];
         text.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
+    }
+}
+
+public static class ConstExtensions
+{
+    public static Pool Model(this Pawn.Usage usage)
+    {
+        return Const.THIS.pawnVisualData[(int)usage].model; 
     }
 }

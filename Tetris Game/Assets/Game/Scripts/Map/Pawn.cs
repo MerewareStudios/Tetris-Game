@@ -7,11 +7,13 @@ namespace Game
 {
     public class Pawn : MonoBehaviour
     {
-        [SerializeField] public MeshRenderer meshRenderer;
-        [SerializeField] private MeshRenderer iconMR;
+        [SerializeField] private MeshRenderer iconMr;
         [SerializeField] private TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
         [SerializeField] public Transform pivot;
+        
+        [System.NonSerialized] private GameObject _currentModel = null;
+        [System.NonSerialized] private MeshRenderer _meshRenderer;
 
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
@@ -23,96 +25,88 @@ namespace Game
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool CanTakeContent = false;
+        [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
-        public bool Free2Place => _usageType.Equals(Usage.MagnetLR) || _usageType.Equals(Usage.Magnet);
-
-        private Pawn.Usage _usageType;
+        public bool Free2Place => Const.THIS.pawnVisualData[(int)UsageType].free2Place;
+        public bool Connected => ParentBlock;
+        private Pawn.Usage _usageType = Usage.Empty;
+        
         public Pawn.Usage UsageType
         {
             set
             {
-                _usageType = value;
-                switch (_usageType)
-                {
-                    case Usage.Ammo:
-                        MarkAmmoColor();
-                        // Free2Place = false;
-                        break;
-                    case Usage.UnpackedAmmo:
-                        MarkUnpackedAmmoColor();
-                        // Free2Place = false;
-                        break;
-                    case Usage.MagnetLR:
-                        MarkPowerupColor();
-                        // Free2Place = true;
-                        break;
-                    case Usage.Magnet:
-                        MarkPowerupColor();
-                        // Free2Place = true;
-                        break;
-                }
-                CanTakeContent = false;
+                VisualData visualData = Const.THIS.pawnVisualData[(int)value];
                 
+                Debug.Log(this._usageType.Model() + " " + visualData.model);
+
+                if (!_currentModel || !this._usageType.Model().Equals(visualData.model))
+                {
+                    DeSpawnModel();
+                    _currentModel = visualData.model.Spawn();
+                }
+                
+                
+                this._usageType = value;
+                
+                
+                
+                Transform currenModelTransform = _currentModel.transform;
+                
+                currenModelTransform.parent = modelPivot;
+                currenModelTransform.localPosition = visualData.defaultPosition;
+                currenModelTransform.localEulerAngles = visualData.defaultRotation;
+                currenModelTransform.localScale = visualData.defaultScale;
+
+                _meshRenderer = _currentModel.GetComponent<MeshRenderer>();
+                if (_meshRenderer)
+                {
+                    _meshRenderer.material.SetColor(GameManager.BaseColor, visualData.startColor);
+                }
+
+                CanTakeContent = false;
             }
 
             get => _usageType;
         }
-        
-        [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
-        
-        public bool Connected => ParentBlock;
 
-        public bool TextEnabled
+        private void DeSpawnModel()
         {
-            set => levelText.enabled = value;
+            if (_currentModel)
+            {
+                _currentModel.Despawn();
+                _currentModel = null;
+                _meshRenderer = null;
+            }
         }
-
-       
         
-
-        void Awake()
-        {
-            _thisTransform = transform;
-        }
-
         public int Amount
         {
-            get => this._amount;
             set
             {
                 this._amount = value;
-                TextEnabled = true;
-                switch (UsageType)
+                
+                VisualData visualData = Const.THIS.pawnVisualData[(int)UsageType];
+                
+                levelText.enabled = visualData.amountTextEnabled;
+                if (levelText.enabled)
                 {
-                    case Usage.Ammo:
-                        bool max = value == Board.THIS.StackLimit;
-                        meshRenderer.material.SetColor(GameManager.BaseColor, max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor);
-                        levelText.text = _amount.ToString();
-                        iconMR.enabled = false;
-                        break;
-                    case Usage.UnpackedAmmo:
-                        levelText.enabled = false;
-                        iconMR.enabled = true;
-                        break;
-                    case Usage.MagnetLR:
-                        levelText.enabled = false;
-                        iconMR.enabled = true;
-                        _amount = 0;
-                        break;
-                    case Usage.Magnet:
-                        levelText.enabled = false;
-                        iconMR.enabled = true;
-                        _amount = 0;
-                        break;
+                    bool max = value == Board.THIS.StackLimit;
+                    _meshRenderer.material.SetColor(GameManager.BaseColor, max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor);
+                    levelText.text = _amount.ToString();
                 }
-
-                Sprite pawnIcon = Const.THIS.pawnIcons[(int)UsageType];
-                if (pawnIcon)
+                
+                iconMr.enabled = visualData.icon;
+                if (iconMr.enabled)
                 {
-                    iconMR.material.SetTexture(GameManager.BaseMap, pawnIcon.texture);
+                    iconMr.material.SetTexture(GameManager.BaseMap, visualData.icon.texture);
                 }
             }
-
+            get => this._amount;
+        }
+        
+        void Awake()
+        {
+            _thisTransform = transform;
         }
 
         public bool Unpack(float delay)
@@ -150,6 +144,7 @@ namespace Game
             ParentBlock = null;
 
             this.Despawn();
+            DeSpawnModel();
         }
         
         public void OnLevelEnd()
@@ -183,25 +178,25 @@ namespace Game
 
         #region Colors
 
-        public void MarkAmmoColor()
-        {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
-        }
+        // public void MarkAmmoColor()
+        // {
+        //     _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
+        // }
         public void MarkSteadyColor()
         {
             if (_usageType.Equals(Usage.UnpackedAmmo)) // not powerup
             {
-                meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
+                _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
             }
         }
-        public void MarkUnpackedAmmoColor()
-        {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
-        }
-        public void MarkPowerupColor()
-        {
-            meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.powerColor);
-        }
+        // public void MarkUnpackedAmmoColor()
+        // {
+        //     _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
+        // }
+        // public void MarkPowerupColor()
+        // {
+        //     _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.powerColor);
+        // }
         #endregion
         public void UnpackAmmo(float delay, float scale, float duration, System.Action start = null)
         {
@@ -325,11 +320,13 @@ namespace Game
         
         public enum Usage
         {
+            Empty,
             Ammo,
             UnpackedAmmo,
             MagnetLR,
             Magnet,
             Nugget,
+            Medic,
         }
 
         [Serializable]
@@ -338,7 +335,12 @@ namespace Game
             [SerializeField] public Pawn.Usage usage;
             [SerializeField] public Pool model;
             [SerializeField] public Vector3 defaultPosition;
+            [SerializeField] public Vector3 defaultRotation;
             [SerializeField] public Vector3 defaultScale;
+            [SerializeField] public bool free2Place = false;
+            [SerializeField] public Color startColor;
+            [SerializeField] public bool amountTextEnabled = false;
+            [SerializeField] public Sprite icon;
         }
     }
 }
