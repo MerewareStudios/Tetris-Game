@@ -223,6 +223,16 @@ namespace  Game
             return new Vector3(0.0f, 0.0f, Mathf.Lerp(StartLine, EndLine, factor));
         }
 
+        public Vector3 GetMissileTarget()
+        {
+            if (_enemies.Count > 0)
+            {
+                return _enemies[0].thisTransform.position;
+            }
+
+            return MidSpawnPosition(0.5f);
+        }
+
         #endregion
 
         public void Emit(int amount, Vector3 position, ParticleSystem.MinMaxGradient color, float radius)

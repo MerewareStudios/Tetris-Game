@@ -33,3 +33,31 @@ MonoBehaviour:
   glimmerSpeedWeapon: 1500
   glimmerSpeedUpgrade: 2000
   glimmerEase: 21
+  missileEase: 2
+  missileDuration: 1
+  missileJumpPower: 5
+  missileOvershoot: 0
+  missileCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.36811408
+      outSlope: 0.36811408
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.7834723
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.00000014025838
+      outSlope: 0.00000014025838
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.42496318
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

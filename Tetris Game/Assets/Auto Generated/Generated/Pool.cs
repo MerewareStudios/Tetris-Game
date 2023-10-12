@@ -41,9 +41,10 @@ public enum Pool
     Enemy_4 = 38,
     Enemy_5 = 39,
     Enemy_6 = 40,
-    Enemy_0 = 41,
+    Dummy = 41,
     Cube = 42,
     Medic = 43,
     Nugget = 44,
+    Rocket = 45,
 
 }

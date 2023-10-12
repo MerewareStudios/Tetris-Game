@@ -30,6 +30,11 @@ public class AnimConst : SSingleton<AnimConst>
     public float glimmerSpeedWeapon;
     public float glimmerSpeedUpgrade;
     public Ease glimmerEase;
+    [Header("Sub Model")]
+    public Ease missileEase;
+    public float missileDuration;
+    public float missileJumpPower;
+    public float missileOvershoot;
 
 
     public float MergeShowDelay => mergeTravelDelay + mergeTravelDur;

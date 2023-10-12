@@ -12,8 +12,7 @@ namespace Game
         [SerializeField] public Transform modelPivot;
         [SerializeField] public Transform pivot;
         
-        [System.NonSerialized] private GameObject _currentModel = null;
-        [System.NonSerialized] private MeshRenderer _meshRenderer;
+        [System.NonSerialized] private SubModel _subModel = null;
 
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
@@ -37,31 +36,25 @@ namespace Game
             {
                 VisualData visualData = Const.THIS.pawnVisualData[(int)value];
                 
-                Debug.Log(this._usageType.Model() + " " + visualData.model);
-
-                if (!_currentModel || !this._usageType.Model().Equals(visualData.model))
+                if (!_subModel || !this._usageType.Model().Equals(visualData.model))
                 {
                     DeSpawnModel();
-                    _currentModel = visualData.model.Spawn();
+                    _subModel = visualData.model.Spawn<SubModel>();
                 }
                 
                 
                 this._usageType = value;
                 
+                // Transform currenModelTransform = _subModel.transform;
+                
+                _subModel.OnConstruct(modelPivot);
                 
                 
-                Transform currenModelTransform = _currentModel.transform;
                 
-                currenModelTransform.parent = modelPivot;
-                currenModelTransform.localPosition = visualData.defaultPosition;
-                currenModelTransform.localEulerAngles = visualData.defaultRotation;
-                currenModelTransform.localScale = visualData.defaultScale;
+                // currenModelTransform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                // currenModelTransform.localScale = Vector3.one;
 
-                _meshRenderer = _currentModel.GetComponent<MeshRenderer>();
-                if (_meshRenderer)
-                {
-                    _meshRenderer.material.SetColor(GameManager.BaseColor, visualData.startColor);
-                }
+                _subModel.BaseColor = visualData.startColor;
 
                 CanTakeContent = false;
             }
@@ -71,11 +64,10 @@ namespace Game
 
         private void DeSpawnModel()
         {
-            if (_currentModel)
+            if (_subModel)
             {
-                _currentModel.Despawn();
-                _currentModel = null;
-                _meshRenderer = null;
+                _subModel.OnDeconstruct();
+                _subModel = null;
             }
         }
         
@@ -91,7 +83,9 @@ namespace Game
                 if (levelText.enabled)
                 {
                     bool max = value == Board.THIS.StackLimit;
-                    _meshRenderer.material.SetColor(GameManager.BaseColor, max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor);
+                    
+                    _subModel.BaseColor = max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor;
+                    
                     levelText.text = _amount.ToString();
                 }
                 
@@ -115,6 +109,14 @@ namespace Game
             {
                 ParentBlock.DetachPawn(this);
             }
+
+            if (!_subModel)
+            {
+                return;
+            }
+            
+            
+
             switch (UsageType)
             {
                 //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
@@ -125,6 +127,24 @@ namespace Game
                 // case Usage.Empty:
                 //     break;
                 // case Usage.Nugget:
+                //     break;
+                // case Usage.Medic:
+                //     break;
+                // default:
+                //     throw new ArgumentOutOfRangeException();
+                // case Usage.Empty:
+                //     break;
+                // case Usage.Ammo:
+                //     break;
+                // case Usage.UnpackedAmmo:
+                //     break;
+                // case Usage.MagnetLR:
+                //     break;
+                // case Usage.Magnet:
+                //     break;
+                // case Usage.Nugget:
+                //     // UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
+                //     UIManagerExtensions.BoardCoinToPlayer(modelPivot.position,  10, 10);
                 //     break;
                 // case Usage.Medic:
                 //     break;
@@ -141,15 +161,29 @@ namespace Game
                 case Usage.Magnet:
                     break;
                 case Usage.Nugget:
-                    // UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                    UIManagerExtensions.BoardCoinToPlayer(modelPivot.position,  10, 10);
+                    _subModel.transform.parent = null;
+                    _subModel.Rise((position) =>
+                    {
+                        UIManagerExtensions.BoardCoinToPlayer(position,  10, 10);
+                    });
                     break;
                 case Usage.Medic:
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                case Usage.Rocket:
+                    _subModel.transform.parent = null;
+                    _subModel.Missile(Warzone.THIS.GetMissileTarget(), () =>
+                    {
+                        
+                    });
+                    break;
             }
 
+            _subModel = null;
+
+            // if (_subModel)
+            // {
+            //     
+            // }
             // return true;
         }
         
@@ -205,7 +239,7 @@ namespace Game
         {
             if (_usageType.Equals(Usage.UnpackedAmmo)) // not powerup
             {
-                _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.steadyColor);
+                _subModel.BaseColor = Const.THIS.steadyColor;
             }
         }
         // public void MarkUnpackedAmmoColor()
@@ -347,6 +381,7 @@ namespace Game
             Magnet,
             Nugget,
             Medic,
+            Rocket,
         }
 
         [Serializable]
@@ -354,9 +389,6 @@ namespace Game
         {
             [SerializeField] public Pawn.Usage usage;
             [SerializeField] public Pool model;
-            [SerializeField] public Vector3 defaultPosition;
-            [SerializeField] public Vector3 defaultRotation;
-            [SerializeField] public Vector3 defaultScale;
             [SerializeField] public bool free2Place = false;
             [SerializeField] public Color startColor;
             [SerializeField] public bool amountTextEnabled = false;
