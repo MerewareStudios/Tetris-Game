@@ -114,10 +114,10 @@ namespace Game
                     break;
                 case Usage.UnpackedAmmo:
                     break;
-                case Usage.MagnetLR:
-                    UIManagerExtensions.Distort(_subModel.Position, 0.0f);
-                    _subModel.OnDeconstruct();
-                    _subModel = null;
+                case Usage.Placeholder:
+                    // UIManagerExtensions.Distort(_subModel.Position, 0.0f);
+                    // _subModel.OnDeconstruct();
+                    // _subModel = null;
                     break;
                 case Usage.Magnet:
                     UIManagerExtensions.Distort(_subModel.Position, 0.0f);
@@ -306,7 +306,7 @@ namespace Game
                 return;
             }
             
-            if (UsageType.Equals(Usage.MagnetLR) ||  UsageType.Equals(Usage.Magnet))
+            if (visualData.neverMoves)
             {
                 Mover = false;
             }
@@ -329,7 +329,7 @@ namespace Game
             Empty,
             Ammo,
             UnpackedAmmo,
-            MagnetLR,
+            Placeholder,
             Magnet,
             Nugget,
             Medic,
@@ -347,6 +347,7 @@ namespace Game
             [SerializeField] public Sprite icon;
             [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool hoverOnMerge = false;
+            [SerializeField] public bool neverMoves = false;
         }
     }
 }
