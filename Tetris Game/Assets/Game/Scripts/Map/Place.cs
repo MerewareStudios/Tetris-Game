@@ -77,11 +77,8 @@ namespace Game
             bool targetState = Const.THIS.ghostPawnStateDouble[enumIndex];
             DoGhostPawn(targetState);
             
-            // if (!targetState)
-            // {
-                Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
-                DoColor(targetColor);
-            // }
+            Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
+            DoColor(targetColor);
                 
             Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
             DoPos(targetPos);

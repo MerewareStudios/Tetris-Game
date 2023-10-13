@@ -21,6 +21,9 @@ namespace Game
         [SerializeField] public RectTransform statsPin;
         [SerializeField] public RectTransform spawnerPin;
         [SerializeField] public RectTransform enemySpawnPin;
+        [SerializeField] private ParticleSystem suggestionHighlight;
+        [System.NonSerialized] private ParticleSystem.MainModule _suggestionHighlightMain;
+        [System.NonSerialized] private Transform _suggestionHighlightTransform;
         [Header("Rect")]
         [SerializeField] public RectTransform projectionRect;
 
@@ -37,12 +40,13 @@ namespace Game
         
         [System.NonSerialized] public bool BoostingStack = false;
 
-
         public int StackLimit => _Data.maxStack + (BoostingStack ? 1 : 0);
         
         void Awake()
         {
             this._thisTransform = this.transform;
+            this._suggestionHighlightTransform = this.suggestionHighlight.transform;
+            this._suggestionHighlightMain = this.suggestionHighlight.main;
         }
 
         public Data _Data
@@ -337,10 +341,10 @@ namespace Game
             }
             if (Spawner.THIS.CurrentBlock.RequiredPlaces != null && Spawner.THIS.CurrentBlock.RequiredPlaces.Count > 0)
             {
-                Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces);
+                Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Const.THIS.suggestionColorTut);
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
                 {
-                    Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces);
+                    Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Const.THIS.suggestionColorTut);
                 }, false).SetLoops(-1);
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
@@ -368,9 +372,9 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(8.5f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(10.0f, () =>
                 {
-                    Highlight(randomPlaces);
+                    Highlight(randomPlaces, Const.THIS.suggestionColor);
                     _delayedHighlightTween?.Kill();
                     _delayedHighlightTween = null;
                 }, false);
@@ -919,14 +923,22 @@ namespace Game
             return true;
         }
 
-        public void Highlight(List<Place> places)
+        private void EmitSuggestionHighlight(int count, Color color, Vector3 position, Quaternion rotation)
+        {
+            _suggestionHighlightTransform.position = position;
+            _suggestionHighlightTransform.localRotation = rotation;
+            _suggestionHighlightMain.startColor = color;
+            suggestionHighlight.Emit(count);
+        }
+
+        public void Highlight(List<Place> places, Color color)
         {
             foreach (var place in places)
             {
-                Particle.Blue_Zone.Emit(1, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                EmitSuggestionHighlight(1, color, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
             }
         }
-        public void HighlightEmptyPlaces()
+        public void HighlightEmptyPlaces(Color color)
         {
             foreach (var place in _places)
             {
@@ -934,14 +946,15 @@ namespace Game
                 {
                     continue;
                 }
-                Particle.Blue_Zone.Emit(1, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
+
+                EmitSuggestionHighlight(1, color, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
             }
         }
 
         public void HideSuggestedPlaces()
         {
-            Particle.Blue_Zone.StopAndClear();
-            Particle.Yellow_Zone.StopAndClear();
+            suggestionHighlight.Stop();
+            suggestionHighlight.Clear();
             _delayedHighlightTween?.Kill();
             _delayedHighlightTween = null;
         }

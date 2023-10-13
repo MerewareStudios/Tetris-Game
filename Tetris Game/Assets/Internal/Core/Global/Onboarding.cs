@@ -108,21 +108,22 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.greatCheerText, 0.15f);
             Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.75f);
             
             UIManager.THIS.speechBubble.Hide();
 
-            yield return new WaitForSeconds(0.65f);
+            yield return new WaitForSeconds(0.75f);
             
             // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
             ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true);
 
+            // yield return new WaitForSeconds(0.25f);
             Spawner.THIS.DelayedSpawn(0.0f);
 
             
-            yield return new WaitForSeconds(0.35f);
+            // yield return new WaitForSeconds(0.35f);
         }
     }
     

@@ -111,7 +111,7 @@ MonoBehaviour:
   - type: 3
     amount: 5
     probability: 1
-  maxHealth: 7
+  maxHealth: 10
   speed: 0
   radius: 0.5
   emitCount: 15

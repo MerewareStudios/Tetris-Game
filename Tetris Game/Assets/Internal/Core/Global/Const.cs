@@ -63,6 +63,9 @@ public class Const : SSingleton<Const>
     
     [Header("Pawn")] 
     public Pawn.VisualData[] pawnVisualData;
+    [Header("Tutorıal")] 
+    public Color suggestionColorTut;
+    public Color suggestionColor;
     
     [Serializable]
     public struct Currency
