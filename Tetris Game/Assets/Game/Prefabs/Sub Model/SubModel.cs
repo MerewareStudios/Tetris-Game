@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Game;
 using UnityEngine;
 
 public class SubModel : MonoBehaviour
@@ -85,7 +86,7 @@ public class SubModel : MonoBehaviour
 
         const float duration = 0.25f;
         
-        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 180.0f, 0.0f), duration, RotateMode.FastBeyond360).SetEase(Ease.InOutSine);
+        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 180.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
         Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
 
         _sequence.Join(rotTween);
@@ -112,7 +113,7 @@ public class SubModel : MonoBehaviour
         {
             var current = _transform.position;
             Vector3 direction = (current - lastPos);
-            _transform.up = Vector3.Lerp(_transform.up, direction, Time.deltaTime * 20.0f);
+            _transform.up = Vector3.Lerp(_transform.up,  direction, Time.deltaTime * jumpTween.ElapsedPercentage() * 80.0f);
             lastPos = current;
         };
 
@@ -120,6 +121,8 @@ public class SubModel : MonoBehaviour
 
         _sequence.onComplete = () =>
         {
+            Particle.Missile_Explosion.Play(_transform.position);
+            Warzone.THIS.AEODamage(target, 10, 2.0f);
             onFinish?.Invoke();
             OnDeconstruct();
         };

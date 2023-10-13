@@ -227,10 +227,22 @@ namespace  Game
         {
             if (_enemies.Count > 0)
             {
-                return _enemies[0].thisTransform.position;
+                return _enemies[0].hitTarget.position;
             }
 
             return MidSpawnPosition(0.5f);
+        }
+
+        public void AEODamage(Vector3 position, int damage, float sqrMagnitude)
+        {
+            foreach (var enemy in _enemies)
+            {
+                float sqrDistance = (position - enemy.thisTransform.position).sqrMagnitude;
+                if (sqrDistance < sqrMagnitude)
+                {
+                    enemy.TakeDamage(damage, 2.0f);
+                }
+            }
         }
 
         #endregion

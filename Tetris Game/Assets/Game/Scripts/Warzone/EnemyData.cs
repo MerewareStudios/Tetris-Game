@@ -10,7 +10,6 @@ public class EnemyData : ScriptableObject
     public ParticleSystem.MinMaxGradient colorGrad;
     public Gradient hitGradient;
     public List<EnemyReward> enemyRewards;
-    public bool rewardPerHit = false;
     public int maxHealth;
     public float speed;
     public float radius;

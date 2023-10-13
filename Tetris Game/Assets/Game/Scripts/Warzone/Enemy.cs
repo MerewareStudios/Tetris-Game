@@ -12,6 +12,7 @@ namespace  Game
         [SerializeField] private HealthCanvas healthCanvas;
         [Header("Model")]
         [SerializeField] public Transform thisTransform;
+        [SerializeField] public Transform hitTarget;
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
         [SerializeField] public EnemyData so;
@@ -64,16 +65,12 @@ namespace  Game
             // skin.SetColor(GameManager.MPB_ENEMY, GameManager.EnemyEmisColor, Color.black);
             skin.material.SetColor(GameManager.EmissionKey, Color.black);
         }
-        public void TakeDamage(int value)
+        public void TakeDamage(int value, float scale = 1.0f)
         {
-            if (so.rewardPerHit)
-            {
-                UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(value, 0, 15), value);
-            }
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.colorGrad, so.radius);
             Health -= value;
-            healthCanvas.DisplayDamage(-value);
+            healthCanvas.DisplayDamage(-value, scale);
             Warzone.THIS.Player.PunchCrossHair();
             if (Health <= 0)
             {

@@ -57,45 +57,31 @@ public class Gun : MonoBehaviour
     
     public void Shoot(Enemy enemy)
     {
-        Transform enemyTransform = enemy.transform;
-        // enemy.OnRemoved = () =>
-        // {
-        //     enemyTransform = null;
-        // };
+        // Transform enemyTransform = enemy.hitTarget;
             
         Transform bullet = Pool.Bullet.Spawn().transform;
         
         TrailRenderer trail = Pool.Trail.Spawn<TrailRenderer>(bullet);
         
         bullet.DOKill();
-
         bullet.transform.position = muzzle.position;
-        
         trail.Clear();
         
         Tween bulletTween = null;
         if (GunSo.jump)
         {
-            bulletTween = bullet.DOJump(enemyTransform.position, GunSo.jumpPower, 1, GunSo.travelDur).SetEase(Ease.Linear);
+            bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower, 1, GunSo.travelDur).SetEase(Ease.Linear);
         }
         else
         {
-            bulletTween = bullet.DOMove(enemyTransform.position, GunSo.travelDur).SetEase(Ease.Linear);
+            bulletTween = bullet.DOMove(enemy.hitTarget.position, GunSo.travelDur).SetEase(Ease.Linear);
         }
-        // bulletTween.onUpdate = () =>
-        // {
-        //     if (enemyTransform)
-        //     {
-        //         targetPosition = enemyTransform.position;
-        //     }
-        //     bulletTween.SetTarget(targetPosition);
-        // };
         bulletTween.onComplete = () =>
         {
-            if (enemyTransform)
-            {
-                enemy.TakeDamage(_Data.DamageAmount);
-            }
+            // if (enemyTransform)
+            // {
+                enemy.TakeDamage(_Data.DamageAmount, 1.0f);
+            // }
             bullet.Despawn();
             trail.gameObject.Despawn();
         };

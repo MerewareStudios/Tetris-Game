@@ -111,8 +111,7 @@ MonoBehaviour:
   - type: 3
     amount: 5
     probability: 1
-  rewardPerHit: 1
-  maxHealth: 40
+  maxHealth: 25
   speed: 0
   radius: 0.5
   emitCount: 15

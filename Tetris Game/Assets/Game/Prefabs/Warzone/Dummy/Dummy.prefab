@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 159493882616493309}
+  - {fileID: 1220778513830846018}
   m_Father: {fileID: 3299348889971161220}
   m_LocalEulerAnglesHint: {x: -11.815, y: 0, z: 0}
 --- !u!95 &159493882623744787
@@ -171,6 +172,37 @@ Transform:
   - {fileID: 159493882616493305}
   m_Father: {fileID: 8114693562586747917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4761639865873123541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220778513830846018}
+  m_Layer: 0
+  m_Name: Hit Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220778513830846018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4761639865873123541}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.036784377, y: -0, z: -0, w: 0.99932325}
+  m_LocalPosition: {x: 0, y: 0.713, z: 0.306}
+  m_LocalScale: {x: 0.80563253, y: 0.8056326, z: 0.8056326}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 159493882616493305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6409661743272111104
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthCanvas: {fileID: 357221565438194629}
   thisTransform: {fileID: 8114693562586747917}
+  hitTarget: {fileID: 1220778513830846018}
   skin: {fileID: 159493882627958227}
   animator: {fileID: 159493882623744787}
   so: {fileID: 11400000, guid: a5624d9194e343741b08e2c86320f897, type: 2}
@@ -314,6 +347,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8114693562586747917}
     m_Modifications:
+    - target: {fileID: 395711551336742433, guid: 232181acae2427346a6290cc738b8357,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395711551336742433, guid: 232181acae2427346a6290cc738b8357,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -39.9
+      objectReference: {fileID: 0}
     - target: {fileID: 2398609253904955494, guid: 232181acae2427346a6290cc738b8357,
         type: 3}
       propertyPath: m_Name
