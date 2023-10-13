@@ -153,7 +153,6 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.freePlacementText, 0.2f);
             yield return new WaitForSeconds(2.5f);
             UIManager.THIS.speechBubble.Hide();
-            ONBOARDING.PLACE_POWERUP.SetComplete();
         }
     }
     public static void TalkAboutPowerUp()

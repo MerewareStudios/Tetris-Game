@@ -334,6 +334,7 @@ namespace Game
             {
                 if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
                 {
+                    ONBOARDING.PLACE_POWERUP.SetComplete();
                     Onboarding.TalkAboutFreePlacement();
                 }
                 // There is no block to suggest place or check deadlock, skip
