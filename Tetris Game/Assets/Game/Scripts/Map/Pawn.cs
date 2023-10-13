@@ -162,19 +162,13 @@ namespace Game
                     break;
                 case Usage.Nugget:
                     _subModel.transform.parent = null;
-                    _subModel.Rise((position) =>
-                    {
-                        UIManagerExtensions.BoardCoinToPlayer(position,  10, 10);
-                    });
+                    _subModel.Rise();
                     break;
                 case Usage.Medic:
                     break;
                 case Usage.Rocket:
                     _subModel.transform.parent = null;
-                    _subModel.Missile(Warzone.THIS.GetMissileTarget(), () =>
-                    {
-                        
-                    });
+                    _subModel.Missile(Warzone.THIS.GetMissileTarget());
                     break;
             }
 

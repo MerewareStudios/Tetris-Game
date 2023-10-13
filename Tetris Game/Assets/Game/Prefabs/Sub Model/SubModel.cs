@@ -77,7 +77,7 @@ public class SubModel : MonoBehaviour
     }
 
 
-    public void Rise(System.Action<Vector3> onFinish)
+    public void Rise()
     {
         _sequence?.Kill();
         _transform.DOKill();
@@ -94,12 +94,12 @@ public class SubModel : MonoBehaviour
 
         _sequence.onComplete = () =>
         {
-            onFinish?.Invoke(_transform.position);
+            UIManagerExtensions.BoardCoinToPlayer(_transform.position,  10, 10);
             OnDeconstruct();
         };
     }
     
-    public void Missile(Vector3 target, System.Action onFinish)
+    public void Missile(Vector3 target)
     {
         _sequence?.Kill();
         _transform.DOKill();
@@ -123,7 +123,6 @@ public class SubModel : MonoBehaviour
         {
             Particle.Missile_Explosion.Play(_transform.position);
             Warzone.THIS.AEODamage(target, 10, 2.0f);
-            onFinish?.Invoke();
             OnDeconstruct();
         };
     }
