@@ -3881,6 +3881,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5019406597486307963, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019406597486307963, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 1500
+      objectReference: {fileID: 0}
     - target: {fileID: 7827162823437580552, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_Pivot.x

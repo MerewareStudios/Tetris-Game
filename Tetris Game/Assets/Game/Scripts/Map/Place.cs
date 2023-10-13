@@ -12,7 +12,7 @@ namespace Game
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceColorType _colorType = PlaceColorType.GREEN;
-        [System.NonSerialized] private PlaceColorType _targetColorType = PlaceColorType.GREEN;
+        [System.NonSerialized] public PlaceColorType TargetColorType = PlaceColorType.GREEN;
         [System.NonSerialized] private Tween _colorTween;
         [System.NonSerialized] public Pawn Current;
         public bool Occupied => Current;
@@ -61,38 +61,38 @@ namespace Game
         }
         public void SetTargetColorType(PlaceColorType placeColorType)
         {
-            this._targetColorType = placeColorType;
+            this.TargetColorType = placeColorType;
         }
         public void FinalizeState()
         {
-            if (_targetColorType.Equals(_colorType))
+            if (TargetColorType.Equals(_colorType))
             {
                 return;
             }
             
-            _colorType = _targetColorType;
+            _colorType = TargetColorType;
             
             int enumIndex = (int)_colorType;
 
             bool targetState = Const.THIS.ghostPawnStateDouble[enumIndex];
             DoGhostPawn(targetState);
             
-            if (!targetState)
-            {
+            // if (!targetState)
+            // {
                 Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
                 DoColor(targetColor);
-            }
+            // }
                 
             Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
             DoPos(targetPos);
         }
         public void FinalizeImmediate()
         {
-            if (_targetColorType.Equals(_colorType))
+            if (TargetColorType.Equals(_colorType))
             {
                 return;
             }
-            _colorType = _targetColorType;
+            _colorType = TargetColorType;
             Color targetColor = Const.THIS.placeColorsDouble[(int)_colorType];
             gridTile.material.SetColor(GameManager.BaseColor, targetColor);
             

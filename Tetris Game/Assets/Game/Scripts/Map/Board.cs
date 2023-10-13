@@ -225,7 +225,10 @@ namespace Game
                             for (int i = 0; i < projectedPlaces.Count; i++)
                             {
                                 Vector2Int shiftedIndex = projectedPlaces[i] - new Vector2Int(0, minShift);
-                                _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(_places[shiftedIndex.x, shiftedIndex.y].RayDarkLight);
+                                Game.Place.PlaceColorType type = _places[shiftedIndex.x, shiftedIndex.y].TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)
+                                        ? Game.Place.PlaceColorType.GREEN
+                                        : _places[shiftedIndex.x, shiftedIndex.y].RayDarkLight;
+                                _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(type);
                             }
                         }
                     }
@@ -329,11 +332,6 @@ namespace Game
                 {
                     Onboarding.TalkAboutFreePlacement();
                 }
-                // HighlightEmptyPlaces();
-                // _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
-                // {
-                //     HighlightEmptyPlaces();
-                // }, false).SetLoops(-1);
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
