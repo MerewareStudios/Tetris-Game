@@ -26,15 +26,15 @@ namespace Game
         [System.NonSerialized] public bool CanTakeContent = false;
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
-        public bool Free2Place => Const.THIS.pawnVisualData[(int)UsageType].free2Place;
         public bool Connected => ParentBlock;
         private Pawn.Usage _usageType = Usage.Empty;
         
+        [System.NonSerialized] public VisualData visualData = null;
         public Pawn.Usage UsageType
         {
             set
             {
-                VisualData visualData = Const.THIS.pawnVisualData[(int)value];
+                visualData = Const.THIS.pawnVisualData[(int)value];
                 
                 if (!_subModel || !this._usageType.Model().Equals(visualData.model))
                 {
@@ -45,15 +45,8 @@ namespace Game
                 
                 this._usageType = value;
                 
-                // Transform currenModelTransform = _subModel.transform;
-                
                 _subModel.OnConstruct(modelPivot);
                 
-                
-                
-                // currenModelTransform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-                // currenModelTransform.localScale = Vector3.one;
-
                 _subModel.BaseColor = visualData.startColor;
 
                 CanTakeContent = false;
@@ -76,8 +69,6 @@ namespace Game
             set
             {
                 this._amount = value;
-                
-                VisualData visualData = Const.THIS.pawnVisualData[(int)UsageType];
                 
                 levelText.enabled = visualData.amountTextEnabled;
                 if (levelText.enabled)
@@ -115,41 +106,8 @@ namespace Game
                 return;
             }
             
-            
-
             switch (UsageType)
             {
-                //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                //     return true;
-                // case Usage.Magnet:
-                //     UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                //     return true;
-                // case Usage.Empty:
-                //     break;
-                // case Usage.Nugget:
-                //     break;
-                // case Usage.Medic:
-                //     break;
-                // default:
-                //     throw new ArgumentOutOfRangeException();
-                // case Usage.Empty:
-                //     break;
-                // case Usage.Ammo:
-                //     break;
-                // case Usage.UnpackedAmmo:
-                //     break;
-                // case Usage.MagnetLR:
-                //     break;
-                // case Usage.Magnet:
-                //     break;
-                // case Usage.Nugget:
-                //     // UIManagerExtensions.Distort(_thisTransform.position + Vector3.up * 0.45f, 0.0f);
-                //     UIManagerExtensions.BoardCoinToPlayer(modelPivot.position,  10, 10);
-                //     break;
-                // case Usage.Medic:
-                //     break;
-                // default:
-                //     throw new ArgumentOutOfRangeException();
                 case Usage.Empty:
                     break;
                 case Usage.Ammo:
@@ -157,28 +115,28 @@ namespace Game
                 case Usage.UnpackedAmmo:
                     break;
                 case Usage.MagnetLR:
+                    UIManagerExtensions.Distort(_subModel.Position, 0.0f);
+                    _subModel.OnDeconstruct();
+                    _subModel = null;
                     break;
                 case Usage.Magnet:
+                    UIManagerExtensions.Distort(_subModel.Position, 0.0f);
+                    _subModel.OnDeconstruct();
+                    _subModel = null;
                     break;
                 case Usage.Nugget:
                     _subModel.transform.parent = null;
                     _subModel.Rise();
+                    _subModel = null;
                     break;
                 case Usage.Medic:
                     break;
                 case Usage.Rocket:
                     _subModel.transform.parent = null;
                     _subModel.Missile(Warzone.THIS.GetMissileTarget());
+                    _subModel = null;
                     break;
             }
-
-            _subModel = null;
-
-            // if (_subModel)
-            // {
-            //     
-            // }
-            // return true;
         }
         
         public void Deconstruct()
@@ -387,6 +345,7 @@ namespace Game
             [SerializeField] public Color startColor;
             [SerializeField] public bool amountTextEnabled = false;
             [SerializeField] public Sprite icon;
+            [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool hoverOnMerge = false;
         }
     }

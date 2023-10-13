@@ -117,4 +117,8 @@ public static class ConstExtensions
     {
         return Const.THIS.pawnVisualData[(int)pawn.UsageType].hoverOnMerge; 
     }
+    public static Sprite PowerUpIcon(this Pawn.Usage usage)
+    {
+        return Const.THIS.pawnVisualData[(int)usage].powerUpIcon; 
+    }
 }

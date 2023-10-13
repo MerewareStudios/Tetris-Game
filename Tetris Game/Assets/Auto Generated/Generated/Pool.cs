@@ -46,5 +46,6 @@ public enum Pool
     Medic = 43,
     Nugget = 44,
     Rocket = 45,
+    Magnet = 46,
 
 }

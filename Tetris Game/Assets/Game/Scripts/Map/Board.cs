@@ -854,7 +854,7 @@ namespace Game
             {
                 return (place, false);
             }
-            if (pawn.Free2Place)
+            if (pawn.visualData.free2Place)
             {
                 return (place, true);
             }

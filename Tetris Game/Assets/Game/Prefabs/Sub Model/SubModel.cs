@@ -10,7 +10,8 @@ public class SubModel : MonoBehaviour
     [SerializeField] private AnimType animType;
     [System.NonSerialized] private Sequence _sequence = null;
 
-
+    public Vector3 Position => _transform.position; 
+    
     void Awake()
     {
         _transform = this.transform;
@@ -121,7 +122,7 @@ public class SubModel : MonoBehaviour
 
         _sequence.onComplete = () =>
         {
-            Particle.Missile_Explosion.Play(_transform.position);
+            Particle.Missile_Explosion.Play(target);
             Warzone.THIS.AEODamage(target, 10, 2.0f);
             OnDeconstruct();
         };

@@ -91,7 +91,6 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         {
             return;
         }
-        Debug.LogWarning("started timer from open state" + CurrentAdState);
 
         float value = 0.0f;
         _timerTween = DOTween.To(x => value = x, 1.0f, 0.0f, _duration).SetEase(Ease.OutSine, 8.0f).SetUpdate(true);

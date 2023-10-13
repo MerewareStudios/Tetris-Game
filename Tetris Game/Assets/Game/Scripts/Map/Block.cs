@@ -62,7 +62,7 @@ namespace Game
 
                 if (!Free2Place)
                 {
-                    Free2Place = pawn.Free2Place;
+                    Free2Place = pawn.visualData.free2Place;
                 }
 
                 pawn.Show();

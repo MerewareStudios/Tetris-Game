@@ -22,7 +22,8 @@ MonoBehaviour:
     countDatas:
     - enemyType: 19
       count: 3
-    bossDatas: []
+    bossType: 0
+    bossData: {fileID: 0}
   canGiveBonus: 0
   victoryReward:
     type: 0
@@ -31,3 +32,4 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
+  pawnPlacements: []

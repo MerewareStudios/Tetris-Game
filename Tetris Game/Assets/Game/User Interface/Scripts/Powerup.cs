@@ -88,7 +88,7 @@ public class Powerup : Lazyingleton<Powerup>
     {
         this._Data.currentUsage = usage;
         icon.enabled = true;
-        icon.sprite = Const.THIS.pawnVisualData[(int)usage].icon;
+        icon.sprite = usage.PowerUpIcon();
     }
 
     public void PunchUse()

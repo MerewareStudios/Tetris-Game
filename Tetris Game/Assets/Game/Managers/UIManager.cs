@@ -154,11 +154,11 @@ public class UIManager : Singleton<UIManager>
             Onboarding.TalkAboutPowerUp();
          }
       }
-      if (Input.GetKeyDown(KeyCode.B))
-      {
-         Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(Vector3.zero + new Vector3(0.0f, 0.3516f + 0.254f, 0.0f));
-         UIManagerExtensions.Distort(Vector3.up * 0.45f, 0.0f);
-      }
+      // if (Input.GetKeyDown(KeyCode.B))
+      // {
+      //    Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(Vector3.zero + new Vector3(0.0f, 0.3516f + 0.254f, 0.0f));
+      //    UIManagerExtensions.Distort(Vector3.up * 0.45f, 0.0f);
+      // }
       
       if (Input.GetKeyDown(KeyCode.C))
       {
