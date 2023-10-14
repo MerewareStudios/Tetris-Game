@@ -26,6 +26,8 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string damageText;
     [TextArea] [SerializeField] public string fireRateText;
     [TextArea] [SerializeField] public string splitShotText;
+    [TextArea] [SerializeField] public string equippedText;
+    [TextArea] [SerializeField] public string unlockedAtText;
     [Header("Ad Break")]
     [TextArea] [SerializeField] public string adBreakText;
     [TextArea] [SerializeField] public string earnText;

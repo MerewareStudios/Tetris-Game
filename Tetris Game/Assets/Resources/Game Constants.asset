@@ -335,63 +335,113 @@ MonoBehaviour:
   - blockType: 10
     currency:
       type: 0
-      amount: 25
-    lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000001000000
+      amount: 15
+    unlockedAt: 1
   - blockType: 9
     currency:
       type: 2
       amount: 1
-    lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000
+    unlockedAt: 5
   - blockType: 7
     currency:
       type: 1
       amount: 4
-    lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000010000000100000000000000
+    unlockedAt: 10
   - blockType: 8
     currency:
       type: 1
       amount: 4
-    lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000001000000
+    unlockedAt: 15
   - blockType: 11
     currency:
       type: 0
       amount: 75
-    lookUp: 000000000000000000000000000000000100000000000000000000000100000000000000000000000100000000000000
+    unlockedAt: 20
   - blockType: 14
     currency:
       type: 0
       amount: 150
-    lookUp: 000000000000000000000000000000000000000000000000010000000000000000000000000000000100000000000000
+    unlockedAt: 25
   - blockType: 15
     currency:
       type: 0
       amount: 150
-    lookUp: 000000000000000000000000000000000000000000000000000000000000000001000000000000000100000000000000
+    unlockedAt: 30
   - blockType: 12
     currency:
       type: 0
       amount: 200
-    lookUp: 000000000000000000000000000000000000000000000000000000000100000000000000000000000100000000000000
+    unlockedAt: 35
   - blockType: 18
     currency:
       type: 1
       amount: 10
-    lookUp: 000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000
+    unlockedAt: 40
   - blockType: 16
     currency:
       type: 1
       amount: 15
-    lookUp: 000000000000000000000000000000000000000000000000010000000000000001000000010000000000000001000000
+    unlockedAt: 45
   - blockType: 17
     currency:
       type: 1
       amount: 25
-    lookUp: 000000000000000000000000010000000000000001000000010000000000000001000000010000000000000001000000
+    unlockedAt: 50
+  - blockType: 47
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 55
   - blockType: 2
     currency:
       type: 0
       amount: 500
-    lookUp: 000000000100000000000000000000000100000000000000000000000100000000000000000000000100000000000000
+    unlockedAt: 60
+  - blockType: 48
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 65
+  - blockType: 49
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 70
+  - blockType: 50
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 75
+  - blockType: 51
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 80
+  - blockType: 53
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 85
+  - blockType: 54
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 90
+  - blockType: 55
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 95
+  - blockType: 56
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 100
+  - blockType: 52
+    currency:
+      type: 0
+      amount: 500
+    unlockedAt: 105
   purchaseDataLookUp:
   - purchaseType: 0
     currency:

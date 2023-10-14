@@ -15,11 +15,11 @@ public class BlockVisualGrid : MonoBehaviour
     [SerializeField] private Image[] bullets;
     [SerializeField] private string ammoText;
 
-    public void Display(int[] lookUp)
+    public void Display(List<Transform> segments)
     {
-        for (int i = 0; i < lookUp.Length; i++)
+        for (int i = 0; i < segments.Count; i++)
         {
-            blocks[i].SetActive(lookUp[i] > 0);
+            blocks[i].SetActive(segments[i]);
             if (blocks[i].activeSelf)
             {
                 blocks[i].transform.DOKill();

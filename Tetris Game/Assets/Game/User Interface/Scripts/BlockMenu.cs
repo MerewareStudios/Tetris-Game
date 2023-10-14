@@ -4,6 +4,7 @@ using DG.Tweening;
 using Internal.Core;
 using IWI;
 using IWI.Tutorial;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,7 @@ namespace Game.UI
         [SerializeField] private CurrenyButton purchaseButton;
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
+        [SerializeField] private TextMeshProUGUI equipText;
         [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _selectedBlockData;
 
@@ -65,15 +67,24 @@ namespace Game.UI
             string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
             this._selectedBlockData = Const.THIS.DefaultBlockData[showIndex];
             
-            bool hasFunds = SetPrice(_selectedBlockData.Cost);
-            SetLookUp(_selectedBlockData.lookUp);
-
+            bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
+            bool availableByPrice = Wallet.HasFunds(_selectedBlockData.Cost);
+            bool availableByTicket = _selectedBlockData.Cost.type.Equals(Const.CurrencyType.Ticket);
             bool purchasedBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
+
+            bool canPurchase = availableByPrice || availableByTicket;
+
+            
+            SetPrice(_selectedBlockData.Cost, canPurchase, availableByTicket);
+            SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
+            
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
             
-            newTextBanner.gameObject.SetActive(!purchasedBlock);
-            equippedTextBanner.gameObject.SetActive(purchasedBlock);
+            newTextBanner.gameObject.SetActive(!purchasedBlock && availableByLevel);
+
+            equippedTextBanner.gameObject.SetActive(!availableByLevel || purchasedBlock);
+            equipText.text = purchasedBlock ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _selectedBlockData.unlockedAt;
 
             if (!purchasedBlock)
             {
@@ -85,7 +96,7 @@ namespace Game.UI
 
             if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
             {
-                if (!purchasedBlock && hasFunds)
+                if (!purchasedBlock && canPurchase)
                 {
                     Onboarding.ClickOn(buttonClickTarget.position, Finger.Cam.UI, () =>
                     {
@@ -145,16 +156,12 @@ namespace Game.UI
             newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        private bool SetPrice(Const.Currency currency)
+        private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByTicket)
         {
-            bool hasFunds = Wallet.HasFunds(currency);
+            purchaseButton.Available = canPurchase;
+            purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
 
-            bool ticket = currency.type.Equals(Const.CurrencyType.Ticket);
-            
-            purchaseButton.Available = hasFunds || ticket;
-            purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
-
-            if (hasFunds)
+            if (canPurchase)
             {   
                 PunchButton(0.2f);
             }
@@ -162,12 +169,10 @@ namespace Game.UI
             currencyDisplay.Display(currency);
             PunchMoney(0.2f);
             PunchPurchasedText(0.2f);
-
-            return hasFunds;
         }
-        private void SetLookUp(int[] table)
+        private void SetLookUp(List<Transform> segments)
         {
-            blockVisualGrid.Display(table);
+            blockVisualGrid.Display(segments);
         }
 
         public void OnClick_Purchase()
@@ -175,6 +180,12 @@ namespace Game.UI
             bool haveBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
             if (haveBlock)
             {
+                return;
+            }
+            bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
+            if (!availableByLevel)
+            {
+                PunchPurchasedText(0.25f);
                 return;
             }
             
@@ -249,19 +260,9 @@ namespace Game.UI
         {
             [SerializeField] public Pool blockType;
             [SerializeField] private Const.Currency currency;
-            [SerializeField] public int[] lookUp;
+            [SerializeField] public int unlockedAt = 1;
 
             public Const.Currency Cost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
-            // public BlockData(BlockData blockData)
-            // {
-            //     this.blockType = blockData.blockType;
-            //     this.currency = blockData.currency;
-            //     this.lookUp = blockData.lookUp.Clone() as int[];
-            // }
-            // public object Clone()
-            // {
-            //     return new BlockData(this);
-            // }
         }
     }
 }

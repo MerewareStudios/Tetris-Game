@@ -146,6 +146,7 @@ MonoBehaviour:
   purchaseButton: {fileID: 5480907385518865175}
   newTextBanner: {fileID: 3981730914584499999}
   equippedTextBanner: {fileID: 8070012855588413278}
+  equipText: {fileID: 4524838992974182411}
 --- !u!223 &5313740321572908372
 Canvas:
   m_ObjectHideFlags: 0
@@ -909,8 +910,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.799988, y: 4.199997}
-  m_SizeDelta: {x: 0.000008106232, y: 0}
+  m_AnchoredPosition: {x: 0, y: 4.199997}
+  m_SizeDelta: {x: -109.400024, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8961315800668872601
 CanvasRenderer:
@@ -940,7 +941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
+  m_text: UNLOCKED AT LEVEL 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: ddd8728c73f00364b97fe2096efacbca, type: 2}
@@ -967,19 +968,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120.3
+  m_fontSize: 85.95
   m_fontSizeBase: 120.3
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 81.27
+  m_fontSizeMax: 140
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -10.73
-  m_wordSpacing: 11.89
-  m_lineSpacing: 0
+  m_characterSpacing: -11.7
+  m_wordSpacing: 7.96
+  m_lineSpacing: -35.97
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1027,7 +1028,7 @@ MonoBehaviour:
   _text: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
   useDynamicScaling: 1
   referenceFontSize: 10
-  isResettingTimeOnNewText: 1
+  isResettingTimeOnNewText: 0
   useDefaultDatabases: 1
   databaseBehaviors: {fileID: 11400000, guid: c80b1c99406fe444a8aee788d56df149, type: 2}
   databaseAppearances: {fileID: 11400000, guid: 19bcc656e956efa47ac8c8703f1e9367,
@@ -1075,7 +1076,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -678.49994}
-  m_SizeDelta: {x: 542.1, y: 139.5}
+  m_SizeDelta: {x: 689.01, y: 163.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9141748272740728878
 CanvasRenderer:

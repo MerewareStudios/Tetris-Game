@@ -47,5 +47,15 @@ public enum Pool
     Nugget = 44,
     Rocket = 45,
     Magnet = 46,
+    Tree_I_Four_Empty = 47,
+    U_Block = 48,
+    U_One_Block = 49,
+    U_One_Tip_Block = 50,
+    Long_U_Block = 51,
+    All_Block = 52,
+    Long_U_Filled_Block = 53,
+    Tree_Tree_Block = 54,
+    Tree_Tree_Tip_Block = 55,
+    Long_U_Tree_Block = 56,
 
 }

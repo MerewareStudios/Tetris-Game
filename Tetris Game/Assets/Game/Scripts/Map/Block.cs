@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,17 @@ namespace Game
 {
     public class Block : MonoBehaviour
     {
+        private void OnDrawGizmos()
+        {
+            foreach (var se in segmentTransforms)
+            {
+                if (se)
+                {
+                    Gizmos.DrawCube(se.position, Vector3.one * 0.95f);
+                }
+            }
+        }
+
         [SerializeField] private Transform shakePivot;
         [SerializeField] public List<Transform> segmentTransforms;
         [SerializeField] private Transform rotatePivot;
