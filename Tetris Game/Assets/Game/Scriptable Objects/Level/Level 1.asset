@@ -19,14 +19,13 @@ MonoBehaviour:
   EnemySpawnData:
     spawnDelay: 0
     spawnInterval: 9
-    countDatas:
-    - enemyType: 41
-      count: 1
-    bossDatas: []
+    countDatas: []
+    bossType: 41
+    bossData: {fileID: 11400000, guid: a5624d9194e343741b08e2c86320f897, type: 2}
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 20
+    amount: 10
   failReward:
     type: 0
     amount: 5
@@ -39,3 +38,4 @@ MonoBehaviour:
     requiredPlaces: 05000000060000000c00000013000000
     blockRot: 0
     canRotate: 1
+  pawnPlacements: []

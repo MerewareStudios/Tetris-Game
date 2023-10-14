@@ -15,7 +15,7 @@ MonoBehaviour:
   bonusLevel: 0
   deltaMult: 1
   showBannerOffer: 1
-  boardSize: {x: 6, y: 7}
+  boardSize: {x: 7, y: 8}
   EnemySpawnData:
     spawnDelay: 3
     spawnInterval: 10
@@ -29,7 +29,7 @@ MonoBehaviour:
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 20
+    amount: 15
   failReward:
     type: 0
     amount: 5
@@ -38,4 +38,6 @@ MonoBehaviour:
   - usage: 5
     index: {x: 0, y: 0}
   - usage: 5
-    index: {x: 5, y: 0}
+    index: {x: 6, y: 0}
+  - usage: 7
+    index: {x: 3, y: 0}

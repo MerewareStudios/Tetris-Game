@@ -235,13 +235,18 @@ namespace  Game
 
         public void AEODamage(Vector3 position, int damage, float sqrMagnitude)
         {
-            foreach (var enemy in _enemies)
+            for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                float sqrDistance = (position - enemy.thisTransform.position).sqrMagnitude;
+                float sqrDistance = (position - _enemies[i].thisTransform.position).sqrMagnitude;
                 if (sqrDistance < sqrMagnitude)
                 {
-                    enemy.TakeDamage(damage, 2.0f);
+                    _enemies[i].TakeDamage(damage, 2.0f);
                 }
+            }
+            
+            foreach (var enemy in _enemies)
+            {
+               
             }
         }
 

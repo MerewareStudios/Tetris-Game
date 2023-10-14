@@ -29,11 +29,11 @@ MonoBehaviour:
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 20
+    amount: 10
   failReward:
     type: 0
     amount: 5
   suggestedBlocks: []
   pawnPlacements:
   - usage: 5
-    index: {x: 2, y: 0}
+    index: {x: 1, y: 0}

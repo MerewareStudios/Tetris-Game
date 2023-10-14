@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bundleVersionCode: 20
   Levels:
+  - {fileID: 11400000, guid: cc2355365b2a36a468897a57acafc510, type: 2}
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
-  - {fileID: 11400000, guid: cc2355365b2a36a468897a57acafc510, type: 2}
   - {fileID: 11400000, guid: 697abf42c7c6e414aa0f7914f30195ba, type: 2}
   - {fileID: 11400000, guid: 7d49978dce3697f4bbe6a1bb4c64c32d, type: 2}
   - {fileID: 11400000, guid: 93177f79eff97fc4d976d2d8e3715414, type: 2}
@@ -44,7 +44,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 555
+      value: 0
     gemTransactionData:
       value: 0
     adTransactionData:

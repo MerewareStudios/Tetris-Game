@@ -22,11 +22,12 @@ MonoBehaviour:
     countDatas:
     - enemyType: 19
       count: 2
-    bossDatas: []
+    bossType: 0
+    bossData: {fileID: 0}
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 20
+    amount: 10
   failReward:
     type: 0
     amount: 5
@@ -39,3 +40,4 @@ MonoBehaviour:
     requiredPlaces: 05000000060000000c00000013000000
     blockRot: 0
     canRotate: 1
+  pawnPlacements: []

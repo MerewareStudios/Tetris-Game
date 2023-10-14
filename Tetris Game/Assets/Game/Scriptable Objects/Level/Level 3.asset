@@ -27,7 +27,7 @@ MonoBehaviour:
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 20
+    amount: 10
   failReward:
     type: 0
     amount: 5
