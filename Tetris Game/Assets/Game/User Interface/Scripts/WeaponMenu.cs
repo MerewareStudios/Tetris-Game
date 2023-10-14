@@ -73,6 +73,8 @@ namespace Game.UI
 
         public void CustomShow(float gunPunchAmount = 0.1f, bool glimmer = false)
         {
+            Onboarding.HideFinger();
+
             bool purchasedWeapon = _weaponShopData.Purchased;
             bool equippedWeapon = _weaponShopData.Equipped;
 
@@ -107,20 +109,7 @@ namespace Game.UI
             SetStats(damage, damage != damageDefault, rate, rate != rateDefault, split, split != splitDefault);
             
             
-            if (stageBarParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
-            {
-                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
-                {
-                    Onboarding.ClickOn(stageBarFireRate.clickTarget.position, Finger.Cam.UI, () =>
-                    {
-                        stageBarFireRate.PunchPurchaseButton(0.2f);
-                    });
-                }
-                else
-                {
-                    Onboarding.HideFinger();
-                }
-            }
+           
             if (purchaseParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
             {
                 if (Wallet.HasFunds(_gunUpgradeData.GunCost))
@@ -133,10 +122,6 @@ namespace Game.UI
                         buttonTransform.localScale = Vector3.one;
                         buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
                     });
-                }
-                else
-                {
-                    Onboarding.HideFinger();
                 }
             }
             
@@ -152,6 +137,18 @@ namespace Game.UI
             FillStageBar(Gun.StatType.Damage, stageBarDamage);
             FillStageBar(Gun.StatType.Firerate, stageBarFireRate);
             FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot);
+            
+            
+            if (stageBarParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
+            {
+                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
+                {
+                    Onboarding.ClickOn(stageBarFireRate.clickTarget.position, Finger.Cam.UI, () =>
+                    {
+                        stageBarFireRate.PunchPurchaseButton(0.2f);
+                    });
+                }
+            }
         }
 
         private void FillStageBar(Gun.StatType statType, StageBar stageBar)
@@ -304,7 +301,7 @@ namespace Game.UI
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
                     ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
-                    Onboarding.HideFinger();
+                    // Onboarding.HideFinger();
                 }
                 
                 CustomShow(0.2f, true);
@@ -336,9 +333,9 @@ namespace Game.UI
                 if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
-                    ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
+                    // ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
                     ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
-                    Onboarding.HideFinger();
+                    // Onboarding.HideFinger();
                 }
                 
                 _weaponShopData.Purchase();

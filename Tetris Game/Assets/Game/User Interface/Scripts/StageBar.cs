@@ -10,6 +10,8 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform clickTarget;
+    
+    public bool Available => purchaseButton.Available;
 
     
     public StageBar SetCurrencyStampVisible(bool state)
