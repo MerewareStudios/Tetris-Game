@@ -84,12 +84,12 @@ public class Onboarding : SSingleton<Onboarding>
         }
     }
 
-    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f)
+    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f)
     {
         UIManager.THIS.finger.OnClick = OnClick;
         UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale);
     }
-    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f, bool infoEnabled = false)
+    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f, bool infoEnabled = false)
     {
         UIManager.THIS.finger.OnClick = OnClick;
         UIManager.THIS.finger.Click(position, rendererCamera, scale, infoEnabled);

@@ -89,10 +89,13 @@ namespace Game
 
                 PawnPlacement[] pawnPlacements = LevelManager.CurrentLevel.PawnPlacements();
 
-                foreach (var pawnPlacement in pawnPlacements)
+                if (pawnPlacements != null)
                 {
-                    Place place = _places[pawnPlacement.index.x, pawnPlacement.index.y];
-                    SpawnPawn(place, pawnPlacement.usage, 0, false);
+                    foreach (var pawnPlacement in pawnPlacements)
+                    {
+                        Place place = _places[pawnPlacement.index.x, pawnPlacement.index.y];
+                        SpawnPawn(place, pawnPlacement.usage, 0, false);
+                    }
                 }
                 
                 
