@@ -184,16 +184,17 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         int coinReward = (int)(_Data.currentMoney.amount * 0.25f);
         GiveMeta(coinReward, 20, Wallet.COIN, UIManagerExtensions.EmitPiggyRewardCoin);
-        int piggyReward = Mathf.Min(_Data.breakInstance + 1, Random.Range(4, 7));
+        int piggyReward = Random.Range(4, 7);
         GiveMeta(piggyReward, 20, Wallet.PIGGY, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         
-        if (_Data.breakInstance == 0 || (_Data.breakInstance % 3 == 0 && Helper.IsPossible(0.5f)))
+        if (_Data.breakInstance % 3 == 0)
+        // if (_Data.breakInstance == 0 || (_Data.breakInstance % 5 == 0 && Helper.IsPossible(0.5f)))
         {
             ticketReward += 1;
         }
         
-        GiveMeta(ticketReward, 5, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
+        GiveMeta(ticketReward, 1, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
 
         SwitchToGame(false);
     }
