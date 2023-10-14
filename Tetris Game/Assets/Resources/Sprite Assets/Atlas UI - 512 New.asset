@@ -163,8 +163,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 13
     m_Scale: 1
-    m_Name: Atlas 1 PNG - 512_13
-    m_HashCode: 949102277
+    m_Name: Lock
+    m_HashCode: 2689547
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 14
@@ -444,15 +444,15 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 102.4
       m_Height: 102.4
-      m_HorizontalBearingX: -51.2
-      m_HorizontalBearingY: 51.2
-      m_HorizontalAdvance: 102.4
+      m_HorizontalBearingX: -36.3
+      m_HorizontalBearingY: 75.7
+      m_HorizontalAdvance: 51.5
     m_GlyphRect:
       m_X: 306
       m_Y: 205
       m_Width: 102
       m_Height: 102
-    m_Scale: 1
+    m_Scale: 2.2
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 1294849284, guid: 0f1c8453cb5c1844fb4b4278ed474e0b, type: 3}

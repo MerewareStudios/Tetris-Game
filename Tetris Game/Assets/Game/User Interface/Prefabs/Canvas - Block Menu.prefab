@@ -941,7 +941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: UNLOCKED AT LEVEL 5
+  m_text: <sprite name=Lock> LEVEL <size=125%>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: ddd8728c73f00364b97fe2096efacbca, type: 2}
@@ -968,7 +968,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 85.95
+  m_fontSize: 138.1
   m_fontSizeBase: 120.3
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1076,7 +1076,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -678.49994}
-  m_SizeDelta: {x: 689.01, y: 163.7}
+  m_SizeDelta: {x: 592.6, y: 163.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9141748272740728878
 CanvasRenderer:
