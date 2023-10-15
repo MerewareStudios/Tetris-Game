@@ -186,18 +186,17 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.25f);
 
             
-            Announcer.THIS.Show(Onboarding.THIS.targetPracticeText, 0.5f);
+            // Announcer.THIS.Show(Onboarding.THIS.targetPracticeText, 0.5f);
 
             ONBOARDING.LEARNED_LEVEL_VISUALS.SetComplete();
             UIManager.THIS.levelText.enabled = true;
             UIManager.THIS.levelProgressbar.SetActive(true);
             UIManager.THIS.levelProgress.fillAmount = 1.0f;
-            yield return new WaitForSeconds(1.15f);
-            Warzone.THIS.Begin();
-            
             ONBOARDING.LEARNED_META.SetComplete();
             ONBOARDING.INSPECT_HEART_DISPLAY.SetComplete();
             StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, Warzone.THIS.Player._CurrentHealth);
+            // yield return new WaitForSeconds(0.25f);
+            Warzone.THIS.Begin();
         }
     }
     

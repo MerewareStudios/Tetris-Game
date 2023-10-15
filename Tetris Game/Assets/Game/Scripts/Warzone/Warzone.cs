@@ -84,6 +84,8 @@ namespace  Game
             }
 
             _spawnRoutine = StartCoroutine(SpawnRoutine());
+            
+
 
             IEnumerator SpawnRoutine()
             {
@@ -93,6 +95,9 @@ namespace  Game
 
                 yield return new WaitForSeconds(0.25f);
                 
+                
+                Player.StartSearching();
+                
                 if (EnemySpawnData.spawnDelay > 0)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
@@ -100,11 +105,8 @@ namespace  Game
                 }
                 else
                 {
-                    if (LevelManager.CurrentLevel.IsBonus())
-                    {
-                        string startingText = Onboarding.THIS.targetPracticeText;
-                        yield return Announcer.THIS.Show(startingText, 0.5f);
-                    }
+                    string startingText = Onboarding.THIS.targetPracticeText;
+                    yield return Announcer.THIS.Show(startingText, 0.5f);
                 }
 
 
@@ -124,7 +126,6 @@ namespace  Game
 
                 _spawnRangeNorm = 0.0f;
 
-                Player.StartSearching();
 
                 this.enabled = true;
 

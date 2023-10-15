@@ -9,7 +9,6 @@ namespace Game
     [CreateAssetMenu(fileName = "Level", menuName = "Game/Level Data", order = 0)]
     public class LevelSo : ScriptableObject
     {
-        [SerializeField] public bool bonusLevel = false;
         [SerializeField] public float deltaMult = 1.0f;
         [SerializeField] public bool showBannerOffer = true;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);
@@ -57,10 +56,6 @@ public static class LevelSoExtension
     public static bool AdsEnabled(this int level)
     {
         return Const.THIS.Levels[level - 1].showBannerOffer;
-    }
-    public static bool IsBonus(this int level)
-    {
-        return Const.THIS.Levels[level - 1].bonusLevel;
     }
     public static Board.PawnPlacement[] PawnPlacements(this int level)
     {
