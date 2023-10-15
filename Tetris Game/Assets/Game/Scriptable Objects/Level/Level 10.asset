@@ -12,22 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 10
   m_EditorClassIdentifier: 
+  deltaMult: 1
+  showBannerOffer: 1
+  boardSize: {x: 7, y: 8}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 7
+    spawnInterval: 10
     countDatas:
-    - enemyType: 19
-      count: 3
-    - enemyType: 36
-      count: 1
     - enemyType: 37
-      count: 6
-    bossDatas: []
+      count: 5
+    bossType: 41
+    bossData: {fileID: 0}
   canGiveBonus: 0
   victoryReward:
     type: 0
-    amount: 35
+    amount: 20
   failReward:
     type: 0
-    amount: 12
+    amount: 6
   suggestedBlocks: []
+  pawnPlacements:
+  - usage: 5
+    index: {x: 4, y: 2}
+  - usage: 5
+    index: {x: 2, y: 2}

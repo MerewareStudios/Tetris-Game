@@ -6,9 +6,22 @@ using UnityEngine;
 
 public class BuildManager : IPreprocessBuildWithReport, IPostprocessBuildWithReport
 {
+    private void SetAndroidKeystore()
+    {
+        PlayerSettings.Android.useCustomKeystore = true;
+        // PlayerSettings.Android.keystoreName = "C:/Users/orkun/Desktop/Repos/Tetris-Game/Tetris Game/1317+oSRZunity.keystore";
+        PlayerSettings.Android.keystoreName = Application.dataPath + "/1317+oSRZunity.keystore";
+        Debug.Log(PlayerSettings.Android.keystoreName);
+        PlayerSettings.Android.keystorePass = "1317+oSRZunity";
+        PlayerSettings.Android.keyaliasName = "release";
+        PlayerSettings.Android.keyaliasPass = "1317+oSRZunity";
+    }
+    
+    
     public int callbackOrder { get; }
     public void OnPreprocessBuild(BuildReport report)
     {
+        SetAndroidKeystore();
         Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
         @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
         Debug.LogWarning("Build Started");

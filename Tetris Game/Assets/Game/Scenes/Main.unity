@@ -2722,7 +2722,6 @@ MonoBehaviour:
     onboardingList: 
     playTime: 0
     playerData:
-      time: 0
       currentHealth: 1
       turnRate: 6
     userData:

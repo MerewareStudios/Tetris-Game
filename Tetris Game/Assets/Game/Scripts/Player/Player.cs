@@ -217,14 +217,14 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        if ((_Data.time - Gun._Data.prevShoot > Gun._Data.FireInterval) && angleDif <= 1.0f)
+                        if ((_Data.Time - Gun._Data.prevShoot > Gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
-                            Gun._Data.prevShoot = _Data.time;
+                            Gun._Data.prevShoot = _Data.Time;
                         }
 
-                        _Data.time += Time.deltaTime;
+                        _Data.Time += Time.deltaTime;
                     }
 
                     yield return null;
@@ -290,20 +290,20 @@ namespace Game
         [System.Serializable]
         public class Data : ICloneable
         {
-            [SerializeField] public float time;
+            [System.NonSerialized] public float Time;
             [SerializeField] public int currentHealth = 0;
             [SerializeField] public int turnRate = 6;
 
             
             public Data()
             {
-                this.time = 0.0f;
+                this.Time = 0.0f;
                 this.currentHealth = 0;
                 this.turnRate = 6;
             }
             public Data(Data data)
             {
-                this.time = data.time;
+                // this.time = data.time;
                 this.currentHealth = data.currentHealth;
                 this.turnRate = data.turnRate;
             }
