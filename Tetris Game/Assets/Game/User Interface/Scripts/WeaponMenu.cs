@@ -114,8 +114,8 @@ namespace Game.UI
             int splitDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Splitshot);
 
             SetStats(damage, damage != damageDefault, rate, rate != rateDefault, split, split != splitDefault);
-            
-            
+
+            PunchPurchasedText(0.2f);
            
             if (purchaseParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
             {
@@ -156,6 +156,13 @@ namespace Game.UI
                     });
                 }
             }
+        }
+        
+        private void PunchPurchasedText(float amount)
+        {
+            equippedTextBanner.DOKill();
+            equippedTextBanner.localScale = Vector3.one;
+            equippedTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
         private void FillStageBar(Gun.StatType statType, StageBar stageBar)

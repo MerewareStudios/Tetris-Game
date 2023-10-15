@@ -34,7 +34,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 5
     pupData:
       available: 1
       currentUsage: 4
@@ -44,7 +44,7 @@ MonoBehaviour:
       defaultSupplyLine: 6
       pawnSat: 23
     coinTransactionData:
-      value: 0
+      value: 150
     gemTransactionData:
       value: 0
     adTransactionData:
