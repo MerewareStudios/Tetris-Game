@@ -29,7 +29,6 @@ namespace Game
 
         [System.NonSerialized] public System.Action<int> OnMerge;
         
-        [System.NonSerialized] private List<GhostPawn> _ghostPawns = new();
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector2Int _size;
         [System.NonSerialized] private Vector3 _thisPosition;
@@ -89,7 +88,7 @@ namespace Game
 
                 PawnPlacement[] pawnPlacements = LevelManager.CurrentLevel.PawnPlacements();
 
-                if (pawnPlacements != null)
+                if (pawnPlacements != null) 
                 {
                     foreach (var pawnPlacement in pawnPlacements)
                     {
@@ -256,8 +255,6 @@ namespace Game
                 ghostPawn.meshRenderer.material.DOKill();
                 ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f);
                 
-                _ghostPawns.Add(ghostPawn);
-            
                 return ghostPawn;
             }
             public void RemoveGhostPawn(GhostPawn ghostPawn)
@@ -267,8 +264,6 @@ namespace Game
                 {
                     ghostPawn.Despawn(Pool.Ghost_Pawn);
                 };
-                
-                _ghostPawns.Remove(ghostPawn);
             }
         #endregion
         

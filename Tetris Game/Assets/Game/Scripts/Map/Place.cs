@@ -50,6 +50,11 @@ namespace Game
                 Current.Deconstruct();
                 Current = null;
             }
+
+            if (_ghostPawn)
+            {
+                _ghostPawn.Despawn(Pool.Ghost_Pawn);
+            }
         }
         
         public void OnLevelEnd()
