@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Anim Const
   m_EditorClassIdentifier: 
   moveEase: 0
-  mergeTravelDelay: 0.15
+  mergeTravelDelay: 0.075
   mergeTravelDur: 0.2
   mergeTravelShoot: 1
   mergeTravelEase: 8

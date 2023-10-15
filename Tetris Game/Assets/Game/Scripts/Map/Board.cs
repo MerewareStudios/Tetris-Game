@@ -718,7 +718,7 @@ namespace Game
             });
         }
 
-        public int ConsumeBullet(int splitCount)
+        public int TakeBullet(int splitCount)
         {
             int ammoGiven = 0;
             
@@ -728,7 +728,7 @@ namespace Game
                 {
                     Place place = _places[i, j];
                     
-                    if (place.Current && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent && place.Current.UsageType.Equals(Pawn.Usage.Ammo))
+                    if (place.Current && place.Current.UsageType.Equals(Pawn.Usage.Ammo) && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent)
                     {
                         Pawn currentPawn = place.Current;
                         currentPawn.Amount -= 1;

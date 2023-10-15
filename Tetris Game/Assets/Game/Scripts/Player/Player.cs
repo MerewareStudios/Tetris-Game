@@ -219,7 +219,7 @@ namespace Game
                         
                         if ((_Data.time - Gun._Data.prevShoot > Gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
-                            int givenBulletCount = Board.THIS.ConsumeBullet(_GunData.SplitAmount);
+                            int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
                             Gun._Data.prevShoot = _Data.time;
                         }
