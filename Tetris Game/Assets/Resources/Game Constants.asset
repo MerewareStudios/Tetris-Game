@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 22
+  bundleVersionCode: 30
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -85,7 +85,7 @@ MonoBehaviour:
       currentMoney:
         type: 0
         amount: 0
-      moneyCapacity: 40
+      moneyCapacity: 10
       breakInstance: 0
     upgradeMenuData:
       hiddenData: 000000000101000000000000
@@ -119,7 +119,7 @@ MonoBehaviour:
       amount: 150
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
-    defaultValues: 010000000400000002000000
+    defaultValues: 010000000400000001000000
     damagePrice: []
     fireRatePrice:
     - type: 0
@@ -131,6 +131,8 @@ MonoBehaviour:
     - type: 0
       amount: 35
     splitShotPrice:
+    - type: 0
+      amount: 50
     - type: 1
       amount: 10
     unlockedAt: 5

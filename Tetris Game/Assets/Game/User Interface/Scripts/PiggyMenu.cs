@@ -38,6 +38,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform clickLocation_Continue;
     [SerializeField] private Transform clickLocation_Break;
     public const int PiggyCapIncrease = 10;
+    public const int TicketRewardEveryBreak = 5;
 
     
     #region Menu
@@ -56,7 +57,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             return true;
         }
-        SwitchToGame(true);
+        SwitchToGame();
         return false;
     }
     public new void Show()
@@ -188,7 +189,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         GiveMeta(piggyReward, 20, Wallet.PIGGY, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         
-        if (_Data.breakInstance % 3 == 0)
+        if (_Data.breakInstance % TicketRewardEveryBreak == 0)
         // if (_Data.breakInstance == 0 || (_Data.breakInstance % 5 == 0 && Helper.IsPossible(0.5f)))
         {
             ticketReward += 1;
@@ -196,15 +197,12 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         GiveMeta(ticketReward, 1, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
 
-        SwitchToGame(false);
+        SwitchToGame();
     }
 
-    private void SwitchToGame(bool scaleTransactors)
+    private void SwitchToGame()
     {
-        if (scaleTransactors)
-        {
-            Wallet.ScaleTransactors(1.0f);
-        }
+        Wallet.ScaleTransactors(1.0f);
         UIManager.MenuMode(false);
         LevelManager.THIS.LoadLevel();
     }
@@ -216,10 +214,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Wallet.TICKET.Scale(1.0f, false);
             return;
         }
-        act.Invoke(rewardedPiggy.position, Mathf.Min(amount, limit), amount, () =>
-        {
-            transactor.Scale(1.0f, false);
-        });
+        act.Invoke(rewardedPiggy.position, Mathf.Min(amount, limit), amount, null);
     }
     public void OnClick_InvestPiggyBank()
     {

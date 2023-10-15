@@ -31,7 +31,7 @@ public class LevelManager : Singleton<LevelManager>
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
 
-        if (CurrentLevel.AdsEnabled())
+        if (CurrentLevel >= 3)
         {
             AdManager.THIS.ShowBannerOrOffer();
         }

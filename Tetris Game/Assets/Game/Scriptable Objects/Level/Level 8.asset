@@ -17,7 +17,7 @@ MonoBehaviour:
   boardSize: {x: 7, y: 8}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 10
+    spawnInterval: 9
     countDatas:
     - enemyType: 36
       count: 2

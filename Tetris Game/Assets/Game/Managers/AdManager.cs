@@ -10,7 +10,7 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        [SerializeField] public int adBreakMarchLimit = 5;
+        [System.NonSerialized] private const int ADBreakMarchLimit = 3;
         [System.NonSerialized] private Data _data;
         
 
@@ -76,7 +76,7 @@ namespace IWI
                 return;
             }
             _Data.AdBreakMarch++;
-            if (_Data.AdBreakMarch >= this.adBreakMarchLimit)
+            if (_Data.AdBreakMarch >= ADBreakMarchLimit)
             {
                 _Data.AdBreakMarch = 0;
                 ShowAdBreak(onSuccess);
@@ -142,7 +142,7 @@ namespace IWI
         {
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                _Data.AdBreakMarch = adBreakMarchLimit;
+                _Data.AdBreakMarch = ADBreakMarchLimit;
                 return;
             }
 
@@ -155,6 +155,7 @@ namespace IWI
                 {
                     AdBreakScreen.THIS.Close();
                     UIManager.Pause(false);
+                    onFinish?.Invoke();
                 },
                 () => Wallet.Consume(Const.Currency.OneAd));
             AdBreakScreen.THIS.OnTimesUp(() =>
