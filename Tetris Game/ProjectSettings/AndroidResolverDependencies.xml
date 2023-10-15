@@ -1,6 +1,6 @@
 <dependencies>
   <packages>
-    <package>com.applovin.mediation:google-adapter:[22.4.0.0]</package>
+    <package>com.applovin.mediation:google-adapter:[22.4.0.1]</package>
     <package>com.applovin:applovin-sdk:11.11.3</package>
   </packages>
   <files />
