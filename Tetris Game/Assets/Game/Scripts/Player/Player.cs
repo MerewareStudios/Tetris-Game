@@ -247,6 +247,9 @@ namespace Game
         {
             ReplenishHealth();
             
+            crossHair.gameObject.SetActive(false);
+            crossHair.position = Vector3.zero;
+
             Emission = 0.0f;
 
             if (_shouldGetUp)

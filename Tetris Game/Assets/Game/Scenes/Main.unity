@@ -2769,7 +2769,7 @@ MonoBehaviour:
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
-  SKIP_ONBOARDING: 0
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7365,31 +7365,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4438961837760923427, guid: 8fd8566537e51594c94d4624969ee9bd,
         type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 4438961837760923427, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4438961837760923427, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4438961837760923427, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4438961837760923427, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4438961837760923427, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]
       value: 
       objectReference: {fileID: 1837128903}
@@ -7397,11 +7372,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gore
-      objectReference: {fileID: 0}
-    - target: {fileID: 7894217950863449494, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7894217950863449494, guid: 8fd8566537e51594c94d4624969ee9bd,
         type: 3}
@@ -7452,26 +7422,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8424096394307135573, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8424096394307135573, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8424096394307135573, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8424096394307135573, guid: 8fd8566537e51594c94d4624969ee9bd,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[2]
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

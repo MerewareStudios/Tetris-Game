@@ -82,12 +82,8 @@ public class Shop : MonoBehaviour
         Current = 0;
         button.targetGraphic.raycastTarget = false;
         buttonTransform.DOKill();
-        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
-        {
-            MenuNavigator.THIS.Open();
-
-        };
-        
+        buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true);
+        MenuNavigator.THIS.Open();
     }
 
     private void ImmediateShow()

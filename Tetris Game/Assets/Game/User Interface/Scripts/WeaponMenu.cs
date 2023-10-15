@@ -342,6 +342,13 @@ namespace Game.UI
                 return;
             }
             
+            bool availableByLevel = LevelManager.CurrentLevel >= _gunUpgradeData.unlockedAt;
+            if (!availableByLevel)
+            {
+                PunchPurchasedText(0.25f);
+                return;
+            }
+            
             if (Wallet.Consume(_gunUpgradeData.GunCost))
             {
                 if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
