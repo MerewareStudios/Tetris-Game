@@ -110,6 +110,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 2
       amount: 1
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 150
@@ -127,6 +128,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 3
+    unlockedAt: 5
   - currency:
       type: 2
       amount: 1
@@ -144,6 +146,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 5
+    unlockedAt: 10
   - currency:
       type: 0
       amount: 350
@@ -169,6 +172,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 10
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 250
@@ -196,6 +200,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 15
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 300
@@ -221,6 +226,7 @@ MonoBehaviour:
       amount: 5
     - type: 1
       amount: 5
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 350
@@ -248,6 +254,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 20
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 400
@@ -267,6 +274,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 20
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 500
@@ -292,6 +300,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 35
+    unlockedAt: 1
   - currency:
       type: 0
       amount: 750
@@ -331,17 +340,23 @@ MonoBehaviour:
       amount: 50
     - type: 0
       amount: 50
+    unlockedAt: 1
   DefaultBlockData:
   - blockType: 10
     currency:
       type: 0
       amount: 15
     unlockedAt: 1
+  - blockType: 12
+    currency:
+      type: 1
+      amount: 15
+    unlockedAt: 5
   - blockType: 9
     currency:
       type: 2
       amount: 1
-    unlockedAt: 5
+    unlockedAt: 10
   - blockType: 7
     currency:
       type: 1
@@ -367,11 +382,6 @@ MonoBehaviour:
       type: 0
       amount: 150
     unlockedAt: 30
-  - blockType: 12
-    currency:
-      type: 0
-      amount: 200
-    unlockedAt: 35
   - blockType: 18
     currency:
       type: 1

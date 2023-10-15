@@ -22,6 +22,7 @@ namespace Game.UI
         [SerializeField] private Image gunImage;
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
+        [SerializeField] private TextMeshProUGUI equipText;
         [SerializeField] private RectTransform stageBarParent;
         [SerializeField] private RectTransform purchaseParent;
         [SerializeField] private RectTransform purchaseClickTarget;
@@ -89,10 +90,16 @@ namespace Game.UI
             {
                 frame.Glimmer(AnimConst.THIS.glimmerSpeedWeapon);
             }
+            
+            bool availableByLevel = LevelManager.CurrentLevel >= _gunUpgradeData.unlockedAt;
+
 
             newTextBanner.gameObject.SetActive(!purchasedWeapon);
-            equippedTextBanner.gameObject.SetActive(equippedWeapon);
-
+            equippedTextBanner.gameObject.SetActive(!availableByLevel || equippedWeapon);
+            
+            equipText.text = equippedWeapon ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _gunUpgradeData.unlockedAt;
+            
+            
             if (!purchasedWeapon)
             {
                 PunchNewBanner(0.4f);

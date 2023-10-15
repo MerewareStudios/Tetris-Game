@@ -175,7 +175,8 @@ public class Gun : MonoBehaviour
         [SerializeField] private Const.Currency[] damagePrice;
         [SerializeField] private Const.Currency[] fireRatePrice;
         [SerializeField] private Const.Currency[] splitShotPrice;
-            
+        [SerializeField] public int unlockedAt = 1;
+
         public Const.Currency GunCost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
         public Const.Currency UpgradePrice(Gun.StatType statType, int upgradeIndex) => (Prices(statType)[upgradeIndex]).ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
 
