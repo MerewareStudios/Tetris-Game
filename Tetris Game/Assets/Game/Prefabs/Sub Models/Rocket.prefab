@@ -130,3 +130,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 3721544818430308442}
   animType: 2
+  onFinishPS: {fileID: 0}
