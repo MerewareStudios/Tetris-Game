@@ -1,9 +1,9 @@
 using System;
 using DG.Tweening;
 using Internal.Core;
+using IWI.Tutorial;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class Shop : MonoBehaviour
 {
@@ -12,6 +12,8 @@ public class Shop : MonoBehaviour
     [SerializeField] private RectTransform leftPivot;
     [SerializeField] private RectTransform smallIconTransform;
     [SerializeField] private RectTransform buttonTransform;
+    [SerializeField] private RectTransform pivot;
+    [SerializeField] private RectTransform clickTarget;
     [SerializeField] private Animator animator;
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Button button;
@@ -77,6 +79,12 @@ public class Shop : MonoBehaviour
         {
             return;
         }
+        
+        if (ONBOARDING.LEARN_TO_USE_SHOP.IsNotComplete())
+        {
+            ONBOARDING.LEARN_TO_USE_SHOP.SetComplete();
+        }
+        
         this._open = false;
         
         Current = 0;
@@ -97,6 +105,8 @@ public class Shop : MonoBehaviour
     
     public void AnimatedShow()
     {
+        
+        
         this._open = true;
 
         trailRenderer.emitting = false;
@@ -105,6 +115,11 @@ public class Shop : MonoBehaviour
         
         void Show()
         {
+            if (ONBOARDING.LEARN_TO_USE_SHOP.IsNotComplete())
+            {
+                UIManager.Pause(true);
+            }
+            
             _canvas.enabled = true;
 
             bigIconTransform.gameObject.SetActive(true);
@@ -142,8 +157,16 @@ public class Shop : MonoBehaviour
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
-                // int rewardAmount = Random.Range(8, 15);
-                // UIManagerExtensions.EmitLevelShopCoin(smallIconTransform.position, rewardAmount, rewardAmount);
+                if (ONBOARDING.LEARN_TO_USE_SHOP.IsNotComplete())
+                {
+                    Onboarding.ClickOn(clickTarget.position, Finger.Cam.Game, () =>
+                    {
+                        pivot.DOKill();
+                        pivot.localScale = Vector3.one;
+                        pivot.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                    }, 0.6f);
+                    trailRenderer.Clear();
+                }
             };
         }
     }

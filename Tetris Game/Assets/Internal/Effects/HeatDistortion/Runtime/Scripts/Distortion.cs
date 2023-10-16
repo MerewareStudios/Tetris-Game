@@ -24,7 +24,7 @@ namespace Visual.Effects
             
             float value = 0.0f;
             animationTween?.Kill();
-            animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetDelay(delay);
+            animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetDelay(delay).SetUpdate(true);
             animationTween.onUpdate = () =>
             {
                 meshRenderer.material.SetFloat(PowerID, power * (1.0f - value));
