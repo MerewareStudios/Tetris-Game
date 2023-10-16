@@ -12,34 +12,35 @@ namespace Game
         [SerializeField] public Transform modelPivot;
         [SerializeField] public Transform pivot;
         
+        [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
+        
         [System.NonSerialized] private SubModel _subModel = null;
-
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
-        [System.NonSerialized] public Block ParentBlock;
         [System.NonSerialized] private int _amount = 1;
-        [System.NonSerialized] public int Tick;
         
+        [System.NonSerialized] public Block ParentBlock;
+        [System.NonSerialized] public int Tick;
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool CanTakeContent = false;
-        [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
+        [System.NonSerialized] public VisualData VData = null;
+        
         
         public bool Connected => ParentBlock;
         private Pawn.Usage _usageType = Usage.Empty;
         
-        [System.NonSerialized] public VisualData visualData = null;
         public Pawn.Usage UsageType
         {
             set
             {
-                visualData = Const.THIS.pawnVisualData[(int)value];
+                VData = Const.THIS.pawnVisualData[(int)value];
                 
-                if (!_subModel || !this._usageType.Model().Equals(visualData.model))
+                if (!_subModel || !this._usageType.Model().Equals(VData.model))
                 {
                     DeSpawnModel();
-                    _subModel = visualData.model.Spawn<SubModel>();
+                    _subModel = VData.model.Spawn<SubModel>();
                 }
                 
                 
@@ -47,7 +48,7 @@ namespace Game
                 
                 _subModel.OnConstruct(modelPivot);
                 
-                _subModel.BaseColor = visualData.startColor;
+                _subModel.BaseColor = VData.startColor;
 
                 CanTakeContent = false;
             }
@@ -70,7 +71,7 @@ namespace Game
             {
                 this._amount = value;
                 
-                levelText.enabled = visualData.amountTextEnabled;
+                levelText.enabled = VData.amountTextEnabled;
                 if (levelText.enabled)
                 {
                     bool max = value == Board.THIS.StackLimit;
@@ -80,10 +81,10 @@ namespace Game
                     levelText.text = _amount.ToString();
                 }
                 
-                iconMr.enabled = visualData.icon;
+                iconMr.enabled = VData.icon;
                 if (iconMr.enabled)
                 {
-                    iconMr.material.SetTexture(GameManager.BaseMap, visualData.icon.texture);
+                    iconMr.material.SetTexture(GameManager.BaseMap, VData.icon.texture);
                 }
             }
             get => this._amount;
@@ -115,9 +116,6 @@ namespace Game
                 case Usage.UnpackedAmmo:
                     break;
                 case Usage.Placeholder:
-                    // UIManagerExtensions.Distort(_subModel.Position, 0.0f);
-                    // _subModel.OnDeconstruct();
-                    // _subModel = null;
                     break;
                 case Usage.Magnet:
                     UIManagerExtensions.Distort(_subModel.Position, 0.0f);
@@ -182,11 +180,6 @@ namespace Game
         }
 
         #region Colors
-
-        // public void MarkAmmoColor()
-        // {
-        //     _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.mergerColor);
-        // }
         public void MarkSteadyColor()
         {
             if (_usageType.Equals(Usage.UnpackedAmmo)) // not powerup
@@ -194,15 +187,8 @@ namespace Game
                 _subModel.BaseColor = Const.THIS.steadyColor;
             }
         }
-        // public void MarkUnpackedAmmoColor()
-        // {
-        //     _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.defaultColor);
-        // }
-        // public void MarkPowerupColor()
-        // {
-        //     _meshRenderer.material.SetColor(GameManager.BaseColor, Const.THIS.powerColor);
-        // }
         #endregion
+        
         public void UnpackAmmo(float delay, float scale, float duration, System.Action start = null)
         {
             modelPivot.DOKill();
@@ -306,7 +292,7 @@ namespace Game
                 return;
             }
             
-            if (visualData.neverMoves)
+            if (VData.neverMoves)
             {
                 Mover = false;
             }

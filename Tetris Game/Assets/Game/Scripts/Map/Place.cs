@@ -6,24 +6,28 @@ namespace Game
 {
     public class Place : MonoBehaviour
     {
+        [SerializeField] private Renderer gridTile;
         [SerializeField] public Transform segmentParent;
         [SerializeField] public Transform tileTransform;
-        [SerializeField] private Renderer gridTile;
+        
         [System.NonSerialized] private Transform _thisTransform;
-        [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] private PlaceColorType _colorType = PlaceColorType.GREEN;
-        [System.NonSerialized] public PlaceColorType TargetColorType = PlaceColorType.GREEN;
         [System.NonSerialized] private Tween _colorTween;
-        [System.NonSerialized] public Pawn Current;
-        public bool Occupied => Current;
-        public Vector3 PlacePosition => gridTile.transform.position;
         [System.NonSerialized] private GhostPawn _ghostPawn = null;
-
+        
+        [System.NonSerialized] public Vector2Int Index;
+        [System.NonSerialized] public PlaceColorType TargetColorType = PlaceColorType.GREEN;
+        [System.NonSerialized] public Pawn Current;
+        
+        public Vector3 PlacePosition => gridTile.transform.position;
         public Vector3 Position => _thisTransform.position;
+        
         public PlaceColorType NormalDarkLight => Even ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;
         public PlaceColorType LimitDarkLightUp => Even ? PlaceColorType.LIMIT_DARK_UP : PlaceColorType.LIMIT_LIGHT_UP;
         public PlaceColorType LimitDarkLightDown => Even ? PlaceColorType.LIMIT_DARK_DOWN : PlaceColorType.LIMIT_LIGHT_DOWN;
         public PlaceColorType RayDarkLight => Even ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
+        
+        public bool Occupied => Current;
         public bool Fast => _colorType.Equals(PlaceColorType.RED) || _colorType.Equals(PlaceColorType.GREEN);
         public bool Even => (Index.x + Index.y) % 2 == 0;
         
@@ -86,7 +90,7 @@ namespace Game
             DoColor(targetColor);
                 
             Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
-            DoPos(targetPos);
+            tileTransform.localPosition = targetPos;
         }
         public void FinalizeImmediate()
         {
@@ -109,16 +113,6 @@ namespace Game
             _colorTween = gridTile.material.DOColor(color, Fast ? 0.1f : 0.2f).SetEase(Ease.OutQuad);
         }
 
-        private Color GrayScale(Color color, float weight)
-        {
-            return new Color(color.r * 0.3f * weight, color.g * 0.59f * weight, color.b * 0.11f * weight);
-        }
-        private void DoPos(Vector3 pos)
-        {
-            tileTransform.localPosition = pos;
-            // tileTransform.DOKill();
-            // tileTransform.DOLocalMove(pos, 0.15f);
-        }
         private void DoGhostPawn(bool add)
         {
             if (add)
