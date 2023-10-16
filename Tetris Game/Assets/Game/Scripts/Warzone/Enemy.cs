@@ -20,6 +20,7 @@ namespace  Game
         [System.NonSerialized] private int _health;
         // [System.NonSerialized] public System.Action OnRemoved = null;
         [System.NonSerialized] private Tween _colorPunchTween;
+        [System.NonSerialized] public int ID;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
@@ -50,7 +51,7 @@ namespace  Game
             thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * LevelManager.DeltaMult));
             if (Warzone.THIS.IsOutside(thisTransform))
             {
-                Warzone.THIS.EnemyKamikaze(this);
+                Warzone.THIS.EnemyKilled(this, true);
             }
         }
     #endregion
@@ -93,8 +94,9 @@ namespace  Game
             };
         }
         
-        public void OnSpawn(Vector3 position)
+        public void OnSpawn(Vector3 position, int id)
         {
+            this.ID = id;
             thisTransform.DOKill();
             
             thisTransform.position = position;
@@ -107,8 +109,8 @@ namespace  Game
         }
         public void Kamikaze()
         {
-            Warzone.THIS.RemoveEnemy(this);
             thisTransform.DOKill();
+            Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();
         }

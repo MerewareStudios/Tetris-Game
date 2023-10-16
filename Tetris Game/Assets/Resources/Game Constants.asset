@@ -711,7 +711,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 0}
-    hoverOnMerge: 0
     neverMoves: 0
   - usage: 1
     model: 42
@@ -720,7 +719,6 @@ MonoBehaviour:
     amountTextEnabled: 1
     icon: {fileID: 0}
     powerUpIcon: {fileID: 0}
-    hoverOnMerge: 1
     neverMoves: 0
   - usage: 2
     model: 42
@@ -729,7 +727,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 21300000, guid: 4bc76270b368f9847b21069fef5fac92, type: 3}
     powerUpIcon: {fileID: 0}
-    hoverOnMerge: 1
     neverMoves: 0
   - usage: 3
     model: 46
@@ -738,7 +735,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 21300000, guid: b59e12b85002077499995e4b5ef677d4, type: 3}
-    hoverOnMerge: 0
     neverMoves: 0
   - usage: 4
     model: 46
@@ -747,7 +743,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 21300000, guid: 50d307825a65e4e4fb232944a5a7f4b4, type: 3}
-    hoverOnMerge: 0
     neverMoves: 1
   - usage: 5
     model: 44
@@ -756,7 +751,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 0}
-    hoverOnMerge: 0
     neverMoves: 0
   - usage: 6
     model: 43
@@ -765,7 +759,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 0}
-    hoverOnMerge: 0
     neverMoves: 0
   - usage: 7
     model: 45
@@ -774,7 +767,6 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 21300000, guid: 86f26d1801a474506a9d618fc1d0f246, type: 3}
-    hoverOnMerge: 0
     neverMoves: 0
   suggestionColorTut: {r: 0.51320755, g: 0.7919337, b: 1, a: 1}
   suggestionColor: {r: 1, g: 1, b: 1, a: 1}

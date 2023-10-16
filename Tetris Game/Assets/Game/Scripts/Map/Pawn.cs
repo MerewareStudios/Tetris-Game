@@ -119,7 +119,8 @@ namespace Game
                     break;
                 case Usage.Magnet:
                     UIManagerExtensions.Distort(_subModel.Position, 0.0f);
-                    _subModel.OnDeconstruct();
+                    _subModel.transform.parent = null;
+                    _subModel.Shrink();
                     _subModel = null;
                     break;
                 case Usage.Nugget:
@@ -332,7 +333,7 @@ namespace Game
             [SerializeField] public bool amountTextEnabled = false;
             [SerializeField] public Sprite icon;
             [SerializeField] public Sprite powerUpIcon;
-            [SerializeField] public bool hoverOnMerge = false;
+            // [SerializeField] public bool hoverOnMerge = false;
             [SerializeField] public bool neverMoves = false;
         }
     }

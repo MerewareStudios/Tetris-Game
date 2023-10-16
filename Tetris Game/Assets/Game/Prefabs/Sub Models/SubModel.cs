@@ -100,6 +100,25 @@ public class SubModel : MonoBehaviour
         };
     }
     
+    public void Shrink()
+    {
+        _sequence?.Kill();
+        _transform.DOKill();
+        _sequence = DOTween.Sequence();
+
+
+        const float duration = 0.25f;
+        
+        Tween shrinkTween = _transform.DOScale(Vector3.zero, duration).SetEase(Ease.InBack);
+
+        _sequence.Join(shrinkTween);
+
+        _sequence.onComplete = () =>
+        {
+            OnDeconstruct();
+        };
+    }
+    
     public void Missile(Vector3 target)
     {
         _sequence?.Kill();

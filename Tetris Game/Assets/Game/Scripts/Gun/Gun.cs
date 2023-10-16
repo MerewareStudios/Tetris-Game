@@ -57,8 +57,8 @@ public class Gun : MonoBehaviour
     
     public void Shoot(Enemy enemy)
     {
-        // Transform enemyTransform = enemy.hitTarget;
-            
+        int enemyID = enemy.ID;
+        
         Transform bullet = Pool.Bullet.Spawn().transform;
         
         TrailRenderer trail = Pool.Trail.Spawn<TrailRenderer>(bullet);
@@ -78,10 +78,10 @@ public class Gun : MonoBehaviour
         }
         bulletTween.onComplete = () =>
         {
-            // if (enemyTransform)
-            // {
+            if (enemyID == enemy.ID)
+            {
                 enemy.TakeDamage(_Data.DamageAmount, 1.0f);
-            // }
+            }
             bullet.Despawn();
             trail.gameObject.Despawn();
         };

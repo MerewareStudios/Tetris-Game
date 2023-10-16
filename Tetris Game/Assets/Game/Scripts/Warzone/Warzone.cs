@@ -25,6 +25,7 @@ namespace  Game
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
         [System.NonSerialized] private List<Enemy> _enemies = new();
         [System.NonSerialized] private float _spawnRangeNorm = 0.5f;
+        [System.NonSerialized] private int _enemyID = 0;
         [System.NonSerialized] private const float SpawnRange = 1.6f;
         [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
         [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
@@ -34,6 +35,7 @@ namespace  Game
         public bool IsCleared => !Spawning && !HasEnemy;
         public int EnemyCount => _enemies.Count;
         public Enemy GetEnemy(int index) => _enemies[index];
+        public int GetNewEnemyID() => ++_enemyID;
 
         #region Warzone
 
@@ -56,19 +58,20 @@ namespace  Game
 
         #region Warzone
 
-        public void EnemyKamikaze(Enemy enemy)
+        public void EnemyKilled(Enemy enemy, bool selfKill = false)
         {
-            enemy.Kamikaze();
-
-            CameraManager.THIS.Shake();
-            this.Player._CurrentHealth -= enemy.Damage;
-
-            LevelManager.THIS.CheckEndLevel();
-        }
-
-        public void EnemyKilled(Enemy enemy)
-        {
-            enemy.Kill();
+            enemy.ID = 0;
+            if (selfKill)
+            {
+                enemy.Kamikaze();
+                CameraManager.THIS.Shake();
+                this.Player._CurrentHealth -= enemy.Damage;
+                LevelManager.THIS.CheckEndLevel();
+            }
+            else
+            {
+                enemy.Kill();
+            }
         }
 
         public void ResetSelf()
@@ -187,7 +190,7 @@ namespace  Game
         private Enemy SpawnEnemy(Pool pool)
         {
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
-            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition());
+            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
             enemy.Replenish();
             return enemy;
         }
@@ -195,7 +198,7 @@ namespace  Game
         {
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
-            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition());
+            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
             enemy.Replenish();
             return enemy;
         }
