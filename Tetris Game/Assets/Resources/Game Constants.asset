@@ -135,7 +135,7 @@ MonoBehaviour:
       amount: 50
     - type: 1
       amount: 10
-    unlockedAt: 5
+    unlockedAt: 10
   - currency:
       type: 2
       amount: 1

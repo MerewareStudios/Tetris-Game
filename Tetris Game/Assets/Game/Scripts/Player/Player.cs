@@ -211,7 +211,7 @@ namespace Game
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
 
                         smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
-                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate * smoothFactor);
+                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate * smoothFactor * _GunData.Mult);
 
                         transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 

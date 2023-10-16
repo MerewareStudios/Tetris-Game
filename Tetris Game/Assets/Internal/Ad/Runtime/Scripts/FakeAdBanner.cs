@@ -19,6 +19,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [System.NonSerialized] public System.Action OnOfferAccepted;
     [System.NonSerialized] public System.Action<bool> OnVisibilityChanged;
     [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
+    [System.NonSerialized] private bool _visible = false;
     public Vector3 ButtonPosition => enableButton.transform.position;
 
     private const float OfferDistance = -220.0f;
@@ -80,18 +81,24 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         {
             return;
         }
+        _visible = true;
         MaxSdk.ShowBanner(BannerAdUnitId);
         OnVisibilityChanged?.Invoke(true);
     }
     
     public void HideAd()
     {
+        _visible = false;
         MaxSdk.HideBanner(BannerAdUnitId);
         OnVisibilityChanged?.Invoke(false);
     }
 
     public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
     {
+        if (!_visible)
+        {
+            return;
+        }
         _lastBannerPosition = bannerPosition;
         MaxSdk.UpdateBannerPosition(BannerAdUnitId, bannerPosition);
     }
@@ -113,6 +120,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 
     public void DestroyBanner()
     {
+        _visible = false;
         MaxSdk.DestroyBanner(BannerAdUnitId);
     }
 

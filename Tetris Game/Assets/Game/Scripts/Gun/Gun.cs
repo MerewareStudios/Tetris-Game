@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour
         
         _boostTween?.Kill();
         float percent = 0.0f;
-        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 6.0f).SetEase(Ease.Linear);
+        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 4.0f).SetEase(Ease.Linear);
         _boostTween.onUpdate = () =>
         {
             StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Boost, percent);
@@ -108,7 +108,17 @@ public class Gun : MonoBehaviour
         [SerializeField] private int rate = 1;
         [SerializeField] private int split = 1;
         [SerializeField] private int damage = 1;
-        [System.NonSerialized] public int Mult = 1;
+        [System.NonSerialized] private int _mult = 1;
+
+        public int Mult
+        {
+            set
+            {
+                _mult = value;
+                FireRate = rate;
+            }
+            get => _mult;
+        }
 
         public float FireInterval { get; set; }
         public int RateAmount => rate * Mult;
@@ -120,7 +130,7 @@ public class Gun : MonoBehaviour
             set
             {
                 this.rate = value;
-                FireInterval = 1.1f - (value - 1) * 0.05f;
+                FireInterval = (1.1f - (value - 1) * 0.05f) / _mult;
             }
             get => this.rate;
         }
