@@ -115,7 +115,13 @@ namespace Game
                     break;
                 case Usage.UnpackedAmmo:
                     break;
-                case Usage.Placeholder:
+                case Usage.Energy:
+                    _subModel.transform.parent = null;
+                    _subModel.Lerp2Player(() =>
+                    {
+                        Warzone.THIS.Player.Gun.Boost();
+                    });
+                    _subModel = null;
                     break;
                 case Usage.Magnet:
                     UIManagerExtensions.Distort(_subModel.Position, 0.0f);
@@ -316,7 +322,7 @@ namespace Game
             Empty,
             Ammo,
             UnpackedAmmo,
-            Placeholder,
+            Energy,
             Magnet,
             Nugget,
             Medic,
@@ -333,8 +339,8 @@ namespace Game
             [SerializeField] public bool amountTextEnabled = false;
             [SerializeField] public Sprite icon;
             [SerializeField] public Sprite powerUpIcon;
-            // [SerializeField] public bool hoverOnMerge = false;
             [SerializeField] public bool neverMoves = false;
+            [SerializeField] public bool moverOnPlacement = true;
         }
     }
 }

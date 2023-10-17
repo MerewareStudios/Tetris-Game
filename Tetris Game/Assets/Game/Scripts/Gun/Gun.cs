@@ -26,16 +26,16 @@ public class Gun : MonoBehaviour
         get => _data;
     }
 
-    public void Boost(int mult)
+    public void Boost()
     {
-        this._Data.Mult = mult;
+        this._Data.Mult++;
         
-        StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Boost, mult, 0.5f, true);
+        StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Boost, this._Data.Mult, 0.5f, true);
 
         
         _boostTween?.Kill();
         float percent = 0.0f;
-        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 4.0f).SetEase(Ease.Linear);
+        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 5.0f).SetEase(Ease.Linear);
         _boostTween.onUpdate = () =>
         {
             StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Boost, percent);

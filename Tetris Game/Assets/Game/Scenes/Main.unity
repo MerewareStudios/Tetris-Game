@@ -1548,7 +1548,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c82852227c7e54b91bad5c4bd3ed354b,
+      objectReference: {fileID: 21300000, guid: 93069031419041a4590faeced971b337,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2677,6 +2677,10 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
+  - gameObject: {fileID: 569434358575428955, guid: 43321cc1be9f09543b9184eaa5b5dd40,
+      type: 3}
+    preload: 0
+    capacity: 250
 --- !u!114 &715436860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,6 +2838,7 @@ MonoBehaviour:
   - {fileID: 5094943319427585628, guid: d0afaa533a1b7b340ac61ea4e77ffa93, type: 3}
   - {fileID: 8386564744611087252, guid: 5e4679ebd41173943bcd3a4f7eeb1dcc, type: 3}
   - {fileID: 2882607291138767249, guid: d6401d84ce3397544998197c6d710631, type: 3}
+  - {fileID: 198347710351975146, guid: f569d19cf52ef304b82b58d4c05d9080, type: 3}
 --- !u!114 &715436867
 MonoBehaviour:
   m_ObjectHideFlags: 0

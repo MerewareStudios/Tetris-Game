@@ -427,16 +427,6 @@ namespace Game
                     {
                         continue;
                     }
-
-                    // if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Placeholder))
-                    // {
-                    //     CreatePawnAtHorizontal(i, j);
-                    //     for (int k = 0; k < _size.x; k++)
-                    //     {
-                    //         points.Add(new Vector2Int(k, j));
-                    //     }
-                    //     return points;
-                    // }
                     if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j, points);
@@ -776,7 +766,8 @@ namespace Game
                 Pawn currentPawn = pawn;
                 Place place = GetPlace(currentPawn);
                 
-                currentPawn.Mover = true;
+                // currentPawn.Mover = true;
+                currentPawn.Mover = currentPawn.VData.moverOnPlacement;
                 currentPawn.Busy = true;
                 currentPawn.Tick = _tick;
                 

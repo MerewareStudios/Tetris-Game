@@ -185,7 +185,7 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.I))
       {
-         Warzone.THIS.Player.Gun.Boost(2);
+         Warzone.THIS.Player.Gun.Boost();
 
       }
    }

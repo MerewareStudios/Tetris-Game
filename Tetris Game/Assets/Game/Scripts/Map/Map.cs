@@ -57,7 +57,6 @@ namespace Game
                         if (tetrisLines.Count > 1)
                         {
                             UIManager.THIS.ShowCombo(tetrisLines.Count);
-                            Warzone.THIS.Player.Gun.Boost(tetrisLines.Count);
                         }
                         Board.THIS.MergeLines(tetrisLines);
                     

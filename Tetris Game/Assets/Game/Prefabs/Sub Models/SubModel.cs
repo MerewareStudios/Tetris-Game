@@ -100,6 +100,45 @@ public class SubModel : MonoBehaviour
         };
     }
     
+    public void Lerp2Player(System.Action onComplete)
+    {
+        _sequence?.Kill();
+        _transform.DOKill();
+        _sequence = DOTween.Sequence();
+
+        
+        
+        const float duration = 0.25f;
+        
+        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
+        Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
+
+        _sequence.Join(rotTween);
+        _sequence.Join(jumpTween);
+        
+        
+
+        // const float duration = 0.5f;
+        
+        // Tween moveUpTween = _transform.DOMove(new Vector3(0.0f, 1.5f, 0.0f), 0.25f).SetRelative(true).SetEase(Ease.Linear);
+        // Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.WorldAxisAdd).SetRelative(true).SetEase(Ease.InOutSine);
+        // Tween moveTween = _transform.DOMove(Warzone.THIS.Player.lerpTarget.position, duration).SetEase(Ease.InBack);
+        // Tween scaleTween = _transform.DOScale(Vector3.one * 0.5f, duration).SetEase(Ease.InBack);
+        //
+        // _sequence.Append(moveUpTween);
+        // _sequence.Join(rotTween);
+        // _sequence.Append(moveTween);
+        // _sequence.Join(scaleTween);
+
+        _sequence.onComplete = () =>
+        {
+            Particle.EnergyExplosionYellow.Play(transform.position);
+
+            OnDeconstruct();
+            onComplete?.Invoke();
+        };
+    }
+    
     public void Shrink()
     {
         _sequence?.Kill();

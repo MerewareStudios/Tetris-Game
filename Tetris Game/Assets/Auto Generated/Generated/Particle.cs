@@ -7,5 +7,6 @@ public enum Particle
     Square_Bullet = 4,
     Bubble = 5,
     Missile_Explosion = 6,
+    EnergyExplosionYellow = 7,
 
 }
