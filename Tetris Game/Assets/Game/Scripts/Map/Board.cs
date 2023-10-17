@@ -36,6 +36,7 @@ namespace Game
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
+        [System.NonSerialized] private const float MagnetRadius = 2.5f;
         
         [System.NonSerialized] public bool BoostingStack = false;
 
@@ -602,7 +603,7 @@ namespace Game
                     }
                     
                     Vector2Int current = new Vector2Int(i, j);
-                    if (Vector2Int.Distance(center, current) > 2.5f)
+                    if (Vector2Int.Distance(center, current) > MagnetRadius)
                     {
                         continue;
                     }
@@ -738,19 +739,19 @@ namespace Game
             
             return ammoGiven;
         }
-        public bool HasForwardPawnAtColumn(Vector2Int index)
-        {
-            
-            for (int j = 0; j < _size.y; j++)
-            {
-                Place place = _places[index.x, j];
-                if (index.y <= j && place.Current != null)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        // public bool HasForwardPawnAtColumn(Vector2Int index)
+        // {
+        //     
+        //     for (int j = 0; j < _size.y; j++)
+        //     {
+        //         Place place = _places[index.x, j];
+        //         if (index.y <= j && place.Current != null)
+        //         {
+        //             return true;
+        //         }
+        //     }
+        //     return false;
+        // }
 
         private bool ExpectedMoverComing(Vector2Int index)
         {
