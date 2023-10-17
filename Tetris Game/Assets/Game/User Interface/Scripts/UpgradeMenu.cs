@@ -145,12 +145,11 @@ namespace Game.UI
                 }
             }
 
-            maxStackText.text = Board.THIS._Data.maxStack.ToString();
+            maxStackText.text = Board.THIS.StackLimit.ToString();
         }
 
         public void OnClick_Purchase(int purchaseIndex)
         {
-            // PurchaseData purchaseData = _Data.purchaseData[purchaseIndex];
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
 
             if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
@@ -187,7 +186,6 @@ namespace Game.UI
 
         public void OnPurchase(PurchaseType purchaseType)
         {
-            Debug.Log("Purchased : " + purchaseType);
             switch (purchaseType)
             {
                 case PurchaseType.MaxStack:
