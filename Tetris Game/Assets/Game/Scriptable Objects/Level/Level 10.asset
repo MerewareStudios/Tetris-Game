@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: Level 10
   m_EditorClassIdentifier: 
   deltaMult: 1
-  showBannerOffer: 1
   boardSize: {x: 7, y: 8}
   EnemySpawnData:
     spawnDelay: 3
     spawnInterval: 9
     countDatas:
-    - enemyType: 37
+    - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
       count: 5
-    bossType: 41
-    bossData: {fileID: 0}
   canGiveBonus: 0
   victoryReward:
     type: 0

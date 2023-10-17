@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  bonusLevel: 0
   deltaMult: 0.35
-  showBannerOffer: 0
   boardSize: {x: 6, y: 7}
   EnemySpawnData:
     spawnDelay: 0
     spawnInterval: 9
-    countDatas: []
-    bossType: 41
-    bossData: {fileID: 11400000, guid: a5624d9194e343741b08e2c86320f897, type: 2}
+    countDatas:
+    - enemyData: {fileID: 11400000, guid: a5624d9194e343741b08e2c86320f897, type: 2}
+      count: 1
   canGiveBonus: 0
   victoryReward:
     type: 0

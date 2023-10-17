@@ -12,20 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 4
   m_EditorClassIdentifier: 
-  bonusLevel: 0
   deltaMult: 0.75
-  showBannerOffer: 1
   boardSize: {x: 6, y: 7}
   EnemySpawnData:
     spawnDelay: 3
     spawnInterval: 9
     countDatas:
-    - enemyType: 19
+    - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
       count: 2
-    - enemyType: 36
+    - enemyData: {fileID: 11400000, guid: 53cb06763de1ecb498d7e2946d1b15fb, type: 2}
       count: 1
-    bossType: 0
-    bossData: {fileID: 0}
   canGiveBonus: 0
   victoryReward:
     type: 0

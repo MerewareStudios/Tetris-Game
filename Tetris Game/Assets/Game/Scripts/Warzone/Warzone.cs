@@ -116,7 +116,7 @@ namespace  Game
 
 
 
-                List<Pool> enemyPool = new();
+                List<EnemyData> enemyPool = new();
                 int enemyIndex = 0;
 
                 _totalEnemyHealth = 0;
@@ -125,10 +125,12 @@ namespace  Game
                 {
                     for (int i = 0; i < countData.count; i++)
                     {
-                        enemyPool.Add(countData.enemyType);
-                        _totalEnemyHealth += countData.enemyType.Prefab<Enemy>().so.maxHealth;
+                        enemyPool.Add(countData.enemyData);
+                        _totalEnemyHealth += countData.enemyData.maxHealth;
                     }
                 }
+
+                _leftEnemyHealth = _totalEnemyHealth;
 
                 enemyPool.Shuffle();
 
@@ -158,17 +160,6 @@ namespace  Game
                     }
                 }
 
-                if (EnemySpawnData.bossData)
-                {
-                    yield return new WaitForSeconds(0.1f);
-                    _enemies.Add(SpawnEnemyOverride(EnemySpawnData.bossType, EnemySpawnData.bossData));
-                    if (!Player.CurrentEnemy)
-                    {
-                        AssignClosestEnemy();
-                    }
-                }
-                
-
                 Spawning = false;
                 _spawnRoutine = null;
             }
@@ -196,23 +187,24 @@ namespace  Game
             Spawning = false;
         }
 
-        private Enemy SpawnEnemy(Pool pool)
+        // private Enemy SpawnEnemy(Pool pool)
+        // {
+        //     Enemy enemy = pool.Spawn<Enemy>(this.transform);
+        //     enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
+        //     enemy.Replenish();
+        //     
+        //     UpdateProgress();
+        //     
+        //     return enemy;
+        // }
+        private Enemy SpawnEnemy(EnemyData enemyData)
         {
-            Enemy enemy = pool.Spawn<Enemy>(this.transform);
-            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
-            enemy.Replenish();
-            
-            UpdateProgress();
-            
-            return enemy;
-        }
-        private Enemy SpawnEnemyOverride(Pool pool, EnemyData enemyData)
-        {
-            Enemy enemy = pool.Spawn<Enemy>(this.transform);
+            Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
             enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
             enemy.Replenish();
-            
+
+            _leftEnemyHealth -= enemyData.maxHealth;
             UpdateProgress();
             
             return enemy;

@@ -18,14 +18,12 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 9
     countDatas:
-    - enemyType: 19
+    - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
       count: 1
-    - enemyType: 36
+    - enemyData: {fileID: 11400000, guid: 53cb06763de1ecb498d7e2946d1b15fb, type: 2}
       count: 2
-    - enemyType: 37
+    - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
       count: 2
-    bossType: 41
-    bossData: {fileID: 0}
   canGiveBonus: 0
   victoryReward:
     type: 0

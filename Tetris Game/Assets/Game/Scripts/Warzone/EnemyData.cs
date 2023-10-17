@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy Data", menuName = "Game/Enemy Data", order = 0)]
 public class EnemyData : ScriptableObject
 {
-    public Enemy.Type type;
+    public Pool type;
     public ParticleSystem.MinMaxGradient colorGrad;
     public Gradient hitGradient;
     public List<EnemyReward> enemyRewards;

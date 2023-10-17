@@ -157,15 +157,15 @@ namespace  Game
             this.Despawn();
         }
         
-        public enum Type
-        {
-            Slime,
-            Mushroom,
-            Turtle,
-            Cactus,
-            Chest,
-            Eye,
-        }
+        // public enum Type
+        // {
+        //     Slime,
+        //     Mushroom,
+        //     Turtle,
+        //     Cactus,
+        //     Chest,
+        //     Eye,
+        // }
         
         [System.Serializable]
         public class SpawnData
@@ -173,13 +173,11 @@ namespace  Game
             [SerializeField] public int spawnDelay = 3;
             [SerializeField] public float spawnInterval = 6.0f;
             [SerializeField] public List<CountData> countDatas;
-            [SerializeField] public Pool bossType;
-            [SerializeField] public EnemyData bossData;
         } 
         [System.Serializable]
         public class CountData
         {
-            [SerializeField] public Pool enemyType;
+            [SerializeField] public EnemyData enemyData;
             [SerializeField] public int count;
         } 
         [System.Serializable]

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
   m_Name: Dummy - Bonus Level 6
   m_EditorClassIdentifier: 
-  type: 0
+  type: 41
   colorGrad:
     m_Mode: 4
     m_GradientMin:

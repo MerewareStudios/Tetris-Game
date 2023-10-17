@@ -22,6 +22,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private Color filledColor;
     [SerializeField] private Image[] bars;
     [SerializeField] private GameObject barParent;
+    [SerializeField] private Image background;
     [System.NonSerialized] private bool _open = false;
 
     public bool BarEnabled
@@ -79,11 +80,13 @@ public class Shop : MonoBehaviour
         {
             return;
         }
-        
-        if (ONBOARDING.LEARN_TO_USE_SHOP.IsNotComplete())
+        background.enabled = false;
+
+        if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
         {
-            ONBOARDING.LEARN_TO_USE_SHOP.SetComplete();
+            Onboarding.HideFinger();
         }
+        
         
         this._open = false;
         
@@ -105,8 +108,6 @@ public class Shop : MonoBehaviour
     
     public void AnimatedShow()
     {
-        
-        
         this._open = true;
 
         trailRenderer.emitting = false;
@@ -115,8 +116,10 @@ public class Shop : MonoBehaviour
         
         void Show()
         {
-            if (ONBOARDING.LEARN_TO_USE_SHOP.IsNotComplete())
+            background.enabled = false;
+            if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
             {
+                background.enabled = true;
                 UIManager.Pause(true);
             }
             
@@ -157,7 +160,7 @@ public class Shop : MonoBehaviour
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
-                if (ONBOARDING.LEARN_TO_USE_SHOP.IsNotComplete())
+                if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickTarget.position, Finger.Cam.Game, () =>
                     {
