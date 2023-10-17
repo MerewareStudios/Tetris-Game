@@ -478,10 +478,10 @@ namespace Game
 
         public void MergeLines(List<int> lines)
         {
-            void MergeLine(int lineIndex)
+            void MergeLine(int lineIndex, int mergeIndex)
             {
                 int highestTick = int.MinValue;
-                int mergeIndex = 0;
+                int horIndex = 0;
 
                 for (int i = 0; i < _size.x; i++)
                 {
@@ -495,28 +495,28 @@ namespace Game
                     if (place.Current.Tick > highestTick)
                     {
                         highestTick = place.Current.Tick;
-                        mergeIndex = index;
+                        horIndex = index;
                     }
                     else if(place.Current.Tick == highestTick)
                     {
                         if(Helper.IsPossible(0.5f))
                         {
-                            mergeIndex = index;
+                            horIndex = index;
                         }
                     }
                 }
-                CreatePawnAtHorizontal(mergeIndex, lineIndex, lines.Count);
+                CreatePawnAtHorizontal(horIndex, lineIndex, lines.Count, mergeIndex);
             }
             
             OnMerge?.Invoke(lines.Count);
 
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i]);
+                MergeLine(lines[i], i);
             }
         }
 
-        private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier = 1)
+        private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier, int mergeIndex)
         {
             Place spawnPlace = _places[horizontal, lineIndex];
             int totalAmmo = 0;
@@ -561,7 +561,32 @@ namespace Game
             {
                 return;
             }
-            SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo, true)
+
+            Pawn.Usage type = Pawn.Usage.Ammo;
+            int ammo = totalAmmo;
+
+            if (multiplier > 1)
+            {
+                switch (mergeIndex)
+                {
+                    // case 0:
+                    //     type = Pawn.Usage.Rocket;
+                    //     ammo = 0;
+                    //     break;
+                    case 1:
+                        type = Pawn.Usage.Energy;
+                        ammo = 0;
+                        break;
+                    case 2:
+                        type = Pawn.Usage.Rocket;
+                        ammo = 0;
+                        break;
+                }
+            }
+            
+            
+            
+            SpawnPawn(spawnPlace, type, ammo, true)
                 .UnpackAmmo(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
                     () =>
                     {
