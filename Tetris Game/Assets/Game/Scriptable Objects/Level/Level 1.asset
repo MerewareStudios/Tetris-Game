@@ -36,6 +36,4 @@ MonoBehaviour:
     requiredPlaces: 05000000060000000c00000013000000
     blockRot: 0
     canRotate: 1
-  pawnPlacements:
-  - usage: 6
-    index: {x: 0, y: 0}
+  pawnPlacements: []

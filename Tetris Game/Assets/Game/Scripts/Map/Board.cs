@@ -512,7 +512,7 @@ namespace Game
 
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i], i);
+                MergeLine(lines[i], lines.Count - i);
             }
         }
 
@@ -569,15 +569,15 @@ namespace Game
             {
                 switch (mergeIndex)
                 {
-                    // case 0:
+                    // case 1:
                     //     type = Pawn.Usage.Rocket;
                     //     ammo = 0;
                     //     break;
-                    case 1:
+                    case 2:
                         type = Pawn.Usage.Energy;
                         ammo = 0;
                         break;
-                    case 2:
+                    case 3:
                         type = Pawn.Usage.Rocket;
                         ammo = 0;
                         break;

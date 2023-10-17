@@ -36,7 +36,7 @@ MonoBehaviour:
     level: 1
     pupData:
       available: 1
-      currentUsage: 6
+      currentUsage: 4
     boardData:
       defaultStack: 6
       maxStack: 6
