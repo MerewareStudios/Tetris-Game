@@ -117,7 +117,7 @@ namespace Game
                     break;
                 case Usage.Energy:
                     _subModel.transform.parent = null;
-                    _subModel.Lerp2Player(() =>
+                    _subModel.Rise((pos) =>
                     {
                         Warzone.THIS.Player.Gun.Boost();
                     });
@@ -131,10 +131,19 @@ namespace Game
                     break;
                 case Usage.Nugget:
                     _subModel.transform.parent = null;
-                    _subModel.Rise();
+                    _subModel.Rise((pos) =>
+                    {
+                        UIManagerExtensions.BoardCoinToPlayer(pos,  10, 10);
+                    });
                     _subModel = null;
                     break;
                 case Usage.Medic:
+                    _subModel.transform.parent = null;
+                    _subModel.Scale((pos) =>
+                    {
+                        UIManagerExtensions.BoardHeartToPlayer(pos,  5, 5);
+                    });
+                    _subModel = null;
                     break;
                 case Usage.Rocket:
                     _subModel.transform.parent = null;

@@ -78,16 +78,16 @@ public class SubModel : MonoBehaviour
     }
 
 
-    public void Rise()
+    public void Rise(System.Action<Vector3> onComplete, float rotation = 180.0f, float duration = 0.25f)
     {
         _sequence?.Kill();
         _transform.DOKill();
         _sequence = DOTween.Sequence();
 
 
-        const float duration = 0.25f;
+        // const float duration = 0.35f;
         
-        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 180.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
+        Tween rotTween = _transform.DORotate(new Vector3(0.0f, rotation, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
         Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
 
         _sequence.Join(rotTween);
@@ -95,49 +95,70 @@ public class SubModel : MonoBehaviour
 
         _sequence.onComplete = () =>
         {
-            UIManagerExtensions.BoardCoinToPlayer(_transform.position,  10, 10);
+            onComplete?.Invoke(_transform.position);
             OnDeconstruct();
         };
     }
     
-    public void Lerp2Player(System.Action onComplete)
+    
+    public void Scale(System.Action<Vector3> onComplete, float rotation = 180.0f, float duration = 0.25f)
     {
         _sequence?.Kill();
         _transform.DOKill();
         _sequence = DOTween.Sequence();
 
-        
-        
-        const float duration = 0.25f;
-        
-        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
+
+        Tween scaleTween = _transform.DOScale(Vector3.one * 0.5f, duration).SetRelative(true).SetEase(Ease.InBack);
         Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
 
-        _sequence.Join(rotTween);
+        _sequence.Join(scaleTween);
         _sequence.Join(jumpTween);
-        
-        
-
-        // const float duration = 0.5f;
-        
-        // Tween moveUpTween = _transform.DOMove(new Vector3(0.0f, 1.5f, 0.0f), 0.25f).SetRelative(true).SetEase(Ease.Linear);
-        // Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.WorldAxisAdd).SetRelative(true).SetEase(Ease.InOutSine);
-        // Tween moveTween = _transform.DOMove(Warzone.THIS.Player.lerpTarget.position, duration).SetEase(Ease.InBack);
-        // Tween scaleTween = _transform.DOScale(Vector3.one * 0.5f, duration).SetEase(Ease.InBack);
-        //
-        // _sequence.Append(moveUpTween);
-        // _sequence.Join(rotTween);
-        // _sequence.Append(moveTween);
-        // _sequence.Join(scaleTween);
 
         _sequence.onComplete = () =>
         {
-            Particle.EnergyExplosionYellow.Play(transform.position);
-
+            onComplete?.Invoke(_transform.position);
             OnDeconstruct();
-            onComplete?.Invoke();
         };
     }
+    
+    // public void Lerp2Player(System.Action onComplete)
+    // {
+    //     _sequence?.Kill();
+    //     _transform.DOKill();
+    //     _sequence = DOTween.Sequence();
+    //
+    //     
+    //     
+    //     const float duration = 0.25f;
+    //     
+    //     Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
+    //     Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
+    //
+    //     _sequence.Join(rotTween);
+    //     _sequence.Join(jumpTween);
+    //     
+    //     
+    //
+    //     // const float duration = 0.5f;
+    //     
+    //     // Tween moveUpTween = _transform.DOMove(new Vector3(0.0f, 1.5f, 0.0f), 0.25f).SetRelative(true).SetEase(Ease.Linear);
+    //     // Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.WorldAxisAdd).SetRelative(true).SetEase(Ease.InOutSine);
+    //     // Tween moveTween = _transform.DOMove(Warzone.THIS.Player.lerpTarget.position, duration).SetEase(Ease.InBack);
+    //     // Tween scaleTween = _transform.DOScale(Vector3.one * 0.5f, duration).SetEase(Ease.InBack);
+    //     //
+    //     // _sequence.Append(moveUpTween);
+    //     // _sequence.Join(rotTween);
+    //     // _sequence.Append(moveTween);
+    //     // _sequence.Join(scaleTween);
+    //
+    //     _sequence.onComplete = () =>
+    //     {
+    //         Particle.EnergyExplosionYellow.Play(transform.position);
+    //
+    //         OnDeconstruct();
+    //         onComplete?.Invoke();
+    //     };
+    // }
     
     public void Shrink()
     {

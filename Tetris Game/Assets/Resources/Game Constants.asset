@@ -36,7 +36,7 @@ MonoBehaviour:
     level: 1
     pupData:
       available: 1
-      currentUsage: 4
+      currentUsage: 6
     boardData:
       defaultStack: 6
       maxStack: 6
@@ -759,21 +759,21 @@ MonoBehaviour:
     neverMoves: 0
     moverOnPlacement: 0
   - usage: 6
-    model: 43
-    free2Place: 0
+    model: 58
+    free2Place: 1
     startColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 0}
-    powerUpIcon: {fileID: 0}
+    powerUpIcon: {fileID: 21300000, guid: bbcdfe316f6b1874189ee189850ae0af, type: 3}
     neverMoves: 0
-    moverOnPlacement: 1
+    moverOnPlacement: 0
   - usage: 7
     model: 45
     free2Place: 1
     startColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 0}
-    powerUpIcon: {fileID: 21300000, guid: 86f26d1801a474506a9d618fc1d0f246, type: 3}
+    powerUpIcon: {fileID: 21300000, guid: de4338232355f6f4aac17dca0e883fdf, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
   suggestionColorTut: {r: 0.51320755, g: 0.7919337, b: 1, a: 1}
