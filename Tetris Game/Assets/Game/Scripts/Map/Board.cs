@@ -135,10 +135,10 @@ namespace Game
 
                     
                 Spawner.THIS.UpdateFingerDelta(bottomPin.position);
-                    
+
 
                 Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(enemySpawnPin.position, CameraManager.THIS.gameCamera.transform.forward));
-                Warzone.THIS.StartLine = topProjection.z - 1.4f;
+                Warzone.THIS.StartLine = topProjection.z - 1.5f;
                 Warzone.THIS.EndLine = deadline.position.z;
 
                 

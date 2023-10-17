@@ -34,6 +34,8 @@ namespace  Game
         public bool HasEnemy => _enemies.Count > 0;
         public bool IsCleared => !Spawning && !HasEnemy;
         public int EnemyCount => _enemies.Count;
+        private int _totalEnemyHealth;
+        private int _leftEnemyHealth;
         public Enemy GetEnemy(int index) => _enemies[index];
         public int GetNewEnemyID() => ++_enemyID;
 
@@ -117,11 +119,14 @@ namespace  Game
                 List<Pool> enemyPool = new();
                 int enemyIndex = 0;
 
+                _totalEnemyHealth = 0;
+
                 foreach (var countData in EnemySpawnData.countDatas)
                 {
                     for (int i = 0; i < countData.count; i++)
                     {
                         enemyPool.Add(countData.enemyType);
+                        _totalEnemyHealth += countData.enemyType.Prefab<Enemy>().so.maxHealth;
                     }
                 }
 
@@ -136,7 +141,6 @@ namespace  Game
                 while (enemyIndex < enemyPool.Count)
                 {
                     _enemies.Add(SpawnEnemy(enemyPool[enemyIndex++]));
-                    UIManager.THIS.LevelProgress = 1.0f - ((float)enemyIndex / enemyPool.Count);
                     if (!Player.CurrentEnemy)
                     {
                         AssignClosestEnemy();
@@ -170,6 +174,11 @@ namespace  Game
             }
         }
 
+        private void UpdateProgress()
+        {
+            UIManager.THIS.LevelProgress = _leftEnemyHealth / (float) _totalEnemyHealth;
+        }
+
         public void OnLevelLoad()
         {
             Player.Replenish();
@@ -192,6 +201,9 @@ namespace  Game
             Enemy enemy = pool.Spawn<Enemy>(this.transform);
             enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
             enemy.Replenish();
+            
+            UpdateProgress();
+            
             return enemy;
         }
         private Enemy SpawnEnemyOverride(Pool pool, EnemyData enemyData)
@@ -200,6 +212,9 @@ namespace  Game
             enemy.so = enemyData;
             enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.5f) : NextSpawnPosition(), GetNewEnemyID());
             enemy.Replenish();
+            
+            UpdateProgress();
+            
             return enemy;
         }
 
