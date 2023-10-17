@@ -65,6 +65,7 @@ namespace Game
                 newGunData.prevShoot = _GunData.prevShoot;
                 _GunData = newGunData;
             };
+            crossHairMR.sharedMaterial.SetColor(GameManager.BaseColor, Color.white);
         }
 
 #endregion
@@ -198,6 +199,9 @@ namespace Game
                 float smoothFactor = 0.0f;
                 crossHair.gameObject.SetActive(true);
 
+                _Data.Time = 0.0f;
+                Gun._Data.prevShoot = -0.5f;
+                
                 while (true)
                 {
                     if (CurrentEnemy)
@@ -217,7 +221,7 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        if ((_Data.Time - Gun._Data.prevShoot > Gun._Data.FireInterval) && angleDif <= 1.0f)
+                        if ((_Data.Time - Gun._Data.prevShoot >= Gun._Data.FireInterval) && angleDif <= 1.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);

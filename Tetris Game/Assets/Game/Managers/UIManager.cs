@@ -40,8 +40,8 @@ public class UIManager : Singleton<UIManager>
       comboTextRect.transform.DOKill();
       comboTextRect.localScale = Vector3.zero;
       
-      Tween scaleUp = comboTextRect.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
-      Tween scaleDown = comboTextRect.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCirc).SetDelay(0.2f);
+      Tween scaleUp = comboTextRect.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetDelay(0.05f);
+      Tween scaleDown = comboTextRect.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCirc).SetDelay(0.25f);
       Tween colorTween = comboText.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.2f).SetEase(Ease.InCirc);
 
       _comboSequence?.Kill();

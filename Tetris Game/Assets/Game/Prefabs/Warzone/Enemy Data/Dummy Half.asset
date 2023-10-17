@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Dummy
+  m_Name: Dummy Half
   m_EditorClassIdentifier: 
   type: 41
-  extraWait: 0
+  extraWait: 0.5
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -110,9 +110,9 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 10
+    amount: 5
     probability: 1
-  maxHealth: 6
+  maxHealth: 3
   speed: 0
   radius: 0.5
   emitCount: 15

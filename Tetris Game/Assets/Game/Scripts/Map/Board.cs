@@ -140,6 +140,7 @@ namespace Game
                 Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(enemySpawnPin.position, CameraManager.THIS.gameCamera.transform.forward));
                 Warzone.THIS.StartLine = topProjection.z - 1.5f;
                 Warzone.THIS.EndLine = deadline.position.z;
+                Warzone.THIS.SpawnRange = topProjection.x;
 
                 
                 Vector2 localPoint = CameraManager.THIS.gameCamera.WorldToScreenPoint(statsPin.position);

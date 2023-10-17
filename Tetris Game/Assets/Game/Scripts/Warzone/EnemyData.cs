@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     public Pool type;
+    public float extraWait;
     public ParticleSystem.MinMaxGradient colorGrad;
     public Gradient hitGradient;
     public List<EnemyReward> enemyRewards;
