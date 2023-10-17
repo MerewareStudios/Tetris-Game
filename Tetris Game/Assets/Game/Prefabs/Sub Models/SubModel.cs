@@ -206,6 +206,30 @@ public class SubModel : MonoBehaviour
             OnDeconstruct();
         };
     }
+    public void Land(Vector3 target)
+    {
+        _sequence?.Kill();
+        _transform.DOKill();
+        _sequence = DOTween.Sequence();
+
+        _transform.localRotation = Quaternion.identity;
+        
+        const float duration = 0.5f;
+        
+        Tween moveTween = _transform.DOMove(target, duration).SetEase(Ease.InBack);
+        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InBack);
+        Tween scaleTween = _transform.DOScale(Vector3.one * 0.75f, duration).SetEase(Ease.InBack);
+
+        _sequence.Join(moveTween);
+        _sequence.Join(rotTween);
+        _sequence.Join(scaleTween);
+
+        _sequence.onComplete = () =>
+        {
+            Warzone.THIS.AddLandMine(this);
+            // OnDeconstruct();
+        };
+    }
 
     [Serializable]
     public enum AnimType

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bundleVersionCode: 37
   Levels:
-  - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
+  - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
   - {fileID: 11400000, guid: cc2355365b2a36a468897a57acafc510, type: 2}
@@ -774,6 +774,15 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 21300000, guid: de4338232355f6f4aac17dca0e883fdf, type: 3}
+    neverMoves: 0
+    moverOnPlacement: 0
+  - usage: 8
+    model: 59
+    free2Place: 1
+    startColor: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+    amountTextEnabled: 0
+    icon: {fileID: 0}
+    powerUpIcon: {fileID: 21300000, guid: 4792921ad77edf14ea2662118937dc2a, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
   suggestionColorTut: {r: 0.51320755, g: 0.7919337, b: 1, a: 1}

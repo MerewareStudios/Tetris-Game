@@ -30,6 +30,9 @@ namespace  Game
         [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
         [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
 
+        [System.NonSerialized] private List<SubModel> landMines = new List<SubModel>();
+        
+
         public bool Spawning { get; set; }
         public bool HasEnemy => _enemies.Count > 0;
         public bool IsCleared => !Spawning && !HasEnemy;
@@ -238,6 +241,11 @@ namespace  Game
 
             return MidSpawnPosition(0.5f);
         }
+        
+        public Vector3 GetLandMineTarget()
+        {
+            return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, EndLine);
+        }
 
         public void AEODamage(Vector3 position, int damage, float sqrMagnitude)
         {
@@ -249,10 +257,29 @@ namespace  Game
                     _enemies[i].TakeDamage(damage, 2.0f);
                 }
             }
+        }
+
+        public void AddLandMine(SubModel subModel)
+        {
+            this.landMines.Add(subModel);
             
-            foreach (var enemy in _enemies)
+        }
+        
+        public void ExplodeLandMine(SubModel subModel)
+        {
+            this.landMines.Remove(subModel);
+            subModel.Despawn();
+            Vector3 pos = subModel.Position;
+            AEODamage(pos, 5, 1.0f);
+            Particle.Missile_Explosion.Play(pos);
+        }
+        
+        public void ClearLandMines()
+        {
+            for (int i = landMines.Count - 1; i >= 0; i--)
             {
-               
+                landMines[i].Despawn();
+                landMines.RemoveAt(i);
             }
         }
 
@@ -279,6 +306,8 @@ namespace  Game
             }
 
             _enemies.Clear();
+            
+            ClearLandMines();
 
             ResetSelf();
         }
@@ -300,6 +329,18 @@ namespace  Game
         public bool IsOutside(Transform transform)
         {
             return transform.position.z < EndLine;
+        }
+        
+        public void CheckLandmine(Transform transform)
+        {
+            foreach (var landMine in landMines)
+            {
+                if (Vector3.SqrMagnitude(transform.position - landMine.Position) < 0.4f)
+                {
+                    ExplodeLandMine(landMine);
+                    break;
+                }
+            }
         }
     }
 }

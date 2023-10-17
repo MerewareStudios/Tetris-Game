@@ -150,6 +150,13 @@ namespace Game
                     _subModel.Missile(Warzone.THIS.GetMissileTarget());
                     _subModel = null;
                     break;
+                case Usage.Landmine:
+                    _subModel.transform.parent = null;
+                    _subModel.Land(Warzone.THIS.GetLandMineTarget());
+                    _subModel = null;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         
@@ -336,6 +343,7 @@ namespace Game
             Nugget,
             Medic,
             Rocket,
+            Landmine,
         }
 
         [Serializable]

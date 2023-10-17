@@ -581,6 +581,10 @@ namespace Game
                         type = Pawn.Usage.Rocket;
                         ammo = 0;
                         break;
+                    case 4:
+                        type = Pawn.Usage.Landmine;
+                        ammo = 0;
+                        break;
                 }
             }
             

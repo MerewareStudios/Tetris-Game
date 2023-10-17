@@ -59,5 +59,6 @@ public enum Pool
     Long_U_Tree_Block = 56,
     Energy = 57,
     Medkit = 58,
+    Landmine = 59,
 
 }
