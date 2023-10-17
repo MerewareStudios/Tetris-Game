@@ -10,8 +10,8 @@ namespace Visual.Effects
         public static Distortion Recent = null;
 
         [SerializeField] private MeshRenderer meshRenderer;
-        [System.NonSerialized] public static System.Action<GameObject, bool> OnComplete;
-        [System.NonSerialized] private Tween animationTween;
+        [System.NonSerialized] public static System.Action<GameObject, bool> Complete;
+        [System.NonSerialized] private Tween _animationTween;
     
         public void Distort(Vector3 worldPosition, Vector3 forward, float scale, float power, float duration, Ease ease, float delay)
         {
@@ -23,14 +23,14 @@ namespace Visual.Effects
             Distortion.Recent = this;
             
             float value = 0.0f;
-            animationTween?.Kill();
-            animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetDelay(delay).SetUpdate(true);
-            animationTween.onUpdate = () =>
+            _animationTween?.Kill();
+            _animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetDelay(delay).SetUpdate(true);
+            _animationTween.onUpdate = () =>
             {
                 meshRenderer.material.SetFloat(PowerID, power * (1.0f - value));
                 thisTransform.localScale = Vector3.one * scale * value;
             };
-            animationTween.onComplete = () => OnComplete.Invoke(this.gameObject, Distortion.Recent == this);
+            _animationTween.onComplete = () => Complete.Invoke(this.gameObject, Distortion.Recent == this);
         }
     }
 }

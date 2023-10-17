@@ -111,7 +111,7 @@ Material:
     - _Float: 1.33
     - _Mult: 1
     - _Normal_Power: 1
-    - _Power: 0.1
+    - _Power: 0.01176491
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Ramp: -0.026

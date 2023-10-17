@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        Distortion.OnComplete = (go, state) =>
+        Distortion.Complete = (go, state) =>
         {
             go.Despawn();
             if (state)

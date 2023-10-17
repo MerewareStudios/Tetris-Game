@@ -642,7 +642,10 @@ namespace Game
                         {
                             CameraManager.THIS.Shake(0.2f, 0.5f);
 
-                            Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                            if (totalAmmo > 0)
+                            {
+                                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                            }
                         }
                     };
                     
