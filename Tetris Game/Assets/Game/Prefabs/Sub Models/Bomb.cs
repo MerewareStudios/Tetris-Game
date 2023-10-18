@@ -7,7 +7,7 @@ using UnityEngine;
 public class Bomb : SubModel
 {
     [SerializeField] private CircularProgress progress;
-    [System.NonSerialized] private Tween _timerTween;
+    [System.NonSerialized] private float _current;
 
     public override void OnConstruct(Transform p)
     {
@@ -42,31 +42,43 @@ public class Bomb : SubModel
         Sequence.onComplete = () =>
         {
             Particle.Missile_Explosion.Play(target);
-            Warzone.THIS.AEODamage(target, 10, 2.0f);
+            Warzone.THIS.AEODamage(target, 15, 2.0f);
+            CameraManager.THIS.Shake(0.2f, 0.5f);
+            UIManagerExtensions.Distort(Position, 0.0f);
             OnDeconstruct();
         };
     }
-    
+
+    public override float OnTick()
+    {
+        base.OnTick();
+        
+        _current -= 0.075f;
+        progress.FillAnimated = _current;
+
+        return _current;
+    }
+
+    public override void OnExplode()
+    {
+        base.OnExplode();
+        
+        Particle.Missile_Explosion.Play(base.Position);
+        UIManagerExtensions.Distort(Position, 0.0f);
+
+        OnDeconstruct();
+    }
+
     private void StartTimer()
     {
         progress.gameObject.SetActive(true);
-        float step = 0.0f;
-        _timerTween?.Kill();
-        _timerTween = DOTween.To(x => step = x, 1.0f, 0.0f, 30.0f).SetEase(Ease.OutSine);
-        _timerTween.onUpdate = () =>
-        {
-            progress.Fill = step;
-        };
-        _timerTween.onComplete = () =>
-        {
-            Particle.Missile_Explosion.Play(base.Position);
-            OnDeconstruct();
-        };
+        _current = 1.0f;
+        progress.Fill = _current;
     }
     private void StopTimer()
     {
+        progress.Kill();
         progress.gameObject.SetActive(false);
-        _timerTween?.Kill();
     }
 
    

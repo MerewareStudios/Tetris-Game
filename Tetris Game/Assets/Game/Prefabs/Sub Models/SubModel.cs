@@ -80,6 +80,14 @@ public class SubModel : MonoBehaviour
     {
         
     }
+    public virtual float OnTick()
+    {
+        return 1.0f;
+    }
+    public virtual void OnExplode()
+    {
+        
+    }
 
     public void Rise(System.Action<Vector3> onComplete, float rotation = 180.0f, float duration = 0.25f)
     {

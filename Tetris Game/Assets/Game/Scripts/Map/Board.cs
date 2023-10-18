@@ -28,6 +28,8 @@ namespace Game
         [SerializeField] public RectTransform projectionRect;
 
         [System.NonSerialized] public System.Action<int> OnMerge;
+        [System.NonSerialized] public const float MagnetRadius = 2.5f;
+        [System.NonSerialized] public const float BombRadius = 1.5f;
         
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector2Int _size;
@@ -36,7 +38,6 @@ namespace Game
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
-        [System.NonSerialized] private const float MagnetRadius = 2.5f;
         
         [System.NonSerialized] public bool BoostingStack = false;
 
@@ -432,6 +433,16 @@ namespace Game
                         CreatePawnAtCircular(i, j, points);
                         return points;
                     }
+                    if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Bomb))
+                    {
+                        float rest = _places[i, j].Current.SubModel.OnTick();
+
+                        if (rest <= 0.0f)
+                        {
+                             _places[i, j].Current.Explode(new Vector2Int(i, j), points);
+                        }
+                        // return points;
+                    }
                 }
             }
 
@@ -599,6 +610,68 @@ namespace Game
                     });
         }
 
+        public void ExplodePawnsCircular(Vector2Int center, float radius, List<Vector2Int> points)
+        {
+            for (int i = 0; i < _size.x; i++)
+            {
+                for (int j = 0; j < _size.y; j++)
+                {
+                    Place place = _places[i, j];
+                    Pawn pawn = place.Current;
+                    
+                    if (!pawn)
+                    {
+                        continue;
+                    }
+                    
+                    Vector2Int current = new Vector2Int(i, j);
+                    if (Vector2Int.Distance(center, current) > radius)
+                    {
+                        continue;
+                    }
+                    
+                    PlaceHighest(center, points);
+
+                    pawn.Explode(place.Index, points);
+                    RemovePawn(place);
+                    Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(place.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                }
+            }
+        }
+
+        private void RemovePawn(Place place)
+        {
+            Pawn pawn = place.Current;
+            
+            if (!pawn)
+            {
+                return;
+            }
+
+            pawn.Deconstruct();
+            place.Current = null;
+        }
+
+        private void PlaceHighest(Vector2Int current, List<Vector2Int> points)
+        {
+            bool placed = false;
+
+            for (int k = 0; k < points.Count; k++)
+            {
+                if (current.x == points[k].x && current.y < points[k].y)
+                {
+                    points[k] = current;
+                    placed = true;
+                    break;
+                }
+            }
+
+            if (!placed)
+            {
+                points.Add(current);
+            }
+        }
+        
         private void CreatePawnAtCircular(int horizontal, int vertical, List<Vector2Int> points)
         {
             Vector2Int center = new Vector2Int(horizontal, vertical);
@@ -627,22 +700,24 @@ namespace Game
                         continue;
                     }
 
-                    bool placed = false;
-
-                    for (int k = 0; k < points.Count; k++)
-                    {
-                        if (current.x == points[k].x && current.y < points[k].y)
-                        {
-                            points[k] = current;
-                            placed = true;
-                            break;
-                        }
-                    }
-
-                    if (!placed)
-                    {
-                        points.Add(current);
-                    }
+                    PlaceHighest(center, points);
+                    
+                    // bool placed = false;
+                    //
+                    // for (int k = 0; k < points.Count; k++)
+                    // {
+                    //     if (current.x == points[k].x && current.y < points[k].y)
+                    //     {
+                    //         points[k] = current;
+                    //         placed = true;
+                    //         break;
+                    //     }
+                    // }
+                    //
+                    // if (!placed)
+                    // {
+                    //     points.Add(current);
+                    // }
 
                     lastPawn = pawn;
 

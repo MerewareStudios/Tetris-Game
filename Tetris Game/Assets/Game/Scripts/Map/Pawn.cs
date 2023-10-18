@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Game
         
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
-        [System.NonSerialized] private SubModel _subModel = null;
+        [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
@@ -37,18 +38,18 @@ namespace Game
             {
                 VData = Const.THIS.pawnVisualData[(int)value];
                 
-                if (!_subModel || !this._usageType.Model().Equals(VData.model))
+                if (!SubModel || !this._usageType.Model().Equals(VData.model))
                 {
                     DeSpawnModel();
-                    _subModel = VData.model.Spawn<SubModel>();
+                    SubModel = VData.model.Spawn<SubModel>();
                 }
                 
                 
                 this._usageType = value;
                 
-                _subModel.OnConstruct(modelPivot);
+                SubModel.OnConstruct(modelPivot);
                 
-                _subModel.BaseColor = VData.startColor;
+                SubModel.BaseColor = VData.startColor;
 
                 CanTakeContent = false;
             }
@@ -58,10 +59,10 @@ namespace Game
 
         private void DeSpawnModel()
         {
-            if (_subModel)
+            if (SubModel)
             {
-                _subModel.OnDeconstruct();
-                _subModel = null;
+                SubModel.OnDeconstruct();
+                SubModel = null;
             }
         }
         
@@ -76,7 +77,7 @@ namespace Game
                 {
                     bool max = value == Board.THIS.StackLimit;
                     
-                    _subModel.BaseColor = max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor;
+                    SubModel.BaseColor = max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor;
                     
                     levelText.text = _amount.ToString();
                 }
@@ -102,7 +103,7 @@ namespace Game
                 ParentBlock.DetachPawn(this);
             }
 
-            if (!_subModel)
+            if (!SubModel)
             {
                 return;
             }
@@ -116,49 +117,83 @@ namespace Game
                 case Usage.UnpackedAmmo:
                     break;
                 case Usage.Energy:
-                    _subModel.transform.parent = null;
-                    _subModel.Rise((pos) =>
+                    SubModel.transform.parent = null;
+                    SubModel.Rise((pos) =>
                     {
                         Warzone.THIS.Player.Gun.Boost();
                     });
-                    _subModel = null;
+                    SubModel = null;
                     break;
                 case Usage.Magnet:
-                    UIManagerExtensions.Distort(_subModel.Position, 0.0f);
-                    _subModel.transform.parent = null;
-                    _subModel.Shrink();
-                    _subModel = null;
+                    UIManagerExtensions.Distort(SubModel.Position, 0.0f);
+                    SubModel.transform.parent = null;
+                    SubModel.Shrink();
+                    SubModel = null;
                     break;
                 case Usage.Nugget:
-                    _subModel.transform.parent = null;
-                    _subModel.Rise((pos) =>
+                    SubModel.transform.parent = null;
+                    SubModel.Rise((pos) =>
                     {
                         UIManagerExtensions.BoardCoinToPlayer(pos,  10, 10);
                     });
-                    _subModel = null;
+                    SubModel = null;
                     break;
                 case Usage.Medic:
-                    _subModel.transform.parent = null;
-                    _subModel.Scale((pos) =>
+                    SubModel.transform.parent = null;
+                    SubModel.Scale((pos) =>
                     {
                         UIManagerExtensions.BoardHeartToPlayer(pos,  5, 5);
                     });
-                    _subModel = null;
+                    SubModel = null;
                     break;
                 case Usage.Rocket:
-                    _subModel.transform.parent = null;
-                    _subModel.Missile(Warzone.THIS.GetMissileTarget());
-                    _subModel = null;
+                    SubModel.transform.parent = null;
+                    SubModel.Missile(Warzone.THIS.GetMissileTarget());
+                    SubModel = null;
                     break;
                 case Usage.Landmine:
-                    _subModel.transform.parent = null;
-                    _subModel.Land(Warzone.THIS.GetLandMineTarget());
-                    _subModel = null;
+                    SubModel.transform.parent = null;
+                    SubModel.Land(Warzone.THIS.GetLandMineTarget());
+                    SubModel = null;
                     break;
                 case Usage.Bomb:
-                    _subModel.transform.parent = null;
-                    _subModel.OnUse(Warzone.THIS.GetMissileTarget());
-                    _subModel = null;
+                    SubModel.transform.parent = null;
+                    SubModel.OnUse(Warzone.THIS.GetMissileTarget());
+                    SubModel = null;
+                    break;
+            }
+        }
+        
+        public void Explode(Vector2Int center, List<Vector2Int> points)
+        {
+            if (!SubModel)
+            {
+                return;
+            }
+            switch (UsageType)
+            {
+                case Usage.Empty:
+                    break;
+                case Usage.Ammo:
+                    break;
+                case Usage.UnpackedAmmo:
+                    break;
+                case Usage.Energy:
+                    break;
+                case Usage.Magnet:
+                    break;
+                case Usage.Nugget:
+                    break;
+                case Usage.Medic:
+                    break;
+                case Usage.Rocket:
+                    break;
+                case Usage.Landmine:
+                    break;
+                case Usage.Bomb:
+                    SubModel.OnExplode();
+                    SubModel = null;
+                    Board.THIS.ExplodePawnsCircular(center, Board.BombRadius, points);
                     break;
             }
         }
@@ -210,7 +245,7 @@ namespace Game
         {
             if (_usageType.Equals(Usage.UnpackedAmmo)) // not powerup
             {
-                _subModel.BaseColor = Const.THIS.steadyColor;
+                SubModel.BaseColor = Const.THIS.steadyColor;
             }
         }
         #endregion
