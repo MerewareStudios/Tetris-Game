@@ -20,7 +20,6 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private GameObject[] nextBlockPawns;
     [SerializeField] private GameObject nextBlockVisual;
     [SerializeField] private RectTransform nextBlockPivot;
-    [SerializeField] private Pool next;
    
     [System.NonSerialized] public Block CurrentBlock;
     [System.NonSerialized] private Pool _nextBlock;
@@ -123,8 +122,7 @@ public class Spawner : Singleton<Spawner>
     public void OnLevelLoad()
     {
         _spawnIndex = 0;
-        // _nextBlock = this.RandomBlock();
-        _nextBlock = next;
+        _nextBlock = this.RandomBlock();
     }
     private void StopAllRunningTasksOnBlock()
     {

@@ -120,6 +120,8 @@ namespace Game
                     SubModel.transform.parent = null;
                     SubModel.Rise((pos) =>
                     {
+                        Particle.EnergyExplosionYellow.Play(pos);
+                        UIManagerExtensions.Distort(pos, 0.0f);
                         Warzone.THIS.Player.Gun.Boost();
                     });
                     SubModel = null;
