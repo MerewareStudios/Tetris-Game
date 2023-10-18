@@ -164,7 +164,7 @@ namespace Game
             }
         }
         
-        public void Explode(Vector2Int center, List<Vector2Int> points)
+        public void Explode(Vector2Int center)
         {
             if (!SubModel)
             {
@@ -193,7 +193,7 @@ namespace Game
                 case Usage.Bomb:
                     SubModel.OnExplode();
                     SubModel = null;
-                    Board.THIS.ExplodePawnsCircular(center, Board.BombRadius, points);
+                    Board.THIS.ExplodePawnsCircular(center, Board.BombRadius);
                     break;
             }
         }

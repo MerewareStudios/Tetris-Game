@@ -38,7 +38,7 @@ namespace Game
         [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
-        
+        [SerializeField] public int[] DropPositions;
         [System.NonSerialized] public bool BoostingStack = false;
 
         public int StackLimit => _Data.maxStack + (BoostingStack ? 1 : 0);
@@ -63,6 +63,7 @@ namespace Game
             public void Construct(Vector2Int size)
             {
                 this._size = size;
+                DropPositions = new int[size.x];
                 
                 CameraManager.THIS.OrtoSize = _size.x + 1.82f;
 
@@ -416,10 +417,10 @@ namespace Game
         private Place GetPlace(Vector2Int index) => _places[index.x, index.y];
 
         
-        public List<Vector2Int> UsePowerups()
+        public void UsePowerups()
         {
-            List<Vector2Int> points = new();
-
+            ClearDropPositions();
+            
             for (int j = 0; j < _size.y; j++)
             {
                 for (int i = 0; i < _size.x; i++)
@@ -430,8 +431,8 @@ namespace Game
                     }
                     if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
-                        CreatePawnAtCircular(i, j, points);
-                        return points;
+                        CreatePawnAtCircular(i, j);
+                        return;
                     }
                     if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Bomb))
                     {
@@ -439,15 +440,65 @@ namespace Game
 
                         if (rest <= 0.0f)
                         {
-                             _places[i, j].Current.Explode(new Vector2Int(i, j), points);
+                             _places[i, j].Current.Explode(new Vector2Int(i, j));
                         }
-                        // return points;
                     }
                 }
             }
 
-            return points;
+            return;
         }
+
+        #region Drop
+            private void ClearDropPositions()
+            {
+                for (int i = 0; i < DropPositions.Length; i++)
+                {
+                    DropPositions[i] = _size.y;
+                }
+            }
+            private void AddDropPosition(Vector2Int point)
+            {
+                int current = DropPositions[point.x];
+                if (point.y < current)
+                {
+                    DropPositions[point.x] = point.y;
+                }
+            }
+            public bool HasDrop()
+            {
+                for (int i = 0; i < DropPositions.Length; i++)
+                {
+                    if (DropPositions[i] < _size.y)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            public void MarkDropPointsMover()
+            {
+                for (int i = 0; i < DropPositions.Length; i++)
+                {
+                    int y = DropPositions[i];
+                    if (y >= _size.y)
+                    {
+                        continue;
+                    }
+                    
+                    for (int j = y; j < _size.y; j++)
+                    {
+                        Place place = _places[i, j];
+                        if (place.Current && !place.Current.Connected)
+                        {
+                            place.Current.Mover = true;
+                            place.Current.JumpUp(0.2f, 0.3f, (j - y) * 0.075f + 0.25f);
+                        }
+                    }
+                }
+            }
+        #endregion
         
         public List<int> CheckTetris()
         {
@@ -610,7 +661,7 @@ namespace Game
                     });
         }
 
-        public void ExplodePawnsCircular(Vector2Int center, float radius, List<Vector2Int> points)
+        public void ExplodePawnsCircular(Vector2Int center, float radius)
         {
             for (int i = 0; i < _size.x; i++)
             {
@@ -630,9 +681,9 @@ namespace Game
                         continue;
                     }
                     
-                    PlaceHighest(center, points);
+                    AddDropPosition(current);
 
-                    pawn.Explode(place.Index, points);
+                    pawn.Explode(place.Index);
                     RemovePawn(place);
                     Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(place.Position + new Vector3(0.0f, 0.6f, 0.0f));
                 }
@@ -652,27 +703,27 @@ namespace Game
             place.Current = null;
         }
 
-        private void PlaceHighest(Vector2Int current, List<Vector2Int> points)
-        {
-            bool placed = false;
-
-            for (int k = 0; k < points.Count; k++)
-            {
-                if (current.x == points[k].x && current.y < points[k].y)
-                {
-                    points[k] = current;
-                    placed = true;
-                    break;
-                }
-            }
-
-            if (!placed)
-            {
-                points.Add(current);
-            }
-        }
+        // private void PlaceHighest(Vector2Int current, List<Vector2Int> points)
+        // {
+        //     bool placed = false;
+        //
+        //     for (int k = 0; k < points.Count; k++)
+        //     {
+        //         if (current.x == points[k].x && current.y < points[k].y)
+        //         {
+        //             points[k] = current;
+        //             placed = true;
+        //             break;
+        //         }
+        //     }
+        //
+        //     if (!placed)
+        //     {
+        //         points.Add(current);
+        //     }
+        // }
         
-        private void CreatePawnAtCircular(int horizontal, int vertical, List<Vector2Int> points)
+        private void CreatePawnAtCircular(int horizontal, int vertical)
         {
             Vector2Int center = new Vector2Int(horizontal, vertical);
             
@@ -700,7 +751,7 @@ namespace Game
                         continue;
                     }
 
-                    PlaceHighest(center, points);
+                    AddDropPosition(current);
                     
                     // bool placed = false;
                     //
@@ -774,21 +825,7 @@ namespace Game
                 }
             });
         }
-        public void MarkMover(List<Vector2Int> moverPoints)
-        {
-            foreach (var point in moverPoints)
-            {
-                for (int j = point.y; j < _size.y; j++)
-                {
-                    Place place = _places[point.x, j];
-                    if (place.Current && !place.Current.Connected)
-                    {
-                        place.Current.Mover = true;
-                        place.Current.JumpUp(0.2f, 0.3f, (j - point.y) * 0.075f + 0.25f);
-                    }
-                }
-            }
-        }
+       
         
         public void MarkMovers(int x, int y)
         {

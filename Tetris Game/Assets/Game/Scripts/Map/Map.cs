@@ -37,13 +37,14 @@ namespace Game
 
                     while (true)
                     {
-                        List<Vector2Int> moverPoints = Board.THIS.UsePowerups();
-                        if (moverPoints.Count == 0)
+                        Board.THIS.UsePowerups();
+                        if (!Board.THIS.HasDrop())
                         {
                             break;
                         }
 
-                        Board.THIS.MarkMover(moverPoints);
+                        
+                        Board.THIS.MarkDropPointsMover();
                         Board.THIS.CheckAll();
                         Board.THIS.HighlightPlaces();
                         yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
