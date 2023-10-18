@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3342aae3d6fc975498ae7f94801cb459, type: 3}
   m_Name: Tree Tree Tip Block
   m_EditorClassIdentifier: 
-  FitHeight: 3
-  NormalHeight: 2
+  FitHeight: 4
+  NormalHeight: 4
   NormalWidth: 3
-  checkAngles: 000000005a000000
+  checkAngles: 000000005a000000b40000000e010000
   spawnerOffset: {x: 0, y: 0, z: -0.5}

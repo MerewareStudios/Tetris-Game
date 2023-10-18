@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Long U Block
   m_EditorClassIdentifier: 
   FitHeight: 3
-  NormalHeight: 2
+  NormalHeight: 3
   NormalWidth: 3
-  checkAngles: 000000005a000000
-  spawnerOffset: {x: 0, y: 0, z: -0.5}
+  checkAngles: 000000005a000000b40000000e010000
+  spawnerOffset: {x: 0, y: 0, z: 0}
