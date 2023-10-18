@@ -582,7 +582,7 @@ namespace Game
                         ammo = 0;
                         break;
                     case 4:
-                        type = Pawn.Usage.Landmine;
+                        type = Pawn.Usage.Bomb;
                         ammo = 0;
                         break;
                 }

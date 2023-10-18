@@ -60,5 +60,6 @@ public enum Pool
     Energy = 57,
     Medkit = 58,
     Landmine = 59,
+    Bomb = 60,
 
 }

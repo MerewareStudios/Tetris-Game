@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class SubModel : MonoBehaviour
 {
-    [System.NonSerialized] private Transform _transform;
+    [System.NonSerialized] protected Transform _transform;
     [SerializeField] public MeshRenderer meshRenderer;
-    [SerializeField] private AnimType animType;
-    [System.NonSerialized] private Sequence _sequence = null;
+    [SerializeField] protected AnimType animType;
+    [System.NonSerialized] protected Sequence Sequence = null;
 
     public Vector3 Position => _transform.position; 
     
@@ -28,11 +28,11 @@ public class SubModel : MonoBehaviour
         }
     }
 
-    public void OnConstruct(Transform p)
+    public virtual void OnConstruct(Transform p)
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         _transform.DOKill();
-        _sequence = DOTween.Sequence();
+        Sequence = DOTween.Sequence();
 
         Tween mainTween = null;
         Tween jumpTween = null;
@@ -61,28 +61,31 @@ public class SubModel : MonoBehaviour
 
         if (mainTween != null)
         {
-            _sequence.Join(mainTween);
+            Sequence.Join(mainTween);
         }
         if (jumpTween != null)
         {
-            _sequence.Join(jumpTween);
+            Sequence.Join(jumpTween);
         }
-        _sequence.SetLoops(-1);
-        _sequence.AppendInterval(2.5f);
+        Sequence.SetLoops(-1);
+        Sequence.AppendInterval(2.5f);
     }
 
-    public void OnDeconstruct()
+    public virtual void OnDeconstruct()
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         this.Despawn();
     }
-
+    public virtual void OnUse(Vector3 target)
+    {
+        
+    }
 
     public void Rise(System.Action<Vector3> onComplete, float rotation = 180.0f, float duration = 0.25f)
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         _transform.DOKill();
-        _sequence = DOTween.Sequence();
+        Sequence = DOTween.Sequence();
 
 
         // const float duration = 0.35f;
@@ -90,10 +93,10 @@ public class SubModel : MonoBehaviour
         Tween rotTween = _transform.DORotate(new Vector3(0.0f, rotation, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
         Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
 
-        _sequence.Join(rotTween);
-        _sequence.Join(jumpTween);
+        Sequence.Join(rotTween);
+        Sequence.Join(jumpTween);
 
-        _sequence.onComplete = () =>
+        Sequence.onComplete = () =>
         {
             onComplete?.Invoke(_transform.position);
             OnDeconstruct();
@@ -103,18 +106,18 @@ public class SubModel : MonoBehaviour
     
     public void Scale(System.Action<Vector3> onComplete, float rotation = 180.0f, float duration = 0.25f)
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         _transform.DOKill();
-        _sequence = DOTween.Sequence();
+        Sequence = DOTween.Sequence();
 
 
         Tween scaleTween = _transform.DOScale(Vector3.one * 0.5f, duration).SetRelative(true).SetEase(Ease.InBack);
         Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
 
-        _sequence.Join(scaleTween);
-        _sequence.Join(jumpTween);
+        Sequence.Join(scaleTween);
+        Sequence.Join(jumpTween);
 
-        _sequence.onComplete = () =>
+        Sequence.onComplete = () =>
         {
             onComplete?.Invoke(_transform.position);
             OnDeconstruct();
@@ -162,18 +165,18 @@ public class SubModel : MonoBehaviour
     
     public void Shrink()
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         _transform.DOKill();
-        _sequence = DOTween.Sequence();
+        Sequence = DOTween.Sequence();
 
 
         const float duration = 0.25f;
         
         Tween shrinkTween = _transform.DOScale(Vector3.zero, duration).SetEase(Ease.InBack);
 
-        _sequence.Join(shrinkTween);
+        Sequence.Join(shrinkTween);
 
-        _sequence.onComplete = () =>
+        Sequence.onComplete = () =>
         {
             OnDeconstruct();
         };
@@ -181,9 +184,9 @@ public class SubModel : MonoBehaviour
     
     public void Missile(Vector3 target)
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         _transform.DOKill();
-        _sequence = DOTween.Sequence();
+        Sequence = DOTween.Sequence();
 
 
         Tween jumpTween = _transform.DOJump(target, AnimConst.THIS.missileJumpPower, 1, AnimConst.THIS.missileDuration).SetEase(AnimConst.THIS.missileEase, AnimConst.THIS.missileOvershoot);
@@ -197,9 +200,9 @@ public class SubModel : MonoBehaviour
             lastPos = current;
         };
 
-        _sequence.Join(jumpTween);
+        Sequence.Join(jumpTween);
 
-        _sequence.onComplete = () =>
+        Sequence.onComplete = () =>
         {
             Particle.Missile_Explosion.Play(target);
             Warzone.THIS.AEODamage(target, 10, 2.0f);
@@ -208,9 +211,9 @@ public class SubModel : MonoBehaviour
     }
     public void Land(Vector3 target)
     {
-        _sequence?.Kill();
+        Sequence?.Kill();
         _transform.DOKill();
-        _sequence = DOTween.Sequence();
+        Sequence = DOTween.Sequence();
 
         _transform.localRotation = Quaternion.identity;
         
@@ -220,11 +223,11 @@ public class SubModel : MonoBehaviour
         Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InBack);
         Tween scaleTween = _transform.DOScale(Vector3.one * 0.75f, duration).SetEase(Ease.InBack);
 
-        _sequence.Join(moveTween);
-        _sequence.Join(rotTween);
-        _sequence.Join(scaleTween);
+        Sequence.Join(moveTween);
+        Sequence.Join(rotTween);
+        Sequence.Join(scaleTween);
 
-        _sequence.onComplete = () =>
+        Sequence.onComplete = () =>
         {
             Warzone.THIS.AddLandMine(this);
             // OnDeconstruct();
