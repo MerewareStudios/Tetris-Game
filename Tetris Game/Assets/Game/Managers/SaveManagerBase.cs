@@ -19,7 +19,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
     {
         var outputString = JsonUtility.ToJson(saveData);
         // Debug.Log(outputString);
-        Debug.LogWarning("Saved");
+        // Debug.LogWarning("Saved");
         if (!outputString.Equals(""))
         {
             PlayerPrefs.SetString(nameof(SaveData), outputString);

@@ -1774,7 +1774,6 @@ MonoBehaviour:
   - {fileID: 9202382}
   nextBlockVisual: {fileID: 1180491134}
   nextBlockPivot: {fileID: 35912847267462091}
-  next: 50
 --- !u!1 &548236970
 GameObject:
   m_ObjectHideFlags: 0
@@ -9924,6 +9923,111 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 715436867}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Purchase
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 715436867}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 715436867}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PurchaseTicket
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Purchase
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IAPManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IAPManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IAPManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPAd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: IAPTicket.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761230528319600152, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: _onPurchase.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

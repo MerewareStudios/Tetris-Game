@@ -172,7 +172,7 @@ namespace IWI
                     UIManager.Pause(false);
                     onFinish?.Invoke();
                 });
-            }, 4);
+            }, onFinish, 4);
                 
             UIManager.Pause(true);
             AdBreakScreen.THIS.Open();
@@ -207,7 +207,7 @@ namespace IWI
                 {
                     UIManager.Pause(false);
                 });
-            }, 4);
+            }, onReward, 4);
                 
             UIManager.Pause(true);
             AdBreakScreen.THIS.Open();

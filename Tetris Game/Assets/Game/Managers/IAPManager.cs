@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Game.UI;
 using Internal.Core;
 using IWI;
@@ -8,7 +7,6 @@ using Unity.Services.Core.Environments;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
-using UnityEngine.Purchasing.Security;
 
 
 public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
@@ -23,6 +21,9 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     private const string PrestigeChestID = "com.iwi.combatris.prestigechest";
     private const string CoinPackID = "com.iwi.combatris.coinpack";
     private const string PrimeChestID = "com.iwi.combatris.primechest";
+
+    private System.Action _onSuccess = null;
+    private System.Action _onFail = null;
 
 
     void Awake()
@@ -87,6 +88,21 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     {
         _storeController.InitiatePurchase(PurchaseType2ID(purchaseType));
     }
+    public void Purchase(string purchaseID, System.Action onSuccess = null, System.Action onFail = null)
+    {
+        _storeController.InitiatePurchase(purchaseID);
+        this._onSuccess = onSuccess;
+        this._onFail = onFail;
+    }
+
+    // public void PurchaseAd()
+    // {
+    //     Purchase(RemoveAdBreakID);
+    // }
+    // public void PurchaseTicket()
+    // {
+    //     Purchase(TicketPackID);
+    // }
     public string GetLocalPrice(UpgradeMenu.PurchaseType purchaseType)
     {
         if (_productCollection == null)
@@ -179,6 +195,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         var product = args.purchasedProduct;
         UpgradeMenu.THIS.OnPurchase(ID2PurchaseType(product.definition.id));
         Debug.Log($"Purchase Complete - Product: {product.definition.id}");
+        _onSuccess?.Invoke();
         return PurchaseProcessingResult.Complete;
     }
 
@@ -188,6 +205,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     }
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
+        _onFail?.Invoke();
         Debug.Log($"Purchase failed - Product: '{product.definition.id}'," +
                   $" Purchase failure reason: {failureDescription.reason}," +
                   $" Purchase failure details: {failureDescription.message}");

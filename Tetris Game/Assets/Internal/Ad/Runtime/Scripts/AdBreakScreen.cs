@@ -2,6 +2,7 @@ using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class AdBreakScreen : Lazyingleton<AdBreakScreen>
@@ -17,12 +18,14 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
     [SerializeField] private GameObject warningIcon;
+    [SerializeField] private UnityEvent<string, System.Action, System.Action> _onPurchase;
     
     [System.NonSerialized] public AdState CurrentAdState = AdState.None;
     [System.NonSerialized] private LoadState _currentLoadState;
     
     [System.NonSerialized] private bool _canInteract = false;
     [System.NonSerialized] private System.Action _onTimesUp;
+    [System.NonSerialized] private System.Action _onBypassReward;
     [System.NonSerialized] private System.Action _onClick;
     
     [System.NonSerialized] private int _duration = 0;
@@ -73,10 +76,11 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this._clickCondition = clickCondition;
         return this;
     }
-    public AdBreakScreen OnTimesUp(System.Action onTimesUp, int duration)
+    public AdBreakScreen OnTimesUp(System.Action onTimesUp, System.Action onBypassReward, int duration)
     {
         this._duration = duration;
         this._onTimesUp = onTimesUp;
+        this._onBypassReward = onBypassReward;
         return this;
     }
     public AdBreakScreen SetPurchaseWindows(bool adPurchaseEnable, bool ticketPurchaseEnable)
@@ -176,7 +180,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         {
             return;
         }
-        Pause();
+        _onPurchase?.Invoke("com.iwi.combatris.noads", OnPurchaseSuccessful, OnPurchaseFailed);
     }
     public void OnClick_PurchaseTicket()
     {
@@ -184,16 +188,17 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         {
             return;
         }
-        Pause();
+        _onPurchase?.Invoke("com.iwi.combatris.ticketpack", OnPurchaseSuccessful, OnPurchaseFailed);
     }
 
-    public void OnPurchaseFailed()
+    private void OnPurchaseFailed()
     {
         Restart();
     }
-    public void OnPurchaseSuccessful()
+    private void OnPurchaseSuccessful()
     {
-        _onClick?.Invoke();
         Stop();
+        _onClick?.Invoke();
+        _onBypassReward?.Invoke();
     }
 }
