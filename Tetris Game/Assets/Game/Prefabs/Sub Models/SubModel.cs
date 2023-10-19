@@ -96,6 +96,10 @@ public class SubModel : MonoBehaviour
     {
         
     }
+    public virtual void OnAnimate(System.Action onComplete)
+    {
+        
+    }
     public virtual float OnTick()
     {
         return 1.0f;

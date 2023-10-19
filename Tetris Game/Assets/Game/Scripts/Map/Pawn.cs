@@ -172,6 +172,14 @@ namespace Game
                         return true;
                     }
                     return false;
+                case Usage.Gift:
+                    SubModel.Lose();
+                    SubModel.OnAnimate(() =>
+                    {
+                        UsageType = Usage.Nugget;
+                    });
+                    SubModel = null;
+                    return false;
             }
             
             return true;
@@ -209,6 +217,9 @@ namespace Game
                     Board.THIS.ExplodePawnsCircular(center, Board.BombRadius);
                     break;
                 case Usage.Screw:
+                    
+                    break;
+                case Usage.Gift:
                     
                     break;
             }
