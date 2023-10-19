@@ -62,5 +62,6 @@ public enum Pool
     Landmine = 59,
     Bomb = 60,
     Screw = 61,
+    Gift = 62,
 
 }

@@ -400,6 +400,7 @@ namespace Game
             Landmine,
             Bomb,
             Screw,
+            Gift,
         }
 
         [Serializable]
