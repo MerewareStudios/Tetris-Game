@@ -163,6 +163,9 @@ namespace Game
                     SubModel.OnUse(Warzone.THIS.GetMissileTarget());
                     SubModel = null;
                     break;
+                case Usage.Box:
+                    
+                    break;
             }
         }
         
@@ -196,6 +199,9 @@ namespace Game
                     SubModel.OnExplode();
                     SubModel = null;
                     Board.THIS.ExplodePawnsCircular(center, Board.BombRadius);
+                    break;
+                case Usage.Box:
+                    
                     break;
             }
         }
@@ -385,6 +391,7 @@ namespace Game
             Rocket,
             Landmine,
             Bomb,
+            Box,
         }
 
         [Serializable]
