@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Internal.Core;
 using TMPro;
 using UnityEngine;
 
@@ -176,7 +177,7 @@ namespace Game
                     SubModel.Lose();
                     SubModel.OnAnimate(() =>
                     {
-                        UsageType = Usage.Nugget;
+                        UsageType = Const.THIS.gifts.Random();
                     });
                     SubModel = null;
                     return false;

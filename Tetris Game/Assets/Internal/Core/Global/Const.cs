@@ -14,7 +14,6 @@ public class Const : SSingleton<Const>
     [ReadOnly] public int bundleVersionCode;
     [Header("Look Up")]
     public LevelSo[] Levels;
-    // public Pawn.Usage[] PowerUps;
     
     
     [Header("Save Default")]
@@ -25,13 +24,12 @@ public class Const : SSingleton<Const>
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
     public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
+    public Pawn.Usage[] gifts;
     
     [Header("Colors")] 
-    public Color defaultColor;
     public Color steadyColor;
     public Color mergerMaxColor;
     public Color mergerColor;
-    public Color powerColor;
     public Color ghostNormal;
     public Color ghostFade;
     public Color[] placeColorsDouble;
