@@ -36,7 +36,7 @@ MonoBehaviour:
     level: 11
     pupData:
       available: 1
-      currentUsage: 12
+      currentUsage: 4
     boardData:
       defaultStack: 6
       maxStack: 6
@@ -591,7 +591,7 @@ MonoBehaviour:
       name=Check> Bonuses'
     useCondition: 0
     best: 0
-  gifts: 030000000500000006000000070000000800000009000000
+  gifts: 0300000005000000060000000700000008000000090000000c000000
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   mergerMaxColor: {r: 1, g: 0.6627451, b: 0.09803922, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
