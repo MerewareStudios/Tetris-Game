@@ -205,10 +205,12 @@ public class UIManager : Singleton<UIManager>
       {
          return;
       }
-
+      
       CameraManager.THIS.gameCamera.enabled = !value;
       MenuVisible = value;
       Time.timeScale = value ? 0.0f : 1.0f;
+      
+      SaveManager.THIS.Save();
       
       OnMenuModeChanged?.Invoke(value);
    }

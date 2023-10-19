@@ -127,10 +127,10 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Magnet:
+                    UIManagerExtensions.Distort(SubModel.Position, 0.0f);
                     SubModel.Lose();
                     SubModel.Shrink();
                     SubModel = null;
-                    UIManagerExtensions.Distort(SubModel.Position, 0.0f);
                     break;
                 case Usage.Nugget:
                     SubModel.Lose();
