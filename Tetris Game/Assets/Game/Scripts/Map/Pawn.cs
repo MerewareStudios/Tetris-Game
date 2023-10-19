@@ -121,7 +121,7 @@ namespace Game
                     SubModel.Lose();
                     SubModel.Rise((pos) =>
                     {
-                        Particle.EnergyExplosionYellow.Play(pos);
+                        Particle.Energy.Play(pos);
                         UIManagerExtensions.Distort(pos, 0.0f);
                         Warzone.THIS.Player.Gun.Boost();
                     });

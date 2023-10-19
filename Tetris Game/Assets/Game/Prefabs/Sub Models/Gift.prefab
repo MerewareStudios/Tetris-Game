@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2342611764049004096}
   animType: 1
+  ps: {fileID: 0}
 --- !u!1 &4288091555541378965
 GameObject:
   m_ObjectHideFlags: 0

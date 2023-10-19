@@ -51,7 +51,7 @@ public class Bomb : SubModel
     {
         base.OnTick();
         
-        _current -= 0.075f;
+        _current -= 0.025f;
         progress.FillAnimated = _current;
 
         return _current;
