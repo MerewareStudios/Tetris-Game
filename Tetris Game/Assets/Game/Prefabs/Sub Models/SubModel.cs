@@ -96,6 +96,10 @@ public class SubModel : MonoBehaviour
     {
         
     }
+    public virtual void OnProjectile(Enemy enemy)
+    {
+        
+    }
     public virtual void OnAnimate(System.Action onComplete)
     {
         

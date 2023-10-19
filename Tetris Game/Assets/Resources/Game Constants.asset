@@ -36,7 +36,7 @@ MonoBehaviour:
     level: 11
     pupData:
       available: 1
-      currentUsage: 4
+      currentUsage: 12
     boardData:
       defaultStack: 6
       maxStack: 6
@@ -807,6 +807,15 @@ MonoBehaviour:
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 0}
+    neverMoves: 0
+    moverOnPlacement: 0
+  - usage: 12
+    model: 63
+    free2Place: 1
+    startColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+    amountTextEnabled: 0
+    icon: {fileID: 0}
+    powerUpIcon: {fileID: 21300000, guid: 3938a49a056e64946ae7c722979e0e44, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
   suggestionColorTut: {r: 0.51320755, g: 0.7919337, b: 1, a: 1}

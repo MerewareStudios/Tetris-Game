@@ -181,6 +181,11 @@ namespace Game
                     });
                     SubModel = null;
                     return false;
+                case Usage.Punch:
+                    SubModel.Lose();
+                    SubModel.OnProjectile(Warzone.THIS.GetProjectileTarget());
+                    SubModel = null;
+                    break;
             }
             
             return true;
@@ -221,6 +226,9 @@ namespace Game
                     
                     break;
                 case Usage.Gift:
+                    
+                    break;
+                case Usage.Punch:
                     
                     break;
             }
@@ -413,6 +421,7 @@ namespace Game
             Bomb,
             Screw,
             Gift,
+            Punch,
         }
 
         [Serializable]

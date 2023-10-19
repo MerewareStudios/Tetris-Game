@@ -242,6 +242,8 @@ namespace  Game
             return MidSpawnPosition(0.5f);
         }
         
+        public Enemy GetProjectileTarget() => _enemies.Count > 0 ? _enemies[0] : null;
+        
         public Vector3 GetLandMineTarget()
         {
             return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, EndLine);

@@ -73,9 +73,15 @@ namespace  Game
         {
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.colorGrad, so.radius);
-            Health -= value;
             healthCanvas.DisplayDamage(-value, scale);
             Warzone.THIS.Player.PunchCrossHair();
+            
+            if (Health <= 0)
+            {
+                return;
+            }
+            
+            Health -= value;
             if (Health <= 0)
             {
                 Warzone.THIS.EnemyKilled(this);
@@ -84,6 +90,13 @@ namespace  Game
             {
                 animator.SetTrigger(HIT_HASH);
             }
+        }
+
+        public void Drag(float distance)
+        {
+            float finalDistance = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance); 
+            thisTransform.DOKill();
+            thisTransform.DOMoveZ(finalDistance, 0.5f).SetRelative(true).SetEase(Ease.OutSine);
         }
 
         private void ColorPunch()

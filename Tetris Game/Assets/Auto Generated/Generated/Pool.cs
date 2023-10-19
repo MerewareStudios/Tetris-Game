@@ -63,5 +63,6 @@ public enum Pool
     Bomb = 60,
     Screw = 61,
     Gift = 62,
+    Punch = 63,
 
 }
