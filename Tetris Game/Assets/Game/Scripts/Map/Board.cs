@@ -492,8 +492,8 @@ namespace Game
                     {
                         continue;
                     }
-                    
-                    for (int j = y; j < _size.y; j++)
+
+                    for (int j = y + 1; j < _size.y; j++)
                     {
                         Place place = _places[i, j];
                         if (place.Current && !place.Current.Connected)
@@ -590,8 +590,6 @@ namespace Game
             int totalAmmo = 0;
             Pawn lastPawn = null;
             
-            float delay = 0.0f;
-
             for (int i = 0; i < _size.x; i++)
             {
                 Place place = _places[i, lineIndex];
@@ -605,8 +603,14 @@ namespace Game
 
                 totalAmmo += pawn.Amount;
                 
-                pawn.Unpack(delay += 0.025f);
+                bool canMerge = pawn.Unpack();
 
+                if (!canMerge)
+                {
+                    continue;
+                }
+                
+                
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                     .onComplete += () =>
@@ -737,8 +741,6 @@ namespace Game
             int totalAmmo = 0;
             Pawn lastPawn = null;
             
-            float delay = 0.0f;
-            
             for (int i = 0; i < _size.x; i++)
             {
                 for (int j = 0; j < _size.y; j++)
@@ -780,8 +782,12 @@ namespace Game
 
                     totalAmmo += pawn.Amount;
                     
-                    pawn.Unpack(delay += 0.025f);
-                    
+                    bool canMerge = pawn.Unpack();
+
+                    if (!canMerge)
+                    {
+                        continue;
+                    }
                     
                     pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
@@ -824,7 +830,7 @@ namespace Game
         {
             Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
             {
-                if (place.Current && !place.Current.Connected && verticalIndex >= horizontal)
+                if (place.Current && !place.Current.Connected && verticalIndex > horizontal)
                 {
                     place.Current.Mover = true;
                     place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - horizontal) * 0.075f + 0.25f);

@@ -96,7 +96,7 @@ namespace Game
             _thisTransform = transform;
         }
 
-        public void Unpack(float delay)
+        public bool Unpack()
         {
             if (ParentBlock)
             {
@@ -105,7 +105,7 @@ namespace Game
 
             if (!SubModel)
             {
-                return;
+                return true;
             }
             
             switch (UsageType)
@@ -163,10 +163,18 @@ namespace Game
                     SubModel.OnUse(Warzone.THIS.GetMissileTarget());
                     SubModel = null;
                     break;
-                case Usage.Box:
-                    
-                    break;
+                case Usage.Screw:
+                    if (SubModel.OnCustomUnpack())
+                    {
+                        SubModel.Lose();
+                        SubModel.OnUse();
+                        SubModel = null;
+                        return true;
+                    }
+                    return false;
             }
+            
+            return true;
         }
         
         public void Explode(Vector2Int center)
@@ -200,7 +208,7 @@ namespace Game
                     SubModel = null;
                     Board.THIS.ExplodePawnsCircular(center, Board.BombRadius);
                     break;
-                case Usage.Box:
+                case Usage.Screw:
                     
                     break;
             }
@@ -391,7 +399,7 @@ namespace Game
             Rocket,
             Landmine,
             Bomb,
-            Box,
+            Screw,
         }
 
         [Serializable]

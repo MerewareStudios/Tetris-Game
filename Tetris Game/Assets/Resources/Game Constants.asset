@@ -33,7 +33,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 11
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -795,7 +795,7 @@ MonoBehaviour:
   - usage: 10
     model: 61
     free2Place: 1
-    startColor: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
+    startColor: {r: 1, g: 1, b: 1, a: 1}
     amountTextEnabled: 0
     icon: {fileID: 0}
     powerUpIcon: {fileID: 0}

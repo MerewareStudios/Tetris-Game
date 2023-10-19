@@ -30,7 +30,7 @@ public class SubModel : MonoBehaviour
         }
     }
 
-    public virtual void OnConstruct(Transform p)
+    public virtual void OnConstruct(Transform customParent)
     {
         Sequence?.Kill();
         _transform.DOKill();
@@ -39,19 +39,18 @@ public class SubModel : MonoBehaviour
         Tween mainTween = null;
         Tween jumpTween = null;
 
-        _transform.parent = p;
+        _transform.parent = customParent;
         
         _transform.localRotation = Quaternion.identity;
         _transform.localPosition = Vector3.zero;
         _transform.localScale = Vector3.one;
 
-        float duration = 1.5f;
+        const float duration = 1.5f;
         
         switch (animType)
         {
             case AnimType.None:
-
-                break;
+                return;
             case AnimType.LeftRightShake:
                 mainTween = _transform.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), duration, 3).SetEase(Ease.InOutSine);
                 break;
@@ -93,6 +92,10 @@ public class SubModel : MonoBehaviour
     {
         
     }
+    public virtual void OnUse()
+    {
+        
+    }
     public virtual float OnTick()
     {
         return 1.0f;
@@ -100,6 +103,11 @@ public class SubModel : MonoBehaviour
     public virtual void OnExplode()
     {
         
+    }
+    
+    public virtual bool OnCustomUnpack()
+    {
+        return true;
     }
 
     public void Rise(System.Action<Vector3> onComplete, float rotation = 180.0f, float duration = 0.25f)

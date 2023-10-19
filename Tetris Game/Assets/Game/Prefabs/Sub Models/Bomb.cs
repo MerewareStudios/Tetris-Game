@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using UnityEngine;
@@ -9,9 +7,9 @@ public class Bomb : SubModel
     [SerializeField] private CircularProgress progress;
     [System.NonSerialized] private float _current;
 
-    public override void OnConstruct(Transform p)
+    public override void OnConstruct(Transform customParent)
     {
-        base.OnConstruct(p);
+        base.OnConstruct(customParent);
         
         StartTimer();
     }

@@ -61,6 +61,6 @@ public enum Pool
     Medkit = 58,
     Landmine = 59,
     Bomb = 60,
-    Box = 61,
+    Screw = 61,
 
 }
