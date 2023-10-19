@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour
         
         _boostTween?.Kill();
         float percent = 0.0f;
-        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 5.0f).SetEase(Ease.Linear);
+        _boostTween = DOTween.To(x => percent = x, 1.0f, 0.0f, 3.5f).SetEase(Ease.Linear);
         _boostTween.onUpdate = () =>
         {
             StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Boost, percent);

@@ -122,6 +122,7 @@ namespace Game
                 }
                 foreach (var subModel in LoseSubModels)
                 {
+                    Debug.Log(subModel.gameObject.name, subModel.gameObject);
                     subModel.DeconstructImmediate();
                 }
                 LoseSubModels.Clear();
