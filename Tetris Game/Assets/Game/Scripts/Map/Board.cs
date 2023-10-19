@@ -40,6 +40,7 @@ namespace Game
         [System.NonSerialized] private Data _data;
         [SerializeField] public int[] DropPositions;
         [System.NonSerialized] public bool BoostingStack = false;
+        [System.NonSerialized] public List<SubModel> LoseSubModels = new();
 
         public int StackLimit => _Data.maxStack + (BoostingStack ? 1 : 0);
         
@@ -119,6 +120,11 @@ namespace Game
                 {
                     place.Deconstruct();
                 }
+                foreach (var subModel in LoseSubModels)
+                {
+                    subModel.DeconstructImmediate();
+                }
+                LoseSubModels.Clear();
             }
 
             private void LateUpdate()

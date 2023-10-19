@@ -17,6 +17,8 @@ public class SubModel : MonoBehaviour
         _transform = this.transform;
     }
 
+   
+
     public Color BaseColor
     {
         set
@@ -71,7 +73,18 @@ public class SubModel : MonoBehaviour
         Sequence.AppendInterval(2.5f);
     }
 
+    public void Lose()
+    {
+        _transform.parent = null;
+        Board.THIS.LoseSubModels.Add(this);
+    }
     public virtual void OnDeconstruct()
+    {
+        Sequence?.Kill();
+        Board.THIS.LoseSubModels.Remove(this);
+        this.Despawn();
+    }
+    public void DeconstructImmediate()
     {
         Sequence?.Kill();
         this.Despawn();
@@ -131,45 +144,6 @@ public class SubModel : MonoBehaviour
             OnDeconstruct();
         };
     }
-    
-    // public void Lerp2Player(System.Action onComplete)
-    // {
-    //     _sequence?.Kill();
-    //     _transform.DOKill();
-    //     _sequence = DOTween.Sequence();
-    //
-    //     
-    //     
-    //     const float duration = 0.25f;
-    //     
-    //     Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InOutSine);
-    //     Tween jumpTween = _transform.DOMove(new Vector3(0.0f, 0.5f, 0.0f), duration).SetRelative(true).SetEase(Ease.InOutSine);
-    //
-    //     _sequence.Join(rotTween);
-    //     _sequence.Join(jumpTween);
-    //     
-    //     
-    //
-    //     // const float duration = 0.5f;
-    //     
-    //     // Tween moveUpTween = _transform.DOMove(new Vector3(0.0f, 1.5f, 0.0f), 0.25f).SetRelative(true).SetEase(Ease.Linear);
-    //     // Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.WorldAxisAdd).SetRelative(true).SetEase(Ease.InOutSine);
-    //     // Tween moveTween = _transform.DOMove(Warzone.THIS.Player.lerpTarget.position, duration).SetEase(Ease.InBack);
-    //     // Tween scaleTween = _transform.DOScale(Vector3.one * 0.5f, duration).SetEase(Ease.InBack);
-    //     //
-    //     // _sequence.Append(moveUpTween);
-    //     // _sequence.Join(rotTween);
-    //     // _sequence.Append(moveTween);
-    //     // _sequence.Join(scaleTween);
-    //
-    //     _sequence.onComplete = () =>
-    //     {
-    //         Particle.EnergyExplosionYellow.Play(transform.position);
-    //
-    //         OnDeconstruct();
-    //         onComplete?.Invoke();
-    //     };
-    // }
     
     public void Shrink()
     {
@@ -238,7 +212,6 @@ public class SubModel : MonoBehaviour
         Sequence.onComplete = () =>
         {
             Warzone.THIS.AddLandMine(this);
-            // OnDeconstruct();
         };
     }
 

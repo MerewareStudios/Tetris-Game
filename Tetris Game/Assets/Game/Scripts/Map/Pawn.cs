@@ -117,7 +117,7 @@ namespace Game
                 case Usage.UnpackedAmmo:
                     break;
                 case Usage.Energy:
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.Rise((pos) =>
                     {
                         Particle.EnergyExplosionYellow.Play(pos);
@@ -127,13 +127,13 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Magnet:
-                    UIManagerExtensions.Distort(SubModel.Position, 0.0f);
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.Shrink();
                     SubModel = null;
+                    UIManagerExtensions.Distort(SubModel.Position, 0.0f);
                     break;
                 case Usage.Nugget:
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.Rise((pos) =>
                     {
                         UIManagerExtensions.BoardCoinToPlayer(pos,  10, 10);
@@ -141,7 +141,7 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Medic:
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.Scale((pos) =>
                     {
                         UIManagerExtensions.BoardHeartToPlayer(pos,  5, 5);
@@ -149,17 +149,17 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Rocket:
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.Missile(Warzone.THIS.GetMissileTarget());
                     SubModel = null;
                     break;
                 case Usage.Landmine:
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.Land(Warzone.THIS.GetLandMineTarget());
                     SubModel = null;
                     break;
                 case Usage.Bomb:
-                    SubModel.transform.parent = null;
+                    SubModel.Lose();
                     SubModel.OnUse(Warzone.THIS.GetMissileTarget());
                     SubModel = null;
                     break;
