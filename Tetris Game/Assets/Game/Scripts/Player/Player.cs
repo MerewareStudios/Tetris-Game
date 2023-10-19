@@ -157,9 +157,8 @@ namespace Game
             animator.SetTrigger(SHOOT_HASH);
             for (int i = 0; i < shootCount; i++)
             {
-               Gun.Shoot(Warzone.THIS.GetEnemy(i));
+               Gun.Shoot(CurrentEnemy);
             }
-            // CameraManager.THIS.Shake(0.1f, 0.3f);
         }
 
         public void Deconstruct()

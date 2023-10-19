@@ -229,12 +229,12 @@ public class UIManager : Singleton<UIManager>
 
 public static class UIManagerExtensions
 {
-   public static void ShieldPs(Vector3 worldPosition)
-   {
-      Transform camTransform = CameraManager.THIS.gameCamera.transform;
-      Vector3 pos = worldPosition + camTransform.forward * -2.0f + new Vector3(0.0f, 0.6f, 0.0f);
-      Particle.Shield.Play(pos);
-   }
+   // public static void ShieldPs(Vector3 worldPosition)
+   // {
+   //    Transform camTransform = CameraManager.THIS.gameCamera.transform;
+   //    Vector3 pos = worldPosition + camTransform.forward * -2.0f + new Vector3(0.0f, 0.6f, 0.0f);
+   //    Particle.Shield.Play(pos);
+   // }
    public static void Distort(Vector3 worldPosition, float delay)
    {
       if (!ApplicationManager.THIS.GrabFeatureEnabled)

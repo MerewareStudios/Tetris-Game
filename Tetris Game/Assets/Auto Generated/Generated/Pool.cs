@@ -64,5 +64,6 @@ public enum Pool
     Screw = 61,
     Gift = 62,
     Punch = 63,
+    Drag_Trail = 64,
 
 }

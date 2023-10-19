@@ -41,11 +41,12 @@ public class Punch : SubModel
         
         Sequence.onComplete = () =>
         {
+            CameraManager.THIS.Shake(1.0f, 0.75f);
             Particle.Pow.Play(hitTarget);
             if (enemyID == enemy.ID)
             {
                 enemy.TakeDamage(1, 1.0f);
-                enemy.Drag(1.5f);
+                enemy.Drag(1.5f, Warzone.THIS.AssignClosestEnemy);
             }
             OnDeconstruct();
         };
