@@ -435,12 +435,15 @@ namespace Game
                     {
                         continue;
                     }
-                    if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Magnet))
+
+                    Place place = _places[i, j];
+                    
+                    if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j);
                         return;
                     }
-                    if (_places[i, j].Current.UsageType.Equals(Pawn.Usage.Bomb))
+                    if (place.Current.UsageType.Equals(Pawn.Usage.Bomb))
                     {
                         float rest = _places[i, j].Current.SubModel.OnTick();
 

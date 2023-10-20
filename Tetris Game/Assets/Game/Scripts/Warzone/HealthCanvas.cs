@@ -16,10 +16,7 @@ public class HealthCanvas : MonoBehaviour
     
     public int Health
     {
-        set
-        {
-            healthText.text = value <= 0 ? "" : value.ToString();
-        }
+        set => healthText.text = value <= 0 ? "" : value.ToString();
     }
 
     public void DisplayDamage(int value, float scale = 1.0f)
