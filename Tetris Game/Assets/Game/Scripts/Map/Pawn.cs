@@ -70,13 +70,9 @@ namespace Game
                 this._amount = value;
                 
                 SubModel.OnExternalValueChanged(_amount);
-                
                 // levelText.enabled = VData.amountTextEnabled;
                 // if (levelText.enabled)
                 // {
-                
-                SubModel.BaseColor = (value == Board.THIS.StackLimit) ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor;
-                    
                     // levelText.text = _amount.ToString();
                 // }
                 
@@ -434,11 +430,10 @@ namespace Game
         public class VisualData
         {
             [SerializeField] public Pawn.Usage usage;
+            [SerializeField] public int externValue = 0;
             [SerializeField] public Pool model;
             [SerializeField] public bool free2Place = false;
             [SerializeField] public Color startColor;
-            // [SerializeField] public bool amountTextEnabled = false;
-            // [SerializeField] public Sprite icon;
             [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool neverMoves = false;
             [SerializeField] public bool moverOnPlacement = true;

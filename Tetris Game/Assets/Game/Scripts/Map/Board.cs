@@ -97,7 +97,7 @@ namespace Game
                     foreach (var pawnPlacement in pawnPlacements)
                     {
                         Place place = _places[pawnPlacement.index.x, pawnPlacement.index.y];
-                        SpawnPawn(place, pawnPlacement.usage, 0, false);
+                        SpawnPawn(place, pawnPlacement.usage, pawnPlacement.usage.ExternValue(), false);
                     }
                 }
                 

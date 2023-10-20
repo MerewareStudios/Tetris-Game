@@ -122,4 +122,8 @@ public static class ConstExtensions
     {
         return Const.THIS.pawnVisualData[(int)usage].powerUpIcon; 
     }
+    public static int ExternValue(this Pawn.Usage usage)
+    {
+        return Const.THIS.pawnVisualData[(int)usage].externValue; 
+    }
 }

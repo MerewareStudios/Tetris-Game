@@ -69,7 +69,7 @@ namespace Game
                 if (!target) continue;
 
                 var targetPosition = target.position;
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, usage.Equals(Pawn.Usage.UnpackedAmmo) ? 1 : 0, usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, usage.ExternValue(), usage);
                 pawn.ParentBlock = this;
 
                 if (!Free2Place)
@@ -81,11 +81,6 @@ namespace Game
                 Pawns.Add(pawn);
             }
         }
-
-        // private void OverrideUsage(out Pawn.Usage usage)
-        // {
-        //     usage = Const.THIS.PowerUps.Random();
-        // }
 
         public void Deconstruct()
         {
