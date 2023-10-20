@@ -644,20 +644,12 @@ namespace Game
             {
                 switch (mergeIndex)
                 {
-                    // case 1:
-                    //     type = Pawn.Usage.Rocket;
-                    //     ammo = 0;
-                    //     break;
                     case 2:
                         type = Pawn.Usage.Energy;
                         ammo = 0;
                         break;
-                    case 3:
-                        type = Pawn.Usage.Rocket;
-                        ammo = 0;
-                        break;
-                    case 4:
-                        type = Pawn.Usage.Bomb;
+                    default:
+                        type = Pawn.Usage.Gift;
                         ammo = 0;
                         break;
                 }
