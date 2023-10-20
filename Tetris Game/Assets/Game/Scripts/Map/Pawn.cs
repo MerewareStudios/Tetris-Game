@@ -119,34 +119,22 @@ namespace Game
                     break;
                 case Usage.Energy:
                     SubModel.Lose();
-                    SubModel.Rise((pos) =>
-                    {
-                        Particle.Energy.Play(pos);
-                        UIManagerExtensions.Distort(pos, 0.0f);
-                        Warzone.THIS.Player.Gun.Boost();
-                    });
+                    SubModel.OnUse();
                     SubModel = null;
                     break;
                 case Usage.Magnet:
-                    UIManagerExtensions.Distort(SubModel.Position, 0.0f);
                     SubModel.Lose();
-                    SubModel.Shrink();
+                    SubModel.OnUse();
                     SubModel = null;
                     break;
                 case Usage.Nugget:
                     SubModel.Lose();
-                    SubModel.Rise((pos) =>
-                    {
-                        UIManagerExtensions.BoardCoinToPlayer(pos,  10, 10);
-                    });
+                    SubModel.OnUse();
                     SubModel = null;
                     break;
                 case Usage.Medic:
                     SubModel.Lose();
-                    SubModel.Scale((pos) =>
-                    {
-                        UIManagerExtensions.BoardHeartToPlayer(pos,  5, 5);
-                    });
+                    SubModel.OnUse();
                     SubModel = null;
                     break;
                 case Usage.Rocket:
@@ -160,7 +148,7 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Landmine:
-                    SubModel.Unparent();
+                    SubModel.UnParent();
                     SubModel.OnDeploy(Warzone.THIS.GetLandMineTarget(), Warzone.THIS.AddLandMine);
                     SubModel = null;
                     break;

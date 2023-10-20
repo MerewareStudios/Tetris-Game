@@ -39,8 +39,8 @@ public class Bomb : SubModel
         Vector3 hitTarget = enemy.hitTarget.position;
 
 
-        Tween jumpTween = _transform.DOJump(hitTarget, 4.0f, 1, 0.75f).SetEase(Ease.InSine);
-        Tween rotateTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 0.75f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative(true);
+        Tween jumpTween = ThisTransform.DOJump(hitTarget, 4.0f, 1, 0.75f).SetEase(Ease.InSine);
+        Tween rotateTween = ThisTransform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 0.75f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative(true);
 
         Sequence.Join(jumpTween);
         Sequence.Join(rotateTween);

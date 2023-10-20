@@ -43,7 +43,7 @@ public enum Pool
     Enemy_6 = 40,
     Dummy = 41,
     Cube = 42,
-    Medic = 43,
+    Placeholder = 43,
     Nugget = 44,
     Rocket = 45,
     Magnet = 46,

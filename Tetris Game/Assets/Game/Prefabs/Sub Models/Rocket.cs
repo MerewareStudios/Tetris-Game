@@ -20,16 +20,16 @@ public class Rocket : SubModel
 
         Vector3 hitTarget = enemy.hitTarget.position;
 
-        Tween jumpTween = _transform.DOJump(hitTarget, AnimConst.THIS.missileJumpPower, 1, AnimConst.THIS.missileDuration).SetEase(AnimConst.THIS.missileEase, AnimConst.THIS.missileOvershoot);
+        Tween jumpTween = ThisTransform.DOJump(hitTarget, AnimConst.THIS.missileJumpPower, 1, AnimConst.THIS.missileDuration).SetEase(AnimConst.THIS.missileEase, AnimConst.THIS.missileOvershoot);
         
         Sequence.Append(jumpTween);
 
         
-        Vector3 lastPos = _transform.position;
+        Vector3 lastPos = ThisTransform.position;
         jumpTween.onUpdate = () =>
         {
-            var current = _transform.position;
-            Quaternion target = Quaternion.LookRotation((current - lastPos).normalized, _transform.up) * Quaternion.Euler(90.0f, 0.0f, 0.0f);
+            var current = ThisTransform.position;
+            Quaternion target = Quaternion.LookRotation((current - lastPos).normalized, ThisTransform.up) * Quaternion.Euler(90.0f, 0.0f, 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, target, Time.deltaTime * jumpTween.ElapsedPercentage() * 80.0f);
             lastPos = current;
         };
