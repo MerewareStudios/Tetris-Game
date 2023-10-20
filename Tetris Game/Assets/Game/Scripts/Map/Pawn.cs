@@ -1,16 +1,12 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
-using TMPro;
 using UnityEngine;
 
 namespace Game
 {
     public class Pawn : MonoBehaviour
     {
-        [SerializeField] private MeshRenderer iconMr;
-        [SerializeField] private TextMeshPro levelText;
         [SerializeField] public Transform modelPivot;
         [SerializeField] public Transform pivot;
         
@@ -73,21 +69,22 @@ namespace Game
             {
                 this._amount = value;
                 
-                levelText.enabled = VData.amountTextEnabled;
-                if (levelText.enabled)
-                {
-                    bool max = value == Board.THIS.StackLimit;
-                    
-                    SubModel.BaseColor = max ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor;
-                    
-                    levelText.text = _amount.ToString();
-                }
+                SubModel.OnExternalValueChanged(_amount);
                 
-                iconMr.enabled = VData.icon;
-                if (iconMr.enabled)
-                {
-                    iconMr.material.SetTexture(GameManager.BaseMap, VData.icon.texture);
-                }
+                // levelText.enabled = VData.amountTextEnabled;
+                // if (levelText.enabled)
+                // {
+                
+                SubModel.BaseColor = (value == Board.THIS.StackLimit) ? Const.THIS.mergerMaxColor : Const.THIS.mergerColor;
+                    
+                    // levelText.text = _amount.ToString();
+                // }
+                
+                // iconMr.enabled = VData.icon;
+                // if (iconMr.enabled)
+                // {
+                //     iconMr.material.SetTexture(GameManager.BaseMap, VData.icon.texture);
+                // }
             }
             get => this._amount;
         }
@@ -440,8 +437,8 @@ namespace Game
             [SerializeField] public Pool model;
             [SerializeField] public bool free2Place = false;
             [SerializeField] public Color startColor;
-            [SerializeField] public bool amountTextEnabled = false;
-            [SerializeField] public Sprite icon;
+            // [SerializeField] public bool amountTextEnabled = false;
+            // [SerializeField] public Sprite icon;
             [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool neverMoves = false;
             [SerializeField] public bool moverOnPlacement = true;

@@ -9,6 +9,7 @@ public class SubModel : MonoBehaviour
     [SerializeField] public MeshRenderer meshRenderer;
     [SerializeField] protected AnimType animType;
     [System.NonSerialized] protected Sequence Sequence = null;
+    [System.NonSerialized] protected int ExternalValue = 0;
 
     public Vector3 Position => ThisTransform.position; 
     
@@ -124,6 +125,10 @@ public class SubModel : MonoBehaviour
     public virtual void OnExplode()
     {
         
+    }
+    public virtual void OnExternalValueChanged(int value)
+    {
+        this.ExternalValue = value;
     }
 
     [Serializable]

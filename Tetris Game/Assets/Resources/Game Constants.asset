@@ -720,7 +720,7 @@ MonoBehaviour:
     neverMoves: 0
     moverOnPlacement: 1
   - usage: 2
-    model: 42
+    model: 43
     free2Place: 0
     startColor: {r: 0.14117648, g: 0.47058824, b: 0.92156863, a: 1}
     amountTextEnabled: 0
