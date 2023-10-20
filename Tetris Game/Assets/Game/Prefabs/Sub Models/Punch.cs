@@ -42,6 +42,8 @@ public class Punch : SubModel
 
         hitTarget.y += 2.0f;
         hitTarget.z -= 1.25f;
+
+        enemy.DragTarget = true;
         
         Sequence.onComplete = () =>
         {

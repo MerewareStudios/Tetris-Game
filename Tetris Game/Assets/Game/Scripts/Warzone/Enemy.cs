@@ -22,6 +22,7 @@ namespace  Game
         [System.NonSerialized] private Tween _colorPunchTween;
         [System.NonSerialized] public int ID;
         [System.NonSerialized] private GameObject _dragTrail = null;
+        [System.NonSerialized] public bool DragTarget = false;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
@@ -29,6 +30,7 @@ namespace  Game
 
         public int Damage => Health;
         public float PositionZ => thisTransform.position.z;
+        public Vector2 PositionXZ => new Vector2(thisTransform.position.x, thisTransform.position.z);
 
         public int Health
         {
@@ -111,6 +113,7 @@ namespace  Game
             {
                 _dragTrail.Despawn();
                 _dragTrail = null;
+                DragTarget = false;
                 onComplete?.Invoke();
             };
         }
@@ -138,6 +141,8 @@ namespace  Game
             thisTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
 
             this.enabled = true;
+
+            DragTarget = false;
         }
         public void Kamikaze()
         {

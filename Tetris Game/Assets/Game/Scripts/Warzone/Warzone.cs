@@ -245,7 +245,32 @@ namespace  Game
             return MidSpawnPosition(0.5f);
         }
         
-        public Enemy GetProjectileTarget() => _enemies.Count > 0 ? _enemies[0] : null;
+        public Enemy GetProjectileTarget(Vector3 requestPosition)
+        {
+            if (_enemies.Count == 0)
+            {
+                return null;
+            }
+
+            List<Enemy> availableEnemies = new List<Enemy>();
+            
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                if (_enemies[i].DragTarget)
+                {
+                    continue;
+                }
+
+                availableEnemies.Add(_enemies[i]);
+            }
+
+            if (availableEnemies.Count == 0)
+            {
+                return _enemies[0];
+            }
+            
+            return availableEnemies.OrderBy(enemy => (enemy.PositionXZ - requestPosition.XZ()).sqrMagnitude).FirstOrDefault();
+        } 
         
         public Vector3 GetLandMineTarget()
         {

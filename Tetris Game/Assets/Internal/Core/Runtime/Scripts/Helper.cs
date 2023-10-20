@@ -33,6 +33,8 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static Vector2 XZ(this Vector3 value) => new Vector2(value.x, value.z);
+
         public static void Sphere(Vector3 position, float radius, Color color, float alpha)
         {
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
