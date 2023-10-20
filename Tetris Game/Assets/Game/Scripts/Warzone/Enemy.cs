@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
-using TMPro;
 using UnityEngine;
 
 namespace  Game
@@ -10,15 +9,12 @@ namespace  Game
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private HealthCanvas healthCanvas;
-        [Header("Model")]
         [SerializeField] public Transform thisTransform;
         [SerializeField] public Transform hitTarget;
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
         [SerializeField] public EnemyData so;
-        [Header("Stats")]
         [System.NonSerialized] private int _health;
-        // [System.NonSerialized] public System.Action OnRemoved = null;
         [System.NonSerialized] private Tween _colorPunchTween;
         [System.NonSerialized] public int ID;
         [System.NonSerialized] private GameObject _dragTrail = null;
@@ -54,7 +50,7 @@ namespace  Game
         {
             thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * LevelManager.DeltaMult));
             
-            Warzone.THIS.CheckLandmine(thisTransform);
+            Warzone.THIS.CheckLandmine(this);
             
             if (Warzone.THIS.IsOutside(thisTransform))
             {
@@ -68,13 +64,15 @@ namespace  Game
         public void Replenish()
         {
             Health = so.maxHealth;
-            
             animator.SetTrigger(WALK_HASH);
-            // skin.SetColor(GameManager.MPB_ENEMY, GameManager.EnemyEmisColor, Color.black);
             skin.material.SetColor(GameManager.EmissionKey, Color.black);
         }
         public void TakeDamage(int value, float scale = 1.0f)
         {
+            if (value <= 0)
+            {
+                return;
+            }
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, transform.position, so.colorGrad, so.radius);
             healthCanvas.DisplayDamage(-value, scale);

@@ -20,18 +20,26 @@ public class Bomb : SubModel
         StopTimer();
     }
 
-    public override void OnUse(Vector3 target)
+    public override void OnProjectile(Enemy enemy)
     {
-        base.OnUse(target);
+        base.OnProjectile(enemy);
         
         StopTimer();
+        RefreshSequence();
         
-        Sequence?.Kill();
-        _transform.DOKill();
-        Sequence = DOTween.Sequence();
+        
+        if (!enemy)
+        {
+            return;
+        }
 
 
-        Tween jumpTween = _transform.DOJump(target, 4.0f, 1, 0.75f).SetEase(Ease.InSine);
+        // int enemyID = enemy.ID;
+
+        Vector3 hitTarget = enemy.hitTarget.position;
+
+
+        Tween jumpTween = _transform.DOJump(hitTarget, 4.0f, 1, 0.75f).SetEase(Ease.InSine);
         Tween rotateTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 0.75f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative(true);
 
         Sequence.Join(jumpTween);
@@ -39,10 +47,14 @@ public class Bomb : SubModel
 
         Sequence.onComplete = () =>
         {
-            Particle.Missile_Explosion.Play(target);
-            Warzone.THIS.AEODamage(target, 15, 2.0f);
+            // if (enemyID == enemy.ID)
+
+            Warzone.THIS.AEODamage(hitTarget, 15, 2.0f);
+            
+            Particle.Missile_Explosion.Play(hitTarget);
             CameraManager.THIS.Shake(0.2f, 0.5f);
             UIManagerExtensions.Distort(Position, 0.0f);
+            
             OnDeconstruct();
         };
     }

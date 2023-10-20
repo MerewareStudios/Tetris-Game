@@ -17,8 +17,6 @@ public class SubModel : MonoBehaviour
         _transform = this.transform;
     }
 
-   
-
     public Color BaseColor
     {
         set
@@ -32,9 +30,7 @@ public class SubModel : MonoBehaviour
 
     public virtual void OnConstruct(Transform customParent)
     {
-        Sequence?.Kill();
-        _transform.DOKill();
-        Sequence = DOTween.Sequence();
+        RefreshSequence();
 
         Tween mainTween = null;
         Tween jumpTween = null;
@@ -72,14 +68,26 @@ public class SubModel : MonoBehaviour
         Sequence.AppendInterval(2.5f);
     }
 
+    protected void RefreshSequence()
+    {
+        Sequence?.Kill();
+        _transform.DOKill();
+        Sequence = DOTween.Sequence();
+    }
+
     public void Lose()
     {
         _transform.parent = null;
         Board.THIS.LoseSubModels.Add(this);
     }
+    public void Unparent()
+    {
+        _transform.parent = null;
+    }
     public virtual void OnDeconstruct()
     {
         Sequence?.Kill();
+        _transform.DOKill();
         Board.THIS.LoseSubModels.Remove(this);
         this.Despawn();
     }
@@ -97,6 +105,10 @@ public class SubModel : MonoBehaviour
         
     }
     public virtual void OnProjectile(Enemy enemy)
+    {
+        
+    }
+    public virtual void OnDeploy(Vector3 target, System.Action<SubModel> onComplete)
     {
         
     }
@@ -207,29 +219,29 @@ public class SubModel : MonoBehaviour
             OnDeconstruct();
         };
     }
-    public void Land(Vector3 target)
-    {
-        Sequence?.Kill();
-        _transform.DOKill();
-        Sequence = DOTween.Sequence();
-
-        _transform.localRotation = Quaternion.identity;
-        
-        const float duration = 0.5f;
-        
-        Tween moveTween = _transform.DOMove(target, duration).SetEase(Ease.InBack);
-        Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InBack);
-        Tween scaleTween = _transform.DOScale(Vector3.one * 0.75f, duration).SetEase(Ease.InBack);
-
-        Sequence.Join(moveTween);
-        Sequence.Join(rotTween);
-        Sequence.Join(scaleTween);
-
-        Sequence.onComplete = () =>
-        {
-            Warzone.THIS.AddLandMine(this);
-        };
-    }
+    // public void Land(Vector3 target)
+    // {
+    //     Sequence?.Kill();
+    //     _transform.DOKill();
+    //     Sequence = DOTween.Sequence();
+    //
+    //     _transform.localRotation = Quaternion.identity;
+    //     
+    //     const float duration = 0.5f;
+    //     
+    //     Tween moveTween = _transform.DOMove(target, duration).SetEase(Ease.InBack);
+    //     Tween rotTween = _transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.LocalAxisAdd).SetEase(Ease.InBack);
+    //     Tween scaleTween = _transform.DOScale(Vector3.one * 0.75f, duration).SetEase(Ease.InBack);
+    //
+    //     Sequence.Join(moveTween);
+    //     Sequence.Join(rotTween);
+    //     Sequence.Join(scaleTween);
+    //
+    //     Sequence.onComplete = () =>
+    //     {
+    //         Warzone.THIS.AddLandMine(this);
+    //     };
+    // }
 
     [Serializable]
     public enum AnimType

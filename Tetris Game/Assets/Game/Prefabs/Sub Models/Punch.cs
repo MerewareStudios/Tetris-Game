@@ -8,15 +8,13 @@ public class Punch : SubModel
     {
         base.OnProjectile(enemy);
 
+        RefreshSequence();
+        
         if (!enemy)
         {
-            OnDeconstruct();
             return;
         }
         
-        Sequence?.Kill();
-        _transform.DOKill();
-        Sequence = DOTween.Sequence();
 
         float duration = 0.65f;
         

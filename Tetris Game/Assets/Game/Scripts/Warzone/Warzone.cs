@@ -245,6 +245,16 @@ namespace  Game
             return MidSpawnPosition(0.5f);
         }
         
+        public Enemy GetAOETarget()
+        {
+            if (_enemies.Count == 0)
+            {
+                return null;
+            }
+
+            return _enemies[0];
+        } 
+        
         public Enemy GetProjectileTarget(Vector3 requestPosition)
         {
             if (_enemies.Count == 0)
@@ -277,14 +287,14 @@ namespace  Game
             return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, EndLine);
         }
 
-        public void AEODamage(Vector3 position, int damage, float sqrMagnitude)
+        public void AEODamage(Vector3 position, int damage, float maxDistance)
         {
             for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                float sqrDistance = (position - _enemies[i].thisTransform.position).sqrMagnitude;
-                if (sqrDistance < sqrMagnitude)
+                float distance = (position.XZ() - _enemies[i].PositionXZ).magnitude;
+                if (distance <= maxDistance)
                 {
-                    _enemies[i].TakeDamage(damage, 2.0f);
+                    _enemies[i].TakeDamage((int)Mathf.Lerp(damage, 0.0f, distance / maxDistance), 2.0f);
                 }
             }
         }
@@ -292,25 +302,24 @@ namespace  Game
         public void AddLandMine(SubModel subModel)
         {
             this.landMines.Add(subModel);
-            
         }
         
-        public void ExplodeLandMine(SubModel subModel)
+        public void ExplodeLandMine(Enemy enemy, SubModel subModel)
         {
-            this.landMines.Remove(subModel);
             subModel.Despawn();
+            landMines.Remove(subModel);
             Vector3 pos = subModel.Position;
-            AEODamage(pos, 5, 1.0f);
             Particle.Missile_Explosion.Play(pos);
+            enemy.TakeDamage(20);
         }
         
         public void ClearLandMines()
         {
-            for (int i = landMines.Count - 1; i >= 0; i--)
+            for (int i = 0; i < landMines.Count; i++)
             {
                 landMines[i].Despawn();
-                landMines.RemoveAt(i);
             }
+            landMines.Clear();
         }
 
         #endregion
@@ -361,13 +370,13 @@ namespace  Game
             return transform.position.z < EndLine;
         }
         
-        public void CheckLandmine(Transform transform)
+        public void CheckLandmine(Enemy enemy)
         {
             foreach (var landMine in landMines)
             {
-                if (Vector3.SqrMagnitude(transform.position - landMine.Position) < 0.4f)
+                if ((enemy.PositionXZ - landMine.Position.XZ()).sqrMagnitude < 0.75f)
                 {
-                    ExplodeLandMine(landMine);
+                    ExplodeLandMine(enemy, landMine);
                     break;
                 }
             }

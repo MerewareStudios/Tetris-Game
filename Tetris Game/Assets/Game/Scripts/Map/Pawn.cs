@@ -155,13 +155,18 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Landmine:
-                    SubModel.Lose();
-                    SubModel.Land(Warzone.THIS.GetLandMineTarget());
+                    SubModel.Unparent();
+                    SubModel.OnDeploy(Warzone.THIS.GetLandMineTarget(), Warzone.THIS.AddLandMine);
                     SubModel = null;
                     break;
                 case Usage.Bomb:
+                    Enemy bombEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
+                    if (!bombEnemy)
+                    {
+                        return false;
+                    }
                     SubModel.Lose();
-                    SubModel.OnUse(Warzone.THIS.GetMissileTarget());
+                    SubModel.OnProjectile(Warzone.THIS.GetAOETarget());
                     SubModel = null;
                     break;
                 case Usage.Screw:
@@ -182,18 +187,17 @@ namespace Game
                     SubModel = null;
                     return false;
                 case Usage.Punch:
-                    Enemy enemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
-                    if (!enemy)
+                    Enemy punchEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
+                    if (!punchEnemy)
                     {
                         return false;
                     }
                     SubModel.Lose();
-                    SubModel.OnProjectile(enemy);
+                    SubModel.OnProjectile(punchEnemy);
                     SubModel = null;
                     break;
                 case Usage.Lock:
                     return false;
-                    break;
             }
             
             return true;

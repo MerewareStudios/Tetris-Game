@@ -12,9 +12,7 @@ public class Gift : SubModel
 
     public override void OnAnimate(System.Action onComplete)
     {
-        Sequence?.Kill();
-        _transform.DOKill();
-        Sequence = DOTween.Sequence();
+        RefreshSequence();
         
         const float duration = 0.35f;
         
