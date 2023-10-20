@@ -192,33 +192,33 @@ public class SubModel : MonoBehaviour
         };
     }
     
-    public void Missile(Vector3 target)
-    {
-        Sequence?.Kill();
-        _transform.DOKill();
-        Sequence = DOTween.Sequence();
-
-
-        Tween jumpTween = _transform.DOJump(target, AnimConst.THIS.missileJumpPower, 1, AnimConst.THIS.missileDuration).SetEase(AnimConst.THIS.missileEase, AnimConst.THIS.missileOvershoot);
-
-        Vector3 lastPos = _transform.position;
-        jumpTween.onUpdate = () =>
-        {
-            var current = _transform.position;
-            Vector3 direction = (current - lastPos);
-            _transform.up = Vector3.Lerp(_transform.up,  direction, Time.deltaTime * jumpTween.ElapsedPercentage() * 80.0f);
-            lastPos = current;
-        };
-
-        Sequence.Join(jumpTween);
-
-        Sequence.onComplete = () =>
-        {
-            Particle.Missile_Explosion.Play(target);
-            Warzone.THIS.AEODamage(target, 10, 2.0f);
-            OnDeconstruct();
-        };
-    }
+    // public void Missile(Vector3 target)
+    // {
+    //     Sequence?.Kill();
+    //     _transform.DOKill();
+    //     Sequence = DOTween.Sequence();
+    //
+    //
+    //     Tween jumpTween = _transform.DOJump(target, AnimConst.THIS.missileJumpPower, 1, AnimConst.THIS.missileDuration).SetEase(AnimConst.THIS.missileEase, AnimConst.THIS.missileOvershoot);
+    //
+    //     Vector3 lastPos = _transform.position;
+    //     jumpTween.onUpdate = () =>
+    //     {
+    //         var current = _transform.position;
+    //         Vector3 direction = (current - lastPos);
+    //         _transform.up = Vector3.Lerp(_transform.up,  direction, Time.deltaTime * jumpTween.ElapsedPercentage() * 80.0f);
+    //         lastPos = current;
+    //     };
+    //
+    //     Sequence.Join(jumpTween);
+    //
+    //     Sequence.onComplete = () =>
+    //     {
+    //         Particle.Missile_Explosion.Play(target);
+    //         Warzone.THIS.AEODamage(target, 10, 2.0f);
+    //         OnDeconstruct();
+    //     };
+    // }
     // public void Land(Vector3 target)
     // {
     //     Sequence?.Kill();

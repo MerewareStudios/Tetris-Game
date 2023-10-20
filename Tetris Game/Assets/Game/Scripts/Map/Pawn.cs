@@ -150,8 +150,13 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Rocket:
+                    Enemy rocketEnemy = Warzone.THIS.GetRandomTarget();
+                    if (!rocketEnemy)
+                    {
+                        return false;
+                    }
                     SubModel.Lose();
-                    SubModel.Missile(Warzone.THIS.GetMissileTarget());
+                    SubModel.OnProjectile(rocketEnemy);
                     SubModel = null;
                     break;
                 case Usage.Landmine:
@@ -160,13 +165,13 @@ namespace Game
                     SubModel = null;
                     break;
                 case Usage.Bomb:
-                    Enemy bombEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
+                    Enemy bombEnemy = Warzone.THIS.GetAoeTarget();
                     if (!bombEnemy)
                     {
                         return false;
                     }
                     SubModel.Lose();
-                    SubModel.OnProjectile(Warzone.THIS.GetAOETarget());
+                    SubModel.OnProjectile(bombEnemy);
                     SubModel = null;
                     break;
                 case Usage.Screw:

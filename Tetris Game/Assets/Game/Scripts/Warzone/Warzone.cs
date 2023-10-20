@@ -245,7 +245,17 @@ namespace  Game
             return MidSpawnPosition(0.5f);
         }
         
-        public Enemy GetAOETarget()
+        public Enemy GetRandomTarget()
+        {
+            if (_enemies.Count == 0)
+            {
+                return null;
+            }
+
+            return _enemies.Random();
+        }
+        
+        public Enemy GetAoeTarget()
         {
             if (_enemies.Count == 0)
             {

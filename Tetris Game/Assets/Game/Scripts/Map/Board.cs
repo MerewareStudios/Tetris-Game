@@ -919,7 +919,6 @@ namespace Game
                 Pawn currentPawn = pawn;
                 Place place = GetPlace(currentPawn);
                 
-                // currentPawn.Mover = true;
                 currentPawn.Mover = currentPawn.VData.moverOnPlacement;
                 currentPawn.Busy = true;
                 currentPawn.Tick = _tick;

@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139252513554020972}
-  - component: {fileID: 6740787947949917955}
+  - component: {fileID: 4882221226049558399}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Transform:
   - {fileID: 1579138905064427741}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6740787947949917955
+--- !u!114 &4882221226049558399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,9 +125,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6928741701218432616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45a9d1cadb4b72438823ce25092236e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4103127e0467afe489777b1c8bc9a806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 3721544818430308442}
   animType: 2
-  onFinishPS: {fileID: 0}
+  rocketModel: {fileID: 1579138905064427741}

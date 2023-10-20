@@ -10,6 +10,9 @@ public class HealthCanvas : MonoBehaviour
     [SerializeField] private RectTransform healthRT;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI damageText;
+
+    [System.NonSerialized] private int _lastFrame = -1;
+    [System.NonSerialized] private int _lastValue = 0;
     
     public int Health
     {
@@ -21,6 +24,11 @@ public class HealthCanvas : MonoBehaviour
 
     public void DisplayDamage(int value, float scale = 1.0f)
     {
+        if (Time.frameCount - _lastFrame <= 10)
+        {
+            value += _lastValue;
+        }
+        
         damageText.text = value.ToString();
         
         damageText.rectTransform.DOKill();
@@ -30,5 +38,8 @@ public class HealthCanvas : MonoBehaviour
         damageText.color = Color.white;
         damageText.DOKill();
         damageText.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.15f).SetDelay(0.1f).SetEase(Ease.OutSine);
+
+        _lastValue = value;
+        _lastFrame = Time.frameCount;
     }
 }
