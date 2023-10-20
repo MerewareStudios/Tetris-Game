@@ -32,4 +32,4 @@ MonoBehaviour:
   - usage: 7
     index: {x: 0, y: 0}
   - usage: 7
-    index: {x: 6, y: 0}
+    index: {x: 6, y: 1}

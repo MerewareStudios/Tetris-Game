@@ -58,7 +58,7 @@ public enum Pool
     Tree_Tree_Tip_Block = 55,
     Long_U_Tree_Block = 56,
     Energy = 57,
-    Medkit = 58,
+    Medic = 58,
     Landmine = 59,
     Bomb = 60,
     Screw = 61,
