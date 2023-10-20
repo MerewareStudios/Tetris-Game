@@ -28,6 +28,7 @@ namespace  Game
         private static int HIT_HASH = Animator.StringToHash("Hit");
 
         public int Damage => Health;
+        public float PositionZ => thisTransform.position.z;
 
         public int Health
         {
@@ -95,14 +96,18 @@ namespace  Game
 
         public void Drag(float distance, System.Action onComplete)
         {
-            _dragTrail = Pool.Drag_Trail.Spawn();
-            _dragTrail.transform.SetParent(thisTransform);
-            _dragTrail.transform.localPosition = new Vector3(0.0f, 0.1f, 0.166f);
-            _dragTrail.transform.localEulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
+            if (!_dragTrail)
+            {
+                _dragTrail = Pool.Drag_Trail.Spawn();
+                _dragTrail.transform.SetParent(thisTransform);
+                _dragTrail.transform.localPosition = new Vector3(0.0f, 0.1f, 0.166f);
+                _dragTrail.transform.localEulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
+            }
             
-            float finalDistance = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance); 
+            float finalDrag = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance);
+            
             thisTransform.DOKill();
-            thisTransform.DOMoveZ(finalDistance, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>
+            thisTransform.DOMoveZ(finalDrag, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>
             {
                 _dragTrail.Despawn();
                 _dragTrail = null;

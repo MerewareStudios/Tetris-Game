@@ -217,9 +217,12 @@ namespace  Game
 
         public void AssignClosestEnemy()
         {
-            Player.CurrentEnemy = _enemies
-                .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - EndLine))
-                .FirstOrDefault();
+            //Sort enemies by distance
+            _enemies = _enemies.OrderBy(enemy => enemy.PositionZ - EndLine).ToList();
+            //Assign first enemy as current target
+            Player.CurrentEnemy = _enemies.FirstOrDefault();
+                // .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - EndLine))
+                
         }
 
         private Vector3 NextSpawnPosition()
