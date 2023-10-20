@@ -191,6 +191,9 @@ namespace Game
                     SubModel.OnProjectile(enemy);
                     SubModel = null;
                     break;
+                case Usage.Lock:
+                    return false;
+                    break;
             }
             
             return true;
@@ -234,6 +237,9 @@ namespace Game
                     
                     break;
                 case Usage.Punch:
+                    
+                    break;
+                case Usage.Lock:
                     
                     break;
             }
@@ -427,6 +433,7 @@ namespace Game
             Screw,
             Gift,
             Punch,
+            Lock,
         }
 
         [Serializable]
