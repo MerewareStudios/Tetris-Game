@@ -13,7 +13,6 @@ namespace Game
         // [SerializeField] public bool showBannerOffer = true;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);
         [SerializeField] public Enemy.SpawnData EnemySpawnData;
-        [SerializeField] public bool canGiveBonus = true;
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
@@ -25,10 +24,6 @@ namespace Game
 
 public static class LevelSoExtension
 {
-    public static bool CanSpawnBonus(this int level)
-    {
-        return Const.THIS.Levels[level - 1].canGiveBonus;
-    }
     public static Enemy.SpawnData GetEnemySpawnData(this int level)
     {
         return Const.THIS.Levels[level - 1].EnemySpawnData;
@@ -53,10 +48,6 @@ public static class LevelSoExtension
     {
         return Const.THIS.Levels[level - 1].boardSize;
     }
-    // public static bool AdsEnabled(this int level)
-    // {
-        // return Const.THIS.Levels[level - 1].showBannerOffer;
-    // }
     public static Board.PawnPlacement[] PawnPlacements(this int level)
     {
         return Const.THIS.Levels[level - 1].pawnPlacements;
