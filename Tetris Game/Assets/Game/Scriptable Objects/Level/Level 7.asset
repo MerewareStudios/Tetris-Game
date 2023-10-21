@@ -24,7 +24,6 @@ MonoBehaviour:
       count: 2
     - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
       count: 2
-  canGiveBonus: 0
   victoryReward:
     type: 0
     amount: 15
@@ -33,3 +32,4 @@ MonoBehaviour:
     amount: 6
   suggestedBlocks: []
   pawnPlacements: []
+  powerUps: 0400000007000000

@@ -36,3 +36,4 @@ MonoBehaviour:
     blockRot: 0
     canRotate: 1
   pawnPlacements: []
+  powerUps: 04000000

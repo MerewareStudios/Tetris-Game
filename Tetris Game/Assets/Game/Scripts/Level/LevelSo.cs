@@ -1,7 +1,5 @@
-using System;
 using Game;
-using Game.UI;
-using IWI;
+using Internal.Core;
 using UnityEngine;
 
 namespace Game
@@ -10,13 +8,13 @@ namespace Game
     public class LevelSo : ScriptableObject
     {
         [SerializeField] public float deltaMult = 1.0f;
-        // [SerializeField] public bool showBannerOffer = true;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);
         [SerializeField] public Enemy.SpawnData EnemySpawnData;
         [SerializeField] public Const.Currency victoryReward;
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
         [SerializeField] public Board.PawnPlacement[] pawnPlacements;
+        [SerializeField] public Pawn.Usage[] powerUps;
     }
 }
 
@@ -24,6 +22,14 @@ namespace Game
 
 public static class LevelSoExtension
 {
+    public static Pawn.Usage GetRandomPowerUp(this int level)
+    {
+        if (Const.THIS.Levels[level - 1].powerUps.Length == 0)
+        {
+            return Const.THIS.powerUps.Random();
+        }
+        return Const.THIS.Levels[level - 1].powerUps.Random();
+    }
     public static Enemy.SpawnData GetEnemySpawnData(this int level)
     {
         return Const.THIS.Levels[level - 1].EnemySpawnData;

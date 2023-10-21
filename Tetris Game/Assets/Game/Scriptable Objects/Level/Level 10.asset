@@ -20,7 +20,6 @@ MonoBehaviour:
     countDatas:
     - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
       count: 5
-  canGiveBonus: 0
   victoryReward:
     type: 0
     amount: 20
@@ -33,3 +32,4 @@ MonoBehaviour:
     index: {x: 4, y: 2}
   - usage: 5
     index: {x: 2, y: 2}
+  powerUps: 0400000007000000

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using Internal.Core;
@@ -141,10 +140,6 @@ public class Powerup : Lazyingleton<Powerup>
         else
         {
             PunchFrame(0.1f);
-            // if (ONBOARDING.LEARNED_POWERUP.IsNotComplete() && !Wallet.HasFunds(Const.Currency.OneAd))
-            // {
-            //     Wallet.Transaction(Const.Currency.OneAd);
-            // }
 
             if (Try2Use())
             {
@@ -168,7 +163,8 @@ public class Powerup : Lazyingleton<Powerup>
         }
         
         _data.available = true;
-        SetPowerup(Const.THIS.powerUps.Random());
+        // SetPowerup(Const.THIS.powerUps.Random());
+        SetPowerup(LevelManager.CurrentLevel.GetRandomPowerUp());
         PunchCost(50.0f);
         UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
             (value) =>

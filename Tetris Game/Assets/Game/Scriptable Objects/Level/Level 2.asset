@@ -20,20 +20,12 @@ MonoBehaviour:
     countDatas:
     - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
       count: 2
-  canGiveBonus: 0
   victoryReward:
     type: 0
     amount: 10
   failReward:
     type: 0
     amount: 5
-  suggestedBlocks:
-  - type: 3
-    requiredPlaces: 1a000000290000002100000028000000
-    blockRot: 3
-    canRotate: 0
-  - type: 4
-    requiredPlaces: 05000000060000000c00000013000000
-    blockRot: 0
-    canRotate: 1
+  suggestedBlocks: []
   pawnPlacements: []
+  powerUps: 04000000
