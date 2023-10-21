@@ -63,6 +63,9 @@ public class SaveManager : SaveManagerBase<SaveManager>
     void Start()
     {
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
+        
+        
+        Const.THIS.PrintLevelData();
     }
 }
 public static class SaveManagerExtensions

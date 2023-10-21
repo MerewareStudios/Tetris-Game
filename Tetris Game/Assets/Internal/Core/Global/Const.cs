@@ -107,6 +107,23 @@ public class Const : SSingleton<Const>
         text.color = Const.THIS.metaTextColors[enumInt];
         text.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
     }
+
+
+    public void PrintLevelData()
+    {
+        int accumReward = 0;
+        for (int i = 0; i < Levels.Length; i++)
+        {
+            if (i % 5 == 0)
+            {
+                accumReward = 0;
+            }
+            LevelSo levelSo = Levels[i];
+            (string info, int totalReward) = levelSo.ToString(i + 1);
+            accumReward += totalReward;
+            Debug.Log(info + " | <color=cyan>Accum Reward : " + accumReward + "</color>");
+        }
+    }
 }
 
 public static class ConstExtensions
