@@ -12,18 +12,18 @@ namespace Game
         
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
-        [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private int _amount = 1;
         
+        [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] public Block ParentBlock;
+        [System.NonSerialized] public VisualData VData = null;
         [System.NonSerialized] public int Tick;
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool CanTakeContent = false;
-        [System.NonSerialized] public VisualData VData = null;
         
         
         public bool Connected => ParentBlock;
@@ -68,19 +68,7 @@ namespace Game
             set
             {
                 this._amount = value;
-                
                 SubModel.OnExternalValueChanged(_amount);
-                // levelText.enabled = VData.amountTextEnabled;
-                // if (levelText.enabled)
-                // {
-                    // levelText.text = _amount.ToString();
-                // }
-                
-                // iconMr.enabled = VData.icon;
-                // if (iconMr.enabled)
-                // {
-                //     iconMr.material.SetTexture(GameManager.BaseMap, VData.icon.texture);
-                // }
             }
             get => this._amount;
         }

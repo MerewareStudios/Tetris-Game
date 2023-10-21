@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class Powerup : Lazyingleton<Powerup>
 {
     [SerializeField] private Canvas canvas;
-    [SerializeField] private List<Pawn.Usage> powerUps;
     [SerializeField] private RectTransform pivot;
     [SerializeField] private Image icon;
     [SerializeField] public RectTransform currencyTarget;
@@ -169,7 +168,7 @@ public class Powerup : Lazyingleton<Powerup>
         }
         
         _data.available = true;
-        SetPowerup(powerUps.Random());
+        SetPowerup(Const.THIS.powerUps.Random());
         PunchCost(50.0f);
         UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
             (value) =>

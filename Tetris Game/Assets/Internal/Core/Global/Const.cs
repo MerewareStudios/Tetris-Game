@@ -25,6 +25,7 @@ public class Const : SSingleton<Const>
     public BlockMenu.BlockData[] DefaultBlockData;
     public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
     public Pawn.Usage[] gifts;
+    public Pawn.Usage[] powerUps;
     
     [Header("Colors")] 
     public Color steadyColor;
