@@ -332,10 +332,6 @@ public class Spawner : Singleton<Spawner>
             
             return;
         }
-        // else
-        // {
-        // Board.THIS.HighlightPlaces();
-        // }
         
         if (ONBOARDING.TEACH_PICK.IsNotComplete())
         {

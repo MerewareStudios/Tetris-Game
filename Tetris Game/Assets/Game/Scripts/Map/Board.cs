@@ -583,7 +583,7 @@ namespace Game
 
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i], lines.Count - i);
+                MergeLine(lines[i], i);
             }
         }
 
@@ -640,11 +640,15 @@ namespace Game
             Pawn.Usage type = Pawn.Usage.Ammo;
             int ammo = totalAmmo;
 
-            if (multiplier > 1)
-            {
+            // if (multiplier > 1)
+            // {
                 switch (mergeIndex)
                 {
-                    case 2:
+                    case 0:
+                        type = Pawn.Usage.Ammo;
+                        ammo = totalAmmo;
+                        break;
+                    case 1:
                         type = Pawn.Usage.Energy;
                         ammo = 0;
                         break;
@@ -653,7 +657,7 @@ namespace Game
                         ammo = 0;
                         break;
                 }
-            }
+            // }
             
             
             

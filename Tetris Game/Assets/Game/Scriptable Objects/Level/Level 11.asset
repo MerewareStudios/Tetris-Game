@@ -33,3 +33,11 @@ MonoBehaviour:
     index: {x: 0, y: 0}
   - usage: 7
     index: {x: 6, y: 1}
+  - usage: 7
+    index: {x: 6, y: 0}
+  - usage: 7
+    index: {x: 0, y: 1}
+  - usage: 7
+    index: {x: 0, y: 2}
+  - usage: 7
+    index: {x: 6, y: 2}
