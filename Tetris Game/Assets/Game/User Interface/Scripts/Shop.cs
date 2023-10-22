@@ -54,7 +54,7 @@ public class Shop : MonoBehaviour
                 if (bars[i].color != targetColor)
                 {
                     bars[i].DOKill();
-                    bars[i].DOColor(targetColor, 0.2f);
+                    bars[i].DOColor(targetColor, 0.2f).SetUpdate(true);
                 }
             }
         }
@@ -78,8 +78,11 @@ public class Shop : MonoBehaviour
     {
         if (!GameManager.PLAYING)
         {
+            ApplicationManager.Extra = "Playing";
             return;
         }
+        ApplicationManager.Extra = "Confirmed";
+
         background.enabled = false;
 
         if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())

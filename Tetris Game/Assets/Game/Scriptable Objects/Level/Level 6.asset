@@ -31,5 +31,7 @@ MonoBehaviour:
     type: 0
     amount: 6
   suggestedBlocks: []
-  pawnPlacements: []
+  pawnPlacements:
+  - usage: 7
+    index: {x: 0, y: 3}
   powerUps: 0400000007000000

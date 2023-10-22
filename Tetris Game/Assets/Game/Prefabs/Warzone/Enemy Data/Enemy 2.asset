@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy 2
   m_EditorClassIdentifier: 
   type: 36
+  extraWait: 0
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,7 +110,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 7
+    amount: 8
     probability: 1
   - type: 4
     amount: 1

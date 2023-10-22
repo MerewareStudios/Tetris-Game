@@ -74,7 +74,7 @@ namespace  Game
                 return;
             }
             ColorPunch();
-            Warzone.THIS.Emit(so.emitCount, transform.position, so.colorGrad, so.radius);
+            Warzone.THIS.Emit(so.emitCount, hitTarget.position, so.colorGrad, so.radius);
             healthCanvas.DisplayDamage(-value, scale);
             Warzone.THIS.Player.PunchCrossHair();
             
@@ -175,10 +175,10 @@ namespace  Game
                     switch (reward.type)
                     {
                         case UpgradeMenu.PurchaseType.CoinPack:
-                            UIManagerExtensions.EmitEnemyCoinBurst(thisTransform.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
+                            UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                         case UpgradeMenu.PurchaseType.Reserved1:
-                            UIManagerExtensions.HeartToPlayer(thisTransform.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
+                            UIManagerExtensions.HeartToPlayer(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
                 }

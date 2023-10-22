@@ -110,7 +110,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 8
+    amount: 10
     probability: 1
   maxHealth: 18
   speed: 0.07

@@ -112,7 +112,8 @@ public class UIManager : Singleton<UIManager>
 
     public void AdLayerClick_OpenShop()
     {
-       AdManager.THIS.MarchInterstitial(shop.OnClick_Open);
+       shop.OnClick_Open();
+       // AdManager.THIS.MarchInterstitial(shop.OnClick_Open);
     }
 
 #if UNITY_EDITOR

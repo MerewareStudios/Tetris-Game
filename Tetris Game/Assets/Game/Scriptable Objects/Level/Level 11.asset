@@ -18,8 +18,8 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 9
     countDatas:
-    - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
-      count: 5
+    - enemyData: {fileID: 11400000, guid: efba3fb6480ad6c41b30794d64be42bf, type: 2}
+      count: 2
   victoryReward:
     type: 0
     amount: 20
@@ -27,9 +27,5 @@ MonoBehaviour:
     type: 0
     amount: 6
   suggestedBlocks: []
-  pawnPlacements:
-  - usage: 7
-    index: {x: 0, y: 0}
-  - usage: 7
-    index: {x: 6, y: 1}
+  pawnPlacements: []
   powerUps: 0400000007000000

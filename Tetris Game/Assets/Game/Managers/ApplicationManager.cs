@@ -14,6 +14,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     [SerializeField] private ScriptableRendererFeature grabTextureFeature;
     [System.NonSerialized] public int fps;
     [System.NonSerialized] public float fpsTimestamp;
+    [System.NonSerialized] public static string Extra = "";
     // static Setting HAPTIC;
     // public static Setting SOUND;
 
@@ -65,7 +66,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
                 );
             
             
-            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + " " + Const.THIS.bundleVersionCode + ")";
+            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + " " + Const.THIS.bundleVersionCode + ")" + "\n" + Extra;
             // fpsText.text = fps.ToString() + " | " + stamp + " | " + Helper.ScreenDPI() + " | " + Helper.ScreenHeightDP();
             fps = 0;
             fpsTimestamp = Time.realtimeSinceStartup;
