@@ -91,6 +91,7 @@ namespace  Game
             else
             {
                 animator.SetTrigger(HIT_HASH);
+                // animator.CrossFade(HIT_HASH, 0.1f);
             }
         }
 

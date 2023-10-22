@@ -25,15 +25,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b24b6eea25130734ba4217d4228b7bac, type: 2}
   - {fileID: 11400000, guid: d2277228e3bdae843a74111c50cfad1b, type: 2}
   - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
-  - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
-  - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
-  - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
-  - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
+  - {fileID: 11400000, guid: 2c08d8f6108b20f4f997dcc84b557d18, type: 2}
+  - {fileID: 11400000, guid: 089c2e7d53f14ba4682d48a1fd2d0edc, type: 2}
+  - {fileID: 11400000, guid: cdf743b26b83e0c438c812d31c869a5a, type: 2}
+  - {fileID: 11400000, guid: a39180f68760ee842b1235f8a1ef016e, type: 2}
   DefaultPlayerData:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 11
+    level: 15
     pupData:
       available: 1
       currentUsage: 4
@@ -97,7 +97,7 @@ MonoBehaviour:
       amount: 0
     gunType: 24
     sprite: {fileID: 21300000, guid: 884504ef77e9b214e8b37b52768e6eb1, type: 3}
-    defaultValues: 010000001000000001000000
+    defaultValues: 010000000100000001000000
     damagePrice: []
     fireRatePrice:
     - type: 0

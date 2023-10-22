@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 11
+  m_Name: Level 15
   m_EditorClassIdentifier: 
   deltaMult: 1
   boardSize: {x: 8, y: 9}
@@ -18,22 +18,28 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 9
     countDatas:
+    - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
+      count: 2
+    - enemyData: {fileID: 11400000, guid: 53cb06763de1ecb498d7e2946d1b15fb, type: 2}
+      count: 2
     - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
       count: 2
     - enemyData: {fileID: 11400000, guid: efba3fb6480ad6c41b30794d64be42bf, type: 2}
-      count: 2
+      count: 3
   victoryReward:
     type: 0
-    amount: 20
+    amount: 25
   failReward:
     type: 0
     amount: 6
   suggestedBlocks: []
   pawnPlacements:
-  - usage: 5
-    index: {x: 0, y: 2}
-  - usage: 5
-    index: {x: 0, y: 3}
-  - usage: 5
-    index: {x: 0, y: 4}
+  - usage: 3
+    index: {x: 0, y: 0}
+  - usage: 11
+    index: {x: 0, y: 1}
+  - usage: 3
+    index: {x: 7, y: 1}
+  - usage: 11
+    index: {x: 7, y: 0}
   powerUps: 0400000007000000
