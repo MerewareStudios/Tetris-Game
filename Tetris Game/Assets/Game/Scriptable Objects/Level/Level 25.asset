@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 21
+  m_Name: Level 25
   m_EditorClassIdentifier: 
   deltaMult: 1
-  boardSize: {x: 5, y: 5}
+  boardSize: {x: 7, y: 7}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 3
+    spawnInterval: 20
     countDatas:
-    - enemyData: {fileID: 11400000, guid: f4dfa9b0d7ae797498c60029054b6c7b, type: 2}
-      count: 30
+    - enemyData: {fileID: 11400000, guid: bb83f730b4e975f459599dc5c4fbf1f7, type: 2}
+      count: 3
   victoryReward:
     type: 0
     amount: 45

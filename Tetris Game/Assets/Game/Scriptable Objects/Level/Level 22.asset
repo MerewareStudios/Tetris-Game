@@ -24,7 +24,7 @@ MonoBehaviour:
       count: 2
   victoryReward:
     type: 0
-    amount: 25
+    amount: 45
   failReward:
     type: 0
     amount: 10
