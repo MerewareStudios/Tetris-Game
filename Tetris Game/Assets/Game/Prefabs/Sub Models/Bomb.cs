@@ -6,11 +6,12 @@ public class Bomb : SubModel
 {
     [SerializeField] private CircularProgress progress;
     [System.NonSerialized] private float _current;
+    [System.NonSerialized] private float _tickInterval;
 
-    public override void OnConstruct(Transform customParent)
+    public override void OnConstruct(Transform customParent, int extra)
     {
-        base.OnConstruct(customParent);
-        
+        base.OnConstruct(customParent, extra);
+        _tickInterval = extra * 0.001f;
         StartTimer();
     }
 
@@ -63,7 +64,8 @@ public class Bomb : SubModel
     {
         base.OnTick();
         
-        _current -= 0.025f;
+        _current -= _tickInterval;
+        // Debug.Log(_tickInterval);
         progress.FillAnimated = _current;
 
         return _current;

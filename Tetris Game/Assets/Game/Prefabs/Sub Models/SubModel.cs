@@ -29,8 +29,10 @@ public class SubModel : MonoBehaviour
         }
     }
 
-    public virtual void OnConstruct(Transform customParent)
+    public virtual void OnConstruct(Transform customParent, int extra)
     {
+        OnExtraValueChanged(extra);
+        
         RefreshSequence();
 
         Tween mainTween = null;
@@ -106,6 +108,14 @@ public class SubModel : MonoBehaviour
     {
         
     }
+    public virtual int GetExtra()
+    {
+        return 0;
+    }
+    public virtual void SetExtra(int amount)
+    {
+        
+    }
     public virtual void OnProjectile(Enemy enemy)
     {
         
@@ -126,7 +136,7 @@ public class SubModel : MonoBehaviour
     {
         
     }
-    public virtual void OnExternalValueChanged(int value)
+    public virtual void OnExtraValueChanged(int value)
     {
         this.ExternalValue = value;
     }

@@ -15,7 +15,7 @@ namespace Game
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
-        [System.NonSerialized] private int _amount = 1;
+        // [System.NonSerialized] private int _amount = 1;
         
         [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] public Block ParentBlock;
@@ -27,31 +27,22 @@ namespace Game
         
         
         public bool Connected => ParentBlock;
-        private Pawn.Usage _usageType = Usage.Empty;
+        [System.NonSerialized] public Pawn.Usage UsageType = Usage.Empty;
         
-        public Pawn.Usage UsageType
+        public void SetUsageType(Usage value, int extra)
         {
-            set
+            VData = Const.THIS.pawnVisualData[(int)value];
+            
+            if (!SubModel || !this.UsageType.Model().Equals(VData.model))
             {
-                VData = Const.THIS.pawnVisualData[(int)value];
-                
-                if (!SubModel || !this._usageType.Model().Equals(VData.model))
-                {
-                    DeSpawnModel();
-                    SubModel = VData.model.Spawn<SubModel>();
-                }
-                
-                
-                this._usageType = value;
-                
-                SubModel.OnConstruct(modelPivot);
-                
-                SubModel.BaseColor = VData.startColor;
-
-                CanTakeContent = false;
+                DeSpawnModel();
+                SubModel = VData.model.Spawn<SubModel>();
             }
-
-            get => _usageType;
+            
+            this.UsageType = value;
+            SubModel.BaseColor = VData.startColor;
+            SubModel.OnConstruct(modelPivot, extra);
+            CanTakeContent = false;
         }
 
         private void DeSpawnModel()
@@ -65,12 +56,8 @@ namespace Game
         
         public int Amount
         {
-            set
-            {
-                this._amount = value;
-                SubModel.OnExternalValueChanged(_amount);
-            }
-            get => this._amount;
+            set => SubModel.OnExtraValueChanged(value);
+            get => this.SubModel.GetExtra();
         }
         
         void Awake()
@@ -156,7 +143,7 @@ namespace Game
                     SubModel.Lose();
                     SubModel.OnAnimate(() =>
                     {
-                        UsageType = Const.THIS.gifts.Random();
+                        SetUsageType(Const.THIS.gifts.Random(), 0);
                     });
                     SubModel = null;
                     return false;
@@ -268,7 +255,7 @@ namespace Game
         #region Colors
         public void MarkSteadyColor()
         {
-            if (_usageType.Equals(Usage.UnpackedAmmo)) // not powerup
+            if (this.UsageType.Equals(Usage.UnpackedAmmo)) // not powerup
             {
                 SubModel.BaseColor = Const.THIS.steadyColor;
             }

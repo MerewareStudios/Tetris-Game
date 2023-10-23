@@ -768,7 +768,7 @@ MonoBehaviour:
     neverMoves: 0
     moverOnPlacement: 0
   - usage: 9
-    externValue: 0
+    externValue: 25
     model: 60
     free2Place: 1
     startColor: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
@@ -776,7 +776,7 @@ MonoBehaviour:
     neverMoves: 0
     moverOnPlacement: 0
   - usage: 10
-    externValue: 0
+    externValue: 3
     model: 61
     free2Place: 1
     startColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}

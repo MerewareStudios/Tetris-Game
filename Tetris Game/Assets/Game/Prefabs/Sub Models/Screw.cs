@@ -5,10 +5,10 @@ public class Screw : SubModel
 {
     [System.NonSerialized] private int _current = 3;
 
-    public override void OnConstruct(Transform customParent)
+    public override void OnConstruct(Transform customParent, int extra)
     {
-        base.OnConstruct(customParent);
-        _current = 3;
+        base.OnConstruct(customParent, extra);
+        _current = extra;
     }
 
     public override bool OnCustomUnpack()

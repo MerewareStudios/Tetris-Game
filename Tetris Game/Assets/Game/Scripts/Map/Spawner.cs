@@ -439,8 +439,8 @@ public class Spawner : Singleton<Spawner>
         pawnTransform.position = position;
         pawnTransform.rotation = Quaternion.identity;
         pawnTransform.localScale = Vector3.one;
-        pawn.UsageType = usageType;
-        pawn.Amount = amount;
+        pawn.SetUsageType(usageType, amount);
+        // pawn.Amount = amount;
         return pawn;
     }
     #endregion

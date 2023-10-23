@@ -97,7 +97,7 @@ namespace Game
                     foreach (var pawnPlacement in pawnPlacements)
                     {
                         Place place = _places[pawnPlacement.index.x, pawnPlacement.index.y];
-                        SpawnPawn(place, pawnPlacement.usage, pawnPlacement.usage.ExternValue(), false);
+                        SpawnPawn(place, pawnPlacement.usage, pawnPlacement.extra == 0 ? pawnPlacement.usage.ExternValue() : pawnPlacement.extra, false);
                     }
                 }
                 
@@ -642,25 +642,21 @@ namespace Game
             Pawn.Usage type = Pawn.Usage.Ammo;
             int ammo = totalAmmo;
 
-            // if (multiplier > 1)
-            // {
-                switch (mergeIndex)
-                {
-                    case 0:
-                        type = Pawn.Usage.Ammo;
-                        ammo = totalAmmo;
-                        break;
-                    case 1:
-                        type = Pawn.Usage.Energy;
-                        ammo = 0;
-                        break;
-                    default:
-                        type = Pawn.Usage.Gift;
-                        ammo = 0;
-                        break;
-                }
-            // }
-            
+            switch (mergeIndex)
+            {
+                case 0:
+                    type = Pawn.Usage.Ammo;
+                    ammo = totalAmmo;
+                    break;
+                case 1:
+                    type = Pawn.Usage.Energy;
+                    ammo = 0;
+                    break;
+                default:
+                    type = Pawn.Usage.Gift;
+                    ammo = 0;
+                    break;
+            }
             
             
             SpawnPawn(spawnPlace, type, ammo, true)
@@ -1194,6 +1190,7 @@ namespace Game
         {
             [SerializeField] public Pawn.Usage usage;
             [SerializeField] public Vector2Int index;
+            [SerializeField] public int extra = 0;
         }
         public enum BlockRot
         {
