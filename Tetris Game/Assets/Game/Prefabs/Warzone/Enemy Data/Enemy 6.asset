@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 40
   extraWait: 0
   colorGrad:
-    m_Mode: 0
+    m_Mode: 4
     m_GradientMin:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -48,8 +48,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.4431373, g: 0.49803925, b: 0.9960785, a: 1}
+      key1: {r: 0.5019608, g: 0.5176471, b: 0.5372549, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -81,7 +81,7 @@ MonoBehaviour:
   hitGradient:
     serializedVersion: 2
     key0: {r: 0, g: 0, b: 0, a: 1}
-    key1: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -110,12 +110,12 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 11
+    amount: 15
     probability: 1
-  maxHealth: 7
-  speed: 0.075
+  maxHealth: 50
+  speed: 0.05
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 0
+  crossSize: 2.5
