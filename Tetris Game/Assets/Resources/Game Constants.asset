@@ -29,11 +29,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 089c2e7d53f14ba4682d48a1fd2d0edc, type: 2}
   - {fileID: 11400000, guid: cdf743b26b83e0c438c812d31c869a5a, type: 2}
   - {fileID: 11400000, guid: a39180f68760ee842b1235f8a1ef016e, type: 2}
+  - {fileID: 11400000, guid: 417557808c75c974c9e5389785b0901b, type: 2}
+  - {fileID: 11400000, guid: 16f8002cb43aec740a9ba39340952351, type: 2}
+  - {fileID: 11400000, guid: 547fd3375cd681440af7a88d5ee4d565, type: 2}
+  - {fileID: 11400000, guid: 222fbe040db86af4b9c8bac415f577a2, type: 2}
+  - {fileID: 11400000, guid: a5c428c02530ec4409dcdccae4e38b5d, type: 2}
   DefaultPlayerData:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 15
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -104,26 +109,16 @@ MonoBehaviour:
       amount: 25
     - type: 0
       amount: 25
-    - type: 0
-      amount: 25
-    - type: 0
-      amount: 25
-    - type: 0
-      amount: 25
-    splitShotPrice:
-    - type: 2
-      amount: 1
+    splitShotPrice: []
     unlockedAt: 1
   - currency:
       type: 0
       amount: 150
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
-    defaultValues: 010000000400000001000000
+    defaultValues: 010000000300000001000000
     damagePrice: []
     fireRatePrice:
-    - type: 0
-      amount: 35
     - type: 0
       amount: 35
     - type: 0
@@ -141,19 +136,15 @@ MonoBehaviour:
       amount: 1
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
-    defaultValues: 010000000300000002000000
+    defaultValues: 010000000100000002000000
     damagePrice:
     - type: 0
       amount: 100
     fireRatePrice:
     - type: 0
-      amount: 35
-    - type: 0
-      amount: 30
-    splitShotPrice:
-    - type: 1
-      amount: 5
-    unlockedAt: 10
+      amount: 100
+    splitShotPrice: []
+    unlockedAt: 15
   - currency:
       type: 0
       amount: 350
@@ -179,7 +170,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 1
       amount: 10
-    unlockedAt: 1
+    unlockedAt: 20
   - currency:
       type: 0
       amount: 250
@@ -367,33 +358,33 @@ MonoBehaviour:
   - blockType: 7
     currency:
       type: 1
-      amount: 4
+      amount: 15
     unlockedAt: 15
   - blockType: 8
     currency:
       type: 1
-      amount: 4
+      amount: 15
     unlockedAt: 15
   - blockType: 11
     currency:
       type: 0
-      amount: 75
+      amount: 300
     unlockedAt: 20
   - blockType: 14
     currency:
-      type: 0
-      amount: 150
+      type: 1
+      amount: 30
     unlockedAt: 25
   - blockType: 15
     currency:
-      type: 0
-      amount: 150
-    unlockedAt: 30
+      type: 1
+      amount: 30
+    unlockedAt: 25
   - blockType: 18
     currency:
-      type: 1
-      amount: 10
-    unlockedAt: 40
+      type: 0
+      amount: 1000
+    unlockedAt: 30
   - blockType: 16
     currency:
       type: 1
@@ -463,7 +454,7 @@ MonoBehaviour:
   - purchaseType: 0
     currency:
       type: 1
-      amount: 5
+      amount: 10
     sprite: {fileID: 21300000, guid: bea6a6482ff6f124cbb37ea7ca4a6069, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: '+1<sprite name=Ammo>
@@ -529,13 +520,11 @@ MonoBehaviour:
     best: 0
   - purchaseType: 7
     currency:
-      type: 1
-      amount: 5
+      type: 2
+      amount: 1
     sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
     title: <bounce a=0.05 f=1>PIGGY CAPACITY
-    info: 'Reduce
-
-      50<size=%85><sprite name=Coin>'
+    info: Reset
     useCondition: 1
     best: 0
   - purchaseType: 8

@@ -66,7 +66,7 @@ namespace Game
                 this._size = size;
                 DropPositions = new int[size.x];
                 
-                CameraManager.THIS.OrtoSize = _size.x + 1.82f;
+                CameraManager.THIS.OrtoSize = Mathf.Max(7.63f, _size.x + 1.82f);
 
                 if (_places != null)
                 {
@@ -104,7 +104,9 @@ namespace Game
                 
                 visualFrame.sizeDelta = new Vector2(_size.x * 100.0f + 42.7f, _size.y * 100.0f + 42.7f);
                 _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
-                ground.localScale = Vector3.one * (25.0f + (_size.x - 6) * 2.5f);
+
+                float groundScale = (25.0f + (_size.x - 6) * 2.5f);
+                ground.localScale = Vector3.one * Mathf.Max(groundScale, 25.0f);
 
                 
                 this.enabled = true;

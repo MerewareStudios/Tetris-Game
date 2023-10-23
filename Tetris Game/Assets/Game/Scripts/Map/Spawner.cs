@@ -375,7 +375,7 @@ public class Spawner : Singleton<Spawner>
         Pool pool;
         if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
         {
-            _smoothFactorLerp = 3.0f;
+            _smoothFactorLerp = 5.0f;
             suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
         }

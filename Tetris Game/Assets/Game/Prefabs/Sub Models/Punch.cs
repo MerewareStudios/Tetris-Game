@@ -47,7 +47,7 @@ public class Punch : SubModel
         {
             if (enemyID == enemy.ID)
             {
-                enemy.TakeDamage(1, 1.0f);
+                enemy.TakeDamage(10, 1.0f);
                 enemy.Drag(2.0f, Warzone.THIS.AssignClosestEnemy);
             }
             
