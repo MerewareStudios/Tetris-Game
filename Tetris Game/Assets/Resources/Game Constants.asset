@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 49
+  bundleVersionCode: 51
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -39,11 +39,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8d737cd2f0d9dbc458843b00682728f3, type: 2}
   - {fileID: 11400000, guid: 0beb5262a25420245b79691d47ed9add, type: 2}
   - {fileID: 11400000, guid: fd7327202e99eba49bee6e79720ce3c0, type: 2}
+  - {fileID: 11400000, guid: 2312ec789018b7c449c10cc60afe3a48, type: 2}
   DefaultPlayerData:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 24
+    level: 26
     pupData:
       available: 1
       currentUsage: 4

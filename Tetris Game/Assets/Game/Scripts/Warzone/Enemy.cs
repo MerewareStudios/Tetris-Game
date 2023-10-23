@@ -23,6 +23,7 @@ namespace  Game
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
         private static int HIT_HASH = Animator.StringToHash("Hit");
+        private static int CAST_HASH = Animator.StringToHash("Cast");
 
         public int Damage => Health;
         public float PositionZ => thisTransform.position.z;
@@ -56,6 +57,16 @@ namespace  Game
             {
                 Warzone.THIS.EnemyKilled(this, true);
             }
+        }
+
+        public void Cast()
+        {
+            animator.SetTrigger(CAST_HASH);
+
+        }
+        public void OnCast()
+        {
+
         }
     #endregion
 
@@ -91,7 +102,6 @@ namespace  Game
             else
             {
                 animator.SetTrigger(HIT_HASH);
-                // animator.CrossFade(HIT_HASH, 0.1f);
             }
         }
 
@@ -142,6 +152,11 @@ namespace  Game
             this.enabled = true;
 
             DragTarget = false;
+
+            if (so.cast)
+            {
+                Cast();
+            }
         }
         public void Kamikaze()
         {

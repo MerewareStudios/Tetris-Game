@@ -38,7 +38,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform clickLocation_Continue;
     [SerializeField] private Transform clickLocation_Break;
     public const int PiggyCapIncrease = 10;
-    public const int TicketRewardEveryBreak = 5;
+    public const int TicketRewardEveryBreak = 8;
 
     
     #region Menu
