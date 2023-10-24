@@ -41,11 +41,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd7327202e99eba49bee6e79720ce3c0, type: 2}
   - {fileID: 11400000, guid: 2312ec789018b7c449c10cc60afe3a48, type: 2}
   - {fileID: 11400000, guid: 8357a588569563443bb9078a8996759a, type: 2}
+  - {fileID: 11400000, guid: 5f114a9c102049b4c85f81cf18a5da1e, type: 2}
+  - {fileID: 11400000, guid: 2753857d54615ec4fb62fa913e00443e, type: 2}
+  - {fileID: 11400000, guid: 0bc999025b1b40040b6a29f2b23a9732, type: 2}
+  - {fileID: 11400000, guid: f74951210c358fc41b98382985bc014c, type: 2}
   DefaultPlayerData:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 27
+    level: 31
     pupData:
       available: 1
       currentUsage: 4

@@ -119,7 +119,7 @@ MonoBehaviour:
   emitCount: 3
   deathEmitCount: 5
   wipeDelay: 0.7
-  crossSize: 1
+  crossSize: 1.25
   castType: 0
   deathAction: 0
   extraInt: 0

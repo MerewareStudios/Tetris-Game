@@ -78,15 +78,25 @@ namespace  Game
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
                     break;
+                case CastTypes.DestoryPawn:
+                    animator.SetBool(CASTING_BOOL_HASH, true);
+                    animator.SetTrigger(CAST_HASH);
+                    break;
             }
         }
         public void OnCast()
         {
+            Debug.Log("oncast");
             animator.SetBool(CASTING_BOOL_HASH, false);
             switch (so.castType)
             {
+                case CastTypes.None:
+                    break;
                 case CastTypes.SpawnBomb:
-                    Board.THIS.SpawnTrapBomb();
+                    Board.THIS.SpawnTrapBomb(so.extraInt);
+                    break;
+                case CastTypes.DestoryPawn:
+                    
                     break;
             }
         }
@@ -138,7 +148,7 @@ namespace  Game
                     for (int i = 0; i < so.extraInt; i++)
                     {
                         Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position);
-                        Vector3 target = thisTransform.position + new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(0.35f, 1.5f));
+                        Vector3 target = thisTransform.position + new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(0.35f, 2.0f));
                         target.z = Mathf.Min(Warzone.THIS.StartLine, target.z);
                         enemy.Jump(target);
                     }
@@ -267,6 +277,7 @@ namespace  Game
         {
             None,
             SpawnBomb,
+            DestoryPawn,
         }
         public enum DeathAction
         {

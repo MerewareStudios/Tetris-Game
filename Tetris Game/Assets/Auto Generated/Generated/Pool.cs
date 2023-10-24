@@ -68,5 +68,6 @@ public enum Pool
     Lock = 65,
     Enemy_7 = 66,
     Enemy_8 = 67,
+    Enemy_9 = 68,
 
 }

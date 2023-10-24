@@ -589,7 +589,7 @@ namespace Game
             }
         }
 
-        public void SpawnTrapBomb()
+        public void SpawnTrapBomb(int extra)
         {
             int startHeight = Mathf.Min(3, _size.y);
 
@@ -618,7 +618,7 @@ namespace Game
 
             Place randomPlace = randomPlaces.Random();
             Particle.Lightning.Play(randomPlace.PlacePosition - CameraManager.THIS.gameCamera.transform.forward);
-            SpawnPawn(randomPlace, Pawn.Usage.Bomb, 30, false);
+            SpawnPawn(randomPlace, Pawn.Usage.Bomb, extra, false);
 
         }
 
