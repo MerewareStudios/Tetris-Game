@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     public Pool type;
+    public Vector3 scale = Vector3.one;
     public float extraWait;
     public ParticleSystem.MinMaxGradient colorGrad;
     public Gradient hitGradient;
@@ -18,8 +19,10 @@ public class EnemyData : ScriptableObject
     public int deathEmitCount;
     public float wipeDelay;
     public float crossSize;
-    public bool cast = false;
     public Enemy.CastTypes castType;
+    public Enemy.DeathAction deathAction;
+    public int extraInt = 0;
+    public EnemyData extraData;
 
 
     [System.Serializable]

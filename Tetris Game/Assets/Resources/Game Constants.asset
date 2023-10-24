@@ -40,11 +40,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0beb5262a25420245b79691d47ed9add, type: 2}
   - {fileID: 11400000, guid: fd7327202e99eba49bee6e79720ce3c0, type: 2}
   - {fileID: 11400000, guid: 2312ec789018b7c449c10cc60afe3a48, type: 2}
+  - {fileID: 11400000, guid: 8357a588569563443bb9078a8996759a, type: 2}
   DefaultPlayerData:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 26
+    level: 27
     pupData:
       available: 1
       currentUsage: 4

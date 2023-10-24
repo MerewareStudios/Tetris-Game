@@ -14499,6 +14499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c9f0c007ec118489f4fcd0607a44d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 3299348889971161220}
   healthCanvas: {fileID: 8566797743979851600}
   thisTransform: {fileID: 8114693562586747917}
   hitTarget: {fileID: 7416648764967586871}

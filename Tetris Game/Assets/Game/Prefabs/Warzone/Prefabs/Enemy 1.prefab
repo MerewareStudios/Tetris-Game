@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8378691406913158292}
+  - {fileID: 3246643643626349412}
   m_Father: {fileID: 8114693562586747917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6409661743272111104
@@ -62,7 +63,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3246643643626349412}
   - {fileID: 3299348889971161220}
   - {fileID: 1856841937678366673}
   m_Father: {fileID: 0}
@@ -79,12 +79,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c9f0c007ec118489f4fcd0607a44d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 3299348889971161220}
   healthCanvas: {fileID: 357221565438194629}
   thisTransform: {fileID: 8114693562586747917}
   hitTarget: {fileID: 842397198887833059}
   skin: {fileID: 8378691406909812152}
   animator: {fileID: 8378691406905725816}
   so: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
+  castPs: {fileID: 0}
 --- !u!1 &7122726850145854046
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,10 +146,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.707107, y: -0, z: -0, w: 0.70710665}
   m_LocalPosition: {x: 0.239, y: 0.016098991, z: -0.212}
-  m_LocalScale: {x: 1.6897992, y: 1.6897978, z: 1.6897978}
+  m_LocalScale: {x: 1.6897992, y: 1.6897979, z: 1.6897979}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8114693562586747917}
+  m_Father: {fileID: 3299348889971161220}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &83204297172488309
 MeshFilter:

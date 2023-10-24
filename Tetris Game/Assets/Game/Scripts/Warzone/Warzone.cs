@@ -195,7 +195,7 @@ namespace  Game
             Spawning = false;
         }
 
-        private Enemy SpawnEnemy(EnemyData enemyData)
+        public Enemy SpawnEnemy(EnemyData enemyData)
         {
             Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
@@ -204,6 +204,18 @@ namespace  Game
 
             _leftEnemyHealth -= enemyData.maxHealth;
             UpdateProgress();
+            
+            
+            return enemy;
+        }
+        public Enemy CustomSpawnEnemy(EnemyData enemyData, Vector3 position)
+        {
+            Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
+            enemy.so = enemyData;
+            enemy.OnSpawn(position, GetNewEnemyID());
+            enemy.Replenish();
+            
+            _enemies.Add(enemy);
             
             return enemy;
         }

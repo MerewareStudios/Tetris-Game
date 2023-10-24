@@ -79,12 +79,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c9f0c007ec118489f4fcd0607a44d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 3299348889971161220}
   healthCanvas: {fileID: 3792042862736078876}
   thisTransform: {fileID: 8114693562586747917}
   hitTarget: {fileID: 358553613084696079}
   skin: {fileID: 4267329966500714900}
   animator: {fileID: 3007939460874412079}
   so: {fileID: 11400000, guid: efba3fb6480ad6c41b30794d64be42bf, type: 2}
+  castPs: {fileID: 0}
 --- !u!1 &7005631458698896839
 GameObject:
   m_ObjectHideFlags: 0

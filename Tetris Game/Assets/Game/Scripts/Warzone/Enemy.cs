@@ -4,11 +4,13 @@ using DG.Tweening;
 using Game.UI;
 using Internal.Core;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace  Game
 {
     public class Enemy : MonoBehaviour
     {
+        [SerializeField] private Transform model;
         [SerializeField] private HealthCanvas healthCanvas;
         [SerializeField] public Transform thisTransform;
         [SerializeField] public Transform hitTarget;
@@ -64,13 +66,19 @@ namespace  Game
 
         public void Cast()
         {
-            if (castPs)
+            switch (so.castType)
             {
-                castPs.Play();
+                case CastTypes.None:
+                    break;
+                case CastTypes.SpawnBomb:
+                    if (castPs)
+                    {
+                        castPs.Play();
+                    }
+                    animator.SetBool(CASTING_BOOL_HASH, true);
+                    animator.SetTrigger(CAST_HASH);
+                    break;
             }
-            animator.SetBool(CASTING_BOOL_HASH, true);
-            animator.SetTrigger(CAST_HASH);
-
         }
         public void OnCast()
         {
@@ -111,11 +119,31 @@ namespace  Game
             Health -= value;
             if (Health <= 0)
             {
+                OnDeathAction();
                 Warzone.THIS.EnemyKilled(this);
             }
             else
             {
                 animator.SetTrigger(HIT_HASH);
+            }
+        }
+
+        private void OnDeathAction()
+        {
+            switch (so.deathAction)
+            {
+                case DeathAction.None:
+                    break;
+                case DeathAction.Swarm:
+                    for (int i = 0; i < so.extraInt; i++)
+                    {
+                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position);
+                        Vector3 target = thisTransform.position + new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(0.35f, 1.5f));
+                        target.z = Mathf.Min(Warzone.THIS.StartLine, target.z);
+                        enemy.Jump(target);
+                    }
+                    // Warzone.THIS.AssignClosestEnemy();
+                    break;
             }
         }
 
@@ -132,6 +160,7 @@ namespace  Game
             float finalDrag = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance);
             
             thisTransform.DOKill();
+            // thisTransform.localScale = Vector3.one;
             thisTransform.DOMoveZ(finalDrag, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>
             {
                 _dragTrail.Despawn();
@@ -139,6 +168,12 @@ namespace  Game
                 DragTarget = false;
                 onComplete?.Invoke();
             };
+        }
+
+        public void Jump(Vector3 target)
+        {
+            thisTransform.DOKill();
+            thisTransform.DOJump(target, 1.0f, 1, 0.5f);
         }
 
         private void ColorPunch()
@@ -155,26 +190,26 @@ namespace  Game
         public void OnSpawn(Vector3 position, int id)
         {
             this.ID = id;
+            
             thisTransform.DOKill();
+            model.DOKill();
             
             thisTransform.position = position;
             thisTransform.forward = Vector3.back;
 
-            thisTransform.localScale = Vector3.zero;
-            thisTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
+            model.localScale = Vector3.zero;
+            model.DOScale(so.scale, 0.2f).SetEase(Ease.Linear);
 
             this.enabled = true;
 
             DragTarget = false;
 
-            if (so.cast)
-            {
-                Cast();
-            }
+            Cast();
         }
+        
         public void Kamikaze()
         {
-            thisTransform.DOKill();
+            model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();
@@ -182,7 +217,7 @@ namespace  Game
 
         public void Kill()
         {
-            thisTransform.DOKill();
+            model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             
             animator.SetTrigger(DEATH_HASH);
@@ -218,7 +253,7 @@ namespace  Game
 
         public void Deconstruct()
         {
-            thisTransform.DOKill();
+            model.DOKill();
 
             if (_dragTrail)
             {
@@ -230,7 +265,13 @@ namespace  Game
 
         public enum CastTypes
         {
+            None,
             SpawnBomb,
+        }
+        public enum DeathAction
+        {
+            None,
+            Swarm,
         }
         
         [System.Serializable]
