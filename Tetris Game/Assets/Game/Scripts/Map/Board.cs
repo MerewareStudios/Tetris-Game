@@ -589,6 +589,39 @@ namespace Game
             }
         }
 
+        public void SpawnTrapBomb()
+        {
+            int startHeight = Mathf.Min(3, _size.y);
+
+            List<Place> randomPlaces = new List<Place>();
+
+            for (int y = startHeight; y >= 0; y--)
+            {
+                for (int x = 0; x < _size.x; x++)
+                {
+                    Vector2Int index = new Vector2Int(x, y);
+                    Place place = _places[index.x, index.y];
+                    
+                    if (place.Occupied || ExpectedMoverComing(index))
+                    {
+                        continue;
+                    }
+                    
+                    randomPlaces.Add(place);
+                }
+            }
+
+            if (randomPlaces.Count == 0)
+            {
+                return;
+            }
+
+            Place randomPlace = randomPlaces.Random();
+            Particle.Lightning.Play(randomPlace.PlacePosition - CameraManager.THIS.gameCamera.transform.forward);
+            SpawnPawn(randomPlace, Pawn.Usage.Bomb, 30, false);
+
+        }
+
         private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier, int mergeIndex)
         {
             Place spawnPlace = _places[horizontal, lineIndex];

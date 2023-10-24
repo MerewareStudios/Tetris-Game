@@ -420,7 +420,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths:
-    - Staff
+    - Body/Spine01/Spine02/Spine03/UpperArm_R/LowerArm_R/Hand_R/WeaponPosition/Staff01
     extraUserProperties: []
     clipAnimations: []
     isReadable: 1

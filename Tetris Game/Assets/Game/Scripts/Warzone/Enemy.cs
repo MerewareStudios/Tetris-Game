@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
@@ -14,6 +15,7 @@ namespace  Game
         [SerializeField] private Renderer skin;
         [SerializeField] private Animator animator;
         [SerializeField] public EnemyData so;
+        [SerializeField] public ParticleSystem castPs;
         [System.NonSerialized] private int _health;
         [System.NonSerialized] private Tween _colorPunchTween;
         [System.NonSerialized] public int ID;
@@ -24,6 +26,7 @@ namespace  Game
         private static int DEATH_HASH = Animator.StringToHash("Death");
         private static int HIT_HASH = Animator.StringToHash("Hit");
         private static int CAST_HASH = Animator.StringToHash("Cast");
+        private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
 
         public int Damage => Health;
         public float PositionZ => thisTransform.position.z;
@@ -61,12 +64,23 @@ namespace  Game
 
         public void Cast()
         {
+            if (castPs)
+            {
+                castPs.Play();
+            }
+            animator.SetBool(CASTING_BOOL_HASH, true);
             animator.SetTrigger(CAST_HASH);
 
         }
         public void OnCast()
         {
-
+            animator.SetBool(CASTING_BOOL_HASH, false);
+            switch (so.castType)
+            {
+                case CastTypes.SpawnBomb:
+                    Board.THIS.SpawnTrapBomb();
+                    break;
+            }
         }
     #endregion
 
@@ -212,6 +226,11 @@ namespace  Game
                 _dragTrail = null;
             }
             this.Despawn();
+        }
+
+        public enum CastTypes
+        {
+            SpawnBomb,
         }
         
         [System.Serializable]

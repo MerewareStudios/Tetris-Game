@@ -10,5 +10,6 @@ public enum Particle
     Energy = 7,
     Confetti = 8,
     Pow = 9,
+    Lightning = 10,
 
 }

@@ -19,6 +19,7 @@ public class EnemyData : ScriptableObject
     public float wipeDelay;
     public float crossSize;
     public bool cast = false;
+    public Enemy.CastTypes castType;
 
 
     [System.Serializable]
