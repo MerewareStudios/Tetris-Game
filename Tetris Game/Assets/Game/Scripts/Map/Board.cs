@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -508,6 +509,8 @@ namespace Game
                         }
                     }
                 }
+
+                ClearDropPositions();
             }
         #endregion
         
@@ -620,6 +623,25 @@ namespace Game
             Particle.Lightning.Play(randomPlace.PlacePosition - CameraManager.THIS.gameCamera.transform.forward);
             SpawnPawn(randomPlace, Pawn.Usage.Bomb, extra, false);
 
+        }
+        
+        public void DestroyWithProjectile(ParticleSystem ps, Vector3 startPosition)
+        {
+            ps.Clear();
+            Vector2Int pos = new Vector2Int(Random.Range(0, _size.x), Random.Range(0, _size.y));
+            Vector3 targetPosition = _places[pos.x, pos.y].PlacePosition;
+            targetPosition.y += 0.5f;
+            
+            ps.Play();
+            Transform psTransform = ps.transform;
+            psTransform.position = startPosition;
+            psTransform.DOJump(targetPosition, 2.0f, 1, 1.0f).onComplete = () =>
+            {
+                ps.Stop();
+                Particle.Missile_Explosion.Play(targetPosition);
+                ExplodePawnsCircular(pos, Board.BombRadius);
+                MarkDropPointsMover();
+            };
         }
 
         private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier, int mergeIndex)
@@ -739,6 +761,11 @@ namespace Game
                 return;
             }
 
+            if (pawn.ParentBlock)
+            {
+                pawn.ParentBlock.DetachPawn(pawn);
+            }
+            
             pawn.Deconstruct();
             place.Current = null;
         }

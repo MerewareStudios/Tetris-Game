@@ -122,5 +122,5 @@ MonoBehaviour:
   crossSize: 2.25
   castType: 2
   deathAction: 0
-  extraInt: 30
+  extraInt: 10
   extraData: {fileID: 0}

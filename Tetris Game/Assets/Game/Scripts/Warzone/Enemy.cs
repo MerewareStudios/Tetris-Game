@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
@@ -18,11 +17,13 @@ namespace  Game
         [SerializeField] private Animator animator;
         [SerializeField] public EnemyData so;
         [SerializeField] public ParticleSystem castPs;
+        [SerializeField] public Transform castParent;
         [System.NonSerialized] private int _health;
         [System.NonSerialized] private Tween _colorPunchTween;
         [System.NonSerialized] public int ID;
         [System.NonSerialized] private GameObject _dragTrail = null;
         [System.NonSerialized] public bool DragTarget = false;
+        [System.NonSerialized] public Tween _castTweenLoop;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
@@ -66,6 +67,8 @@ namespace  Game
 
         public void Cast()
         {
+            _castTweenLoop?.Kill();
+
             switch (so.castType)
             {
                 case CastTypes.None:
@@ -79,14 +82,20 @@ namespace  Game
                     animator.SetTrigger(CAST_HASH);
                     break;
                 case CastTypes.DestoryPawn:
+                    if (castPs)
+                    {
+                        castPs.Stop();
+                        castPs.transform.DOKill();
+                    }
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
+                    
+                    _castTweenLoop = DOVirtual.DelayedCall(so.extraInt, Cast, false).SetLoops(-1);
                     break;
             }
         }
         public void OnCast()
         {
-            Debug.Log("oncast");
             animator.SetBool(CASTING_BOOL_HASH, false);
             switch (so.castType)
             {
@@ -96,7 +105,8 @@ namespace  Game
                     Board.THIS.SpawnTrapBomb(so.extraInt);
                     break;
                 case CastTypes.DestoryPawn:
-                    
+                    castPs.Play();
+                    Board.THIS.DestroyWithProjectile(castPs, castParent.position);
                     break;
             }
         }
@@ -219,6 +229,8 @@ namespace  Game
         
         public void Kamikaze()
         {
+            _castTweenLoop?.Kill();
+            
             model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
@@ -227,6 +239,8 @@ namespace  Game
 
         public void Kill()
         {
+            _castTweenLoop?.Kill();
+            
             model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             

@@ -235,7 +235,6 @@ namespace Game
         {
             _delayedTween?.Kill();
             _moveTween?.Kill();
-
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
