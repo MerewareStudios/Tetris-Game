@@ -68,7 +68,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 44
     pupData:
       available: 1
       currentUsage: 4

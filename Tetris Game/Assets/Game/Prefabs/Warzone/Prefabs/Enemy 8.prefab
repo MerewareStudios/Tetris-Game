@@ -119,6 +119,7 @@ MonoBehaviour:
   animator: {fileID: 8957502134259416449}
   so: {fileID: 11400000, guid: c1b49e84f93f8e94aa30e2743a6338a2, type: 2}
   castPs: {fileID: 0}
+  castParent: {fileID: 0}
 --- !u!1 &8103794701876690800
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +315,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57832867, y: 0.57832867, z: 0.57832867}
+  m_LocalScale: {x: 0.80832994, y: 0.80832994, z: 0.80832994}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8957502134266565161}

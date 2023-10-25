@@ -114,14 +114,24 @@ public class Const : SSingleton<Const>
         int accumReward = 0;
         for (int i = 0; i < Levels.Length; i++)
         {
-            if (i % 5 == 0)
-            {
-                accumReward = 0;
-            }
+            string colorTag;
+            
             LevelSo levelSo = Levels[i];
             (string info, int totalReward) = levelSo.ToString(i + 1);
             accumReward += totalReward;
-            Debug.Log(info + " | <color=cyan>Accum Reward : " + accumReward + "</color>");
+
+            int accumDisplayed = accumReward;
+            if ((i+1) % 5 == 0)
+            {
+                colorTag = "yellow";
+                accumReward = 0;
+            }
+            else
+            {
+                colorTag = "cyan";
+            }
+            Debug.Log(info + " | <color=" + colorTag + ">Accum Reward : " + accumDisplayed + "</color>");
+            
         }
     }
 }
@@ -132,10 +142,6 @@ public static class ConstExtensions
     {
         return Const.THIS.pawnVisualData[(int)usage].model; 
     }
-    // public static bool HoverOnMerge(this Pawn pawn)
-    // {
-    //     return Const.THIS.pawnVisualData[(int)pawn.UsageType].hoverOnMerge; 
-    // }
     public static Sprite PowerUpIcon(this Pawn.Usage usage)
     {
         return Const.THIS.pawnVisualData[(int)usage].powerUpIcon; 

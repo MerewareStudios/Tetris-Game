@@ -111,7 +111,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 2
+    amount: 1
     probability: 1
   maxHealth: 2
   speed: 0.075
@@ -123,5 +123,7 @@ MonoBehaviour:
   crossSize: 1.25
   castType: 0
   deathAction: 0
-  extraInt: 0
+  spawnerCount: 0
+  spawnerDuration: 0
+  spawnerExtra: 0
   extraData: {fileID: 0}

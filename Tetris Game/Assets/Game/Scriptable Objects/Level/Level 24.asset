@@ -21,7 +21,7 @@ MonoBehaviour:
     - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
       count: 10
     - enemyData: {fileID: 11400000, guid: f4dfa9b0d7ae797498c60029054b6c7b, type: 2}
-      count: 30
+      count: 20
   victoryReward:
     type: 0
     amount: 50

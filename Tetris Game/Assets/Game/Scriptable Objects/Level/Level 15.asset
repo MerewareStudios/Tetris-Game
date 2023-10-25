@@ -25,7 +25,7 @@ MonoBehaviour:
     - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
       count: 2
     - enemyData: {fileID: 11400000, guid: efba3fb6480ad6c41b30794d64be42bf, type: 2}
-      count: 3
+      count: 4
   victoryReward:
     type: 0
     amount: 25
@@ -36,10 +36,14 @@ MonoBehaviour:
   pawnPlacements:
   - usage: 3
     index: {x: 0, y: 0}
+    extra: 0
   - usage: 11
     index: {x: 0, y: 1}
+    extra: 0
   - usage: 3
     index: {x: 7, y: 1}
+    extra: 0
   - usage: 11
     index: {x: 7, y: 0}
+    extra: 0
   powerUps: 0400000007000000

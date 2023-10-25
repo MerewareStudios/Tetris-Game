@@ -33,7 +33,7 @@ namespace Game
             foreach (var countData in EnemySpawnData.countDatas)
             {
                 int enemyTotalReward = countData.enemyData.enemyRewards[0].amount * countData.count;
-                stringBuilder.AppendLine("<color=red>" + countData.enemyData.type + " x" + countData.count + " (" + (countData.enemyData.maxHealth * countData.count) + ") : " + enemyTotalReward + "</color>");
+                stringBuilder.AppendLine("<color=red>" + countData.enemyData.name + " x" + countData.count + " (" + (countData.enemyData.maxHealth * countData.count) + ") : " + enemyTotalReward + "</color>");
 
                 totalReward += enemyTotalReward;
                 totalHealth += countData.enemyData.maxHealth * countData.count;
