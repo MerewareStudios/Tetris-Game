@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy 1
   m_EditorClassIdentifier: 
   type: 19
+  scale: {x: 1, y: 1, z: 1}
   extraWait: 0
   colorGrad:
     m_Mode: 4
@@ -114,8 +115,13 @@ MonoBehaviour:
     probability: 1
   maxHealth: 6
   speed: 0.075
+  forwardRange: {x: 1, y: 1}
   radius: 0.5
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 0.7
   crossSize: 1.75
+  castType: 0
+  deathAction: 0
+  extraInt: 0
+  extraData: {fileID: 0}

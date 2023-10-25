@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Level 34
   m_EditorClassIdentifier: 
   deltaMult: 1
-  boardSize: {x: 5, y: 5}
+  boardSize: {x: 6, y: 5}
   EnemySpawnData:
     spawnDelay: 3
     spawnInterval: 4
     countDatas:
     - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
       count: 20
+    - enemyData: {fileID: 11400000, guid: 54d83e2243c9b8e499c65dec04d2b9c8, type: 2}
+      count: 1
   victoryReward:
     type: 0
     amount: 50
@@ -32,12 +34,12 @@ MonoBehaviour:
     index: {x: 0, y: 0}
     extra: 0
   - usage: 13
-    index: {x: 4, y: 0}
+    index: {x: 5, y: 0}
     extra: 0
   - usage: 13
     index: {x: 0, y: 1}
     extra: 0
   - usage: 13
-    index: {x: 4, y: 1}
+    index: {x: 5, y: 1}
     extra: 0
   powerUps: 0400000007000000

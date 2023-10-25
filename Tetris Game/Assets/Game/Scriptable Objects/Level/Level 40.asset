@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 35
+  m_Name: Level 40
   m_EditorClassIdentifier: 
   deltaMult: 1
-  boardSize: {x: 7, y: 8}
+  boardSize: {x: 7, y: 7}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 6
+    spawnInterval: 10
     countDatas:
-    - enemyData: {fileID: 11400000, guid: d337691ea73436149b772fb0201d428b, type: 2}
-      count: 5
+    - enemyData: {fileID: 11400000, guid: bb83f730b4e975f459599dc5c4fbf1f7, type: 2}
+      count: 2
+    - enemyData: {fileID: 11400000, guid: b756a33552c51d345b799b71d7a6094e, type: 2}
+      count: 1
+    - enemyData: {fileID: 11400000, guid: f4dfa9b0d7ae797498c60029054b6c7b, type: 2}
+      count: 4
   victoryReward:
     type: 0
     amount: 50
@@ -34,22 +38,16 @@ MonoBehaviour:
   - usage: 13
     index: {x: 6, y: 0}
     extra: 0
-  - usage: 3
-    index: {x: 0, y: 1}
-    extra: 0
-  - usage: 3
-    index: {x: 6, y: 1}
-    extra: 0
-  - usage: 13
-    index: {x: 0, y: 2}
-    extra: 0
-  - usage: 13
-    index: {x: 6, y: 2}
-    extra: 0
-  - usage: 3
-    index: {x: 0, y: 3}
-    extra: 0
-  - usage: 3
-    index: {x: 6, y: 3}
-    extra: 0
+  - usage: 10
+    index: {x: 1, y: 0}
+    extra: 3
+  - usage: 10
+    index: {x: 5, y: 0}
+    extra: 3
+  - usage: 9
+    index: {x: 1, y: 1}
+    extra: 30
+  - usage: 9
+    index: {x: 5, y: 1}
+    extra: 20
   powerUps: 0400000007000000

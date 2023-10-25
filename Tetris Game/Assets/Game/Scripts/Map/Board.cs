@@ -622,7 +622,6 @@ namespace Game
             Place randomPlace = randomPlaces.Random();
             Particle.Lightning.Play(randomPlace.PlacePosition - CameraManager.THIS.gameCamera.transform.forward);
             SpawnPawn(randomPlace, Pawn.Usage.Bomb, extra, false);
-
         }
         
         public void DestroyWithProjectile(ParticleSystem ps, Vector3 startPosition)

@@ -23,7 +23,8 @@ namespace  Game
         [System.NonSerialized] public int ID;
         [System.NonSerialized] private GameObject _dragTrail = null;
         [System.NonSerialized] public bool DragTarget = false;
-        [System.NonSerialized] public Tween _castTweenLoop;
+        [System.NonSerialized] private Tween _castTweenLoop;
+        [System.NonSerialized] private Tween _wipeTween;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
@@ -92,6 +93,14 @@ namespace  Game
                     
                     _castTweenLoop = DOVirtual.DelayedCall(so.extraInt, Cast, false).SetLoops(-1);
                     break;
+                case CastTypes.SpawnEnemy:
+                    if (castPs)
+                    {
+                        castPs.Play();
+                    }
+                    animator.SetBool(CASTING_BOOL_HASH, true);
+                    animator.SetTrigger(CAST_HASH);
+                    break;
             }
         }
         public void OnCast()
@@ -107,6 +116,15 @@ namespace  Game
                 case CastTypes.DestoryPawn:
                     castPs.Play();
                     Board.THIS.DestroyWithProjectile(castPs, castParent.position);
+                    break;
+                case CastTypes.SpawnEnemy:
+                    for (int i = 0; i < so.extraInt; i++)
+                    {
+                        Vector3 pos = Warzone.THIS.NextSpawnPosition(so.extraData.RandomForwardRange());
+                        Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);
+                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos);
+                    }
+                    Warzone.THIS.AssignClosestEnemy();
                     break;
             }
         }
@@ -162,7 +180,6 @@ namespace  Game
                         target.z = Mathf.Min(Warzone.THIS.StartLine, target.z);
                         enemy.Jump(target);
                     }
-                    // Warzone.THIS.AssignClosestEnemy();
                     break;
             }
         }
@@ -246,7 +263,8 @@ namespace  Game
             
             animator.SetTrigger(DEATH_HASH);
 
-            DOVirtual.DelayedCall(so.wipeDelay, () =>
+            _wipeTween?.Kill();
+            _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
@@ -277,6 +295,9 @@ namespace  Game
 
         public void Deconstruct()
         {
+            _castTweenLoop?.Kill();
+            _wipeTween?.Kill();
+
             model.DOKill();
 
             if (_dragTrail)
@@ -292,6 +313,7 @@ namespace  Game
             None,
             SpawnBomb,
             DestoryPawn,
+            SpawnEnemy,
         }
         public enum DeathAction
         {

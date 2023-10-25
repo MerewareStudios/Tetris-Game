@@ -14,6 +14,7 @@ public class EnemyData : ScriptableObject
     public List<EnemyReward> enemyRewards;
     public int maxHealth;
     public float speed;
+    public Vector2 forwardRange = new Vector2(0.0f, 1.0f);
     public float radius;
     public int emitCount;
     public int deathEmitCount;
@@ -24,6 +25,7 @@ public class EnemyData : ScriptableObject
     public int extraInt = 0;
     public EnemyData extraData;
 
+    public float RandomForwardRange() => Random.Range(forwardRange.x, forwardRange.y);
 
     [System.Serializable]
     public class EnemyReward

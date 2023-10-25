@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Dummy - Bonus Level 6
   m_EditorClassIdentifier: 
   type: 41
+  scale: {x: 1, y: 1, z: 1}
+  extraWait: 0
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -113,8 +115,13 @@ MonoBehaviour:
     probability: 1
   maxHealth: 25
   speed: 0
+  forwardRange: {x: 0.4, y: 0.6}
   radius: 0.5
   emitCount: 15
   deathEmitCount: 75
   wipeDelay: 0.7
   crossSize: 1.25
+  castType: 0
+  deathAction: 0
+  extraInt: 0
+  extraData: {fileID: 0}

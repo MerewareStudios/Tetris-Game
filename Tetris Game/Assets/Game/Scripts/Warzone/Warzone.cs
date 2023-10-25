@@ -199,12 +199,11 @@ namespace  Game
         {
             Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
-            enemy.OnSpawn(enemy.so.speed == 0.0f ? MidSpawnPosition(0.4f) : NextSpawnPosition(), GetNewEnemyID());
+            enemy.OnSpawn(NextSpawnPosition(enemy.so.RandomForwardRange()), GetNewEnemyID());
             enemy.Replenish();
 
             _leftEnemyHealth -= enemyData.maxHealth;
             UpdateProgress();
-            
             
             return enemy;
         }
@@ -223,7 +222,6 @@ namespace  Game
         public void RemoveEnemy(Enemy enemy)
         {
             _enemies.Remove(enemy);
-            // enemy.OnRemoved?.Invoke();
             AssignClosestEnemy();
         }
 
@@ -233,28 +231,12 @@ namespace  Game
             _enemies = _enemies.OrderBy(enemy => enemy.PositionZ - EndLine).ToList();
             //Assign first enemy as current target
             Player.CurrentEnemy = _enemies.FirstOrDefault();
-                // .OrderBy(enemy => Mathf.Abs(enemy.transform.position.z - EndLine))
-                
         }
 
-        private Vector3 NextSpawnPosition()
+        public Vector3 NextSpawnPosition(float forwardPercent)
         {
             _spawnRangeNorm = Mathf.Repeat(_spawnRangeNorm + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
-            return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRangeNorm), 0.0f, StartLine);
-        }
-        private Vector3 MidSpawnPosition(float factor)
-        {
-            return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, Mathf.Lerp(StartLine, EndLine, factor));
-        }
-
-        public Vector3 GetMissileTarget()
-        {
-            if (_enemies.Count > 0)
-            {
-                return _enemies[0].hitTarget.position;
-            }
-
-            return MidSpawnPosition(0.5f);
+            return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRangeNorm), 0.0f, Mathf.Lerp(EndLine, StartLine, forwardPercent));
         }
         
         public Enemy GetRandomTarget()

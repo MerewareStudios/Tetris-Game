@@ -118,6 +118,7 @@ MonoBehaviour:
     probability: 0.75
   maxHealth: 10
   speed: 0.1
+  forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35

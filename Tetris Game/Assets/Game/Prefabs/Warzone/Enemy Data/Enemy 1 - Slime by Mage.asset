@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 8
+  m_Name: Enemy 1 - Slime by Mage
   m_EditorClassIdentifier: 
-  type: 67
+  type: 19
   scale: {x: 1, y: 1, z: 1}
   extraWait: 0
   colorGrad:
@@ -49,8 +49,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 0.21903984, g: 0.3490566, b: 0.20877536, a: 1}
-      key1: {r: 0.47450984, g: 0.6666667, b: 0.32941177, a: 1}
+      key0: {r: 1, g: 0.1310675, b: 0, a: 1}
+      key1: {r: 1, g: 0.22075468, b: 0.37690642, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -78,11 +78,11 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
-    m_ColorMax: {r: 0, g: 0, b: 0, a: 0}
+    m_ColorMax: {r: 1, g: 0.2113207, b: 0.2113207, a: 1}
   hitGradient:
     serializedVersion: 2
     key0: {r: 0, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -111,17 +111,17 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 7
+    amount: 5
     probability: 1
-  maxHealth: 7
+  maxHealth: 6
   speed: 0.075
-  forwardRange: {x: 1, y: 1}
-  radius: 0.6
+  forwardRange: {x: 0.3, y: 0.9}
+  radius: 0.5
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 2
+  crossSize: 1.75
   castType: 0
-  deathAction: 1
-  extraInt: 5
-  extraData: {fileID: 11400000, guid: 333f0e1a2cc59b14ea8096f797d23091, type: 2}
+  deathAction: 0
+  extraInt: 0
+  extraData: {fileID: 0}
