@@ -72,5 +72,8 @@ public enum Pool
     Enemy_10 = 69,
     Enemy_11 = 70,
     Enemy_12 = 71,
+    T_Long_Block = 72,
+    V_Block = 73,
+    Triangle_Block = 74,
 
 }

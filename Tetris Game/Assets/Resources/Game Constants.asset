@@ -430,6 +430,21 @@ MonoBehaviour:
       type: 0
       amount: 500
     unlockedAt: 55
+  - blockType: 72
+    currency:
+      type: 0
+      amount: 200
+    unlockedAt: 55
+  - blockType: 73
+    currency:
+      type: 0
+      amount: 200
+    unlockedAt: 55
+  - blockType: 74
+    currency:
+      type: 0
+      amount: 200
+    unlockedAt: 55
   - blockType: 2
     currency:
       type: 0
