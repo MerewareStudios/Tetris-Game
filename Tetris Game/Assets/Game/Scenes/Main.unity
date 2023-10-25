@@ -2733,6 +2733,10 @@ MonoBehaviour:
       type: 3}
     preload: 0
     capacity: 250
+  - gameObject: {fileID: 6409661743272111104, guid: 9093417a36897b746ad33888814caeb2,
+      type: 3}
+    preload: 0
+    capacity: 250
 --- !u!114 &715436860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8920,7 +8924,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.99982
+      value: -511.99976
       objectReference: {fileID: 0}
     - target: {fileID: 2953961042672841300, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
