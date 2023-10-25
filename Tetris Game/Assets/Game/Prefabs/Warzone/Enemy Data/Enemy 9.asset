@@ -123,5 +123,6 @@ MonoBehaviour:
   crossSize: 2.25
   castType: 2
   deathAction: 0
-  extraInt: 10
+  extraInt: 1
+  extraFloat: 10
   extraData: {fileID: 0}

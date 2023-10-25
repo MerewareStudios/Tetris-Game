@@ -124,4 +124,5 @@ MonoBehaviour:
   castType: 1
   deathAction: 0
   extraInt: 45
+  extraFloat: 0
   extraData: {fileID: 0}

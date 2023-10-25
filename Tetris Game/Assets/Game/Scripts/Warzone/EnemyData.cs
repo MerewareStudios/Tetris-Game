@@ -23,6 +23,7 @@ public class EnemyData : ScriptableObject
     public Enemy.CastTypes castType;
     public Enemy.DeathAction deathAction;
     public int extraInt = 0;
+    public int extraFloat = 0;
     public EnemyData extraData;
 
     public float RandomForwardRange() => Random.Range(forwardRange.x, forwardRange.y);

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Dragon Spawner
+  m_Name: Enemy 11
   m_EditorClassIdentifier: 
-  type: 66
+  type: 70
   scale: {x: 1, y: 1, z: 1}
   extraWait: 0
   colorGrad:
@@ -49,8 +49,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 0.3803922, g: 0.32941177, b: 0.7176471, a: 1}
-      key1: {r: 0.6509804, g: 0.36862746, b: 0.9568628, a: 1}
+      key0: {r: 0.57254905, g: 0.7568628, b: 0.43137258, a: 1}
+      key1: {r: 0.76470596, g: 0.58431375, b: 0.42352945, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -111,18 +111,18 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 3
-    amount: 12
+    amount: 50
     probability: 1
-  maxHealth: 16
-  speed: 0.075
-  forwardRange: {x: 1, y: 1}
+  maxHealth: 50
+  speed: 0
+  forwardRange: {x: 0.85, y: 0.925}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
-  wipeDelay: 1.1
-  crossSize: 2
+  wipeDelay: 1.5
+  crossSize: 2.5
   castType: 3
   deathAction: 0
   extraInt: 1
-  extraFloat: 0
-  extraData: {fileID: 11400000, guid: 1293cdac54028144d9ba312ba8e9cfda, type: 2}
+  extraFloat: 6
+  extraData: {fileID: 11400000, guid: 11f0a97049833a84388af7bb3d1fb186, type: 2}

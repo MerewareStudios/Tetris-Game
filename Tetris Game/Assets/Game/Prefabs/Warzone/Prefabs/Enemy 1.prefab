@@ -87,6 +87,7 @@ MonoBehaviour:
   animator: {fileID: 8378691406905725816}
   so: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
   castPs: {fileID: 0}
+  castParent: {fileID: 0}
 --- !u!1 &7122726850145854046
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +278,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
+  m_SkinnedMotionVectors: 0
   m_Mesh: {fileID: 4300000, guid: 6520c6d7889f4c72b416f07f34edd515, type: 3}
   m_Bones: []
   m_BlendShapeWeights: []

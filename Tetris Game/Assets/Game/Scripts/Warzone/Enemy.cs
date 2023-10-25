@@ -90,8 +90,6 @@ namespace  Game
                     }
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
-                    
-                    _castTweenLoop = DOVirtual.DelayedCall(so.extraInt, Cast, false).SetLoops(-1);
                     break;
                 case CastTypes.SpawnEnemy:
                     if (castPs)
@@ -102,6 +100,11 @@ namespace  Game
                     animator.SetTrigger(CAST_HASH);
                     break;
             }
+
+            if (so.extraFloat >= 0.0f)
+            {
+                _castTweenLoop = DOVirtual.DelayedCall(so.extraFloat, Cast, false).SetLoops(-1);
+            }
         }
         public void OnCast()
         {
@@ -111,11 +114,17 @@ namespace  Game
                 case CastTypes.None:
                     break;
                 case CastTypes.SpawnBomb:
-                    Board.THIS.SpawnTrapBomb(so.extraInt);
+                    for (int i = 0; i < so.extraInt; i++)
+                    {
+                        Board.THIS.SpawnTrapBomb(so.extraInt);
+                    }
                     break;
                 case CastTypes.DestoryPawn:
-                    castPs.Play();
-                    Board.THIS.DestroyWithProjectile(castPs, castParent.position);
+                    for (int i = 0; i < so.extraInt; i++)
+                    {
+                        castPs.Play();
+                        Board.THIS.DestroyWithProjectile(castPs, castParent.position);
+                    }
                     break;
                 case CastTypes.SpawnEnemy:
                     for (int i = 0; i < so.extraInt; i++)

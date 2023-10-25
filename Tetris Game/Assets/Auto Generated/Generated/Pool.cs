@@ -70,5 +70,6 @@ public enum Pool
     Enemy_8 = 67,
     Enemy_9 = 68,
     Enemy_10 = 69,
+    Enemy_11 = 70,
 
 }
