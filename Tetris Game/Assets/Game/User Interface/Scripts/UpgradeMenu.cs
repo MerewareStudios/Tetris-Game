@@ -193,7 +193,7 @@ namespace Game.UI
                     Wallet.TICKET.Transaction(15);
                     break;
                 case PurchaseType.MedKit:
-                    Warzone.THIS.Player._CurrentHealth += 15;
+                    Warzone.THIS.Player._CurrentHealth += 25;
                     break;
                 case PurchaseType.CoinPack:
                     Wallet.COIN.Transaction(1500);
@@ -206,9 +206,10 @@ namespace Game.UI
                     Wallet.PIGGY.Transaction(250);
                     break;
                 case PurchaseType.PiggyCapacity:
-                    PiggyMenu.THIS._Data.moneyCapacity -= 50;
-                    PiggyMenu.THIS._Data.moneyCapacity = Mathf.Clamp(PiggyMenu.THIS._Data.moneyCapacity, 0, 10);
-                    PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
+                    PiggyMenu.THIS._Data.moneyCapacity = 10;
+                    // PiggyMenu.THIS._Data.moneyCapacity = Mathf.Clamp(PiggyMenu.THIS._Data.moneyCapacity, 0, 10);
+                    // PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
+                    PiggyMenu.THIS._Data.currentMoney.amount = 0;
                     break;
                 case PurchaseType.BasicChest:
                     Wallet.COIN.Transaction(80);
