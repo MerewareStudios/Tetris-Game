@@ -213,17 +213,17 @@ namespace Game.UI
                     break;
                 case PurchaseType.BasicChest:
                     Wallet.COIN.Transaction(80);
-                    Wallet.PIGGY.Transaction(3);
+                    Wallet.PIGGY.Transaction(2);
                     break;
                 case PurchaseType.PrimeChest:
-                    Wallet.COIN.Transaction(750);
-                    Wallet.PIGGY.Transaction(150);
-                    Wallet.TICKET.Transaction(10);
+                    Wallet.COIN.Transaction(500);
+                    Wallet.PIGGY.Transaction(10);
+                    Wallet.TICKET.Transaction(5);
                     break;
                 case PurchaseType.PrestigeChest:
-                    Wallet.COIN.Transaction(1000);
-                    Wallet.PIGGY.Transaction(250);
-                    Wallet.TICKET.Transaction(25);
+                    Wallet.COIN.Transaction(1250);
+                    Wallet.PIGGY.Transaction(30);
+                    Wallet.TICKET.Transaction(15);
                     break;
                 case PurchaseType.RemoveAdBreak:
                     AdManager.Bypass.Ads();
