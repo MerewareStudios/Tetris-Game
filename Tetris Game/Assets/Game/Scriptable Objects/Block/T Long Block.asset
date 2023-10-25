@@ -16,4 +16,4 @@ MonoBehaviour:
   NormalHeight: 3
   NormalWidth: 3
   checkAngles: 000000005a000000b40000000e010000
-  spawnerOffset: {x: 0, y: 0, z: 1}
+  spawnerOffset: {x: 0, y: 0, z: 0.5}
