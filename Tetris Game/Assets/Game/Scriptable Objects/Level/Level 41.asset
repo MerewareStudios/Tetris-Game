@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
+  m_Name: Level 41
+  m_EditorClassIdentifier: 
+  deltaMult: 1
+  boardSize: {x: 5, y: 5}
+  EnemySpawnData:
+    spawnDelay: 3
+    spawnInterval: 10
+    countDatas:
+    - enemyData: {fileID: 11400000, guid: f8c5bde0f88b62b4085bbdd9e8eaff53, type: 2}
+      count: 8
+    - enemyData: {fileID: 11400000, guid: 6821255f2e4107f409e8aabcd0fc0695, type: 2}
+      count: 2
+  victoryReward:
+    type: 0
+    amount: 50
+  failReward:
+    type: 0
+    amount: 10
+  suggestedBlocks: []
+  pawnPlacements: []
+  powerUps: 0400000007000000

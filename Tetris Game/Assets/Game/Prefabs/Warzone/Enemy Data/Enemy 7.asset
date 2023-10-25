@@ -119,7 +119,7 @@ MonoBehaviour:
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
-  wipeDelay: 0.7
+  wipeDelay: 1.1
   crossSize: 2
   castType: 1
   deathAction: 0
