@@ -211,8 +211,8 @@ namespace Game.UI
                     PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
                     break;
                 case PurchaseType.BasicChest:
-                    Wallet.COIN.Transaction(100);
-                    Wallet.PIGGY.Transaction(5);
+                    Wallet.COIN.Transaction(80);
+                    Wallet.PIGGY.Transaction(3);
                     break;
                 case PurchaseType.PrimeChest:
                     Wallet.COIN.Transaction(750);
