@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Game;
 using Game.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Enemy Data", menuName = "Game/Enemy Data", order = 0)]
 public class EnemyData : ScriptableObject
@@ -22,8 +23,9 @@ public class EnemyData : ScriptableObject
     public float crossSize;
     public Enemy.CastTypes castType;
     public Enemy.DeathAction deathAction;
-    public int extraInt = 0;
-    public int extraFloat = 0;
+    [FormerlySerializedAs("extraInt")] public int spawnerCount = 0;
+    [FormerlySerializedAs("extraFloat")] public float spawnerDuration = 0;
+    public int spawnerExtra = 0;
     public EnemyData extraData;
 
     public float RandomForwardRange() => Random.Range(forwardRange.x, forwardRange.y);

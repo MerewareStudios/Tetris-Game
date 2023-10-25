@@ -101,9 +101,9 @@ namespace  Game
                     break;
             }
 
-            if (so.extraFloat >= 0.0f)
+            if (so.spawnerDuration >= 0.0f)
             {
-                _castTweenLoop = DOVirtual.DelayedCall(so.extraFloat, Cast, false).SetLoops(-1);
+                _castTweenLoop = DOVirtual.DelayedCall(so.spawnerDuration, Cast, false).SetLoops(-1);
             }
         }
         public void OnCast()
@@ -114,20 +114,20 @@ namespace  Game
                 case CastTypes.None:
                     break;
                 case CastTypes.SpawnBomb:
-                    for (int i = 0; i < so.extraInt; i++)
+                    for (int i = 0; i < so.spawnerCount; i++)
                     {
-                        Board.THIS.SpawnTrapBomb(so.extraInt);
+                        Board.THIS.SpawnTrapBomb(so.spawnerExtra);
                     }
                     break;
                 case CastTypes.DestoryPawn:
-                    for (int i = 0; i < so.extraInt; i++)
+                    for (int i = 0; i < so.spawnerCount; i++)
                     {
                         castPs.Play();
                         Board.THIS.DestroyWithProjectile(castPs, castParent.position);
                     }
                     break;
                 case CastTypes.SpawnEnemy:
-                    for (int i = 0; i < so.extraInt; i++)
+                    for (int i = 0; i < so.spawnerCount; i++)
                     {
                         Vector3 pos = Warzone.THIS.NextSpawnPosition(so.extraData.RandomForwardRange());
                         Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);
@@ -182,7 +182,7 @@ namespace  Game
                 case DeathAction.None:
                     break;
                 case DeathAction.Swarm:
-                    for (int i = 0; i < so.extraInt; i++)
+                    for (int i = 0; i < so.spawnerCount; i++)
                     {
                         Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position);
                         Vector3 target = thisTransform.position + new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(0.35f, 2.0f));
