@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Dragon Spawner
+  m_Name: Enemy 7 - Dragon Spawner 2
   m_EditorClassIdentifier: 
   type: 66
   scale: {x: 1, y: 1, z: 1}
@@ -113,7 +113,7 @@ MonoBehaviour:
   - type: 3
     amount: 12
     probability: 1
-  maxHealth: 16
+  maxHealth: 22
   speed: 0.075
   forwardRange: {x: 1, y: 1}
   radius: 0.6
@@ -123,5 +123,5 @@ MonoBehaviour:
   crossSize: 2
   castType: 3
   deathAction: 0
-  extraInt: 1
-  extraData: {fileID: 11400000, guid: 1293cdac54028144d9ba312ba8e9cfda, type: 2}
+  extraInt: 2
+  extraData: {fileID: 11400000, guid: 3f04200c9e2836d4488eb5462ac296f3, type: 2}
