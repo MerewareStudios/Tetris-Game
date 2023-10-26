@@ -104,6 +104,7 @@ namespace  Game
 
             if (so.spawnerDuration >= 0.0f)
             {
+                _castTweenLoop?.Kill();
                 _castTweenLoop = DOVirtual.DelayedCall(so.spawnerDuration, Cast, false).SetLoops(-1);
             }
         }

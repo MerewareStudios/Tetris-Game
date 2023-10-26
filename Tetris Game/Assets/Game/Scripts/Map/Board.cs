@@ -1264,7 +1264,6 @@ namespace Game
             [SerializeField] public int defaultStack = 6;
             [SerializeField] public int maxStack = 6;
             [SerializeField] public int defaultSupplyLine = 6;
-            [SerializeField] public int pawnSat = 75;
             
             public Data()
             {
@@ -1275,7 +1274,6 @@ namespace Game
                 this.defaultStack = data.defaultStack;
                 this.maxStack = data.maxStack;
                 this.defaultSupplyLine = data.defaultSupplyLine;
-                this.pawnSat = data.pawnSat;
             }
 
             public object Clone()

@@ -11,8 +11,6 @@ namespace Game
     public class Player : MonoBehaviour
     {
         [SerializeField] public Renderer skin;
-        [FormerlySerializedAs("_animator")]
-        [Header("Motion Settings")]
         [SerializeField] public Animator animator;
         [SerializeField] private Transform holster;
         [SerializeField] private Transform crossHair;
@@ -20,17 +18,17 @@ namespace Game
         [SerializeField] public Transform lerpTarget;
         [SerializeField] public MeshRenderer crossHairMR;
         [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
+        
         [System.NonSerialized] private Tween _crossColorTween;
-
         [System.NonSerialized] public Gun Gun;
-
         [System.NonSerialized] private Data _data;
-
         [System.NonSerialized] private Vector2 _selfPosition;
         [System.NonSerialized] private float _currentAngle = 0.0f;
         [System.NonSerialized] private bool _shouldGetUp = false;
         [System.NonSerialized] private Coroutine _searchRoutine = null;
         [System.NonSerialized] private Enemy _currentEnemy = null;
+        
+        [System.NonSerialized] private const float AutoEnemySortInterval = 6.0f;
 
         public float Emission
         {
@@ -41,6 +39,7 @@ namespace Game
         {
             set
             {
+                _data.LastTimeEnemySorted = Time.time;
                 this._currentEnemy = value;
                 crossHair.gameObject.SetActive(value);
             }
@@ -238,6 +237,13 @@ namespace Game
                         }
 
                         _Data.Time += Time.deltaTime;
+
+
+                        if (Time.time - _data.LastTimeEnemySorted > AutoEnemySortInterval)
+                        {
+                            Warzone.THIS.AssignClosestEnemy();
+                            _data.LastTimeEnemySorted = Time.time;
+                        }
                     }
 
                     yield return null;
@@ -302,6 +308,7 @@ namespace Game
         public class Data : ICloneable
         {
             [System.NonSerialized] public float Time;
+            [System.NonSerialized] public float LastTimeEnemySorted;
             [SerializeField] public int currentHealth = 0;
             [SerializeField] public int turnRate = 6;
 
