@@ -659,7 +659,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d8d87616088397b499596aaa0bdb5199, type: 2}
   metaTextColors:
   - {r: 0.99607843, g: 0.9490196, b: 0.2627451, a: 1}
-  - {r: 1, g: 0.5137255, b: 0.79025674, a: 1}
+  - {r: 1, g: 0.6431373, b: 0.84705883, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   buttonTextures:
