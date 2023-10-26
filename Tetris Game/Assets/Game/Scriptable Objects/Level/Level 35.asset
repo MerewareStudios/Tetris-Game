@@ -18,7 +18,7 @@ MonoBehaviour:
     spawnDelay: 3
     spawnInterval: 6
     countDatas:
-    - enemyData: {fileID: 11400000, guid: d337691ea73436149b772fb0201d428b, type: 2}
+    - enemyData: {fileID: 11400000, guid: 5752fb17a1e721c438e4300b7edbee06, type: 2}
       count: 5
   victoryReward:
     type: 0

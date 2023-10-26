@@ -123,6 +123,7 @@ MonoBehaviour:
   crossSize: 2
   castType: 1
   deathAction: 0
-  extraInt: 1
-  extraFloat: 30
+  spawnerCount: 1
+  spawnerDuration: 10
+  spawnerExtra: 50
   extraData: {fileID: 0}
