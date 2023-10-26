@@ -37,8 +37,8 @@ namespace Game
 
                     while (true)
                     {
-                        Board.THIS.UsePowerups();
-                        if (!Board.THIS.HasDrop())
+                        float waitOverride = Board.THIS.UsePowerups();
+                        if (!Board.THIS.HasDrop() || waitOverride <= 0.0f)
                         {
                             break;
                         }
@@ -47,7 +47,9 @@ namespace Game
                         Board.THIS.MarkDropPointsMover();
                         Board.THIS.CheckAll();
                         Board.THIS.HighlightPlaces();
-                        yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
+
+                        waitOverride = waitOverride >= 0.0f ? waitOverride : AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
+                        yield return new WaitForSeconds(waitOverride);
                     }
 
                     

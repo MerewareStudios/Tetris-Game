@@ -34,9 +34,6 @@ public class Bomb : SubModel
             return;
         }
 
-
-        // int enemyID = enemy.ID;
-
         Vector3 hitTarget = enemy.hitTarget.position;
 
 
@@ -48,8 +45,6 @@ public class Bomb : SubModel
 
         Sequence.onComplete = () =>
         {
-            // if (enemyID == enemy.ID)
-
             Warzone.THIS.AEODamage(hitTarget, 15, 2.0f);
             
             Particle.Missile_Explosion.Play(hitTarget);
@@ -63,11 +58,8 @@ public class Bomb : SubModel
     public override float OnTick()
     {
         base.OnTick();
-        
         _current -= _tickInterval;
-        // Debug.Log(_tickInterval);
         progress.FillAnimated = _current;
-
         return _current;
     }
 

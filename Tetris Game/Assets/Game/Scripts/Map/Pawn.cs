@@ -15,8 +15,6 @@ namespace Game
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
-        // [System.NonSerialized] private int _amount = 1;
-        
         [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] public Block ParentBlock;
         [System.NonSerialized] public VisualData VData = null;
@@ -141,12 +139,13 @@ namespace Game
                     }
                     return false;
                 case Usage.Gift:
-                    // SubModel.Lose();
+                    SubModel.Lose();
                     SubModel.OnAnimate(() =>
                     {
-                        SetUsageType(Const.THIS.gifts.Random(), 0);
+                        Pawn.Usage usg = Const.THIS.gifts.Random();
+                        SetUsageType(usg, usg.ExtraValue());
                     });
-                    // SubModel = null;
+                    SubModel = null;
                     return false;
                 case Usage.Punch:
                     Enemy punchEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);

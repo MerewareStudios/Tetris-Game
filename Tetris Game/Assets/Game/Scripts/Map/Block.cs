@@ -69,7 +69,7 @@ namespace Game
                 if (!target) continue;
 
                 var targetPosition = target.position;
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, usage.ExternValue(), usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, usage.ExtraValue(), usage);
                 pawn.ParentBlock = this;
 
                 if (!Free2Place)

@@ -96,7 +96,7 @@ namespace Game
                     foreach (var pawnPlacement in pawnPlacements)
                     {
                         Place place = _places[pawnPlacement.index.x, pawnPlacement.index.y];
-                        SpawnPawn(place, pawnPlacement.usage, pawnPlacement.extra == 0 ? pawnPlacement.usage.ExternValue() : pawnPlacement.extra, false);
+                        SpawnPawn(place, pawnPlacement.usage, pawnPlacement.extra == 0 ? pawnPlacement.usage.ExtraValue() : pawnPlacement.extra, false);
                     }
                 }
                 
@@ -424,7 +424,7 @@ namespace Game
         private Place GetPlace(Vector2Int index) => _places[index.x, index.y];
 
         
-        public void UsePowerups()
+        public float UsePowerups()
         {
             ClearDropPositions();
             
@@ -442,7 +442,7 @@ namespace Game
                     if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j);
-                        return;
+                        return 0.0f;
                     }
                     if (place.Current.UsageType.Equals(Pawn.Usage.Bomb))
                     {
@@ -451,18 +451,18 @@ namespace Game
                         if (rest <= 0.0f)
                         {
                              _places[i, j].Current.Explode(new Vector2Int(i, j));
+                             return 0.35f;
                         }
                     }
                     if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Gift))
                     {
                         place.Current.Unpack();
-                        // CreatePawnAtCircular(i, j);
-                        return;
+                        return 0.35f;
                     }
                 }
             }
 
-            return;
+            return -1.0f;
         }
 
         #region Drop
