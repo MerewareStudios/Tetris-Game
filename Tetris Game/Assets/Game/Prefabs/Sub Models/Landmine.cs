@@ -11,7 +11,7 @@ public class Landmine : SubModel
 
         ThisTransform.localRotation = Quaternion.identity;
         
-        const float duration = 0.5f;
+        float duration = Random.Range(0.25f, 1.0f);
         
         Tween moveTween = ThisTransform.DOMove(target, duration).SetEase(Ease.InOutSine);
         Tween rotTween = ThisTransform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.WorldAxisAdd).SetEase(Ease.Linear);

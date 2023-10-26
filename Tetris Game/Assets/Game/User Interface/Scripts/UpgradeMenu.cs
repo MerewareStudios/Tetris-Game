@@ -207,8 +207,6 @@ namespace Game.UI
                     break;
                 case PurchaseType.PiggyCapacity:
                     PiggyMenu.THIS._Data.moneyCapacity = 10;
-                    // PiggyMenu.THIS._Data.moneyCapacity = Mathf.Clamp(PiggyMenu.THIS._Data.moneyCapacity, 0, 10);
-                    // PiggyMenu.THIS._Data.currentMoney.amount = Mathf.Min(PiggyMenu.THIS._Data.currentMoney.amount, PiggyMenu.THIS._Data.moneyCapacity);
                     PiggyMenu.THIS._Data.currentMoney.amount = 0;
                     break;
                 case PurchaseType.BasicChest:
@@ -228,8 +226,6 @@ namespace Game.UI
                 case PurchaseType.RemoveAdBreak:
                     AdManager.Bypass.Ads();
                     _Data.hiddenData[(int)PurchaseType.RemoveAdBreak] = true;
-                    break;
-                default:
                     break;
             }
 

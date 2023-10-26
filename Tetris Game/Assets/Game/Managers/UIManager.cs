@@ -15,6 +15,7 @@ using Visual.Effects;
 public class UIManager : Singleton<UIManager>
 {
    [SerializeField] public TextMeshProUGUI levelText;
+   [SerializeField] public TextMeshProUGUI levelTextMenu;
    [SerializeField] public GameObject levelProgressbar;
    [SerializeField] public Image levelProgress;
    [SerializeField] public ParticleSystem piggyPS;

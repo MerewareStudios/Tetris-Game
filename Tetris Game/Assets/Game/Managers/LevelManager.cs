@@ -16,6 +16,7 @@ public class LevelManager : Singleton<LevelManager>
         Spawner.THIS.OnLevelLoad();
 
         UIManager.THIS.levelText.text = "LEVEL " + CurrentLevel;
+        UIManager.THIS.levelTextMenu.text = UIManager.THIS.levelText.text;
         LevelManager.DeltaMult = CurrentLevel.DeltaMult();
 
         Warzone.THIS.EnemySpawnData = CurrentLevel.GetEnemySpawnData();
