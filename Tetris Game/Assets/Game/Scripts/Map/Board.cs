@@ -1,9 +1,7 @@
-using System;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -769,26 +767,6 @@ namespace Game
             place.Current = null;
         }
 
-        // private void PlaceHighest(Vector2Int current, List<Vector2Int> points)
-        // {
-        //     bool placed = false;
-        //
-        //     for (int k = 0; k < points.Count; k++)
-        //     {
-        //         if (current.x == points[k].x && current.y < points[k].y)
-        //         {
-        //             points[k] = current;
-        //             placed = true;
-        //             break;
-        //         }
-        //     }
-        //
-        //     if (!placed)
-        //     {
-        //         points.Add(current);
-        //     }
-        // }
-        
         private void CreatePawnAtCircular(int horizontal, int vertical)
         {
             Vector2Int center = new Vector2Int(horizontal, vertical);
@@ -817,23 +795,6 @@ namespace Game
 
                     AddDropPosition(current);
                     
-                    // bool placed = false;
-                    //
-                    // for (int k = 0; k < points.Count; k++)
-                    // {
-                    //     if (current.x == points[k].x && current.y < points[k].y)
-                    //     {
-                    //         points[k] = current;
-                    //         placed = true;
-                    //         break;
-                    //     }
-                    // }
-                    //
-                    // if (!placed)
-                    // {
-                    //     points.Add(current);
-                    // }
-
                     lastPawn = pawn;
 
                     totalAmmo += pawn.Amount;
