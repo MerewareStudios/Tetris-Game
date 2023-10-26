@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using Game.UI;
+using Internal.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -46,6 +47,16 @@ namespace Game
             get => this._currentEnemy;
         }
         
+        public Vector3 Position
+        {
+            set
+            {
+                this.transform.position = value;
+                _selfPosition = value.XZ();
+            }
+            get => this.transform.position;
+        }
+        
         [System.NonSerialized] public static readonly int IDLE_HASH = Animator.StringToHash("Idle");
         [System.NonSerialized] public static readonly int SHOOT_HASH = Animator.StringToHash("Shoot");
         [System.NonSerialized] public static readonly int VICTORY_HASH = Animator.StringToHash("Victory");
@@ -76,8 +87,6 @@ namespace Game
             set
             {
                 _data = value;
-                var pos = transform.position;
-                _selfPosition = new Vector2(pos.x, pos.z);
 
                 _CurrentHealth = _data.currentHealth;
 
@@ -206,12 +215,12 @@ namespace Game
                 {
                     if (CurrentEnemy)
                     {
-                        var targetPosition = CurrentEnemy.thisTransform.position;
+                        var targetPosition = CurrentEnemy.Position;
 
                         crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.turnRate * smoothFactor);
                         crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor);
                         
-                        Vector2 direction = new Vector2(targetPosition.x, targetPosition.z) - _selfPosition;
+                        Vector2 direction = targetPosition.XZ() - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
 
                         smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
@@ -286,8 +295,6 @@ namespace Game
         
         public void ResetSelf()
         {
-            // _CurrentHealth = 0;
-            // _Data = _data;
             Gun.ResetSelf();
         }
         
@@ -307,7 +314,6 @@ namespace Game
             }
             public Data(Data data)
             {
-                // this.time = data.time;
                 this.currentHealth = data.currentHealth;
                 this.turnRate = data.turnRate;
             }

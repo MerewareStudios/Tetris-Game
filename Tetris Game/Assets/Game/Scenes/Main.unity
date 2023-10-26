@@ -2852,7 +2852,7 @@ MonoBehaviour:
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6048,6 +6048,37 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1519678617}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1551902924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1551902925}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1551902925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551902924}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1555158685 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6147909386010854118, guid: 9a7d2f4c6ffda974685e045140dadc28,
@@ -11034,6 +11065,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 397908684506922155, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
+      propertyPath: t
+      value: 
+      objectReference: {fileID: 1551902925}
+    - target: {fileID: 397908684506922155, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
       propertyPath: shield
       value: 
       objectReference: {fileID: 0}
@@ -12750,3 +12786,4 @@ SceneRoots:
   - {fileID: 1734323378}
   - {fileID: 2017990421}
   - {fileID: 977451927}
+  - {fileID: 1551902925}

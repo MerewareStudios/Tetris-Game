@@ -141,7 +141,7 @@ namespace Game
 
                 Vector3 playerPos = playerPivot.position;
                 playerPos.y = 0.0f;
-                Warzone.THIS.Player.transform.position = playerPos;
+                Warzone.THIS.Player.Position = playerPos;
 
                     
                 Spawner.THIS.UpdateFingerDelta(bottomPin.position);

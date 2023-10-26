@@ -64,15 +64,15 @@ namespace Game.UI
             base.Show();
 
             int showIndex = _blockShopData.lastIndex;
-            string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
-            this._selectedBlockData = Const.THIS.DefaultBlockData[showIndex];
+            // string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
+            _selectedBlockData = Const.THIS.DefaultBlockData[showIndex];
             
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
             bool availableByPrice = Wallet.HasFunds(_selectedBlockData.Cost);
             bool availableByTicket = _selectedBlockData.Cost.type.Equals(Const.CurrencyType.Ticket);
             bool purchasedBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
 
-            bool canPurchase = availableByPrice || availableByTicket;
+            bool canPurchase = (availableByPrice || availableByTicket) && availableByLevel;
 
             
             SetPrice(_selectedBlockData.Cost, canPurchase, availableByTicket);

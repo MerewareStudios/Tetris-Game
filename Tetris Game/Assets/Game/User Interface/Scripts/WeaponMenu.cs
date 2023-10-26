@@ -137,7 +137,7 @@ namespace Game.UI
             
             if (!purchasedWeapon)
             {
-                SetPrice(_gunUpgradeData.GunCost);
+                SetPrice(_gunUpgradeData.GunCost, availableByLevel);
                 return;
             }
             
@@ -210,13 +210,12 @@ namespace Game.UI
             gunStatText.text = stringBuilder.ToString();
         }
         
-        private bool SetPrice(Const.Currency currency)
+        private bool SetPrice(Const.Currency currency, bool availableByLevel)
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            // purchaseButton.Available = hasFunds;
             bool ticket = currency.type.Equals(Const.CurrencyType.Ticket);
-            purchaseButton.Available = hasFunds || currency.type.Equals(Const.CurrencyType.Ticket);
+            purchaseButton.Available = (hasFunds || ticket) && availableByLevel;
             purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
             
             if (hasFunds)

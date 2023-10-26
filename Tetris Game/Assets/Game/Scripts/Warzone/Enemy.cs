@@ -33,6 +33,7 @@ namespace  Game
         private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
 
         public int Damage => Health;
+        public Vector3 Position => thisTransform.position;
         public float PositionZ => thisTransform.position.z;
         public Vector2 PositionXZ => new Vector2(thisTransform.position.x, thisTransform.position.z);
 
