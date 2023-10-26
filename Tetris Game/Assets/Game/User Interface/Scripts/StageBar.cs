@@ -34,22 +34,26 @@ public class StageBar : MonoBehaviour
         purchaseButton.Set(state ? Onboarding.THIS.plusText : Onboarding.THIS.fullText, state);
         return this;
     }
-    public StageBar SetBars(int availableCount, int filledCount)
+    public StageBar SetBars(int availableCount, int filledCount, int alreadyHaveCount)
     {
         for (int i = 0; i < images.Length; i++)
         {
-            if (i + 1 <= filledCount)
+            if (i + 1 <= alreadyHaveCount)
+            {
+                SetBar(i, BarStat.Have);
+                continue;
+            }
+            if (i + 1 <= filledCount + alreadyHaveCount)
             {
                 SetBar(i, BarStat.Upgraded);
+                continue;
             }
-            else if (i + 1 <= availableCount)
+            if (i + 1 <= availableCount + alreadyHaveCount)
             {
                 SetBar(i, BarStat.Empty);
+                continue;
             }
-            else
-            {
-                SetBar(i, BarStat.Locked);
-            }
+            SetBar(i, BarStat.Locked);
         }
 
         return this;
@@ -75,7 +79,7 @@ public class StageBar : MonoBehaviour
         Empty,
         Locked,
         Upgraded,
-        Gien
+        Have
     }
     
 }

@@ -68,7 +68,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 48
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -255,19 +255,9 @@ MonoBehaviour:
     damagePrice: []
     fireRatePrice:
     - type: 0
-      amount: 50
+      amount: 100
     - type: 0
-      amount: 50
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 50
+      amount: 100
     splitShotPrice:
     - type: 1
       amount: 2

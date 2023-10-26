@@ -170,11 +170,12 @@ namespace Game.UI
             int currentIndex = _weaponShopData.CurrentIndex(statType);
 
             bool max = _gunUpgradeData.IsFull(statType, currentIndex);
+            int defaultValue = _gunUpgradeData.DefaultValue(statType);
             
             stageBar
                 .SetMaxed(!max)
                 .SetCurrencyStampVisible(!max)
-                .SetBars(_gunUpgradeData.UpgradeCount(statType), currentIndex);
+                .SetBars(_gunUpgradeData.UpgradeCount(statType), currentIndex, defaultValue);
 
             if (max)
             {
