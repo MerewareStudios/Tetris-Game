@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Game;
 using UnityEngine;
 
 public class Gift : SubModel

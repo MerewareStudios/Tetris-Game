@@ -33,11 +33,12 @@ namespace Game
         {
             VData = Const.THIS.pawnVisualData[(int)value];
             
-            if (!SubModel || !this.UsageType.Model().Equals(VData.model))
+            // if (!SubModel || !this.UsageType.Model().Equals(VData.model))
+            if (SubModel)
             {
                 DeSpawnModel();
-                SubModel = VData.model.Spawn<SubModel>();
             }
+            SubModel = VData.model.Spawn<SubModel>();
             
             this.UsageType = value;
             SubModel.BaseColor = VData.startColor;
@@ -57,9 +58,9 @@ namespace Game
         public int Amount
         {
             set => SubModel.OnExtraValueChanged(value);
-            get => this.SubModel.GetExtra();
+            get => this.SubModel ? this.SubModel.GetExtra() : 0;
         }
-        
+
         void Awake()
         {
             _thisTransform = transform;
@@ -140,12 +141,12 @@ namespace Game
                     }
                     return false;
                 case Usage.Gift:
-                    SubModel.Lose();
+                    // SubModel.Lose();
                     SubModel.OnAnimate(() =>
                     {
                         SetUsageType(Const.THIS.gifts.Random(), 0);
                     });
-                    SubModel = null;
+                    // SubModel = null;
                     return false;
                 case Usage.Punch:
                     Enemy punchEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
@@ -213,14 +214,16 @@ namespace Game
         public void Deconstruct()
         {
             KillTweens();
+
+            transform.DOKill();
             
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
 
             ParentBlock = null;
-
-            this.Despawn();
+            
             DeSpawnModel();
+            this.Despawn();
         }
         
         public void OnLevelEnd()

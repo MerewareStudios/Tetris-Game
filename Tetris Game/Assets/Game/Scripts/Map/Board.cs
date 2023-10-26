@@ -453,6 +453,12 @@ namespace Game
                              _places[i, j].Current.Explode(new Vector2Int(i, j));
                         }
                     }
+                    if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Gift))
+                    {
+                        place.Current.Unpack();
+                        // CreatePawnAtCircular(i, j);
+                        return;
+                    }
                 }
             }
 
@@ -518,23 +524,26 @@ namespace Game
             for (int j = 0; j < _size.y; j++)
             {
                 bool tetris = true;
-                bool forceMerger = false;
                 for (int i = 0; i < _size.x; i++)
                 {
-                    
-                    if (!_places[i, j].Occupied)
+                    Place place = _places[i, j];
+                    if (!place.Occupied)
                     {
                         tetris = false;
                         continue;
                     }
-                    if (_places[i, j].Current.Mover)
+                    if (place.Current.Mover)
                     {
                         tetris = false;
                         continue;
                     }
-                    
+                    if (place.Current.UsageType.Equals(Pawn.Usage.Magnet) || place.Current.UsageType.Equals(Pawn.Usage.Gift))
+                    {
+                        tetris = false;
+                        continue;
+                    }
                 }
-                if (tetris || forceMerger)
+                if (tetris)
                 {
                     tetrisLines.Add(j);
                 }
@@ -656,9 +665,7 @@ namespace Game
                     continue;
                 }
 
-                lastPawn = pawn;
 
-                totalAmmo += pawn.Amount;
                 
                 bool canMerge = pawn.Unpack();
 
@@ -667,8 +674,13 @@ namespace Game
                     continue;
                 }
                 
+                totalAmmo += pawn.Amount;
+                
+                lastPawn = pawn;
+                
                 
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                pawn.transform.DOKill();
                 pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                     .onComplete += () =>
                 {
@@ -719,6 +731,31 @@ namespace Game
                         Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
                     });
         }
+
+        private Place GetSidePlace(int x, int y)
+        {
+            Place GetRightPlace()
+            {
+                return _places[x + 1, y];
+            }
+            Place GetLeftPlace()
+            {
+                return _places[x - 1, y];
+            }
+            
+            if (x == 0)
+            {
+                return GetRightPlace();
+            }
+
+            if (x == _size.x - 1)
+            {
+                return GetLeftPlace();
+            }
+
+            return Random.Range(0.0f, 1.0f) < 0.5f ? GetLeftPlace() : GetRightPlace();
+        }
+        
 
         public void ExplodePawnsCircular(Vector2Int center, float radius)
         {
@@ -807,6 +844,7 @@ namespace Game
                     }
                     
                     pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                    pawn.transform.DOKill();
                     pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                         .onComplete += () =>
                     {
