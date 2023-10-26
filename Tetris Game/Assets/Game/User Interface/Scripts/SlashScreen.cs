@@ -11,6 +11,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private Image centerImage;
     [SerializeField] private RectTransform topPivot;
     [SerializeField] private Image topBannerImage;
+    [SerializeField] private Image backgroudImage;
     [SerializeField] private GameObject victoryImage;
     [SerializeField] private GameObject failImage;
     [SerializeField] private float distance = 3000.0f;
@@ -19,6 +20,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private SlashAnimationSettings animationSettingsVictory;
     [SerializeField] private SlashAnimationSettings animationSettingsFail;
     [SerializeField] private SlashAnimationSettings animationSettingsHide;
+    [SerializeField] private Color visibleColor;
+    [SerializeField] private Color invisibleColor;
     [System.NonSerialized] private Sequence _sequence;
 
     [Serializable]
@@ -76,6 +79,11 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         currencyDisplay.Display(currency);
         
         canvas.enabled = true;
+
+        backgroudImage.DOKill();
+        backgroudImage.color = invisibleColor;
+        backgroudImage.DOColor(visibleColor, 0.25f).SetEase(Ease.InOutSine);
+        
         
         victoryImage.SetActive(animationSettings.victoryImageActive);
         failImage.SetActive(animationSettings.failImageActive);
@@ -103,6 +111,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             {
                 UIManagerExtensions.EmitLevelRewardCoin(currencyDisplay.iconPivot.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount, () =>
                 {
+                    Close();
                     GameManager.THIS.Deconstruct();
                     PiggyMenu.THIS.Open(0.225f);
                 });
@@ -121,11 +130,17 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         _sequence.Join(topSlash).Join(shrink);
         _sequence.SetUpdate(true).SetDelay(delay);
 
-        _sequence.onComplete += () =>
-        {
-            canvas.enabled = false;
-            this.gameObject.SetActive(false);
-        };
+        // _sequence.onComplete += () =>
+        // {
+        //     canvas.enabled = false;
+        //     this.gameObject.SetActive(false);
+        // };
+    }
+
+    private void Close()
+    {
+        canvas.enabled = false;
+        this.gameObject.SetActive(false);
     }
 
     public enum State
