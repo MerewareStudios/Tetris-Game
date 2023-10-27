@@ -63,7 +63,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
     void Start()
     {
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
-        // Const.THIS.PrintLevelData();
     }
 }
 public static class SaveManagerExtensions
@@ -193,7 +192,6 @@ public enum ONBOARDING
     HAVE_MERGED,
     NEED_MORE_AMMO_SPEECH,
     ALL_BLOCK_STEPS,
-    // LEARN_TO_USE_SHOP,
     LEARN_TO_INVEST,
     LEARN_TO_BREAK,
     LEARN_TO_CONTINUE,

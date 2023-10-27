@@ -17,7 +17,6 @@ public class Shop : MonoBehaviour
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Button button;
     [SerializeField] private Image background;
-    // [System.NonSerialized] private bool _open = false;
 
     
     public void OnClick_Open()
@@ -64,8 +63,6 @@ public class Shop : MonoBehaviour
     
     public void AnimatedShow()
     {
-        // this._open = true;
-
         trailRenderer.emitting = false;
         button.targetGraphic.raycastTarget = false;
         this.WaitForNull(Show);
