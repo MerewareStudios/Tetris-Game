@@ -10,7 +10,8 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        [System.NonSerialized] private const int ADBreakMarchLimit = 3;
+        [SerializeField] public float AdTimeInterval = 180.0f;
+        // [System.NonSerialized] private const int ADBreakMarchLimit = 3;
         [System.NonSerialized] private Data _data;
         
 
@@ -66,19 +67,19 @@ namespace IWI
         private void Start()
         {
             InitAdSDK();
+
+            _Data.LastTimeAdShown = Time.realtimeSinceStartup;
         }
 
-        public void MarchInterstitial(System.Action onSuccess)
+        public void TryInterstitial(System.Action onSuccess)
         {
             if (_Data.removeAds)
             {
                 onSuccess?.Invoke();
                 return;
             }
-            _Data.AdBreakMarch++;
-            if (_Data.AdBreakMarch >= ADBreakMarchLimit)
+            if (Time.realtimeSinceStartup - _Data.LastTimeAdShown > AdTimeInterval)
             {
-                _Data.AdBreakMarch = 0;
                 ShowAdBreak(onSuccess);
                 return;
             }
@@ -142,9 +143,12 @@ namespace IWI
         {
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                _Data.AdBreakMarch = ADBreakMarchLimit;
+                onFinish?.Invoke();
                 return;
             }
+            
+            _Data.LastTimeAdShown = Time.realtimeSinceStartup;
+
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Interstitial);
             AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
@@ -252,7 +256,8 @@ namespace IWI
         {
             [SerializeField] public bool removeAds = false;
             [System.NonSerialized] public bool BannerAccepted = false;
-            [System.NonSerialized] public int AdBreakMarch = 0;
+            [System.NonSerialized] public float LastTimeAdShown;
+            // [System.NonSerialized] public int AdBreakMarch = 0;
             
             public Data()
             {

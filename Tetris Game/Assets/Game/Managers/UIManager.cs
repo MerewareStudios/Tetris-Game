@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -113,8 +114,11 @@ public class UIManager : Singleton<UIManager>
 
     public void AdLayerClick_OpenShop()
     {
-       shop.OnClick_Open();
-       // AdManager.THIS.MarchInterstitial(shop.OnClick_Open);
+       AdManager.THIS.TryInterstitial(shop.OnClick_Open);
+    }
+    public void AdLayerClick_OpenPiggyBank()
+    {
+       AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
     }
 
 #if UNITY_EDITOR

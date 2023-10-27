@@ -83,7 +83,7 @@ MonoBehaviour:
     adTransactionData:
       value: 0
     shopData:
-      available: 0
+      available: 1
       current: 0
       max: 6
     blockShopData:

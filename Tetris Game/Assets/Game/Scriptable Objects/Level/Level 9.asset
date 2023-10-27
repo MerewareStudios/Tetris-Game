@@ -34,4 +34,5 @@ MonoBehaviour:
   pawnPlacements:
   - usage: 7
     index: {x: 3, y: 3}
-  powerUps: 0400000007000000
+    extra: 0
+  powerUps: 

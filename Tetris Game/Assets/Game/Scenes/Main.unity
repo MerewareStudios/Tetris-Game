@@ -2879,6 +2879,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
+  AdTimeInterval: 200
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9839,6 +9840,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 5.300003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092710225126283017, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.99607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092710225126283017, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.11320752
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092710225126283017, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.11320752
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092710225126283017, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.11320752
       objectReference: {fileID: 0}
     - target: {fileID: 2846355456824160056, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}

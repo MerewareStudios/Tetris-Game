@@ -87,22 +87,20 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         canvas.enabled = true;
         
         tipParent.SetActive(false);
-        // if (animationSettings.tipAvailable)
-        // {
-            if (_randomTipsIndexes.Count == 0)
+        if (_randomTipsIndexes.Count == 0)
+        {
+            for (int i = 0; i < Onboarding.THIS.tips.Length; i++)
             {
-                for (int i = 0; i < Onboarding.THIS.tips.Length; i++)
-                {
-                    _randomTipsIndexes.Add(i);
-                }
-                _randomTipsIndexes.Shuffle();
+                _randomTipsIndexes.Add(i);
             }
-            int randomIndex = Random.Range(0, _randomTipsIndexes.Count);
-            int index = _randomTipsIndexes[randomIndex];
-            _randomTipsIndexes.RemoveAt(randomIndex);
-            tipText.text = Onboarding.THIS.tips[index];
-        // }
+            _randomTipsIndexes.Shuffle();
+        }
+        int randomIndex = Random.Range(0, _randomTipsIndexes.Count);
+        int index = _randomTipsIndexes[randomIndex];
+        _randomTipsIndexes.RemoveAt(randomIndex);
+        tipText.text = Onboarding.THIS.tips[index];
 
+        
         backgroudImage.DOKill();
         backgroudImage.color = invisibleColor;
         backgroudImage.DOColor(visibleColor, 0.25f).SetEase(Ease.InOutSine);
@@ -119,10 +117,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         expand.OnStart(() =>
         {
             tipParent.SetActive(true);
-            // if (!animationSettings.tipAvailable)
-            // {
-            //     return;
-            // }
             tipParent.transform.localScale = Vector3.zero;
             tipParent.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f).SetUpdate(true);
         });
@@ -148,7 +142,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 {
                     Close();
                     GameManager.THIS.Deconstruct();
-                    PiggyMenu.THIS.Open(0.225f);
+                    UIManager.THIS.AdLayerClick_OpenPiggyBank();
                 });
             });
         };
