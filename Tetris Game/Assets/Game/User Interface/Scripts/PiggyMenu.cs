@@ -256,8 +256,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
         {
             ONBOARDING.LEARN_TO_CONTINUE.SetComplete();
-            ONBOARDING.EARN_SHOP_POINT.SetComplete();
-            UIManager.THIS.shop.BarEnabled = true;
+            // ONBOARDING.LEARNED_ALL_TABS.SetComplete();
+            // UIManager.THIS.shop.BarEnabled = true;
             Onboarding.HideFinger();
         }
         this.Close();

@@ -198,7 +198,7 @@ namespace Game.UI
                 if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
                 {
                     ONBOARDING.LEARN_TO_PURCHASE_BLOCK.SetComplete();
-                    ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
+                    // ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
                     Onboarding.HideFinger();
                 }
                 Show();

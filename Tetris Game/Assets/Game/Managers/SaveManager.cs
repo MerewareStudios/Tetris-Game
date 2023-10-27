@@ -43,7 +43,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         AdManager.THIS._Data = saveData.adData;
         
-        UIManager.THIS.shop._Data = saveData.userData.shopData;
+        // UIManager.THIS.shop._Data = saveData.userData.shopData;
         
         Powerup.THIS._Data = saveData.userData.pupData;
         BlockMenu.THIS._Data = saveData.userData.blockShopData;
@@ -57,7 +57,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
         UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
         UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
-        UIManager.THIS.shop.BarEnabled = ONBOARDING.EARN_SHOP_POINT.IsComplete();
+        UIManager.THIS.shop.VisibleImmediate = ONBOARDING.LEARNED_ALL_TABS.IsComplete();
     }
 
     void Start()
@@ -142,7 +142,7 @@ namespace User
         [SerializeField] public TransactionData<int> coinTransactionData = new();
         [SerializeField] public TransactionData<int> gemTransactionData = new();
         [SerializeField] public TransactionData<int> adTransactionData = new();
-        [SerializeField] public Shop.Data shopData;
+        // [SerializeField] public Shop.Data shopData;
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
@@ -161,7 +161,7 @@ namespace User
             gemTransactionData = data.gemTransactionData.Clone() as TransactionData<int>;
             adTransactionData = data.adTransactionData.Clone() as TransactionData<int>;
             
-            shopData = data.shopData.Clone() as Shop.Data;
+            // shopData = data.shopData.Clone() as Shop.Data;
             
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
@@ -197,7 +197,7 @@ public enum ONBOARDING
     LEARN_TO_INVEST,
     LEARN_TO_BREAK,
     LEARN_TO_CONTINUE,
-    EARN_SHOP_POINT,
+    ABLE_TO_USE_BLOCK_TAB,
     ABLE_TO_USE_WEAPON_TAB,
     ABLE_TO_USE_UPGRADE_TAB,
     LEARNED_ALL_TABS,

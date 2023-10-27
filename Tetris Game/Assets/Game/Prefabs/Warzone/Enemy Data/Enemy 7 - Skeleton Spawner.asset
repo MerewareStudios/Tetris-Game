@@ -123,5 +123,7 @@ MonoBehaviour:
   crossSize: 2
   castType: 3
   deathAction: 0
-  extraInt: 2
+  spawnerCount: 2
+  spawnerDuration: 10
+  spawnerExtra: 0
   extraData: {fileID: 11400000, guid: d0c0e0e091f9b554d9e5a3634f30492c, type: 2}

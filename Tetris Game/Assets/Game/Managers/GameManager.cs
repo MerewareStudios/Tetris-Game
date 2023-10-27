@@ -32,9 +32,36 @@ public class GameManager : Singleton<GameManager>
                     
                 ONBOARDING.HAVE_MERGED.SetComplete();
             }
-            if (ONBOARDING.EARN_SHOP_POINT.IsComplete())
+            
+            if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
             {
-                UIManager.THIS.shop.Increase(amount);
+                if (ONBOARDING.ABLE_TO_USE_BLOCK_TAB.IsNotComplete())
+                {
+                    if (Wallet.COIN.Amount >= 15)
+                    {
+                        ONBOARDING.ABLE_TO_USE_BLOCK_TAB.SetComplete();
+                        UIManager.THIS.shop.AnimatedShow();
+                    }
+                    return;
+                }
+                if (ONBOARDING.ABLE_TO_USE_WEAPON_TAB.IsNotComplete())
+                {
+                    if (Wallet.COIN.Amount >= 25)
+                    {
+                        ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
+                        UIManager.THIS.shop.AnimatedShow();
+                    }
+                    return;
+                }
+                if (ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.IsNotComplete())
+                {
+                    if (Wallet.PIGGY.Amount >= 1)
+                    {
+                        ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
+                        UIManager.THIS.shop.AnimatedShow();
+                    }
+                    return;
+                }
             }
         };
 
