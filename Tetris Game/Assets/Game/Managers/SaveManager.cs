@@ -78,6 +78,8 @@ public static class SaveManagerExtensions
     public static void SetComplete(this ONBOARDING onboardingStep)
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = false;
+        
+        AnalyticsManager.OnboardingStepComplete(onboardingStep.ToString());
     }
     public static void AutoComplete(this ONBOARDING onboardingStep)
     {
@@ -141,7 +143,6 @@ namespace User
         [SerializeField] public TransactionData<int> coinTransactionData = new();
         [SerializeField] public TransactionData<int> gemTransactionData = new();
         [SerializeField] public TransactionData<int> adTransactionData = new();
-        // [SerializeField] public Shop.Data shopData;
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
@@ -152,16 +153,10 @@ namespace User
         {
             level = data.level;
             pupData = data.pupData.Clone() as Powerup.Data;
-            
             boardData = data.boardData.Clone() as Board.Data;
-            
-            
             coinTransactionData = data.coinTransactionData.Clone() as TransactionData<int>;
             gemTransactionData = data.gemTransactionData.Clone() as TransactionData<int>;
             adTransactionData = data.adTransactionData.Clone() as TransactionData<int>;
-            
-            // shopData = data.shopData.Clone() as Shop.Data;
-            
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
@@ -180,11 +175,6 @@ namespace User
 
 public enum ONBOARDING
 {
-    LEARNED_LEVEL_VISUALS,
-    LEARNED_META,
-    LEARNED_POWERUP,
-    PLACE_POWERUP,
-    INSPECT_HEART_DISPLAY,
     TEACH_PICK,
     TEACH_PLACEMENT,
     TEACH_ROTATION,
@@ -192,14 +182,24 @@ public enum ONBOARDING
     HAVE_MERGED,
     NEED_MORE_AMMO_SPEECH,
     ALL_BLOCK_STEPS,
+    
     LEARN_TO_INVEST,
     LEARN_TO_BREAK,
     LEARN_TO_CONTINUE,
+    
     ABLE_TO_USE_BLOCK_TAB,
     ABLE_TO_USE_WEAPON_TAB,
     ABLE_TO_USE_UPGRADE_TAB,
     LEARNED_ALL_TABS,
+    
     LEARN_TO_PURCHASE_BLOCK,
     LEARN_TO_PURCHASE_FIRERATE,
     LEARN_TO_PURCHASE_WEAPON,
+    
+    LEARNED_POWERUP,
+    PLACE_POWERUP,
+    
+    INSPECT_HEART_DISPLAY,
+    LEARNED_LEVEL_VISUALS,
+    LEARNED_META,
 }

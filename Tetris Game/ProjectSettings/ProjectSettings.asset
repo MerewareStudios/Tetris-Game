@@ -816,7 +816,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: 
+    Android: ANALYTICS_ENABLED
     Standalone: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
