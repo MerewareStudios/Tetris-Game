@@ -37,9 +37,7 @@ public class Shop : MonoBehaviour
             Onboarding.HideFinger();
         }
         
-        Debug.Log(ONBOARDING.LEARNED_ALL_TABS.IsNotComplete());
         MenuNavigator.THIS.Open();
-        Debug.Log(ONBOARDING.LEARNED_ALL_TABS.IsNotComplete());
 
         if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
         {

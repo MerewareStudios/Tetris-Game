@@ -29,39 +29,40 @@ public class GameManager : Singleton<GameManager>
             if (ONBOARDING.HAVE_MERGED.IsNotComplete())
             {
                 Onboarding.CheerForMerge();
-                    
                 ONBOARDING.HAVE_MERGED.SetComplete();
             }
-            
-            if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
+
+            if (!ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
             {
-                if (ONBOARDING.ABLE_TO_USE_BLOCK_TAB.IsNotComplete())
+                return;
+            }
+            
+            if (ONBOARDING.ABLE_TO_USE_BLOCK_TAB.IsNotComplete())
+            {
+                if (Wallet.COIN.Amount >= 15)
                 {
-                    if (Wallet.COIN.Amount >= 15)
-                    {
-                        ONBOARDING.ABLE_TO_USE_BLOCK_TAB.SetComplete();
-                        UIManager.THIS.shop.AnimatedShow();
-                    }
-                    return;
+                    ONBOARDING.ABLE_TO_USE_BLOCK_TAB.SetComplete();
+                    UIManager.THIS.shop.AnimatedShow();
                 }
-                if (ONBOARDING.ABLE_TO_USE_WEAPON_TAB.IsNotComplete())
+                return;
+            }
+            if (ONBOARDING.ABLE_TO_USE_WEAPON_TAB.IsNotComplete())
+            {
+                if (Wallet.COIN.Amount >= 25)
                 {
-                    if (Wallet.COIN.Amount >= 25)
-                    {
-                        ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
-                        UIManager.THIS.shop.AnimatedShow();
-                    }
-                    return;
+                    ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
+                    UIManager.THIS.shop.AnimatedShow();
                 }
-                if (ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.IsNotComplete())
+                return;
+            }
+            if (ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.IsNotComplete())
+            {
+                if (Wallet.PIGGY.Amount >= 1 || LevelManager.CurrentLevel >= 4)
                 {
-                    if (Wallet.PIGGY.Amount >= 1)
-                    {
-                        ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
-                        UIManager.THIS.shop.AnimatedShow();
-                    }
-                    return;
+                    ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
+                    UIManager.THIS.shop.AnimatedShow();
                 }
+                return;
             }
         };
 
