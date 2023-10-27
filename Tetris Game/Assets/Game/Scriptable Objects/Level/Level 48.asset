@@ -28,4 +28,4 @@ MonoBehaviour:
     amount: 10
   suggestedBlocks: []
   pawnPlacements: []
-  powerUps: 0c000000
+  powerUps: 

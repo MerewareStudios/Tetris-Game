@@ -42,4 +42,4 @@ MonoBehaviour:
   - usage: 13
     index: {x: 5, y: 1}
     extra: 0
-  powerUps: 0400000007000000
+  powerUps: 

@@ -8503,8 +8503,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 879987240682401301, guid: e3d377368904d064d91d5764ac306155,
         type: 3}
-      propertyPath: visibleColor.a
-      value: 0.8039216
+      propertyPath: animationSettingsFail.expandDelay
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3680631963217843338, guid: e3d377368904d064d91d5764ac306155,
         type: 3}

@@ -34,4 +34,4 @@ MonoBehaviour:
   - usage: 9
     index: {x: 0, y: 2}
     extra: 25
-  powerUps: 0400000007000000
+  powerUps: 

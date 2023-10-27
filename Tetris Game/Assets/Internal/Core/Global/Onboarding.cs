@@ -41,6 +41,8 @@ public class Onboarding : SSingleton<Onboarding>
     [Header("Weapon Stat")]
     [TextArea] [SerializeField] public string weaponStatUnchange;
     [TextArea] [SerializeField] public string weaponStatChange;
+    [Header("Tips")]
+    [TextArea] [SerializeField] public string[] tips;
     
     public Coroutine Coroutine = null;
 

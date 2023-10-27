@@ -45,3 +45,32 @@ MonoBehaviour:
   normalStatColor: {r: 1, g: 1, b: 1, a: 1}
   weaponStatUnchange: <color=#FFFFFF>
   weaponStatChange: <color=#8EFF00>
+  tips:
+  - <sprite name=Warning>Pick the right weapon for each battle!
+  - <sprite name=Warning>Upgrade your weapons or purchase new ones at the shop!
+  - <sprite name=Warning>Don't forget to upgrade your Max Stack at the shop!
+  - <sprite name=Warning>Remember to buy fresh blocks from the shop!
+  - <sprite name=Warning>Reset your Piggy Bank capacity at the shop!!
+  - <sprite name=Warning>You can use<sprite name=Ticket> to skip ads.
+  - <sprite name=Warning>There is 10% chance Piggy Bank drops<sprite name=Ticket>
+  - <sprite name=Warning>Merged ammo <sprite name=Box> is limited by your Max Stack!
+  - <sprite name=Warning>If you get stuck, remember to use power-ups<sprite name=Magnet>
+  - <sprite name=Warning>You can watch rewarded ads and earn<sprite name=Ticket>
+  - <sprite name=Warning>Hearts <sprite name=Heart> that you earn will carry over
+    to the new levels!
+  - <sprite name=Warning>Unlocked powerups <sprite name=Magnet> will carry over to
+    the new levels!
+  - <sprite name=Warning>Breaking open the Piggy Bank rewards you with <sprite name=PiggyCoin>
+  - <sprite name=Warning>Activate banner ads to unlock privileges!
+  - <sprite name=Warning>Don't forget to take breaks from the gameplay.
+  - <sprite name=Warning>Think ahead and strategize your moves.
+  - Multiple merges will reward you with power-ups <sprite name=Energy><sprite name=Gift>
+  - <sprite name=Warning>Keep an eye on the enemies!
+  - <size=125%><sprite name=Warning>Multiple <sprite name=Energy>stacks!
+  - <sprite name=Warning>Rockets <sprite name=Rocket>will target a random enemy!
+  - <sprite name=Warning>Bombs <sprite name=Bomb>deal damage to multiple nearby targets!
+  - <sprite name=Warning>Bombs <sprite name=Bomb>will target closest enemy!
+  - <sprite name=Warning>Gifts <sprite name=Gift>will give you a random power-up!
+  - <sprite name=Warning>Punch <sprite name=Punch>enemies to drag them back!
+  - <sprite name=Warning>Leave a comment on the store page to help us improve the
+    gameplay.
