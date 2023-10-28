@@ -14,7 +14,8 @@ public class Const : SSingleton<Const>
     [ReadOnly] public int bundleVersionCode;
     [Header("Look Up")]
     public LevelSo[] Levels;
-    
+    public EnemyData[] AutoGenerateEnemyDatas;
+    public EnemyData[][] AutoGenerateBoardPowerUps;
     
     [Header("Save Default")]
     public Player.Data DefaultPlayerData;
@@ -65,6 +66,16 @@ public class Const : SSingleton<Const>
     [Header("Tutorıal")] 
     public Color suggestionColorTut;
     public Color suggestionColor;
+
+
+    public LevelSo GetLevelSo(int level)
+    {
+        if (level >= Levels.Length)
+        {
+            return LevelSo.AutoGenerate(level);
+        }
+        return Levels[level - 1];
+    }
     
     [Serializable]
     public struct Currency

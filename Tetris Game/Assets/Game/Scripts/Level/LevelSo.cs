@@ -1,7 +1,9 @@
+using System;
 using System.Text;
 using Game;
 using Internal.Core;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -59,47 +61,36 @@ namespace Game
             
             return (stringBuilder.ToString(), totalReward);
         }
-    }
-}
 
 
-
-public static class LevelSoExtension
-{
-    public static Pawn.Usage GetRandomPowerUp(this int level)
-    {
-        if (Const.THIS.Levels[level - 1].powerUps.Length == 0)
+        public static LevelSo AutoGenerate(int seed)
         {
-            return Const.THIS.powerUps.Random();
+            Random.InitState(seed);
+
+            LevelSo so = ScriptableObject.CreateInstance<LevelSo>();
+
+            // Delta
+            so.deltaMult = Random.Range(0.8f, 1.1f);
+            // Size
+            int addedSize = Random.Range(0, 4);
+            so.boardSize = new Vector2Int(5 + addedSize, 6 + addedSize);
+            // Spawn
+            so.EnemySpawnData.spawnDelay = 3;
+            so.EnemySpawnData.spawnInterval = Random.Range(9.0f, 15.0f);
+            so.EnemySpawnData.countDatas = null;
+            // Reward
+            so.victoryReward = new Const.Currency(Const.CurrencyType.Coin, 50);
+            so.failReward = new Const.Currency(Const.CurrencyType.Coin, 5);
+            // Suggested Block
+            
+            // Pawn Placement
+            
+            // Pawn Placement
+
+            
+            Random.InitState((int)DateTime.Now.Ticks);
+
+            return so;
         }
-        return Const.THIS.Levels[level - 1].powerUps.Random();
-    }
-    public static Enemy.SpawnData GetEnemySpawnData(this int level)
-    {
-        return Const.THIS.Levels[level - 1].EnemySpawnData;
-    }
-    public static Const.Currency GetVictoryReward(this int level)
-    {
-        return Const.THIS.Levels[level - 1].victoryReward;
-    }
-    public static Const.Currency GetFailReward(this int level)
-    {
-        return Const.THIS.Levels[level - 1].failReward;
-    }
-    public static Board.SuggestedBlock[] GetSuggestedBlocks(this int level)
-    {
-        return Const.THIS.Levels[level - 1].suggestedBlocks;
-    }
-    public static float DeltaMult(this int level)
-    {
-        return Const.THIS.Levels[level - 1].deltaMult;
-    }
-    public static Vector2Int BoardSize(this int level)
-    {
-        return Const.THIS.Levels[level - 1].boardSize;
-    }
-    public static Board.PawnPlacement[] PawnPlacements(this int level)
-    {
-        return Const.THIS.Levels[level - 1].pawnPlacements;
     }
 }

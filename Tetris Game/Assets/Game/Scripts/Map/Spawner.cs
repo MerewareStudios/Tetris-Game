@@ -361,7 +361,7 @@ public class Spawner : Singleton<Spawner>
     private Block SpawnSuggestedBlock()
     {
         bool learnedRotation = ONBOARDING.BLOCK_ROTATION.IsComplete();
-        Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.THIS.GetSuggestedBlocks();
+        Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;
         if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)

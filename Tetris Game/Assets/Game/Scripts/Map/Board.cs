@@ -90,7 +90,7 @@ namespace Game
                 }
 
 
-                PawnPlacement[] pawnPlacements = LevelManager.CurrentLevel.PawnPlacements();
+                PawnPlacement[] pawnPlacements = LevelManager.PawnPlacements();
 
                 if (pawnPlacements != null) 
                 {

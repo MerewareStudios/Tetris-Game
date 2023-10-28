@@ -164,7 +164,7 @@ public class Powerup : Lazyingleton<Powerup>
         
         _data.available = true;
         // SetPowerup(Const.THIS.powerUps.Random());
-        SetPowerup(LevelManager.CurrentLevel.GetRandomPowerUp());
+        SetPowerup(LevelManager.GetRandomPowerUp());
         PunchCost(50.0f);
         UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
             (value) =>
