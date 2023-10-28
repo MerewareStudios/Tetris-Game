@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
 using UnityEngine;
@@ -30,15 +31,32 @@ public class Shop : MonoBehaviour
 
         background.enabled = false;
 
-        
-        if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
+        if (ONBOARDING.BLOCK_TAB.IsNotComplete())
         {
+            ONBOARDING.BLOCK_TAB.SetComplete();
+            MenuNavigator.THIS.SetLastMenu(MenuType.Block);
             Onboarding.HideFinger();
         }
+        else if (ONBOARDING.WEAPON_TAB.IsNotComplete())
+        {
+            ONBOARDING.WEAPON_TAB.SetComplete();
+            MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
+            Onboarding.HideFinger();
+        }
+        else if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+        {
+            ONBOARDING.UPGRADE_TAB.SetComplete();
+            MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
+            Onboarding.HideFinger();
+        }
+        // if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
+        // {
+        //     Onboarding.HideFinger();
+        // }
         
         MenuNavigator.THIS.Open();
 
-        if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
+        if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
         {
             button.targetGraphic.raycastTarget = false;
             buttonTransform.DOKill();
@@ -70,7 +88,7 @@ public class Shop : MonoBehaviour
         void Show()
         {
             background.enabled = false;
-            if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
+            if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
             {
                 background.enabled = true;
                 UIManager.Pause(true);
@@ -113,7 +131,7 @@ public class Shop : MonoBehaviour
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
-                if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
+                if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickTarget.position, Finger.Cam.Game, () =>
                     {

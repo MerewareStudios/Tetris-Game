@@ -29,51 +29,57 @@ public class GameManager : Singleton<GameManager>
                 ApplicationManager.THIS.GrabFeatureEnabled = false;
             }
         };
-        
-        Board.THIS.OnMerge += (amount) =>
-        {
-            if (ONBOARDING.SPEECH_CHEER.IsNotComplete())
-            {
-                Onboarding.CheerForMerge();
-                ONBOARDING.SPEECH_CHEER.SetComplete();
-                return;
-            }
 
-            if (!ONBOARDING.ALL_MENU_TABS.IsNotComplete())
-            {
-                return;
-            }
-            
-            if (ONBOARDING.BLOCK_TAB.IsNotComplete())
-            {
-                if (Wallet.COIN.Amount >= 15)
-                {
-                    ONBOARDING.BLOCK_TAB.SetComplete();
-                    UIManager.THIS.shop.AnimatedShow();
-                }
-                return;
-            }
-            if (ONBOARDING.WEAPON_TAB.IsNotComplete())
-            {
-                if (Wallet.COIN.Amount >= 25)
-                {
-                    ONBOARDING.WEAPON_TAB.SetComplete();
-                    UIManager.THIS.shop.AnimatedShow();
-                }
-                return;
-            }
-            if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
-            {
-                if (Wallet.PIGGY.Amount >= 1 || LevelManager.CurrentLevel >= 4)
-                {
-                    ONBOARDING.UPGRADE_TAB.SetComplete();
-                    UIManager.THIS.shop.AnimatedShow();
-                }
-                return;
-            }
-        };
+        if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+        {
+            Board.THIS.OnMerge += CheckMergeOnboarding;
+        }
 
         LevelManager.THIS.LoadLevel();
+    }
+
+    public void MarkTabStepsComplete()
+    {
+        ONBOARDING.BLOCK_TAB.SetComplete();
+        Board.THIS.OnMerge -= CheckMergeOnboarding;
+    }
+
+    private void CheckMergeOnboarding()
+    {
+        if (ONBOARDING.SPEECH_CHEER.IsNotComplete())
+        {
+            Onboarding.CheerForMerge();
+            ONBOARDING.SPEECH_CHEER.SetComplete();
+            return;
+        }
+
+        if (ONBOARDING.BLOCK_TAB.IsNotComplete())
+        {
+            if (Wallet.COIN.Amount >= 15)
+            {
+                // ONBOARDING.BLOCK_TAB.SetComplete();
+                UIManager.THIS.shop.AnimatedShow();
+            }
+            return;
+        }
+        if (ONBOARDING.WEAPON_TAB.IsNotComplete())
+        {
+            if (Wallet.COIN.Amount >= 25)
+            {
+                // ONBOARDING.WEAPON_TAB.SetComplete();
+                UIManager.THIS.shop.AnimatedShow();
+            }
+            return;
+        }
+        if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+        {
+            if (Wallet.PIGGY.Amount >= 1 || LevelManager.CurrentLevel >= 4)
+            {
+                // ONBOARDING.UPGRADE_TAB.SetComplete();
+                UIManager.THIS.shop.AnimatedShow();
+            }
+            return;
+        }
     }
 
     void Update()

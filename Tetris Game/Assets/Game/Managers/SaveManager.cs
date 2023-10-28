@@ -57,7 +57,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
         UIManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
         UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.PASSIVE_META.IsComplete());
-        UIManager.THIS.shop.VisibleImmediate = ONBOARDING.ALL_MENU_TABS.IsComplete();
+        UIManager.THIS.shop.VisibleImmediate = ONBOARDING.UPGRADE_TAB.IsComplete();
         
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
     }
@@ -181,7 +181,7 @@ public enum ONBOARDING
     BLOCK_TAB,
     WEAPON_TAB,
     UPGRADE_TAB,
-    ALL_MENU_TABS,
+    // ALL_MENU_TABS,
     
     PURCHASE_BLOCK,
     PURCHASE_FIRERATE,

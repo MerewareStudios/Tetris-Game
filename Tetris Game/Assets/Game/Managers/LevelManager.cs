@@ -35,7 +35,7 @@ public class LevelManager : Singleton<LevelManager>
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
 
-        if (ONBOARDING.ALL_MENU_TABS.IsComplete())
+        if (ONBOARDING.UPGRADE_TAB.IsComplete())
         {
             AdManager.THIS.ShowBannerOrOffer();
         }

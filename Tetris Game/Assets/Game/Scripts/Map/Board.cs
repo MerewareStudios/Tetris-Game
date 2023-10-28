@@ -26,7 +26,7 @@ namespace Game
         [Header("Rect")]
         [SerializeField] public RectTransform projectionRect;
 
-        [System.NonSerialized] public System.Action<int> OnMerge;
+        [System.NonSerialized] public System.Action OnMerge;
         [System.NonSerialized] public const float MagnetRadius = 2.5f;
         [System.NonSerialized] public const float BombRadius = 1.5f;
         
@@ -591,7 +591,8 @@ namespace Game
                 CreatePawnAtHorizontal(horIndex, lineIndex, lines.Count, mergeIndex);
             }
             
-            OnMerge?.Invoke(lines.Count);
+            // OnMerge?.Invoke(lines.Count);
+            OnMerge?.Invoke();
 
             for (int i = 0; i < lines.Count; i++)
             {

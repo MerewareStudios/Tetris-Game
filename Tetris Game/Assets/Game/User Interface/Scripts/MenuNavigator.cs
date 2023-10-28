@@ -39,35 +39,9 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
     private void Activate()
     {
-        bool blockActive = ONBOARDING.BLOCK_TAB.IsComplete();
-        bool weaponActive = ONBOARDING.WEAPON_TAB.IsComplete();
-        bool upgradeActive = ONBOARDING.UPGRADE_TAB.IsComplete();
-        
-        tabs[(int)MenuType.Block].gameObject.SetActive(blockActive);
-        tabs[(int)MenuType.Weapon].gameObject.SetActive(weaponActive);
-        tabs[(int)MenuType.Upgrade].gameObject.SetActive(upgradeActive);
-        
-        if (ONBOARDING.ALL_MENU_TABS.IsComplete())
-        {
-            return;
-        }
-        
-        if (upgradeActive)
-        {
-            SetLastMenu(MenuType.Upgrade);
-            ONBOARDING.ALL_MENU_TABS.SetComplete();
-            return;
-        }  
-        if (weaponActive)
-        {
-            SetLastMenu(MenuType.Weapon);
-            return;
-        }
-        if (blockActive)
-        {
-            SetLastMenu(MenuType.Block);
-            return;
-        }
+        tabs[(int)MenuType.Block].gameObject.SetActive(ONBOARDING.BLOCK_TAB.IsComplete());
+        tabs[(int)MenuType.Weapon].gameObject.SetActive(ONBOARDING.WEAPON_TAB.IsComplete());
+        tabs[(int)MenuType.Upgrade].gameObject.SetActive(ONBOARDING.UPGRADE_TAB.IsComplete());
     }
     
     public new bool Close(float duration = 0.25f, float delay = 0.0f)
