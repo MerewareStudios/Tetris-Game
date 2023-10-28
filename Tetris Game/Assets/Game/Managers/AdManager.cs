@@ -78,6 +78,11 @@ namespace IWI
                 onSuccess?.Invoke();
                 return;
             }
+            if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+            {
+                onSuccess?.Invoke();
+                return;
+            }
             if (Time.realtimeSinceStartup - _Data.LastTimeAdShown > AdTimeInterval)
             {
                 ShowAdBreak(onSuccess);
