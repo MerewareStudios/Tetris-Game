@@ -117,7 +117,7 @@ namespace Game.UI
 
             PunchPurchasedText(0.2f);
            
-            if (purchaseParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
+            if (purchaseParent.gameObject.activeSelf && ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
             {
                 if (Wallet.HasFunds(_gunUpgradeData.GunCost))
                 {
@@ -146,7 +146,7 @@ namespace Game.UI
             FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot);
             
             
-            if (stageBarParent.gameObject.activeSelf && ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
+            if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
             {
                 if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
                 {
@@ -311,9 +311,9 @@ namespace Game.UI
                     OnGunDataChanged?.Invoke(EquippedGunData);
                 }
                 
-                if (ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.IsNotComplete())
+                if (ONBOARDING.PURCHASE_FIRERATE.IsNotComplete())
                 {
-                    ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
+                    ONBOARDING.PURCHASE_FIRERATE.SetComplete();
                     // ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
                     // Onboarding.HideFinger();
                 }
@@ -351,9 +351,9 @@ namespace Game.UI
             
             if (Wallet.Consume(_gunUpgradeData.GunCost))
             {
-                if (ONBOARDING.LEARN_TO_PURCHASE_WEAPON.IsNotComplete())
+                if (ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
                 {
-                    ONBOARDING.LEARN_TO_PURCHASE_WEAPON.SetComplete();
+                    ONBOARDING.PURCHASE_WEAPON.SetComplete();
                     // ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
                     // ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
                     // Onboarding.HideFinger();

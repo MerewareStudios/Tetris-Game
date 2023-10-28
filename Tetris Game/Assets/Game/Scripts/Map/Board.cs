@@ -391,7 +391,7 @@ namespace Game
                 // Found a fit, suggest/highlight it, skip
                 return;
             }
-            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+            if (ONBOARDING.USE_POWERUP.IsNotComplete())
             {
                 if (!UIManager.THIS.finger.Visible)
                 {

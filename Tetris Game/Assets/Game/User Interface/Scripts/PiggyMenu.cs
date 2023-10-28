@@ -91,7 +91,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 investButton.image.raycastTarget = true;
             
-                if (ONBOARDING.LEARN_TO_INVEST.IsNotComplete())
+                if (ONBOARDING.PIGGY_INVEST.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickLocation_Invest.position, Finger.Cam.UI, () =>
                     {
@@ -108,7 +108,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         Transform continueTrans = continueButton.transform;
         continueTrans.DOKill();
         continueTrans.localScale = Vector3.zero;
-        if (ONBOARDING.LEARN_TO_INVEST.IsComplete())
+        if (ONBOARDING.PIGGY_INVEST.IsComplete())
         {
             continueText.text = "LATER";
             continueTrans.localPosition = Vector3.zero;
@@ -172,9 +172,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             _Data.moneyCapacity += PiggyCapIncrease;
         });
         
-        if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
+        if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
         {
-            ONBOARDING.LEARN_TO_BREAK.SetComplete();
+            ONBOARDING.PIGGY_BREAK.SetComplete();
             Onboarding.HideFinger();
         }
     }
@@ -244,18 +244,18 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         };
         
         
-        if (ONBOARDING.LEARN_TO_INVEST.IsNotComplete())
+        if (ONBOARDING.PIGGY_INVEST.IsNotComplete())
         {
-            ONBOARDING.LEARN_TO_INVEST.SetComplete();
+            ONBOARDING.PIGGY_INVEST.SetComplete();
             Onboarding.HideFinger();
         }
     }
     public void OnClick_ContinuePiggyBank()
     {
         continueButton.targetGraphic.raycastTarget = false;
-        if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
+        if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
         {
-            ONBOARDING.LEARN_TO_CONTINUE.SetComplete();
+            ONBOARDING.PIGGY_CONTINUE.SetComplete();
             // ONBOARDING.LEARNED_ALL_TABS.SetComplete();
             // UIManager.THIS.shop.BarEnabled = true;
             Onboarding.HideFinger();
@@ -309,7 +309,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         breakButton.transform.localScale = Vector3.zero;
                         breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
                         {
-                            if (ONBOARDING.LEARN_TO_BREAK.IsNotComplete())
+                            if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
                             {
                                 Onboarding.ClickOn(clickLocation_Break.position, Finger.Cam.UI, () =>
                                 {
@@ -364,7 +364,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 continueButton.targetGraphic.raycastTarget = true;
                             
                             
-                if (ONBOARDING.LEARN_TO_CONTINUE.IsNotComplete())
+                if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickLocation_Continue.position, Finger.Cam.UI, () =>
                     {

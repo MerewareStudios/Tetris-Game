@@ -31,14 +31,14 @@ public class Shop : MonoBehaviour
         background.enabled = false;
 
         
-        if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
+        if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
         {
             Onboarding.HideFinger();
         }
         
         MenuNavigator.THIS.Open();
 
-        if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
+        if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
         {
             button.targetGraphic.raycastTarget = false;
             buttonTransform.DOKill();
@@ -70,7 +70,7 @@ public class Shop : MonoBehaviour
         void Show()
         {
             background.enabled = false;
-            if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
+            if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
             {
                 background.enabled = true;
                 UIManager.Pause(true);
@@ -113,7 +113,7 @@ public class Shop : MonoBehaviour
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
-                if (ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())
+                if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickTarget.position, Finger.Cam.Game, () =>
                     {

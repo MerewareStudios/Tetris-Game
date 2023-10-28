@@ -154,7 +154,7 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.X))
       {
-         if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+         if (ONBOARDING.USE_POWERUP.IsNotComplete())
          {
             Powerup.THIS.Enabled = true;
             Onboarding.TalkAboutPowerUp();

@@ -94,7 +94,7 @@ namespace Game.UI
             currencyDisplay.gameObject.SetActive(!purchasedBlock);
             purchaseButton.gameObject.SetActive(!purchasedBlock);
 
-            if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
+            if (ONBOARDING.PURCHASE_BLOCK.IsNotComplete())
             {
                 if (!purchasedBlock && canPurchase)
                 {
@@ -195,9 +195,9 @@ namespace Game.UI
                 
                 Spawner.THIS.InterchangeBlock(_selectedBlockData.blockType, Pawn.Usage.UnpackedAmmo);
 
-                if (ONBOARDING.LEARN_TO_PURCHASE_BLOCK.IsNotComplete())
+                if (ONBOARDING.PURCHASE_BLOCK.IsNotComplete())
                 {
-                    ONBOARDING.LEARN_TO_PURCHASE_BLOCK.SetComplete();
+                    ONBOARDING.PURCHASE_BLOCK.SetComplete();
                     // ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
                     Onboarding.HideFinger();
                 }

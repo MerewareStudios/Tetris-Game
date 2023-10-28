@@ -317,7 +317,7 @@ public class Spawner : Singleton<Spawner>
             if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
             {
                 Onboarding.TalkAboutMerge();
-                ONBOARDING.SPEECH_MERGE.AutoComplete();
+                ONBOARDING.SPEECH_MERGE.SetComplete();
                 return;
             }
             

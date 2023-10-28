@@ -176,7 +176,7 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.25f);
 
 
-            ONBOARDING.GENERIC_META.SetComplete();
+            ONBOARDING.PASSIVE_META.SetComplete();
             UIManager.THIS.levelText.enabled = true;
             UIManager.THIS.levelProgressbar.SetActive(true);
             UIManager.THIS.levelProgress.fillAmount = 1.0f;

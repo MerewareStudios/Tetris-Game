@@ -39,7 +39,7 @@ public class Powerup : Lazyingleton<Powerup>
             OpenImmediate(_data.available);
             SetPowerup(_data.currentUsage);
 
-            Enabled = ONBOARDING.LEARNED_POWERUP.IsComplete();
+            Enabled = ONBOARDING.USE_POWERUP.IsComplete();
         }
         get => this._data;
     }
@@ -127,9 +127,9 @@ public class Powerup : Lazyingleton<Powerup>
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
             
-            if (ONBOARDING.LEARNED_POWERUP.IsNotComplete())
+            if (ONBOARDING.USE_POWERUP.IsNotComplete())
             {
-                ONBOARDING.LEARNED_POWERUP.SetComplete();
+                ONBOARDING.USE_POWERUP.SetComplete();
                 Onboarding.Deconstruct();
             }
 
