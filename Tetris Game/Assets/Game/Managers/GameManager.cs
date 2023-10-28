@@ -36,6 +36,7 @@ public class GameManager : Singleton<GameManager>
             {
                 Onboarding.CheerForMerge();
                 ONBOARDING.HAVE_MERGED.SetComplete();
+                return;
             }
 
             if (!ONBOARDING.LEARNED_ALL_TABS.IsNotComplete())

@@ -28,8 +28,8 @@ public static class AnalyticsManager
 
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, progressionA, _currentTrackedStartTime);
 #if UNITY_EDITOR
-        string trace = GAProgressionStatus.Start.ToString().ToUpper() + "_" + progressionA + "_" + _currentTrackedStartTime;
-        Log(trace, EventType.Progression);
+        string trace = GAProgressionStatus.Start.ToString().ToUpper() + " " + progressionA;
+        Log(trace, _currentTrackedStartTime, EventType.Progression);
 #endif
     }
     
@@ -42,18 +42,20 @@ public static class AnalyticsManager
         GameAnalytics.NewProgressionEvent(status, progressionA, levelDuration);
 
 #if UNITY_EDITOR
-        string trace = status.ToString().ToUpper() + "_" + progressionA + "_" + levelDuration;
-        Log(trace, EventType.Progression);
+        string trace = status.ToString().ToUpper() + " " + progressionA;
+        Log(trace, levelDuration, EventType.Progression);
 #endif
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void OnboardingStepComplete(string stepName)
     {
-        string trace = "TUTORIAL:" + stepName;
+        string eventName = "TUTORIAL:" + stepName;
         float realTime = Time.realtimeSinceStartup;
+        
+        GameAnalytics.NewDesignEvent(eventName, realTime);
 #if UNITY_EDITOR
-        Log(trace, EventType.Design);
+        Log(eventName, realTime, EventType.Design);
 #endif
     }
 
@@ -81,12 +83,12 @@ public static class AnalyticsManager
         return valid;
     }
     
-    private static void Log(string trace, EventType eventType)
+    private static void Log(string trace, float extra, EventType eventType)
     {
         bool isValid = Validate(trace, eventType);
         string tag = isValid ? "<color=#10FF10>VALID" : "<color=red>INVALID";
         string eventTypeTag = "<color=#6060DD>" + eventType.ToString().ToUpper() + " EVENT</color>\n";
-        string message = tag + "</color>\n" + eventTypeTag + "<color=yellow>" + trace + "</color>";
+        string message = tag + "</color>\n" + eventTypeTag + "<color=yellow>" + trace + "</color>" + "\n" + extra;
         if (isValid)
         {
             Debug.LogWarning(message);
