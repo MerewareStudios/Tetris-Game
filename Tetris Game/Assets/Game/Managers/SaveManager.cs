@@ -175,8 +175,8 @@ namespace User
 
 public enum ONBOARDING
 {
-    TEACH_PICK,
-    TEACH_PLACEMENT,
+    DRAG_AND_DROP,
+    // TEACH_PLACEMENT,
     TEACH_ROTATION,
     TALK_ABOUT_MERGE,
     HAVE_MERGED,

@@ -9,6 +9,8 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadLevel()
     {
+        AnalyticsManager.LevelStart(CurrentLevel);
+        
         Board.THIS.Construct(CurrentLevel.BoardSize());
 
         GameManager.PLAYING = true;
@@ -27,7 +29,7 @@ public class LevelManager : Singleton<LevelManager>
             Warzone.THIS.Begin();
             Spawner.THIS.DelayedSpawn(0.45f);
         }
-        else if (ONBOARDING.TEACH_PICK.IsNotComplete())
+        else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
@@ -67,6 +69,8 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.THIS.OnVictory();
         SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.25f, this.CurrentLevel().GetVictoryReward());
         this.NextLevel();
+        
+        AnalyticsManager.LevelSuccess();
     }
     
     public void OnFail()
@@ -75,5 +79,7 @@ public class LevelManager : Singleton<LevelManager>
         
         GameManager.THIS.OnFail();
         SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, this.CurrentLevel().GetFailReward());
+        
+        AnalyticsManager.LevelFail();
     }
 }

@@ -174,7 +174,7 @@ public class Spawner : Singleton<Spawner>
                 {
                     CurrentBlock.CancelLift();
             
-                    if (ONBOARDING.TEACH_PICK.IsNotComplete())
+                    if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
                     {
                         Onboarding.HideFinger();
                     }
@@ -214,7 +214,7 @@ public class Spawner : Singleton<Spawner>
         AnimateTap();
         CurrentBlock.Rotate();
             
-        if (ONBOARDING.TEACH_PICK.IsComplete() && ONBOARDING.TEACH_ROTATION.IsNotComplete())
+        if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.TEACH_ROTATION.IsNotComplete())
         {
             ONBOARDING.TEACH_ROTATION.SetComplete();
             Onboarding.HideFinger();
@@ -304,14 +304,14 @@ public class Spawner : Singleton<Spawner>
                 return;
             }
             
-            if (ONBOARDING.TEACH_PICK.IsNotComplete())
-            {
-                ONBOARDING.TEACH_PICK.SetComplete();
-            }
+            // if (ONBOARDING.TEACH_PICK.IsNotComplete())
+            // {
+            //     ONBOARDING.TEACH_PICK.SetComplete();
+            // }
 
-            if (ONBOARDING.TEACH_PLACEMENT.IsNotComplete())
+            if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
             {
-                ONBOARDING.TEACH_PLACEMENT.SetComplete();
+                ONBOARDING.DRAG_AND_DROP.SetComplete();
                 Onboarding.SpawnSecondBlockAndTeachRotation();
                 return;
             }
@@ -326,7 +326,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         
-        if (ONBOARDING.TEACH_PICK.IsNotComplete())
+        if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
             Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift);
         }
