@@ -32,10 +32,10 @@ public class GameManager : Singleton<GameManager>
         
         Board.THIS.OnMerge += (amount) =>
         {
-            if (ONBOARDING.HAVE_MERGED.IsNotComplete())
+            if (ONBOARDING.SPEECH_CHEER.IsNotComplete())
             {
                 Onboarding.CheerForMerge();
-                ONBOARDING.HAVE_MERGED.SetComplete();
+                ONBOARDING.SPEECH_CHEER.SetComplete();
                 return;
             }
 

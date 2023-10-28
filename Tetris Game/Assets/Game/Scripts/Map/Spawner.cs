@@ -214,9 +214,9 @@ public class Spawner : Singleton<Spawner>
         AnimateTap();
         CurrentBlock.Rotate();
             
-        if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.TEACH_ROTATION.IsNotComplete())
+        if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
-            ONBOARDING.TEACH_ROTATION.SetComplete();
+            ONBOARDING.BLOCK_ROTATION.SetComplete();
             Onboarding.HideFinger();
         }
     }
@@ -298,9 +298,7 @@ public class Spawner : Singleton<Spawner>
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
                 _delayedTween?.Kill();
-                // UndelayedSpawn();
                 DelayedSpawn(0.25f);
-                
                 return;
             }
             
@@ -316,10 +314,10 @@ public class Spawner : Singleton<Spawner>
                 return;
             }
             
-            if (ONBOARDING.TALK_ABOUT_MERGE.IsNotComplete())
+            if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
             {
                 Onboarding.TalkAboutMerge();
-                ONBOARDING.TALK_ABOUT_MERGE.AutoComplete();
+                ONBOARDING.SPEECH_MERGE.AutoComplete();
                 return;
             }
             
@@ -362,7 +360,7 @@ public class Spawner : Singleton<Spawner>
 
     private Block SpawnSuggestedBlock()
     {
-        bool learnedRotation = ONBOARDING.TEACH_ROTATION.IsComplete();
+        bool learnedRotation = ONBOARDING.BLOCK_ROTATION.IsComplete();
         Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.THIS.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = null;
         Pool pool;

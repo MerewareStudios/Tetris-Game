@@ -9,8 +9,6 @@ using UnityEngine;
 public class Onboarding : SSingleton<Onboarding>
 {
     [TextArea] [SerializeField] public string needAmmoText;
-    [TextArea] [SerializeField] public string useAmmoBoxText;
-    [TextArea] [SerializeField] public string rotateText;
     [TextArea] [SerializeField] public string stackText;
     [TextArea] [SerializeField] public string greatCheerText;
     [TextArea] [SerializeField] public string niceOneText;
@@ -35,9 +33,6 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string earnTicketText;
     [TextArea] [SerializeField] public string skipButtonText;
     [TextArea] [SerializeField] public string cancelButtonText;
-    [Header("Stat Color")]
-    [SerializeField] public Color specialStatColor;
-    [SerializeField] public Color normalStatColor;
     [Header("Weapon Stat")]
     [TextArea] [SerializeField] public string weaponStatUnchange;
     [TextArea] [SerializeField] public string weaponStatChange;
@@ -81,7 +76,6 @@ public class Onboarding : SSingleton<Onboarding>
             
             yield return new WaitForSeconds(0.1f);
 
-            // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.useAmmoBoxText, 0.4f);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
             DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift);
@@ -118,16 +112,11 @@ public class Onboarding : SSingleton<Onboarding>
 
             yield return new WaitForSeconds(0.75f);
             
-            // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.rotateText);
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
             ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true);
 
-            // yield return new WaitForSeconds(0.25f);
             Spawner.THIS.DelayedSpawn(0.0f);
-
-            
-            // yield return new WaitForSeconds(0.35f);
         }
     }
     
@@ -168,7 +157,6 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.1f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.ticketMergeText, 0.2f);
 
-            // yield return new WaitForSeconds(0.25f);
             ClickOn(Powerup.THIS.fingerTarget.position, Finger.Cam.Game, () => Powerup.THIS.PunchFrame(0.4f), 0.7f);
         }
     }
@@ -187,17 +175,12 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Hide();
             yield return new WaitForSeconds(0.25f);
 
-            
-            // Announcer.THIS.Show(Onboarding.THIS.targetPracticeText, 0.5f);
 
-            ONBOARDING.LEARNED_LEVEL_VISUALS.SetComplete();
+            ONBOARDING.GENERIC_META.SetComplete();
             UIManager.THIS.levelText.enabled = true;
             UIManager.THIS.levelProgressbar.SetActive(true);
             UIManager.THIS.levelProgress.fillAmount = 1.0f;
-            ONBOARDING.LEARNED_META.SetComplete();
-            ONBOARDING.INSPECT_HEART_DISPLAY.SetComplete();
             StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, Warzone.THIS.Player._CurrentHealth);
-            // yield return new WaitForSeconds(0.25f);
             Warzone.THIS.Begin();
         }
     }

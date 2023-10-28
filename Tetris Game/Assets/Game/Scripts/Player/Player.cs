@@ -91,7 +91,7 @@ namespace Game
 
                 _GunData = WeaponMenu.THIS.EquippedGunData;
 
-                if (ONBOARDING.INSPECT_HEART_DISPLAY.IsNotComplete())
+                if (ONBOARDING.GENERIC_META.IsNotComplete())
                 {
                     StatDisplayArranger.THIS.HideImmediate(StatDisplay.Type.Health);
                 }
@@ -152,10 +152,10 @@ namespace Game
                 animator.SetTrigger(SHOOT_HASH);
                 Gun.Bubble();
 
-                if (ONBOARDING.NEED_MORE_AMMO_SPEECH.IsNotComplete())
+                if (ONBOARDING.PASSIVE_NEED.IsNotComplete())
                 {
                     Onboarding.TalkAboutNeedMoreAmmo();
-                    ONBOARDING.NEED_MORE_AMMO_SPEECH.SetComplete();
+                    ONBOARDING.PASSIVE_NEED.SetComplete();
                     ONBOARDING.ALL_BLOCK_STEPS.SetComplete();
                     return;
                 }

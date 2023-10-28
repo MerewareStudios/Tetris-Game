@@ -35,11 +35,11 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
-        Wallet.COIN.Active = ONBOARDING.LEARNED_META.IsComplete();
+        Wallet.COIN.Active = ONBOARDING.GENERIC_META.IsComplete();
         Wallet.PIGGY.Set(ref saveData.userData.gemTransactionData);
-        Wallet.PIGGY.Active = ONBOARDING.LEARNED_META.IsComplete();
+        Wallet.PIGGY.Active = ONBOARDING.GENERIC_META.IsComplete();
         Wallet.TICKET.Set(ref saveData.userData.adTransactionData);
-        Wallet.TICKET.Active = ONBOARDING.LEARNED_META.IsComplete();
+        Wallet.TICKET.Active = ONBOARDING.GENERIC_META.IsComplete();
 
         AdManager.THIS._Data = saveData.adData;
         
@@ -55,8 +55,8 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         MenuNavigator.THIS._Data = saveData.userData.menuNavData;
         
-        UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
-        UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
+        UIManager.THIS.levelText.enabled = ONBOARDING.GENERIC_META.IsComplete();
+        UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.GENERIC_META.IsComplete());
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.LEARNED_ALL_TABS.IsComplete();
         
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
@@ -173,10 +173,10 @@ public enum ONBOARDING
 {
     DRAG_AND_DROP,
     // TEACH_PLACEMENT,
-    TEACH_ROTATION,
-    TALK_ABOUT_MERGE,
-    HAVE_MERGED,
-    NEED_MORE_AMMO_SPEECH,
+    BLOCK_ROTATION,
+    SPEECH_MERGE,
+    SPEECH_CHEER,
+    PASSIVE_NEED,
     ALL_BLOCK_STEPS,
     
     LEARN_TO_INVEST,
@@ -195,7 +195,7 @@ public enum ONBOARDING
     LEARNED_POWERUP,
     PLACE_POWERUP,
     
-    INSPECT_HEART_DISPLAY,
-    LEARNED_LEVEL_VISUALS,
-    LEARNED_META,
+    // INSPECT_HEART_DISPLAY,
+    GENERIC_META,
+    // LEARNED_META,
 }
