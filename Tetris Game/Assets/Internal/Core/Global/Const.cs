@@ -150,4 +150,8 @@ public static class ConstExtensions
     {
         return Const.THIS.pawnVisualData[(int)usage].externValue; 
     }
+    public static bool IsLocal(this Const.CurrencyType currencyType)
+    {
+        return currencyType.Equals(Const.CurrencyType.Local); 
+    }
 }

@@ -27,21 +27,22 @@ public class PurchaseOption : MonoBehaviour
         icon.sprite = sprite;
         return this;
     }
-    public PurchaseOption SetPrice(Const.Currency currency, bool available)
+    public PurchaseOption SetPrice(string currency, Const.CurrencyType currencyType, bool available)
     {
         priceCurrencyDisplay.Display(currency);
-        purchaseButton.ButtonSprite = Const.THIS.buttonTextures[(int)currency.type];
+        purchaseButton.ButtonSprite = Const.THIS.buttonTextures[(int)currencyType];
         purchaseButton.Available = available;
+        Debug.Log(available);
         return this;
     }
-    public PurchaseOption SetLocalPrice(string localCurrency, bool available)
-    {
-        priceCurrencyDisplay.DisplayLocalCurrency(localCurrency);
-        purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
-
-        purchaseButton.Available = available;
-        return this;
-    }
+    // public PurchaseOption SetLocalPrice(string localCurrency, bool available)
+    // {
+    //     priceCurrencyDisplay.Display(localCurrency);
+    //     purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
+    //
+    //     purchaseButton.Available = available;
+    //     return this;
+    // }
     public PurchaseOption SetBestBadge(bool value)
     {
         bestBadge.SetActive(value);

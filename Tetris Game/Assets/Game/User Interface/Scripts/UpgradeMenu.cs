@@ -96,8 +96,8 @@ namespace Game.UI
                 
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
-                bool hasFunds = Wallet.HasFunds(lookUp.currency) || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
-                
+                bool available = Wallet.HasFunds(lookUp.currency) || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
+
                 string purchaseText = "";
 
                 switch (lookUp.currency.type)
@@ -115,26 +115,19 @@ namespace Game.UI
                         purchaseText = "BUY";
                         break;
                 }
+                //
+                // UseCondition useCondition = lookUp.useCondition;
+                // switch (useCondition)
+                // {
+                //     case UseCondition.Always:
+                //         
+                //         break;
+                //     case UseCondition.HasPiggyCapacity:
+                //         available &= PiggyMenu.THIS._Data.moneyCapacity > 10;
+                //         break;
+                // }
 
-                UseCondition useCondition = lookUp.useCondition;
-                switch (useCondition)
-                {
-                    case UseCondition.Always:
-                        
-                        break;
-                    case UseCondition.HasPiggyCapacity:
-                        hasFunds &= PiggyMenu.THIS._Data.moneyCapacity > 10;
-                        break;
-                }
-
-                if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
-                {
-                    purchaseOption.SetLocalPrice(lookUp.GetLocalPrice(), hasFunds);
-                }
-                else
-                {
-                    purchaseOption.SetPrice(lookUp.currency, hasFunds);
-                }
+                purchaseOption.SetPrice(lookUp.currency.type.IsLocal() ? lookUp.GetLocalPrice() : CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
                 
                 if (glimmerByBadge)
                 {
@@ -275,7 +268,7 @@ namespace Game.UI
             [SerializeField] public Sprite sprite;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
-            [SerializeField] public UseCondition useCondition;
+            // [SerializeField] public UseCondition useCondition;
             [SerializeField] public bool best = false;
 
             public string GetLocalPrice()
@@ -286,9 +279,9 @@ namespace Game.UI
         
     }
 
-    public enum UseCondition
-    {
-        Always,
-        HasPiggyCapacity
-    }
+    // public enum UseCondition
+    // {
+    //     Always,
+    //     HasPiggyCapacity
+    // }
 }

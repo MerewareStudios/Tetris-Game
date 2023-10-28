@@ -34,9 +34,6 @@ public class ApplicationManager : Singleton<ApplicationManager>
         // LoadSettings();
         fpsTimestamp = Time.realtimeSinceStartup;
         GrabFeatureEnabled = false;
-
-
-        // Debug.Log(PlayerSettings.Android.bundleVersionCode);
     }
     // private void LoadSettings()
     // {

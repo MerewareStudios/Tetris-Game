@@ -40,10 +40,9 @@ namespace IWI
                         AdBreakScreen.THIS.SetLoadState(state);
                     };
                     
-                    
+                    SetBannerBonuses(_Data.removeAds);
                     if (_Data.removeAds)
                     {
-                        SetBannerBonuses(true);
                         return;
                     }
                     

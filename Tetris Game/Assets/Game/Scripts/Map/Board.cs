@@ -64,6 +64,7 @@ namespace Game
             {
                 this._size = size;
                 DropPositions = new int[size.x];
+                ClearDropPositions();
                 
                 CameraManager.THIS.OrtoSize = Mathf.Max(7.63f, _size.x + 1.82f);
 
@@ -426,7 +427,7 @@ namespace Game
         
         public float UsePowerups()
         {
-            ClearDropPositions();
+            // ClearDropPositions();
             
             for (int j = 0; j < _size.y; j++)
             {
@@ -442,7 +443,7 @@ namespace Game
                     if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Magnet))
                     {
                         CreatePawnAtCircular(i, j);
-                        return 0.0f;
+                        return -1.0f;
                     }
                     if (place.Current.UsageType.Equals(Pawn.Usage.Bomb))
                     {
@@ -495,6 +496,7 @@ namespace Game
             }
             public void MarkDropPointsMover()
             {
+                
                 for (int i = 0; i < DropPositions.Length; i++)
                 {
                     int y = DropPositions[i];

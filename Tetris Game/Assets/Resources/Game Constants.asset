@@ -81,7 +81,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 0
     adTransactionData:
-      value: 0
+      value: 1
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -488,7 +488,6 @@ MonoBehaviour:
       <color=#FFC738>EXTRA
 
       STACK'
-    useCondition: 0
     best: 0
   - purchaseType: 1
     currency:
@@ -497,7 +496,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
     title: <bounce a=0.05 f=1>TICKET PACK
     info: <sprite name=Ticket> +15
-    useCondition: 0
     best: 0
   - purchaseType: 2
     currency:
@@ -506,7 +504,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
     info: <size=150%><sprite name=Heart> +25
-    useCondition: 0
     best: 0
   - purchaseType: 3
     currency:
@@ -515,7 +512,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
     title: <bounce a=0.05 f=1>COIN PACK
     info: <sprite name=Coin> +1500
-    useCondition: 0
     best: 0
   - purchaseType: 4
     currency:
@@ -524,7 +520,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: 
     info: 
-    useCondition: 0
     best: 0
   - purchaseType: 5
     currency:
@@ -533,7 +528,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
     title: <bounce a=0.05 f=1>EXTRA SHIELD
     info: <sprite name=Shield> +25
-    useCondition: 0
     best: 0
   - purchaseType: 6
     currency:
@@ -542,7 +536,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: <bounce a=0.05 f=1>PIGGY COIN PACK
     info: <sprite name=PiggyCoin> +250
-    useCondition: 0
     best: 0
   - purchaseType: 7
     currency:
@@ -551,7 +544,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
     title: <bounce a=0.05 f=1>PIGGY CAPACITY
     info: <size=150%>Reset
-    useCondition: 1
     best: 0
   - purchaseType: 8
     currency:
@@ -562,7 +554,6 @@ MonoBehaviour:
     info: '<sprite name=Coin> +80
 
       <sprite name=PiggyCoin> +2'
-    useCondition: 0
     best: 0
   - purchaseType: 9
     currency:
@@ -576,7 +567,6 @@ MonoBehaviour:
 
       <sprite
       name=Ticket> +5'
-    useCondition: 0
     best: 0
   - purchaseType: 10
     currency:
@@ -590,7 +580,6 @@ MonoBehaviour:
 
       <sprite
       name=Ticket> +15'
-    useCondition: 0
     best: 1
   - purchaseType: 11
     currency:
@@ -606,7 +595,6 @@ MonoBehaviour:
 
       <sprite
       name=Check> Bonuses'
-    useCondition: 0
     best: 0
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000
