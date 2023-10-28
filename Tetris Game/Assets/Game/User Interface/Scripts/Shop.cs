@@ -24,10 +24,8 @@ public class Shop : MonoBehaviour
     {
         if (!GameManager.PLAYING)
         {
-            ApplicationManager.Extra = "Playing";
             return;
         }
-        ApplicationManager.Extra = "Confirmed";
 
         background.enabled = false;
 
@@ -49,10 +47,6 @@ public class Shop : MonoBehaviour
             MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
             Onboarding.HideFinger();
         }
-        // if (ONBOARDING.ALL_MENU_TABS.IsNotComplete())
-        // {
-        //     Onboarding.HideFinger();
-        // }
         
         MenuNavigator.THIS.Open();
 

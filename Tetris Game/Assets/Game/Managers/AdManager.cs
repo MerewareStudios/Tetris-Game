@@ -257,7 +257,6 @@ namespace IWI
             [SerializeField] public bool removeAds = false;
             [System.NonSerialized] public bool BannerAccepted = false;
             [System.NonSerialized] public float LastTimeAdShown;
-            // [System.NonSerialized] public int AdBreakMarch = 0;
             
             public Data()
             {

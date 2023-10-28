@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class SaveManager : SaveManagerBase<SaveManager>
 {
+    [SerializeField] public bool SKIP_ONBOARDING = true;
     [SerializeField] public Const Const;
     [SerializeField] public AnimConst AnimConst;
     [SerializeField] public Onboarding Onboarding;
-    [SerializeField] public bool SKIP_ONBOARDING = true;
 
     public override void Awake()
     {
@@ -22,7 +22,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         if (!saveData.saveGenerated)
         {
-            //"Save Generated".LogW();
             saveData.saveGenerated = true;
 
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;
@@ -32,7 +31,16 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
             saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
         }
-        
+
+        if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
+        {
+            ONBOARDING.DRAG_AND_DROP.ClearStep();
+            ONBOARDING.BLOCK_ROTATION.ClearStep();
+            ONBOARDING.SPEECH_MERGE.ClearStep();
+            ONBOARDING.SPEECH_CHEER.ClearStep();
+            ONBOARDING.PASSIVE_META.ClearStep();
+            ONBOARDING.ALL_BLOCK_STEPS.ClearStep();
+        }
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.COIN.Active = ONBOARDING.PASSIVE_META.IsComplete();
@@ -42,8 +50,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Wallet.TICKET.Active = ONBOARDING.PASSIVE_META.IsComplete();
 
         AdManager.THIS._Data = saveData.adData;
-        
-        // UIManager.THIS.shop._Data = saveData.userData.shopData;
         
         Powerup.THIS._Data = saveData.userData.pupData;
         BlockMenu.THIS._Data = saveData.userData.blockShopData;
@@ -181,7 +187,6 @@ public enum ONBOARDING
     BLOCK_TAB,
     WEAPON_TAB,
     UPGRADE_TAB,
-    // ALL_MENU_TABS,
     
     PURCHASE_BLOCK,
     PURCHASE_FIRERATE,
