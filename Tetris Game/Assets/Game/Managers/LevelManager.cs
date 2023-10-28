@@ -1,4 +1,5 @@
 using Game;
+using GameAnalyticsSDK;
 using Internal.Core;
 using IWI;
 
@@ -70,7 +71,7 @@ public class LevelManager : Singleton<LevelManager>
         SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.25f, this.CurrentLevel().GetVictoryReward());
         this.NextLevel();
         
-        AnalyticsManager.LevelSuccess();
+        AnalyticsManager.LevelEnd(GAProgressionStatus.Complete);
     }
     
     public void OnFail()
@@ -80,6 +81,6 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.THIS.OnFail();
         SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, this.CurrentLevel().GetFailReward());
         
-        AnalyticsManager.LevelFail();
+        AnalyticsManager.LevelEnd(GAProgressionStatus.Fail);
     }
 }

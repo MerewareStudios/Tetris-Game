@@ -3,42 +3,46 @@ using System.Text.RegularExpressions;
 #endif
 using System;
 using System.Linq;
+using GameAnalyticsSDK;
 using UnityEngine;
+
 //ANALYTICS_ENABLED
 public static class AnalyticsManager
 {
     private const string AnalyticsEnabled = "ANALYTICS_ENABLED";
 
     private static int _currentTrackedLevel;
+    private static int _currentTrackedStartTime;
+
+    public static void Init()
+    {
+        GameAnalytics.Initialize();
+    }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void LevelStart(int level)
     {
         _currentTrackedLevel = level;
-        string progression = "LEVEL_" + _currentTrackedLevel;
+        _currentTrackedStartTime = (int)Time.realtimeSinceStartup;
+        string progressionA = "LEVEL_" + _currentTrackedLevel;
+
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, progressionA, _currentTrackedStartTime);
+#if UNITY_EDITOR
+        string trace = GAProgressionStatus.Start.ToString().ToUpper() + "_" + progressionA + "_" + _currentTrackedStartTime;
+        Log(trace, EventType.Progression);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void LevelEnd(GAProgressionStatus status)
+    {
+        int levelDuration = (int)(Time.realtimeSinceStartup - _currentTrackedStartTime);
+        string progressionA = "LEVEL_" + _currentTrackedLevel;
+
+        GameAnalytics.NewProgressionEvent(status, progressionA, levelDuration);
 
 #if UNITY_EDITOR
-        string trace = progression;
-        Log(trace, EventType.Progression);
-#endif
-    }
-    
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void LevelSuccess()
-    {
-        string progression = "LEVEL_" + _currentTrackedLevel;
-#if UNITY_EDITOR
-        string trace = progression;
-        Log(trace, EventType.Progression);
-#endif
-    }
-    
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void LevelFail()
-    {
-        string progression = "LEVEL_" + _currentTrackedLevel;
-#if UNITY_EDITOR
-        string trace = progression;
+        string trace = status.ToString().ToUpper() + "_" + progressionA + "_" + levelDuration;
         Log(trace, EventType.Progression);
 #endif
     }

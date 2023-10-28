@@ -106,11 +106,11 @@ namespace Internal.Core
         {
             EditorGUIUtility.PingObject(MonoBehaviour.FindObjectOfType<TickManager>().gameObject);
         }
-        [MenuItem("MANAGERS/Event Manager/Ping")]
-        private static void PingEventManager()
-        {
-            EditorGUIUtility.PingObject(MonoBehaviour.FindObjectOfType<EventManager>().gameObject);
-        }
+        // [MenuItem("MANAGERS/Event Manager/Ping")]
+        // private static void PingEventManager()
+        // {
+        //     EditorGUIUtility.PingObject(MonoBehaviour.FindObjectOfType<EventManager>().gameObject);
+        // }
         [MenuItem("MANAGERS/Application Manager/Open")]
         private static void OpenApplicationManager()
         {
@@ -161,11 +161,11 @@ namespace Internal.Core
         {
             UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal("Assets/Game/Managers/TickManager.cs", 1);
         }
-        [MenuItem("MANAGERS/Event Manager/Open")]
-        private static void OpenEventManager()
-        {
-            UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal("Assets/Game/Managers/EventManager.cs", 1);
-        }
+        // [MenuItem("MANAGERS/Event Manager/Open")]
+        // private static void OpenEventManager()
+        // {
+        //     UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal("Assets/Game/Managers/EventManager.cs", 1);
+        // }
         [MenuItem("PREFS/Clear Player Prefs")]
         private static void ClearPlayerPrefs()
         {

@@ -1,3 +1,4 @@
+using System;
 using Game;
 using Internal.Core;
 using UnityEngine;
@@ -12,6 +13,11 @@ public class GameManager : Singleton<GameManager>
     // public static readonly int BaseMap = Shader.PropertyToID("_BaseMap");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
+
+    void Awake()
+    {
+        AnalyticsManager.Init();    
+    }
 
     void Start()
     {
@@ -71,8 +77,6 @@ public class GameManager : Singleton<GameManager>
 
     void Update()
     {
-        SaveManager.THIS.saveData.playTime += Time.deltaTime;
-
         if (UIManager.MenuVisible)
         {
             Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);

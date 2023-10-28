@@ -58,10 +58,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         UIManager.THIS.levelText.enabled = ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete();
         UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.LEARNED_LEVEL_VISUALS.IsComplete());
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.LEARNED_ALL_TABS.IsComplete();
-    }
-
-    void Start()
-    {
+        
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
     }
 }
@@ -106,7 +103,6 @@ public partial class SaveData
 {
     [SerializeField] public bool saveGenerated = false;
     [SerializeField] public bool[] onboardingList;
-    [SerializeField] public float playTime;
     [SerializeField] public Player.Data playerData;
     [SerializeField] public User.Data userData;
     [SerializeField] public AdManager.Data adData;
