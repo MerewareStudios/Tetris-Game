@@ -24,7 +24,7 @@ public class Gift : SubModel
 
         Sequence.onComplete = () =>
         {
-            Particle.Confetti.Play(ThisTransform.position, scale: new Vector3(3.3f, 3.3f, 3.3f), rotation: Quaternion.Euler(-90.0f, 0.0f, 0.0f));
+            Particle.Confetti.Play(ThisTransform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), new Vector3(3.3f, 3.3f, 3.3f));
             onComplete?.Invoke();
             OnDeconstruct();
         };

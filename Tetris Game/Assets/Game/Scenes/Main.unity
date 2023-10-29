@@ -2980,19 +2980,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a48b24ec2512546950d199cdb22c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  particleSystems:
-  - {fileID: 5094943319427585628, guid: c4860d54f38512a44a60636062611bd5, type: 3}
-  - {fileID: 2454123482817471278, guid: 82f8a2620ef98d74daac956814e77ac1, type: 3}
-  - {fileID: 8842786536726778492, guid: af604a8c9f4d6804c8851edf088b6169, type: 3}
-  - {fileID: 6822350358840011063, guid: 85da333c0e20b81439c42d5687ed9685, type: 3}
-  - {fileID: 5094943319427585628, guid: d0afaa533a1b7b340ac61ea4e77ffa93, type: 3}
-  - {fileID: 8386564744611087252, guid: 5e4679ebd41173943bcd3a4f7eeb1dcc, type: 3}
-  - {fileID: 2882607291138767249, guid: d6401d84ce3397544998197c6d710631, type: 3}
-  - {fileID: 198347710351975146, guid: b42fc9de673e8804da021c5d8983161a, type: 3}
-  - {fileID: 6453849669370967844, guid: 34391479fa976d743bd0a3a523dbf05d, type: 3}
-  - {fileID: 19816428, guid: 9fbf607ecf9902142aa17d282629e6f5, type: 3}
-  - {fileID: 198277080924081912, guid: d78905771f16db240b81d520383007bd, type: 3}
+  debug: 1
+  particleUnitDatas:
+  - particleUnit: {fileID: 3862260614241389860, guid: b42fc9de673e8804da021c5d8983161a,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: 9189636363719299060, guid: d6401d84ce3397544998197c6d710631,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: 8862035874212248650, guid: 9fbf607ecf9902142aa17d282629e6f5,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: -7391691405654601271, guid: d78905771f16db240b81d520383007bd,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: 8435657357507864835, guid: 85da333c0e20b81439c42d5687ed9685,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: -8636348353984119622, guid: 34391479fa976d743bd0a3a523dbf05d,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: -3387101932959172268, guid: 5e4679ebd41173943bcd3a4f7eeb1dcc,
+      type: 3}
+    emitOnly: 1
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: 1831213124373601788, guid: d0afaa533a1b7b340ac61ea4e77ffa93,
+      type: 3}
+    emitOnly: 1
+    preload: 0
+    capacity: 0
+  - particleUnit: {fileID: 3277492842507619318, guid: 82f8a2620ef98d74daac956814e77ac1,
+      type: 3}
+    emitOnly: 0
+    preload: 0
+    capacity: 0
 --- !u!114 &715436867
 MonoBehaviour:
   m_ObjectHideFlags: 0

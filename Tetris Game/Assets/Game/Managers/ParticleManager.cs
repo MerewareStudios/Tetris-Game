@@ -1,222 +1,172 @@
 using Internal.Core;
 using System.Collections.Generic;
+using Lean.Pool;
 using UnityEngine;
 
 
 public class ParticleManager : Singleton<ParticleManager>
 {
 #if UNITY_EDITOR
-    [SerializeField] public bool debug = true;
+    [SerializeField] private bool debug = true;
 #endif
-    [SerializeField] public List<ParticleSystem> particleSystems;
-    [System.NonSerialized] public List<ParticleData> particleData = new();
+    [SerializeField] public List<ParticleUnitData> particleUnitDatas;
 
-    void Awake()
+    private ParticleUnit Clone(ParticleUnit go)
     {
-        GeneratePool();
-    }
-
-    private void GeneratePool()
-    {
-        for (int i = 0; i < particleSystems.Count; i++)
-        {
-            particleData.Add(new ParticleData());
-        }
-    }
-
-    #region Play-Emit
-    public static ParticleSystem Play(Particle key, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null, ParticleSystemStopAction particleSystemStopAction = ParticleSystemStopAction.Destroy)
-    {
-        int index = (int)key;
-        ParticleSystem particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
-        particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
-        particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
-        
-#if UNITY_EDITOR
-        particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
-#endif
-
-        Transform pTransform = particleSystem.transform;
-        pTransform.position = position;
-        pTransform.rotation = rotation;
-        pTransform.localScale = scale == null ? Vector3.one : scale.Value;
-
-        var main = particleSystem.main;
-        main.stopAction = particleSystemStopAction;
-
-        particleSystem.Play();
-
-        return particleSystem;
-    }
-    public static ParticleSystem Emit(Particle key, int amount, Color? color = null, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
-    {
-        int index = (int)key;
-        ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
-        if (!particleSystem)
-        {
-            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
-            particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
-            particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
-            
-#if UNITY_EDITOR
-            particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
-#endif
-        }
-
-        Transform pTransform = particleSystem.transform;
-        pTransform.position = position;
-        pTransform.rotation = rotation;
-        pTransform.localScale = scale == null ? Vector3.one : scale.Value;
-
-        var main = particleSystem.main;
-
-        if (color != null)
-        {
-            main.startColor = (Color)color;
-        }
-        particleSystem.Emit(amount);
-
-        return particleSystem;
+        return Instantiate(go, this.transform);
     }
     
-    public static ParticleSystem EmitForward(Particle key, int amount, Vector3 position, Vector3? forward = null, Vector3? scale = null, Color? color = null)
+    public static ParticleUnit Prefab(Particle key)
     {
-        int index = (int)key;
-        ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
-        if (!particleSystem)
-        {
-            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
-            particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
-            particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
-            
-#if UNITY_EDITOR
-            particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
-#endif
-        }
-    
-        Transform pTransform = particleSystem.transform;
-        pTransform.position = position;
-        pTransform.forward = forward ?? pTransform.forward;
-        pTransform.localScale = scale ?? pTransform.localScale;
-    
-        var main = particleSystem.main;
-    
-        if (color != null)
-        {
-            main.startColor = color.Value;
-        }
-        particleSystem.Emit(amount);
-    
-        return particleSystem;
+        return ParticleManager.THIS.particleUnitDatas[((int)key)].particleUnit;
     }
-    public static void StopAndClear(Particle key)
+    public static ParticleUnit Prefab(int key)
     {
-        int index = (int)key;
-        ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
-        if (particleSystem == null)
-        {
-            return;
-        }
-
-        particleSystem.Stop();
-        particleSystem.Clear();
+        return ParticleManager.THIS.particleUnitDatas[key].particleUnit;
     }
-    public static ParticleSystem Emit(Particle key, int amount, Color color, Vector3 position, float radius)
+    
+    public static ParticleUnit Spawn(Particle key)
     {
-        int index = ((int)key);
-        ref ParticleSystem particleSystem = ref ParticleManager.THIS.particleData[index].emitInstance;
-        if (!particleSystem)
-        {
-            particleSystem = MonoBehaviour.Instantiate(ParticleManager.THIS.particleSystems[index], null);
-            particleSystem.name = ParticleManager.THIS.particleSystems[index].name;
-            particleSystem.gameObject.hideFlags = HideFlags.HideInHierarchy;
-            
-#if UNITY_EDITOR
-            particleSystem.gameObject.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
-#endif
-        }
-
-        Transform pTransform = particleSystem.transform;
-        pTransform.position = position;
-
-        var main = particleSystem.main;
-        var shape = particleSystem.shape;
-
-        main.startColor = color;
-        shape.radius = radius;
-        
-        particleSystem.Emit(amount);
-
-        return particleSystem;
+        return ParticleManager.THIS.particleUnitDatas[((int)key)].New;
     }
-    #endregion
-
-    public class ParticleData
+    public static ParticleUnit Spawn(int key)
     {
-        [SerializeField] public ParticleSystem emitInstance;
-        [System.NonSerialized] public List<ParticleSystem> particleSystemInstances = new();
+        return ParticleManager.THIS.particleUnitDatas[key].New;
     }
+    
+    public static void Despawn(Particle key, ParticleUnit particleUnit)
+    {
+        ParticleManager.THIS.particleUnitDatas[((int)key)].Despawn(particleUnit);
+    }
+    public static void Despawn(int key, ParticleUnit particleUnit)
+    {
+        ParticleManager.THIS.particleUnitDatas[key].Despawn(particleUnit);
+    }
+    
+    
+    
     [System.Serializable]
-    public struct ParticleEmissionData
+    public class ParticleUnitData
     {
-        [SerializeField] public Particle particle;
-        [SerializeField] public int amount;
-    }
-    [System.Serializable]
-    public struct ParticlePlayData
-    {
-        [SerializeField] public Particle particle;
-        [SerializeField] public ParticleSystemStopAction particleSystemStopAction;
+        [SerializeField] public ParticleUnit particleUnit;
+        [SerializeField] public bool emitOnly = false;
+        [SerializeField] public int preload = 0;
+        [SerializeField] public int capacity = 50;
+        [System.NonSerialized] private LeanGameObjectPool _pool;
+        [System.NonSerialized] private ParticleUnit _emitInstance;
+
+        public ParticleUnit New
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (emitOnly)
+                {
+                    if (!_emitInstance)
+                    {
+                        InstantiateEmitter();
+                    }
+                    return _emitInstance;
+                }
+#endif
+                if (!this._pool)
+                {
+                    InstantiatePool();
+                }
+                return _pool.Spawn(null).GetComponent<ParticleUnit>();
+            }
+        }
+
+        public void Despawn(ParticleUnit particleUnit)
+        {
+#if UNITY_EDITOR
+            if (emitOnly)
+            {
+                Debug.LogError("This pool is emit only, cannot despawn!");
+                return;
+            }
+#endif
+            
+            _pool.Despawn(particleUnit.gameObject);
+        }
+
+        private void InstantiateEmitter()
+        {
+            _emitInstance = ParticleManager.THIS.Clone(particleUnit);
+
+        }
+
+        private void InstantiatePool()
+        {
+            GameObject go = new GameObject(particleUnit.gameObject.name + " Particle Pool");
+            go.hideFlags = HideFlags.HideInHierarchy;
+            go.transform.SetParent(ParticleManager.THIS.transform);
+            _pool = go.AddComponent<LeanGameObjectPool>();
+            _pool.Prefab = particleUnit.gameObject;
+#if UNITY_EDITOR
+            _pool.Warnings = true;
+#else
+            _pool.Warnings = false;
+#endif
+            
+#if UNITY_EDITOR
+            go.hideFlags = ParticleManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
+    
+            _pool.Notification = LeanGameObjectPool.NotificationType.None;
+            _pool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
+            _pool.Preload = preload;
+            _pool.Capacity = capacity;
+            _pool.Recycle = false;
+            _pool.Persist = false;
+
+            var main = particleUnit.ps.main;
+            main.stopAction = emitOnly ? ParticleSystemStopAction.None : ParticleSystemStopAction.Callback;
+        }
     }
 }
 public static class ParticleManagerExtensions
 {
-    public static ParticleSystem EmitForward(this Particle key, int amount, Vector3 position, Vector3? forward = null, Vector3? scale = null, Color? color = null)
+    public static ParticleUnit Prefab(this int key)
     {
-        return ParticleManager.EmitForward(key, amount, position, forward, scale, color);
+        return ParticleManager.Prefab(key);
     }
-    public static ParticleSystem Emit(this Particle key, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
+    public static ParticleUnit Spawn(this Particle key)
     {
-        return ParticleManager.Emit(key, amount, null, position, rotation, scale);
+        return ParticleManager.Spawn(key);
     }
-    public static ParticleSystem Emit(this Particle key, int amount, Color color, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
+    public static void Despawn(this ParticleUnit particleUnit, Particle key)
     {
-        return ParticleManager.Emit(key, amount, color, position, rotation, scale);
+        ParticleManager.Despawn(key, particleUnit);
     }
-    public static ParticleSystem Emit(this Particle key, int amount, Vector3 position, Color color)
+    public static void Play(this Particle key, Vector3 position)
     {
-        return ParticleManager.Emit(key, amount, color, position);
+        ParticleUnit particleUnit = ParticleManager.Spawn(key);
+        particleUnit.PlayAtPosition(position);
     }
-    public static ParticleSystem Emit(this Particle key, int amount, Vector3 position, Color color, float radius)
+    public static void Play(this Particle key, Vector3 position, Quaternion rotation, Vector3 scale)
     {
-        return ParticleManager.Emit(key, amount, color, position, radius);
+        ParticleUnit particleUnit = ParticleManager.Spawn(key);
+        particleUnit.Set(rotation, scale);
+        particleUnit.PlayAtPosition(position);
     }
-    public static void EmitAll(this Particle[] keys, int amount, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
+    public static void Play(this Particle key, Vector3 position, Vector3 forward)
     {
-        foreach (var key in keys)
-        {
-            key.Emit(amount, position, rotation, scale);
-        }
-    }
-    public static void EmitAll(this ParticleManager.ParticleEmissionData[] emissionDatas, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
-    {
-        foreach (var particleEmissionData in emissionDatas)
-        {
-            particleEmissionData.particle.Emit(particleEmissionData.amount, position, rotation, scale);
-        }
-    }
-    public static ParticleSystem Play(this Particle key, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null, ParticleSystemStopAction particleSystemStopAction = ParticleSystemStopAction.Destroy)
-    {
-        return ParticleManager.Play(key, position, rotation, scale, particleSystemStopAction);
-    }
-
-    public static void Play(this ParticleManager.ParticlePlayData playData, Vector3 position = default, Quaternion rotation = default, Vector3? scale = null)
-    {
-        playData.particle.Play(position, rotation, scale, playData.particleSystemStopAction);
+        ParticleUnit particleUnit = ParticleManager.Spawn(key);
+        particleUnit.SetForward(forward);
+        particleUnit.PlayAtPosition(position);
     }
     
-    public static void StopAndClear(this Particle key)
+    public static void Emit(this Particle key, int amount, Vector3 position, Vector3 forward)
     {
-        ParticleManager.StopAndClear(key);
+        ParticleUnit particleUnit = ParticleManager.Spawn(key);
+        particleUnit.SetForward(forward);
+        particleUnit.EmitAtPosition(position, amount);
+    }
+    public static void Emit(this Particle key, int amount, Vector3 position, Quaternion rotation, Vector3 scale)
+    {
+        ParticleUnit particleUnit = ParticleManager.Spawn(key);
+        particleUnit.Set(rotation, scale);
+        particleUnit.EmitAtPosition(position, amount);
     }
 }

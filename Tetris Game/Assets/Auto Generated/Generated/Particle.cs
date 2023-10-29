@@ -1,15 +1,13 @@
 public enum Particle
 {
-    Square = 0,
-    Kamikaze = 1,
-    Shield = 2,
-    Merge_Circle = 3,
-    Square_Bullet = 4,
-    Bubble = 5,
-    Missile_Explosion = 6,
-    Energy = 7,
-    Confetti = 8,
-    Pow = 9,
-    Lightning = 10,
+    Energy = 0,
+    Missile_Explosion = 1,
+    Pow = 2,
+    Lightning = 3,
+    Merge_Circle = 4,
+    Confetti = 5,
+    Bubble = 6,
+    Square_Bullet = 7,
+    Kamikaze = 8,
 
 }

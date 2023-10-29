@@ -48,10 +48,10 @@ namespace Internal.Core
         public static void GenerateParticles()
         {
             string declerations = "";
-            for (int i = 0; i < ParticleManager.THIS.particleSystems.Count; i++)
+            for (int i = 0; i < ParticleManager.THIS.particleUnitDatas.Count; i++)
             {
-                ParticleSystem ps = ParticleManager.THIS.particleSystems[i];
-                string poolDecleration = GetDecleration(AccessibilityLevel.NONE, StaticModifier.NONSTATIC, ReadModifier.NONE, VariableType.NONE, ps.name.Replace(" ", "_"), i.ToString(), LineEnding.COMMA);
+                ParticleManager.ParticleUnitData ps = ParticleManager.THIS.particleUnitDatas[i];
+                string poolDecleration = GetDecleration(AccessibilityLevel.NONE, StaticModifier.NONSTATIC, ReadModifier.NONE, VariableType.NONE, ps.particleUnit.name.Replace(" ", "_"), i.ToString(), LineEnding.COMMA);
                 declerations += poolDecleration + "\n";
             }
             GenerateEnum("Particle", declerations);

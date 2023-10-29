@@ -731,7 +731,7 @@ namespace Game
                     () =>
                     {
                         UIManagerExtensions.Distort(spawnPlace.Position + Vector3.up * 0.45f, 0.0f);
-                        Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
+                        Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
                     });
         }
 
@@ -881,7 +881,7 @@ namespace Game
                     () =>
                     {
                         UIManagerExtensions.Distort(spawnPlace.Position + Vector3.up * 0.45f, 0.0f);
-                        Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), scale : Vector3.one * 0.5f);
+                        Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
                     });
         }
         public void MarkMover(int horizontal)
@@ -926,7 +926,7 @@ namespace Game
                         if (currentPawn.Amount > 0)
                         {
                             currentPawn.PunchScaleModelPivot(-0.4f);
-                            Particle.Square_Bullet.Emit(1, currentPawn.transform.position, rotation: Quaternion.Euler(90.0f, 0.0f, 0.0f));
+                            Particle.Square_Bullet.Emit(1, currentPawn.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
                         }
                         else
                         {

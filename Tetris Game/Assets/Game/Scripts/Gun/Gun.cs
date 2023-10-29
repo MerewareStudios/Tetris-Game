@@ -52,7 +52,7 @@ public class Gun : MonoBehaviour
 
     public void Bubble()
     {
-        Particle.Bubble.EmitForward(1, muzzle.position, muzzle.forward);
+        Particle.Bubble.Emit(1, muzzle.position, muzzle.forward);
     }
     
     public void Shoot(Enemy enemy)

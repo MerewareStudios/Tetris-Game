@@ -6,7 +6,7 @@ using Lean.Pool;
 public class PoolManager : Singleton<PoolManager>
 {
 #if UNITY_EDITOR
-    [SerializeField] public bool debug = true;
+    [SerializeField] private bool debug = true;
 #endif
     [SerializeField] public List<PoolData> pools;
 
@@ -70,7 +70,7 @@ public class PoolManager : Singleton<PoolManager>
         {
             GameObject go = new GameObject(gameObject.name + " Pool");
             go.hideFlags = HideFlags.HideInHierarchy;
-            go.transform.SetParent(null);
+            go.transform.SetParent(PoolManager.THIS.transform);
             _pool = go.AddComponent<LeanGameObjectPool>();
             _pool.Prefab = gameObject;
 #if UNITY_EDITOR
@@ -103,8 +103,6 @@ public static class PoolManagerExtensions
     {
         return PoolManager.Prefab(key).GetComponent<T>();
     }
-    
-    
     public static GameObject Spawn(this Pool key, Transform parent = null)
     {
         return PoolManager.Spawn(key, parent);
@@ -125,38 +123,6 @@ public static class PoolManagerExtensions
     {
         t.gameObject.Despawn(key);
     }
-    // public static void Despawn(this GameObject gameObject, int key)
-    // {
-    //     PoolManager.Despawn(key, gameObject);
-    // }
-    // public static void Despawn(this GameObject gameObject)
-    // {
-    //     PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), gameObject.name.Replace(" ", "_").Replace("-", "_")), gameObject);
-    // }
-    // public static void Despawn(this Transform transform)
-    // {
-    //     PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), transform.name.Replace(" ", "_").Replace("-", "_")), transform.gameObject);
-    // }
-    // public static void Despawn(this MonoBehaviour mono, Pool key)
-    // {
-    //     PoolManager.Despawn(key, mono.gameObject);
-    // }
-    // public static void Despawn(this MonoBehaviour mono, int key)
-    // {
-    //     PoolManager.Despawn(key, mono.gameObject);
-    // }
-    public static void Despawn(this int key, GameObject gameObject)
-    {
-        PoolManager.Despawn((Pool)key, gameObject);
-    }
-    public static void Despawn(this Pool key, GameObject gameObject)
-    {
-        PoolManager.Despawn(key, gameObject);
-    }
-    // public static Pool ToPoolKey(this string name)
-    // {
-    //     return (Pool)System.Enum.Parse(typeof(Pool), name);
-    // }
 }
 
 #if UNITY_EDITOR
