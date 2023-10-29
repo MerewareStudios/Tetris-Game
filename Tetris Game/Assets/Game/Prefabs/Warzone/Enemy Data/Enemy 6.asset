@@ -113,15 +113,16 @@ MonoBehaviour:
   - type: 3
     amount: 15
     probability: 1
-  maxHealth: 50
+  maxHealth: 4
   speed: 0.05
   forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
-  wipeDelay: 0.7
   crossSize: 2.5
   castType: 0
   deathAction: 0
-  extraInt: 0
+  spawnerCount: 0
+  spawnerDuration: 0
+  spawnerExtra: 0
   extraData: {fileID: 0}
