@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
     {
         Distortion.Complete = (go, state) =>
         {
-            go.Despawn();
+            go.Despawn(Pool.Distortion);
             if (state)
             {
                 ApplicationManager.THIS.GrabFeatureEnabled = false;

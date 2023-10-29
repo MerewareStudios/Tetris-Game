@@ -128,7 +128,7 @@ namespace Game
             {
                 if (Gun && !Gun._Data.gunType.Equals(value.gunType))
                 {
-                    Gun.Despawn();
+                    Gun.Despawn(Gun._Data.gunType);
                     Gun = null;
                 }
                 if (!Gun)
@@ -183,7 +183,7 @@ namespace Game
 
             if (Gun)
             {
-                Gun.Despawn();
+                Gun.Despawn(Gun._Data.gunType);
                 Gun = null;
             }
         }

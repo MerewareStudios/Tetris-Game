@@ -40,7 +40,7 @@ namespace Game
             
             this.UsageType = value;
             SubModel.BaseColor = VData.startColor;
-            SubModel.OnConstruct(modelPivot, extra);
+            SubModel.OnConstruct(VData.model, modelPivot, extra);
             CanTakeContent = false;
         }
 
@@ -222,7 +222,7 @@ namespace Game
             ParentBlock = null;
             
             DeSpawnModel();
-            this.Despawn();
+            this.gameObject.Despawn(Pool.Pawn);
         }
         
         public void OnLevelEnd()

@@ -211,7 +211,7 @@ namespace  Game
             // thisTransform.localScale = Vector3.one;
             thisTransform.DOMoveZ(finalDrag, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>
             {
-                _dragTrail.Despawn();
+                _dragTrail.Despawn(Pool.Drag_Trail);
                 _dragTrail = null;
                 DragTarget = false;
                 onComplete?.Invoke();
@@ -313,10 +313,10 @@ namespace  Game
 
             if (_dragTrail)
             {
-                _dragTrail.Despawn();
+                _dragTrail.Despawn(Pool.Drag_Trail);
                 _dragTrail = null;
             }
-            this.Despawn();
+            this.Despawn(so.type);
         }
 
         public enum CastTypes

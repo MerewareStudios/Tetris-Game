@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SubModel : MonoBehaviour
 {
+    [System.NonSerialized] public Pool _poolType;
     [System.NonSerialized] protected Transform ThisTransform;
     [SerializeField] public MeshRenderer meshRenderer;
     [SerializeField] protected AnimType animType;
@@ -29,8 +30,9 @@ public class SubModel : MonoBehaviour
         }
     }
 
-    public virtual void OnConstruct(Transform customParent, int extra)
+    public virtual void OnConstruct(Pool poolType, Transform customParent, int extra)
     {
+        this._poolType = poolType;
         OnExtraValueChanged(extra);
         
         RefreshSequence();
@@ -92,12 +94,17 @@ public class SubModel : MonoBehaviour
         Sequence?.Kill();
         ThisTransform.DOKill();
         Board.THIS.LoseSubModels.Remove(this);
-        this.Despawn();
+        OnDespawn();
     }
     public void DeconstructImmediate()
     {
         Sequence?.Kill();
-        this.Despawn();
+        OnDespawn();
+    }
+
+    public void OnDespawn()
+    {
+        this.Despawn(_poolType);
     }
     
     public virtual bool OnCustomUnpack()

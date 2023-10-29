@@ -108,7 +108,7 @@ namespace Game
             Pawns.Clear();
             PlacedOnGrid = false;
             RequiredPlaces = null;
-            this.Despawn();
+            this.Despawn(Pool.Block);
         }
         public void Detach()
         {

@@ -10,42 +10,6 @@ public class PoolManager : Singleton<PoolManager>
 #endif
     [SerializeField] public List<PoolData> pools;
 
-    void Awake()
-    {
-        GeneratePool();
-    }
-
-    private void GeneratePool()
-    {
-        for (int i = 0; i < pools.Count; i++)
-        {
-            PoolData poolData = pools[i];
-            GameObject go = new GameObject(poolData.gameObject.name + " Pool");
-            go.hideFlags = HideFlags.HideInHierarchy;
-            go.transform.SetParent(null);
-            LeanGameObjectPool leanGameObjectPool = go.AddComponent<LeanGameObjectPool>();
-            leanGameObjectPool.Prefab = poolData.gameObject;
-        #if UNITY_EDITOR
-            leanGameObjectPool.Warnings = true;
-        #else
-            leanGameObjectPool.Warnings = false;
-        #endif
-            
-#if UNITY_EDITOR
-            go.hideFlags = debug ? HideFlags.None : HideFlags.HideInHierarchy;
-#endif
-    
-            leanGameObjectPool.Notification = LeanGameObjectPool.NotificationType.None;
-            leanGameObjectPool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
-            leanGameObjectPool.Preload = poolData.preload;
-            leanGameObjectPool.Capacity = poolData.capacity;
-            leanGameObjectPool.Recycle = false;
-            leanGameObjectPool.Persist = false;
-
-            poolData.pool = leanGameObjectPool;
-        }
-    }
-
     #region Spawn
     public static GameObject Prefab(Pool key)
     {
@@ -58,19 +22,19 @@ public class PoolManager : Singleton<PoolManager>
     
     public static GameObject Spawn(Pool key, Transform parent = null)
     {
-        return PoolManager.THIS.pools[((int)key)].pool.Spawn(parent);
+        return PoolManager.THIS.pools[((int)key)].Pool.Spawn(parent);
     }
     public static T Spawn<T>(Pool key, Transform parent = null) where T : Component
     {
-        return PoolManager.THIS.pools[(int)key].pool.Spawn(parent).GetComponent<T>();
+        return PoolManager.THIS.pools[((int)key)].Pool.Spawn(parent).GetComponent<T>();
     }
     public static void Despawn(Pool key, GameObject gameObject)
     {
-        PoolManager.THIS.pools[((int)key)].pool.Despawn(gameObject);
+        PoolManager.THIS.pools[((int)key)].Pool.Despawn(gameObject);
     }
     public static void Despawn(int key, GameObject gameObject)
     {
-        PoolManager.THIS.pools[key].pool.Despawn(gameObject);
+        PoolManager.THIS.pools[key].Pool.Despawn(gameObject);
     }
     #endregion
 
@@ -81,7 +45,51 @@ public class PoolManager : Singleton<PoolManager>
         [SerializeField] public bool readOnly = false;
         [SerializeField] public int preload = 0;
         [SerializeField] public int capacity = 50;
-        [System.NonSerialized] public LeanGameObjectPool pool;
+        [System.NonSerialized] private LeanGameObjectPool _pool;
+
+        public LeanGameObjectPool Pool
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (readOnly)
+                {
+                    Debug.LogError("This pool is readonly, cannot spawn!");
+                    return null;
+                }
+#endif
+                if (!this._pool)
+                {
+                    Instantiate();
+                }
+                return _pool;
+            }
+        }
+
+        private void Instantiate()
+        {
+            GameObject go = new GameObject(gameObject.name + " Pool");
+            go.hideFlags = HideFlags.HideInHierarchy;
+            go.transform.SetParent(null);
+            _pool = go.AddComponent<LeanGameObjectPool>();
+            _pool.Prefab = gameObject;
+#if UNITY_EDITOR
+            _pool.Warnings = true;
+#else
+            _pool.Warnings = false;
+#endif
+            
+#if UNITY_EDITOR
+            go.hideFlags = PoolManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+#endif
+    
+            _pool.Notification = LeanGameObjectPool.NotificationType.None;
+            _pool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
+            _pool.Preload = preload;
+            _pool.Capacity = capacity;
+            _pool.Recycle = false;
+            _pool.Persist = false;
+        }
     }
 }
 
@@ -109,30 +117,34 @@ public static class PoolManagerExtensions
     {
         PoolManager.Despawn(key, gameObject);
     }
-    public static void Despawn(this GameObject gameObject, int key)
-    {
-        PoolManager.Despawn(key, gameObject);
-    }
-    public static void Despawn(this GameObject gameObject)
-    {
-        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), gameObject.name.Replace(" ", "_").Replace("-", "_")), gameObject);
-    }
-    public static void Despawn(this Transform transform)
-    {
-        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), transform.name.Replace(" ", "_").Replace("-", "_")), transform.gameObject);
-    }
-    public static void Despawn(this MonoBehaviour mono)
-    {
-        PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), mono.gameObject.name.Replace(" ", "_").Replace("-", "_")), mono.gameObject);
-    }
     public static void Despawn(this MonoBehaviour mono, Pool key)
     {
-        PoolManager.Despawn(key, mono.gameObject);
+        mono.gameObject.Despawn(key);
     }
-    public static void Despawn(this MonoBehaviour mono, int key)
+    public static void Despawn(this Transform t, Pool key)
     {
-        PoolManager.Despawn(key, mono.gameObject);
+        t.gameObject.Despawn(key);
     }
+    // public static void Despawn(this GameObject gameObject, int key)
+    // {
+    //     PoolManager.Despawn(key, gameObject);
+    // }
+    // public static void Despawn(this GameObject gameObject)
+    // {
+    //     PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), gameObject.name.Replace(" ", "_").Replace("-", "_")), gameObject);
+    // }
+    // public static void Despawn(this Transform transform)
+    // {
+    //     PoolManager.Despawn((Pool)System.Enum.Parse(typeof(Pool), transform.name.Replace(" ", "_").Replace("-", "_")), transform.gameObject);
+    // }
+    // public static void Despawn(this MonoBehaviour mono, Pool key)
+    // {
+    //     PoolManager.Despawn(key, mono.gameObject);
+    // }
+    // public static void Despawn(this MonoBehaviour mono, int key)
+    // {
+    //     PoolManager.Despawn(key, mono.gameObject);
+    // }
     public static void Despawn(this int key, GameObject gameObject)
     {
         PoolManager.Despawn((Pool)key, gameObject);
@@ -141,10 +153,10 @@ public static class PoolManagerExtensions
     {
         PoolManager.Despawn(key, gameObject);
     }
-    public static Pool ToPoolKey(this string name)
-    {
-        return (Pool)System.Enum.Parse(typeof(Pool), name);
-    }
+    // public static Pool ToPoolKey(this string name)
+    // {
+    //     return (Pool)System.Enum.Parse(typeof(Pool), name);
+    // }
 }
 
 #if UNITY_EDITOR

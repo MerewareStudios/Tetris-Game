@@ -106,7 +106,7 @@ public class UIManager : Singleton<UIManager>
 
          Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
-         Glimmer.OnComplete = glimmer => glimmer.Despawn();
+         Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
          MenuVisible = false;
          CurrentMenu = null;

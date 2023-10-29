@@ -8,9 +8,9 @@ public class Bomb : SubModel
     [System.NonSerialized] private float _current;
     [System.NonSerialized] private float _tickInterval;
 
-    public override void OnConstruct(Transform customParent, int extra)
+    public override void OnConstruct(Pool poolType, Transform customParent, int extra)
     {
-        base.OnConstruct(customParent, extra);
+        base.OnConstruct(poolType, customParent, extra);
         _tickInterval = extra * 0.001f;
         StartTimer();
     }

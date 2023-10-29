@@ -310,7 +310,7 @@ namespace  Game
         
         public void ExplodeLandMine(Enemy enemy, SubModel subModel)
         {
-            subModel.Despawn();
+            subModel.OnDespawn();
             landMines.Remove(subModel);
             Vector3 pos = subModel.Position;
             Particle.Missile_Explosion.Play(pos);
@@ -321,7 +321,8 @@ namespace  Game
         {
             for (int i = 0; i < landMines.Count; i++)
             {
-                landMines[i].Despawn();
+                SubModel landMine = landMines[i];
+                landMine.OnDespawn();
             }
             landMines.Clear();
         }

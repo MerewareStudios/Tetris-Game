@@ -5,9 +5,9 @@ public class Screw : SubModel
 {
     [System.NonSerialized] private int _current = 3;
 
-    public override void OnConstruct(Transform customParent, int extra)
+    public override void OnConstruct(Pool poolType, Transform customParent, int extra)
     {
-        base.OnConstruct(customParent, extra);
+        base.OnConstruct(poolType, customParent, extra);
         _current = extra;
     }
 

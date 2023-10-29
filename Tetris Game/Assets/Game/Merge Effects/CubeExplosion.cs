@@ -29,7 +29,7 @@ public class CubeExplosion : MonoBehaviour
                 index++;
                 if (index == fragments.Count)
                 {
-                    this.Despawn();
+                    this.Despawn(Pool.Cube_Explosion);
                 }
             };
 

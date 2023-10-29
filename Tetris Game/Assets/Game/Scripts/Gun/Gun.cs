@@ -82,7 +82,7 @@ public class Gun : MonoBehaviour
             {
                 enemy.TakeDamage(_Data.DamageAmount, 1.0f);
             }
-            bullet.Despawn();
+            bullet.Despawn(Pool.Bullet);
         };
     }
 
@@ -90,7 +90,7 @@ public class Gun : MonoBehaviour
     {
         _boostTween?.Kill(true);
     }
-    
+
     [Serializable]
     public enum StatType
     {
