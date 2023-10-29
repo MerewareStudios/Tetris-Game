@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using FSG.MeshAnimator.ShaderAnimated;
 using Game.UI;
 using Internal.Core;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace  Game
         [SerializeField] public Transform thisTransform;
         [SerializeField] public Transform hitTarget;
         [SerializeField] private Renderer skin;
-        [SerializeField] private Animator animator;
+        [SerializeField] private ShaderMeshAnimator animator;
         [SerializeField] public EnemyData so;
         [SerializeField] public ParticleSystem castPs;
         [SerializeField] public Transform castParent;
@@ -24,13 +25,48 @@ namespace  Game
         [System.NonSerialized] private GameObject _dragTrail = null;
         [System.NonSerialized] public bool DragTarget = false;
         [System.NonSerialized] private Tween _castTweenLoop;
-        [System.NonSerialized] private Tween _wipeTween;
+        // [System.NonSerialized] private Tween _wipeTween;
 
-        private static int WALK_HASH = Animator.StringToHash("Walk");
-        private static int DEATH_HASH = Animator.StringToHash("Death");
-        private static int HIT_HASH = Animator.StringToHash("Hit");
-        private static int CAST_HASH = Animator.StringToHash("Cast");
-        private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
+        // private static int WALK_HASH = Animator.StringToHash("Walk");
+        // private static int DEATH_HASH = Animator.StringToHash("Death");
+        // private static int HIT_HASH = Animator.StringToHash("Hit");
+        // private static int CAST_HASH = Animator.StringToHash("Cast");
+        // private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
+        
+        private static int HIT_HASH = 0;
+        private static int DEATH_HASH = 1;
+        private static int WALK_HASH = 2;
+
+        public void GetHitEnd()
+        {
+            CrossWalkAnimation();
+        }
+        public void DeathEnd()
+        {
+            GiveRewards();
+            Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
+            this.Deconstruct();
+            LevelManager.THIS.CheckEndLevel();
+        }
+
+        public void PlayWalkAnimation()
+        {
+            animator.Play(WALK_HASH);
+        }
+        public void CrossWalkAnimation()
+        {
+            animator.Crossfade(WALK_HASH, 0.1f);
+        }
+        public void PlayDeathAnimation()
+        {
+            animator.Crossfade(DEATH_HASH, 0.1f);
+        }
+        public void PlayGetHitAnimation()
+        {
+            animator.Crossfade(HIT_HASH, 0.1f);
+        }
+        // private static int CAST_HASH = Animator.StringToHash("Cast");
+        // private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
 
         public int Damage => Health;
         public Vector3 Position => thisTransform.position;
@@ -80,8 +116,8 @@ namespace  Game
                     {
                         castPs.Play();
                     }
-                    animator.SetBool(CASTING_BOOL_HASH, true);
-                    animator.SetTrigger(CAST_HASH);
+                    // animator.SetBool(CASTING_BOOL_HASH, true);
+                    // animator.SetTrigger(CAST_HASH);
                     break;
                 case CastTypes.DestoryPawn:
                     if (castPs)
@@ -89,16 +125,16 @@ namespace  Game
                         castPs.Stop();
                         castPs.transform.DOKill();
                     }
-                    animator.SetBool(CASTING_BOOL_HASH, true);
-                    animator.SetTrigger(CAST_HASH);
+                    // animator.SetBool(CASTING_BOOL_HASH, true);
+                    // animator.SetTrigger(CAST_HASH);
                     break;
                 case CastTypes.SpawnEnemy:
                     if (castPs)
                     {
                         castPs.Play();
                     }
-                    animator.SetBool(CASTING_BOOL_HASH, true);
-                    animator.SetTrigger(CAST_HASH);
+                    // animator.SetBool(CASTING_BOOL_HASH, true);
+                    // animator.SetTrigger(CAST_HASH);
                     break;
             }
 
@@ -110,7 +146,7 @@ namespace  Game
         }
         public void OnCast()
         {
-            animator.SetBool(CASTING_BOOL_HASH, false);
+            // animator.SetBool(CASTING_BOOL_HASH, false);
             switch (so.castType)
             {
                 case CastTypes.None:
@@ -146,7 +182,9 @@ namespace  Game
         public void Replenish()
         {
             Health = so.maxHealth;
-            animator.SetTrigger(WALK_HASH);
+            PlayWalkAnimation();
+            // animator.Play(WALK_HASH);
+            // animator.SetTrigger(WALK_HASH);
             skin.material.SetColor(GameManager.EmissionKey, Color.black);
         }
         public void TakeDamage(int value, float scale = 1.0f)
@@ -170,11 +208,12 @@ namespace  Game
             {
                 OnDeathAction();
                 Warzone.THIS.EnemyKilled(this);
+                return;
             }
-            else
-            {
-                animator.SetTrigger(HIT_HASH);
-            }
+            
+            // animator.SetTrigger(HIT_HASH);
+            PlayGetHitAnimation();
+            // animator.Play(HIT_HASH);
         }
 
         private void OnDeathAction()
@@ -208,7 +247,6 @@ namespace  Game
             float finalDrag = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance);
             
             thisTransform.DOKill();
-            // thisTransform.localScale = Vector3.one;
             thisTransform.DOMoveZ(finalDrag, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>
             {
                 _dragTrail.Despawn(Pool.Drag_Trail);
@@ -272,16 +310,15 @@ namespace  Game
             model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             
-            animator.SetTrigger(DEATH_HASH);
+            PlayDeathAnimation();
+            // animator.Crossfade(DEATH_HASH, 0.1f);
+            // animator.SetTrigger(DEATH_HASH);
 
-            _wipeTween?.Kill();
-            _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
-            {
-                GiveRewards();
-                Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
-                this.Deconstruct();
-                LevelManager.THIS.CheckEndLevel();
-            }, false);
+            // _wipeTween?.Kill();
+            // _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
+            // {
+                
+            // }, false);
         }
 
         private void GiveRewards()
@@ -307,7 +344,7 @@ namespace  Game
         public void Deconstruct()
         {
             _castTweenLoop?.Kill();
-            _wipeTween?.Kill();
+            // _wipeTween?.Kill();
 
             model.DOKill();
 
