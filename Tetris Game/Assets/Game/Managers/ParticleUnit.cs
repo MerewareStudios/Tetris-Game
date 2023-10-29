@@ -44,7 +44,6 @@ public class ParticleUnit : MonoBehaviour
     
     void OnParticleSystemStopped()
     {
-        Debug.Log(key.ToString() + " despawn");
         this.Despawn(key);    
     }
 }
