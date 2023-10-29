@@ -19,7 +19,7 @@ public class EnemyData : ScriptableObject
     public float radius;
     public int emitCount;
     public int deathEmitCount;
-    public float wipeDelay;
+    // public float wipeDelay;
     public float crossSize;
     public Enemy.CastTypes castType;
     public Enemy.DeathAction deathAction;
