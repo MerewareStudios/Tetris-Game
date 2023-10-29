@@ -37,7 +37,7 @@ namespace Game.UI
 
         [System.NonSerialized] private WeaponShopData _weaponShopData;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
-        [System.NonSerialized] public System.Action<Gun.Data> OnGunDataChanged = null;
+        [System.NonSerialized] public System.Action<Gun.Data> GunDataChanged = null;
 
         public WeaponShopData _Data
         {
@@ -308,7 +308,7 @@ namespace Game.UI
 
                 if (_weaponShopData.Equipped)
                 {
-                    OnGunDataChanged?.Invoke(EquippedGunData);
+                    GunDataChanged?.Invoke(EquippedGunData);
                 }
                 
                 if (ONBOARDING.PURCHASE_FIRERATE.IsNotComplete())
@@ -379,7 +379,7 @@ namespace Game.UI
         public void OnClick_Equip()
         {
             _weaponShopData.Equip();
-            OnGunDataChanged?.Invoke(EquippedGunData);
+            GunDataChanged?.Invoke(EquippedGunData);
             CustomShow(0.3f, true);
         }
         

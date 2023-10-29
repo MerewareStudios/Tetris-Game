@@ -21,7 +21,7 @@ public enum Pool
     Tree_I_Empty_Block = 18,
     Enemy_1 = 19,
     Bullet = 20,
-    Trail = 21,
+    Block = 21,
     Distortion = 22,
     Ghost_Pawn = 23,
     Gun_1 = 24,

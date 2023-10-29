@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
+using System.Diagnostics;
 using Internal.Core;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Debug = UnityEngine.Debug;
 
 public class ApplicationManager : Singleton<ApplicationManager>
 {
@@ -17,6 +19,9 @@ public class ApplicationManager : Singleton<ApplicationManager>
     // static Setting HAPTIC;
     // public static Setting SOUND;
 
+    private long _elapsed;
+    private Stopwatch _stopwatch;
+
     public bool GrabFeatureEnabled
     {
         set => grabTextureFeature.SetActive(value);
@@ -25,6 +30,9 @@ public class ApplicationManager : Singleton<ApplicationManager>
 
     public virtual void Awake()
     {
+        _stopwatch = new Stopwatch();
+        _stopwatch.Start();
+        
         Input.multiTouchEnabled = multiTouchEnabled;
         
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
@@ -49,6 +57,13 @@ public class ApplicationManager : Singleton<ApplicationManager>
     //    }
     //}
 
+    IEnumerator Start()
+    {
+        yield return null;
+        _elapsed = _stopwatch.ElapsedMilliseconds;
+        Debug.Log(_elapsed);
+    }
+
     void LateUpdate()
     {
         fps++;
@@ -62,7 +77,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
                 );
             
             
-            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + " " + Const.THIS.bundleVersionCode + ")";
+            fpsText.text = fps.ToString() + " | " + stamp + " | (" + Application.version + " " + Const.THIS.bundleVersionCode + ") " + _elapsed;
             // fpsText.text = fps.ToString() + " | " + stamp + " | " + Helper.ScreenDPI() + " | " + Helper.ScreenHeightDP();
             fps = 0;
             fpsTimestamp = Time.realtimeSinceStartup;

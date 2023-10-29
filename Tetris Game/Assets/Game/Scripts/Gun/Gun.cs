@@ -61,7 +61,7 @@ public class Gun : MonoBehaviour
         
         Transform bullet = Pool.Bullet.Spawn().transform;
         
-        TrailRenderer trail = Pool.Trail.Spawn<TrailRenderer>(bullet);
+        TrailRenderer trail = bullet.GetChild(1).GetComponent<TrailRenderer>();
         
         bullet.DOKill();
         bullet.transform.position = muzzle.position;
@@ -83,7 +83,6 @@ public class Gun : MonoBehaviour
                 enemy.TakeDamage(_Data.DamageAmount, 1.0f);
             }
             bullet.Despawn();
-            trail.gameObject.Despawn();
         };
     }
 

@@ -55,7 +55,7 @@ public class UIManager : Singleton<UIManager>
 
    [Header("Canvases")]
    [SerializeField] private BlockMenu blockMenu;
-   [SerializeField] private WeaponMenu weaponMenu;
+   [SerializeField] public WeaponMenu weaponMenu;
    [SerializeField] private UpgradeMenu upgradeMenu;
    [SerializeField] private SlashScreen slashScreen;
    [SerializeField] private MenuNavigator menuNavigator;

@@ -71,16 +71,21 @@ namespace Game
 
         void Start()
         {
-            WeaponMenu.THIS.OnGunDataChanged += (newGunData) =>
+            WeaponMenu.THIS.GunDataChanged += (newGunData) =>
             {
-                newGunData.prevShoot = _GunData.prevShoot;
-                _GunData = newGunData;
+                UpdateGunData(newGunData);
             };
             crossHairMR.sharedMaterial.SetColor(GameManager.BaseColor, Color.white);
         }
 
 #endregion
-        
+
+        private void UpdateGunData(Gun.Data newGunData)
+        {
+            newGunData.prevShoot = _GunData.prevShoot;
+            _GunData = newGunData;
+        }
+                
         public Data _Data
         {
             set

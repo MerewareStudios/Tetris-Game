@@ -73,6 +73,7 @@ public class PoolManager : Singleton<PoolManager>
     public class PoolData
     {
         [SerializeField] public GameObject gameObject;
+        [SerializeField] public bool readOnly = false;
         [SerializeField] public int preload = 0;
         [SerializeField] public int capacity = 50;
         [System.NonSerialized] public LeanGameObjectPool pool;
