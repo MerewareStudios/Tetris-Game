@@ -387,18 +387,17 @@ public class Spawner : Singleton<Spawner>
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
     {
-        Block block = pool.Spawn<Block>(spawnedBlockLocation);
+        // Block block = pool.Spawn<Block>(spawnedBlockLocation);
+        Block block = Pool.Block.Spawn<Block>(spawnedBlockLocation);
         
         block.RequiredPlaces = suggestedBlockData == null ? null : Board.THIS.Index2Place(suggestedBlockData.requiredPlaces);
         block.CanRotate = suggestedBlockData?.canRotate ?? true;
         
-        Transform blockTransform = block.transform;
-        blockTransform.localScale = Vector3.one;
-        blockTransform.localPosition = block.blockData.spawnerOffset;
-
-        block.Construct(usage);
+        block.Construct(pool, usage);
         block.Rotation = suggestedBlockData?.blockRot ?? Board.BlockRot.UP;
         _spawnedBlocks.Add(block);
+        
+        
 
         _spawnIndex++;
         return block;
@@ -431,7 +430,6 @@ public class Spawner : Singleton<Spawner>
         pawnTransform.rotation = Quaternion.identity;
         pawnTransform.localScale = Vector3.one;
         pawn.SetUsageType(usageType, amount);
-        // pawn.Amount = amount;
         return pawn;
     }
     #endregion

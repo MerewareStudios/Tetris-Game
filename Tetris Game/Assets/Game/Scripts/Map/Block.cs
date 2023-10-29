@@ -9,16 +9,16 @@ namespace Game
 {
     public class Block : MonoBehaviour
     {
-        private void OnDrawGizmos()
-        {
-            foreach (var se in segmentTransforms)
-            {
-                if (se)
-                {
-                    Gizmos.DrawCube(se.position, Vector3.one * 0.95f);
-                }
-            }
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     foreach (var se in segmentTransforms)
+        //     {
+        //         if (se)
+        //         {
+        //             Gizmos.DrawCube(se.position, Vector3.one * 0.95f);
+        //         }
+        //     }
+        // }
 
         [SerializeField] private Transform shakePivot;
         [SerializeField] public List<Transform> segmentTransforms;
@@ -59,17 +59,27 @@ namespace Game
             }
         }
 
-        public void Construct(Pawn.Usage usage)
+        public void Construct(Pool pool, Pawn.Usage usage)
         {
+            Block mimicBlock = pool.Prefab<Block>();
+            
+            this.blockData = mimicBlock.blockData;
+            this.segmentTransforms = mimicBlock.segmentTransforms;    
+            
+            Transform thisTransform = transform;
+            thisTransform.localScale = Vector3.one;
+            thisTransform.localPosition = mimicBlock.blockData.spawnerOffset;
+            
+            this.rotatePivot.localPosition = mimicBlock.rotatePivot.localPosition;
             this.rotatePivot.localEulerAngles = Vector3.zero;
+
             Free2Place = false;
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
                 if (!target) continue;
 
-                var targetPosition = target.position;
-                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, targetPosition, usage.ExtraValue(), usage);
+                Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, thisTransform.position + target.localPosition, usage.ExtraValue(), usage);
                 pawn.ParentBlock = this;
 
                 if (!Free2Place)
@@ -80,6 +90,8 @@ namespace Game
                 pawn.Show();
                 Pawns.Add(pawn);
             }
+            
+            // this.rotatePivot.localPosition = mimicBlock.rotatePivot.localPosition;
         }
 
         public void Deconstruct()

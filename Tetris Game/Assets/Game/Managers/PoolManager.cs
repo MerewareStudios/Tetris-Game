@@ -51,6 +51,11 @@ public class PoolManager : Singleton<PoolManager>
     {
         return PoolManager.THIS.pools[((int)key)].gameObject;
     }
+    public static GameObject Prefab(int key)
+    {
+        return PoolManager.THIS.pools[key].gameObject;
+    }
+    
     public static GameObject Spawn(Pool key, Transform parent = null)
     {
         return PoolManager.THIS.pools[((int)key)].pool.Spawn(parent);
@@ -86,6 +91,12 @@ public static class PoolManagerExtensions
     {
         return PoolManager.Prefab(key).GetComponent<T>();
     }
+    public static T Prefab<T>(this int key)
+    {
+        return PoolManager.Prefab(key).GetComponent<T>();
+    }
+    
+    
     public static GameObject Spawn(this Pool key, Transform parent = null)
     {
         return PoolManager.Spawn(key, parent);
