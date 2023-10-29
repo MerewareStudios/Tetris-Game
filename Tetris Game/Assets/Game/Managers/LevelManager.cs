@@ -7,12 +7,11 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public static int CurrentLevel => THIS.CurrentLevel();
-    public static LevelSo CurrentLevelSo;
+    private static LevelSo _currentLevelSo;
     public static float DeltaMult = 1.0f;
-
     public void LoadLevel()
     {
-        CurrentLevelSo = Const.THIS.GetLevelSo(CurrentLevel);
+        _currentLevelSo = Const.THIS.GetLevelSo(CurrentLevel);
         AnalyticsManager.LevelStart(CurrentLevel);
         
         Board.THIS.Construct(BoardSize());
@@ -85,38 +84,38 @@ public class LevelManager : Singleton<LevelManager>
     
     public static Pawn.Usage GetRandomPowerUp()
     {
-        if (CurrentLevelSo.powerUps == null || CurrentLevelSo.powerUps.Length == 0)
+        if (_currentLevelSo.powerUps == null || _currentLevelSo.powerUps.Length == 0)
         {
             return Const.THIS.powerUps.Random();
         }
-        return CurrentLevelSo.powerUps.Random();
+        return _currentLevelSo.powerUps.Random();
     }
     public static Enemy.SpawnData GetEnemySpawnData()
     {
-        return CurrentLevelSo.EnemySpawnData;
+        return _currentLevelSo.EnemySpawnData;
     }
     public static Const.Currency GetVictoryReward()
     {
-        return CurrentLevelSo.victoryReward;
+        return _currentLevelSo.victoryReward;
     }
     public static Const.Currency GetFailReward()
     {
-        return CurrentLevelSo.failReward;
+        return _currentLevelSo.failReward;
     }
     public static Board.SuggestedBlock[] GetSuggestedBlocks()
     {
-        return CurrentLevelSo.suggestedBlocks;
+        return _currentLevelSo.suggestedBlocks;
     }
     public static float GetDeltaMult()
     {
-        return CurrentLevelSo.deltaMult;
+        return _currentLevelSo.deltaMult;
     }
     public static Vector2Int BoardSize()
     {
-        return CurrentLevelSo.boardSize;
+        return _currentLevelSo.boardSize;
     }
     public static Board.PawnPlacement[] PawnPlacements()
     {
-        return CurrentLevelSo.pawnPlacements;
+        return _currentLevelSo.pawnPlacements;
     }
 }

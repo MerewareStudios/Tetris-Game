@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Slime Spawner
+  m_Name: Enemy 7 - Dragon Spawner
   m_EditorClassIdentifier: 
   type: 66
   scale: {x: 1, y: 1, z: 1}
@@ -113,7 +113,7 @@ MonoBehaviour:
   - type: 3
     amount: 12
     probability: 1
-  maxHealth: 44
+  maxHealth: 16
   speed: 0.075
   forwardRange: {x: 1, y: 1}
   radius: 0.6
@@ -123,5 +123,7 @@ MonoBehaviour:
   crossSize: 2
   castType: 3
   deathAction: 0
-  extraInt: 5
-  extraData: {fileID: 11400000, guid: 85a053a70348c4141b69138f3051f7dc, type: 2}
+  spawnerCount: 1
+  spawnerDuration: 10
+  spawnerExtra: 0
+  extraData: {fileID: 11400000, guid: 1293cdac54028144d9ba312ba8e9cfda, type: 2}

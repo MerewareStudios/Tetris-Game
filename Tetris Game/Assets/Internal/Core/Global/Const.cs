@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -15,7 +17,8 @@ public class Const : SSingleton<Const>
     [Header("Look Up")]
     public LevelSo[] Levels;
     public EnemyData[] AutoGenerateEnemyDatas;
-    public EnemyData[][] AutoGenerateBoardPowerUps;
+    public EnemyData[] AutoGenerateEnemySpanwerDatas;
+    public PawnPlacement[] AutoGeneratePawnPlacements;
     
     [Header("Save Default")]
     public Player.Data DefaultPlayerData;
@@ -103,6 +106,19 @@ public class Const : SSingleton<Const>
     }
     
     [Serializable]
+    public class PawnPlacement
+    {
+        [SerializeField] public Vector2Int boardSize;
+        [SerializeField] public PawnPlacementData[] data;
+    }
+    
+    [Serializable]
+    public class PawnPlacementData
+    {
+        [SerializeField] public Board.PawnPlacement[] PawnPlacements;
+    }
+    
+    [Serializable]
     public enum CurrencyType
     {
         Coin,
@@ -111,6 +127,14 @@ public class Const : SSingleton<Const>
         Local,
     }
 
+    public EnemyData GetRandomEnemyData()
+    {
+        return AutoGenerateEnemyDatas.Random();
+    }
+    public EnemyData GetRandomSpawnerEnemyData()
+    {
+        return AutoGenerateEnemySpanwerDatas.Random();
+    }
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)
     {
         int enumInt = (int)overridenCurrencyType;
@@ -119,7 +143,15 @@ public class Const : SSingleton<Const>
         text.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
     }
 
-
+    public Board.PawnPlacement[] GetRandomPawnPlacement(Vector2Int boardSize)
+    {
+        if (Helper.IsPossible(0.5f))
+        {
+            return null;
+        }
+        return AutoGeneratePawnPlacements[boardSize.x - LevelSo.MinAutoWidth].data.Random().PawnPlacements;
+    }
+    
     public void PrintLevelData()
     {
         int accumReward = 0;

@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Game;
 using Internal.Core;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     void Awake()
     {
-        AnalyticsManager.Init();    
+        AnalyticsManager.Init();
     }
 
     void Start()

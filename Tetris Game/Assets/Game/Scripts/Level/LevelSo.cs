@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Game;
 using Internal.Core;
@@ -20,6 +21,9 @@ namespace Game
         [SerializeField] public Pawn.Usage[] powerUps;
 
 
+        public const int MinAutoWidth = 5;
+        public const int MaxAutoWidthAdded = 4;
+        
         public (string, int) ToString(int level)
         {
             int totalReward = 0;
@@ -66,26 +70,56 @@ namespace Game
         public static LevelSo AutoGenerate(int seed)
         {
             Random.InitState(seed);
+            // Random.InitState((int)DateTime.Now.Ticks);
 
             LevelSo so = ScriptableObject.CreateInstance<LevelSo>();
 
             // Delta
             so.deltaMult = Random.Range(0.8f, 1.1f);
             // Size
-            int addedSize = Random.Range(0, 4);
-            so.boardSize = new Vector2Int(5 + addedSize, 6 + addedSize);
+            int addedSize = Random.Range(0, MaxAutoWidthAdded);
+            so.boardSize = new Vector2Int(MinAutoWidth + addedSize, Random.Range(5, MinAutoWidth + 1 + addedSize + 1));
             // Spawn
-            so.EnemySpawnData.spawnDelay = 3;
-            so.EnemySpawnData.spawnInterval = Random.Range(9.0f, 15.0f);
-            so.EnemySpawnData.countDatas = null;
+
+            so.EnemySpawnData = new Enemy.SpawnData
+            {
+                spawnDelay = 3,
+                spawnInterval = Random.Range(8.0f, 12.0f),
+                countDatas = new List<Enemy.CountData>()
+            };
+
+            int maxHealth = 500 + (seed - 50) * 50;
+            int currentHealth = 0;
+
+            int spawnerCount = Random.Range(0, 2);
+            
+            void AddEnemy(EnemyData enemyData, int possibleHealth)
+            {
+                currentHealth += possibleHealth;
+                so.EnemySpawnData.countDatas.Add(new Enemy.CountData(enemyData, 1));
+            }
+            
+            for (int i = 0; i < spawnerCount; i++)
+            {
+                EnemyData enemyData = Const.THIS.GetRandomSpawnerEnemyData();
+                AddEnemy(enemyData, 75);
+            }
+
+            while (currentHealth < maxHealth)
+            {
+                EnemyData enemyData = Const.THIS.GetRandomEnemyData();
+                AddEnemy(enemyData, enemyData.maxHealth);
+            }
+            Debug.Log(spawnerCount + " " + so.EnemySpawnData.countDatas.Count + " " + currentHealth);
             // Reward
             so.victoryReward = new Const.Currency(Const.CurrencyType.Coin, 50);
             so.failReward = new Const.Currency(Const.CurrencyType.Coin, 5);
             // Suggested Block
-            
+            so.suggestedBlocks = null;
             // Pawn Placement
-            
-            // Pawn Placement
+            so.pawnPlacements = Const.THIS.GetRandomPawnPlacement(so.boardSize);
+            // Powerups
+            so.powerUps = null;
 
             
             Random.InitState((int)DateTime.Now.Ticks);

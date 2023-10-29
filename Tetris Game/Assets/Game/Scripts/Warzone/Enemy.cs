@@ -344,6 +344,11 @@ namespace  Game
         {
             [SerializeField] public EnemyData enemyData;
             [SerializeField] public int count;
+            public CountData(EnemyData enemyData, int count)
+            {
+                this.enemyData = enemyData;
+                this.count = count;
+            }
         } 
         [System.Serializable]
         public class BossData
