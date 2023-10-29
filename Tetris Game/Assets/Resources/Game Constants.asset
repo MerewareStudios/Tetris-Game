@@ -647,7 +647,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 0
     adTransactionData:
-      value: 1
+      value: 0
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
