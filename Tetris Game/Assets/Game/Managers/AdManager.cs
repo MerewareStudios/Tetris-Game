@@ -1,5 +1,6 @@
 using System;
 using Game;
+using Game.UI;
 using Internal.Core;
 using UnityEngine;
 
@@ -157,7 +158,7 @@ namespace IWI
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Interstitial);
             AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
-            AdBreakScreen.THIS.SetPurchaseWindows(true, true);
+            AdBreakScreen.THIS.SetPurchaseWindows(true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.RemoveAdBreak), true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TicketPack));
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -191,7 +192,7 @@ namespace IWI
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Rewarded);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
-            AdBreakScreen.THIS.SetPurchaseWindows(false, true);
+            AdBreakScreen.THIS.SetPurchaseWindows(false, "", true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TicketPack));
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {

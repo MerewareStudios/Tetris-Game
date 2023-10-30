@@ -3,6 +3,7 @@ using Internal.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AdBreakScreen : Lazyingleton<AdBreakScreen>
@@ -19,6 +20,9 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private GameObject loadingIcon;
     [SerializeField] private GameObject warningIcon;
     [SerializeField] private UnityEvent<string, System.Action, System.Action> _onPurchase;
+    [Header("Side Purchase")]
+    [SerializeField] private TextMeshProUGUI adBreakPrice;
+    [SerializeField] private TextMeshProUGUI ticketPackPrice;
     
     [System.NonSerialized] public AdState CurrentAdState = AdState.None;
     [System.NonSerialized] private LoadState _currentLoadState;
@@ -83,10 +87,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this._onBypassReward = onBypassReward;
         return this;
     }
-    public AdBreakScreen SetPurchaseWindows(bool adPurchaseEnable, bool ticketPurchaseEnable)
+    public AdBreakScreen SetPurchaseWindows(bool adPurchaseEnable, string adPrice, bool ticketPurchaseEnable, string ticketPrice)
     {
         this.adPurchaseWindow.SetActive(adPurchaseEnable);
+        this.adBreakPrice.text = adPrice;
         this.ticketPurchaseWindow.SetActive(ticketPurchaseEnable);
+        this.ticketPackPrice.text = ticketPrice;
         return this;
     }
     private void StartTimer()
