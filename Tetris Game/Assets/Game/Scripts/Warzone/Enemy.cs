@@ -25,18 +25,22 @@ namespace  Game
         [System.NonSerialized] private GameObject _dragTrail = null;
         [System.NonSerialized] public bool DragTarget = false;
         [System.NonSerialized] private Tween _castTweenLoop;
+        [System.NonSerialized] private bool _casting = false;
         // [System.NonSerialized] private Tween _wipeTween;
 
-        // private static int WALK_HASH = Animator.StringToHash("Walk");
-        // private static int DEATH_HASH = Animator.StringToHash("Death");
-        // private static int HIT_HASH = Animator.StringToHash("Hit");
-        // private static int CAST_HASH = Animator.StringToHash("Cast");
-        // private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
-        
         private static int HIT_HASH = 0;
         private static int DEATH_HASH = 1;
         private static int WALK_HASH = 2;
+        private static int CAST_HASH = 3;
 
+        public void OnCastAnimation()
+        {
+            OnCast();
+        }
+        public void OnCastEnd()
+        {
+            CrossWalkAnimation();
+        }
         public void GetHitEnd()
         {
             CrossWalkAnimation();
@@ -63,10 +67,18 @@ namespace  Game
         }
         public void PlayGetHitAnimation()
         {
+            if (_casting)
+            {
+                return;
+            }
             animator.Crossfade(HIT_HASH, 0.1f);
         }
-        // private static int CAST_HASH = Animator.StringToHash("Cast");
-        // private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
+        public void PlayCastAnimation()
+        {
+            Debug.Log("cast");
+            _casting = true;
+            animator.Crossfade(CAST_HASH, 0.1f);
+        }
 
         public int Damage => Health;
         public Vector3 Position => thisTransform.position;
@@ -105,8 +117,6 @@ namespace  Game
 
         public void Cast()
         {
-            _castTweenLoop?.Kill();
-
             switch (so.castType)
             {
                 case CastTypes.None:
@@ -116,8 +126,7 @@ namespace  Game
                     {
                         castPs.Play();
                     }
-                    // animator.SetBool(CASTING_BOOL_HASH, true);
-                    // animator.SetTrigger(CAST_HASH);
+                    PlayCastAnimation();
                     break;
                 case CastTypes.DestoryPawn:
                     if (castPs)
@@ -125,18 +134,17 @@ namespace  Game
                         castPs.Stop();
                         castPs.transform.DOKill();
                     }
-                    // animator.SetBool(CASTING_BOOL_HASH, true);
-                    // animator.SetTrigger(CAST_HASH);
+                    PlayCastAnimation();
                     break;
                 case CastTypes.SpawnEnemy:
                     if (castPs)
                     {
                         castPs.Play();
                     }
-                    // animator.SetBool(CASTING_BOOL_HASH, true);
-                    // animator.SetTrigger(CAST_HASH);
+                    PlayCastAnimation();
                     break;
             }
+
 
             if (so.spawnerDuration >= 0.0f)
             {
@@ -146,7 +154,7 @@ namespace  Game
         }
         public void OnCast()
         {
-            // animator.SetBool(CASTING_BOOL_HASH, false);
+            _casting = false;
             switch (so.castType)
             {
                 case CastTypes.None:
@@ -183,8 +191,6 @@ namespace  Game
         {
             Health = so.maxHealth;
             PlayWalkAnimation();
-            // animator.Play(WALK_HASH);
-            // animator.SetTrigger(WALK_HASH);
             skin.material.SetColor(GameManager.EmissionKey, Color.black);
         }
         public void TakeDamage(int value, float scale = 1.0f)
@@ -211,9 +217,7 @@ namespace  Game
                 return;
             }
             
-            // animator.SetTrigger(HIT_HASH);
             PlayGetHitAnimation();
-            // animator.Play(HIT_HASH);
         }
 
         private void OnDeathAction()
@@ -290,7 +294,11 @@ namespace  Game
 
             DragTarget = false;
 
-            Cast();
+            if (!so.castType.Equals(CastTypes.None))
+            {
+                _castTweenLoop?.Kill();
+                _castTweenLoop = DOVirtual.DelayedCall(0.25f, Cast, false);
+            }
         }
         
         public void Kamikaze()
@@ -311,14 +319,6 @@ namespace  Game
             Warzone.THIS.RemoveEnemy(this);
             
             PlayDeathAnimation();
-            // animator.Crossfade(DEATH_HASH, 0.1f);
-            // animator.SetTrigger(DEATH_HASH);
-
-            // _wipeTween?.Kill();
-            // _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
-            // {
-                
-            // }, false);
         }
 
         private void GiveRewards()
