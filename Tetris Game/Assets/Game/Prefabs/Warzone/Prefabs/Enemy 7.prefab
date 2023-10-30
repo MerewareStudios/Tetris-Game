@@ -118,7 +118,7 @@ MonoBehaviour:
   skin: {fileID: 7916734450937410471}
   animator: {fileID: 4766895702192814501}
   so: {fileID: 11400000, guid: d337691ea73436149b772fb0201d428b, type: 2}
-  castPs: {fileID: 5573420052453653909}
+  castPs: {fileID: 5151069315761689195}
   castParent: {fileID: 3599498905024874540}
 --- !u!1 &8103794701876690800
 GameObject:
@@ -213,24 +213,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 507557713067674576, guid: 6d0360a823e2aa241b0f84ca120c106f,
         type: 3}
+      propertyPath: meshRenderer
+      value: 
+      objectReference: {fileID: 7916734450937410471}
+    - target: {fileID: 507557713067674576, guid: 6d0360a823e2aa241b0f84ca120c106f,
+        type: 3}
       propertyPath: eventReciever
       value: 
       objectReference: {fileID: 6409661743272111104}
-    - target: {fileID: 609282745250123744, guid: 6d0360a823e2aa241b0f84ca120c106f,
+    - target: {fileID: 507557713067674576, guid: 6d0360a823e2aa241b0f84ca120c106f,
         type: 3}
-      propertyPath: lengthInSec
-      value: 1.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 609282745250132386, guid: 6d0360a823e2aa241b0f84ca120c106f,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 1.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 609282745250134848, guid: 6d0360a823e2aa241b0f84ca120c106f,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 1.075
-      objectReference: {fileID: 0}
+      propertyPath: currentAnimation
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c22253b0531f9647a26bc668568c6cd,
+        type: 2}
     - target: {fileID: 636332884969774304, guid: 6d0360a823e2aa241b0f84ca120c106f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -309,9 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6cc279b0b49934980f1637ad388b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!198 &5573420052453653909 stripped
+--- !u!198 &5151069315761689195 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 609282745250123744, guid: 6d0360a823e2aa241b0f84ca120c106f,
+  m_CorrespondingSourceObject: {fileID: 166660879616745502, guid: 6d0360a823e2aa241b0f84ca120c106f,
     type: 3}
   m_PrefabInstance: {fileID: 4984463820436107893}
   m_PrefabAsset: {fileID: 0}
