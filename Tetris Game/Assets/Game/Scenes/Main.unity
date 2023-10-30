@@ -2980,7 +2980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a48b24ec2512546950d199cdb22c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
+  debug: 1
   particleUnitDatas:
   - particleUnit: {fileID: 3862260614241389860, guid: b42fc9de673e8804da021c5d8983161a,
       type: 3}
