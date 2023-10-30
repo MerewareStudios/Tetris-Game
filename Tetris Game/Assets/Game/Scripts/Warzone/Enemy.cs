@@ -75,7 +75,6 @@ namespace  Game
         }
         public void PlayCastAnimation()
         {
-            Debug.Log("cast");
             _casting = true;
             animator.Crossfade(CAST_HASH, 0.1f);
         }
