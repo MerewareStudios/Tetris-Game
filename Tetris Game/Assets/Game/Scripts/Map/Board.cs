@@ -924,7 +924,7 @@ namespace Game
                         if (currentPawn.Amount > 0)
                         {
                             currentPawn.PunchScaleModelPivot(-0.4f);
-                            Particle.Square_Bullet.Emit(1, currentPawn.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
+                            // Particle.Square_Bullet.Emit(1, currentPawn.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
                         }
                         else
                         {
