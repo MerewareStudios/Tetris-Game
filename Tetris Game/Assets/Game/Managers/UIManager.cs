@@ -324,10 +324,10 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_UpgradeBurst);
    }
-   public static void RequestTicketFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive)
+   public static void RequestTicketFromWallet(Vector3 targetCanvasWorldPosition, int count, int totalValue, System.Action<int> OnArrive, System.Action OnAllArrive, UIEmitter.Cam cam = UIEmitter.Cam.Game)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, Const.CurrencyType.Ticket.IconPosition());
-      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, targetCanvasWorldPosition);
+      TargetSettings targetSettingsEnd = new TargetSettings(cam, null, targetCanvasWorldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.ticketEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Ticket, OnArrive, OnAllArrive);
    }

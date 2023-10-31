@@ -187,7 +187,7 @@ namespace IWI
             AdBreakScreen.THIS.Open();
         }
 
-        public static void ShowTicketAd(System.Action onReward)
+        public static void ShowTicketAd(System.Action onReward, bool pauseUnpause = true, System.Action onClick = null)
         {
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Rewarded);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
@@ -197,7 +197,11 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    UIManager.Pause(false);
+                    if (pauseUnpause)
+                    {
+                        UIManager.Pause(false);
+                    }
+                    onClick?.Invoke();
                 },
                 () => true);
             AdBreakScreen.THIS.OnTimesUp(() =>
@@ -206,7 +210,10 @@ namespace IWI
                 FakeAdRewarded.THIS.Show(
                 () =>
                 {
-                    UIManager.Pause(false);
+                    if (pauseUnpause)
+                    {
+                        UIManager.Pause(false);
+                    }
                 }, 
                 () =>
                 {
@@ -214,7 +221,10 @@ namespace IWI
                 },
                 () =>
                 {
-                    UIManager.Pause(false);
+                    if (pauseUnpause)
+                    {
+                        UIManager.Pause(false);
+                    }
                 });
             }, onReward, 4);
                 

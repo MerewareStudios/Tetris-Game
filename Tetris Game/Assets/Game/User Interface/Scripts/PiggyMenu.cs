@@ -2,7 +2,9 @@ using System;
 using DG.Tweening;
 using Game.UI;
 using Internal.Core;
+using IWI;
 using IWI.Tutorial;
+using IWI.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,8 +26,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Button investButton;
     [SerializeField] private Button breakButton;
     [SerializeField] private Transform frame;
+    [SerializeField] private Button multiplyButton;
     [Header("Reward")]
-    [SerializeField] private Canvas piggySortedCanvas;
     [SerializeField] private RectTransform normalPiggy;
     [SerializeField] private RectTransform rewardedPiggy;
     [SerializeField] private RectTransform rewardedPiggyShakePivot;
@@ -37,9 +39,17 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform clickLocation_Invest;
     [SerializeField] private Transform clickLocation_Continue;
     [SerializeField] private Transform clickLocation_Break;
+    [Header("Frame")]
+    [SerializeField] private Image ticketImage;
+    [SerializeField] private Image frameImage;
+    [SerializeField] private Color singleColor;
+    [SerializeField] private Color doubleColor;
+    [SerializeField] private Transform multProgress;
     public const int PiggyCapIncrease = 10;
     public const int TicketRewardEveryBreak = 8;
 
+    private int _multiplier = 1;
+    private Tween _shakeTween;
     
     #region Menu
     public new bool Open(float duration = 0.5f)
@@ -128,17 +138,92 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         }
 
         breakButton.gameObject.SetActive(_Data.IsFull);
+        
+        multiplyButton.gameObject.SetActive(false);
+        
+        frameImage.DOKill();
+        frameImage.color = singleColor;
     }
     #endregion
+
+    public void OnClick_RequestMultiply()
+    {
+        multiplyButton.targetGraphic.raycastTarget = false;
+
+        if (!Wallet.Consume(Const.Currency.OneAd))
+        {
+            _shakeTween.Pause();
+            AdManager.ShowTicketAd(() =>
+            {
+                // Wallet.Transaction(Const.Currency.OneAd);
+                Mult();
+                
+            }, false, () =>
+            {
+                multiplyButton.targetGraphic.raycastTarget = true;
+
+                _shakeTween.Play();
+            });
+            return;
+        }
+
+        Mult();
+
+        void Mult()
+        {
+            _shakeTween.Pause();
+            
+            Transform mulTransform = multiplyButton.transform;
+            mulTransform.DOKill();
+            mulTransform.DOPunchScale(Vector3.one * 0.35f, 0.25f).SetUpdate(true);
+
+            UIManagerExtensions.RequestTicketFromWallet(ticketImage.rectTransform.position, 1, 1,
+                (value) =>
+                {
+                  
+                },
+                () =>
+                {
+                    ticketImage.enabled = false;
+
+                    _shakeTween.timeScale = 4.0f;
+                    _multiplier = 2;
+
+                    mulTransform.DOKill();
+                    mulTransform.DOPunchScale(Vector3.one * 0.25f, 0.25f).SetUpdate(true);
+
+                    frameImage.DOKill();
+                    frameImage.DOColor(doubleColor, 0.15f).SetEase(Ease.OutQuad).SetUpdate(true);
+
+                    
+                    _shakeTween.Play();
+                }, UIEmitter.Cam.UI);
+        }
+    }
 
     #region Break
     public void OnClick_BreakPiggyBank()
     {
+        _multiplier = 1;
+        
         breakButton.targetGraphic.raycastTarget = false;
         breakButton.transform.DOKill();
         breakButton.transform.DOScale(new Vector3(0.0f, 1.0f, 1.0f), 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
         {
             breakButton.gameObject.SetActive(false);
+        };
+
+
+        ticketImage.enabled = true;
+        multProgress.localScale = Vector3.one;
+        // multiplyText.text = multiplyStr;
+        multiplyButton.gameObject.SetActive(true);
+        multiplyButton.targetGraphic.raycastTarget = false;
+        multiplyButton.transform.localScale = Vector3.zero;
+        multiplyButton.transform.DOKill();
+        multiplyButton.transform.DOScale(Vector3.one, 0.15f).SetDelay(0.2f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
+        {
+            multiplyButton.targetGraphic.raycastTarget = true;
         };
         
         
@@ -151,26 +236,39 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         piggyGlowMat.DOColor(glowColorEnd, GameManager.InsideColor, 1.5f).SetUpdate(true);
 
 
-        rewardedPiggyShakePivot.DOKill();
-        rewardedPiggyShakePivot.localEulerAngles = Vector3.zero;
-        rewardedPiggyShakePivot.DOScale(Vector3.one * 1.2f, 1.5f).SetEase(Ease.InSine).SetUpdate(true);
-        Tween shakeTween = rewardedPiggyShakePivot.DOPunchRotation(new Vector3(0.0f, 0.0f, 10.0f), 1.5f, 25).SetEase(Ease.InOutBounce).SetUpdate(true);
-        shakeTween.SetAutoKill(false);
-        shakeTween.Complete();
-        shakeTween.PlayBackwards();
+        const float shakeDur = 2.0f;
+        Vector3 vector = Vector3.zero;
+        
+        
+        _shakeTween = DOTween
+            .Shake(()=> vector, x=> vector = x, shakeDur, new Vector3(10.0f, 0.0f, 0.0f), 22, 0, false, ShakeRandomnessMode.Harmonic)
+            .SetEase(Ease.InSine, 5.0f)
+            .SetUpdate(true);
 
-        DOVirtual.DelayedCall(1.5f, () =>
+        // float targetScale = 1.0f;
+        _shakeTween.onUpdate = () =>
+        {
+            float elapsed = _shakeTween.ElapsedPercentage();
+            multProgress.localScale = new Vector3(1.0f - elapsed, 1.0f, 1.0f);
+
+            float targetScale = 0.75f + elapsed * 0.25f * _multiplier;
+            Debug.Log(targetScale + " " + _multiplier);
+            rewardedPiggyShakePivot.localScale = Vector3.Lerp(rewardedPiggyShakePivot.localScale, new Vector3(targetScale, targetScale, targetScale), Time.unscaledDeltaTime * 14.0f);
+            rewardedPiggyShakePivot.localEulerAngles = new Vector3(0.0f, 0.0f, vector.x *  _shakeTween.ElapsedPercentage());
+        };
+        
+        _shakeTween.onComplete = () =>
         {
             rewardedPiggy.gameObject.SetActive(false);
-            shakeTween?.Kill();
-            
+            _shakeTween?.Kill();
+
             base.CloseImmediate();
 
             GiveRewards();
             _Data.breakInstance++;
             _Data.currentMoney.amount = 0;
             _Data.moneyCapacity += PiggyCapIncrease;
-        });
+        };
         
         if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
         {
@@ -184,9 +282,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         UIManager.THIS.piggyPS.Play();
         
         int coinReward = (int)(_Data.currentMoney.amount * 0.25f);
-        GiveMeta(coinReward, 20, Wallet.COIN, UIManagerExtensions.EmitPiggyRewardCoin);
-        int piggyReward = Random.Range(4, 7);
-        GiveMeta(piggyReward, 20, Wallet.PIGGY, UIManagerExtensions.EmitPiggyRewardPiggy);
+        GiveMeta(coinReward, 20, UIManagerExtensions.EmitPiggyRewardCoin);
+        int piggyReward = Random.Range(4, 6);
+        GiveMeta(piggyReward, 20, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         
         if (_Data.breakInstance % TicketRewardEveryBreak == 0)
@@ -195,7 +293,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             ticketReward += 1;
         }
         
-        GiveMeta(ticketReward, 1, Wallet.TICKET, UIManagerExtensions.EmitPiggyRewardTicket);
+        GiveMeta(ticketReward, 1, UIManagerExtensions.EmitPiggyRewardTicket);
 
         SwitchToGame();
     }
@@ -207,8 +305,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         LevelManager.THIS.LoadLevel();
     }
 
-    private void GiveMeta(int amount, int limit, CurrencyTransactor transactor, System.Action<Vector3, int, int, System.Action> act)
+    private void GiveMeta(int amount, int limit, System.Action<Vector3, int, int, System.Action> act)
     {
+        amount *= _multiplier;
         if (amount == 0)
         {
             Wallet.TICKET.Scale(1.0f, false);
