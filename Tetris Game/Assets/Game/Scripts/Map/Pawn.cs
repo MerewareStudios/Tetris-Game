@@ -31,7 +31,6 @@ namespace Game
         {
             VData = Const.THIS.pawnVisualData[(int)value];
             
-            // if (!SubModel || !this.UsageType.Model().Equals(VData.model))
             if (SubModel)
             {
                 DeSpawnModel();
