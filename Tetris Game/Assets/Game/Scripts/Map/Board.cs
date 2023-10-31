@@ -427,8 +427,6 @@ namespace Game
         
         public float UsePowerups()
         {
-            // ClearDropPositions();
-            
             for (int j = 0; j < _size.y; j++)
             {
                 for (int i = 0; i < _size.x; i++)
@@ -943,19 +941,6 @@ namespace Game
             
             return ammoGiven;
         }
-        // public bool HasForwardPawnAtColumn(Vector2Int index)
-        // {
-        //     
-        //     for (int j = 0; j < _size.y; j++)
-        //     {
-        //         Place place = _places[index.x, j];
-        //         if (index.y <= j && place.Current != null)
-        //         {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
 
         private bool ExpectedMoverComing(Vector2Int index)
         {

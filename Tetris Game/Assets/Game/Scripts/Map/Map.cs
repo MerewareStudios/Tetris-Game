@@ -8,7 +8,6 @@ namespace Game
     public class Map : Singleton<Map>
     {
         [System.NonSerialized] private Coroutine _mainRoutine = null;
-        // [System.NonSerialized] private Queue<int> _queuedMergeLines = new();
         [System.NonSerialized] public bool MapWaitForCycle = false;
 
         public void StartMainLoop()
@@ -27,8 +26,6 @@ namespace Game
                     Board.THIS.MoveAll(0.2f);
                     Board.THIS.HighlightPlaces();
 
-                    // yield return new WaitWhile(() => moving);
-                    
                     yield return new WaitForSeconds(0.225f);
                     Board.THIS.CheckAll();
                     Board.THIS.HighlightPlaces();
@@ -83,11 +80,6 @@ namespace Game
                 _mainRoutine = null;
             }
         }
-
-        // public void ForceMerge(int line)
-        // {
-        //     _queuedMergeLines.Enqueue(line);
-        // }
 
         public void Deconstruct()
         {

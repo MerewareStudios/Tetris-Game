@@ -124,10 +124,14 @@ public class UIManager : Singleton<UIManager>
 #if UNITY_EDITOR
    private void Update()
    {
+      if (Input.GetKeyDown(KeyCode.Q))
+      {
+         UIManager.THIS.ShowCombo(2);
+      }
       if (Input.GetKeyDown(KeyCode.P))
       {
          PiggyMenu.THIS.Open();
-      }
+      } 
       if (Input.GetKeyDown(KeyCode.O))
       {
          PiggyMenu.THIS.GiveRewards();
