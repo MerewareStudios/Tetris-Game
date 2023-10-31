@@ -275,20 +275,20 @@ namespace Internal.Core
             Ray canvasRay = canvasCamera.ViewportPointToRay(viewport);
             return canvasRay.GetPoint(distance);
         }
-        public static Tween DoAlpha(this TextMeshProUGUI text, float targetAlpha, float duration, Ease ease, float? startAlpha = null)
-        {
-            Color currentColor = text.color;
-            currentColor.a = startAlpha != null ? (float)startAlpha : currentColor.a;
-
-            float value = 0.0f;
-            Tween tween = DOTween.To((x) => value = x, currentColor.a, targetAlpha, duration).SetEase(ease);
-            tween.onUpdate = () =>
-            {
-                currentColor.a = value;
-                text.color = currentColor;
-            };
-            return tween;
-        }
+        // public static Tween DoAlpha(this TextMeshProUGUI text, float targetAlpha, float duration, Ease ease, float? startAlpha = null)
+        // {
+        //     Color currentColor = text.color;
+        //     currentColor.a = startAlpha != null ? (float)startAlpha : currentColor.a;
+        //
+        //     float value = 0.0f;
+        //     Tween tween = DOTween.To((x) => value = x, currentColor.a, targetAlpha, duration).SetEase(ease);
+        //     tween.onUpdate = () =>
+        //     {
+        //         currentColor.a = value;
+        //         text.color = currentColor;
+        //     };
+        //     return tween;
+        // }
         public static Tween DoFade_IWI(this CanvasGroup canvasGroup, float targetAlpha, float duration, Ease ease, System.Action OnEnd = null)
         {
             Tween tween = canvasGroup.DOFade(targetAlpha, duration).SetEase(ease);

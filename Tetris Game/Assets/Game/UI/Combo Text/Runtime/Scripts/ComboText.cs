@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Internal.Core;
 using TMPro;
 using UnityEngine;
 
@@ -8,34 +9,61 @@ namespace  Game.UI
     {
         [SerializeField] private RectTransform multTransform;
         [SerializeField] private RectTransform countTransform;
+        [SerializeField] private TextMeshProUGUI multText;
         [SerializeField] private TextMeshProUGUI countText;
-        [SerializeField] private ParticleSystem ps;
+        [SerializeField] private ParticleSystem ps1;
+        [SerializeField] private Color normalColor;
+        [SerializeField] private Color fadeColor;
         [System.NonSerialized] private Sequence _comboSequence = null;
+        [SerializeField] private float animDuration;
+        [SerializeField] private float firstPrepend;
+        [SerializeField] private float secondPrepend;
         
         public float Show(int combo)
         {
             _comboSequence?.Kill();
+            multTransform.DOKill();
+            countTransform.DOKill();
+            multText.DOKill();
+            countText.DOKill();
             
-            // comboText.text = "x" + value;
-            //
-            // RectTransform comboTextRect = comboText.rectTransform;
-            //
-            // comboText.color = Color.white;
-            // comboTextRect.transform.DOKill();
-            // comboTextRect.localScale = Vector3.zero;
-            //
-            // Tween scaleUp = comboTextRect.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetDelay(0.05f);
-            // Tween scaleDown = comboTextRect.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCirc).SetDelay(0.25f);
-            // Tween colorTween = comboText.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.2f).SetEase(Ease.InCirc);
+            countText.text = combo.ToString();
 
-            // _comboSequence = DOTween.Sequence();
-            // _comboSequence.Append(scaleUp);
-            // _comboSequence.Append(scaleDown);
-            // _comboSequence.Join(colorTween);
+            multText.color = fadeColor;
+            countText.color = fadeColor;
+
+            multTransform.localScale = Vector3.one * 3.0f;
+            countTransform.localScale = Vector3.one * 3.0f;
+            
+            ps1.Play();
+
+            
+            Tween multAlphaTween = multText.DOColor(normalColor, animDuration).SetEase(Ease.InSine);
+            Tween multScaleDownTween = multTransform.DOScale(Vector3.one, animDuration).SetEase(Ease.OutQuad);
+
+            Tween countAlphaTween = countText.DOColor(normalColor, animDuration).SetEase(Ease.InSine).SetDelay(firstPrepend);
+            Tween countScaleDownTween = countTransform.DOScale(Vector3.one, animDuration).SetEase(Ease.OutQuad);
+
+            Tween multFadeOut = multText.DOColor(fadeColor, animDuration).SetEase(Ease.InSine);
+            Tween countFadeOut = countText.DOColor(fadeColor, animDuration).SetEase(Ease.InSine);
+            
+            Tween multScaleUpTween = multTransform.DOScale(Vector3.one * 1.25f, animDuration).SetEase(Ease.OutQuad);
+            Tween countScaleUpTween = countTransform.DOScale(Vector3.one * 1.25f, animDuration).SetEase(Ease.OutQuad);
+
+            _comboSequence = DOTween.Sequence();
+            _comboSequence.Join(multAlphaTween);
+            _comboSequence.Join(multScaleDownTween);
+            _comboSequence.Join(countAlphaTween);
+            _comboSequence.Join(countScaleDownTween);
+            _comboSequence.AppendInterval(secondPrepend);
+            _comboSequence.Append(multFadeOut);
+            _comboSequence.Join(countFadeOut);
+            _comboSequence.Join(multScaleUpTween);
+            _comboSequence.Join(countScaleUpTween);
+
+            _comboSequence.onComplete = ps1.Stop;
 
             return _comboSequence.Duration();
-
-            return 1.0f;
         }
     }
 }
