@@ -9742,7 +9742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093869835059d1e4da0b1af96d7e77c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 8
+  key: 7
   ps: {fileID: 2454123482817471278}
 --- !u!198 &2454123482817471278
 ParticleSystem:

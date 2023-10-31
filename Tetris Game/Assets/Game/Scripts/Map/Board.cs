@@ -453,7 +453,7 @@ namespace Game
                              return 0.35f;
                         }
                     }
-                    if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Gift))
+                    if (!place.Current.Busy && !place.Current.Mover && place.Current.UsageType.Equals(Pawn.Usage.Gift))
                     {
                         place.Current.Unpack();
                         return 0.35f;

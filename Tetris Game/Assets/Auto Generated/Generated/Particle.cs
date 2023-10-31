@@ -7,7 +7,6 @@ public enum Particle
     Merge_Circle = 4,
     Confetti = 5,
     Bubble = 6,
-    Square_Bullet = 7,
-    Kamikaze = 8,
+    Kamikaze = 7,
 
 }
