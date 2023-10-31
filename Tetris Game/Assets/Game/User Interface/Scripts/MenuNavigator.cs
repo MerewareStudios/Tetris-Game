@@ -109,7 +109,10 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         _data.lastMenuType = menuTypeNext;
         OpenLastMenu(0.1f);
     }
-    
+    void Update()
+    {
+        Shader.SetGlobalFloat(GameManager.UnscaledTime, Time.unscaledTime);
+    }
     public Data _Data
     {
         set

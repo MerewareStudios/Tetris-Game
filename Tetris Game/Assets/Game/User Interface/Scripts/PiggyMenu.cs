@@ -51,6 +51,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private int _multiplier = 1;
     private Tween _shakeTween;
     
+    void Update()
+    {
+        Shader.SetGlobalFloat(GameManager.UnscaledTime, Time.unscaledTime);
+    }
+    
     #region Menu
     public new bool Open(float duration = 0.5f)
     {

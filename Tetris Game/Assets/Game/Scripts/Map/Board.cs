@@ -909,6 +909,7 @@ namespace Game
 
         public int TakeBullet(int splitCount)
         {
+            return 1;
             int ammoGiven = 0;
             
             for (int j = 0; j < _size.y; j++)

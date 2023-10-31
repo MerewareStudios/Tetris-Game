@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
 {
     [System.NonSerialized] public static bool PLAYING = false;
     
-    private static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
+    public static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     // public static readonly int BaseMap = Shader.PropertyToID("_BaseMap");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
@@ -83,13 +83,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    void Update()
-    {
-        if (UIManager.MenuVisible)
-        {
-            Shader.SetGlobalFloat(UnscaledTime, Time.unscaledTime);
-        }
-    }
+    
     
     public static void AddCoin(int value)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Game.UI;
@@ -29,6 +30,7 @@ namespace  Game
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
         private static int HIT_HASH = Animator.StringToHash("Hit");
+        // private static int HIT_ANIM_HASH = Animator.StringToHash("Base Layer.Hit");
         private static int CAST_HASH = Animator.StringToHash("Cast");
         private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
 
@@ -66,6 +68,16 @@ namespace  Game
                 Warzone.THIS.EnemyKilled(this, true);
             }
         }
+
+        // void Update()
+        // {
+        //     if (Input.GetMouseButtonDown(0))
+        //     {
+        //         animator.SetTrigger(HIT_HASH);
+        //
+        //         // animator.CrossFade(HIT_ANIM_HASH, 0.0f);
+        //     }    
+        // }
 
         public void Cast()
         {
@@ -174,6 +186,7 @@ namespace  Game
             else
             {
                 animator.SetTrigger(HIT_HASH);
+                // animator.CrossFade(HIT_ANIM_HASH, 0.0f);
             }
         }
 
