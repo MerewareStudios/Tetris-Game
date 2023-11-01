@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 51
+  bundleVersionCode: 56
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -638,16 +638,17 @@ MonoBehaviour:
     pupData:
       available: 1
       currentUsage: 4
+      purchaseCount: 0
     boardData:
       defaultStack: 6
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 1111111
+      value: 0
     gemTransactionData:
-      value: 111111
+      value: 0
     adTransactionData:
-      value: 111111
+      value: 0
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -684,11 +685,14 @@ MonoBehaviour:
       moneyCapacity: 10
       breakInstance: 0
       doubleInstance: 0
+      skipInstance: 0
     upgradeMenuData:
       hiddenData: 000100010101010000000000
       instanceData: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   DefaultAdData:
     removeAds: 0
+    interSkipCount: 0
+    interWatchCount: 0
   GunUpgradeData:
   - currency:
       type: 0

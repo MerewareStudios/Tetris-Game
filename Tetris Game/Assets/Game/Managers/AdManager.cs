@@ -11,6 +11,7 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
+        [SerializeField] public FakeAdMREC fakeAdMRec;
         [SerializeField] public float AdTimeInterval = 180.0f;
         // [System.NonSerialized] private const int ADBreakMarchLimit = 3;
         [System.NonSerialized] private Data _data;
@@ -21,6 +22,7 @@ namespace IWI
             FakeAdBanner.THIS = fakeAdBanner;
             FakeAdInterstitial.THIS = fakeAdInterstitial;
             FakeAdRewarded.THIS = fakeAdRewarded;
+            FakeAdMREC.THIS = fakeAdMRec;
         }
 
         private void InitAdSDK()
@@ -49,7 +51,7 @@ namespace IWI
                     
                     
                     InitBanner();
-                    
+                    InitMRec();
                     
                     FakeAdInterstitial.THIS.Initialize();
                     FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
@@ -89,6 +91,23 @@ namespace IWI
                 return;
             }
             onSuccess?.Invoke();
+        }
+        
+        private void InitMRec()
+        {
+            FakeAdMREC.THIS.Initialize();
+
+            PiggyMenu.THIS.VisibilityChanged += visible =>
+            {
+                if (visible)
+                {
+                    FakeAdMREC.THIS.Show();
+                }
+                else
+                {
+                    FakeAdMREC.THIS.Hide();
+                }
+            };
         }
 
         public void ShowBannerOrOffer()
