@@ -6,7 +6,6 @@ using System.Linq;
 using GameAnalyticsSDK;
 using UnityEngine;
 
-//ANALYTICS_ENABLED
 public static class AnalyticsManager
 {
     private const string AnalyticsEnabled = "ANALYTICS_ENABLED";
@@ -18,6 +17,7 @@ public static class AnalyticsManager
 
     public static void Init()
     {
+        _shopOpenedCount = 0;
         GameAnalytics.Initialize();
     }
     
@@ -129,6 +129,26 @@ public static class AnalyticsManager
 #endif
     }
     
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PiggyBreak(int instance)
+    {
+        string eventName = "PIGGY_BREAK";
+        
+        GameAnalytics.NewDesignEvent(eventName, instance);
+#if UNITY_EDITOR
+        Log(eventName, instance, EventType.Design);
+#endif
+    }
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PiggyBreakDouble(int instance)
+    {
+        string eventName = "PIGGY_BREAK_DOUBLE";
+        
+        GameAnalytics.NewDesignEvent(eventName, instance);
+#if UNITY_EDITOR
+        Log(eventName, instance, EventType.Design);
+#endif
+    }
 
 #if UNITY_EDITOR
     private static bool Validate(string str, EventType eventType)

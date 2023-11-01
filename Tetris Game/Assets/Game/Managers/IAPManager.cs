@@ -118,19 +118,19 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     {
         switch (purchaseType)
         {
-            case UpgradeMenu.PurchaseType.RemoveAdBreak:
+            case UpgradeMenu.PurchaseType.REMOVE_ADS:
                 return RemoveAdBreakID;
-            case UpgradeMenu.PurchaseType.TicketPack:
+            case UpgradeMenu.PurchaseType.TICKET_PACK:
                 return TicketPackID;
-            case UpgradeMenu.PurchaseType.CoinPack:
+            case UpgradeMenu.PurchaseType.COIN_PACK:
                 return CoinPackID;
-            case UpgradeMenu.PurchaseType.PiggyCoinPack:
+            case UpgradeMenu.PurchaseType.PIGGY_COIN_PACK:
                 return PiggyCoinPackID;
-            case UpgradeMenu.PurchaseType.BasicChest:
+            case UpgradeMenu.PurchaseType.BASIC_CHEST:
                 return BasicChestID;
-            case UpgradeMenu.PurchaseType.PrimeChest:
+            case UpgradeMenu.PurchaseType.PRIME_CHEST:
                 return PrimeChestID;
-            case UpgradeMenu.PurchaseType.PrestigeChest:
+            case UpgradeMenu.PurchaseType.PRESTIGE_CHEST:
                 return PrestigeChestID;
         }
         Debug.LogError("Purchase Type Not Found");
@@ -142,22 +142,22 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         switch (id)
         {
             case RemoveAdBreakID:
-                return UpgradeMenu.PurchaseType.RemoveAdBreak;
+                return UpgradeMenu.PurchaseType.REMOVE_ADS;
             case TicketPackID:
-                return UpgradeMenu.PurchaseType.TicketPack;
+                return UpgradeMenu.PurchaseType.TICKET_PACK;
             case CoinPackID:
-                return UpgradeMenu.PurchaseType.CoinPack;
+                return UpgradeMenu.PurchaseType.COIN_PACK;
             case PiggyCoinPackID:
-                return UpgradeMenu.PurchaseType.PiggyCoinPack;
+                return UpgradeMenu.PurchaseType.PIGGY_COIN_PACK;
             case BasicChestID:
-                return UpgradeMenu.PurchaseType.BasicChest;
+                return UpgradeMenu.PurchaseType.BASIC_CHEST;
             case PrimeChestID:
-                return UpgradeMenu.PurchaseType.PrimeChest;
+                return UpgradeMenu.PurchaseType.PRIME_CHEST;
             case PrestigeChestID:
-                return UpgradeMenu.PurchaseType.PrestigeChest;
+                return UpgradeMenu.PurchaseType.PRESTIGE_CHEST;
         }
         Debug.LogError("Purchase Type Not Found");
-        return UpgradeMenu.PurchaseType.Reserved2;
+        return UpgradeMenu.PurchaseType.RESERVED_TWO;
     }
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)

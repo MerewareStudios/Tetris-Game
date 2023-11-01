@@ -160,7 +160,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             _shakeTween.Pause();
             AdManager.ShowTicketAd(() =>
             {
-                // Wallet.Transaction(Const.Currency.OneAd);
+                Wallet.Transaction(Const.Currency.OneAd);
                 Mult();
                 
             }, false, () =>
@@ -176,6 +176,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         void Mult()
         {
+            if (!Wallet.Consume(Const.Currency.OneAd))
+            {
+                return;
+            }
             _shakeTween.Pause();
             
             Transform mulTransform = multiplyButton.transform;
@@ -203,6 +207,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     
                     _shakeTween.Play();
                 }, UIEmitter.Cam.UI);
+
+            _Data.doubleInstance++;
+            AnalyticsManager.PiggyBreakDouble(_Data.doubleInstance);
         }
     }
 
@@ -221,7 +228,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         ticketImage.enabled = true;
         multProgress.localScale = Vector3.one;
-        // multiplyText.text = multiplyStr;
         multiplyButton.gameObject.SetActive(true);
         multiplyButton.targetGraphic.raycastTarget = false;
         multiplyButton.transform.localScale = Vector3.zero;
@@ -250,14 +256,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             .SetEase(Ease.InSine, 5.0f)
             .SetUpdate(true);
 
-        // float targetScale = 1.0f;
+
         _shakeTween.onUpdate = () =>
         {
             float elapsed = _shakeTween.ElapsedPercentage();
             multProgress.localScale = new Vector3(1.0f - elapsed, 1.0f, 1.0f);
 
             float targetScale = 0.75f + elapsed * 0.25f * _multiplier;
-            Debug.Log(targetScale + " " + _multiplier);
             rewardedPiggyShakePivot.localScale = Vector3.Lerp(rewardedPiggyShakePivot.localScale, new Vector3(targetScale, targetScale, targetScale), Time.unscaledDeltaTime * 14.0f);
             rewardedPiggyShakePivot.localEulerAngles = new Vector3(0.0f, 0.0f, vector.x *  _shakeTween.ElapsedPercentage());
         };
@@ -280,6 +285,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             ONBOARDING.PIGGY_BREAK.SetComplete();
             Onboarding.HideFinger();
         }
+        
+        AnalyticsManager.PiggyBreak(_Data.breakInstance + 1);
     }
 
     public void GiveRewards()
@@ -503,6 +510,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             [SerializeField] public Const.Currency currentMoney;
             [SerializeField] public int moneyCapacity;
             [SerializeField] public int breakInstance;
+            [SerializeField] public int doubleInstance;
 
                 
             public Data()
@@ -515,6 +523,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 this.currentMoney = data.currentMoney;
                 this.moneyCapacity = data.moneyCapacity;
                 this.breakInstance = data.breakInstance;
+                this.doubleInstance = data.doubleInstance;
             }
             
             public float PiggyPercent => currentMoney.amount / (float)moneyCapacity;

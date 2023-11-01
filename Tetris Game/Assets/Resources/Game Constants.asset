@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 15
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -683,8 +683,10 @@ MonoBehaviour:
         amount: 0
       moneyCapacity: 10
       breakInstance: 0
+      doubleInstance: 0
     upgradeMenuData:
       hiddenData: 000100010101010000000000
+      instanceData: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   DefaultAdData:
     removeAds: 0
   GunUpgradeData:

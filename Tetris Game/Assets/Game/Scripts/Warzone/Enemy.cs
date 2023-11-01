@@ -32,7 +32,7 @@ namespace  Game
         private static int HIT_CROSS = Animator.StringToHash("Base Layer.Hit");
         private static int CAST_HASH = Animator.StringToHash("Cast");
         private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
-        private static int CAN_WALK_HASH = Animator.StringToHash("CanWalk");
+        // private static int CAN_WALK_HASH = Animator.StringToHash("CanWalk");
 
         public int Damage => Health;
         public Vector3 Position => thisTransform.position;
@@ -73,10 +73,7 @@ namespace  Game
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (!animator.GetBool(CASTING_BOOL_HASH))
-                {
-                    animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
-                }
+                PlayHitAnimation();
             }    
         }
 
@@ -186,11 +183,17 @@ namespace  Game
             }
             else
             {
-                if (!animator.GetBool(CASTING_BOOL_HASH))
-                {
-                    animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
-                }
+                PlayHitAnimation();
             }
+        }
+
+        private void PlayHitAnimation()
+        {
+            if (!so.castType.Equals(CastTypes.None) && animator.GetBool(CASTING_BOOL_HASH))
+            {
+                return;
+            }
+            animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
         }
 
         private void OnDeathAction()
@@ -308,10 +311,10 @@ namespace  Game
                 {
                     switch (reward.type)
                     {
-                        case UpgradeMenu.PurchaseType.CoinPack:
+                        case UpgradeMenu.PurchaseType.COIN_PACK:
                             UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
-                        case UpgradeMenu.PurchaseType.Reserved1:
+                        case UpgradeMenu.PurchaseType.RESERVED_ONE:
                             UIManagerExtensions.HeartToPlayer(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }

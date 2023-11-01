@@ -3107,8 +3107,10 @@ MonoBehaviour:
           amount: 0
         moneyCapacity: 0
         breakInstance: 0
+        doubleInstance: 0
       upgradeMenuData:
         hiddenData: 
+        instanceData: 
     adData:
       removeAds: 0
     baseInfo: SAVE END

@@ -115,17 +115,7 @@ namespace Game.UI
                         purchaseText = "BUY";
                         break;
                 }
-                //
-                // UseCondition useCondition = lookUp.useCondition;
-                // switch (useCondition)
-                // {
-                //     case UseCondition.Always:
-                //         
-                //         break;
-                //     case UseCondition.HasPiggyCapacity:
-                //         available &= PiggyMenu.THIS._Data.moneyCapacity > 10;
-                //         break;
-                // }
+                
 
                 purchaseOption.SetPrice(lookUp.currency.type.IsLocal() ? lookUp.GetLocalPrice() : CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
                 
@@ -179,46 +169,46 @@ namespace Game.UI
         {
             switch (purchaseType)
             {
-                case PurchaseType.MaxStack:
+                case PurchaseType.MAX_STACK:
                     Board.THIS._Data.maxStack++;
                     break;
-                case PurchaseType.TicketPack:
+                case PurchaseType.TICKET_PACK:
                     Wallet.TICKET.Transaction(5);
                     break;
-                case PurchaseType.MedKit:
+                case PurchaseType.MEDKIT:
                     Warzone.THIS.Player._CurrentHealth += 25;
                     break;
-                case PurchaseType.CoinPack:
+                case PurchaseType.COIN_PACK:
                     Wallet.COIN.Transaction(1500);
                     break;
-                case PurchaseType.Reserved1:
+                case PurchaseType.RESERVED_ONE:
                     break;
-                case PurchaseType.Reserved2:
+                case PurchaseType.RESERVED_TWO:
                     break;
-                case PurchaseType.PiggyCoinPack:
+                case PurchaseType.PIGGY_COIN_PACK:
                     Wallet.PIGGY.Transaction(250);
                     break;
-                case PurchaseType.PiggyCapacity:
+                case PurchaseType.PIGGY_CAPACITY_RESET:
                     PiggyMenu.THIS._Data.moneyCapacity = 10;
                     PiggyMenu.THIS._Data.currentMoney.amount = 0;
                     break;
-                case PurchaseType.BasicChest:
+                case PurchaseType.BASIC_CHEST:
                     Wallet.COIN.Transaction(80);
                     Wallet.PIGGY.Transaction(2);
                     break;
-                case PurchaseType.PrimeChest:
+                case PurchaseType.PRIME_CHEST:
                     Wallet.COIN.Transaction(500);
                     Wallet.PIGGY.Transaction(10);
                     Wallet.TICKET.Transaction(5);
                     break;
-                case PurchaseType.PrestigeChest:
+                case PurchaseType.PRESTIGE_CHEST:
                     Wallet.COIN.Transaction(1250);
                     Wallet.PIGGY.Transaction(30);
                     Wallet.TICKET.Transaction(15);
                     break;
-                case PurchaseType.RemoveAdBreak:
+                case PurchaseType.REMOVE_ADS:
                     AdManager.Bypass.Ads();
-                    _Data.hiddenData[(int)PurchaseType.RemoveAdBreak] = true;
+                    _Data.hiddenData[(int)PurchaseType.REMOVE_ADS] = true;
                     break;
             }
 
@@ -226,35 +216,39 @@ namespace Game.UI
             {
                 Show(false);
             }
-            
-            AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), 1);
+
+            int index = (int)purchaseType;
+            _Data.instanceData[index]++;
+            AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), _Data.instanceData[index]);
         }
 
         [Serializable]
         public enum PurchaseType
         {
-            MaxStack,
-            TicketPack,
-            MedKit,
-            CoinPack,
-            Reserved1,
-            Reserved2,
-            PiggyCoinPack,
-            PiggyCapacity,
-            BasicChest,
-            PrimeChest,
-            PrestigeChest,
-            RemoveAdBreak,
+            MAX_STACK,
+            TICKET_PACK,
+            MEDKIT,
+            COIN_PACK,
+            RESERVED_ONE,
+            RESERVED_TWO,
+            PIGGY_COIN_PACK,
+            PIGGY_CAPACITY_RESET,
+            BASIC_CHEST,
+            PRIME_CHEST,
+            PRESTIGE_CHEST,
+            REMOVE_ADS,
         }
 
         [System.Serializable]
         public class Data : ICloneable
         {
             [SerializeField] public bool[] hiddenData;
+            [SerializeField] public int[] instanceData;
             
             public Data(Data data)
             {
                 hiddenData = data.hiddenData.Clone() as bool[];
+                instanceData = data.instanceData.Clone() as int[];
             }
 
             public object Clone()
@@ -270,7 +264,6 @@ namespace Game.UI
             [SerializeField] public Sprite sprite;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
-            // [SerializeField] public UseCondition useCondition;
             [SerializeField] public bool best = false;
 
             public string GetLocalPrice()
@@ -280,10 +273,4 @@ namespace Game.UI
         } 
         
     }
-
-    // public enum UseCondition
-    // {
-    //     Always,
-    //     HasPiggyCapacity
-    // }
 }

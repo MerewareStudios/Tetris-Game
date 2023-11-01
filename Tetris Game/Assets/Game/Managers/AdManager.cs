@@ -159,7 +159,7 @@ namespace IWI
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Interstitial);
             AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
-            AdBreakScreen.THIS.SetPurchaseWindows(true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.RemoveAdBreak), true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TicketPack));
+            AdBreakScreen.THIS.SetPurchaseWindows(true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.REMOVE_ADS), true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TICKET_PACK));
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -193,7 +193,7 @@ namespace IWI
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Rewarded);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
-            AdBreakScreen.THIS.SetPurchaseWindows(false, "", true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TicketPack));
+            AdBreakScreen.THIS.SetPurchaseWindows(false, "", true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TICKET_PACK));
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
