@@ -29,7 +29,7 @@ namespace  Game
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
-        private static int HIT_HASH = Animator.StringToHash("Hit");
+        private static int HIT_CROSS = Animator.StringToHash("Base Layer.Hit");
         private static int CAST_HASH = Animator.StringToHash("Cast");
         private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
         private static int CAN_WALK_HASH = Animator.StringToHash("CanWalk");
@@ -78,7 +78,9 @@ namespace  Game
         {
             if (Input.GetMouseButtonDown(0))
             {
-                animator.SetTrigger(HIT_HASH);
+                animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
+
+                // animator.SetTrigger(HIT_HASH);
             }    
         }
 
@@ -188,7 +190,7 @@ namespace  Game
             }
             else
             {
-                animator.SetTrigger(HIT_HASH);
+                animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
             }
         }
 
