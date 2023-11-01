@@ -69,18 +69,14 @@ namespace  Game
             }
         }
 
-        public void OnCanWalk()
-        {
-            animator.SetTrigger(CAN_WALK_HASH);
-        }
-
         void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
-
-                // animator.SetTrigger(HIT_HASH);
+                if (!animator.GetBool(CASTING_BOOL_HASH))
+                {
+                    animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
+                }
             }    
         }
 
@@ -190,7 +186,10 @@ namespace  Game
             }
             else
             {
-                animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
+                if (!animator.GetBool(CASTING_BOOL_HASH))
+                {
+                    animator.CrossFade(HIT_CROSS, 0.1f, -1, 0.0f);
+                }
             }
         }
 

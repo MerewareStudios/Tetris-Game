@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 159493882616493305}
   - component: {fileID: 159493882623744787}
-  - component: {fileID: 626984595879026024}
   m_Layer: 0
   m_Name: Practice Dummy
   m_TagString: Untagged
@@ -56,36 +55,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &626984595879026024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159493882616457433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc3041ff81a44f4fada589952801439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  castEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  canWalkEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9089625969593204839}
-        m_TargetAssemblyTypeName: Game.Enemy, Assembly-CSharp
-        m_MethodName: OnCanWalk
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &159493882616457437
 GameObject:
   m_ObjectHideFlags: 0
