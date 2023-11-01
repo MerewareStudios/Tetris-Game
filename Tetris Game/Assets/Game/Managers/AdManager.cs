@@ -120,6 +120,7 @@ namespace IWI
             {
                 _Data.BannerAccepted = true;
                 ShowBannerOrOffer();
+                AnalyticsManager.OnBannerEnabled();
             };
             FakeAdBanner.THIS.OnVisibilityChanged = (visible) =>
             {

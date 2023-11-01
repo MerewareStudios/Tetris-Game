@@ -13,6 +13,8 @@ public static class AnalyticsManager
 
     private static int _currentTrackedLevel;
     private static int _currentTrackedStartTime;
+    
+    private static int _shopOpenedCount = 0;
 
     public static void Init()
     {
@@ -51,13 +53,50 @@ public static class AnalyticsManager
     public static void OnboardingStepComplete(string stepName)
     {
         string eventName = "TUTORIAL:" + stepName;
-        float realTime = Time.realtimeSinceStartup;
+        int realTime = (int)Time.realtimeSinceStartup;
         
         GameAnalytics.NewDesignEvent(eventName, realTime);
 #if UNITY_EDITOR
         Log(eventName, realTime, EventType.Design);
 #endif
     }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void OnBannerEnabled()
+    {
+        string eventName = "BANNER_ENABLED";
+        int realTime = (int)Time.realtimeSinceStartup;
+        
+        GameAnalytics.NewDesignEvent(eventName, realTime);
+#if UNITY_EDITOR
+        Log(eventName, realTime, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void ShopOpened()
+    {
+        string eventName = "SHOP_OPEN";
+        _shopOpenedCount++;
+        
+        GameAnalytics.NewDesignEvent(eventName, _shopOpenedCount);
+#if UNITY_EDITOR
+        Log(eventName, _shopOpenedCount, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void UnlockedBlockCount(int count)
+    {
+        string eventName = "UNLOCKED_BLOCK";
+        
+        GameAnalytics.NewDesignEvent(eventName, count);
+#if UNITY_EDITOR
+        Log(eventName, count, EventType.Design);
+#endif
+    }
+    
+    
 
 #if UNITY_EDITOR
     private static bool Validate(string str, EventType eventType)

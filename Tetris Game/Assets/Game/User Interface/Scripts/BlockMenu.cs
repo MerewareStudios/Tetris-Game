@@ -198,11 +198,12 @@ namespace Game.UI
                 if (ONBOARDING.PURCHASE_BLOCK.IsNotComplete())
                 {
                     ONBOARDING.PURCHASE_BLOCK.SetComplete();
-                    // ONBOARDING.ABLE_TO_USE_WEAPON_TAB.SetComplete();
                     Onboarding.HideFinger();
                 }
                 Show();
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
+                
+                AnalyticsManager.UnlockedBlockCount(_blockShopData.UnlockedCount - 5);
             }
             else
             {
@@ -223,6 +224,8 @@ namespace Game.UI
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
 
+            public int UnlockedCount => unlockedBlocks.Count;
+            
             public BlockShopData()
             {
                 

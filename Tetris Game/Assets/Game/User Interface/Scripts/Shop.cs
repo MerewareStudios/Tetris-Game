@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour
         {
             return;
         }
+        
 
         background.enabled = false;
 
@@ -56,6 +57,8 @@ public class Shop : MonoBehaviour
             buttonTransform.DOKill();
             buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true);
         }
+        
+        AnalyticsManager.ShopOpened();
     }
 
     public bool VisibleImmediate

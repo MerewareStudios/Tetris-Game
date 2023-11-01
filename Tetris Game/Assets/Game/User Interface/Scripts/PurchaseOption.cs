@@ -32,17 +32,8 @@ public class PurchaseOption : MonoBehaviour
         priceCurrencyDisplay.Display(currency);
         purchaseButton.ButtonSprite = Const.THIS.buttonTextures[(int)currencyType];
         purchaseButton.Available = available;
-        Debug.Log(available);
         return this;
     }
-    // public PurchaseOption SetLocalPrice(string localCurrency, bool available)
-    // {
-    //     priceCurrencyDisplay.Display(localCurrency);
-    //     purchaseButton.ButtonSprite = Const.THIS.buyButtonTexture;
-    //
-    //     purchaseButton.Available = available;
-    //     return this;
-    // }
     public PurchaseOption SetBestBadge(bool value)
     {
         bestBadge.SetActive(value);
