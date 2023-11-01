@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using DG.Tweening;
 using Game;
+using Internal.Core;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -66,15 +67,19 @@ public class Gun : MonoBehaviour
         bullet.DOKill();
         bullet.transform.position = muzzle.position;
         trail.Clear();
+
+
+        float distance = (muzzle.position.XZ() - enemy.hitTarget.position.XZ()).magnitude;
+        float dur = (distance / GunSo.speed);
         
         Tween bulletTween = null;
         if (GunSo.jump)
         {
-            bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower, 1, GunSo.travelDur).SetEase(Ease.Linear);
+            bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower, 1, dur).SetEase(GunSo.ease);
         }
         else
         {
-            bulletTween = bullet.DOMove(enemy.hitTarget.position, GunSo.travelDur).SetEase(Ease.Linear);
+            bulletTween = bullet.DOMove(enemy.hitTarget.position, dur).SetEase(GunSo.ease);
         }
         bulletTween.onComplete = () =>
         {
