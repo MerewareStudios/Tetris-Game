@@ -226,6 +226,8 @@ namespace Game.UI
             {
                 Show(false);
             }
+            
+            AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), 1);
         }
 
         [Serializable]

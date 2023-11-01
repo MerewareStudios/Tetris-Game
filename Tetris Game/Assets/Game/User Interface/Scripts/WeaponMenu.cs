@@ -83,7 +83,7 @@ namespace Game.UI
             purchaseParent.gameObject.SetActive(!purchasedWeapon);
             equipButton.gameObject.SetActive(purchasedWeapon && !equippedWeapon);
             
-            _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
+            _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.inspectIndex];
             
             SetSprite(_gunUpgradeData.sprite, gunPunchAmount);
             if (glimmer)
@@ -132,7 +132,7 @@ namespace Game.UI
                 }
             }
             
-            previousButton.SetActive(_weaponShopData.gunIndex != 0);
+            previousButton.SetActive(_weaponShopData.inspectIndex != 0);
             nextButton.SetActive(purchasedWeapon);
             
             if (!purchasedWeapon)
@@ -184,7 +184,6 @@ namespace Game.UI
             Const.Currency price = _gunUpgradeData.UpgradePrice(statType, currentIndex);
 
             bool ticket = price.type.Equals(Const.CurrencyType.Ticket);
-            // purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
             
             stageBar
                 .SetPrice(price)
@@ -314,11 +313,25 @@ namespace Game.UI
                 if (ONBOARDING.PURCHASE_FIRERATE.IsNotComplete())
                 {
                     ONBOARDING.PURCHASE_FIRERATE.SetComplete();
-                    // ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
-                    // Onboarding.HideFinger();
                 }
                 
                 CustomShow(0.2f, true);
+
+                CheckMax();
+                void CheckMax()
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Gun.StatType stat = (Gun.StatType)i;
+                        int currentIndex = _weaponShopData.CurrentIndex(stat);
+                        bool max = _gunUpgradeData.IsFull(stat, currentIndex);
+                        if (!max)
+                        {
+                            return;
+                        }
+                    }
+                    AnalyticsManager.WeaponMaxed(_weaponShopData.inspectIndex);
+                }
             } 
             else
             {
@@ -335,8 +348,6 @@ namespace Game.UI
         
         public void OnClick_PurchaseWeapon()
         {
-            // _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.gunIndex];
-
             if (_weaponShopData.Purchased)
             {
                 return;
@@ -354,14 +365,13 @@ namespace Game.UI
                 if (ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
                 {
                     ONBOARDING.PURCHASE_WEAPON.SetComplete();
-                    // ONBOARDING.LEARN_TO_PURCHASE_FIRERATE.SetComplete();
-                    // ONBOARDING.ABLE_TO_USE_UPGRADE_TAB.SetComplete();
-                    // Onboarding.HideFinger();
                 }
                 
                 _weaponShopData.Purchase();
 
                 OnClick_Equip();
+                
+                AnalyticsManager.PurchasedWeaponCount(_weaponShopData.PurchasedCount() - 1);
             }
             else
             {
@@ -385,19 +395,19 @@ namespace Game.UI
         
         public void OnClick_ShowNext()
         {
-            _weaponShopData.gunIndex++;
-            if (_weaponShopData.gunIndex >= Const.THIS.GunUpgradeData.Length)
+            _weaponShopData.inspectIndex++;
+            if (_weaponShopData.inspectIndex >= Const.THIS.GunUpgradeData.Length)
             {
-                _weaponShopData.gunIndex = 0;
+                _weaponShopData.inspectIndex = 0;
             }
             Show();
         }
         public void OnClick_ShowPrevious()
         {
-            _weaponShopData.gunIndex--;
-            if (_weaponShopData.gunIndex < 0)
+            _weaponShopData.inspectIndex--;
+            if (_weaponShopData.inspectIndex < 0)
             {
-                _weaponShopData.gunIndex = Const.THIS.GunUpgradeData.Length - 1;
+                _weaponShopData.inspectIndex = Const.THIS.GunUpgradeData.Length - 1;
             }
             Show();
         }
@@ -405,7 +415,7 @@ namespace Game.UI
         [System.Serializable]
         public class WeaponShopData : ICloneable
         {
-            [SerializeField] public int gunIndex;
+            [SerializeField] public int inspectIndex;
             [SerializeField] public int equipIndex;
             [SerializeField] public List<GunShopData> gunShopDatas = new();
 
@@ -415,14 +425,14 @@ namespace Game.UI
             }
             public WeaponShopData(WeaponShopData weaponShopData)
             {
-                gunIndex = weaponShopData.gunIndex;
+                inspectIndex = weaponShopData.inspectIndex;
                 equipIndex = weaponShopData.equipIndex;
                 gunShopDatas.CopyFrom(weaponShopData.gunShopDatas);
             }
             
             public int CurrentIndex(Gun.StatType statType)
             {
-                return gunShopDatas[gunIndex].upgradeIndexes[(int)statType];
+                return gunShopDatas[inspectIndex].upgradeIndexes[(int)statType];
             }
             public int GetUpgradeIndexOfEquippedGun(Gun.StatType statType)
             {
@@ -430,11 +440,11 @@ namespace Game.UI
             }
             public void Upgrade(Gun.StatType statType, int amount)
             {
-                gunShopDatas[gunIndex].upgradeIndexes[(int)statType] += amount;
+                gunShopDatas[inspectIndex].upgradeIndexes[(int)statType] += amount;
             }
             public void Purchase()
             {
-                gunShopDatas[gunIndex].purchased = true;
+                gunShopDatas[inspectIndex].purchased = true;
             }
             public void Equip()
             {
@@ -443,10 +453,22 @@ namespace Game.UI
                     return;
                 }
 
-                equipIndex = gunIndex;
+                equipIndex = inspectIndex;
             }
-            public bool Purchased => gunShopDatas[this.gunIndex].purchased;
-            public bool Equipped => gunIndex == equipIndex;
+            public int PurchasedCount()
+            {
+                int total = 0;
+                foreach (var data in gunShopDatas)
+                {
+                    if (data.purchased)
+                    {
+                        total++;
+                    }
+                }
+                return total;
+            }
+            public bool Purchased => gunShopDatas[this.inspectIndex].purchased;
+            public bool Equipped => inspectIndex == equipIndex;
 
             public Gun.Data GetCurrentGunData()
             {

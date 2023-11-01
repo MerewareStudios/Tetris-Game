@@ -86,7 +86,7 @@ public static class AnalyticsManager
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void UnlockedBlockCount(int count)
+    public static void PurchasedBlockCount(int count)
     {
         string eventName = "UNLOCKED_BLOCK";
         
@@ -96,6 +96,38 @@ public static class AnalyticsManager
 #endif
     }
     
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PurchasedWeaponCount(int count)
+    {
+        string eventName = "UNLOCKED_WEAPON";
+        
+        GameAnalytics.NewDesignEvent(eventName, count);
+#if UNITY_EDITOR
+        Log(eventName, count, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void WeaponMaxed(int weaponIndex)
+    {
+        string eventName = "WEAPON_MAXED";
+        
+        GameAnalytics.NewDesignEvent(eventName, weaponIndex);
+#if UNITY_EDITOR
+        Log(eventName, weaponIndex, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PurchasedUpgrade(string upgradeName, int upgradeInstance)
+    {
+        string eventName = "UPGRADE:" + upgradeName;
+        
+        GameAnalytics.NewDesignEvent(eventName, upgradeInstance);
+#if UNITY_EDITOR
+        Log(eventName, upgradeInstance, EventType.Design);
+#endif
+    }
     
 
 #if UNITY_EDITOR

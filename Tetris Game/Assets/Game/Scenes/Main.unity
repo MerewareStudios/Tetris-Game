@@ -3096,7 +3096,7 @@ MonoBehaviour:
         unlockedBlocks: 
         lastIndex: 0
       weaponShopData:
-        gunIndex: 0
+        inspectIndex: 0
         equipIndex: 0
         gunShopDatas: []
       menuNavData:

@@ -203,7 +203,7 @@ namespace Game.UI
                 Show();
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
                 
-                AnalyticsManager.UnlockedBlockCount(_blockShopData.UnlockedCount - 5);
+                AnalyticsManager.PurchasedBlockCount(_blockShopData.UnlockedCount - 5);
             }
             else
             {
