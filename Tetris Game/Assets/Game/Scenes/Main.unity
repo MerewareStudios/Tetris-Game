@@ -3082,6 +3082,7 @@ MonoBehaviour:
       pupData:
         available: 0
         currentUsage: 0
+        purchaseCount: 0
       boardData:
         defaultStack: 6
         maxStack: 6
@@ -3108,11 +3109,14 @@ MonoBehaviour:
         moneyCapacity: 0
         breakInstance: 0
         doubleInstance: 0
+        skipInstance: 0
       upgradeMenuData:
         hiddenData: 
         instanceData: 
     adData:
       removeAds: 0
+      interSkipCount: 0
+      interWatchCount: 0
     baseInfo: SAVE END
   DELETE_AT_START: 1
   SKIP_ONBOARDING: 1
@@ -3146,7 +3150,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  AdTimeInterval: 200
+  AdTimeInterval: 1
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -70,7 +70,7 @@ public class Gun : MonoBehaviour
 
 
         float distance = (muzzle.position.XZ() - enemy.hitTarget.position.XZ()).magnitude;
-        float dur = (distance / GunSo.speed);
+        float dur = Mathf.Max(distance / GunSo.speed, 0.35f);
         
         Tween bulletTween = null;
         if (GunSo.jump)

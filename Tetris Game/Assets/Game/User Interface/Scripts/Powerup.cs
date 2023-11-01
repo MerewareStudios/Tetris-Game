@@ -163,7 +163,6 @@ public class Powerup : Lazyingleton<Powerup>
         }
         
         _data.available = true;
-        // SetPowerup(Const.THIS.powerUps.Random());
         SetPowerup(LevelManager.GetRandomPowerUp());
         PunchCost(50.0f);
         UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
@@ -176,20 +175,19 @@ public class Powerup : Lazyingleton<Powerup>
                 OpenAnimated(true);
             });
 
+        
+        _Data.purchaseCount++;
+        AnalyticsManager.PurchasedPower(_Data.purchaseCount);
+        
         return true;
     }
 
-    public void Deconstruct()
-    {
-        
-    }
-    
-    
     [System.Serializable]
     public class Data : System.ICloneable
     {
         [SerializeField] public bool available = false;
         [SerializeField] public Pawn.Usage currentUsage;
+        [SerializeField] public int purchaseCount;
         public Data()
         {
             
@@ -198,6 +196,7 @@ public class Powerup : Lazyingleton<Powerup>
         {
             this.available = data.available;
             this.currentUsage = data.currentUsage;
+            this.purchaseCount = data.purchaseCount;
         }
         public object Clone()
         {

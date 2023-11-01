@@ -24,7 +24,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private TextMeshProUGUI adBreakPrice;
     [SerializeField] private TextMeshProUGUI ticketPackPrice;
     
-    [System.NonSerialized] public AdState CurrentAdState = AdState.None;
+    [System.NonSerialized] public AdState CurrentAdState = AdState.NONE;
     [System.NonSerialized] private LoadState _currentLoadState;
     
     [System.NonSerialized] private bool _canInteract = false;
@@ -40,11 +40,16 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 
     public enum AdState
     {
-        None,
-        Interstitial,
-        Rewarded,
+        NONE,
+        INTERSTITIAL,
+        REWARDED,
     }
-
+    public enum AdInteraction
+    {
+        SKIP,
+        WATCH,
+    }
+    
     public AdBreakScreen SetAdState(AdState adState)
     {
         this.CurrentAdState = adState;
@@ -133,7 +138,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         Stop();
 
-        SetAdState(AdState.None);
+        SetAdState(AdState.NONE);
         _canInteract = false;
         
         canvasGroup.DOKill();
@@ -147,7 +152,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public void CloseImmediate()
     {
         Stop();
-        SetAdState(AdState.None);
+        SetAdState(AdState.NONE);
         this.gameObject.SetActive(false);
         canvas.enabled = false;
         _canInteract = false;

@@ -34,7 +34,7 @@ namespace IWI
                     FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
                     {
                         // Debug.LogWarning("FakeAdRewarded OnLoadedStateChanged " + state);
-                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Rewarded))
+                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.REWARDED))
                         {
                             return;
                         }
@@ -55,7 +55,7 @@ namespace IWI
                     FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
                     {
                         // Debug.LogWarning("FakeAdInterstitial OnLoadedStateChanged " + state);
-                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.Interstitial))
+                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.INTERSTITIAL))
                         {
                             return;
                         }
@@ -156,7 +156,7 @@ namespace IWI
             _Data.LastTimeAdShown = Time.realtimeSinceStartup;
 
 
-            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Interstitial);
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL);
             AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
             AdBreakScreen.THIS.SetPurchaseWindows(true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.REMOVE_ADS), true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TICKET_PACK));
@@ -166,10 +166,16 @@ namespace IWI
                     AdBreakScreen.THIS.Close();
                     UIManager.Pause(false);
                     onFinish?.Invoke();
+
+                    _Data.interSkipCount++;
+                    AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, _Data.interSkipCount);
                 },
                 () => Wallet.Consume(Const.Currency.OneAd));
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
+                _Data.interWatchCount++;
+                AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, _Data.interSkipCount);
+
                 AdBreakScreen.THIS.CloseImmediate();
                 FakeAdInterstitial.THIS.Show(
                 () =>
@@ -190,7 +196,7 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward, bool pauseUnpause = true, System.Action onClick = null)
         {
-            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.Rewarded);
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
             AdBreakScreen.THIS.SetPurchaseWindows(false, "", true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TICKET_PACK));
@@ -271,6 +277,8 @@ namespace IWI
         public class Data : ICloneable
         {
             [SerializeField] public bool removeAds = false;
+            [SerializeField] public int interSkipCount;
+            [SerializeField] public int interWatchCount;
             [System.NonSerialized] public bool BannerAccepted = false;
             [System.NonSerialized] public float LastTimeAdShown;
             
@@ -281,6 +289,8 @@ namespace IWI
             public Data(Data data)
             {
                 removeAds = data.removeAds;
+                interSkipCount = data.interSkipCount;
+                interWatchCount = data.interWatchCount;
             }
             public object Clone()
             {

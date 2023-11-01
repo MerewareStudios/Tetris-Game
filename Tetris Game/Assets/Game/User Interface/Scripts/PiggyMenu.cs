@@ -367,11 +367,12 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
         {
             ONBOARDING.PIGGY_CONTINUE.SetComplete();
-            // ONBOARDING.LEARNED_ALL_TABS.SetComplete();
-            // UIManager.THIS.shop.BarEnabled = true;
             Onboarding.HideFinger();
         }
         this.Close();
+        
+        _Data.skipInstance++;
+        AnalyticsManager.PiggyBreakSkipped(_Data.skipInstance);
     }
     #endregion
     
@@ -511,6 +512,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             [SerializeField] public int moneyCapacity;
             [SerializeField] public int breakInstance;
             [SerializeField] public int doubleInstance;
+            [SerializeField] public int skipInstance;
 
                 
             public Data()
@@ -524,6 +526,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 this.moneyCapacity = data.moneyCapacity;
                 this.breakInstance = data.breakInstance;
                 this.doubleInstance = data.doubleInstance;
+                this.skipInstance = data.skipInstance;
             }
             
             public float PiggyPercent => currentMoney.amount / (float)moneyCapacity;

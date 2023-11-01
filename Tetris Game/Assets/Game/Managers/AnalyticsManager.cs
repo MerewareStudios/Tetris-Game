@@ -139,10 +139,44 @@ public static class AnalyticsManager
         Log(eventName, instance, EventType.Design);
 #endif
     }
+    
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void PiggyBreakDouble(int instance)
     {
         string eventName = "PIGGY_BREAK_DOUBLE";
+        
+        GameAnalytics.NewDesignEvent(eventName, instance);
+#if UNITY_EDITOR
+        Log(eventName, instance, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PiggyBreakSkipped(int instance)
+    {
+        string eventName = "PIGGY_BREAK_SKIP";
+        
+        GameAnalytics.NewDesignEvent(eventName, instance);
+#if UNITY_EDITOR
+        Log(eventName, instance, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PurchasedPower(int instance)
+    {
+        string eventName = "POWER_PURCHASE";
+        
+        GameAnalytics.NewDesignEvent(eventName, instance);
+#if UNITY_EDITOR
+        Log(eventName, instance, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void AdData(AdBreakScreen.AdState adState, AdBreakScreen.AdInteraction adInteraction, int instance)
+    {
+        string eventName = "SKIP:" + adState.ToString() + ":" + adInteraction.ToString();
         
         GameAnalytics.NewDesignEvent(eventName, instance);
 #if UNITY_EDITOR

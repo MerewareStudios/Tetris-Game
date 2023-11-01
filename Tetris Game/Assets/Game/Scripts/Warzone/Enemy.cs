@@ -69,14 +69,6 @@ namespace  Game
             }
         }
 
-        void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                PlayHitAnimation();
-            }    
-        }
-
         public void Cast()
         {
             _castTweenLoop?.Kill();

@@ -108,7 +108,6 @@ public class GameManager : Singleton<GameManager>
         Map.THIS.Deconstruct();
         Board.THIS.Deconstruct();
         Warzone.THIS.Deconstruct();
-        Powerup.THIS.Deconstruct();
     }
 
     public void OnVictory()
