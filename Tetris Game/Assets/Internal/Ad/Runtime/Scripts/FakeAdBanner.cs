@@ -125,6 +125,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
         _loaded = true;
         Loading = !_loaded;
+        // Debug.Log("OnBannerAdLoadedEvent");
     }
 
     private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)

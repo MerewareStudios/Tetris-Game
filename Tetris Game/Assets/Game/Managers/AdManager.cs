@@ -11,7 +11,7 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        [SerializeField] public FakeAdMREC fakeAdMRec;
+        // [SerializeField] public FakeAdMREC fakeAdMRec;
         [SerializeField] public float AdTimeInterval = 180.0f;
         // [System.NonSerialized] private const int ADBreakMarchLimit = 3;
         [System.NonSerialized] private Data _data;
@@ -22,7 +22,7 @@ namespace IWI
             FakeAdBanner.THIS = fakeAdBanner;
             FakeAdInterstitial.THIS = fakeAdInterstitial;
             FakeAdRewarded.THIS = fakeAdRewarded;
-            FakeAdMREC.THIS = fakeAdMRec;
+            // FakeAdMREC.THIS = fakeAdMRec;
         }
 
         private void InitAdSDK()
@@ -51,7 +51,7 @@ namespace IWI
                     
                     
                     InitBanner();
-                    InitMRec();
+                    // InitMRec();
                     
                     FakeAdInterstitial.THIS.Initialize();
                     FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
@@ -93,22 +93,22 @@ namespace IWI
             onSuccess?.Invoke();
         }
         
-        private void InitMRec()
-        {
-            FakeAdMREC.THIS.Initialize();
-
-            PiggyMenu.THIS.VisibilityChanged += visible =>
-            {
-                if (visible)
-                {
-                    FakeAdMREC.THIS.Show();
-                }
-                else
-                {
-                    FakeAdMREC.THIS.Hide();
-                }
-            };
-        }
+        // private void InitMRec()
+        // {
+        //     FakeAdMREC.THIS.Initialize();
+        //
+        //     PiggyMenu.THIS.VisibilityChanged += visible =>
+        //     {
+        //         if (visible)
+        //         {
+        //             FakeAdMREC.THIS.Show();
+        //         }
+        //         else
+        //         {
+        //             FakeAdMREC.THIS.Hide();
+        //         }
+        //     };
+        // }
 
         public void ShowBannerOrOffer()
         {
@@ -215,6 +215,7 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward, bool pauseUnpause = true, System.Action onClick = null)
         {
+            Debug.Log("req");
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);

@@ -3150,7 +3150,6 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  fakeAdMRec: {fileID: 2017990424}
   AdTimeInterval: 200
 --- !u!114 &715436865
 MonoBehaviour:
@@ -7931,7 +7930,6 @@ GameObject:
   - component: {fileID: 2017990421}
   - component: {fileID: 2017990422}
   - component: {fileID: 2017990423}
-  - component: {fileID: 2017990424}
   m_Layer: 0
   m_Name: '& AD'
   m_TagString: Untagged
@@ -7978,18 +7976,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c8d5eba0fa2b804eabd785ba335eb98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2017990424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017990420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc15f180cc591e43a44588d57e59b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2023912878

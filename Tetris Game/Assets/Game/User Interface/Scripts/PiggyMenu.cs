@@ -51,7 +51,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private int _multiplier = 1;
     private Tween _shakeTween;
 
-    [System.NonSerialized] public System.Action<bool> VisibilityChanged = null;
+    // [System.NonSerialized] public System.Action<bool> VisibilityChanged = null;
     
     void Update()
     {
@@ -75,14 +75,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             return true;
         }
         SwitchToGame();
-        this.VisibilityChanged?.Invoke(false);
+        // this.VisibilityChanged?.Invoke(false);
         return false;
     }
     public new void Show()
     {
         base.Show();
         
-        this.VisibilityChanged?.Invoke(true);
+        // this.VisibilityChanged?.Invoke(true);
         
         UIManager.MenuMode(true);
         Wallet.ScaleTransactors(1.1f, true);
