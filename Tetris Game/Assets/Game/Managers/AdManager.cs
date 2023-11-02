@@ -64,6 +64,11 @@ namespace IWI
                         AdBreakScreen.THIS.SetLoadState(state);
                     };
                 };
+            
+            MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => {
+                // Show Mediation Debugger
+                MaxSdk.ShowMediationDebugger();
+            };
         }
         
         private void Start()
@@ -141,7 +146,7 @@ namespace IWI
                 ShowBannerOrOffer();
                 AnalyticsManager.OnBannerEnabled();
             };
-            FakeAdBanner.THIS.OnVisibilityChanged = (visible) =>
+            FakeAdBanner.THIS.VisibilityChanged = (visible) =>
             {
                 SetBannerBonuses(visible);
             };
@@ -153,7 +158,7 @@ namespace IWI
             FakeAdBanner.THIS.DestroyBanner();
 
             FakeAdBanner.THIS.OnOfferAccepted = null;
-            FakeAdBanner.THIS.OnVisibilityChanged = null;
+            FakeAdBanner.THIS.VisibilityChanged = null;
             UIManager.OnMenuModeChanged -= ChangeBannerPosition;
         }
         

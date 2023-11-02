@@ -11,9 +11,11 @@ namespace Internal.Core
 {
     public enum LoadState
     {
+        None,
         Success,
         Fail,
         Loading,
+        Destroyed,
     }
     [Serializable]
     public struct PosRotData

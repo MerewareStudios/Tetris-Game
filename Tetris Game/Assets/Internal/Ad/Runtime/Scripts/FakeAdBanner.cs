@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -12,21 +13,57 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private Button enableButton;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
-    [System.NonSerialized] private bool _loaded = false;
+    
     [System.NonSerialized] public System.Action OnOfferAccepted;
-    [System.NonSerialized] public System.Action<bool> OnVisibilityChanged;
+    [System.NonSerialized] public System.Action<bool> VisibilityChanged;
     [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
     [System.NonSerialized] private bool _visible = false;
+    
     public Vector3 ButtonPosition => enableButton.transform.position;
-
     private const float OfferDistance = -220.0f;
+    
+    public bool Ready => _loadState.Equals(LoadState.Success);
 
+    [System.NonSerialized] private LoadState _loadState = LoadState.None;
+
+    void Awake()
+    {
+        CurrentLoadState = LoadState.None;
+        SetOfferState(false);
+    }
+
+    public LoadState CurrentLoadState
+    {
+        set
+        {
+            _loadState = value;
+
+            switch (value)
+            {
+                case LoadState.None:
+                    loadingBar.SetActive(true);
+                    enableButton.gameObject.SetActive(false);
+                    break;
+                case LoadState.Success:
+                    loadingBar.SetActive(false);
+                    enableButton.gameObject.SetActive(true);
+                    break;
+                case LoadState.Fail:
+                    break;
+                case LoadState.Loading:
+                    loadingBar.SetActive(true);
+                    enableButton.gameObject.SetActive(false);
+                    break;
+                case LoadState.Destroyed:
+                    SetOfferState(false);
+                    break;
+            }
+        }
+    }
     
     public void ShowOffer()
     {
         SetOfferState(true);
-
-        // infoText.text = infoStr;
 
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
@@ -36,18 +73,8 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         {
             enableButton.targetGraphic.raycastTarget = true;
         };
-
-        Loading = !_loaded;
     }
 
-    public bool Loading
-    {
-        set
-        {
-            loadingBar.SetActive(value);
-            enableButton.gameObject.SetActive(!value);
-        }
-    }
     public void HideOffer()
     {
         enableButton.targetGraphic.raycastTarget = false;
@@ -74,20 +101,20 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
     public void ShowAd()
     {
-        if (!_loaded)
+        if (!Ready)
         {
             return;
         }
         _visible = true;
+        VisibilityChanged?.Invoke(true);
         MaxSdk.ShowBanner(BannerAdUnitId);
-        OnVisibilityChanged?.Invoke(true);
     }
     
     public void HideAd()
     {
         _visible = false;
+        VisibilityChanged?.Invoke(false);
         MaxSdk.HideBanner(BannerAdUnitId);
-        OnVisibilityChanged?.Invoke(false);
     }
 
     public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
@@ -105,7 +132,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         MaxSdk.CreateBanner(BannerAdUnitId, _lastBannerPosition);
         MaxSdk.SetBannerExtraParameter(BannerAdUnitId, "adaptive_banner", "true");
         MaxSdk.SetBannerBackgroundColor(BannerAdUnitId, backgroundColor);
-
         
         MaxSdkCallbacks.Banner.OnAdLoadedEvent      += OnBannerAdLoadedEvent;
         MaxSdkCallbacks.Banner.OnAdLoadFailedEvent  += OnBannerAdLoadFailedEvent;
@@ -113,24 +139,29 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdExpandedEvent    += OnBannerAdExpandedEvent;
         MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
+        
+        CurrentLoadState = LoadState.Loading;
+        
+        Debug.LogWarning("OnBannerInitialize");
     }
 
     public void DestroyBanner()
     {
         _visible = false;
         MaxSdk.DestroyBanner(BannerAdUnitId);
+        CurrentLoadState = LoadState.Destroyed;
     }
 
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        _loaded = true;
-        Loading = !_loaded;
-        // Debug.Log("OnBannerAdLoadedEvent");
+        CurrentLoadState = LoadState.Success;
+        Debug.LogWarning("OnBannerAdLoadedEvent");
     }
 
     private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
-        // Debug.Log("OnBannerAdLoadFailedEvent");
+        CurrentLoadState = LoadState.Fail;
+        Debug.LogWarning("OnBannerAdLoadFailedEvent");
     }
 
     private void OnBannerAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
