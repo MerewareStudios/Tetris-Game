@@ -64,10 +64,6 @@ namespace IWI
                     };
                 };
             
-            // MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => {
-            //     // Show Mediation Debugger
-            //     MaxSdk.ShowMediationDebugger();
-            // };
         }
 
         public void OpenMediationDebugger()
@@ -217,7 +213,6 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward, bool pauseUnpause = true, System.Action onClick = null)
         {
-            Debug.Log("req");
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
