@@ -16,10 +16,7 @@ namespace Game.UI
 
         public Data _Data
         {
-            set
-            {
-                _data = value;
-            }
+            set => _data = value;
             get => _data;
         }
 

@@ -21,6 +21,7 @@ public class Const : SSingleton<Const>
     public PawnPlacement[] AutoGeneratePawnPlacements;
     
     [Header("Save Default")]
+    // public Concent.Data DefaultConcentData;
     public Player.Data DefaultPlayerData;
     public User.Data DefaultUserData;
     public AdManager.Data DefaultAdData;

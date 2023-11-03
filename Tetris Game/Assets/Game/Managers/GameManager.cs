@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Game;
 using Internal.Core;
+using IWI;
 using UnityEngine;
 using Visual.Effects;
 
@@ -37,6 +38,20 @@ public class GameManager : Singleton<GameManager>
         }
 
         LevelManager.THIS.LoadLevel();
+        
+    #if !UNITY_EDITOR
+        if (!MaxSdk.IsUserConsentSet())
+        {
+            Consent.THIS.Open(() =>
+            {
+                AdManager.THIS.InitAdSDK();
+                LevelManager.THIS.BeginLevel();
+            });
+            return;
+        }
+    #endif
+        
+        AdManager.THIS.InitAdSDK();
     }
 
     public void MarkTabStepsComplete()

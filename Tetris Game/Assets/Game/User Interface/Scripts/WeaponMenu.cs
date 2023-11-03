@@ -41,10 +41,7 @@ namespace Game.UI
 
         public WeaponShopData _Data
         {
-            set
-            {
-                _weaponShopData = value;
-            }
+            set => _weaponShopData = value;
             get => this._weaponShopData;
         }
         

@@ -27,6 +27,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;
             saveData.onboardingList = new bool[onboardingCount].Fill(true);
 
+            // saveData.concentData = Const.THIS.DefaultConcentData.Clone() as Concent.Data;
             saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
             saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
@@ -41,6 +42,8 @@ public class SaveManager : SaveManagerBase<SaveManager>
             ONBOARDING.PASSIVE_META.ClearStep();
             ONBOARDING.ALL_BLOCK_STEPS.ClearStep();
         }
+        
+        // Concent.THIS._Data = saveData.concentData;
 
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.COIN.Active = ONBOARDING.PASSIVE_META.IsComplete();
@@ -108,6 +111,7 @@ public partial class SaveData
     [SerializeField] public Player.Data playerData;
     [SerializeField] public User.Data userData;
     [SerializeField] public AdManager.Data adData;
+    // [SerializeField] public Concent.Data concentData;
 
 }
 

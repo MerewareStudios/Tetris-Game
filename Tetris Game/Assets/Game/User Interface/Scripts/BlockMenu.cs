@@ -30,10 +30,7 @@ namespace Game.UI
 
         public BlockShopData _Data
         {
-            set
-            {
-                _blockShopData = value;
-            }
+            set => _blockShopData = value;
             get => this._blockShopData;
         }
         

@@ -27,6 +27,16 @@ public class LevelManager : Singleton<LevelManager>
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
         
+        BeginLevel();
+
+        if (ONBOARDING.UPGRADE_TAB.IsComplete())
+        {
+            AdManager.THIS.ShowBannerOrOffer();
+        }
+    }
+
+    public void BeginLevel()
+    {
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
             Warzone.THIS.Begin();
@@ -34,12 +44,10 @@ public class LevelManager : Singleton<LevelManager>
         }
         else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
-            Onboarding.SpawnFirstBlockAndTeachPlacement();
-        }
-
-        if (ONBOARDING.UPGRADE_TAB.IsComplete())
-        {
-            AdManager.THIS.ShowBannerOrOffer();
+            if (MaxSdk.IsUserConsentSet())
+            {
+                Onboarding.SpawnFirstBlockAndTeachPlacement();
+            }
         }
     }
 

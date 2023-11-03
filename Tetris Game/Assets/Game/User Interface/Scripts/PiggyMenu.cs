@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using Game.UI;
-using Internal.Core;
 using IWI;
 using IWI.Tutorial;
 using IWI.UI;

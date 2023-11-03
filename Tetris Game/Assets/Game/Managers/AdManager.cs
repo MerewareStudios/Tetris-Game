@@ -11,9 +11,7 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        // [SerializeField] public FakeAdMREC fakeAdMRec;
         [SerializeField] public float AdTimeInterval = 180.0f;
-        // [System.NonSerialized] private const int ADBreakMarchLimit = 3;
         [System.NonSerialized] private Data _data;
         
 
@@ -22,11 +20,12 @@ namespace IWI
             FakeAdBanner.THIS = fakeAdBanner;
             FakeAdInterstitial.THIS = fakeAdInterstitial;
             FakeAdRewarded.THIS = fakeAdRewarded;
-            // FakeAdMREC.THIS = fakeAdMRec;
         }
 
-        private void InitAdSDK()
+        public void InitAdSDK()
         {
+            _Data.LastTimeAdShown = Time.realtimeSinceStartup;
+
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
             // MaxSdk.SetUserId("USER_ID");
             MaxSdk.InitializeSdk();
@@ -65,19 +64,17 @@ namespace IWI
                     };
                 };
             
-            MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => {
-                // Show Mediation Debugger
-                MaxSdk.ShowMediationDebugger();
-            };
+            // MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => {
+            //     // Show Mediation Debugger
+            //     MaxSdk.ShowMediationDebugger();
+            // };
+        }
+
+        public void OpenMediationDebugger()
+        {
+            MaxSdk.ShowMediationDebugger();
         }
         
-        private void Start()
-        {
-            InitAdSDK();
-
-            _Data.LastTimeAdShown = Time.realtimeSinceStartup;
-        }
-
         public void TryInterstitial(System.Action onSuccess)
         {
             if (_Data.removeAds)

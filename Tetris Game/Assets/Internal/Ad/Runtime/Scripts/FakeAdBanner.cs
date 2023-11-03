@@ -142,7 +142,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         
         CurrentLoadState = LoadState.Loading;
         
-        Debug.LogWarning("OnBannerInitialize");
+        // Debug.LogWarning("OnBannerInitialize");
     }
 
     public void DestroyBanner()
@@ -155,13 +155,13 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         CurrentLoadState = LoadState.Success;
-        Debug.LogWarning("OnBannerAdLoadedEvent");
+        // Debug.LogWarning("OnBannerAdLoadedEvent");
     }
 
     private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
         CurrentLoadState = LoadState.Fail;
-        Debug.LogWarning("OnBannerAdLoadFailedEvent");
+        // Debug.LogWarning("OnBannerAdLoadFailedEvent");
     }
 
     private void OnBannerAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)

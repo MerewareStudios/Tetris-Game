@@ -20,17 +20,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public GameObject levelProgressbar;
    [SerializeField] public Image levelProgress;
    [SerializeField] public ParticleSystem piggyPS;
-
-   public float LevelProgress
-   {
-      set
-      {
-         levelProgress.DOKill();
-         levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad);
-      }
-   }
-
    [Header("Canvases")]
+   [SerializeField] private Consent consent;
    [SerializeField] private BlockMenu blockMenu;
    [SerializeField] public WeaponMenu weaponMenu;
    [SerializeField] private UpgradeMenu upgradeMenu;
@@ -69,26 +60,35 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public Finger finger;
    [System.NonSerialized] public static IMenu CurrentMenu = null;
 
+   public float LevelProgress
+   {
+      set
+      {
+         levelProgress.DOKill();
+         levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad);
+      }
+   }
+   
+   void Awake()
+   {
+      Consent.THIS = consent;
+      BlockMenu.THIS = blockMenu;
+      WeaponMenu.THIS = weaponMenu;
+      UpgradeMenu.THIS = upgradeMenu;
+      SlashScreen.THIS = slashScreen;
+      MenuNavigator.THIS = menuNavigator.Setup();
+      PiggyMenu.THIS = piggyMenu;
+      Powerup.THIS = powerup;
+      AdBreakScreen.THIS = adBreakScreen;
+      StatDisplayArranger.THIS = statDisplayArranger;
 
-    void Awake()
-    {
-         BlockMenu.THIS = blockMenu;
-         WeaponMenu.THIS = weaponMenu;
-         UpgradeMenu.THIS = upgradeMenu;
-         SlashScreen.THIS = slashScreen;
-         MenuNavigator.THIS = menuNavigator.Setup();
-         PiggyMenu.THIS = piggyMenu;
-         Powerup.THIS = powerup;
-         AdBreakScreen.THIS = adBreakScreen;
-         StatDisplayArranger.THIS = statDisplayArranger;
+      Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
-         Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
+      Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
-         Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
-
-         MenuVisible = false;
-         CurrentMenu = null;
-    }
+      MenuVisible = false;
+      CurrentMenu = null;
+   }
 
     public void AdLayerClick_OpenShop()
     {
