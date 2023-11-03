@@ -33,6 +33,15 @@ public class Consent : Lazyingleton<Consent>
         return this;
     }
     
+    public void Open()
+    {
+        UIManager.Pause(true);
+        this.Open(() =>
+        {
+            UIManager.Pause(false);
+        });
+    }
+    
     public void Done()
     {
         this.gameObject.SetActive(false);
