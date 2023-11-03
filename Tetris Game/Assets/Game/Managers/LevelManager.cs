@@ -44,7 +44,9 @@ public class LevelManager : Singleton<LevelManager>
         }
         else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
+#if !UNITY_EDITOR
             if (MaxSdk.IsUserConsentSet())
+#endif
             {
                 Onboarding.SpawnFirstBlockAndTeachPlacement();
             }
