@@ -18,7 +18,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private GameObject ticketPurchaseWindow;
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
-    [SerializeField] private GameObject warningIcon;
+    // [SerializeField] private GameObject warningIcon;
     [SerializeField] private UnityEvent<string, System.Action, System.Action> _onPurchase;
     [Header("Side Purchase")]
     [SerializeField] private TextMeshProUGUI adBreakPrice;
@@ -60,9 +60,9 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         this._currentLoadState = loadState;
         
-        loadingIcon.SetActive(_currentLoadState.Equals(LoadState.Loading));
+        loadingIcon.SetActive(_currentLoadState.Equals(LoadState.Loading) || _currentLoadState.Equals(LoadState.Fail));
         adIcon.SetActive(_currentLoadState.Equals(LoadState.Success));
-        warningIcon.SetActive(_currentLoadState.Equals(LoadState.Fail));
+        // warningIcon.SetActive(_currentLoadState.Equals(LoadState.Fail));
         
         if (loadState.Equals(Internal.Core.LoadState.Success) && _canInteract)
         {
