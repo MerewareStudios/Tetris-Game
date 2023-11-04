@@ -16,7 +16,7 @@ MonoBehaviour:
     localPosition: {x: -0.0707, y: 0.0911, z: 0.0387}
     localEulerAngles: {x: 345.3343, y: 167.60696, z: 253.56007}
     localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
-  jumpPower: 1.5
-  speed: 3.75
+  jumpPower: 3
+  travelDuration: 0.5
   jump: 1
   ease: 1

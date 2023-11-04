@@ -11,7 +11,7 @@ namespace Game
         [SerializeField] public TransformData holsterTransformData;
         [SerializeField] public float jumpPower = 2.25f;
         [SerializeField] public float travelDuration = 0.45f;
-        [SerializeField] public bool jump = true;
+        // [SerializeField] public bool jump = true;
         [SerializeField] public Ease ease = Ease.Linear;
     }
 
