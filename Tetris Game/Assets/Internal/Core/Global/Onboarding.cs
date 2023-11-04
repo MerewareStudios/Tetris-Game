@@ -78,19 +78,19 @@ public class Onboarding : SSingleton<Onboarding>
 
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift);
+            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift, timeIndependent:false);
         }
     }
 
-    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f)
+    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f, bool timeIndependent = true)
     {
         UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale);
+        UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale, timeIndependent);
     }
-    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f, bool infoEnabled = false)
+    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f, bool infoEnabled = false, bool timeIndependent = true)
     {
         UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.Click(position, rendererCamera, scale, infoEnabled);
+        UIManager.THIS.finger.Click(position, rendererCamera, scale, infoEnabled, timeIndependent);
     }
     public static void HideFinger()
     {
@@ -114,7 +114,7 @@ public class Onboarding : SSingleton<Onboarding>
             
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
-            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true);
+            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true, timeIndependent:false);
 
             Spawner.THIS.DelayedSpawn(0.0f);
         }
@@ -157,7 +157,7 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.1f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.ticketMergeText, 0.2f);
 
-            ClickOn(Powerup.THIS.fingerTarget.position, Finger.Cam.Game, () => Powerup.THIS.PunchFrame(0.4f), 0.7f);
+            ClickOn(Powerup.THIS.fingerTarget.position, Finger.Cam.Game, () => Powerup.THIS.PunchFrame(0.4f), 0.7f, timeIndependent:false);
         }
     }
     

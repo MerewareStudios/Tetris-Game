@@ -326,7 +326,7 @@ public class Spawner : Singleton<Spawner>
         
         if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
-            Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift);
+            Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift, timeIndependent:false);
         }
 
         Mount();

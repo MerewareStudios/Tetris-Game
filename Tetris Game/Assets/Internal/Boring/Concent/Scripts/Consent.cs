@@ -20,15 +20,23 @@ public class Consent : Lazyingleton<Consent>
         this._onDone = onDone;
         this.gameObject.SetActive(true);
         
-        if (!MaxSdk.IsUserConsentSet())
+        bool privacyState;
+        bool ageState;
+        
+        if (MaxSdk.IsUserConsentSet())
         {
-            MaxSdk.SetHasUserConsent(true);
-            MaxSdk.SetIsAgeRestrictedUser(false);
+            privacyState = MaxSdk.HasUserConsent();
+            ageState = !MaxSdk.IsAgeRestrictedUser();
+        }
+        else
+        {
+            privacyState = true;
+            ageState = true;
         }
         
-        bool privacyState = MaxSdk.HasUserConsent();
-        bool ageState = !MaxSdk.IsAgeRestrictedUser();
         SetInitialStates(privacyState, ageState);
+        
+        
         
         return this;
     }
@@ -44,18 +52,21 @@ public class Consent : Lazyingleton<Consent>
     
     public void Done()
     {
+        MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
+        MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
+
         this.gameObject.SetActive(false);
         _onDone?.Invoke();
     }
     
     public void AcceptPrivacy(bool state)
     {
-        MaxSdk.SetHasUserConsent(state);
+        // MaxSdk.SetHasUserConsent(state);
     }
     
     public void AcceptAge(bool state)
     {
-        MaxSdk.SetIsAgeRestrictedUser(!state);
+        // MaxSdk.SetIsAgeRestrictedUser(!state);
     }
 
     public void OnClickPrivacyLink()

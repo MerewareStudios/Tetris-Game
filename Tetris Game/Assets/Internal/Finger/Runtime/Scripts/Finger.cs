@@ -41,7 +41,7 @@ namespace IWI.Tutorial
         [SerializeField] public Camera uiCamera;
         
 
-        public void ShortPressAndDrag(Vector3 position, Cam rendererCamera, float scale = 1.0f)
+        public void ShortPressAndDrag(Vector3 position, Cam rendererCamera, float scale = 1.0f, bool timeIndependent = true)
         {
             this.gameObject.SetActive(true);
 
@@ -62,7 +62,7 @@ namespace IWI.Tutorial
             {
                 positionPivot.gameObject.SetActive(true);
                 
-                canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
+                canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(timeIndependent);
 
                 positionPivot.anchoredPosition = GetLocal(position, rendererCamera);
                 positionPivot.localScale = Vector3.one * scale;
@@ -87,7 +87,7 @@ namespace IWI.Tutorial
 
                 _sequence.Append(scaleDownTween).Join(offsetDownTween).Append(dragTween).Append(scaleUpTween).Join(offsetUpTween);
                 
-                _sequence.SetUpdate(true);
+                _sequence.SetUpdate(timeIndependent);
 
                 scaleDownTween.onComplete = () =>
                 {
@@ -99,9 +99,9 @@ namespace IWI.Tutorial
                 {
                     ps.Stop();
                 };
-                _routine = StartCoroutine(Loop());
+                _routine = StartCoroutine(timeIndependent ? LoopTimeIndependent() : LoopTimeDependent());
 
-                IEnumerator Loop()
+                IEnumerator LoopTimeIndependent()
                 {
                     yield return new WaitForSecondsRealtime(0.25f); 
 
@@ -113,10 +113,23 @@ namespace IWI.Tutorial
                         _sequence.Restart();
                     }
                 }
+                
+                IEnumerator LoopTimeDependent()
+                {
+                    yield return new WaitForSeconds(0.25f); 
+
+                    _sequence.Play();
+                    
+                    while (true)
+                    {
+                        yield return new WaitForSeconds(upDuration + downDuration + shortDragDuration + 1.25f); 
+                        _sequence.Restart();
+                    }
+                }
             }
         }
         
-        public void Click(Vector3 position, Cam rendererCamera, float scale = 1.0f, bool infoEnabled = false)
+        public void Click(Vector3 position, Cam rendererCamera, float scale = 1.0f, bool infoEnabled = false, bool timeIndependent = true)
         {
             this.gameObject.SetActive(true);
 
@@ -139,7 +152,7 @@ namespace IWI.Tutorial
                 positionPivot.gameObject.SetActive(true);
                 
 
-                canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
+                canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(timeIndependent);
 
                 
                 positionPivot.anchoredPosition = GetLocal(position, rendererCamera);
@@ -162,7 +175,7 @@ namespace IWI.Tutorial
                 
                 _sequence.Append(scaleDownTween).Join(offsetDownTween).Append(scaleUpTween).Join(offsetUpTween);
 
-                _sequence.SetUpdate(true);
+                _sequence.SetUpdate(timeIndependent);
                 
                 scaleDownTween.onComplete = () =>
                 {
@@ -172,9 +185,9 @@ namespace IWI.Tutorial
                 };
 
 
-                _routine = StartCoroutine(Loop());
+                _routine = StartCoroutine(timeIndependent ? LoopTimeIndependent() : LoopTimeDependent());
 
-                IEnumerator Loop()
+                IEnumerator LoopTimeIndependent()
                 {
                     yield return new WaitForSecondsRealtime(0.25f); 
 
@@ -183,6 +196,19 @@ namespace IWI.Tutorial
                     while (true)
                     {
                         yield return new WaitForSecondsRealtime(upDuration + downDuration + 1.0f); 
+                        _sequence.Restart();
+                    }
+                }
+                
+                IEnumerator LoopTimeDependent()
+                {
+                    yield return new WaitForSeconds(0.25f); 
+
+                    _sequence.Play();
+                    
+                    while (true)
+                    {
+                        yield return new WaitForSeconds(upDuration + downDuration + 1.0f); 
                         _sequence.Restart();
                     }
                 }
