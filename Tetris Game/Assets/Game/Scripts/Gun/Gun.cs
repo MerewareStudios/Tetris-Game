@@ -69,17 +69,17 @@ public class Gun : MonoBehaviour
         trail.Clear();
 
 
-        float distance = (muzzle.position.XZ() - enemy.hitTarget.position.XZ()).magnitude;
-        float dur = Mathf.Max(distance / GunSo.speed, 0.35f);
+        // float distance = (muzzle.position.XZ() - enemy.hitTarget.position.XZ()).magnitude;
+        // float dur = Mathf.Max(distance / GunSo.speed, 0.35f);
         
         Tween bulletTween = null;
         if (GunSo.jump)
         {
-            bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower, 1, dur).SetEase(GunSo.ease);
+            bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower, 1, GunSo.travelDuration).SetEase(GunSo.ease);
         }
         else
         {
-            bulletTween = bullet.DOMove(enemy.hitTarget.position, dur).SetEase(GunSo.ease);
+            bulletTween = bullet.DOMove(enemy.hitTarget.position, GunSo.travelDuration).SetEase(GunSo.ease);
         }
         bulletTween.onComplete = () =>
         {
