@@ -83,7 +83,7 @@ namespace IWI
                 onSuccess?.Invoke();
                 return;
             }
-            if (Time.realtimeSinceStartup - _Data.LastTimeAdShown > AdTimeInterval)
+            if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
             {
                 ShowAdBreak(onSuccess);
                 return;

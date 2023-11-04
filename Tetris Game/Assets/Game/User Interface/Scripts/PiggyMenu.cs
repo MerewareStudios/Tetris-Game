@@ -230,16 +230,19 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         };
 
 
-        ticketImage.enabled = true;
-        multProgress.localScale = Vector3.one;
-        multiplyButton.gameObject.SetActive(true);
-        multiplyButton.targetGraphic.raycastTarget = false;
-        multiplyButton.transform.localScale = Vector3.zero;
-        multiplyButton.transform.DOKill();
-        multiplyButton.transform.DOScale(Vector3.one, 0.15f).SetDelay(0.2f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
+        if (_Data.breakInstance >= 1)
         {
-            multiplyButton.targetGraphic.raycastTarget = true;
-        };
+            ticketImage.enabled = true;
+            multProgress.localScale = Vector3.one;
+            multiplyButton.gameObject.SetActive(true);
+            multiplyButton.targetGraphic.raycastTarget = false;
+            multiplyButton.transform.localScale = Vector3.zero;
+            multiplyButton.transform.DOKill();
+            multiplyButton.transform.DOScale(Vector3.one, 0.15f).SetDelay(0.2f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
+            {
+                multiplyButton.targetGraphic.raycastTarget = true;
+            };
+        }
         
         
         rewardPiggyGlow.transform.localScale = Vector3.zero;

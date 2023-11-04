@@ -135,7 +135,7 @@ public class Shop : MonoBehaviour
                         pivot.DOKill();
                         pivot.localScale = Vector3.one;
                         pivot.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
-                    }, 0.6f, timeIndependent:false);
+                    }, 0.6f, timeIndependent:true);
                     trailRenderer.Clear();
                 }
             };
