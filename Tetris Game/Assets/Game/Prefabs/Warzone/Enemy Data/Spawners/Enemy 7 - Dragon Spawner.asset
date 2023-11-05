@@ -124,6 +124,6 @@ MonoBehaviour:
   castType: 3
   deathAction: 0
   spawnerCount: 1
-  spawnerDuration: 10
+  spawnerDuration: 15
   spawnerExtra: 0
   extraData: {fileID: 11400000, guid: 1293cdac54028144d9ba312ba8e9cfda, type: 2}

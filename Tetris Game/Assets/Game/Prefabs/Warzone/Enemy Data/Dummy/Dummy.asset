@@ -119,9 +119,11 @@ MonoBehaviour:
   radius: 0.5
   emitCount: 15
   deathEmitCount: 75
-  wipeDelay: 0.7
+  wipeDelay: 0.5
   crossSize: 1.25
   castType: 0
   deathAction: 0
-  extraInt: 0
+  spawnerCount: 0
+  spawnerDuration: 0
+  spawnerExtra: 0
   extraData: {fileID: 0}
