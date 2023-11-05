@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Internal.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private Button enableButton;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
+    [SerializeField] private TextMeshProUGUI text;
     
     [System.NonSerialized] public System.Action OnOfferAccepted;
     [System.NonSerialized] public System.Action<bool> VisibilityChanged;
@@ -36,19 +38,24 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
                 case LoadState.None:
                     loadingBar.SetActive(true);
                     enableButton.gameObject.SetActive(false);
+                    text.text += "None\n";
                     break;
                 case LoadState.Success:
                     loadingBar.SetActive(false);
                     enableButton.gameObject.SetActive(true);
+                    text.text += "Success\n";
                     break;
                 case LoadState.Fail:
+                    text.text += "Fail\n";
                     break;
                 case LoadState.Loading:
                     loadingBar.SetActive(true);
                     enableButton.gameObject.SetActive(false);
+                    text.text += "Loading\n";
                     break;
                 case LoadState.Destroyed:
                     SetOfferState(false);
+                    text.text += "Destroyed\n";
                     break;
             }
         }
