@@ -158,7 +158,6 @@ GameObject:
   - component: {fileID: 45008352}
   - component: {fileID: 45008354}
   - component: {fileID: 45008353}
-  - component: {fileID: 45008355}
   - component: {fileID: 45008356}
   m_Layer: 5
   m_Name: Level Text
@@ -184,7 +183,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -50, y: -329}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 169.83, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &45008353
 MonoBehaviour:
@@ -283,20 +282,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45008351}
   m_CullTransparentMesh: 1
---- !u!114 &45008355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45008351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 0
 --- !u!114 &45008356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +289,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45008351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -3309,8 +3294,8 @@ MonoBehaviour:
       interSkipCount: 0
       interWatchCount: 0
     baseInfo: SAVE END
-  DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  DELETE_AT_START: 0
+  SKIP_ONBOARDING: 0
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}

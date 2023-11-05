@@ -108,7 +108,15 @@ namespace IWI
         //     };
         // }
 
-        public void ShowBannerOrOffer()
+        public void ShowBanner()
+        {
+            if (_Data.removeAds)
+            {
+                return;
+            }
+            FakeAdBanner.THIS.ShowAd();
+        }
+        public void ShowBannerOffer()
         {
             if (_Data.removeAds)
             {
@@ -116,12 +124,9 @@ namespace IWI
             }
             if (_Data.BannerAccepted)
             {
-                FakeAdBanner.THIS.ShowAd();
+                return;
             }
-            else
-            {
-                FakeAdBanner.THIS.ShowOffer();
-            }
+            FakeAdBanner.THIS.ShowOffer();
         }
 
         private void ChangeBannerPosition(bool top)
@@ -136,7 +141,7 @@ namespace IWI
             FakeAdBanner.THIS.OnOfferAccepted = () =>
             {
                 _Data.BannerAccepted = true;
-                ShowBannerOrOffer();
+                ShowBanner();
                 AnalyticsManager.OnBannerEnabled();
             };
             FakeAdBanner.THIS.VisibilityChanged = (visible) =>

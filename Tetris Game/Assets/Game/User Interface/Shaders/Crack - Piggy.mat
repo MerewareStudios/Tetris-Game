@@ -60,6 +60,6 @@ Material:
     - _Tiling: 1
     m_Colors:
     - _Color: {r: 1.7619232, g: 1.8660661, b: 0, a: 1}
-    - _InsideColor: {r: 1.4126974, g: 1.4961984, b: 0, a: 0.9987712}
+    - _InsideColor: {r: 1.4144355, g: 1.4980392, b: 0, a: 1}
     - _Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -25,12 +25,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 
     [System.NonSerialized] private LoadState _loadState = LoadState.None;
 
-    void Awake()
-    {
-        CurrentLoadState = LoadState.None;
-        SetOfferState(false);
-    }
-
     public LoadState CurrentLoadState
     {
         set
@@ -140,8 +134,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
         
         CurrentLoadState = LoadState.Loading;
-        
-        // Debug.LogWarning("OnBannerInitialize");
     }
 
     public void DestroyBanner()
@@ -154,32 +146,26 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         CurrentLoadState = LoadState.Success;
-        // Debug.LogWarning("OnBannerAdLoadedEvent");
     }
 
     private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
         CurrentLoadState = LoadState.Fail;
-        // Debug.LogWarning("OnBannerAdLoadFailedEvent");
     }
 
     private void OnBannerAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        // Debug.Log("OnBannerAdClickedEvent");
     }
 
     private void OnBannerAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        // Debug.Log("OnBannerAdRevenuePaidEvent");
     }
 
     private void OnBannerAdExpandedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        // Debug.Log("OnBannerAdExpandedEvent");
     }
 
     private void OnBannerAdCollapsedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        // Debug.Log("OnBannerAdCollapsedEvent");
     }
 }

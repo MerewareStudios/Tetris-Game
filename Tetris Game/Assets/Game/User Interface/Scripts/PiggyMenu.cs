@@ -158,33 +158,33 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_RequestMultiply()
     {
         multiplyButton.targetGraphic.raycastTarget = false;
+        _shakeTween.Pause();
 
-        if (!Wallet.Consume(Const.Currency.OneAd))
+        if (Wallet.Consume(Const.Currency.OneAd))
         {
-            _shakeTween.Pause();
-            AdManager.ShowTicketAd(() =>
-            {
-                Wallet.Transaction(Const.Currency.OneAd);
-                Mult();
-                
-            }, false, () =>
-            {
-                multiplyButton.targetGraphic.raycastTarget = true;
-
-                _shakeTween.Play();
-            });
+            Mult();
             return;
         }
+        
+        // _shakeTween.Pause();
+        AdManager.ShowTicketAd(() =>
+        {
+            Wallet.Transaction(Const.Currency.OneAd);
+            OnClick_RequestMultiply();
+            
+        }, false, () =>
+        {
+            multiplyButton.targetGraphic.raycastTarget = true;
+            _shakeTween.Play();
+        });
 
-        Mult();
 
         void Mult()
         {
-            if (!Wallet.Consume(Const.Currency.OneAd))
-            {
-                return;
-            }
-            _shakeTween.Pause();
+            // if (!Wallet.Consume(Const.Currency.OneAd))
+            // {
+            //     return;
+            // }
             
             Transform mulTransform = multiplyButton.transform;
             mulTransform.DOKill();
