@@ -13,7 +13,19 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
     [System.NonSerialized] public LoadState LoadState = LoadState.None;
     [System.NonSerialized] private bool _invoking = false;
 
-    public bool Ready => MaxSdk.IsRewardedAdReady(AdUnitId);
+    public bool Ready
+    {
+        get
+        {
+            bool ready = MaxSdk.IsRewardedAdReady(AdUnitId);
+            if (ready)
+            {
+                return true;
+            }
+            ForwardInvoke();
+            return false;
+        }
+    }
 
     public void Show(System.Action onFinish = null, System.Action onReward = null, System.Action onFailedDisplay = null)
     {
@@ -21,12 +33,10 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
         this.OnReward = onReward;
         this.OnFailedDisplay = onFailedDisplay;
         
-        if (!Ready)
+        if (Ready)
         {
-            ForwardInvoke();
-            return;
+            MaxSdk.ShowRewardedAd(AdUnitId);
         }
-        MaxSdk.ShowRewardedAd(AdUnitId);
     }
     
     public void ForwardInvoke()

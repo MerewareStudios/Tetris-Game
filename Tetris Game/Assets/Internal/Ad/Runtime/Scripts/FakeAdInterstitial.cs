@@ -12,18 +12,29 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     [System.NonSerialized] private bool _invoking = false;
     [System.NonSerialized] public LoadState LoadState = LoadState.None;
 
-    public bool Ready => MaxSdk.IsInterstitialReady(AdUnitId);
+    public bool Ready
+    {
+        get
+        {
+            bool ready = MaxSdk.IsInterstitialReady(AdUnitId);
+            if (ready)
+            {
+                return true;
+            }
+            ForwardInvoke();
+            return false;
+        }
+    }
 
     public void Show(System.Action onFinish = null, System.Action onFailedDisplay = null)
     {
         this.OnFinish = onFinish;
         this.OnFailedDisplay = onFailedDisplay;
         
-        if (!Ready)
+        if (Ready)
         {
-            return;
+            MaxSdk.ShowInterstitial(AdUnitId);
         }
-        MaxSdk.ShowInterstitial(AdUnitId);
     }
 
     public void ForwardInvoke()

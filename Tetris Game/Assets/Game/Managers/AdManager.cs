@@ -182,7 +182,6 @@ namespace IWI
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                FakeAdInterstitial.THIS.ForwardInvoke();
                 onFinish?.Invoke();
                 return;
             }
