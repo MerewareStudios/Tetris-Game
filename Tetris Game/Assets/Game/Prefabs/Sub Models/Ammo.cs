@@ -19,6 +19,26 @@ public class Ammo : SubModel
         return _available;
     }
 
+    public override void OnUse()
+    {
+        base.OnUse();
+        
+        ThisTransform.DOKill();
+
+        if (ExternalValue > 0)
+        {
+            ThisTransform.localScale = Vector3.one;
+            ThisTransform.DOPunchScale(Vector3.one * -0.4f, 0.3f, 1);
+        }
+        else
+        {
+            ThisTransform.DOScale(Vector3.zero, 0.175f).SetEase(Ease.InBack, 2.0f).onComplete = () =>
+            {
+                base.OnDeconstruct();
+            };
+        }
+    }
+
     public override void MarkAvailable(bool state)
     {
         this._available = state;

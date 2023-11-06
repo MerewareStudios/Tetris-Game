@@ -99,7 +99,22 @@ namespace  Game
             {
                 Spawning = true;
 
-                UIManager.THIS.LevelProgress = 1.0f;
+                List<EnemyData> enemyPool = new();
+                int enemyIndex = 0;
+
+                _totalEnemyHealth = 0;
+
+                foreach (var countData in EnemySpawnData.countDatas)
+                {
+                    for (int i = 0; i < countData.count; i++)
+                    {
+                        enemyPool.Add(countData.enemyData);
+                        _totalEnemyHealth += countData.enemyData.maxHealth;
+                    }
+                }
+                _leftEnemyHealth = _totalEnemyHealth;
+
+                UpdateProgress();
 
                 yield return new WaitForSeconds(0.25f);
                 
@@ -119,21 +134,10 @@ namespace  Game
 
 
 
-                List<EnemyData> enemyPool = new();
-                int enemyIndex = 0;
+               
 
-                _totalEnemyHealth = 0;
-
-                foreach (var countData in EnemySpawnData.countDatas)
-                {
-                    for (int i = 0; i < countData.count; i++)
-                    {
-                        enemyPool.Add(countData.enemyData);
-                        _totalEnemyHealth += countData.enemyData.maxHealth;
-                    }
-                }
-
-                _leftEnemyHealth = _totalEnemyHealth;
+                
+                UpdateProgress();
 
                 enemyPool.Shuffle();
 
@@ -175,7 +179,7 @@ namespace  Game
 
         private void UpdateProgress()
         {
-            UIManager.THIS.LevelProgress = _leftEnemyHealth / (float) _totalEnemyHealth;
+            UIManager.THIS.SetLevelProgress(_leftEnemyHealth / (float) _totalEnemyHealth, _leftEnemyHealth.ToString());
         }
 
         public void OnLevelLoad()

@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needAmmoText: <size=125%>Hey! I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
     </bounce></size>!
-  useAmmoBoxText: <size=125%>Move <bounce a=1 f=2 w=1><sprite name=Box> </>
-  rotateText: <size=125%>Rotate <swing w=0.4><sprite name=Box> </>
   stackText: <size=125%>Wait for <color=#40FFA8><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
   greatCheerText: <wiggle a=0.8 f=3><size=120%>Great!</size>
@@ -41,8 +39,6 @@ MonoBehaviour:
   earnTicketText: <sprite name=Ticket> +1
   skipButtonText: USE TICKET
   cancelButtonText: NOT NOW
-  specialStatColor: {r: 0.5254902, g: 0.9019608, b: 1, a: 1}
-  normalStatColor: {r: 1, g: 1, b: 1, a: 1}
   weaponStatUnchange: <color=#FFFFFF>
   weaponStatChange: <color=#8EFF00>
   tips:
@@ -69,7 +65,7 @@ MonoBehaviour:
   - <size=125%><sprite name=Warning>Multiple <sprite name=Energy>stacks!
   - <sprite name=Warning>Rockets <sprite name=Rocket>will target a random enemy!
   - <sprite name=Warning>Bombs <sprite name=Bomb>deal damage to multiple nearby targets!
-  - <sprite name=Warning>Bombs <sprite name=Bomb>will target closest enemy!
+  - <sprite name=Warning>Bombs <sprite name=Bomb>will target the closest enemy!
   - <sprite name=Warning>Gifts <sprite name=Gift>will give you a random power-up!
   - <sprite name=Warning>Punch <sprite name=Punch>enemies to drag them back!
   - <sprite name=Warning>Leave a comment on the store page to help us improve the

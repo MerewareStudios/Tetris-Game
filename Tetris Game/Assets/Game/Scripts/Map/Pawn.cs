@@ -69,6 +69,13 @@ namespace Game
                 SubModel.MakeAvailable();
             }
         }
+        public void OnUse()
+        {
+            if (SubModel)
+            {
+                SubModel.OnUse();
+            }
+        }
 
         public bool Unpack()
         {
@@ -216,6 +223,13 @@ namespace Game
             }
         }
         
+        public void DetachSubModel()
+        {
+            SubModel.Lose();
+            SubModel = null;
+            Deconstruct();
+        } 
+        
         public void Deconstruct()
         {
             KillTweens();
@@ -289,18 +303,7 @@ namespace Game
             pivot.localPosition = Vector3.zero;
             pivot.DOPunchPosition(Vector3.back * magnitude, duration, 1).SetDelay(delay);
         }
-        public void Hide(System.Action complete = null)
-        {
-            modelPivot.DOKill();
-            modelPivot.localScale = Vector3.one;
-            modelPivot.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack)
-                .onComplete += () => 
-                { 
-                    complete?.Invoke();    
-                };
-            
-            Vector3 emitPosition = _thisTransform.position + BulletPsUp;
-        }  
+        
         public void Show()
         {
             modelPivot.DOKill();

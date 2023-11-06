@@ -915,17 +915,16 @@ namespace Game
                     {
                         Pawn currentPawn = place.Current;
                         currentPawn.Amount -= 1;
-                        if (currentPawn.Amount > 0)
-                        {
-                            currentPawn.PunchScaleModelPivot(-0.4f);
-                            // Particle.Square_Bullet.Emit(1, currentPawn.transform.position, Quaternion.Euler(90.0f, 0.0f, 0.0f), Vector3.one);
-                        }
-                        else
+
+                        
+                        currentPawn.OnUse();
+                        if (currentPawn.Amount <= 0)
                         {
                             place.Current = null;
-                            currentPawn.Hide(currentPawn.Deconstruct);
+                            currentPawn.DetachSubModel();
                             MarkMovers(place.Index.x, place.Index.y);
                         }
+                        
                 
                         ammoGiven += splitCount;
                         return ammoGiven;
