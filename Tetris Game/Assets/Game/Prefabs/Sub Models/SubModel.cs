@@ -11,6 +11,7 @@ public class SubModel : MonoBehaviour
     [SerializeField] protected AnimType animType;
     [System.NonSerialized] protected Sequence Sequence = null;
     [System.NonSerialized] protected int ExternalValue = 0;
+    [System.NonSerialized] private Tween _delayedTween = null;
 
     public Vector3 Position => ThisTransform.position; 
     
@@ -30,6 +31,33 @@ public class SubModel : MonoBehaviour
         }
     }
 
+    public virtual bool IsAvailable()
+    {
+        return true;
+    }
+    public virtual void MarkAvailable(bool state)
+    {
+        
+    }
+    public virtual void MakeAvailable()
+    {
+        ThisTransform.DOKill();
+        ThisTransform.localScale = Vector3.zero;
+            
+        _delayedTween?.Kill();
+        _delayedTween = DOVirtual.DelayedCall(AnimConst.THIS.MergeShowDelay, () =>
+        {
+            UIManagerExtensions.Distort(ThisTransform.position + Vector3.up * 0.45f, 0.0f);
+            Particle.Merge_Circle.Play(ThisTransform.position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
+        
+            ThisTransform.DOKill();
+            ThisTransform.localScale = Vector3.one;
+            ThisTransform.DOPunchScale(Vector3.one * AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 1).onComplete = () =>
+            {
+                MarkAvailable(true);
+            };
+        }, false);
+    }
     public virtual void OnConstruct(Pool poolType, Transform customParent, int extra)
     {
         this._poolType = poolType;
@@ -92,13 +120,15 @@ public class SubModel : MonoBehaviour
     public virtual void OnDeconstruct()
     {
         Sequence?.Kill();
+        _delayedTween?.Kill();
         ThisTransform.DOKill();
         Board.THIS.LoseSubModels.Remove(this);
         OnDespawn();
     }
-    public void DeconstructImmediate()
+    public virtual void DeconstructImmediate()
     {
         Sequence?.Kill();
+        _delayedTween?.Kill();
         OnDespawn();
     }
 

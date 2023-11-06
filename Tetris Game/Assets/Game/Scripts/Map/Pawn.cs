@@ -13,7 +13,6 @@ namespace Game
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
         [System.NonSerialized] private Tween _moveTween = null;
-        [System.NonSerialized] private Tween _delayedTween = null;
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] public Block ParentBlock;
@@ -21,12 +20,13 @@ namespace Game
         [System.NonSerialized] public int Tick;
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
-        [System.NonSerialized] public bool CanTakeContent = false;
         
         
         public bool Connected => ParentBlock;
         [System.NonSerialized] public Pawn.Usage UsageType = Usage.Empty;
         
+        public bool Available => this.SubModel && SubModel.IsAvailable();
+
         public void SetUsageType(Usage value, int extra)
         {
             VData = Const.THIS.pawnVisualData[(int)value];
@@ -40,7 +40,6 @@ namespace Game
             this.UsageType = value;
             SubModel.BaseColor = VData.startColor;
             SubModel.OnConstruct(VData.model, modelPivot, extra);
-            CanTakeContent = false;
         }
 
         private void DeSpawnModel()
@@ -61,6 +60,14 @@ namespace Game
         void Awake()
         {
             _thisTransform = transform;
+        }
+
+        public void MakeAvailable()
+        {
+            if (SubModel)
+            {
+                SubModel.MakeAvailable();
+            }
         }
 
         public bool Unpack()
@@ -234,7 +241,6 @@ namespace Game
 
         private void KillTweens()
         {
-            _delayedTween?.Kill();
             _moveTween?.Kill();
         }
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
@@ -262,24 +268,7 @@ namespace Game
         }
         #endregion
         
-        public void UnpackAmmo(float delay, float scale, float duration, System.Action start = null)
-        {
-            modelPivot.DOKill();
-            modelPivot.localScale = Vector3.zero;
-            
-            _delayedTween?.Kill();
-            _delayedTween = DOVirtual.DelayedCall(delay, () =>
-            {
-                start?.Invoke();    
-
-                modelPivot.DOKill();
-                modelPivot.localScale = Vector3.one;
-                modelPivot.DOPunchScale(Vector3.one * scale, duration, 1).onComplete = () =>
-                {
-                    CanTakeContent = true;
-                };
-            }, false);
-        }
+        
         public void PunchScaleModelPivot(float magnitude, float duration = 0.3f)
         {
             modelPivot.DOKill();
@@ -304,7 +293,7 @@ namespace Game
         {
             modelPivot.DOKill();
             modelPivot.localScale = Vector3.one;
-            modelPivot.DOScale(Vector3.zero, 0.1f).SetEase(Ease.Linear)
+            modelPivot.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack)
                 .onComplete += () => 
                 { 
                     complete?.Invoke();    

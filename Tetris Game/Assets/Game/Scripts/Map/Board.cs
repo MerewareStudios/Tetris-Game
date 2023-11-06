@@ -724,13 +724,7 @@ namespace Game
             }
             
             
-            SpawnPawn(spawnPlace, type, ammo, true)
-                .UnpackAmmo(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
-                    () =>
-                    {
-                        UIManagerExtensions.Distort(spawnPlace.Position + Vector3.up * 0.45f, 0.0f);
-                        Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
-                    });
+            SpawnPawn(spawnPlace, type, ammo, true).MakeAvailable();
         }
 
         private Place GetSidePlace(int x, int y)
@@ -874,13 +868,13 @@ namespace Game
             {
                 return;
             }
-            SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo, true)
-                .UnpackAmmo(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
-                    () =>
-                    {
-                        UIManagerExtensions.Distort(spawnPlace.Position + Vector3.up * 0.45f, 0.0f);
-                        Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
-                    });
+            SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo, true).MakeAvailable();
+                // .UnpackAmmo(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
+                //     () =>
+                //     {
+                //         UIManagerExtensions.Distort(spawnPlace.Position + Vector3.up * 0.45f, 0.0f);
+                //         Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
+                //     });
         }
         public void MarkMover(int horizontal)
         {
@@ -917,7 +911,7 @@ namespace Game
                 {
                     Place place = _places[i, j];
                     
-                    if (place.Current && place.Current.UsageType.Equals(Pawn.Usage.Ammo) && !place.Current.Mover && !place.Current.Busy && place.Current.CanTakeContent)
+                    if (place.Current && place.Current.UsageType.Equals(Pawn.Usage.Ammo) && !place.Current.Mover && !place.Current.Busy && place.Current.Available)
                     {
                         Pawn currentPawn = place.Current;
                         currentPawn.Amount -= 1;
