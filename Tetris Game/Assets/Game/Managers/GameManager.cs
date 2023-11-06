@@ -52,6 +52,8 @@ public class GameManager : Singleton<GameManager>
     #endif
         
         AdManager.THIS.InitAdSDK();
+        
+        // Const.THIS.PrintLevelData();
     }
 
     public void MarkTabStepsComplete()

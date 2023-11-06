@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 18
     pupData:
       available: 1
       currentUsage: 4
@@ -828,7 +828,7 @@ MonoBehaviour:
       amount: 100
     splitShotPrice:
     - type: 1
-      amount: 2
+      amount: 6
     unlockedAt: 35
   - currency:
       type: 0
