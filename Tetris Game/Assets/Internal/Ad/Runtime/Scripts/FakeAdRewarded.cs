@@ -10,8 +10,8 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
     [System.NonSerialized] public System.Action OnReward;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
-    
-    [System.NonSerialized] public LoadState LoadState = LoadState.Loading;
+    [System.NonSerialized] public LoadState LoadState = LoadState.None;
+    [System.NonSerialized] private bool _invoking = false;
 
     public bool Ready => MaxSdk.IsRewardedAdReady(AdUnitId);
 
@@ -20,9 +20,21 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
         this.OnFinish = onFinish;
         this.OnReward = onReward;
         this.OnFailedDisplay = onFailedDisplay;
-        if (MaxSdk.IsRewardedAdReady(AdUnitId))
+        
+        if (!Ready)
         {
-            MaxSdk.ShowRewardedAd(AdUnitId);
+            ForwardInvoke();
+            return;
+        }
+        MaxSdk.ShowRewardedAd(AdUnitId);
+    }
+    
+    public void ForwardInvoke()
+    {
+        if (_invoking)
+        {
+            CancelInvoke(nameof(LoadAd));
+            LoadAd();
         }
     }
     
@@ -36,17 +48,23 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
         MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnRewardedAdHiddenEvent;
         MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += OnRewardedAdFailedToDisplayEvent;
         MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnRewardedAdReceivedRewardEvent;
-            
-        LoadAd();
+        
+        LoadState = LoadState.None;
+        // LoadAd();
     }
-    
-    
 
-    private void LoadAd()
+    public void LoadAd()
     {
+        _invoking = false;
         LoadState = LoadState.Loading;
         OnLoadedStateChanged?.Invoke(LoadState);
         MaxSdk.LoadRewardedAd(AdUnitId);
+    }
+
+    private void InvokeForLoad()
+    {
+        Invoke(nameof(LoadAd), Mathf.Pow(2, Math.Min(6, _retryAttempt)));
+        _invoking = true;
     }
 
     private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -63,7 +81,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
         OnLoadedStateChanged?.Invoke(LoadState);
         
         _retryAttempt++;
-        Invoke(nameof(LoadAd), Mathf.Pow(2, Math.Min(6, _retryAttempt)));
+        InvokeForLoad();
     }
 
     private void OnRewardedAdDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)

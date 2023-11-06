@@ -9,8 +9,8 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     [System.NonSerialized] public System.Action OnFinish;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
-
-    [System.NonSerialized] public LoadState LoadState = LoadState.Loading;
+    [System.NonSerialized] private bool _invoking = false;
+    [System.NonSerialized] public LoadState LoadState = LoadState.None;
 
     public bool Ready => MaxSdk.IsInterstitialReady(AdUnitId);
 
@@ -18,9 +18,20 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     {
         this.OnFinish = onFinish;
         this.OnFailedDisplay = onFailedDisplay;
-        if (MaxSdk.IsInterstitialReady(AdUnitId))
+        
+        if (!Ready)
         {
-            MaxSdk.ShowInterstitial(AdUnitId);
+            return;
+        }
+        MaxSdk.ShowInterstitial(AdUnitId);
+    }
+
+    public void ForwardInvoke()
+    {
+        if (_invoking)
+        {
+            CancelInvoke(nameof(LoadAd));
+            LoadAd();
         }
     }
     
@@ -33,7 +44,8 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
         MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnInterstitialHiddenEvent;
         MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnInterstitialAdFailedToDisplayEvent;
         
-        LoadAd();
+        LoadState = LoadState.None;
+        // LoadAd();
     }
 
     public void DestroyInterstitial()
@@ -41,11 +53,18 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
         
     }
 
-    private void LoadAd()
+    public void LoadAd()
     {
+        _invoking = false;
         LoadState = LoadState.Loading;
         OnLoadedStateChanged?.Invoke(LoadState);
         MaxSdk.LoadInterstitial(AdUnitId);
+    }
+    
+    private void InvokeForLoad()
+    {
+        Invoke(nameof(LoadAd), Mathf.Pow(2, Math.Min(6, _retryAttempt)));
+        _invoking = true;
     }
 
     private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -62,7 +81,7 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
         OnLoadedStateChanged?.Invoke(LoadState);
         
         _retryAttempt++;
-        Invoke(nameof(LoadAd), Mathf.Pow(2, Math.Min(6, _retryAttempt)));
+        InvokeForLoad();
     }
 
     private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)

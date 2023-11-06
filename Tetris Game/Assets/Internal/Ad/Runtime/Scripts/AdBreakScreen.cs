@@ -59,9 +59,10 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public AdBreakScreen SetLoadState(LoadState loadState)
     {
         this._currentLoadState = loadState;
-        
-        loadingIcon.SetActive(_currentLoadState.Equals(LoadState.Loading) || _currentLoadState.Equals(LoadState.Fail));
-        adIcon.SetActive(_currentLoadState.Equals(LoadState.Success));
+
+        bool ready = _currentLoadState.Equals(LoadState.Success);
+        loadingIcon.SetActive(!ready);
+        adIcon.SetActive(ready);
         // warningIcon.SetActive(_currentLoadState.Equals(LoadState.Fail));
         
         if (loadState.Equals(Internal.Core.LoadState.Success) && _canInteract)

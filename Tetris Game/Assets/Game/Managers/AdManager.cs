@@ -31,7 +31,6 @@ namespace IWI
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {
-                    Debug.Log("INIT MAX");
                     onInitComplete?.Invoke();
                     
                     FakeAdRewarded.THIS.Initialize();
@@ -128,6 +127,10 @@ namespace IWI
             {
                 return;
             }
+            if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))
+            {
+                FakeAdBanner.THIS.LoadAd();
+            }
             FakeAdBanner.THIS.ShowOffer();
         }
 
@@ -171,8 +174,15 @@ namespace IWI
 
         public void ShowAdBreak(System.Action onFinish)
         {
+            if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
+            {
+                FakeAdInterstitial.THIS.LoadAd();
+                onFinish?.Invoke();
+                return;
+            }
             if (!FakeAdInterstitial.THIS.Ready)
             {
+                FakeAdInterstitial.THIS.ForwardInvoke();
                 onFinish?.Invoke();
                 return;
             }
@@ -220,6 +230,11 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward, bool pauseUnpause = true, System.Action onClick = null)
         {
+            if (FakeAdRewarded.THIS.LoadState.Equals(LoadState.None))
+            {
+                FakeAdRewarded.THIS.LoadAd();
+            }
+            
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);

@@ -45,23 +45,22 @@ public class GameManager : Singleton<GameManager>
             Consent.THIS.Open(() =>
             {
                 Consent.THIS.Loading = true;
-                Tween delayTween = null;
-                delayTween = DOVirtual.DelayedCall(0.5f, BufferTimeReached, true);
+                // Tween delayTween = null;
+                // delayTween = DOVirtual.DelayedCall(0.5f, BufferTimeReached, true);
 
-                AdManager.THIS.InitAdSDK();
-                // AdManager.THIS.InitAdSDK(() =>
-                // {
-                //     // BufferTimeReached();
-                //
-                //
-                // });
-
-                void BufferTimeReached()
+                // AdManager.THIS.InitAdSDK();
+                AdManager.THIS.InitAdSDK(() =>
                 {
-                    delayTween?.Kill();
-                    LevelManager.THIS.BeginLevel();
                     Consent.THIS.Visible = false;
-                }
+                    LevelManager.THIS.BeginLevel();
+                });
+
+                // void BufferTimeReached()
+                // {
+                //     delayTween?.Kill();
+                //     LevelManager.THIS.BeginLevel();
+                //     Consent.THIS.Visible = false;
+                // }
             });
             return;
         }
