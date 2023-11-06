@@ -22,7 +22,7 @@ namespace IWI
             FakeAdRewarded.THIS = fakeAdRewarded;
         }
 
-        public void InitAdSDK()
+        public void InitAdSDK(System.Action onInitComplete = null)
         {
             _Data.LastTimeAdShown = Time.realtimeSinceStartup;
 
@@ -31,6 +31,9 @@ namespace IWI
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {
+                    Debug.Log("INIT MAX");
+                    onInitComplete?.Invoke();
+                    
                     FakeAdRewarded.THIS.Initialize();
                     FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
                     {
@@ -63,7 +66,6 @@ namespace IWI
                         AdBreakScreen.THIS.SetLoadState(state);
                     };
                 };
-            
         }
 
         public void OpenMediationDebugger()

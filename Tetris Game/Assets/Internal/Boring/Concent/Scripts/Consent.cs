@@ -1,5 +1,6 @@
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Consent : Lazyingleton<Consent>
 {
@@ -7,6 +8,24 @@ public class Consent : Lazyingleton<Consent>
     [System.NonSerialized] private System.Action _onDone;
     [SerializeField] private ToggleButton toggleButtonPrivacy;
     [SerializeField] private ToggleButton toggleButtonAge;
+    [SerializeField] private GameObject loadingBar;
+    [SerializeField] private GameObject subFrame;
+    [SerializeField] private Button doneButton;
+
+    public bool Loading
+    {
+        set
+        {
+            loadingBar.SetActive(value);
+            subFrame.SetActive(!value);
+            doneButton.gameObject.SetActive(!value);
+        }
+    }
+    
+    public bool Visible
+    {
+        set => gameObject.SetActive(value);
+    }
 
     public Consent SetInitialStates(bool privacyState, bool ageState)
     {
@@ -18,7 +37,9 @@ public class Consent : Lazyingleton<Consent>
     public Consent Open(System.Action onDone)
     {
         this._onDone = onDone;
-        this.gameObject.SetActive(true);
+        Visible = true;
+
+        Loading = false;
         
         bool privacyState;
         bool ageState;
@@ -47,6 +68,7 @@ public class Consent : Lazyingleton<Consent>
         this.Open(() =>
         {
             UIManager.Pause(false);
+            Visible = false;
         });
     }
     
@@ -55,7 +77,7 @@ public class Consent : Lazyingleton<Consent>
         MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
         MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
 
-        this.gameObject.SetActive(false);
+        // this.gameObject.SetActive(false);
         _onDone?.Invoke();
     }
     
