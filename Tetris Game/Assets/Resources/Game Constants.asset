@@ -968,26 +968,26 @@ MonoBehaviour:
       type: 0
       amount: 500
     unlockedAt: 30
-  - blockType: 16
-    currency:
-      type: 1
-      amount: 15
-    unlockedAt: 40
-  - blockType: 17
-    currency:
-      type: 1
-      amount: 25
-    unlockedAt: 45
-  - blockType: 47
-    currency:
-      type: 0
-      amount: 100
-    unlockedAt: 50
   - blockType: 72
     currency:
       type: 2
       amount: 1
-    unlockedAt: 55
+    unlockedAt: 35
+  - blockType: 48
+    currency:
+      type: 0
+      amount: 1000
+    unlockedAt: 40
+  - blockType: 49
+    currency:
+      type: 0
+      amount: 1500
+    unlockedAt: 45
+  - blockType: 50
+    currency:
+      type: 0
+      amount: 1750
+    unlockedAt: 50
   - blockType: 73
     currency:
       type: 0
@@ -997,57 +997,12 @@ MonoBehaviour:
     currency:
       type: 0
       amount: 2000
-    unlockedAt: 55
+    unlockedAt: 60
   - blockType: 2
     currency:
       type: 1
       amount: 20
-    unlockedAt: 60
-  - blockType: 48
-    currency:
-      type: 0
-      amount: 1000
     unlockedAt: 65
-  - blockType: 49
-    currency:
-      type: 0
-      amount: 1500
-    unlockedAt: 70
-  - blockType: 50
-    currency:
-      type: 0
-      amount: 1750
-    unlockedAt: 75
-  - blockType: 51
-    currency:
-      type: 0
-      amount: 2000
-    unlockedAt: 80
-  - blockType: 53
-    currency:
-      type: 0
-      amount: 2500
-    unlockedAt: 85
-  - blockType: 54
-    currency:
-      type: 0
-      amount: 3000
-    unlockedAt: 90
-  - blockType: 55
-    currency:
-      type: 0
-      amount: 3500
-    unlockedAt: 95
-  - blockType: 56
-    currency:
-      type: 0
-      amount: 4000
-    unlockedAt: 100
-  - blockType: 52
-    currency:
-      type: 0
-      amount: 5000
-    unlockedAt: 105
   purchaseDataLookUp:
   - purchaseType: 0
     currency:
