@@ -60,20 +60,20 @@ public class Powerup : Lazyingleton<Powerup>
         _canUse = false;
         
         lockIcon.DOKill();
-        lockIcon.DOScale(open ? Vector3.zero : Vector3.one, 0.25f).SetDelay(open ? 0.0f : 0.1f).SetEase(open ? Ease.InBack : Ease.OutBack);
+        lockIcon.DOScale(open ? Vector3.zero : Vector3.one, 0.25f).SetDelay(open ? 0.0f : 0.1f).SetEase(open ? Ease.InBack : Ease.OutBack).SetUpdate(true);
         
         leftDoor.DOKill();
-        leftDoor.DOAnchorPosX( open ? -75.0f : 0.0f,  open ? 0.125f : 0.3f).SetDelay(open ? 0.1f : 0.0f).SetEase(open ? Ease.InCubic : Ease.OutBounce);
+        leftDoor.DOAnchorPosX( open ? -75.0f : 0.0f,  open ? 0.125f : 0.3f).SetDelay(open ? 0.1f : 0.0f).SetEase(open ? Ease.InCubic : Ease.OutBounce).SetUpdate(true);
         
         rightDoor.DOKill();
-        rightDoor.DOAnchorPosX(open ? 75.0f : 0.0f, open ? 0.125f : 0.3f).SetDelay(open ? 0.1f : 0.0f).SetEase(open ? Ease.InCubic : Ease.OutBounce);
+        rightDoor.DOAnchorPosX(open ? 75.0f : 0.0f, open ? 0.125f : 0.3f).SetDelay(open ? 0.1f : 0.0f).SetEase(open ? Ease.InCubic : Ease.OutBounce).SetUpdate(true);
 
         currencyDisplay.DOKill();
         currencyDisplay.DOAnchorPosY(open ? 130.0f : 0.0f, 0.25f).SetDelay(open ? 0.0f : 0.2f)
-            .SetEase(open ? Ease.InBack : Ease.OutBack, 2.0f);
+            .SetEase(open ? Ease.InBack : Ease.OutBack, 2.0f).SetUpdate(true);
 
         useDisplay.DOKill();
-        useDisplay.DOAnchorPosY(open ? 0.0f : 130.0f, 0.25f).SetDelay(open ? 0.2f : 0.0f)
+        useDisplay.DOAnchorPosY(open ? 0.0f : 130.0f, 0.25f).SetDelay(open ? 0.2f : 0.0f).SetUpdate(true)
             .SetEase(open ? Ease.OutBack : Ease.InBack).onComplete = () =>
         {
             _canUse = open;
@@ -172,15 +172,17 @@ public class Powerup : Lazyingleton<Powerup>
         SetPowerup(Pawn.Usage.Empty);
         // SetPowerup(LevelManager.GetRandomPowerUp());
         PunchCost(50.0f);
-        UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
-            (value) =>
-            {
-                  
-            },
-            () =>
-            {
+        PowerSelectionScreen.THIS.Open();
+
+        // UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
+        //     (value) =>
+        //     {
+        //           
+        //     },
+        //     () =>
+        //     {
                 OpenAnimated(true);
-            });
+            // });
 
         
         _Data.purchaseCount++;

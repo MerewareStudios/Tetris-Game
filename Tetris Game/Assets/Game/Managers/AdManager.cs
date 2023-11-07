@@ -197,7 +197,7 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    UIManager.Pause(false);
+                    GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
 
                     _Data.interSkipCount++;
@@ -213,21 +213,21 @@ namespace IWI
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    UIManager.Pause(false);
+                    GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
                 }, 
                 () =>
                 {
-                    UIManager.Pause(false);
+                    GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
                 });
             }, onFinish, 4);
                 
-            UIManager.Pause(true);
+            GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
         }
 
-        public static void ShowTicketAd(System.Action onReward, bool pauseUnpause = true, System.Action onClick = null)
+        public static void ShowTicketAd(System.Action onReward, System.Action onClick = null)
         {
             if (FakeAdRewarded.THIS.LoadState.Equals(LoadState.None))
             {
@@ -242,10 +242,7 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    if (pauseUnpause)
-                    {
-                        UIManager.Pause(false);
-                    }
+                    GameManager.GameTimeScale(1.0f);
                     onClick?.Invoke();
                 },
                 () => true);
@@ -255,10 +252,7 @@ namespace IWI
                 FakeAdRewarded.THIS.Show(
                 () =>
                 {
-                    if (pauseUnpause)
-                    {
-                        UIManager.Pause(false);
-                    }
+                    GameManager.GameTimeScale(1.0f);
                 }, 
                 () =>
                 {
@@ -266,14 +260,11 @@ namespace IWI
                 },
                 () =>
                 {
-                    if (pauseUnpause)
-                    {
-                        UIManager.Pause(false);
-                    }
+                    GameManager.GameTimeScale(1.0f);
                 });
             }, onReward, 4);
-                
-            UIManager.Pause(true);
+
+            GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
         }
 

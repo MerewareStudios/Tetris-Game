@@ -50,6 +50,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private int _multiplier = 1;
     private Tween _shakeTween;
 
+    [System.NonSerialized] public float TimeScale = 1.0f;
+
     // [System.NonSerialized] public System.Action<bool> VisibilityChanged = null;
     
     void Update()
@@ -64,6 +66,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             return true;
         }
+
+        TimeScale = 0.0f;
+        GameManager.UpdateTimeScale();
+        
         Show();
         return false;
     }
@@ -73,6 +79,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             return true;
         }
+        
+        TimeScale = 1.0f;
+        GameManager.UpdateTimeScale();
+        
         SwitchToGame();
         // this.VisibilityChanged?.Invoke(false);
         return false;
@@ -172,7 +182,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Wallet.Transaction(Const.Currency.OneAd);
             OnClick_RequestMultiply();
             
-        }, false, () =>
+        }, () =>
         {
             multiplyButton.targetGraphic.raycastTarget = true;
             _shakeTween.Play();

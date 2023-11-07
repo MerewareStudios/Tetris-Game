@@ -11423,8 +11423,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -259044405
-  m_SortingOrder: 2
+  m_SortingLayerID: 2118178479
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &4562074639441518960
 RectTransform:

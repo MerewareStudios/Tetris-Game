@@ -9,6 +9,8 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [SerializeField] private List<Tab> tabs = new();
     [SerializeField] private GameObject costReductionStamp;
     [System.NonSerialized] private Data _data;
+    
+    [System.NonSerialized] public float TimeScale = 1.0f;
 
     public bool CostRedStamp
     {
@@ -32,6 +34,9 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
         UIManager.MenuMode(true);
         
+        TimeScale = 0.0f;
+        GameManager.UpdateTimeScale();
+        
         Wallet.ScaleTransactors(1.1f, true);
         Activate();
         OpenLastMenu();
@@ -51,6 +56,10 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
             return true;
         }
         UIManager.MenuMode(false);
+        
+        TimeScale = 1.0f;
+        GameManager.UpdateTimeScale();
+        
         Wallet.ScaleTransactors(1.0f);
         Onboarding.HideFinger();
 

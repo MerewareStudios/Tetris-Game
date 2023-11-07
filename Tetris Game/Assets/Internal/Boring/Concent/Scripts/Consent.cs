@@ -12,6 +12,9 @@ public class Consent : Lazyingleton<Consent>
     [SerializeField] private GameObject subFrame;
     [SerializeField] private Button doneButton;
 
+    [System.NonSerialized] public float TimeScale = 1.0f;
+
+    
     public bool Loading
     {
         set
@@ -64,10 +67,12 @@ public class Consent : Lazyingleton<Consent>
     
     public void Open()
     {
-        UIManager.Pause(true);
+        TimeScale = 0.0f;
+        GameManager.UpdateTimeScale();
         this.Open(() =>
         {
-            UIManager.Pause(false);
+            TimeScale = 1.0f;
+            GameManager.UpdateTimeScale();
             Visible = false;
         });
     }

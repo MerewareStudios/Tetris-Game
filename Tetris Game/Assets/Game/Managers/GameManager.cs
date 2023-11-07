@@ -15,6 +15,23 @@ public class GameManager : Singleton<GameManager>
     // public static readonly int BaseMap = Shader.PropertyToID("_BaseMap");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
+    
+    public static float TimeScale = 1.0f;
+    
+    public static void UpdateTimeScale()
+    {
+        Time.timeScale = GameManager.TimeScale * 
+                         PowerSelectionScreen.THIS.Timescale * 
+                         Consent.THIS.TimeScale *
+                         MenuNavigator.THIS.TimeScale *
+                         PiggyMenu.THIS.TimeScale;
+    }
+
+    public static void GameTimeScale(float value)
+    {
+        TimeScale = value;
+        UpdateTimeScale();
+    }
 
     void Awake()
     {

@@ -48,8 +48,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public MotionData motionData_UpgradeBurst;
    [SerializeField] public MotionData motionData_BoardBurst;
    [SerializeField] public MotionData motionData_Ticket;
-   [Header("Level")]
-   [System.NonSerialized] public static bool MenuVisible = false;
+   // [Header("Level")]
+   // [System.NonSerialized] public static bool MenuVisible = false;
    [Header("Transactors")]
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
@@ -60,7 +60,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public ComboText comboText;
    [SerializeField] public Finger finger;
    [System.NonSerialized] public static IMenu CurrentMenu = null;
-   [System.NonSerialized] public static float TimeScale = 1.0f;
+   // [System.NonSerialized] public static float GameTimeScale = 1.0f;
+   // [System.NonSerialized] public static float MenuTimeScale = 1.0f;
 
    public void SetLevelProgress(float value, string health)
    {
@@ -88,7 +89,7 @@ public class UIManager : Singleton<UIManager>
 
       Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
-      MenuVisible = false;
+      // MenuVisible = false;
       CurrentMenu = null;
    }
 
@@ -185,37 +186,48 @@ public class UIManager : Singleton<UIManager>
 
    public static void MenuMode(bool value)
    {
-      if (MenuVisible == value)
-      {
-         return;
-      }
+      // if (MenuVisible == value)
+      // {
+      //    return;
+      // }
       
       CameraManager.THIS.gameCamera.enabled = !value;
-      MenuVisible = value;
-      
-      TimeScale = (value ? 0.0f : 1.0f);
-      UpdateTimeScale();
+      // MenuVisible = value;
+
+      // MenuPause(value);
       
       SaveManager.THIS.Save();
       
       OnMenuModeChanged?.Invoke(value);
    }
 
-   public static void UpdateTimeScale()
-   {
-      Time.timeScale = TimeScale * PowerSelectionScreen.THIS.Timescale;
-   }
-   public static void Pause(bool value)
-   {
-      if (!value)
-      {
-         if (MenuVisible)
-         {
-            return;
-         }
-      }
-      Time.timeScale = value ? 0.0f : 1.0f;
-   }
+   // public static void GamePause(bool paused)
+   // {
+   //    GameTimeScale = (paused ? 0.0f : 1.0f);
+   //    UpdateTimeScale();
+   // }
+   // public static void MenuPause(bool paused)
+   // {
+   //    MenuTimeScale = (paused ? 0.0f : 1.0f);
+   //    UpdateTimeScale();
+   // }
+   // public static void UpdateTimeScale()
+   // {
+   //    Time.timeScale = GameTimeScale * MenuTimeScale * PowerSelectionScreen.THIS.Timescale;
+   // }
+   // public static void Pause(bool value)
+   // {
+   //    // if (!value)
+   //    // {
+   //    //    if (MenuVisible)
+   //    //    {
+   //    //       return;
+   //    //    }
+   //    // }
+   //    // Time.timeScale = value ? 0.0f : 1.0f;
+   //    TimeScale = (value ? 0.0f : 1.0f);
+   //    UpdateTimeScale();
+   // }
 }
 
 public static class UIManagerExtensions
