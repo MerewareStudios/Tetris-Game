@@ -179,7 +179,7 @@ namespace  Game
 
         private void UpdateProgress()
         {
-            UIManager.THIS.SetLevelProgress(_leftEnemyHealth / (float) _totalEnemyHealth, _leftEnemyHealth.ToString());
+            UIManager.THIS.SetLevelProgress(_leftEnemyHealth / (float) _totalEnemyHealth, _leftEnemyHealth);
         }
 
         public void OnLevelLoad()

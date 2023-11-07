@@ -15,7 +15,7 @@ using Visual.Effects;
 public class UIManager : Singleton<UIManager>
 {
    [SerializeField] public TextMeshProUGUI levelText;
-   [SerializeField] public TextMeshProUGUI levelProgressHealthText;
+   // [SerializeField] public TextMeshProUGUI levelProgressHealthText;
    [SerializeField] public TextMeshProUGUI levelTextMenu;
    [SerializeField] public GameObject levelProgressbar;
    [SerializeField] public Image levelProgress;
@@ -63,12 +63,20 @@ public class UIManager : Singleton<UIManager>
    // [System.NonSerialized] public static float GameTimeScale = 1.0f;
    // [System.NonSerialized] public static float MenuTimeScale = 1.0f;
 
-   public void SetLevelProgress(float value, string health)
+   public void SetLevelProgress(float value, int health)
    {
+      levelProgressbar.gameObject.SetActive(true);
       levelProgress.DOKill();
-      levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad);
+      levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad).onComplete = () =>
+      {
+         if (health > 0)
+         {
+            return;
+         }
+         levelProgressbar.gameObject.SetActive(false);
+      };
 
-      levelProgressHealthText.text = health;
+      // levelProgressHealthText.text = health.ToString();
    }
    
    void Awake()
