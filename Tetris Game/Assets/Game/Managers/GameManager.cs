@@ -39,7 +39,7 @@ public class GameManager : Singleton<GameManager>
 
         LevelManager.THIS.LoadLevel();
         
-    // #if !UNITY_EDITOR
+    #if !UNITY_EDITOR
         if (!MaxSdk.IsUserConsentSet())
         {
             Consent.THIS.Open(() =>
@@ -64,7 +64,7 @@ public class GameManager : Singleton<GameManager>
             });
             return;
         }
-    // #endif
+    #endif
         
         AdManager.THIS.InitAdSDK();
         

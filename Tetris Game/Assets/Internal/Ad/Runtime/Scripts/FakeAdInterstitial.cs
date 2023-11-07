@@ -19,6 +19,7 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
             bool ready = MaxSdk.IsInterstitialReady(AdUnitId);
             if (ready)
             {
+                // Debug.LogWarning("Ready Interstitial");
                 return true;
             }
             ForwardInvoke();
@@ -39,8 +40,10 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 
     public void ForwardInvoke()
     {
+        // Debug.LogWarning("ForwardInvoke Check");
         if (_invoking)
         {
+            // Debug.LogWarning("ForwardInvoke");
             CancelInvoke(nameof(LoadAd));
             LoadAd();
         }
