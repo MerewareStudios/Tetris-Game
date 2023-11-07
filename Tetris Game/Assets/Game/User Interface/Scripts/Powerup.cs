@@ -87,12 +87,13 @@ public class Powerup : Lazyingleton<Powerup>
         this._Data.currentUsage = usage;
         icon.enabled = true;
         icon.sprite = usage.PowerUpIcon();
+        PunchUse();
     }
 
     public void PunchUse()
     {
         icon.rectTransform.DOKill();
-        icon.rectTransform.DOPunchScale(Vector3.one * 0.4f, 0.4f, 1);
+        icon.rectTransform.DOPunchScale(Vector3.one * 0.4f, 0.4f, 1).SetUpdate(true);
 
         PunchFrame();
     }
@@ -101,8 +102,8 @@ public class Powerup : Lazyingleton<Powerup>
     {
         pivot.DOKill();
         pivot.localScale = Vector3.one;
-        pivot.DOPunchScale(Vector3.one * amount, 0.3f, 1);
-        
+        pivot.DOPunchScale(Vector3.one * amount, 0.3f, 1).SetUpdate(true);
+
         ps.Emit(1);
     }
     private void PunchCost(float amount = 35.0f)
@@ -126,7 +127,7 @@ public class Powerup : Lazyingleton<Powerup>
 
             if (_data.currentUsage.Equals(Pawn.Usage.Empty))
             {
-                PowerSelectionScreen.THIS.Open();
+                PowerSelectionScreen.THIS.Toggle();
                 return;
             }
             

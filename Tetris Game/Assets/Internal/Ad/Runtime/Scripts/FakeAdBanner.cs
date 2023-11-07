@@ -64,7 +64,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         offerFrame.DOKill();
 
         offerFrame.anchoredPosition = new Vector2(0.0f, OfferDistance);
-        offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetDelay(0.5f).onComplete = () =>
+        offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f).onComplete = () =>
         {
             enableButton.targetGraphic.raycastTarget = true;
         };
@@ -75,7 +75,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
 
-        offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetEase(Ease.InSine).onComplete = () =>
+        offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetUpdate(true).SetEase(Ease.InSine).onComplete = () =>
         {
             SetOfferState(false);
         };

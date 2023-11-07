@@ -23,26 +23,32 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         }
     }
 
-    public void Open()
+    public void Toggle()
+    {
+        _ = canvas.enabled ? Close() : Open();
+    }
+    public bool Open()
     {
         if (canvas.enabled)
         {
-            return;
+            return true;
         }
         canvas.enabled = true;
         this.gameObject.SetActive(true);
         
         Timescale = 0.0f;
         GameManager.UpdateTimeScale();
+        return true;
     }
 
-    public void Close()
+    public bool Close()
     {
         canvas.enabled = false;
         this.gameObject.SetActive(false);
         
         Timescale = 1.0f;
         GameManager.UpdateTimeScale();
+        return false;
     }
 
     public void Peak(bool state)
