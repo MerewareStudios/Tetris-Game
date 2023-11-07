@@ -69,8 +69,8 @@ namespace Game
 
         public static LevelSo AutoGenerate(int seed)
         {
+            // Debug.Log("Seed : " + seed);
             Random.InitState(seed);
-            // Random.InitState((int)DateTime.Now.Ticks);
 
             LevelSo so = ScriptableObject.CreateInstance<LevelSo>();
 
@@ -88,7 +88,7 @@ namespace Game
                 countDatas = new List<Enemy.CountData>()
             };
 
-            int maxHealth = 500 + (seed - 50) * 50;
+            int maxHealth = 250 + (seed - 50) * 50;
             int currentHealth = 0;
 
             int spawnerCount = Random.Range(0, 2);
@@ -110,7 +110,6 @@ namespace Game
                 EnemyData enemyData = Const.THIS.GetRandomEnemyData();
                 AddEnemy(enemyData, enemyData.maxHealth);
             }
-            Debug.Log(spawnerCount + " " + so.EnemySpawnData.countDatas.Count + " " + currentHealth);
             // Reward
             so.victoryReward = new Const.Currency(Const.CurrencyType.Coin, 50);
             so.failReward = new Const.Currency(Const.CurrencyType.Coin, 5);
@@ -120,7 +119,6 @@ namespace Game
             so.pawnPlacements = Const.THIS.GetRandomPawnPlacement(so.boardSize);
             // Powerups
             so.powerUps = null;
-
             
             Random.InitState((int)DateTime.Now.Ticks);
 
