@@ -123,6 +123,12 @@ public class Powerup : Lazyingleton<Powerup>
             {
                 return;   
             }
+
+            if (_data.currentUsage.Equals(Pawn.Usage.Empty))
+            {
+                PowerSelectionScreen.THIS.Open();
+                return;
+            }
             
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
@@ -163,7 +169,8 @@ public class Powerup : Lazyingleton<Powerup>
         }
         
         _data.available = true;
-        SetPowerup(LevelManager.GetRandomPowerUp());
+        SetPowerup(Pawn.Usage.Empty);
+        // SetPowerup(LevelManager.GetRandomPowerUp());
         PunchCost(50.0f);
         UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
             (value) =>

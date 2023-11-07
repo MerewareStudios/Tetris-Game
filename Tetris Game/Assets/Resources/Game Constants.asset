@@ -1239,7 +1239,7 @@ MonoBehaviour:
     model: 0
     free2Place: 0
     startColor: {r: 0, g: 0, b: 0, a: 0}
-    powerUpIcon: {fileID: 0}
+    powerUpIcon: {fileID: 21300000, guid: 67676fff84adcb643aef1c226c9f331d, type: 3}
     neverMoves: 0
     moverOnPlacement: 1
   - usage: 1
@@ -1279,7 +1279,7 @@ MonoBehaviour:
     model: 44
     free2Place: 0
     startColor: {r: 1, g: 0.52156866, b: 0, a: 1}
-    powerUpIcon: {fileID: 0}
+    powerUpIcon: {fileID: 21300000, guid: fc8cbe98a1ef0cd40ac51e48b802a7ca, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
   - usage: 6

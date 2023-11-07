@@ -1,4 +1,3 @@
-using System.Collections;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -31,6 +30,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private PiggyMenu piggyMenu;
    [SerializeField] private Powerup powerup;
    [SerializeField] private AdBreakScreen adBreakScreen;
+   [SerializeField] private PowerSelectionScreen powerSelectionScreen;
    [SerializeField] private StatDisplayArranger statDisplayArranger;
    [Header("Bars")]
    [SerializeField] public Shop shop;
@@ -60,6 +60,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public ComboText comboText;
    [SerializeField] public Finger finger;
    [System.NonSerialized] public static IMenu CurrentMenu = null;
+   [System.NonSerialized] public static float TimeScale = 1.0f;
 
    public void SetLevelProgress(float value, string health)
    {
@@ -81,6 +82,7 @@ public class UIManager : Singleton<UIManager>
       Powerup.THIS = powerup;
       AdBreakScreen.THIS = adBreakScreen;
       StatDisplayArranger.THIS = statDisplayArranger;
+      PowerSelectionScreen.THIS = powerSelectionScreen;
 
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
@@ -190,11 +192,18 @@ public class UIManager : Singleton<UIManager>
       
       CameraManager.THIS.gameCamera.enabled = !value;
       MenuVisible = value;
-      Time.timeScale = value ? 0.0f : 1.0f;
+      
+      TimeScale = (value ? 0.0f : 1.0f);
+      UpdateTimeScale();
       
       SaveManager.THIS.Save();
       
       OnMenuModeChanged?.Invoke(value);
+   }
+
+   public static void UpdateTimeScale()
+   {
+      Time.timeScale = TimeScale * PowerSelectionScreen.THIS.Timescale;
    }
    public static void Pause(bool value)
    {

@@ -192,6 +192,10 @@ public static class ConstExtensions
     {
         return Const.THIS.pawnVisualData[(int)usage].externValue; 
     }
+    public static Sprite Icon(this Pawn.Usage usage)
+    {
+        return Const.THIS.pawnVisualData[(int)usage].powerUpIcon; 
+    }
     public static bool IsLocal(this Const.CurrencyType currencyType)
     {
         return currencyType.Equals(Const.CurrencyType.Local); 
