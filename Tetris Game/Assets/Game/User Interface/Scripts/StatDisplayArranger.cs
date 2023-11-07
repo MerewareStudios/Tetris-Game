@@ -1,11 +1,18 @@
 using System.Collections.Generic;
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatDisplayArranger : Lazyingleton<StatDisplayArranger>
 {
     [SerializeField] private List<StatDisplay> _statDisplays;
     [SerializeField] private RectTransform pivot;
+    [SerializeField] private Button plusHealthButton;
+
+    public bool HealthButtonEnabled
+    {
+        set => plusHealthButton.gameObject.SetActive(value);
+    }
 
     public void SetLocalY(float y)
     {
@@ -38,6 +45,5 @@ public class StatDisplayArranger : Lazyingleton<StatDisplayArranger>
     public Vector3 ScreenPosition(StatDisplay.Type statType)
     {
         return _statDisplays[(int)statType].animationPivot.position;
-
     }
 }

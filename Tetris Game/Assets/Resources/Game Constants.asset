@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 51
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -1027,10 +1027,10 @@ MonoBehaviour:
   - purchaseType: 2
     currency:
       type: 1
-      amount: 5
+      amount: 2
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
-    info: <size=150%><sprite name=Heart> +25
+    info: <size=150%><sprite name=Heart> +15
     best: 0
   - purchaseType: 3
     currency:

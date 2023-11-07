@@ -173,7 +173,7 @@ namespace Game.UI
                     Wallet.TICKET.Transaction(5);
                     break;
                 case PurchaseType.MEDKIT:
-                    Warzone.THIS.Player._CurrentHealth += 25;
+                    Warzone.THIS.Player._CurrentHealth += 15;
                     break;
                 case PurchaseType.COIN_PACK:
                     Wallet.COIN.Transaction(1500);

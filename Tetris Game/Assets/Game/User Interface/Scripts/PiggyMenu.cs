@@ -290,6 +290,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             _shakeTween?.Kill();
 
             base.CloseImmediate();
+            TimeScale = 1.0f;
+            GameManager.UpdateTimeScale();
 
             GiveRewards();
             _Data.breakInstance++;

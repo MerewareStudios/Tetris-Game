@@ -47,6 +47,9 @@ public class Shop : MonoBehaviour
         else if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
         {
             ONBOARDING.UPGRADE_TAB.SetComplete();
+            
+            StatDisplayArranger.THIS.HealthButtonEnabled = true;
+            
             MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
             Onboarding.HideFinger();
             GameManager.GameTimeScale(1.0f);

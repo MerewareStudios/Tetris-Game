@@ -123,7 +123,7 @@ public class GameManager : Singleton<GameManager>
         }
         if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
         {
-            if (Wallet.PIGGY.Amount >= 1 || LevelManager.CurrentLevel >= 5)
+            if (Wallet.COIN.Amount >= 25 && LevelManager.CurrentLevel >= 5)
             {
                 // ONBOARDING.UPGRADE_TAB.SetComplete();
                 UIManager.THIS.shop.AnimatedShow();
