@@ -101,6 +101,14 @@ public class UIManager : Singleton<UIManager>
     {
        AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
     }
+    public void AdLayerClick_OpenHealthShop()
+    {
+       AdManager.THIS.TryInterstitial(() =>
+       {
+          shop.OpenDirect(MenuType.Upgrade);
+          UpgradeMenu.THIS.Prompt(UpgradeMenu.PurchaseType.MEDKIT, 0.1f, 0.25f);
+       });
+    }
 
 #if UNITY_EDITOR
    private void Update()

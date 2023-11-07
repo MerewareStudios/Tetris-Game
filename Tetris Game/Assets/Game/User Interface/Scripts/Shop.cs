@@ -19,6 +19,11 @@ public class Shop : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private Image background;
 
+    public void OpenDirect(MenuType menuType)
+    {
+        MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
+        OnClick_Open();
+    }
     
     public void OnClick_Open()
     {

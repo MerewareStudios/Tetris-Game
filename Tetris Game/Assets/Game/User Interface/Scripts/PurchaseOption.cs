@@ -8,7 +8,7 @@ public class PurchaseOption : MonoBehaviour
 {
     [SerializeField] private Image glimmerFrame;
     [SerializeField] private CurrenyButton purchaseButton;
-    [SerializeField] private RectTransform animationPivot;
+    [SerializeField] public RectTransform animationPivot;
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
     [SerializeField] private TextAnimator_TMP titleText;
     [SerializeField] private TextMeshProUGUI detailedInfoText;
@@ -60,6 +60,12 @@ public class PurchaseOption : MonoBehaviour
         animationPivot.DOKill();
         animationPivot.anchoredPosition = Vector2.zero;
         animationPivot.DOPunchAnchorPos(anchor, 0.25f).SetUpdate(true);
+    }
+    public void PunchScale(float amount, float delay)
+    {
+        transform.DOKill();
+        transform.localScale = Vector3.one;
+        transform.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true).SetDelay(delay);
     }
 
     public void GlimmerByBadge()

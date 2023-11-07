@@ -1,7 +1,10 @@
 using System;
+using Internal.Core;
 using IWI;
+using IWI.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game.UI
@@ -11,6 +14,8 @@ namespace Game.UI
         [Header("Purchase Options")]
         [SerializeField] private PurchaseOption[] purchaseOptions;
         [SerializeField] private TextMeshProUGUI maxStackText;
+        [SerializeField] private RectTransform scrollRectFrame;
+        [SerializeField] private RectTransform scrollPanel;
         [System.NonSerialized] private Data _data;
         [System.NonSerialized] private bool oneTimeDataSet = false;
 
@@ -217,6 +222,26 @@ namespace Game.UI
             int index = (int)purchaseType;
             _Data.instanceData[index]++;
             AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), _Data.instanceData[index]);
+        }
+
+        public void Prompt(PurchaseType purchaseType, float amount, float delay)
+        {
+            PurchaseOption purchaseOption = purchaseOptions[(int)purchaseType];
+            purchaseOption.PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
+            purchaseOption.PunchScale(amount, delay);
+            this.WaitForFrame(() =>
+            {
+                SnapTo(purchaseOption.animationPivot);
+            });
+        }
+        
+        public void SnapTo(RectTransform target)
+        {
+            // Canvas.ForceUpdateCanvases();
+            
+            Vector2 dif = (Vector2)scrollRectFrame.transform.InverseTransformPoint(scrollPanel.position) - (Vector2)scrollRectFrame.transform.InverseTransformPoint(target.position);
+
+            scrollRectFrame.anchoredPosition = new Vector2(scrollRectFrame.anchoredPosition.x, dif.y);
         }
 
         [Serializable]

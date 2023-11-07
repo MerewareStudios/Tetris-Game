@@ -77,8 +77,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.449707, y: 0}
-  m_SizeDelta: {x: -154.49971, y: 0}
+  m_AnchoredPosition: {x: 12.599922, y: 0}
+  m_SizeDelta: {x: -154.80016, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &8314590515385807551
 MonoBehaviour:
@@ -311,7 +311,6 @@ MonoBehaviour:
   parentContainer: {fileID: 126877866178307819}
   canvas: {fileID: 7926199782054237460}
   canvasGroup: {fileID: 3502856688880575042}
-  _blocker: {fileID: 4727993000215913859}
   updateOnMoneyChange: 1
   purchaseOptions:
   - {fileID: 2415617811385072671}
@@ -327,6 +326,8 @@ MonoBehaviour:
   - {fileID: 4950160242202326838}
   - {fileID: 5441076999753628212}
   maxStackText: {fileID: 4388206183741419965}
+  scrollRectFrame: {fileID: 6052099354342604122}
+  scrollPanel: {fileID: 3874747581514579593}
 --- !u!223 &7926199782054237460
 Canvas:
   m_ObjectHideFlags: 0

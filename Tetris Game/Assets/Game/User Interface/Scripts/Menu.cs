@@ -16,7 +16,7 @@ namespace Game.UI
         [SerializeField] private RectTransform parentContainer;
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private Image _blocker;
+        // [SerializeField] private Image _blocker;
         [SerializeField] private bool updateOnMoneyChange = true;
         [System.NonSerialized] private Tween showTween;
         [System.NonSerialized] protected bool Visible = false;
@@ -31,12 +31,9 @@ namespace Game.UI
             Visible = true;
             canvas.enabled = true;
             canvasGroup.alpha = 0.0f;
-            _blocker.raycastTarget = true;
+            // _blocker.raycastTarget = true;
             showTween?.Kill();
-            showTween = canvasGroup.DoFade_IWI(1.0f, duration, Ease.InOutSine, () =>
-            {
-                _blocker.raycastTarget = false;
-            }).SetUpdate(true);
+            showTween = canvasGroup.DOFade(1.0f, duration).SetEase(Ease.InOutSine).SetUpdate(true);
 
             if (updateOnMoneyChange)
             {
@@ -54,14 +51,14 @@ namespace Game.UI
             }
             Visible = false;
             
-            _blocker.raycastTarget = true;
+            // _blocker.raycastTarget = true;
             showTween?.Kill();
-            showTween = canvasGroup.DoFade_IWI(0.0f, duration, Ease.InOutSine, () =>
+            showTween = canvasGroup.DOFade(0.0f, duration).SetEase(Ease.InOutSine).SetDelay(delay).SetUpdate(true);
+            showTween.onComplete = () =>
             {
-                canvas.enabled = false; 
+                canvas.enabled = false;
                 this.gameObject.SetActive(false);
-
-            }).SetDelay(delay).SetUpdate(true);
+            };
 
             if (updateOnMoneyChange)
             {
