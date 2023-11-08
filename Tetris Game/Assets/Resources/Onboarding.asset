@@ -34,11 +34,23 @@ MonoBehaviour:
   equippedText: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
   unlockedAtText: <pend a=0.1 f=2><sprite name=Lock> LEVEL <size=125%>
   adBreakText: AD BREAK
-  earnText: EARN
-  useTicketText: Skip <sprite name=Ticket>  ?
+  earnText: REWARD
+  useTicketText: Use <sprite name=Ticket>
   earnTicketText: <sprite name=Ticket> +1
-  skipButtonText: USE TICKET
-  cancelButtonText: NOT NOW
+  skipButtonText: SKIP
+  cancelButtonText: LATER
+  adBreakVisualData:
+    frameColor: {r: 0.79607844, g: 0.39215687, b: 1, a: 1}
+    bannerColor: {r: 0.7058824, g: 0.34901962, b: 0.8862745, a: 1}
+    centerColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 1}
+    fillColor: {r: 0.44313726, g: 0.003921569, b: 0.8509804, a: 1}
+    buttonSprite: {fileID: 21300000, guid: 23dcf2e345228b04fb35c507ca962149, type: 3}
+  rewardedAdVisualData:
+    frameColor: {r: 0.7882353, g: 0.84705883, b: 0, a: 1}
+    bannerColor: {r: 0.7882353, g: 0.84705883, b: 0, a: 1}
+    centerColor: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+    fillColor: {r: 0.44313726, g: 0.003921569, b: 0.8509804, a: 1}
+    buttonSprite: {fileID: 21300000, guid: fd91bec26e258224d81146122801ace0, type: 3}
   weaponStatUnchange: <color=#FFFFFF>
   weaponStatChange: <color=#8EFF00>
   tips:

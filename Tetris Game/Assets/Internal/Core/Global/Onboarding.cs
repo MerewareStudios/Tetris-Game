@@ -33,6 +33,8 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string earnTicketText;
     [TextArea] [SerializeField] public string skipButtonText;
     [TextArea] [SerializeField] public string cancelButtonText;
+    [SerializeField] public AdBreakScreen.VisualData adBreakVisualData;
+    [SerializeField] public AdBreakScreen.VisualData rewardedAdVisualData;
     [Header("Weapon Stat")]
     [TextArea] [SerializeField] public string weaponStatUnchange;
     [TextArea] [SerializeField] public string weaponStatChange;

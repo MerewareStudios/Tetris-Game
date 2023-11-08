@@ -3345,7 +3345,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  AdTimeInterval: 180
+  AdTimeInterval: 5
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0

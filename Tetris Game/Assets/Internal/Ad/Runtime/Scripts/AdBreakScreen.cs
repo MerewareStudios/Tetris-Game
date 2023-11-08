@@ -11,6 +11,10 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private Image fillImage;
+    [SerializeField] private Image frameImage;
+    [SerializeField] private Image bannerImage;
+    [SerializeField] private Image centerImage;
+    [SerializeField] private Button button;
     [SerializeField] private TextMeshProUGUI topText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI buttonText;
@@ -32,7 +36,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [System.NonSerialized] private System.Action _onBypassReward;
     [System.NonSerialized] private System.Action _onClick;
     
-    [System.NonSerialized] private int _duration = 0;
+    [System.NonSerialized] private float _duration = 0;
     [System.NonSerialized] private Tween _timerTween;
 
     public delegate bool ButtonUseCondition();
@@ -49,6 +53,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         SKIP,
         WATCH,
     }
+    
     
     public AdBreakScreen SetAdState(AdState adState)
     {
@@ -73,6 +78,17 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         return this;
     }
 
+    public AdBreakScreen SetVisualData(VisualData visualData)
+    {
+        fillImage.color = visualData.fillColor;
+        centerImage.color = visualData.centerColor;
+        bannerImage.color = visualData.bannerColor;
+        frameImage.color = visualData.frameColor;
+        button.image.sprite = visualData.buttonSprite;
+        return this;
+    }
+
+
     public AdBreakScreen SetInfo(string topStr, string infoStr, string buttonStr)
     {
         this.topText.text = topStr;
@@ -86,7 +102,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this._clickCondition = clickCondition;
         return this;
     }
-    public AdBreakScreen OnTimesUp(System.Action onTimesUp, System.Action onBypassReward, int duration)
+    public AdBreakScreen OnTimesUp(System.Action onTimesUp, System.Action onBypassReward, float duration)
     {
         this._duration = duration;
         this._onTimesUp = onTimesUp;
@@ -212,5 +228,15 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         Stop();
         _onClick?.Invoke();
         _onBypassReward?.Invoke();
+    }
+    
+    [System.Serializable]
+    public struct VisualData
+    {
+        [SerializeField] public Color frameColor;
+        [SerializeField] public Color bannerColor;
+        [SerializeField] public Color centerColor;
+        [SerializeField] public Color fillColor;
+        [SerializeField] public Sprite buttonSprite;
     }
 }

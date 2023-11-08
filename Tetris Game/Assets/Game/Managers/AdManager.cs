@@ -76,19 +76,24 @@ namespace IWI
         {
             if (_Data.removeAds)
             {
+                // Debug.LogWarning("Interstitial Removed Ads");
                 onSuccess?.Invoke();
                 return;
             }
             if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
             {
+                // Debug.LogWarning("Interstitial Onboarding Not done");
                 onSuccess?.Invoke();
                 return;
             }
+            // Debug.LogWarning(Time.time - _Data.LastTimeAdShown);
+
             if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
             {
                 ShowAdBreak(onSuccess);
                 return;
             }
+            // Debug.LogWarning("Interstitial Still Have Time");
             onSuccess?.Invoke();
         }
         
@@ -176,22 +181,25 @@ namespace IWI
         {
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
+                // Debug.LogWarning("Interstitial None");
                 FakeAdInterstitial.THIS.LoadAd();
                 onFinish?.Invoke();
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
+                // Debug.LogWarning("Interstitial not Ready");
                 onFinish?.Invoke();
                 return;
             }
             
-            _Data.LastTimeAdShown = Time.realtimeSinceStartup;
+            _Data.LastTimeAdShown = Time.time;
 
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL);
             AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.adBreakText,Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
+            AdBreakScreen.THIS.SetVisualData(Onboarding.THIS.adBreakVisualData);
             AdBreakScreen.THIS.SetPurchaseWindows(true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.REMOVE_ADS), true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TICKET_PACK));
             AdBreakScreen.THIS.OnClick(
                 () =>
@@ -221,7 +229,7 @@ namespace IWI
                     GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
                 });
-            }, onFinish, 4);
+            }, onFinish, 3.5f);
                 
             GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
@@ -237,6 +245,7 @@ namespace IWI
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
             AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnText,Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
+            AdBreakScreen.THIS.SetVisualData(Onboarding.THIS.rewardedAdVisualData);
             AdBreakScreen.THIS.SetPurchaseWindows(false, "", true, IAPManager.THIS.GetLocalPrice(UpgradeMenu.PurchaseType.TICKET_PACK));
             AdBreakScreen.THIS.OnClick(
                 () =>
@@ -262,7 +271,7 @@ namespace IWI
                 {
                     GameManager.GameTimeScale(1.0f);
                 });
-            }, onReward, 4);
+            }, onReward, 3.5f);
 
             GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
