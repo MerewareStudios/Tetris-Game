@@ -17,6 +17,7 @@ namespace Game.UI
         [SerializeField] private RectTransform scrollRectFrame;
         [SerializeField] private RectTransform scrollPanel;
         [SerializeField] private TextMeshProUGUI maxStackText;
+        [SerializeField] private TextMeshProUGUI capacityText;
         [System.NonSerialized] private Data _data;
         [System.NonSerialized] private bool oneTimeDataSet = false;
 
@@ -148,6 +149,7 @@ namespace Game.UI
             }
 
             maxStackText.text = Board.THIS.StackLimit.ToString();
+            capacityText.text = PiggyMenu.THIS._Data.moneyCapacity.ToString();
         }
 
         public void OnClick_Purchase(int purchaseIndex)

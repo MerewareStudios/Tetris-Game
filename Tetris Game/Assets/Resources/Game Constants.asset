@@ -648,7 +648,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 1111111111
     adTransactionData:
-      value: 1111111111
+      value: 1
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -709,6 +709,8 @@ MonoBehaviour:
     splitShotPrice:
     - type: 0
       amount: 100
+    - type: 2
+      amount: 1
     unlockedAt: 1
   - currency:
       type: 0
@@ -728,6 +730,8 @@ MonoBehaviour:
       amount: 50
     - type: 0
       amount: 50
+    - type: 2
+      amount: 1
     splitShotPrice: []
     unlockedAt: 8
   - currency:
@@ -751,6 +755,8 @@ MonoBehaviour:
       amount: 100
     - type: 0
       amount: 100
+    - type: 2
+      amount: 1
     unlockedAt: 14
   - currency:
       type: 0
@@ -768,11 +774,13 @@ MonoBehaviour:
       amount: 50
     - type: 1
       amount: 75
-    - type: 0
-      amount: 100
+    - type: 2
+      amount: 1
     splitShotPrice:
     - type: 1
       amount: 20
+    - type: 2
+      amount: 1
     unlockedAt: 20
   - currency:
       type: 0
@@ -789,8 +797,8 @@ MonoBehaviour:
       amount: 50
     - type: 0
       amount: 50
-    - type: 0
-      amount: 50
+    - type: 2
+      amount: 1
     fireRatePrice: []
     splitShotPrice: []
     unlockedAt: 25
@@ -815,6 +823,8 @@ MonoBehaviour:
       amount: 100
     - type: 0
       amount: 100
+    - type: 2
+      amount: 1
     unlockedAt: 30
   - currency:
       type: 1
@@ -836,11 +846,13 @@ MonoBehaviour:
       amount: 100
     - type: 0
       amount: 100
-    - type: 0
-      amount: 100
+    - type: 2
+      amount: 1
     splitShotPrice:
     - type: 1
       amount: 15
+    - type: 2
+      amount: 1
     unlockedAt: 35
   - currency:
       type: 0
@@ -869,21 +881,23 @@ MonoBehaviour:
       amount: 10
     - type: 1
       amount: 10
-    - type: 1
-      amount: 10
+    - type: 2
+      amount: 1
     unlockedAt: 40
   - currency:
       type: 0
       amount: 1000
     gunType: 32
     sprite: {fileID: 21300000, guid: 53b4750ed534c5542ac2b0f4399edf86, type: 3}
-    defaultValues: 010000000a00000001000000
+    defaultValues: 010000000900000001000000
     damagePrice:
+    - type: 1
+      amount: 15
+    - type: 1
+      amount: 15
+    fireRatePrice:
     - type: 2
       amount: 1
-    - type: 2
-      amount: 1
-    fireRatePrice: []
     splitShotPrice:
     - type: 1
       amount: 15
@@ -903,14 +917,14 @@ MonoBehaviour:
       amount: 20
     - type: 1
       amount: 30
-    - type: 1
-      amount: 40
+    - type: 2
+      amount: 1
     - type: 1
       amount: 50
     - type: 1
       amount: 75
-    - type: 1
-      amount: 100
+    - type: 2
+      amount: 1
     fireRatePrice: []
     splitShotPrice:
     - type: 1
@@ -919,14 +933,14 @@ MonoBehaviour:
       amount: 20
     - type: 1
       amount: 30
-    - type: 1
-      amount: 40
+    - type: 2
+      amount: 1
     - type: 1
       amount: 50
     - type: 1
       amount: 75
-    - type: 1
-      amount: 100
+    - type: 2
+      amount: 1
     unlockedAt: 50
   DefaultBlockData:
   - blockType: 10

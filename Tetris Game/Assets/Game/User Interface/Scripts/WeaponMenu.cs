@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DG.Tweening;
 using Internal.Core;
@@ -129,7 +130,7 @@ namespace Game.UI
                 }
             }
             
-            previousButton.SetActive(_weaponShopData.inspectIndex != 0);
+            previousButton.SetActive(_weaponShopData.inspectIndex != 0 || _weaponShopData.gunShopDatas.Last().purchased);
             nextButton.SetActive(purchasedWeapon);
             
             if (!purchasedWeapon)
