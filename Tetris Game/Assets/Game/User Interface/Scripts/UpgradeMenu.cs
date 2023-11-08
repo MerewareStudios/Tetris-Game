@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Internal.Core;
 using IWI;
 using IWI.UI;
@@ -13,9 +14,9 @@ namespace Game.UI
     {
         [Header("Purchase Options")]
         [SerializeField] private PurchaseOption[] purchaseOptions;
-        [SerializeField] private TextMeshProUGUI maxStackText;
         [SerializeField] private RectTransform scrollRectFrame;
         [SerializeField] private RectTransform scrollPanel;
+        [SerializeField] private TextMeshProUGUI maxStackText;
         [System.NonSerialized] private Data _data;
         [System.NonSerialized] private bool oneTimeDataSet = false;
 
@@ -98,7 +99,25 @@ namespace Game.UI
                 
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
+
+                // bool extraCond = true;
+                // switch (lookUp.extraCondition)
+                // {
+                //     case ExtraCondition.ALWAYS:
+                //         extraCond = true;
+                //         break;
+                //     case ExtraCondition.PIGGY_CAP:
+                //         // extraCond = PiggyMenu.THIS._Data.moneyCapacity > 10;
+                //         extraCond = true;
+                //         // string extra = extraCond ? ("\nCurrent\n" + PiggyMenu.THIS._Data.currentMoney.amount + "/" + PiggyMenu.THIS._Data.moneyCapacity) : ("\nNot\nAvailable");
+                //         // string extra = ("\n" + PiggyMenu.THIS._Data.currentMoney.amount + "/" + PiggyMenu.THIS._Data.moneyCapacity);
+                //         // purchaseOption.SetInfo(lookUp.title, lookUp.info + extra);
+                //         break;
+                // }
+                
+
                 bool available = Wallet.HasFunds(lookUp.currency) || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
+                // available &= extraCond;
 
                 string purchaseText = "";
 
@@ -134,6 +153,23 @@ namespace Game.UI
         public void OnClick_Purchase(int purchaseIndex)
         {
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
+            
+            // bool extraCond = true;
+            // switch (lookUp.extraCondition)
+            // {
+            //     case ExtraCondition.ALWAYS:
+            //         extraCond = true;
+            //         break;
+            //     case ExtraCondition.PIGGY_CAP:
+            //         extraCond = PiggyMenu.THIS._Data.moneyCapacity > 10;
+            //         break;
+            // }
+
+            // if (!extraCond)
+            // {
+            //     purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, 15.0f));
+            //     return;
+            // }
 
             if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
             {
@@ -191,8 +227,8 @@ namespace Game.UI
                     Wallet.PIGGY.Transaction(250);
                     break;
                 case PurchaseType.PIGGY_CAPACITY_RESET:
-                    PiggyMenu.THIS._Data.moneyCapacity = 10;
-                    PiggyMenu.THIS._Data.currentMoney.amount = 0;
+                    PiggyMenu.THIS._Data.moneyCapacity += 10;
+                    // PiggyMenu.THIS._Data.currentMoney.amount = 0;
                     break;
                 case PurchaseType.BASIC_CHEST:
                     Wallet.COIN.Transaction(80);
@@ -284,6 +320,7 @@ namespace Game.UI
             [SerializeField] public PurchaseType purchaseType;
             [SerializeField] public Const.Currency currency;
             [SerializeField] public Sprite sprite;
+            // [SerializeField] public ExtraCondition extraCondition;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
             [SerializeField] public bool best = false;
@@ -292,7 +329,13 @@ namespace Game.UI
             {
                 return IAPManager.THIS.GetLocalPrice(purchaseType);
             }
-        } 
+        }
+
+        // public enum ExtraCondition
+        // {
+        //     ALWAYS,
+        //     PIGGY_CAP,
+        // }
         
     }
 }

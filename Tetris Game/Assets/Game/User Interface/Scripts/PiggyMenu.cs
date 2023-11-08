@@ -296,7 +296,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             GiveRewards();
             _Data.breakInstance++;
             _Data.currentMoney.amount = 0;
-            _Data.moneyCapacity += PiggyCapIncrease;
+            // _Data.moneyCapacity += PiggyCapIncrease;
         };
         
         if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
@@ -314,7 +314,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         int coinReward = (int)(_Data.currentMoney.amount * 0.25f);
         GiveMeta(coinReward, 20, UIManagerExtensions.EmitPiggyRewardCoin);
-        int piggyReward = Random.Range(4, 6);
+        int piggyReward = _data.moneyCapacity / 5;
         GiveMeta(piggyReward, 20, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         

@@ -1030,7 +1030,7 @@ MonoBehaviour:
       amount: 2
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
-    info: <size=150%><sprite name=Heart> +15
+    info: <size=150%><sprite name=Heart>+15
     best: 0
   - purchaseType: 3
     currency:
@@ -1066,11 +1066,13 @@ MonoBehaviour:
     best: 0
   - purchaseType: 7
     currency:
-      type: 2
-      amount: 1
+      type: 1
+      amount: 4
     sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
-    title: <bounce a=0.05 f=1>PIGGY CAPACITY
-    info: <size=150%>Reset
+    title: <bounce a=0.05 f=1>PIGGY BANK
+    info: '<size=130%>Capacity
+
+      +10'
     best: 0
   - purchaseType: 8
     currency:
