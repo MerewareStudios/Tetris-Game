@@ -136,7 +136,8 @@ namespace Game
                     Gun = value.gunType.Spawn<Gun>(holster);
                 }
 
-                Gun._Data = value;
+                Gun._Data = new Gun.Data(value);
+                // Debug.Log(Gun._Data);
             }
             get => Gun._Data;
         }

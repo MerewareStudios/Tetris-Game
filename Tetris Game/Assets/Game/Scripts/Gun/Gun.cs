@@ -122,7 +122,7 @@ public class Gun : MonoBehaviour
             set
             {
                 this.rate = value;
-                FireInterval = (1.1f - (value - 1) * 0.05f) / _mult;
+                FireInterval = (1.1f - (value - 1) * 0.075f) / _mult;
             }
             get => this.rate;
         }
@@ -154,9 +154,9 @@ public class Gun : MonoBehaviour
         {
             StringBuilder stringBuilder = new();
             stringBuilder.AppendLine("Gun Type : " + gunType.ToString());
+            stringBuilder.AppendLine("Damage : " + damage.ToString());
             stringBuilder.AppendLine("Rate : " + rate.ToString());
             stringBuilder.AppendLine("Split : " + split.ToString());
-            stringBuilder.AppendLine("Damage : " + damage.ToString());
             stringBuilder.AppendLine("FireInterval : " + FireInterval.ToString());
             return stringBuilder.ToString();
         }
