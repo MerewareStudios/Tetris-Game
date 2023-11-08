@@ -19,7 +19,7 @@ public class PurchaseOption : MonoBehaviour
 
     public PurchaseOption SetPurchaseText(string text)
     {
-        purchaseButton.Set(text, true);
+        purchaseButton.SetButton(text, true);
         return this;
     }
     public PurchaseOption SetIcon(Sprite sprite)

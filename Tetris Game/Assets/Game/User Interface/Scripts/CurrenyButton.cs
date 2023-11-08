@@ -14,8 +14,7 @@ public class CurrenyButton : MonoBehaviour
         set
         {
             _available = value;
-            _button.targetGraphic.color =
-                value ? Const.THIS.currenyButtonNormalColor : Const.THIS.currenyButtonFadedColor;
+            _button.targetGraphic.color = value ? Const.THIS.currenyButtonNormalColor : Const.THIS.currenyButtonFadedColor;
             text.color = text.color.SetAlpha(value ? 1.0f : 0.5f);
         }
         get => _available;
@@ -24,10 +23,10 @@ public class CurrenyButton : MonoBehaviour
     {
         set => _button.image.sprite = value;
     }
-    public CurrenyButton Set(string str, bool buttonImageActive)
+    public CurrenyButton SetButton(string buttonStr, bool imageEnabled)
     {
-        text.text = str;
-        _button.image.enabled = buttonImageActive;
+        text.text = buttonStr;
+        _button.image.enabled = imageEnabled;
         return this;
     }
 }

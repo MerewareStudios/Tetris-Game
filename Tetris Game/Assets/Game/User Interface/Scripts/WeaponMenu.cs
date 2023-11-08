@@ -176,6 +176,7 @@ namespace Game.UI
 
             if (max)
             {
+                stageBar.Available = true;
                 return;
             }
             Const.Currency price = _gunUpgradeData.UpgradePrice(statType, currentIndex);
@@ -184,7 +185,7 @@ namespace Game.UI
             
             stageBar
                 .SetPrice(price)
-                .SetInteractable(Wallet.HasFunds(price) || ticket);
+                .Available = Wallet.HasFunds(price) || ticket;
         }
         
         public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)

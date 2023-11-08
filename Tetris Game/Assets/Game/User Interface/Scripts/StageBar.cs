@@ -11,9 +11,13 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform clickTarget;
     
-    public bool Available => purchaseButton.Available;
+    public bool Available
+    {
+        set => purchaseButton.Available = value;
+        get => purchaseButton.Available;
+    }
 
-    
+
     public StageBar SetCurrencyStampVisible(bool state)
     {
         currencyDisplay.gameObject.SetActive(state);
@@ -24,14 +28,14 @@ public class StageBar : MonoBehaviour
         currencyDisplay.Display(currency);
         return this;
     }
-    public StageBar SetInteractable(bool state)
-    {
-        purchaseButton.Available = state;
-        return this;
-    }
+    // public StageBar SetInteractable(bool state)
+    // {
+    //     purchaseButton.Available = state;
+    //     return this;
+    // }
     public StageBar SetMaxed(bool state)
     {
-        purchaseButton.Set(state ? Onboarding.THIS.plusText : Onboarding.THIS.fullText, state);
+        purchaseButton.SetButton(state ? Onboarding.THIS.plusText : Onboarding.THIS.fullText, state);
         return this;
     }
     public StageBar SetBars(int availableCount, int filledCount, int alreadyHaveCount)
