@@ -59,7 +59,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
 
     public void Select(PowerSelection powerSelection)
     {
-        Powerup.THIS.SetPowerup(powerUps[powerSelection.PowerIndex]);
+        Powerup.THIS.SetPowerup(powerUps[powerSelection.PowerIndex], true);
         Close();
     }
 }

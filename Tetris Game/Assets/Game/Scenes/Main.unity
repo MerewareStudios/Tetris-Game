@@ -7421,7 +7421,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1405674829}
         m_TargetAssemblyTypeName: Consent, Assembly-CSharp
-        m_MethodName: Open
+        m_MethodName: OpenOnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9922,6 +9922,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842650522790992143, guid: 11eeaf7bb22381548ad05dfc878c51af,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 715436861}
+    - target: {fileID: 4842650522790992143, guid: 11eeaf7bb22381548ad05dfc878c51af,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick_Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842650522790992143, guid: 11eeaf7bb22381548ad05dfc878c51af,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

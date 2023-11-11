@@ -82,12 +82,15 @@ public class Powerup : Lazyingleton<Powerup>
         PunchUse();
     }
 
-    public void SetPowerup(Pawn.Usage usage)
+    public void SetPowerup(Pawn.Usage usage, bool punch = false)
     {
         this._Data.currentUsage = usage;
         icon.enabled = true;
         icon.sprite = usage.PowerUpIcon();
-        PunchUse();
+        if (punch)
+        {
+            PunchUse();
+        }
     }
 
     public void PunchUse()
@@ -182,7 +185,7 @@ public class Powerup : Lazyingleton<Powerup>
         //     },
         //     () =>
         //     {
-                OpenAnimated(true);
+        OpenAnimated(true);
             // });
 
         

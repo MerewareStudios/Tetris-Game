@@ -90,6 +90,16 @@ public class LevelManager : Singleton<LevelManager>
         
         AnalyticsManager.LevelEnd(GAProgressionStatus.Fail);
     }
+
+    public void OnClick_Restart()
+    {
+        Consent.THIS.Close();
+        if (!GameManager.PLAYING)
+        {
+            return;
+        }
+        OnFail();
+    }
     
     
     // public static Pawn.Usage GetRandomPowerUp()

@@ -368,6 +368,7 @@ namespace  Game
 
         public void OnFail()
         {
+            Announcer.THIS.Stop();
             StopSpawning();
             Player.OnFail();
         }

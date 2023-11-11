@@ -1,18 +1,22 @@
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Consent : Lazyingleton<Consent>
 {
     [TextArea] [SerializeField] private string privacyLink;
-    [System.NonSerialized] private System.Action _onDone;
+    // [System.NonSerialized] private System.Action _onDone;
     [SerializeField] private ToggleButton toggleButtonPrivacy;
     [SerializeField] private ToggleButton toggleButtonAge;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private GameObject subFrame;
     [SerializeField] private Button doneButton;
-
+    [SerializeField] private Button restartButton;
     [System.NonSerialized] public float TimeScale = 1.0f;
+
+    public delegate bool GetActiveState();
+    public static GetActiveState GetRestartButtonState;
 
     
     public bool Loading
@@ -37,9 +41,9 @@ public class Consent : Lazyingleton<Consent>
         return this;
     }
 
-    public Consent Open(System.Action onDone)
+    public Consent Open()
     {
-        this._onDone = onDone;
+        // this._onDone = onDone;
         Visible = true;
 
         Loading = false;
@@ -59,22 +63,23 @@ public class Consent : Lazyingleton<Consent>
         }
         
         SetInitialStates(privacyState, ageState);
-        
-        
-        
         return this;
     }
     
-    public void Open()
+    public void OpenOnClick()
     {
         TimeScale = 0.0f;
         GameManager.UpdateTimeScale();
-        this.Open(() =>
-        {
-            TimeScale = 1.0f;
-            GameManager.UpdateTimeScale();
-            Visible = false;
-        });
+        this.Open();
+
+        restartButton.gameObject.SetActive(GetRestartButtonState.Invoke());
+    }
+
+    public void Close()
+    {
+        TimeScale = 1.0f;
+        GameManager.UpdateTimeScale();
+        Visible = false;
     }
     
     public void Done()
@@ -82,8 +87,10 @@ public class Consent : Lazyingleton<Consent>
         MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
         MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
 
+        
+        Close();
         // this.gameObject.SetActive(false);
-        _onDone?.Invoke();
+        // _onDone?.Invoke();
     }
     
     public void AcceptPrivacy(bool state)

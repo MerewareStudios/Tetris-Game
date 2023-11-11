@@ -97,6 +97,8 @@ public class UIManager : Singleton<UIManager>
       UIEmitter.SpawnFunction = SpawnImageIcon;
       UIEmitter.DespawnFunction = DespawnImageIcon;
 
+      Consent.GetRestartButtonState = () => ONBOARDING.PIGGY_CONTINUE.IsComplete() && GameManager.PLAYING;
+
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
       Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);

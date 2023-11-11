@@ -132,6 +132,10 @@ namespace IWI
             {
                 return;
             }
+            if (!MaxSdk.IsInitialized())
+            {
+                return;
+            }
             if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))
             {
                 FakeAdBanner.THIS.LoadAd();
