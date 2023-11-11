@@ -93,12 +93,26 @@ public class UIManager : Singleton<UIManager>
       StatDisplayArranger.THIS = statDisplayArranger;
       PowerSelectionScreen.THIS = powerSelectionScreen;
 
+
+      UIEmitter.SpawnFunction = SpawnImageIcon;
+      UIEmitter.DespawnFunction = DespawnImageIcon;
+
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
       Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
       // MenuVisible = false;
       CurrentMenu = null;
+   }
+
+   private Image SpawnImageIcon()
+   {
+      return Pool.Image.Spawn<Image>();
+   }
+   
+   private void DespawnImageIcon(Image image)
+   {
+      image.Despawn(Pool.Image);
    }
 
     public void AdLayerClick_OpenShop()

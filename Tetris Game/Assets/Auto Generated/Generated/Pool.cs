@@ -75,5 +75,6 @@ public enum Pool
     T_Long_Block = 72,
     V_Block = 73,
     Triangle_Block = 74,
+    Image = 75,
 
 }

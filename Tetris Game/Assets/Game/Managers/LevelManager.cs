@@ -37,10 +37,8 @@ public class LevelManager : Singleton<LevelManager>
 
     public void BeginLevel()
     {
-        Debug.Log("begin level");
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
-            Debug.Log("begin");
             Warzone.THIS.Begin();
             Spawner.THIS.DelayedSpawn(0.45f);
         }

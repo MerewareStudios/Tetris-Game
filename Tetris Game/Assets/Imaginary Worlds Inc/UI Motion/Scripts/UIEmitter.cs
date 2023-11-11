@@ -27,7 +27,7 @@ namespace IWI.UI
         }
         private Canvas _canvas;
         private RectTransform _canvasRect;
-        private readonly Queue<Image> _imageQueue = new();
+        // private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
         [SerializeField] public ValueSettings valueSettings;
@@ -37,14 +37,25 @@ namespace IWI.UI
         [SerializeField] public TargetSettings targetSettingsEnd;
         [SerializeField] public CallbackSettings callbackSettings;
         [System.NonSerialized] private float _timeOffset = 0.0f;
+        [System.NonSerialized] private Transform _thisTransform;
+        
+        public delegate Image GetImage();
+        public delegate void ReturnImage(Image image);
+
+        public static GetImage SpawnFunction;
+        public static ReturnImage DespawnFunction;
+        
+        [System.NonSerialized] private int _aliveCount = 0;
 
         void Awake()
         {
             _canvas = GetComponent<Canvas>();
             _canvasRect = _canvas.GetComponent<RectTransform>();
-            SetupPool();
+            // SetupPool();
 
             _timeOffset = Random.Range(0.0f, 100.0f);
+
+            _thisTransform = this.transform;
         }
 
         void Start()
@@ -55,51 +66,79 @@ namespace IWI.UI
             }
         }
 
-        private void SetupPool()
-        {
-            if (_imageQueue.Count > 0)
-            {
-                return;
-            }
-            for (int i = 0; i < imageSettings.maxImageCount; i++)
-            {
-                GameObject imagePrefab = new GameObject();
-                imagePrefab.layer = this.gameObject.layer;
-                imagePrefab.SetActive(false);
-                #if UNITY_EDITOR
-                imagePrefab.name = "Image";
-                imagePrefab.hideFlags = debugSettings.hideImagesInHierarchy ? HideFlags.HideInHierarchy : HideFlags.None;
-                #endif
-                RectTransform rectTransform = imagePrefab.AddComponent<RectTransform>();
-                rectTransform.SetParent(this.transform);
-                rectTransform.localScale = Vector3.one;
-                rectTransform.localPosition = Vector3.zero;
-                rectTransform.localEulerAngles = Vector3.zero;
-                Image image = imagePrefab.AddComponent<Image>();
-                
-                image.sprite = imageSettings.sprite;
-                image.raycastTarget = imageSettings.raycastTarget;
-                image.maskable = imageSettings.maskable;
-                
-                _imageQueue.Enqueue(image);
-            }
-        }
+        // private void SetupPool()
+        // {
+        //     if (_imageQueue.Count > 0)
+        //     {
+        //         return;
+        //     }
+        //     for (int i = 0; i < imageSettings.maxImageCount; i++)
+        //     {
+        //         GameObject imagePrefab = new GameObject();
+        //         imagePrefab.layer = this.gameObject.layer;
+        //         imagePrefab.SetActive(false);
+        //         #if UNITY_EDITOR
+        //         imagePrefab.name = "Image";
+        //         imagePrefab.hideFlags = debugSettings.hideImagesInHierarchy ? HideFlags.HideInHierarchy : HideFlags.None;
+        //         #endif
+        //         RectTransform rectTransform = imagePrefab.AddComponent<RectTransform>();
+        //         rectTransform.SetParent(this.transform);
+        //         rectTransform.localScale = Vector3.one;
+        //         rectTransform.localPosition = Vector3.zero;
+        //         rectTransform.localEulerAngles = Vector3.zero;
+        //         Image image = imagePrefab.AddComponent<Image>();
+        //         
+        //         image.sprite = imageSettings.sprite;
+        //         image.raycastTarget = imageSettings.raycastTarget;
+        //         image.maskable = imageSettings.maskable;
+        //         
+        //         _imageQueue.Enqueue(image);
+        //     }
+        // }
 
         public Image SpawnImage()
         {
-            if (_imageQueue.Count == 0)
-            {
-                return null;
-            }
-            Image image = _imageQueue.Dequeue();
-            image.gameObject.SetActive(true);
+            Image image = SpawnFunction?.Invoke();
+            
+            
+            // imagePrefab.name = "Image";
+            // imagePrefab.hideFlags = debugSettings.hideImagesInHierarchy ? HideFlags.HideInHierarchy : HideFlags.None;
+            // #endif
+            RectTransform rectTransform = image.rectTransform;
+            rectTransform.SetParent(_thisTransform);
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localPosition = Vector3.zero;
+            rectTransform.localEulerAngles = Vector3.zero;
+            
+            rectTransform.gameObject.layer = this.gameObject.layer;
+            // Image image = imagePrefab.AddComponent<Image>();
+            
+            image.sprite = imageSettings.sprite;
+            image.raycastTarget = imageSettings.raycastTarget;
+            image.maskable = imageSettings.maskable;
+
+
+            _aliveCount++;
+            
+            // _imageQueue.Enqueue(image);
+            
+            
+            // if (_imageQueue.Count == 0)
+            // {
+            //     return null;
+            // }
+            // Image image = _imageQueue.Dequeue();
+            // image.gameObject.SetActive(true);
 
             return image;
         }
         public void DespawnImage(Image image)
         {
-            _imageQueue.Enqueue(image);
-            image.gameObject.SetActive(false);
+            DespawnFunction?.Invoke(image);
+            
+            _aliveCount--;
+            // _imageQueue.Enqueue(image);
+            // image.gameObject.SetActive(false);
         }
 
         #region Play Functions
@@ -237,16 +276,17 @@ namespace IWI.UI
         #endregion
 
         private float Now => _timeOffset + Time.time;
-        private bool Idle => _imageQueue.Count == imageSettings.maxImageCount;
-        private int AliveCount => imageSettings.maxImageCount - _imageQueue.Count;
+        // private bool Idle => _imageQueue.Count == imageSettings.maxImageCount;
+        private bool Idle => _aliveCount == 0;
+        // private int AliveCount => _aliveCount;
 
-        void OnDestroy()
-        {
-            while (_imageQueue.Count > 0)
-            {
-                DestroyImmediate(_imageQueue.Dequeue().gameObject);
-            }
-        }
+        // void OnDestroy()
+        // {
+        //     while (_imageQueue.Count > 0)
+        //     {
+        //         DestroyImmediate(_imageQueue.Dequeue().gameObject);
+        //     }
+        // }
     }
 
     [Serializable]
@@ -255,7 +295,7 @@ namespace IWI.UI
         [SerializeField] public Sprite sprite;
         [SerializeField] public bool raycastTarget = false;
         [SerializeField] public bool maskable = false;
-        [SerializeField] public int maxImageCount = 50;
+        [SerializeField] public Image imagePrefab;
         [SerializeField] public UpdateType updateType;
         [SerializeField] public bool timeIndependent = true;
     }
