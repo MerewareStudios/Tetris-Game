@@ -53,6 +53,8 @@ public class Consent : Lazyingleton<Consent>
 
         Loading = false;
         
+        restartButton.gameObject.SetActive(GetRestartButtonState.Invoke());
+        
         bool privacyState;
         bool ageState;
         
@@ -74,7 +76,6 @@ public class Consent : Lazyingleton<Consent>
     public void OpenOnClick()
     {
         this.Open(Close);
-        restartButton.gameObject.SetActive(GetRestartButtonState.Invoke());
     }
 
     public void Close()
