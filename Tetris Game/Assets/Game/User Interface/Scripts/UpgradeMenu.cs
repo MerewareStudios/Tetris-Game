@@ -234,17 +234,17 @@ namespace Game.UI
                     // PiggyMenu.THIS._Data.currentMoney.amount = 0;
                     break;
                 case PurchaseType.BASIC_CHEST:
-                    Wallet.COIN.Transaction(80);
-                    Wallet.PIGGY.Transaction(2);
+                    Wallet.COIN.Transaction(200);
+                    Wallet.PIGGY.Transaction(10);
                     break;
                 case PurchaseType.PRIME_CHEST:
-                    Wallet.COIN.Transaction(500);
-                    Wallet.PIGGY.Transaction(10);
+                    Wallet.COIN.Transaction(1000);
+                    Wallet.PIGGY.Transaction(50);
                     Wallet.TICKET.Transaction(5);
                     break;
                 case PurchaseType.PRESTIGE_CHEST:
-                    Wallet.COIN.Transaction(1250);
-                    Wallet.PIGGY.Transaction(30);
+                    Wallet.COIN.Transaction(3000);
+                    Wallet.PIGGY.Transaction(125);
                     Wallet.TICKET.Transaction(15);
                     break;
                 case PurchaseType.REMOVE_ADS:

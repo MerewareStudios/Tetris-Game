@@ -1174,7 +1174,6 @@ MonoBehaviour:
   parentContainer: {fileID: 9118741302088271387}
   canvas: {fileID: 1764179146799194572}
   canvasGroup: {fileID: 3260775144644934614}
-  _blocker: {fileID: 1847163080739300171}
   updateOnMoneyChange: 1
   frame: {fileID: 2407739335434969438}
   stageBarDamage: {fileID: 5263773631436745253}
@@ -1723,7 +1722,7 @@ PrefabInstance:
     - target: {fileID: 1331943886422308585, guid: f9b796be9064b45459da16f8e5562d5f,
         type: 3}
       propertyPath: m_Name
-      value: Navigation Prev
+      value: Navigation Left
       objectReference: {fileID: 0}
     - target: {fileID: 1331943886422308585, guid: f9b796be9064b45459da16f8e5562d5f,
         type: 3}
@@ -3820,7 +3819,7 @@ PrefabInstance:
     - target: {fileID: 1331943886422308585, guid: f9b796be9064b45459da16f8e5562d5f,
         type: 3}
       propertyPath: m_Name
-      value: Navigation Next
+      value: Navigation Right
       objectReference: {fileID: 0}
     - target: {fileID: 1331943886422308585, guid: f9b796be9064b45459da16f8e5562d5f,
         type: 3}
