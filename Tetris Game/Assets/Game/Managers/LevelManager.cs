@@ -26,8 +26,14 @@ public class LevelManager : Singleton<LevelManager>
 
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
-        
-        BeginLevel();
+       
+// #if !UNITY_EDITOR
+        if (MaxSdk.IsUserConsentSet())
+// #endif
+        {
+            BeginLevel();
+        }
+
 
         if (ONBOARDING.UPGRADE_TAB.IsComplete())
         {
@@ -44,12 +50,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
-#if !UNITY_EDITOR
-            if (MaxSdk.IsUserConsentSet())
-#endif
-            {
-                Onboarding.SpawnFirstBlockAndTeachPlacement();
-            }
+            Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
     }
 

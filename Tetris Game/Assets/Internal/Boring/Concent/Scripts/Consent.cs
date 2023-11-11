@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Consent : Lazyingleton<Consent>
 {
     [TextArea] [SerializeField] private string privacyLink;
-    // [System.NonSerialized] private System.Action _onDone;
+    [System.NonSerialized] private System.Action _onDone;
     [SerializeField] private ToggleButton toggleButtonPrivacy;
     [SerializeField] private ToggleButton toggleButtonAge;
     [SerializeField] private GameObject loadingBar;
@@ -31,7 +31,12 @@ public class Consent : Lazyingleton<Consent>
     
     public bool Visible
     {
-        set => gameObject.SetActive(value);
+        set
+        {
+            TimeScale = value ? 0.0f : 1.0f;
+            GameManager.UpdateTimeScale();
+            gameObject.SetActive(value);
+        }
     }
 
     public Consent SetInitialStates(bool privacyState, bool ageState)
@@ -41,9 +46,9 @@ public class Consent : Lazyingleton<Consent>
         return this;
     }
 
-    public Consent Open()
+    public Consent Open(System.Action onDone)
     {
-        // this._onDone = onDone;
+        this._onDone = onDone;
         Visible = true;
 
         Loading = false;
@@ -68,17 +73,14 @@ public class Consent : Lazyingleton<Consent>
     
     public void OpenOnClick()
     {
-        TimeScale = 0.0f;
-        GameManager.UpdateTimeScale();
-        this.Open();
-
+        this.Open(Close);
         restartButton.gameObject.SetActive(GetRestartButtonState.Invoke());
     }
 
     public void Close()
     {
-        TimeScale = 1.0f;
-        GameManager.UpdateTimeScale();
+        // TimeScale = 1.0f;
+        // GameManager.UpdateTimeScale();
         Visible = false;
     }
     
@@ -86,11 +88,8 @@ public class Consent : Lazyingleton<Consent>
     {
         MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
         MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
-
-        
-        Close();
-        // this.gameObject.SetActive(false);
-        // _onDone?.Invoke();
+        // Close();
+        _onDone?.Invoke();
     }
     
     public void AcceptPrivacy(bool state)

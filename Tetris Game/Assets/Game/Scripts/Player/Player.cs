@@ -204,6 +204,7 @@ namespace Game
         {
             Warzone.THIS.Player.animator.SetTrigger(Player.IDLE_HASH);
 
+            StopSearching();
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
 
             

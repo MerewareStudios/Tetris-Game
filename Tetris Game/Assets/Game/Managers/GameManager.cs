@@ -56,32 +56,21 @@ public class GameManager : Singleton<GameManager>
 
         LevelManager.THIS.LoadLevel();
         
-    #if !UNITY_EDITOR
+    // #if !UNITY_EDITOR
         if (!MaxSdk.IsUserConsentSet())
         {
             Consent.THIS.Open(() =>
             {
                 Consent.THIS.Loading = true;
-                // Tween delayTween = null;
-                // delayTween = DOVirtual.DelayedCall(0.5f, BufferTimeReached, true);
-
-                // AdManager.THIS.InitAdSDK();
                 AdManager.THIS.InitAdSDK(() =>
                 {
-                    Consent.THIS.Visible = false;
+                    Consent.THIS.Close();
                     LevelManager.THIS.BeginLevel();
                 });
-
-                // void BufferTimeReached()
-                // {
-                //     delayTween?.Kill();
-                //     LevelManager.THIS.BeginLevel();
-                //     Consent.THIS.Visible = false;
-                // }
             });
             return;
         }
-    #endif
+    // #endif
         
         AdManager.THIS.InitAdSDK();
         

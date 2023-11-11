@@ -90,9 +90,12 @@ namespace  Game
             {
                 return;
             }
-
+            
+            StopSpawning();
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             
+            
+            this.enabled = true;
 
 
             IEnumerator SpawnRoutine()
@@ -144,7 +147,6 @@ namespace  Game
                 _spawnRangeNorm = 0.0f;
 
 
-                this.enabled = true;
 
                 
                 while (enemyIndex < enemyPool.Count)

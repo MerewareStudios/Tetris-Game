@@ -87,17 +87,23 @@ public class Spawner : Singleton<Spawner>
     }
     public void DelayedSpawn(float delay)
     {
-        _delayedTween?.Kill();
+        if (_delayedTween != null && _delayedTween.IsPlaying())
+        {
+            return;
+        }
+        StopDelayedSpawn();
         _delayedTween = DOVirtual.DelayedCall(delay, () =>
         {
             CurrentBlock = SpawnSuggestedBlock();  
         }, false);
     }
-    public void UndelayedSpawn()
+
+    private void StopDelayedSpawn()
     {
         _delayedTween?.Kill();
-        CurrentBlock = SpawnSuggestedBlock();  
+        _delayedTween = null;
     }
+    
     public void Deconstruct()
     {
         while (_spawnedBlocks.Count > 0)
@@ -112,7 +118,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void OnLevelEnd()
     {
-        _delayedTween?.Kill();
+        StopDelayedSpawn();
         _assertionTween?.Kill();
         StopMovement();
         Mount();
@@ -126,8 +132,7 @@ public class Spawner : Singleton<Spawner>
     }
     private void StopAllRunningTasksOnBlock()
     {
-        _delayedTween?.Kill();
-
+        StopDelayedSpawn();
         _assertionTween?.Kill();
         StopMovement();
 
@@ -184,7 +189,7 @@ public class Spawner : Singleton<Spawner>
                 while (true)
                 {
                     CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
-                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * _smoothFactorLerp);
+                    smoothFactor = Mathf.Lerp(smoothFactor, 1.25f, Time.deltaTime * _smoothFactorLerp);
                     Board.THIS.HighlightPlaces();
                     yield return null;
                 }
@@ -297,7 +302,7 @@ public class Spawner : Singleton<Spawner>
 
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
-                _delayedTween?.Kill();
+                StopDelayedSpawn();
                 DelayedSpawn(0.25f);
                 return;
             }
