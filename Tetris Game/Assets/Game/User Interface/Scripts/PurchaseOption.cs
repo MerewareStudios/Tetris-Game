@@ -12,6 +12,7 @@ public class PurchaseOption : MonoBehaviour
     [SerializeField] private CurrencyDisplay priceCurrencyDisplay;
     [SerializeField] private TextAnimator_TMP titleText;
     [SerializeField] private TextMeshProUGUI detailedInfoText;
+    [SerializeField] private TextMeshProUGUI extraText;
     [SerializeField] private Image frameOutline;
     [SerializeField] private Image icon;
     [SerializeField] private GameObject bestBadge;
@@ -32,6 +33,11 @@ public class PurchaseOption : MonoBehaviour
         priceCurrencyDisplay.Display(currency);
         purchaseButton.ButtonSprite = Const.THIS.buttonTextures[(int)currencyType];
         purchaseButton.Available = available;
+        return this;
+    }
+    public PurchaseOption SetExtra(string extra)
+    {
+        extraText.text = extra;
         return this;
     }
     public PurchaseOption SetBestBadge(bool value)

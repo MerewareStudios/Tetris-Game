@@ -1035,6 +1035,7 @@ MonoBehaviour:
       <color=#FFC738>EXTRA
 
       STACK'
+    extra: <sprite name=Check> Helps you avoid wasting ammo.
     best: 0
   - purchaseType: 1
     currency:
@@ -1043,6 +1044,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
     title: <bounce a=0.05 f=1>TICKET PACK
     info: <sprite name=Ticket> +15
+    extra: 
     best: 0
   - purchaseType: 2
     currency:
@@ -1051,6 +1053,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
     info: <size=150%><sprite name=Heart>+15
+    extra: 
     best: 0
   - purchaseType: 3
     currency:
@@ -1059,6 +1062,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
     title: <bounce a=0.05 f=1>COIN PACK
     info: <sprite name=Coin> +1500
+    extra: 
     best: 0
   - purchaseType: 4
     currency:
@@ -1067,6 +1071,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: 
     info: 
+    extra: 
     best: 0
   - purchaseType: 5
     currency:
@@ -1075,6 +1080,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
     title: <bounce a=0.05 f=1>EXTRA SHIELD
     info: <sprite name=Shield> +25
+    extra: 
     best: 0
   - purchaseType: 6
     currency:
@@ -1083,6 +1089,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
     title: <bounce a=0.05 f=1>PIGGY COIN PACK
     info: <sprite name=PiggyCoin> +250
+    extra: 
     best: 0
   - purchaseType: 7
     currency:
@@ -1093,6 +1100,7 @@ MonoBehaviour:
     info: '<size=130%>Capacity
 
       +10'
+    extra: <sprite name=Check> Higher capacity yields more<sprite name=PiggyCoin>
     best: 0
   - purchaseType: 8
     currency:
@@ -1103,6 +1111,7 @@ MonoBehaviour:
     info: '<sprite name=Coin> +200
 
       <sprite name=PiggyCoin> +10'
+    extra: 
     best: 0
   - purchaseType: 9
     currency:
@@ -1116,6 +1125,7 @@ MonoBehaviour:
 
       <sprite
       name=Ticket> +5'
+    extra: 
     best: 0
   - purchaseType: 10
     currency:
@@ -1129,6 +1139,7 @@ MonoBehaviour:
 
       <sprite
       name=Ticket> +15'
+    extra: 
     best: 1
   - purchaseType: 11
     currency:
@@ -1144,6 +1155,7 @@ MonoBehaviour:
 
       <sprite
       name=Check> Bonuses'
+    extra: <sprite name=Check> Rewarded ads remain available.
     best: 0
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000

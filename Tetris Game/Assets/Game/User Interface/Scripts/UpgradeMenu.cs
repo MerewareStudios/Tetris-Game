@@ -74,7 +74,8 @@ namespace Game.UI
                 purchaseOption
                     .SetIcon(lookUp.sprite)
                     .SetBestBadge(lookUp.best)
-                    .SetInfo(lookUp.title, lookUp.info);
+                    .SetInfo(lookUp.title, lookUp.info)
+                    .SetExtra(lookUp.extra);
             }
         }
 
@@ -325,6 +326,7 @@ namespace Game.UI
             // [SerializeField] public ExtraCondition extraCondition;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
+            [TextArea] [SerializeField] public string extra;
             [SerializeField] public bool best = false;
 
             public string GetLocalPrice()
