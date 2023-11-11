@@ -97,7 +97,9 @@ public class UIManager : Singleton<UIManager>
       UIEmitter.SpawnFunction = SpawnImageIcon;
       UIEmitter.DespawnFunction = DespawnImageIcon;
 
-      Consent.GetRestartButtonState = () => ONBOARDING.PIGGY_CONTINUE.IsComplete() && GameManager.PLAYING;
+      Consent.GetRestartButtonState = () => ONBOARDING.PIGGY_CONTINUE.IsComplete()
+                                            && GameManager.PLAYING
+                                            && MaxSdk.IsUserConsentSet();
 
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 

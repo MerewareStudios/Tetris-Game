@@ -230,7 +230,7 @@ namespace Game.UI
                     Wallet.PIGGY.Transaction(250);
                     break;
                 case PurchaseType.PIGGY_CAPACITY_RESET:
-                    PiggyMenu.THIS._Data.moneyCapacity += 10;
+                    PiggyMenu.THIS._Data.moneyCapacity += 5;
                     // PiggyMenu.THIS._Data.currentMoney.amount = 0;
                     break;
                 case PurchaseType.BASIC_CHEST:

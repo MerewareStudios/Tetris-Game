@@ -1945,7 +1945,7 @@ PrefabInstance:
     - target: {fileID: 2776447128923121542, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}
       propertyPath: m_lineSpacing
-      value: -30
+      value: -32.7
       objectReference: {fileID: 0}
     - target: {fileID: 4419882267959110231, guid: 4f17b34b5fd4ea844b777baf067aa606,
         type: 3}

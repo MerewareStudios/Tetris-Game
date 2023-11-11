@@ -71,7 +71,8 @@ public class ApplicationManager : Singleton<ApplicationManager>
         {
             TimeSpan t = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
 
-            string stamp = string.Format("{0}:{1}", 
+            string stamp = string.Format("{0}:{1}:{2}", 
+                t.Hours, 
                 t.Minutes, 
                 t.Seconds
                 );
