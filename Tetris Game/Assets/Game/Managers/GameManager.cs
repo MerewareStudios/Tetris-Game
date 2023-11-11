@@ -162,6 +162,7 @@ public class GameManager : Singleton<GameManager>
     public void OnVictory()
     {
         Warzone.THIS.OnVictory();
+        Board.THIS.OnVictory();
         OnLevelEnd();
     }
     public void OnFail()

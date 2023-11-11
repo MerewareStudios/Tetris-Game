@@ -18,7 +18,7 @@ namespace Game
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
         [SerializeField] public Board.PawnPlacement[] pawnPlacements;
-        [SerializeField] public Pawn.Usage[] powerUps;
+        // [SerializeField] public Pawn.Usage[] powerUps;
 
 
         public const int MinAutoWidth = 5;
@@ -118,7 +118,7 @@ namespace Game
             // Pawn Placement
             so.pawnPlacements = Const.THIS.GetRandomPawnPlacement(so.boardSize);
             // Powerups
-            so.powerUps = null;
+            // so.powerUps = null;
             
             Random.InitState((int)DateTime.Now.Ticks);
 

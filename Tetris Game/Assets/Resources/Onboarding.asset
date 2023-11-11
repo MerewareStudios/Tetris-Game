@@ -72,7 +72,8 @@ MonoBehaviour:
   - <sprite name=Warning>Activate banner ads to unlock privileges!
   - <sprite name=Warning>Don't forget to take breaks from the gameplay.
   - <sprite name=Warning>Think ahead and strategize your moves.
-  - Multiple merges will reward you with power-ups <sprite name=Energy><sprite name=Gift>
+  - <sprite name=Warning>Multiple merges will reward you with power-ups <sprite name=Energy><sprite
+    name=Gift>
   - <sprite name=Warning>Keep an eye on the enemies!
   - <size=125%><sprite name=Warning>Multiple <sprite name=Energy>stacks!
   - <sprite name=Warning>Rockets <sprite name=Rocket>will target a random enemy!
@@ -82,3 +83,4 @@ MonoBehaviour:
   - <sprite name=Warning>Punch <sprite name=Punch>enemies to drag them back!
   - <sprite name=Warning>Leave a comment on the store page to help us improve the
     gameplay.
+  - <sprite name=Warning>Increase Stack Limit to avoid wasting ammo.

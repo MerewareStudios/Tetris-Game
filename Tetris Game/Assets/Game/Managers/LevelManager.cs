@@ -37,8 +37,10 @@ public class LevelManager : Singleton<LevelManager>
 
     public void BeginLevel()
     {
+        Debug.Log("begin level");
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
+            Debug.Log("begin");
             Warzone.THIS.Begin();
             Spawner.THIS.DelayedSpawn(0.45f);
         }
@@ -92,14 +94,14 @@ public class LevelManager : Singleton<LevelManager>
     }
     
     
-    public static Pawn.Usage GetRandomPowerUp()
-    {
-        if (_currentLevelSo.powerUps == null || _currentLevelSo.powerUps.Length == 0)
-        {
-            return Const.THIS.powerUps.Random();
-        }
-        return _currentLevelSo.powerUps.Random();
-    }
+    // public static Pawn.Usage GetRandomPowerUp()
+    // {
+    //     if (_currentLevelSo.powerUps == null || _currentLevelSo.powerUps.Length == 0)
+    //     {
+    //         return Const.THIS.powerUps.Random();
+    //     }
+    //     return _currentLevelSo.powerUps.Random();
+    // }
     public static Enemy.SpawnData GetEnemySpawnData()
     {
         return _currentLevelSo.EnemySpawnData;

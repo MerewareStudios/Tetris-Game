@@ -36,7 +36,8 @@ namespace Game
                 DeSpawnModel();
             }
             SubModel = VData.model.Spawn<SubModel>();
-            
+            SubModel.gameObject.SetActive(true);
+
             this.UsageType = value;
             SubModel.BaseColor = VData.startColor;
             SubModel.OnConstruct(VData.model, modelPivot, extra);
@@ -223,12 +224,72 @@ namespace Game
             }
         }
         
-        public void DetachSubModel()
+        public void RewardForSubModel()
+        {
+            if (!SubModel)
+            {
+                return;
+            }
+
+            int rewardAmount = 0;
+            switch (UsageType)
+            {
+                case Usage.Empty:
+                    break;
+                case Usage.Ammo:
+                    rewardAmount = Amount;
+                    break;
+                case Usage.UnpackedAmmo:
+                    break;
+                case Usage.Energy:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Magnet:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Nugget:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Medic:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Rocket:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Landmine:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Bomb:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Screw:
+                    
+                    break;
+                case Usage.Gift:
+                    rewardAmount = 10;
+                    break;
+                case Usage.Punch:
+                    rewardAmount = 5;
+                    break;
+                case Usage.Lock:
+                    
+                    break;
+            }
+
+            if (rewardAmount > 0)
+            {
+                SubModel.gameObject.SetActive(false);
+                UIManagerExtensions.BoardCoinToPlayer(SubModel.Position,  rewardAmount, rewardAmount);
+            }
+        }
+        
+        public void DetachSubModelAndDeconstruct()
         {
             SubModel.Lose();
             SubModel = null;
             Deconstruct();
-        } 
+        }
+        
         
         public void Deconstruct()
         {

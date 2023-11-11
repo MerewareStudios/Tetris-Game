@@ -129,6 +129,17 @@ namespace Game
                 LoseSubModels.Clear();
             }
 
+            public void OnVictory()
+            {
+                Call<Place>(_places, (place, x, y) =>
+                {
+                    if (place.Current)
+                    {
+                        place.Current.RewardForSubModel();
+                    }
+                });
+            }
+
             private void LateUpdate()
             {
                 Spawner.THIS.UpdatePosition(spawnerPin.position);
@@ -726,6 +737,84 @@ namespace Game
             
             SpawnPawn(spawnPlace, type, ammo, true).MakeAvailable();
         }
+        
+        private void CreatePawnAtCircular(int horizontal, int vertical)
+        {
+            Vector2Int center = new Vector2Int(horizontal, vertical);
+            
+            Place spawnPlace = _places[horizontal, vertical];
+            int totalAmmo = 0;
+            Pawn lastPawn = null;
+            
+            for (int i = 0; i < _size.x; i++)
+            {
+                for (int j = 0; j < _size.y; j++)
+                {
+                    Place place = _places[i, j];
+                    Pawn pawn = place.Current;
+                    
+                    if (!pawn)
+                    {
+                        continue;
+                    }
+                    
+                    Vector2Int current = new Vector2Int(i, j);
+
+                    if (pawn.UsageType.Equals(Pawn.Usage.Magnet) && current != new Vector2Int(horizontal, vertical))
+                    {
+                        continue;
+                    }
+                    
+                    if (Vector2Int.Distance(center, current) > MagnetRadius)
+                    {
+                        continue;
+                    }
+
+                    AddDropPosition(current);
+                    
+                    lastPawn = pawn;
+
+                    totalAmmo += pawn.Amount;
+                    
+                    bool canMerge = pawn.Unpack();
+
+                    if (!canMerge)
+                    {
+                        continue;
+                    }
+                    
+                    pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+                    pawn.transform.DOKill();
+                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                        .onComplete += () =>
+                    {
+                        pawn.Deconstruct();
+
+                        if (lastPawn == pawn)
+                        {
+                            CameraManager.THIS.Shake(0.2f, 0.5f);
+
+                            if (totalAmmo > 0)
+                            {
+                                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                            }
+                        }
+                    };
+                    
+
+                    
+
+                    place.Current = null;
+                }
+            }
+
+            totalAmmo = Mathf.Min(totalAmmo,StackLimit);
+            if (totalAmmo == 0)
+            {
+                return;
+            }
+            SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo, true).MakeAvailable();
+        }
 
         private Place GetSidePlace(int x, int y)
         {
@@ -799,83 +888,7 @@ namespace Game
             place.Current = null;
         }
 
-        private void CreatePawnAtCircular(int horizontal, int vertical)
-        {
-            Vector2Int center = new Vector2Int(horizontal, vertical);
-            
-            Place spawnPlace = _places[horizontal, vertical];
-            int totalAmmo = 0;
-            Pawn lastPawn = null;
-            
-            for (int i = 0; i < _size.x; i++)
-            {
-                for (int j = 0; j < _size.y; j++)
-                {
-                    Place place = _places[i, j];
-                    Pawn pawn = place.Current;
-                    
-                    if (!pawn)
-                    {
-                        continue;
-                    }
-                    
-                    Vector2Int current = new Vector2Int(i, j);
-                    if (Vector2Int.Distance(center, current) > MagnetRadius)
-                    {
-                        continue;
-                    }
-
-                    AddDropPosition(current);
-                    
-                    lastPawn = pawn;
-
-                    totalAmmo += pawn.Amount;
-                    
-                    bool canMerge = pawn.Unpack();
-
-                    if (!canMerge)
-                    {
-                        continue;
-                    }
-                    
-                    pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                    pawn.transform.DOKill();
-                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                        .onComplete += () =>
-                    {
-                        pawn.Deconstruct();
-
-                        if (lastPawn == pawn)
-                        {
-                            CameraManager.THIS.Shake(0.2f, 0.5f);
-
-                            if (totalAmmo > 0)
-                            {
-                                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                            }
-                        }
-                    };
-                    
-
-                    
-
-                    place.Current = null;
-                }
-            }
-
-            totalAmmo = Mathf.Min(totalAmmo,StackLimit);
-            if (totalAmmo == 0)
-            {
-                return;
-            }
-            SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo, true).MakeAvailable();
-                // .UnpackAmmo(AnimConst.THIS.MergeShowDelay, AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 
-                //     () =>
-                //     {
-                //         UIManagerExtensions.Distort(spawnPlace.Position + Vector3.up * 0.45f, 0.0f);
-                //         Particle.Merge_Circle.Play(spawnPlace.Position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
-                //     });
-        }
+        
         public void MarkMover(int horizontal)
         {
             Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
@@ -921,7 +934,7 @@ namespace Game
                         if (currentPawn.Amount <= 0)
                         {
                             place.Current = null;
-                            currentPawn.DetachSubModel();
+                            currentPawn.DetachSubModelAndDeconstruct();
                             MarkMovers(place.Index.x, place.Index.y);
                         }
                         

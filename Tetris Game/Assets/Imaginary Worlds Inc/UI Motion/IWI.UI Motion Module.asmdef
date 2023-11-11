@@ -2,7 +2,8 @@
     "name": "UIMotion",
     "rootNamespace": "",
     "references": [
-        "GUID:1fff1656b3a82904d97c89a77a7b3140"
+        "GUID:1fff1656b3a82904d97c89a77a7b3140",
+        "GUID:174bc9f391f1b7f4292b3824c5019a21"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
