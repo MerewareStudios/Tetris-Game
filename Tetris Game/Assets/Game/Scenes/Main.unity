@@ -3318,7 +3318,7 @@ MonoBehaviour:
       interSkipCount: 0
       interWatchCount: 0
     baseInfo: SAVE END
-  DELETE_AT_START: 0
+  DELETE_AT_START: 1
   SKIP_ONBOARDING: 1
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
