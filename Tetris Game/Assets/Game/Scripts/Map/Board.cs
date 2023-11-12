@@ -692,9 +692,10 @@ namespace Game
                 
                 
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                pawn.transform.DOKill();
-                pawn.transform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                    .onComplete += () =>
+                pawn.thisTransform.parent = null;
+                pawn.thisTransform.DOKill();
+                pawn.thisTransform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                    .onComplete = () =>
                 {
                     pawn.Deconstruct();
 
@@ -784,8 +785,9 @@ namespace Game
                     }
                     
                     pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                    pawn.transform.DOKill();
-                    pawn.transform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                    pawn.thisTransform.parent = null;
+                    pawn.thisTransform.DOKill();
+                    pawn.thisTransform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                         .onComplete += () =>
                     {
                         pawn.Deconstruct();
@@ -989,7 +991,7 @@ namespace Game
         {
             if (pawn.ParentBlock.IsPivotPawn(pawn))
             {
-                pawn.ParentBlock.UnsafePivotIndex = Pos2UnsafeIndex(pawn.transform.position);
+                pawn.ParentBlock.UnsafePivotIndex = Pos2UnsafeIndex(pawn.thisTransform.position);
             }
             return Unsafe2SafeIndex(pawn.ParentBlock.GetUnsafeIndex(pawn));
         }

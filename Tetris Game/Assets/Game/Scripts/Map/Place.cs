@@ -41,12 +41,26 @@ namespace Game
             get => this._current;
             set
             {
+#if UNITY_EDITOR
+                if (value && this._current)
+                {
+                    Debug.LogError("Current is not null");
+                }
+#endif
                 this._current = value;
                 if (!value)
                 {
                     return;
                 }
                 this._current.thisTransform.parent = segmentParent;
+                
+#if UNITY_EDITOR
+                if (this.segmentParent.childCount > 1)
+                {
+                    Debug.LogError("Too many child", this.gameObject);
+                    Debug.Break();
+                }
+#endif
             }
         }
         
@@ -73,6 +87,7 @@ namespace Game
             if (_ghostPawn)
             {
                 _ghostPawn.Despawn(Pool.Ghost_Pawn);
+                _ghostPawn = null;
             }
         }
         
