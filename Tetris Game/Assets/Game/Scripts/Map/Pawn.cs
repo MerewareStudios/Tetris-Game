@@ -9,11 +9,11 @@ namespace Game
     {
         [SerializeField] public Transform modelPivot;
         [SerializeField] public Transform pivot;
+        [SerializeField] public Transform thisTransform;
         
         [System.NonSerialized] private static readonly Vector3 BulletPsUp = new Vector3(0.0f, 0.9f, 0.0f);
         
         [System.NonSerialized] private Tween _moveTween = null;
-        [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] public Block ParentBlock;
         [System.NonSerialized] public VisualData VData = null;
@@ -56,11 +56,6 @@ namespace Game
         {
             set => SubModel.OnExtraValueChanged(value);
             get => this.SubModel ? this.SubModel.GetExtra() : 0;
-        }
-
-        void Awake()
-        {
-            _thisTransform = transform;
         }
 
         public void MakeAvailable()
@@ -321,17 +316,13 @@ namespace Game
         public void Move(Vector3 position, float duration, Ease ease, System.Action complete = null)
         {
             _moveTween?.Kill();
-            _moveTween = _thisTransform.DOMove(position, duration).SetEase(ease);
-            _moveTween.onComplete += () =>
+            _moveTween = thisTransform.DOMove(position, duration).SetEase(ease);
+            _moveTween.onComplete = () =>
                 {
                     complete?.Invoke();
                 };
         }
-        public void Set(Transform parent, Vector3 position)
-        {
-            _thisTransform.parent = parent;
-            _thisTransform.position = position;
-        }
+        
 
         #region Colors
         public void MarkSteadyColor()

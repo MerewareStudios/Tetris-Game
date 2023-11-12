@@ -566,7 +566,7 @@ namespace Game
         {
             Pawn pawn = Spawner.THIS.SpawnPawn(null, place.Position, amount, usage);
             pawn.Mover = mover;
-            place.AcceptNow(pawn);
+            place.Accept(pawn);
             return pawn;
         }
 
@@ -693,7 +693,7 @@ namespace Game
                 
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.transform.DOKill();
-                pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                pawn.transform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                     .onComplete += () =>
                 {
                     pawn.Deconstruct();
@@ -785,7 +785,7 @@ namespace Game
                     
                     pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.transform.DOKill();
-                    pawn.transform.DOMove(spawnPlace.segmentParent.position, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
+                    pawn.transform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
                         .onComplete += () =>
                     {
                         pawn.Deconstruct();

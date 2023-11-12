@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelPivot: {fileID: 7562534648866976737}
   pivot: {fileID: 6505600522280500471}
+  thisTransform: {fileID: 1805476550463839250}
 --- !u!1 &6162316120112434110
 GameObject:
   m_ObjectHideFlags: 0

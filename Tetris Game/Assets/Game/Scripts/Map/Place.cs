@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Internal.Core;
 using UnityEngine;
 
 namespace Game
@@ -7,7 +6,7 @@ namespace Game
     public class Place : MonoBehaviour
     {
         [SerializeField] private Renderer gridTile;
-        [SerializeField] public Transform segmentParent;
+        [SerializeField] private Transform segmentParent;
         [SerializeField] public Transform tileTransform;
         
         [System.NonSerialized] private Transform _thisTransform;
@@ -17,7 +16,7 @@ namespace Game
         
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] public PlaceColorType TargetColorType = PlaceColorType.GREEN;
-        [System.NonSerialized] public Pawn Current;
+        [System.NonSerialized] private Pawn _current;
         
         public Vector3 PlacePosition => gridTile.transform.position;
         public Vector3 Position => _thisTransform.position;
@@ -36,6 +35,22 @@ namespace Game
             set => _thisTransform.localPosition = value;
             get => _thisTransform.localPosition;
         }
+
+        public Pawn Current
+        {
+            get => this._current;
+            set
+            {
+                this._current = value;
+                if (!value)
+                {
+                    return;
+                }
+                this._current.thisTransform.parent = segmentParent;
+            }
+        }
+        
+        public Vector3 PawnTargetPosition => segmentParent.position;
         
         void Awake()
         {
@@ -121,7 +136,7 @@ namespace Game
                 {
                     return;
                 }
-                _ghostPawn = Board.THIS.AddGhostPawn(segmentParent.position);
+                _ghostPawn = Board.THIS.AddGhostPawn(PawnTargetPosition);
             }
             else
             {
@@ -134,20 +149,21 @@ namespace Game
             }
         }
 
-        public void Accept(Pawn pawn, float duration, System.Action onComplete = null)
+        public void Accept(Pawn pawn, float duration = 0.0f, System.Action onComplete = null)
         {
-            this.Current = pawn;
+            Current = pawn;
 
-            pawn.transform.parent = segmentParent;
-            pawn.Move(segmentParent.position, duration, AnimConst.THIS.moveEase, () =>
+            if (duration <= 0.0f)
+            {
+                pawn.thisTransform.position = segmentParent.position;
+                onComplete?.Invoke();
+                return;
+            }
+
+            pawn.Move(PawnTargetPosition, duration, AnimConst.THIS.moveEase, () =>
             {
                 onComplete?.Invoke();
             });
-        }
-        public void AcceptNow(Pawn pawn)
-        {
-            this.Current = pawn;
-            pawn.Set(segmentParent, segmentParent.position);
         }
 
         public enum PlaceColorType
