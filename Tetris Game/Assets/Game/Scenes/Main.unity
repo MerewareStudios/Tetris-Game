@@ -7076,7 +7076,7 @@ PrefabInstance:
         type: 3}
       propertyPath: imageSettings.sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f8e4618a21792c94dadb90d663f3a416,
+      objectReference: {fileID: 21300000, guid: ec96b30afe61244449b93c5c3a594c3e,
         type: 3}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
