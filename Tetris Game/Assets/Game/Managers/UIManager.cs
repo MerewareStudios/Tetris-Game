@@ -122,22 +122,22 @@ public class UIManager : Singleton<UIManager>
       image.Despawn(Pool.Image);
    }
 
-    public void AdLayerClick_OpenShop()
-    {
-       AdManager.THIS.TryInterstitial(shop.OnClick_Open);
-    }
-    public void AdLayerClick_OpenPiggyBank()
-    {
-       AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
-    }
-    public void AdLayerClick_OpenHealthShop()
-    {
-       AdManager.THIS.TryInterstitial(() =>
-       {
-          shop.OpenDirect(MenuType.Upgrade);
-          UpgradeMenu.THIS.Prompt(UpgradeMenu.PurchaseType.MEDKIT, 0.1f, 0.25f);
-       });
-    }
+   public void AdLayerClick_OpenShop()
+   {
+      AdManager.THIS.TryInterstitial(shop.OnClick_Open);
+   }
+   public void AdLayerClick_OpenPiggyBank()
+   {
+      AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
+   }
+   public void AdLayerClick_OpenHealthShop()
+   {
+      AdManager.THIS.TryInterstitial(() =>
+      {
+         shop.OpenDirect(MenuType.Upgrade);
+         UpgradeMenu.THIS.Prompt(UpgradeMenu.PurchaseType.MEDKIT, 0.1f, 0.25f);
+      });
+   }
 
 #if UNITY_EDITOR
    private void Update()
