@@ -156,7 +156,8 @@ namespace Game.UI
         private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByTicket)
         {
             purchaseButton.Available = canPurchase;
-            purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+            // purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+            purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
 
             if (canPurchase)
             {   

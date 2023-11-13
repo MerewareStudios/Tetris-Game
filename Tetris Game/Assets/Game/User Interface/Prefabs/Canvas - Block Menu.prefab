@@ -132,7 +132,6 @@ MonoBehaviour:
   parentContainer: {fileID: 297752548052268464}
   canvas: {fileID: 5313740321572908372}
   canvasGroup: {fileID: 7690020794071560519}
-  _blocker: {fileID: 5169736055579792027}
   updateOnMoneyChange: 1
   maskFrame: {fileID: 7381717890304946065}
   blockVisualGrid: {fileID: 2633787264509215066}
@@ -3609,7 +3608,7 @@ PrefabInstance:
     - target: {fileID: 8220688171497981974, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 541.62085
+      value: 433.22
       objectReference: {fileID: 0}
     - target: {fileID: 8220688171497981974, guid: 353850972df4ef844923b87166f1f0bf,
         type: 3}

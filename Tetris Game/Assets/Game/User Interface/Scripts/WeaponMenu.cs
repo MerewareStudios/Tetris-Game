@@ -215,8 +215,9 @@ namespace Game.UI
 
             bool ticket = currency.type.Equals(Const.CurrencyType.Ticket);
             purchaseButton.Available = (hasFunds || ticket) && availableByLevel;
-            purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
-            
+            // purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+            purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
+
             if (hasFunds)
             {   
                 PunchButton(0.2f);

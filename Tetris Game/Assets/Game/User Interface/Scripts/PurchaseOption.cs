@@ -31,7 +31,7 @@ public class PurchaseOption : MonoBehaviour
     public PurchaseOption SetPrice(string currency, Const.CurrencyType currencyType, bool available)
     {
         priceCurrencyDisplay.Display(currency);
-        purchaseButton.ButtonSprite = Const.THIS.buttonTextures[(int)currencyType];
+        purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currencyType);
         purchaseButton.Available = available;
         return this;
     }

@@ -47,6 +47,7 @@ public class Const : SSingleton<Const>
     public Sprite getButtonTexture;
     public Sprite buyButtonTexture;
     public Sprite watchButtonTexture;
+    public Sprite[] buttonSprites;
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;
@@ -175,6 +176,11 @@ public class Const : SSingleton<Const>
             Debug.Log(info + " | <color=" + colorTag + ">Accum Reward : " + accumDisplayed + "</color>");
             
         }
+    }
+
+    public Sprite GetButtonSprite(CurrencyType currencyType)
+    {
+        return buttonSprites[(int)currencyType];
     }
 }
 
