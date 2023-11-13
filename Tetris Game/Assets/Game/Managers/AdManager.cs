@@ -189,6 +189,13 @@ namespace IWI
 
         public void ShowAdBreak(System.Action onFinish)
         {
+            if (!MaxSdk.IsInitialized())
+            {
+                Debug.LogWarning("Interstitial - Not Init");
+
+                onFinish?.Invoke();
+                return;
+            }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
                 Debug.LogWarning("Interstitial - Skip None");
@@ -248,6 +255,11 @@ namespace IWI
 
         public static void ShowTicketAd(System.Action onReward, System.Action onClick = null)
         {
+            if (!MaxSdk.IsInitialized())
+            {
+                Debug.LogWarning("Rewarded - Not Init");
+                return;
+            }
             if (FakeAdRewarded.THIS.LoadState.Equals(LoadState.None))
             {
                 FakeAdRewarded.THIS.LoadAd();
