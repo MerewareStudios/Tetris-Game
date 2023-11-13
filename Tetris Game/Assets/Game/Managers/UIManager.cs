@@ -48,8 +48,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public MotionData motionData_UpgradeBurst;
    [SerializeField] public MotionData motionData_BoardBurst;
    [SerializeField] public MotionData motionData_Ticket;
-   // [Header("Level")]
-   // [System.NonSerialized] public static bool MenuVisible = false;
    [Header("Transactors")]
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
@@ -60,8 +58,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public ComboText comboText;
    [SerializeField] public Finger finger;
    [System.NonSerialized] public static IMenu CurrentMenu = null;
-   // [System.NonSerialized] public static float GameTimeScale = 1.0f;
-   // [System.NonSerialized] public static float MenuTimeScale = 1.0f;
+   [System.NonSerialized] public static bool MenuVisible = false;
 
    public void SetLevelProgress(float value, int health)
    {
@@ -75,8 +72,6 @@ public class UIManager : Singleton<UIManager>
          }
          levelProgressbar.gameObject.SetActive(false);
       };
-
-      // levelProgressHealthText.text = health.ToString();
    }
    
    void Awake()
@@ -105,7 +100,15 @@ public class UIManager : Singleton<UIManager>
 
       Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
-      // MenuVisible = false;
+      AdBreakScreen.onVisibilityChanged = (value) =>
+      {
+         if (MenuVisible)
+         {
+            return;
+         }
+         Wallet.ScaleTransactors(value ? 1.1f : 1.0f, value);
+      };
+
       CurrentMenu = null;
    }
 
@@ -220,58 +223,15 @@ public class UIManager : Singleton<UIManager>
 
    public static void MenuMode(bool value)
    {
-      // if (MenuVisible == value)
-      // {
-      //    return;
-      // }
-      
+      MenuVisible = value;
       CameraManager.THIS.gameCamera.enabled = !value;
-      // MenuVisible = value;
-
-      // MenuPause(value);
-      
       SaveManager.THIS.Save();
-      
       OnMenuModeChanged?.Invoke(value);
    }
-
-   // public static void GamePause(bool paused)
-   // {
-   //    GameTimeScale = (paused ? 0.0f : 1.0f);
-   //    UpdateTimeScale();
-   // }
-   // public static void MenuPause(bool paused)
-   // {
-   //    MenuTimeScale = (paused ? 0.0f : 1.0f);
-   //    UpdateTimeScale();
-   // }
-   // public static void UpdateTimeScale()
-   // {
-   //    Time.timeScale = GameTimeScale * MenuTimeScale * PowerSelectionScreen.THIS.Timescale;
-   // }
-   // public static void Pause(bool value)
-   // {
-   //    // if (!value)
-   //    // {
-   //    //    if (MenuVisible)
-   //    //    {
-   //    //       return;
-   //    //    }
-   //    // }
-   //    // Time.timeScale = value ? 0.0f : 1.0f;
-   //    TimeScale = (value ? 0.0f : 1.0f);
-   //    UpdateTimeScale();
-   // }
 }
 
 public static class UIManagerExtensions
 {
-   // public static void ShieldPs(Vector3 worldPosition)
-   // {
-   //    Transform camTransform = CameraManager.THIS.gameCamera.transform;
-   //    Vector3 pos = worldPosition + camTransform.forward * -2.0f + new Vector3(0.0f, 0.6f, 0.0f);
-   //    Particle.Shield.Play(pos);
-   // }
    public static void Distort(Vector3 worldPosition, float delay)
    {
       if (!ApplicationManager.THIS.GrabFeatureEnabled)

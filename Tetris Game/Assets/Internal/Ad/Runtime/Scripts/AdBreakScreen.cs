@@ -35,12 +35,24 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [System.NonSerialized] private System.Action _onTimesUp;
     [System.NonSerialized] private System.Action _onBypassReward;
     [System.NonSerialized] private System.Action _onClick;
+    [System.NonSerialized] public static System.Action<bool> onVisibilityChanged;
     
     [System.NonSerialized] private float _duration = 0;
     [System.NonSerialized] private Tween _timerTween;
 
     public delegate bool ButtonUseCondition();
     private ButtonUseCondition _clickCondition;
+
+    public bool Visible
+    {
+        set
+        {
+            this.gameObject.SetActive(value);
+            canvas.enabled = value;
+            
+            onVisibilityChanged?.Invoke(value);
+        }
+    }
 
     public enum AdState
     {
@@ -137,8 +149,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         _canInteract = false;
 
-        this.gameObject.SetActive(true);
-        canvas.enabled = true;
+        Visible = true;
         
         fillImage.fillAmount = 1.0f;
 
@@ -159,10 +170,9 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         _canInteract = false;
         
         canvasGroup.DOKill();
-        canvasGroup.DOFade(0.0f, 0.25f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+        canvasGroup.DOFade(0.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
         {
-            this.gameObject.SetActive(false);
-            canvas.enabled = false;
+            Visible = false;
         };
     }
     
@@ -170,15 +180,14 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         Stop();
         SetAdState(AdState.NONE);
-        this.gameObject.SetActive(false);
-        canvas.enabled = false;
+        canvasGroup.DOKill();
         _canInteract = false;
+        Visible = false;
     }
 
     private void Stop()
     {
         _timerTween?.Kill();
-        canvas.DOKill();
     }
     private void Pause()
     {

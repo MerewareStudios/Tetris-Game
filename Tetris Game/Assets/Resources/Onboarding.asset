@@ -34,7 +34,7 @@ MonoBehaviour:
   equippedText: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
   unlockedAtText: <pend a=0.1 f=2><sprite name=Lock> LEVEL <size=125%>
   adBreakText: AD BREAK
-  earnText: REWARD
+  earnText: WATCH AD
   useTicketText: Use <sprite name=Ticket>
   earnTicketText: <sprite name=Ticket> +1
   skipButtonText: SKIP

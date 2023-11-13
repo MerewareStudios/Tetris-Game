@@ -214,7 +214,7 @@ namespace Game.UI
                     Board.THIS._Data.maxStack++;
                     break;
                 case PurchaseType.TICKET_PACK:
-                    Wallet.TICKET.Transaction(5);
+                    Wallet.TICKET.Transaction(10);
                     break;
                 case PurchaseType.MEDKIT:
                     Warzone.THIS.Player._CurrentHealth += 15;
