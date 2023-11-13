@@ -243,8 +243,8 @@ namespace Game.UI
                     Wallet.TICKET.Transaction(5);
                     break;
                 case PurchaseType.PRESTIGE_CHEST:
-                    Wallet.COIN.Transaction(3000);
-                    Wallet.PIGGY.Transaction(125);
+                    Wallet.COIN.Transaction(4000);
+                    Wallet.PIGGY.Transaction(200);
                     Wallet.TICKET.Transaction(15);
                     break;
                 case PurchaseType.REMOVE_ADS:
