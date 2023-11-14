@@ -129,13 +129,16 @@ public static class Account
     public class Data : ICloneable
     {
         [SerializeField] public bool commented = false;
+        [SerializeField] public string guid;
         public Data(Data data)
         {
             commented = data.commented;
+            guid = data.guid;
         }
         public Data()
         {
             commented = false;
+            guid = System.Guid.NewGuid().ToString();
         }
 
         public object Clone()

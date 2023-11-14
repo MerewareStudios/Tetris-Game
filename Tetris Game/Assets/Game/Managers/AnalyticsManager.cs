@@ -18,6 +18,7 @@ public static class AnalyticsManager
     public static void Init()
     {
         _shopOpenedCount = 0;
+        GameAnalytics.SetCustomId(Account.Current.guid);
         GameAnalytics.Initialize();
     }
     

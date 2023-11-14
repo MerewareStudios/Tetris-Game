@@ -27,7 +27,7 @@ namespace IWI
             _Data.LastTimeAdShown = Time.realtimeSinceStartup;
 
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
-            // MaxSdk.SetUserId("USER_ID");
+            MaxSdk.SetUserId(Account.Current.guid);
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {

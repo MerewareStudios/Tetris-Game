@@ -41,13 +41,10 @@ public class GameManager : Singleton<GameManager>
         UpdateTimeScale();
     }
 
-    void Awake()
-    {
-        AnalyticsManager.Init();
-    }
-
     void Start()
     {
+        AnalyticsManager.Init();
+
         Distortion.Complete = (go, state) =>
         {
             go.Despawn(Pool.Distortion);
