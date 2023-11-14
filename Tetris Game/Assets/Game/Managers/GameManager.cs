@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
     
     private float _timeScale = 1.0f;
     
-    private Coroutine reviewFlowRoutine = null;
+    private Coroutine _reviewFlowRoutine = null;
     
     public static void UpdateTimeScale()
     {
@@ -130,20 +130,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void LeaveComment()
+    public void LeaveComment(System.Action onStart, System.Action<bool> onFinish)
     {
-        if (reviewFlowRoutine != null)
+        if (_reviewFlowRoutine != null)
         {
             return;
         }
-        Debug.Log("Leave Comment Dialog");
-        reviewFlowRoutine = StartCoroutine(Flow());
+        onStart?.Invoke();
+        _reviewFlowRoutine = StartCoroutine(Flow());
         IEnumerator Flow()
         {
             ReviewManager reviewManager = new ReviewManager();
             
-            GameTimeScale(0.0f);
-
             var requestFlowOperation = reviewManager.RequestReviewFlow();
             
             yield return requestFlowOperation;
@@ -151,7 +149,8 @@ public class GameManager : Singleton<GameManager>
             if (requestFlowOperation.Error != ReviewErrorCode.NoError)
             {
                 Debug.LogError(requestFlowOperation.Error);
-                GameTimeScale(1.0f);
+                onFinish?.Invoke(false);
+                yield return new WaitForSeconds(0.25f);
                 yield break;
             }
             var playReviewInfo = requestFlowOperation.GetResult();
@@ -159,20 +158,18 @@ public class GameManager : Singleton<GameManager>
             var launchFlowOperation = reviewManager.LaunchReviewFlow(playReviewInfo);
             
             yield return launchFlowOperation;
-            // playReviewInfo = null; // Reset the object
             
             if (launchFlowOperation.Error != ReviewErrorCode.NoError)
             {
                 Debug.LogError(launchFlowOperation.Error);
-                GameTimeScale(1.0f);
+                onFinish?.Invoke(false);
+                yield return new WaitForSeconds(0.25f);
                 yield break;
             }
 
-            
-            GameTimeScale(1.0f);
-            reviewFlowRoutine = null;
-            Account.Current.commented = true;
-            Debug.Log("Leave Comment Dialog End");
+            yield return new WaitForSecondsRealtime(0.25f);
+            _reviewFlowRoutine = null;
+            onFinish?.Invoke(true);
         }
     }
 

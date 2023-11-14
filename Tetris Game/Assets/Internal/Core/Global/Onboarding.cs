@@ -43,6 +43,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string commentTip;
     [TextArea] [SerializeField] public string reviewText;
     [TextArea] [SerializeField] public string shareText;
+    [TextArea] [SerializeField] public string thanksText;
     
     public Coroutine Coroutine = null;
 

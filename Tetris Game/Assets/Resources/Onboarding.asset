@@ -83,6 +83,7 @@ MonoBehaviour:
   - <sprite name=Warning>Punch <sprite name=Punch>enemies to drag them back!
   - <sprite name=Warning>Increase Stack Limit to avoid wasting ammo.
   - <sprite name=Warning>Prepare power-ups before it gets sticky.
-  commentTip: <size=95%><sprite name=Warning>Leave a feedback!
+  commentTip: <size=100%><sprite name=Warning>Leave a feedback!
   reviewText: COMMENT<sprite name=Like>
   shareText: SHARE <sprite name=Link>
+  thanksText: <size=125%>Thanks!

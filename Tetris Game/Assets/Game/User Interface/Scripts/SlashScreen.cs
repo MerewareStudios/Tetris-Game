@@ -27,7 +27,9 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private Color visibleColor;
     [SerializeField] private Color invisibleColor;
     [SerializeField] private GameObject tipParent;
-    [SerializeField] private GameObject actionButtonsPanel;
+    [SerializeField] private GameObject buttonPanel;
+    [SerializeField] private GameObject actionButtonParent;
+    [SerializeField] private GameObject loadingBar;
     [SerializeField] private Button actionButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
     [SerializeField] private TextMeshProUGUI tipText;
@@ -91,20 +93,45 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         canvas.enabled = true;
         
         tipParent.SetActive(false);
+        
+        loadingBar.SetActive(false);
+        actionButtonParent.gameObject.SetActive(false);
 
 
-        float extraHideDelay = 0.0f;
+        float appendInterval = 1.25f;
         
         string tipString = "";
         if (state.Equals(State.Victory) && levelIndex % 5 == 1 && !Account.Current.commented)
         {
             tipString = Onboarding.THIS.commentTip;
-            actionButtonsPanel.SetActive(true);
+            buttonPanel.SetActive(true);
+            actionButtonParent.gameObject.SetActive(true);
 
-            extraHideDelay = 0.0f;
+            appendInterval += 1.0f;
 
             actionButtonText.text = Onboarding.THIS.reviewText;
-            actionButton.onClick.AddListener(GameManager.THIS.LeaveComment);
+            actionButton.onClick.AddListener(() =>
+            {
+                GameManager.THIS.LeaveComment(() =>
+                {
+                    _sequence.Pause();
+
+                    GameManager.GameTimeScale(0.0f);
+                    loadingBar.SetActive(true);
+                    actionButtonParent.gameObject.SetActive(false);
+                }, (success) =>
+                {
+                    _sequence.Complete();
+                    
+                    buttonPanel.gameObject.SetActive(false);
+                    GameManager.GameTimeScale(1.0f);
+                    if (success)
+                    {
+                        tipText.text = Onboarding.THIS.thanksText;
+                        Account.Current.commented = true;
+                    }
+                });
+            });
         }
         else
         {
@@ -120,7 +147,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             int index = _randomTipsIndexes[randomIndex];
             _randomTipsIndexes.RemoveAt(randomIndex);
             tipString = Onboarding.THIS.tips[index];
-            actionButtonsPanel.SetActive(false);
         }
         tipText.text = tipString;
 
@@ -158,7 +184,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
 
         _sequence.SetDelay(delay);
         _sequence.Append(topSlash).Append(expand).Join(gradientTop);
-        _sequence.AppendInterval(1.25f);
+        _sequence.AppendInterval(appendInterval);
 
         _sequence.onComplete += () =>
         {
