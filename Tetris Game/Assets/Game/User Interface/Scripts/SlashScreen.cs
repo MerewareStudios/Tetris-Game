@@ -217,7 +217,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             buttonPanel.SetActive(true);
             actionButtonParent.gameObject.SetActive(true);
-            appendInterval += 1.5f;
+            appendInterval += 1.25f;
         }
         
         tipText.text = tipString;

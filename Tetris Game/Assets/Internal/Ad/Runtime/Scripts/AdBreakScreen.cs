@@ -101,9 +101,9 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     }
 
 
-    public AdBreakScreen SetInfo(string topStr, string infoStr, string buttonStr)
+    public AdBreakScreen SetInfo(string infoStr, string buttonStr)
     {
-        this.topText.text = topStr;
+        // this.topText.text = topStr;
         this.infoText.text = infoStr;
         this.buttonText.text = buttonStr;
         return this;
