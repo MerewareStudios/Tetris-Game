@@ -76,7 +76,7 @@ namespace IWI
         {
             if (_Data.removeAds)
             {
-                Debug.LogWarning("Interstitial - Skip - Remove Ads");
+                // Debug.LogWarning("Interstitial - Skip - Remove Ads");
 
                 // Debug.LogWarning("Interstitial Removed Ads");
                 onSuccess?.Invoke();
@@ -84,7 +84,7 @@ namespace IWI
             }
             if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
             {
-                Debug.LogWarning("Interstitial - Skip - Upgrade Not Learned");
+                // Debug.LogWarning("Interstitial - Skip - Upgrade Not Learned");
 
                 // Debug.LogWarning("Interstitial Onboarding Not done");
                 onSuccess?.Invoke();
@@ -94,12 +94,12 @@ namespace IWI
 
             if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
             {
-                Debug.LogWarning("Interstitial - Time Up Show");
+                // Debug.LogWarning("Interstitial - Time Up Show");
 
                 ShowAdBreak(onSuccess);
                 return;
             }
-            Debug.LogWarning("Interstitial - Still Have Time");
+            // Debug.LogWarning("Interstitial - Still Have Time");
             onSuccess?.Invoke();
         }
         
@@ -191,21 +191,21 @@ namespace IWI
         {
             if (!MaxSdk.IsInitialized())
             {
-                Debug.LogWarning("Interstitial - Not Init");
+                // Debug.LogWarning("Interstitial - Not Init");
 
                 onFinish?.Invoke();
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
-                Debug.LogWarning("Interstitial - Skip None");
+                // Debug.LogWarning("Interstitial - Skip None");
                 FakeAdInterstitial.THIS.LoadAd();
                 onFinish?.Invoke();
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                Debug.LogWarning("Interstitial - Skip Not Ready");
+                // Debug.LogWarning("Interstitial - Skip Not Ready");
                 
                 onFinish?.Invoke();
                 return;
