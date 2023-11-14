@@ -15,26 +15,26 @@ public class GameManager : Singleton<GameManager>
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
     
-    public static float TimeScale = 1.0f;
+    private float _timeScale = 1.0f;
     
     public static void UpdateTimeScale()
     {
-        Time.timeScale = GameManager.TimeScale * 
+        Time.timeScale = GameManager.THIS._timeScale * 
                          PowerSelectionScreen.THIS.Timescale * 
                          Consent.THIS.TimeScale *
                          MenuNavigator.THIS.TimeScale *
                          PiggyMenu.THIS.TimeScale;
         
-        Debug.Log("A + " + GameManager.TimeScale);
-        Debug.Log("B + " + PowerSelectionScreen.THIS.Timescale);
-        Debug.Log("C + " + Consent.THIS.TimeScale);
-        Debug.Log("D + " + MenuNavigator.THIS.TimeScale);
-        Debug.Log("E + " + PiggyMenu.THIS.TimeScale);
+        // Debug.Log("A + " + GameManager.THIS._timeScale);
+        // Debug.Log("B + " + PowerSelectionScreen.THIS.Timescale);
+        // Debug.Log("C + " + Consent.THIS.TimeScale);
+        // Debug.Log("D + " + MenuNavigator.THIS.TimeScale);
+        // Debug.Log("E + " + PiggyMenu.THIS.TimeScale);
     }
 
     public static void GameTimeScale(float value)
     {
-        TimeScale = value;
+        GameManager.THIS._timeScale = value;
         UpdateTimeScale();
     }
 
