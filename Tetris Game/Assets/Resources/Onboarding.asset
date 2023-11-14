@@ -59,7 +59,7 @@ MonoBehaviour:
   - <sprite name=Warning>Don't forget to upgrade your Max Stack at the shop!
   - <sprite name=Warning>Remember to buy fresh blocks from the shop!
   - <sprite name=Warning>Reset your Piggy Bank capacity at the shop!!
-  - <sprite name=Warning>You can use<sprite name=Ticket> to skip ads.
+  - <sprite name=Warning>Use<sprite name=Ticket> to skip ads.
   - <sprite name=Warning>There is 10% chance Piggy Bank drops<sprite name=Ticket>
   - <sprite name=Warning>Merged ammo <sprite name=Box> is limited by your Max Stack!
   - <sprite name=Warning>If you get stuck, remember to use power-ups<sprite name=Magnet>

@@ -114,12 +114,6 @@ public class UIManager : Singleton<UIManager>
       CurrentMenu = null;
    }
 
-   private IEnumerator Start()
-   {
-      yield return new WaitForSeconds(3.5f);
-      LevelManager.THIS.OnVictory();
-   }
-
    private Image SpawnImageIcon()
    {
       return Pool.Image.Spawn<Image>();
