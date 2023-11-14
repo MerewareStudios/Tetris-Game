@@ -70,7 +70,11 @@ extern "C"
         NSMutableArray<NSString *> *array = [NSMutableArray arrayWithCapacity: size];
         for ( int i = 0; i < size; i++ )
         {
-            [array addObject: NSSTRING(arrayPointer[i])];
+            NSString *element = NSSTRING(arrayPointer[i]);
+            if ( element )
+            {
+                [array addObject: element];
+            }
         }
         
         return array;
@@ -105,25 +109,25 @@ extern "C"
             _testDeviceIdentifiersToSet = nil;
         }
         
-        if ( _verboseLoggingToSet )
+        if ( _verboseLoggingToSet != nil )
         {
             settings.verboseLoggingEnabled = _verboseLoggingToSet.boolValue;
             _verboseLoggingToSet = nil;
         }
 
-        if ( _creativeDebuggerEnabledToSet )
+        if ( _creativeDebuggerEnabledToSet != nil )
         {
             settings.creativeDebuggerEnabled = _creativeDebuggerEnabledToSet.boolValue;
             _creativeDebuggerEnabledToSet = nil;
         }
 
-        if ( _exceptionHandlerEnabledToSet )
+        if ( _exceptionHandlerEnabledToSet != nil )
         {
             settings.exceptionHandlerEnabled = _exceptionHandlerEnabledToSet.boolValue;
             _exceptionHandlerEnabledToSet = nil;
         }
         
-        if ( _locationCollectionEnabledToSet )
+        if ( _locationCollectionEnabledToSet != nil )
         {
             settings.locationCollectionEnabled = _locationCollectionEnabledToSet.boolValue;
             _locationCollectionEnabledToSet = nil;
@@ -214,7 +218,7 @@ extern "C"
             _userSegmentNameToSet = nil;
         }
         
-        if ( _targetingYearOfBirth )
+        if ( _targetingYearOfBirth != nil )
         {
             _sdk.targetingData.yearOfBirth = _targetingYearOfBirth.intValue <= 0 ? nil : _targetingYearOfBirth;
             _targetingYearOfBirth = nil;
@@ -226,7 +230,7 @@ extern "C"
             _targetingGender = nil;
         }
         
-        if ( _targetingMaximumAdContentRating )
+        if ( _targetingMaximumAdContentRating != nil )
         {
             _sdk.targetingData.maximumAdContentRating = getAppLovinAdContentRating(_targetingMaximumAdContentRating.intValue);
             _targetingMaximumAdContentRating = nil;
@@ -453,10 +457,12 @@ extern "C"
             return cStringCopy(@"");
         }
         
+        NSString *consentFlowUserGeographyStr = @(_sdk.configuration.consentFlowUserGeography).stringValue;
         NSString *consentDialogStateStr = @(_sdk.configuration.consentDialogState).stringValue;
         NSString *appTrackingStatus = @(_sdk.configuration.appTrackingTransparencyStatus).stringValue; // Deliberately name it `appTrackingStatus` to be a bit more generic (in case Android introduces a similar concept)
 
-        return cStringCopy([MAUnityAdManager serializeParameters: @{@"consentDialogState" : consentDialogStateStr,
+        return cStringCopy([MAUnityAdManager serializeParameters: @{@"consentFlowUserGeography" : consentFlowUserGeographyStr,
+                                                                    @"consentDialogState" : consentDialogStateStr,
                                                                     @"countryCode" : _sdk.configuration.countryCode,
                                                                     @"appTrackingStatus" : appTrackingStatus,
                                                                     @"isSuccessfullyInitialized" : @([_sdk isInitialized]),
@@ -905,20 +911,6 @@ extern "C"
         
         [_adManager trackEvent: NSSTRING(event) parameters: NSSTRING(parameters)];
     }
-        
-    bool _MaxGetBool(const char *key, bool defaultValue)
-    {
-        if ( !_sdk ) return defaultValue;
-        
-        return [_sdk.variableService boolForKey: NSSTRING(key) defaultValue: defaultValue];
-    }
-    
-    const char * _MaxGetString(const char *key, const char *defaultValue)
-    {
-        if ( !_sdk ) return defaultValue;
-        
-        return cStringCopy([_sdk.variableService stringForKey: NSSTRING(key) defaultValue: NSSTRING(defaultValue)]);
-    }
     
     bool _MaxIsTablet()
     {
@@ -928,6 +920,19 @@ extern "C"
     bool _MaxIsPhysicalDevice()
     {
         return !ALUtils.simulator;
+    }
+
+    int _MaxGetAdditionalConsentStatus(int atpIdentifier)
+    {
+        NSNumber *consentStatus = [ALUtils additionalConsentStatusForATPIdentifier: atpIdentifier];
+        if ( consentStatus )
+        {
+            return [consentStatus intValue];
+        }
+       else
+       {
+           return -1;
+       }
     }
     
     static const char * cStringCopy(NSString *string)
@@ -984,9 +989,9 @@ extern "C"
         {
             return [_sdk.settings isVerboseLoggingEnabled];
         }
-        else if ( _verboseLoggingToSet )
+        else if ( _verboseLoggingToSet != nil )
         {
-            return _verboseLoggingToSet;
+            return _verboseLoggingToSet.boolValue;
         }
 
         return false;
@@ -1060,27 +1065,27 @@ extern "C"
             }
         }
     }
-
-    const char * _MaxGetCFType()
-    {
-        if ( !_sdk )
-        {
-            NSLog(@"[%@] Failed to get available mediated networks - please ensure the AppLovin MAX Unity Plugin has been initialized by calling 'MaxSdk.InitializeSdk();'!", TAG);
-            return cStringCopy(@(ALCFTypeUnknown).stringValue);
-        }
-        
-        return cStringCopy(@(_sdk.cfService.cfType).stringValue);
-    }
-
-    void _MaxStartConsentFlow()
+    
+    void _MaxShowCmpForExistingUser()
     {
         if (!isPluginInitialized())
         {
-            logUninitializedAccessError("_MaxStartConsentFlow");
+            logUninitializedAccessError("_MaxShowCmpForExistingUser");
             return;
         }
         
-        [_adManager startConsentFlow];
+        [_adManager showCMPForExistingUser];
+    }
+    
+    bool _MaxHasSupportedCmp()
+    {
+        if (!isPluginInitialized())
+        {
+            logUninitializedAccessError("_MaxHasSupportedCmp");
+            return false;
+        }
+        
+        return [_sdk.cmpService hasSupportedCMP];
     }
 
     float _MaxGetAdaptiveBannerHeight(const float width)
@@ -1091,14 +1096,6 @@ extern "C"
     void logUninitializedAccessError(char *callingMethod)
     {
         NSLog(@"[%@] Failed to execute: %s - please ensure the AppLovin MAX Unity Plugin has been initialized by calling 'MaxSdk.InitializeSdk();'!", TAG, callingMethod);
-    }
-
-    [[deprecated("This API has been deprecated. Please use our SDK's initialization callback to retrieve variables instead.")]]
-    void _MaxLoadVariables()
-    {
-        if (!isPluginInitialized()) return;
-        
-        [_adManager loadVariables];
     }
 }
 

@@ -18,11 +18,6 @@ public class MaxSdkiOS : MaxSdkBase
     }
 
 #if UNITY_IOS
-    public static MaxVariableServiceiOS VariableService
-    {
-        get { return MaxVariableServiceiOS.Instance; }
-    }
-
     public static MaxUserServiceiOS UserService
     {
         get { return MaxUserServiceiOS.Instance; }

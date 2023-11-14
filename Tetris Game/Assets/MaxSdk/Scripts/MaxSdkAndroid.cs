@@ -13,11 +13,6 @@ public class MaxSdkAndroid : MaxSdkBase
 
     private static BackgroundCallbackProxy BackgroundCallback = new BackgroundCallbackProxy();
 
-    public static MaxVariableServiceAndroid VariableService
-    {
-        get { return MaxVariableServiceAndroid.Instance; }
-    }
-
     public static MaxUserServiceAndroid UserService
     {
         get { return MaxUserServiceAndroid.Instance; }

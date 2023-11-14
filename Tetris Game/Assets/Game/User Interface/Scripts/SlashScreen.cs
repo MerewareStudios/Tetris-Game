@@ -95,90 +95,74 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         tipParent.SetActive(false);
         
         loadingBar.SetActive(false);
+        
         actionButtonParent.gameObject.SetActive(false);
         buttonPanel.gameObject.SetActive(false);
-
-
         float appendInterval = 1.25f;
-        
+
         string tipString = "";
-        if (state.Equals(State.Victory) && levelIndex != 1)
+        bool panelVisible = false;
+
+
+        void ShowReview()
         {
-            bool panelVisible = false;
-
-            if (levelIndex % 5 == 0 && levelIndex % 10 != 0 && !Account.Current.commented)
+            tipString = Onboarding.THIS.commentTip;
+            actionButtonText.text = Onboarding.THIS.reviewText;
+    
+            actionButton.onClick.AddListener(() =>
             {
-                // void Review()
-                // {
-                    tipString = Onboarding.THIS.commentTip;
-                    actionButtonText.text = Onboarding.THIS.reviewText;
+                GameManager.THIS.LeaveComment(() =>
+                {
+                    _sequence.Pause();
+
+                    GameManager.GameTimeScale(0.0f);
+                    loadingBar.SetActive(true);
+                    actionButtonParent.gameObject.SetActive(false);
+                }, (success) =>
+                {
+                    _sequence.Complete();
             
-                    actionButton.onClick.AddListener(() =>
+                    buttonPanel.gameObject.SetActive(false);
+                    GameManager.GameTimeScale(1.0f);
+                    if (success)
                     {
-                        GameManager.THIS.LeaveComment(() =>
-                        {
-                            _sequence.Pause();
-
-                            GameManager.GameTimeScale(0.0f);
-                            loadingBar.SetActive(true);
-                            actionButtonParent.gameObject.SetActive(false);
-                        }, (success) =>
-                        {
-                            _sequence.Complete();
-                    
-                            buttonPanel.gameObject.SetActive(false);
-                            GameManager.GameTimeScale(1.0f);
-                            if (success)
-                            {
-                                tipText.text = Onboarding.THIS.thanksText;
-                                Account.Current.commented = true;
-                            }
-                        });
-                    });
-                    panelVisible = true;
-                // }
-            }
-            else if (levelIndex % 10 == 0)
-            {
-                // void Share()
-                // {
-                    tipString = Onboarding.THIS.shareTip;
-                    actionButtonText.text = Onboarding.THIS.shareText;
-                    
-                    actionButton.onClick.AddListener(() =>
-                    {
-                        GameManager.THIS.ShareTheGame(() =>
-                        {
-                            _sequence.Pause();
-
-                            GameManager.GameTimeScale(0.0f);
-                            loadingBar.SetActive(true);
-                            actionButtonParent.gameObject.SetActive(false);
-                        }, (success) =>
-                        {
-                            _sequence.Play();
-                        
-                            buttonPanel.gameObject.SetActive(false);
-                            GameManager.GameTimeScale(1.0f);
-                            if (success)
-                            {
-                                tipText.text = Onboarding.THIS.thanksText;
-                                // Account.Current.commented = true;
-                            }
-                        });
-                    });
-                    panelVisible = true;
-                // }
-            }
-            
-            if (panelVisible)
-            {
-                buttonPanel.SetActive(true);
-                actionButtonParent.gameObject.SetActive(true);
-                appendInterval += 1.0f;
-            }
+                        tipText.text = Onboarding.THIS.thanksText;
+                        Account.Current.commented = true;
+                    }
+                });
+            });
+            panelVisible = true;
         }
-        else
+        void ShowShare()
+        {
+            tipString = Onboarding.THIS.shareTip;
+            actionButtonText.text = Onboarding.THIS.shareText;
+            
+            actionButton.onClick.AddListener(() =>
+            {
+                GameManager.THIS.ShareTheGame(() =>
+                {
+                    _sequence.Pause();
+
+                    GameManager.GameTimeScale(0.0f);
+                    loadingBar.SetActive(true);
+                    actionButtonParent.gameObject.SetActive(false);
+                }, (success) =>
+                {
+                    _sequence.Play();
+                
+                    buttonPanel.gameObject.SetActive(false);
+                    GameManager.GameTimeScale(1.0f);
+                    if (success)
+                    {
+                        tipText.text = Onboarding.THIS.thanksText;
+                        // Account.Current.commented = true;
+                    }
+                });
+            });
+            panelVisible = true;
+        }
+        void ShowTip()
         {
             if (_randomTipsIndexes.Count == 0)
             {
@@ -193,9 +177,50 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             _randomTipsIndexes.RemoveAt(randomIndex);
             tipString = Onboarding.THIS.tips[index];
         }
-        tipText.text = tipString;
 
+        if (state.Equals(State.Victory) && levelIndex % 6 == 0)
+        {
+            if (Account.Current.commented)
+            {
+                ShowShare();
+            }
+            else
+            {
+                if (levelIndex % 12 == 0)
+                {
+                    ShowShare();
+                }
+                else
+                {
+                    ShowReview();
+                }
+            }
+        }
+        else
+        {
+            ShowTip();
+        }
+        // switch (state)
+        // {
+        //     case State.Victory when levelIndex % 5 == 0 && levelIndex % 10 != 0 && !Account.Current.commented:
+        //         ShowReview();
+        //         break;
+        //     case State.Victory when levelIndex % 10 == 0:
+        //         ShowShare();
+        //         break;
+        //     default:
+        //         ShowTip();
+        //         break;
+        // }
+            
+        if (panelVisible)
+        {
+            buttonPanel.SetActive(true);
+            actionButtonParent.gameObject.SetActive(true);
+            appendInterval += 1.5f;
+        }
         
+        tipText.text = tipString;
 
         
         backgroudImage.DOKill();

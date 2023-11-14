@@ -3276,6 +3276,7 @@ MonoBehaviour:
     onboardingList: 
     accountData:
       commented: 0
+      guid: 9573aca2-45ca-4e3b-a581-f58db7c2295b
     userData:
       level: 1
       pupData:
@@ -3337,7 +3338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de0dc26e33e7a248a00ae8a2caf11aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shareTexture: {fileID: 2800000, guid: 60b28e1386d41f148a311b7c0f0f9a89, type: 3}
 --- !u!114 &715436864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3353,7 +3353,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  AdTimeInterval: 1
+  AdTimeInterval: 180
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0
