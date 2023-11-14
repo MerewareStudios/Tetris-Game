@@ -1,6 +1,5 @@
-using System;
 using System.Collections;
-using DG.Tweening;
+using System.IO;
 using Game;
 using Google.Play.Review;
 using Internal.Core;
@@ -18,8 +17,8 @@ public class GameManager : Singleton<GameManager>
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
     
     private float _timeScale = 1.0f;
-    
-    private Coroutine _reviewFlowRoutine = null;
+
+    private Coroutine _flowRoutine = null;
     
     public static void UpdateTimeScale()
     {
@@ -129,15 +128,60 @@ public class GameManager : Singleton<GameManager>
             return;
         }
     }
-
-    public void LeaveComment(System.Action onStart, System.Action<bool> onFinish)
+    
+    public void ShareTheGame(System.Action onStart, System.Action<bool> onFinish)
     {
-        if (_reviewFlowRoutine != null)
+        if (_flowRoutine != null)
         {
             return;
         }
         onStart?.Invoke();
-        _reviewFlowRoutine = StartCoroutine(Flow());
+        _flowRoutine = StartCoroutine(Flow());
+        return;
+
+        IEnumerator Flow()
+        {
+            const string shareSubject = "Play Combatris";
+            const string shareSocialMessageGooglePlay = "\ud83d\udd25 Combatris \ud83d\udd25\n\nGoogle Play\n"
+                                        + "https://play.google.com/store/apps/details?id=com.iwi.combatris";
+
+            yield return new WaitForSecondsRealtime(0.25f);
+            
+            if (!Application.isEditor)
+            {
+                //Create intent for action send
+                AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");
+                AndroidJavaObject intentObject = new AndroidJavaObject ("android.content.Intent");
+                intentObject.Call<AndroidJavaObject>("setAction", intentClass.GetStatic<string> ("ACTION_SEND"));
+
+                //put text and subject extra
+                intentObject.Call<AndroidJavaObject> ("setType", "text/plain");
+                intentObject.Call<AndroidJavaObject> ("putExtra", intentClass.GetStatic<string> ("EXTRA_SUBJECT"), shareSubject);
+                intentObject.Call<AndroidJavaObject>  ("putExtra", intentClass.GetStatic<string> ("EXTRA_TEXT"), shareSocialMessageGooglePlay);
+
+                //call createChooser method of activity class
+                AndroidJavaClass unity = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
+                AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject> ("currentActivity");
+                AndroidJavaObject chooser = intentClass.CallStatic<AndroidJavaObject> ("createChooser", intentObject, "Share your high score");
+                currentActivity.Call ("startActivity", chooser);
+            }
+
+            yield return new WaitForSecondsRealtime(0.25f);
+            _flowRoutine = null;
+            onFinish?.Invoke(true);
+        }
+    }
+
+    public void LeaveComment(System.Action onStart, System.Action<bool> onFinish)
+    {
+        if (_flowRoutine != null)
+        {
+            return;
+        }
+        onStart?.Invoke();
+        _flowRoutine = StartCoroutine(Flow());
+        return;
+
         IEnumerator Flow()
         {
             ReviewManager reviewManager = new ReviewManager();
@@ -168,11 +212,10 @@ public class GameManager : Singleton<GameManager>
             }
 
             yield return new WaitForSecondsRealtime(0.25f);
-            _reviewFlowRoutine = null;
+            _flowRoutine = null;
             onFinish?.Invoke(true);
         }
     }
-
     
     
     public static void AddCoin(int value)

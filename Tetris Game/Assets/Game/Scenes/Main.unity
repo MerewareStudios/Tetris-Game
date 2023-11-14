@@ -3337,6 +3337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de0dc26e33e7a248a00ae8a2caf11aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shareTexture: {fileID: 2800000, guid: 60b28e1386d41f148a311b7c0f0f9a89, type: 3}
 --- !u!114 &715436864
 MonoBehaviour:
   m_ObjectHideFlags: 0

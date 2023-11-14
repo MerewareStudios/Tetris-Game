@@ -84,6 +84,7 @@ MonoBehaviour:
   - <sprite name=Warning>Increase Stack Limit to avoid wasting ammo.
   - <sprite name=Warning>Prepare power-ups before it gets sticky.
   commentTip: <size=100%><sprite name=Warning>Leave a feedback!
+  shareTip: <size=85%><sprite name=Warning>Challenge a friend!
   reviewText: COMMENT<sprite name=Like>
-  shareText: SHARE <sprite name=Link>
+  shareText: SHARE <sprite name=Share>
   thanksText: <size=125%>Thanks!

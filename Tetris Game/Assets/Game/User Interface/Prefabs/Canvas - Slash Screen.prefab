@@ -1538,6 +1538,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -24
       objectReference: {fileID: 0}
+    - target: {fileID: 5753314406076424664, guid: f47b7f84faefd5e4886ccc72d33b885a,
+        type: 3}
+      propertyPath: m_text
+      value: SHARE <sprite name=Share>
+      objectReference: {fileID: 0}
     - target: {fileID: 7109675956440516334, guid: f47b7f84faefd5e4886ccc72d33b885a,
         type: 3}
       propertyPath: m_AnchorMax.y

@@ -41,6 +41,7 @@ public class Onboarding : SSingleton<Onboarding>
     [Header("Tips")]
     [TextArea] [SerializeField] public string[] tips;
     [TextArea] [SerializeField] public string commentTip;
+    [TextArea] [SerializeField] public string shareTip;
     [TextArea] [SerializeField] public string reviewText;
     [TextArea] [SerializeField] public string shareText;
     [TextArea] [SerializeField] public string thanksText;

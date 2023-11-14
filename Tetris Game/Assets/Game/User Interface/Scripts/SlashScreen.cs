@@ -101,37 +101,83 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         float appendInterval = 1.25f;
         
         string tipString = "";
-        if (state.Equals(State.Victory) && levelIndex % 5 == 1 && !Account.Current.commented)
+        if (state.Equals(State.Victory))
+        // if (state.Equals(State.Victory) && levelIndex != 1)
         {
-            tipString = Onboarding.THIS.commentTip;
-            buttonPanel.SetActive(true);
-            actionButtonParent.gameObject.SetActive(true);
-
-            appendInterval += 1.0f;
-
-            actionButtonText.text = Onboarding.THIS.reviewText;
-            actionButton.onClick.AddListener(() =>
+            bool panelVisible = false;
+            
+            switch (levelIndex % 5)
             {
-                GameManager.THIS.LeaveComment(() =>
-                {
-                    _sequence.Pause();
-
-                    GameManager.GameTimeScale(0.0f);
-                    loadingBar.SetActive(true);
-                    actionButtonParent.gameObject.SetActive(false);
-                }, (success) =>
-                {
-                    _sequence.Complete();
-                    
-                    buttonPanel.gameObject.SetActive(false);
-                    GameManager.GameTimeScale(1.0f);
-                    if (success)
+                // case 1 when !Account.Current.commented:
+                case 2:
+                    tipString = Onboarding.THIS.commentTip;
+                    actionButtonText.text = Onboarding.THIS.reviewText;
+                
+                    actionButton.onClick.AddListener(() =>
                     {
-                        tipText.text = Onboarding.THIS.thanksText;
-                        Account.Current.commented = true;
-                    }
-                });
-            });
+                        GameManager.THIS.LeaveComment(() =>
+                        {
+                            _sequence.Pause();
+
+                            GameManager.GameTimeScale(0.0f);
+                            loadingBar.SetActive(true);
+                            actionButtonParent.gameObject.SetActive(false);
+                        }, (success) =>
+                        {
+                            _sequence.Complete();
+                        
+                            buttonPanel.gameObject.SetActive(false);
+                            GameManager.GameTimeScale(1.0f);
+                            if (success)
+                            {
+                                tipText.text = Onboarding.THIS.thanksText;
+                                Account.Current.commented = true;
+                            }
+                        });
+                    });
+                    
+                    panelVisible = true;
+                    break;
+                case 1:
+                    tipString = Onboarding.THIS.shareTip;
+                    actionButtonText.text = Onboarding.THIS.shareText;
+                    
+                    // actionButton.onClick.AddListener(GameManager.THIS.ShareTheGame);
+                    
+                    actionButton.onClick.AddListener(() =>
+                    {
+                        GameManager.THIS.ShareTheGame(() =>
+                        {
+                            _sequence.Pause();
+
+                            GameManager.GameTimeScale(0.0f);
+                            loadingBar.SetActive(true);
+                            actionButtonParent.gameObject.SetActive(false);
+                        }, (success) =>
+                        {
+                            _sequence.Play();
+                        
+                            buttonPanel.gameObject.SetActive(false);
+                            GameManager.GameTimeScale(1.0f);
+                            if (success)
+                            {
+                                tipText.text = Onboarding.THIS.thanksText;
+                                // Account.Current.commented = true;
+                            }
+                        });
+                    });
+                    
+                    
+                    panelVisible = true;
+                    break;
+            }
+
+            if (panelVisible)
+            {
+                buttonPanel.SetActive(true);
+                actionButtonParent.gameObject.SetActive(true);
+                appendInterval += 1.0f;
+            }
         }
         else
         {
