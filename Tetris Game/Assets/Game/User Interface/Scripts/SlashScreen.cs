@@ -17,6 +17,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private Image backgroudImage;
     [SerializeField] private GameObject victoryImage;
     [SerializeField] private GameObject failImage;
+    [SerializeField] private float rewardBackTime = 0.35f;
     [SerializeField] private float distance = 3000.0f;
     [SerializeField] private float centerMinHeight = -25.0f;
     [SerializeField] private float centerMaxHeight = 256.0f;
@@ -26,6 +27,9 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private Color visibleColor;
     [SerializeField] private Color invisibleColor;
     [SerializeField] private GameObject tipParent;
+    [SerializeField] private GameObject actionButtonsPanel;
+    [SerializeField] private Button actionButton;
+    [SerializeField] private TextMeshProUGUI actionButtonText;
     [SerializeField] private TextMeshProUGUI tipText;
     [System.NonSerialized] private Sequence _sequence;
     [System.NonSerialized] private List<int> _randomTipsIndexes = new List<int>();
@@ -48,7 +52,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         [SerializeField] public Color centerColor;
     }
     
-    public void Show(State state, float delay, Const.Currency currency)
+    public void Show(State state, float delay, Const.Currency currency, int levelIndex)
     {
         this.gameObject.SetActive(true);
         SlashAnimationSettings slashAnimationSettings = null;
@@ -62,7 +66,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 slashAnimationSettings = animationSettingsFail;
                 break;
         }
-        Show(slashAnimationSettings, delay, currency);
+        Show(state, slashAnimationSettings, delay, currency, levelIndex);
     }
     
     private void ResetSelf()
@@ -80,25 +84,47 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         centerImage.rectTransform.sizeDelta = new Vector2(distance, centerMinHeight);
     }
 
-    private void Show(SlashAnimationSettings animationSettings, float delay, Const.Currency currency)
+    private void Show(State state, SlashAnimationSettings animationSettings, float delay, Const.Currency currency, int levelIndex)
     {
         currencyDisplay.Display(currency);
         
         canvas.enabled = true;
         
         tipParent.SetActive(false);
-        if (_randomTipsIndexes.Count == 0)
+
+
+        float extraHideDelay = 0.0f;
+        
+        string tipString = "";
+        if (state.Equals(State.Victory) && levelIndex % 5 == 1 && !Account.Current.commented)
         {
-            for (int i = 0; i < Onboarding.THIS.tips.Length; i++)
-            {
-                _randomTipsIndexes.Add(i);
-            }
-            _randomTipsIndexes.Shuffle();
+            tipString = Onboarding.THIS.commentTip;
+            actionButtonsPanel.SetActive(true);
+
+            extraHideDelay = 0.0f;
+
+            actionButtonText.text = Onboarding.THIS.reviewText;
+            actionButton.onClick.AddListener(GameManager.THIS.LeaveComment);
         }
-        int randomIndex = Random.Range(0, _randomTipsIndexes.Count);
-        int index = _randomTipsIndexes[randomIndex];
-        _randomTipsIndexes.RemoveAt(randomIndex);
-        tipText.text = Onboarding.THIS.tips[index];
+        else
+        {
+            if (_randomTipsIndexes.Count == 0)
+            {
+                for (int i = 0; i < Onboarding.THIS.tips.Length; i++)
+                {
+                    _randomTipsIndexes.Add(i);
+                }
+                _randomTipsIndexes.Shuffle();
+            }
+            int randomIndex = Random.Range(0, _randomTipsIndexes.Count);
+            int index = _randomTipsIndexes[randomIndex];
+            _randomTipsIndexes.RemoveAt(randomIndex);
+            tipString = Onboarding.THIS.tips[index];
+            actionButtonsPanel.SetActive(false);
+        }
+        tipText.text = tipString;
+
+        
 
         
         backgroudImage.DOKill();
@@ -118,7 +144,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             tipParent.SetActive(true);
             tipParent.transform.localScale = Vector3.zero;
-            tipParent.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f).SetUpdate(true);
+            tipParent.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);
         });
        
         
@@ -127,16 +153,17 @@ public class SlashScreen : Lazyingleton<SlashScreen>
 
         Tween gradientTop = topBannerImage.DOColor(animationSettings.bannerGradient.Evaluate(1.0f), animationSettings.colorShowDuration).SetEase(Ease.InOutSine);
         
+        _sequence?.Kill();
         _sequence = DOTween.Sequence();
 
-        _sequence.SetUpdate(true).SetDelay(delay);
+        _sequence.SetDelay(delay);
         _sequence.Append(topSlash).Append(expand).Join(gradientTop);
         _sequence.AppendInterval(1.25f);
 
         _sequence.onComplete += () =>
         {
-            Hide(animationSettingsHide);
-            DOVirtual.DelayedCall(0.25f, () =>
+            Hide(animationSettingsHide, () => 
+            // DOVirtual.DelayedCall(animationSettingsHide.expandDelay + 0.05f, () =>
             {
                 UIManagerExtensions.EmitLevelRewardCoin(currencyDisplay.iconPivot.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount, () =>
                 {
@@ -148,15 +175,17 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         };
     }
     
-    private void Hide(SlashAnimationSettings animationSettings)
+    private void Hide(SlashAnimationSettings animationSettings, System.Action emitCoinAction)
     {
-        Tween shrink = centerImage.rectTransform.DOSizeDelta(new Vector2(distance, centerMinHeight), animationSettings.expandShowDur).SetEase(animationSettings.expandShowEase).SetDelay(animationSettings.expandDelay);
+        Tween shrink = centerImage.rectTransform.DOSizeDelta(new Vector2(distance, centerMinHeight), animationSettings.expandShowDur).SetEase(animationSettings.expandShowEase);
         Tween topSlash = topPivot.DOAnchorPos(new Vector2(distance, 0.0f), animationSettings.slashShowDur).SetEase(animationSettings.slashShowEase, animationSettings.slashShowOvershoot);
         
+        _sequence?.Kill();
         _sequence = DOTween.Sequence();
+        _sequence.Join(topSlash).Append(shrink);
+        
 
-        _sequence.Join(topSlash).Join(shrink);
-        _sequence.SetUpdate(true);
+        DOVirtual.DelayedCall(_sequence.Duration() - rewardBackTime, emitCoinAction.Invoke).SetUpdate(false);
     }
 
     private void Close()

@@ -1,9 +1,10 @@
+using System;
+using System.Collections;
 using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
 using IWI;
-using IWI.Emitter.Enums;
 using IWI.Tutorial;
 using IWI.UI;
 using TMPro;
@@ -11,6 +12,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Visual.Effects;
+using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -110,6 +112,12 @@ public class UIManager : Singleton<UIManager>
       };
 
       CurrentMenu = null;
+   }
+
+   private IEnumerator Start()
+   {
+      yield return new WaitForSeconds(3.5f);
+      LevelManager.THIS.OnVictory();
    }
 
    private Image SpawnImageIcon()

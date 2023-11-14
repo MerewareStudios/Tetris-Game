@@ -76,7 +76,7 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.PLAYING = false;
         
         GameManager.THIS.OnVictory();
-        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.25f, GetVictoryReward());
+        SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.25f, GetVictoryReward(), CurrentLevel);
         this.NextLevel();
         
         AnalyticsManager.LevelEnd(GAProgressionStatus.Complete);
@@ -87,7 +87,7 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.PLAYING = false;
         
         GameManager.THIS.OnFail();
-        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, GetFailReward());
+        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, GetFailReward(), CurrentLevel);
         
         AnalyticsManager.LevelEnd(GAProgressionStatus.Fail);
     }

@@ -12,6 +12,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
     [SerializeField] public AnimConst AnimConst;
     [SerializeField] public Onboarding Onboarding;
 
+
     public override void Awake()
     {
         base.Awake();
@@ -28,8 +29,9 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.onboardingList = new bool[onboardingCount].Fill(true);
 
             // saveData.concentData = Const.THIS.DefaultConcentData.Clone() as Concent.Data;
-            saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
+            saveData.accountData = new Account.Data();
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
+            saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
             saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
         }
 
@@ -75,6 +77,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 }
 public static class SaveManagerExtensions
 {
+
     public static bool IsNotComplete(this ONBOARDING onboardingStep)
     {
         return !SaveManager.THIS.SKIP_ONBOARDING && SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
@@ -110,11 +113,36 @@ public partial class SaveData
 {
     [SerializeField] public bool saveGenerated = false;
     [SerializeField] public bool[] onboardingList;
-    [SerializeField] public Player.Data playerData;
+    [SerializeField] public Account.Data accountData;
     [SerializeField] public User.Data userData;
+    [SerializeField] public Player.Data playerData;
     [SerializeField] public AdManager.Data adData;
     // [SerializeField] public Concent.Data concentData;
+}
 
+
+public static class Account
+{
+    public static Data Current => SaveManager.THIS.saveData.accountData;
+
+    [System.Serializable]
+    public class Data : ICloneable
+    {
+        [SerializeField] public bool commented = false;
+        public Data(Data data)
+        {
+            commented = data.commented;
+        }
+        public Data()
+        {
+            commented = false;
+        }
+
+        public object Clone()
+        {
+            return new Account.Data(this);
+        }
+    }
 }
 
 namespace User

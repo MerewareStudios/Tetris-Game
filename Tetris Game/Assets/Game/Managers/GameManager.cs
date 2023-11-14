@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using Game;
+using Google.Play.Review;
 using Internal.Core;
 using IWI;
 using UnityEngine;
@@ -16,6 +18,8 @@ public class GameManager : Singleton<GameManager>
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
     
     private float _timeScale = 1.0f;
+    
+    private Coroutine reviewFlowRoutine = null;
     
     public static void UpdateTimeScale()
     {
@@ -123,6 +127,52 @@ public class GameManager : Singleton<GameManager>
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;
+        }
+    }
+
+    public void LeaveComment()
+    {
+        if (reviewFlowRoutine != null)
+        {
+            return;
+        }
+        Debug.Log("Leave Comment Dialog");
+        reviewFlowRoutine = StartCoroutine(Flow());
+        IEnumerator Flow()
+        {
+            ReviewManager reviewManager = new ReviewManager();
+            
+            GameTimeScale(0.0f);
+
+            var requestFlowOperation = reviewManager.RequestReviewFlow();
+            
+            yield return requestFlowOperation;
+            
+            if (requestFlowOperation.Error != ReviewErrorCode.NoError)
+            {
+                Debug.LogError(requestFlowOperation.Error);
+                GameTimeScale(1.0f);
+                yield break;
+            }
+            var playReviewInfo = requestFlowOperation.GetResult();
+            
+            var launchFlowOperation = reviewManager.LaunchReviewFlow(playReviewInfo);
+            
+            yield return launchFlowOperation;
+            // playReviewInfo = null; // Reset the object
+            
+            if (launchFlowOperation.Error != ReviewErrorCode.NoError)
+            {
+                Debug.LogError(launchFlowOperation.Error);
+                GameTimeScale(1.0f);
+                yield break;
+            }
+
+            
+            GameTimeScale(1.0f);
+            reviewFlowRoutine = null;
+            Account.Current.commented = true;
+            Debug.Log("Leave Comment Dialog End");
         }
     }
 

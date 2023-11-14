@@ -81,7 +81,8 @@ MonoBehaviour:
   - <sprite name=Warning>Bombs <sprite name=Bomb>will target the closest enemy!
   - <sprite name=Warning>Gifts <sprite name=Gift>will give you a random power-up!
   - <sprite name=Warning>Punch <sprite name=Punch>enemies to drag them back!
-  - <sprite name=Warning>Leave a comment on the store page to help us improve the
-    gameplay.
   - <sprite name=Warning>Increase Stack Limit to avoid wasting ammo.
   - <sprite name=Warning>Prepare power-ups before it gets sticky.
+  commentTip: <size=95%><sprite name=Warning>Leave a feedback!
+  reviewText: COMMENT<sprite name=Like>
+  shareText: SHARE <sprite name=Link>
