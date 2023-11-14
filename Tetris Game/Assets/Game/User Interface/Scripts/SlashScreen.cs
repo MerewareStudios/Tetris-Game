@@ -96,23 +96,23 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         
         loadingBar.SetActive(false);
         actionButtonParent.gameObject.SetActive(false);
+        buttonPanel.gameObject.SetActive(false);
 
 
         float appendInterval = 1.25f;
         
         string tipString = "";
-        if (state.Equals(State.Victory))
-        // if (state.Equals(State.Victory) && levelIndex != 1)
+        if (state.Equals(State.Victory) && levelIndex != 1)
         {
             bool panelVisible = false;
-            
-            switch (levelIndex % 5)
+
+            if (levelIndex % 5 == 0 && levelIndex % 10 != 0 && !Account.Current.commented)
             {
-                // case 1 when !Account.Current.commented:
-                case 2:
+                // void Review()
+                // {
                     tipString = Onboarding.THIS.commentTip;
                     actionButtonText.text = Onboarding.THIS.reviewText;
-                
+            
                     actionButton.onClick.AddListener(() =>
                     {
                         GameManager.THIS.LeaveComment(() =>
@@ -125,7 +125,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                         }, (success) =>
                         {
                             _sequence.Complete();
-                        
+                    
                             buttonPanel.gameObject.SetActive(false);
                             GameManager.GameTimeScale(1.0f);
                             if (success)
@@ -135,14 +135,15 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                             }
                         });
                     });
-                    
                     panelVisible = true;
-                    break;
-                case 1:
+                // }
+            }
+            else if (levelIndex % 10 == 0)
+            {
+                // void Share()
+                // {
                     tipString = Onboarding.THIS.shareTip;
                     actionButtonText.text = Onboarding.THIS.shareText;
-                    
-                    // actionButton.onClick.AddListener(GameManager.THIS.ShareTheGame);
                     
                     actionButton.onClick.AddListener(() =>
                     {
@@ -166,12 +167,10 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                             }
                         });
                     });
-                    
-                    
                     panelVisible = true;
-                    break;
+                // }
             }
-
+            
             if (panelVisible)
             {
                 buttonPanel.SetActive(true);
