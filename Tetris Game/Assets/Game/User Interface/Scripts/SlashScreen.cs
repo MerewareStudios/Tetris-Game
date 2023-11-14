@@ -109,6 +109,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             tipString = Onboarding.THIS.commentTip;
             actionButtonText.text = Onboarding.THIS.reviewText;
     
+            actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() =>
             {
                 GameManager.THIS.LeaveComment(() =>
@@ -138,6 +139,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             tipString = Onboarding.THIS.shareTip;
             actionButtonText.text = Onboarding.THIS.shareText;
             
+            actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() =>
             {
                 GameManager.THIS.ShareTheGame(() =>
