@@ -85,6 +85,11 @@ public class Spawner : Singleton<Spawner>
             CurrentBlock.Lift(tutorialLift);
         }
     }
+
+    public void Spawn()
+    {
+        CurrentBlock = SpawnSuggestedBlock();
+    }
     public void DelayedSpawn(float delay)
     {
         if (_delayedTween != null && _delayedTween.IsPlaying())
@@ -94,7 +99,8 @@ public class Spawner : Singleton<Spawner>
         StopDelayedSpawn();
         _delayedTween = DOVirtual.DelayedCall(delay, () =>
         {
-            CurrentBlock = SpawnSuggestedBlock();  
+            CurrentBlock = SpawnSuggestedBlock();
+            _delayedTween = null;
         }, false);
     }
 

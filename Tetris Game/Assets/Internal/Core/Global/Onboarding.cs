@@ -79,7 +79,7 @@ public class Onboarding : SSingleton<Onboarding>
             
             UIManager.THIS.speechBubble.Hide();
 
-            Spawner.THIS.DelayedSpawn(0.0f);
+            Spawner.THIS.Spawn();
             
             yield return new WaitForSeconds(0.1f);
 
@@ -123,7 +123,7 @@ public class Onboarding : SSingleton<Onboarding>
 
             ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true, timeIndependent:false);
 
-            Spawner.THIS.DelayedSpawn(0.0f);
+            Spawner.THIS.Spawn();
         }
     }
     
@@ -200,7 +200,7 @@ public class Onboarding : SSingleton<Onboarding>
         {
             yield return new WaitForSeconds(0.75f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
-            Spawner.THIS.DelayedSpawn(0.0f);
+            Spawner.THIS.Spawn();
 
             yield return new WaitForSeconds(2.0f);
             UIManager.THIS.speechBubble.Hide();
