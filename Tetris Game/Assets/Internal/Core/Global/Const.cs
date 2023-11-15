@@ -43,10 +43,10 @@ public class Const : SSingleton<Const>
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
     [Header("Button Textures")] 
-    public Sprite[] buttonTextures;
-    public Sprite getButtonTexture;
-    public Sprite buyButtonTexture;
-    public Sprite watchButtonTexture;
+    // public Sprite[] buttonTextures;
+    // public Sprite getButtonTexture;
+    // public Sprite buyButtonTexture;
+    // public Sprite watchButtonTexture;
     public Sprite[] buttonSprites;
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;

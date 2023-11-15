@@ -44,7 +44,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Color singleColor;
     [SerializeField] private Color doubleColor;
     [SerializeField] private Transform multProgress;
-    public const int PiggyCapIncrease = 10;
+    public const int PiggyCapIncrease = 5;
     public const int TicketRewardEveryBreak = 8;
 
     private int _multiplier = 1;
@@ -296,7 +296,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             GiveRewards();
             _Data.breakInstance++;
             _Data.currentMoney.amount = 0;
-            // _Data.moneyCapacity += PiggyCapIncrease;
+            _Data.moneyCapacity += PiggyCapIncrease;
         };
         
         if (ONBOARDING.PIGGY_BREAK.IsNotComplete())

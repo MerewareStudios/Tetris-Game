@@ -15,7 +15,7 @@ namespace Game
         [SerializeField] private Transform holster;
         [SerializeField] private Transform crossHair;
         [SerializeField] private Transform crossHairScalePivot;
-        [SerializeField] public Transform lerpTarget;
+        // [SerializeField] public Transform lerpTarget;
         [SerializeField] public MeshRenderer crossHairMR;
         [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
         

@@ -117,7 +117,7 @@ namespace Game.UI
            
             if (purchaseParent.gameObject.activeSelf && ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
             {
-                if (Wallet.HasFunds(_gunUpgradeData.GunCost))
+                if (Wallet.HasFunds(_gunUpgradeData.GunCost) && availableByLevel)
                 {
                     Onboarding.ClickOn(purchaseClickTarget.position, Finger.Cam.UI, () =>
                     {

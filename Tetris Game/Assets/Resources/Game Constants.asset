@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 73
+  bundleVersionCode: 81
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -709,8 +709,8 @@ MonoBehaviour:
     splitShotPrice:
     - type: 0
       amount: 100
-    - type: 2
-      amount: 1
+    - type: 1
+      amount: 5
     unlockedAt: 1
   - currency:
       type: 0
@@ -1108,9 +1108,9 @@ MonoBehaviour:
       amount: 1
     sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
     title: <bounce a=0.05 f=1>BASIC CHEST
-    info: '<sprite name=Coin> +200
+    info: '<sprite name=Coin> +100
 
-      <sprite name=PiggyCoin> +10'
+      <sprite name=PiggyCoin> +5'
     extra: 
     best: 0
   - purchaseType: 9
@@ -1119,12 +1119,9 @@ MonoBehaviour:
       amount: 7
     sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
     title: <bounce a=0.05 f=1>PRIME CHEST
-    info: '<sprite name=Coin> +1000
+    info: '<sprite name=Coin> +100
 
-      <sprite name=PiggyCoin> +50
-
-      <sprite
-      name=Ticket> +5'
+      <sprite name=PiggyCoin> +5'
     extra: 
     best: 0
   - purchaseType: 10
@@ -1199,14 +1196,6 @@ MonoBehaviour:
   - {r: 1, g: 0.6431373, b: 0.84705883, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
-  buttonTextures:
-  - {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
-  - {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
-  - {fileID: 21300000, guid: 52185db7d0765e943a6b8bb4975e0c9e, type: 3}
-  - {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
-  getButtonTexture: {fileID: 21300000, guid: 52185db7d0765e943a6b8bb4975e0c9e, type: 3}
-  buyButtonTexture: {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
-  watchButtonTexture: {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
   buttonSprites:
   - {fileID: 21300000, guid: 93a417ab4775c024885926be13a07f08, type: 3}
   - {fileID: 21300000, guid: 52185db7d0765e943a6b8bb4975e0c9e, type: 3}
