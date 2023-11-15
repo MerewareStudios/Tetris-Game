@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
+    public static readonly int EmisKey = Shader.PropertyToID("_Emission");
     
     private float _timeScale = 1.0f;
 

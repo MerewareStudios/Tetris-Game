@@ -32,7 +32,7 @@ namespace Game
 
         public float Emission
         {
-            set => skin.sharedMaterial.SetColor(GameManager.EmissionKey, emissionGradient.Evaluate(value));
+            set => skin.sharedMaterial.SetColor(GameManager.EmisKey, emissionGradient.Evaluate(value));
         }
 
         public Enemy CurrentEnemy
