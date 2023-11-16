@@ -37,7 +37,7 @@ public class Powerup : Lazyingleton<Powerup>
         {
             this._data = value;
             OpenImmediate(_data.available);
-            SetPowerup(_data.currentUsage);
+            SetPowerup(_data.currentUsage, byPassUse:true);
 
             Enabled = ONBOARDING.USE_POWERUP.IsComplete();
         }
@@ -82,7 +82,7 @@ public class Powerup : Lazyingleton<Powerup>
         PunchUse();
     }
 
-    public void SetPowerup(Pawn.Usage usage, bool punch = false)
+    public void SetPowerup(Pawn.Usage usage, bool punch = false, bool byPassUse = false)
     {
         this._Data.currentUsage = usage;
         icon.enabled = true;
@@ -90,6 +90,16 @@ public class Powerup : Lazyingleton<Powerup>
         if (punch)
         {
             PunchUse();
+        }
+
+        if (byPassUse)
+        {
+            return;
+        }
+
+        if (_Data.use)
+        {
+            OnClick_Use();
         }
     }
 
@@ -173,7 +183,7 @@ public class Powerup : Lazyingleton<Powerup>
         }
         
         _data.available = true;
-        SetPowerup(Pawn.Usage.Empty);
+        SetPowerup(Pawn.Usage.Empty, byPassUse:true);
         // SetPowerup(LevelManager.GetRandomPowerUp());
         PunchCost(50.0f);
         PowerSelectionScreen.THIS.Open();

@@ -9,11 +9,13 @@ public class ToggleButton : Toggle
     public new void SetIsOnWithoutNotify(bool value)
     {
         base.SetIsOnWithoutNotify(value);
+        Debug.Log("SetIsOnWithoutNotify toggleAnimator " + isOn);
         toggleAnimator.SetTrigger(isOn ? "Selected" : "Disabled");
     }    
     public override void OnPointerClick(PointerEventData eventData)
     {
         base.OnPointerClick(eventData);
+        Debug.Log("OnPointerClick toggleAnimator " + isOn);
         toggleAnimator.SetTrigger(isOn ? "Selected" : "Disabled");
     }
 }

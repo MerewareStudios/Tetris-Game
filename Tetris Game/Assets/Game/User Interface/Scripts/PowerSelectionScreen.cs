@@ -26,12 +26,14 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
 
     public void SetStashState(bool use)
     {
+        Debug.Log("SetStashState " + use);
         toggleButton.SetIsOnWithoutNotify(use);
         stashText.text = use ? "USE" : "STASH";
     }
 
     public void ToggleStash(bool state)
     {
+        Debug.Log("ToggleStash " + state);
         Powerup.THIS._Data.use = state;
         stashText.text = state ? "USE" : "STASH";
     }
@@ -76,7 +78,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
 
     public void Select(PowerSelection powerSelection)
     {
-        Powerup.THIS.SetPowerup(powerUps[powerSelection.PowerIndex], true);
+        Powerup.THIS.SetPowerup(powerUps[powerSelection.PowerIndex], true, false);
         Close();
     }
 }
