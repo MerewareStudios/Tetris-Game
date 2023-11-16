@@ -44,7 +44,7 @@ namespace Game
 #if UNITY_EDITOR
                 if (value && this._current)
                 {
-                    Debug.LogError("Current is not null");
+                    Debug.LogError("Current is not null"); // 6
                 }
 #endif
                 this._current = value;
@@ -166,7 +166,7 @@ namespace Game
 
         public void Accept(Pawn pawn, float duration = 0.0f, System.Action onComplete = null)
         {
-            Current = pawn;
+            Current = pawn; // 4
 
             if (duration <= 0.0f)
             {

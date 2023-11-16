@@ -45,6 +45,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Color doubleColor;
     [SerializeField] private Transform multProgress;
     public const int PiggyCapIncrease = 5;
+    public const int PiggyCapDiv = 5;
     public const int TicketRewardEveryBreak = 8;
 
     private int _multiplier = 1;
@@ -314,7 +315,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         int coinReward = (int)(_Data.currentMoney.amount * 0.25f);
         GiveMeta(coinReward, 20, UIManagerExtensions.EmitPiggyRewardCoin);
-        int piggyReward = _data.moneyCapacity / 5;
+        int capacity2Piggy = _data.moneyCapacity / PiggyCapDiv;
+        int piggyReward = (int)Random.Range(capacity2Piggy * 0.75f, capacity2Piggy) + 1;
         GiveMeta(piggyReward, 20, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         

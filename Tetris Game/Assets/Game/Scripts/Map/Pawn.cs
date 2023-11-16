@@ -232,7 +232,7 @@ namespace Game
                 case Usage.Empty:
                     break;
                 case Usage.Ammo:
-                    rewardAmount = Amount;
+                    // rewardAmount = 2;
                     break;
                 case Usage.UnpackedAmmo:
                     break;
@@ -261,7 +261,7 @@ namespace Game
                     
                     break;
                 case Usage.Gift:
-                    rewardAmount = 10;
+                    rewardAmount = 8;
                     break;
                 case Usage.Punch:
                     rewardAmount = 5;
@@ -274,7 +274,8 @@ namespace Game
             if (rewardAmount > 0)
             {
                 SubModel.gameObject.SetActive(false);
-                UIManagerExtensions.BoardCoinToPlayer(SubModel.Position,  rewardAmount, rewardAmount);
+                Debug.Log(rewardAmount);
+                UIManagerExtensions.BoardCoinToPlayer(SubModel.Position,  Math.Min(rewardAmount, 5), rewardAmount);
             }
         }
         
@@ -378,7 +379,7 @@ namespace Game
             Tick = tick;
             
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-            forwardPlace.Accept(this, moveDuration);
+            forwardPlace.Accept(this, moveDuration); // 3
             
             checkerPlace.Current = null;
             return true;

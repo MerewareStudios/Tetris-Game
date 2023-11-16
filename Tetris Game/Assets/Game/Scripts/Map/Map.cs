@@ -23,7 +23,7 @@ namespace Game
                 {
                     Board.THIS.CheckAll();
 
-                    Board.THIS.MoveAll(0.2f);
+                    Board.THIS.MoveAll(0.2f); // 1
                     Board.THIS.HighlightPlaces();
 
                     yield return new WaitForSeconds(0.225f);

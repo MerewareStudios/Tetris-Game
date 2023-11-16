@@ -308,7 +308,7 @@ namespace Game
                 {
                     continue;
                 }
-                place.Current.MoveForward(place, _tick, moveDuration);
+                place.Current.MoveForward(place, _tick, moveDuration); // 2
             }
         }
         public void CheckAll()
@@ -754,24 +754,25 @@ namespace Game
                     Place place = _places[i, j];
                     Pawn pawn = place.Current;
                     
-                    if (!pawn)
-                    {
-                        continue;
-                    }
-                    
                     Vector2Int current = new Vector2Int(i, j);
-
-                    if (pawn.UsageType.Equals(Pawn.Usage.Magnet) && current != new Vector2Int(horizontal, vertical))
-                    {
-                        continue;
-                    }
                     
                     if (Vector2Int.Distance(center, current) > MagnetRadius)
                     {
                         continue;
                     }
-
+                    
                     AddDropPosition(current);
+                    
+                    if (!pawn)
+                    {
+                        continue;
+                    }
+                    
+
+                    if (pawn.UsageType.Equals(Pawn.Usage.Magnet) && current != new Vector2Int(horizontal, vertical))
+                    {
+                        continue;
+                    }
                     
                     lastPawn = pawn;
 
@@ -852,11 +853,6 @@ namespace Game
                     Place place = _places[i, j];
                     Pawn pawn = place.Current;
                     
-                    if (!pawn)
-                    {
-                        continue;
-                    }
-                    
                     Vector2Int current = new Vector2Int(i, j);
                     if (Vector2Int.Distance(center, current) > radius)
                     {
@@ -864,6 +860,11 @@ namespace Game
                     }
                     
                     AddDropPosition(current);
+                    
+                    if (!pawn)
+                    {
+                        continue;
+                    }
 
                     pawn.Explode(place.Index);
                     RemovePawn(place);

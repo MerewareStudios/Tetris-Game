@@ -36,7 +36,6 @@ namespace IWI
                     FakeAdRewarded.THIS.Initialize();
                     FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
                     {
-                        // Debug.LogWarning("FakeAdRewarded OnLoadedStateChanged " + state);
                         if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.REWARDED))
                         {
                             return;
@@ -57,7 +56,6 @@ namespace IWI
                     FakeAdInterstitial.THIS.Initialize();
                     FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
                     {
-                        // Debug.LogWarning("FakeAdInterstitial OnLoadedStateChanged " + state);
                         if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.INTERSTITIAL))
                         {
                             return;
@@ -76,30 +74,20 @@ namespace IWI
         {
             if (_Data.removeAds)
             {
-                // Debug.LogWarning("Interstitial - Skip - Remove Ads");
-
-                // Debug.LogWarning("Interstitial Removed Ads");
                 onSuccess?.Invoke();
                 return;
             }
             if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
             {
-                // Debug.LogWarning("Interstitial - Skip - Upgrade Not Learned");
-
-                // Debug.LogWarning("Interstitial Onboarding Not done");
                 onSuccess?.Invoke();
                 return;
             }
-            // Debug.LogWarning(Time.time - _Data.LastTimeAdShown);
 
             if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
             {
-                // Debug.LogWarning("Interstitial - Time Up Show");
-
                 ShowAdBreak(onSuccess);
                 return;
             }
-            // Debug.LogWarning("Interstitial - Still Have Time");
             onSuccess?.Invoke();
         }
         
@@ -191,22 +179,17 @@ namespace IWI
         {
             if (!MaxSdk.IsInitialized())
             {
-                // Debug.LogWarning("Interstitial - Not Init");
-
                 onFinish?.Invoke();
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
-                // Debug.LogWarning("Interstitial - Skip None");
                 FakeAdInterstitial.THIS.LoadAd();
                 onFinish?.Invoke();
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                // Debug.LogWarning("Interstitial - Skip Not Ready");
-                
                 onFinish?.Invoke();
                 return;
             }
@@ -257,13 +240,17 @@ namespace IWI
         {
             if (!MaxSdk.IsInitialized())
             {
-                Debug.LogWarning("Rewarded - Not Init");
                 return;
             }
             if (FakeAdRewarded.THIS.LoadState.Equals(LoadState.None))
             {
                 FakeAdRewarded.THIS.LoadAd();
             }
+
+            onReward += () =>
+            {
+                AdManager.THIS._Data.LastTimeAdShown += 30;
+            };
             
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
             AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
@@ -286,10 +273,7 @@ namespace IWI
                 {
                     GameManager.GameTimeScale(1.0f);
                 }, 
-                () =>
-                {
-                    onReward?.Invoke();
-                },
+                onReward,
                 () =>
                 {
                     GameManager.GameTimeScale(1.0f);
