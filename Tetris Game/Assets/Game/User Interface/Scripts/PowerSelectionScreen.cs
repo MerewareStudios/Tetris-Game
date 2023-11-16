@@ -10,14 +10,21 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private List<PowerSelection> powerSelections;
     [SerializeField] public Pawn.Usage[] powerUps;
+    [SerializeField] public ToggleButton toggleButton;
     [System.NonSerialized] public float Timescale = 1.0f;
 
     void Start()
     {
+        SetStashState(Powerup.THIS._Data.stash);
         for (int i = 0; i < powerSelections.Count; i++)
         {
             powerSelections[i].Set(Select, powerUps[i].Icon(), i);
         }
+    }
+
+    public void SetStashState(bool stash)
+    {
+        toggleButton.SetIsOnWithoutNotify(stash);
     }
 
     public void Toggle()

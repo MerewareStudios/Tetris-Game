@@ -40,6 +40,7 @@ public class Powerup : Lazyingleton<Powerup>
             SetPowerup(_data.currentUsage);
 
             Enabled = ONBOARDING.USE_POWERUP.IsComplete();
+            
         }
         get => this._data;
     }
@@ -201,6 +202,7 @@ public class Powerup : Lazyingleton<Powerup>
         [SerializeField] public bool available = false;
         [SerializeField] public Pawn.Usage currentUsage;
         [SerializeField] public int purchaseCount;
+        [SerializeField] public bool stash;
         public Data()
         {
             
@@ -210,6 +212,7 @@ public class Powerup : Lazyingleton<Powerup>
             this.available = data.available;
             this.currentUsage = data.currentUsage;
             this.purchaseCount = data.purchaseCount;
+            this.stash = data.stash;
         }
         public object Clone()
         {
