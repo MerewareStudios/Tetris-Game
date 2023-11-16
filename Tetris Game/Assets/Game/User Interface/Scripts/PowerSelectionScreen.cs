@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using Internal.Core;
+using TMPro;
 using UnityEngine;
 
 public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
@@ -11,20 +12,28 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
     [SerializeField] private List<PowerSelection> powerSelections;
     [SerializeField] public Pawn.Usage[] powerUps;
     [SerializeField] public ToggleButton toggleButton;
+    [SerializeField] public TextMeshProUGUI stashText;
     [System.NonSerialized] public float Timescale = 1.0f;
 
     void Start()
     {
-        SetStashState(Powerup.THIS._Data.stash);
         for (int i = 0; i < powerSelections.Count; i++)
         {
             powerSelections[i].Set(Select, powerUps[i].Icon(), i);
         }
+        SetStashState(Powerup.THIS._Data.use);
     }
 
-    public void SetStashState(bool stash)
+    public void SetStashState(bool use)
     {
-        toggleButton.SetIsOnWithoutNotify(stash);
+        toggleButton.SetIsOnWithoutNotify(use);
+        stashText.text = use ? "USE" : "STASH";
+    }
+
+    public void ToggleStash(bool state)
+    {
+        Powerup.THIS._Data.use = state;
+        stashText.text = state ? "USE" : "STASH";
     }
 
     public void Toggle()

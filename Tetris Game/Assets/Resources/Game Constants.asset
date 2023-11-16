@@ -639,6 +639,7 @@ MonoBehaviour:
       available: 1
       currentUsage: 4
       purchaseCount: 0
+      use: 1
     boardData:
       defaultStack: 6
       maxStack: 6
@@ -648,7 +649,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 0
     adTransactionData:
-      value: 0
+      value: 11
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
