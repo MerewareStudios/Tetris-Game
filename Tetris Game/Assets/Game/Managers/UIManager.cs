@@ -94,7 +94,7 @@ public class UIManager : Singleton<UIManager>
       UIEmitter.SpawnFunction = SpawnImageIcon;
       UIEmitter.DespawnFunction = DespawnImageIcon;
 
-      Consent.GetRestartButtonState = () => ONBOARDING.PIGGY_CONTINUE.IsComplete()
+      Consent.GetRestartButtonState = () => ONBOARDING.UPGRADE_TAB.IsComplete()
                                             && GameManager.PLAYING
                                             && MaxSdk.IsUserConsentSet();
 

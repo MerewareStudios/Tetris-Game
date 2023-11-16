@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 81
+  bundleVersionCode: 85
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -951,7 +951,7 @@ MonoBehaviour:
   - blockType: 12
     currency:
       type: 1
-      amount: 15
+      amount: 20
     unlockedAt: 5
   - blockType: 9
     currency:
@@ -961,68 +961,68 @@ MonoBehaviour:
   - blockType: 7
     currency:
       type: 1
-      amount: 15
+      amount: 25
     unlockedAt: 15
   - blockType: 8
     currency:
       type: 1
-      amount: 15
-    unlockedAt: 15
+      amount: 25
+    unlockedAt: 20
   - blockType: 11
     currency:
       type: 0
-      amount: 300
-    unlockedAt: 20
+      amount: 500
+    unlockedAt: 25
   - blockType: 14
     currency:
       type: 1
-      amount: 15
-    unlockedAt: 25
+      amount: 50
+    unlockedAt: 30
   - blockType: 15
     currency:
       type: 1
-      amount: 15
-    unlockedAt: 25
+      amount: 50
+    unlockedAt: 35
   - blockType: 18
     currency:
       type: 0
       amount: 500
-    unlockedAt: 30
+    unlockedAt: 40
   - blockType: 72
     currency:
       type: 2
       amount: 1
-    unlockedAt: 35
+    unlockedAt: 45
   - blockType: 48
     currency:
       type: 0
       amount: 1000
-    unlockedAt: 40
+    unlockedAt: 50
   - blockType: 49
     currency:
-      type: 0
-      amount: 1500
-    unlockedAt: 45
+      type: 1
+      amount: 50
+    unlockedAt: 60
   - blockType: 50
     currency:
-      type: 0
-      amount: 1750
-    unlockedAt: 50
+      type: 1
+      amount: 100
+    unlockedAt: 70
   - blockType: 73
     currency:
       type: 0
-      amount: 1500
-    unlockedAt: 55
+      amount: 2000
+    unlockedAt: 80
   - blockType: 74
     currency:
       type: 0
-      amount: 2000
-    unlockedAt: 60
+      amount: 2500
+    unlockedAt: 90
   - blockType: 2
     currency:
       type: 1
-      amount: 20
-    unlockedAt: 65
+      amount: 200
+    unlockedAt: 100
   purchaseDataLookUp:
   - purchaseType: 0
     currency:
@@ -1119,9 +1119,12 @@ MonoBehaviour:
       amount: 7
     sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
     title: <bounce a=0.05 f=1>PRIME CHEST
-    info: '<sprite name=Coin> +100
+    info: '<sprite name=Coin> +1000
 
-      <sprite name=PiggyCoin> +5'
+      <sprite name=PiggyCoin> +50
+
+      <sprite
+      name=Ticket> +5'
     extra: 
     best: 0
   - purchaseType: 10
@@ -1135,9 +1138,7 @@ MonoBehaviour:
       <sprite name=PiggyCoin> +200
 
       <sprite
-      name=Ticket> +15
-
-'
+      name=Ticket> +15'
     extra: 
     best: 1
   - purchaseType: 11
