@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
 {
     [System.NonSerialized] public static bool PLAYING = false;
     
-    public static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");

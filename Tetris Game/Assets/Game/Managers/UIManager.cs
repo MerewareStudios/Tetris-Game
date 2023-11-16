@@ -34,6 +34,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private AdBreakScreen adBreakScreen;
    [SerializeField] private PowerSelectionScreen powerSelectionScreen;
    [SerializeField] private StatDisplayArranger statDisplayArranger;
+   [SerializeField] private OfferScreen offerScreen;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [FormerlySerializedAs("particleImageCoin")]
@@ -89,6 +90,7 @@ public class UIManager : Singleton<UIManager>
       AdBreakScreen.THIS = adBreakScreen;
       StatDisplayArranger.THIS = statDisplayArranger;
       PowerSelectionScreen.THIS = powerSelectionScreen;
+      OfferScreen.THIS = offerScreen;
 
 
       UIEmitter.SpawnFunction = SpawnImageIcon;
@@ -111,6 +113,8 @@ public class UIManager : Singleton<UIManager>
          Wallet.ScaleTransactors(value ? 1.1f : 1.0f, value);
       };
 
+      OfferScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
+
       CurrentMenu = null;
    }
 
@@ -132,13 +136,43 @@ public class UIManager : Singleton<UIManager>
    {
       AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
    }
-   public void AdLayerClick_OpenHealthShop()
+   // public void AdLayerClick_OpenHealthShop()
+   // {
+   //    // AdManager.THIS.TryInterstitial(() =>
+   //    // {
+   //    //    shop.OpenDirect(MenuType.Upgrade);
+   //    //    UpgradeMenu.THIS.Prompt(UpgradeMenu.PurchaseType.MEDKIT, 0.1f, 0.25f);
+   //    // });
+   // }
+
+   public void ShowOffer_BannerClose()
    {
-      // AdManager.THIS.TryInterstitial(() =>
-      // {
-      //    shop.OpenDirect(MenuType.Upgrade);
-      //    UpgradeMenu.THIS.Prompt(UpgradeMenu.PurchaseType.MEDKIT, 0.1f, 0.25f);
-      // });
+      OfferScreen.THIS.Open();
+      
+   }
+   
+   public void ShowOffer_CoinPlus()
+   {
+      OfferScreen.THIS.Open();
+      
+   }
+   
+   public void ShowOffer_PiggyCoinPlus()
+   {
+      OfferScreen.THIS.Open();
+      
+   }
+   
+   public void ShowOffer_TicketPlus()
+   {
+      OfferScreen.THIS.Open();
+      
+   }
+   
+   public void ShowOffer_HeartPlus()
+   {
+      OfferScreen.THIS.Open();
+      
    }
 
 #if UNITY_EDITOR

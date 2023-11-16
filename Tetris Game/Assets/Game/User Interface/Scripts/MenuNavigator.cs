@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.UI;
+using Internal.Core;
 using UnityEngine;
 
 public class MenuNavigator : Menu<MenuNavigator>, IMenu
@@ -120,7 +121,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     }
     void Update()
     {
-        Shader.SetGlobalFloat(GameManager.UnscaledTime, Time.unscaledTime);
+        Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
     public Data _Data
     {

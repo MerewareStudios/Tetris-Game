@@ -7,6 +7,7 @@ using IWI.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Helper = Internal.Core.Helper;
 using Random = UnityEngine.Random;
 
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
@@ -57,7 +58,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     
     void Update()
     {
-        Shader.SetGlobalFloat(GameManager.UnscaledTime, Time.unscaledTime);
+        Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
     
     #region Menu
