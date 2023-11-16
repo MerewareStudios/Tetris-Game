@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using Game;
 using Google.Play.Review;
 using Internal.Core;
@@ -60,6 +61,8 @@ public class GameManager : Singleton<GameManager>
         }
 
         LevelManager.THIS.LoadLevel();
+        
+        DOTween.SetTweensCapacity(100, 50);
         
     #if !UNITY_EDITOR
         if (!MaxSdk.IsUserConsentSet())
@@ -258,5 +261,6 @@ public class GameManager : Singleton<GameManager>
         Board.THIS.OnLevelEnd();
         Map.THIS.OnLevelEnd();
         Spawner.THIS.OnLevelEnd();
+        PowerSelectionScreen.THIS.Close();
     }
 }

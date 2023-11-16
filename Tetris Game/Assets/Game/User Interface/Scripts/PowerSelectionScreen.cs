@@ -40,6 +40,10 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
 
     public bool Close()
     {
+        if (!canvas.enabled)
+        {
+            return true;
+        }
         canvas.enabled = false;
         this.gameObject.SetActive(false);
         

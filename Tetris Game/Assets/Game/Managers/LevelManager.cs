@@ -101,16 +101,6 @@ public class LevelManager : Singleton<LevelManager>
         }
         OnFail();
     }
-    
-    
-    // public static Pawn.Usage GetRandomPowerUp()
-    // {
-    //     if (_currentLevelSo.powerUps == null || _currentLevelSo.powerUps.Length == 0)
-    //     {
-    //         return Const.THIS.powerUps.Random();
-    //     }
-    //     return _currentLevelSo.powerUps.Random();
-    // }
     public static Enemy.SpawnData GetEnemySpawnData()
     {
         return _currentLevelSo.EnemySpawnData;
