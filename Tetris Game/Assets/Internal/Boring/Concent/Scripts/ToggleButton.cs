@@ -6,16 +6,20 @@ public class ToggleButton : Toggle
 {
     [SerializeField] private Animator toggleAnimator;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        toggleAnimator.keepAnimatorStateOnDisable = true;
+    }
+
     public new void SetIsOnWithoutNotify(bool value)
     {
         base.SetIsOnWithoutNotify(value);
-        Debug.Log("SetIsOnWithoutNotify toggleAnimator " + isOn);
-        toggleAnimator.SetTrigger(isOn ? "Selected" : "Disabled");
+        toggleAnimator.Play("Base Layer." + (isOn ? "Selected" : "Disabled"), 0);
     }    
     public override void OnPointerClick(PointerEventData eventData)
     {
         base.OnPointerClick(eventData);
-        Debug.Log("OnPointerClick toggleAnimator " + isOn);
         toggleAnimator.SetTrigger(isOn ? "Selected" : "Disabled");
     }
 }
