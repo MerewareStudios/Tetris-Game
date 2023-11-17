@@ -991,10 +991,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use these at the shop to purchase upgrades.
+  m_text: '<sprite name=Check> No more interstitial ads!
 
+    <sprite name=Check>
+    No more banner ads!
 
-    <size=150%><sprite name=PiggyCoin>+150'
+    <sprite name=Check> Keep enjoying bonuses!
+
+    <sprite
+    name=Check> Keep using rewarded ads!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 95b1987717372aa45a20efc7bdb6e943, type: 2}
@@ -1033,9 +1038,9 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: -7.76
   m_wordSpacing: 0
-  m_lineSpacing: -35.4
+  m_lineSpacing: -39.1
   m_lineSpacingMax: 0
-  m_paragraphSpacing: -20.1
+  m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
@@ -1144,27 +1149,31 @@ MonoBehaviour:
       mult: 
   - offerType: 1
     iapID: com.iwi.combatris.coinpack
-    title: <bounce a=0.05 f=1>COIN PACK
-    detailedInfoStr: <sprite name=Coin> +1500
+    title: <bounce a=0.05 f=1>BUY COIN
+    detailedInfoStr: 'Use these at the shop to purchase upgrades and fill your Piggy
+      Bank.
+
+
+      <size=150%><sprite name=Coin>+150'
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
-      title: 
-      mult: 
+    - sprite: {fileID: 21300000, guid: 2db9f4e410fc71344bf7f6fe9e691dfa, type: 3}
+      title: Coin Pack
+      mult: x 1
   - offerType: 2
     iapID: com.iwi.combatris.piggycoinpack
-    title: <bounce a=0.05 f=1>GEM PACK
+    title: <bounce a=0.05 f=1>BUY GEM
     detailedInfoStr: 'Use these at the shop to purchase upgrades.
 
 
       <size=150%><sprite
       name=PiggyCoin>+150'
     previewDatas:
-    - sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
+    - sprite: {fileID: 21300000, guid: 8bbea6879e08f2748ac6df91206f27ce, type: 3}
       title: Gem Pack
       mult: x 1
   - offerType: 3
     iapID: com.iwi.combatris.ticketpack
-    title: <bounce a=0.05 f=1>SKIP TICKETS
+    title: <bounce a=0.05 f=1>BUY TICKET
     detailedInfoStr: 'You can skip ads, buy power-ups or purchase new items with
       these.
 
@@ -1373,7 +1382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -37}
+  m_AnchoredPosition: {x: 0, y: -48}
   m_SizeDelta: {x: 0, y: 534.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1827993954862968274
