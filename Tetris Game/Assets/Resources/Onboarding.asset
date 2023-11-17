@@ -33,8 +33,6 @@ MonoBehaviour:
   splitShotText: <sprite name=Splitshot>
   equippedText: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
   unlockedAtText: <pend a=0.1 f=2><sprite name=Lock> LEVEL <size=125%>
-  adBreakText: AD BREAK
-  earnText: WATCH AD
   useTicketText: AD BREAK
   earnTicketText: EARN <sprite name=Ticket>
   skipButtonText: SKIP<sprite name=Ticket>

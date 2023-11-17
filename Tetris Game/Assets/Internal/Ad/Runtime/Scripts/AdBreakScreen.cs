@@ -14,18 +14,20 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private Image bannerImage;
     [SerializeField] private Image centerImage;
     [SerializeField] private Button button;
-    [SerializeField] private TextMeshProUGUI topText;
+    // [SerializeField] private TextMeshProUGUI topText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI buttonText;
-    [SerializeField] private GameObject adPurchaseWindow;
-    [SerializeField] private GameObject ticketPurchaseWindow;
+    [SerializeField] private Button removeAdBreakButton;
+    [SerializeField] private Button plusTicketButton;
+    // [SerializeField] private GameObject adPurchaseWindow;
+    // [SerializeField] private GameObject ticketPurchaseWindow;
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
     // [SerializeField] private GameObject warningIcon;
     [SerializeField] private UnityEvent<string, System.Action, System.Action> _onPurchase;
-    [Header("Side Purchase")]
-    [SerializeField] private TextMeshProUGUI adBreakPrice;
-    [SerializeField] private TextMeshProUGUI ticketPackPrice;
+    // [Header("Side Purchase")]
+    // [SerializeField] private TextMeshProUGUI adBreakPrice;
+    // [SerializeField] private TextMeshProUGUI ticketPackPrice;
     
     [System.NonSerialized] public AdState CurrentAdState = AdState.NONE;
     [System.NonSerialized] private LoadState _currentLoadState;
@@ -120,12 +122,14 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this._onBypassReward = onBypassReward;
         return this;
     }
-    public AdBreakScreen SetPurchaseWindows(bool adPurchaseEnable, string adPrice, bool ticketPurchaseEnable, string ticketPrice)
+    public AdBreakScreen RemoveAdBreakButtonState(bool state)
     {
-        this.adPurchaseWindow.SetActive(adPurchaseEnable);
-        this.adBreakPrice.text = adPrice;
-        this.ticketPurchaseWindow.SetActive(ticketPurchaseEnable);
-        this.ticketPackPrice.text = ticketPrice;
+        this.removeAdBreakButton.gameObject.SetActive(state);
+        return this;
+    }
+    public AdBreakScreen PlusTicketState(bool state)
+    {
+        this.plusTicketButton.gameObject.SetActive(state);
         return this;
     }
     private void StartTimer()
