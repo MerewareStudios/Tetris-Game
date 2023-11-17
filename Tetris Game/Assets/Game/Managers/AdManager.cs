@@ -203,6 +203,7 @@ namespace IWI
             AdBreakScreen.THIS.SetVisualData(Onboarding.THIS.adBreakVisualData);
             AdBreakScreen.THIS.RemoveAdBreakButtonState(true);
             AdBreakScreen.THIS.PlusTicketState(false);
+            AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -259,6 +260,7 @@ namespace IWI
             AdBreakScreen.THIS.SetVisualData(Onboarding.THIS.rewardedAdVisualData);
             AdBreakScreen.THIS.RemoveAdBreakButtonState(false);
             AdBreakScreen.THIS.PlusTicketState(true);
+            AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {

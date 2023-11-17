@@ -69,6 +69,9 @@ public class Const : SSingleton<Const>
     [Header("Tutorıal")] 
     public Color suggestionColorTut;
     public Color suggestionColor;
+    [Header("Ad Break Icons")] 
+    public Sprite earnTicketBackgroundImage;
+    public Sprite skipAdBackgroundImage;
 
 
     public LevelSo GetLevelSo(int level)

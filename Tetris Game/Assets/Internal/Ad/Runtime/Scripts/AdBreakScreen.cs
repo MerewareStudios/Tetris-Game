@@ -9,6 +9,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private Image backgroundImage;
     [SerializeField] private Image fillImage;
     [SerializeField] private Image frameImage;
     [SerializeField] private Image bannerImage;
@@ -43,6 +44,11 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 
     public delegate bool ButtonUseCondition();
     private ButtonUseCondition _clickCondition;
+    
+    void Update()
+    {
+        Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
+    }
 
     public bool Visible
     {
@@ -98,6 +104,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         bannerImage.color = visualData.bannerColor;
         frameImage.color = visualData.frameColor;
         button.image.sprite = visualData.buttonSprite;
+        return this;
+    }
+    
+    public AdBreakScreen SetBackgroundImage(Sprite sprite)
+    {
+        backgroundImage.sprite = sprite;
         return this;
     }
 

@@ -1388,3 +1388,7 @@ MonoBehaviour:
     moverOnPlacement: 0
   suggestionColorTut: {r: 0.51320755, g: 0.7919337, b: 1, a: 1}
   suggestionColor: {r: 1, g: 1, b: 1, a: 1}
+  earnTicketBackgroundImage: {fileID: 21300000, guid: d62ce533a9876c74f8f6cb91796988fc,
+    type: 3}
+  skipAdBackgroundImage: {fileID: 21300000, guid: 6de7bbb9711236c4eb4f0045a57fdabf,
+    type: 3}

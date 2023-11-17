@@ -151,6 +151,17 @@ public class UIManager : Singleton<UIManager>
       
    }
    
+   public void ShowOffer_RemoveAdsFromAdBreak()
+   {
+      OfferScreen.THIS.Open();
+      
+   }
+   public void ShowOffer_TicketPackFromEarnTicket()
+   {
+      OfferScreen.THIS.Open();
+      
+   }
+   
    public void ShowOffer_CoinPlus()
    {
       OfferScreen.THIS.Open();
