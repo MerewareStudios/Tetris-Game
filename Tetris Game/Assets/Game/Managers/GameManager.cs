@@ -23,10 +23,12 @@ public class GameManager : Singleton<GameManager>
     public static void UpdateTimeScale()
     {
         Time.timeScale = GameManager.THIS._timeScale * 
-                         PowerSelectionScreen.THIS.Timescale * 
+                         AdBreakScreen.THIS.TimeScale * 
+                         PowerSelectionScreen.THIS.TimeScale * 
                          Consent.THIS.TimeScale *
                          MenuNavigator.THIS.TimeScale *
-                         PiggyMenu.THIS.TimeScale;
+                         PiggyMenu.THIS.TimeScale *
+                         OfferScreen.THIS.TimeScale;
         
         // Debug.Log("A + " + GameManager.THIS._timeScale);
         // Debug.Log("B + " + PowerSelectionScreen.THIS.Timescale);

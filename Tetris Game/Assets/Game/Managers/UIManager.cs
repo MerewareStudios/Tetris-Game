@@ -114,6 +114,7 @@ public class UIManager : Singleton<UIManager>
       };
 
       OfferScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
+      AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
 
       CurrentMenu = null;
    }

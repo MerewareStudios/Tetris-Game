@@ -6,7 +6,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
-    [System.NonSerialized] public float Timescale = 1.0f;
+    [System.NonSerialized] public float TimeScale = 1.0f;
     [System.NonSerialized] public System.Action OnVisibilityChanged;
 
 
@@ -25,7 +25,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         this.gameObject.SetActive(true);
         
-        Timescale = 0.0f;
+        TimeScale = 0.0f;
         OnVisibilityChanged?.Invoke();
 
         return this;
@@ -46,7 +46,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         };        
         
         
-        Timescale = 1.0f;
+        TimeScale = 1.0f;
         OnVisibilityChanged?.Invoke();
         
         return this;

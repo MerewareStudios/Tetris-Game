@@ -208,7 +208,7 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    GameManager.GameTimeScale(1.0f);
+                    // GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
 
                     _Data.interSkipCount++;
@@ -224,17 +224,17 @@ namespace IWI
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    GameManager.GameTimeScale(1.0f);
+                    // GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
                 }, 
                 () =>
                 {
-                    GameManager.GameTimeScale(1.0f);
+                    // GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
                 });
             }, onFinish, 3.5f);
                 
-            GameManager.GameTimeScale(0.0f);
+            // GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
         }
 
@@ -265,7 +265,7 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    GameManager.GameTimeScale(1.0f);
+                    // GameManager.GameTimeScale(1.0f);
                     onClick?.Invoke();
                 },
                 () => true);
@@ -275,16 +275,16 @@ namespace IWI
                 FakeAdRewarded.THIS.Show(
                 () =>
                 {
-                    GameManager.GameTimeScale(1.0f);
+                    // GameManager.GameTimeScale(1.0f);
                 }, 
                 onReward,
                 () =>
                 {
-                    GameManager.GameTimeScale(1.0f);
+                    // GameManager.GameTimeScale(1.0f);
                 });
             }, onReward, 3.5f);
 
-            GameManager.GameTimeScale(0.0f);
+            // GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
         }
 

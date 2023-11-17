@@ -2,7 +2,6 @@ using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class AdBreakScreen : Lazyingleton<AdBreakScreen>
@@ -15,20 +14,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private Image bannerImage;
     [SerializeField] private Image centerImage;
     [SerializeField] private Button button;
-    // [SerializeField] private TextMeshProUGUI topText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private Button removeAdBreakButton;
     [SerializeField] private Button plusTicketButton;
-    // [SerializeField] private GameObject adPurchaseWindow;
-    // [SerializeField] private GameObject ticketPurchaseWindow;
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
-    // [SerializeField] private GameObject warningIcon;
-    [SerializeField] private UnityEvent<string, System.Action, System.Action> _onPurchase;
-    // [Header("Side Purchase")]
-    // [SerializeField] private TextMeshProUGUI adBreakPrice;
-    // [SerializeField] private TextMeshProUGUI ticketPackPrice;
     
     [System.NonSerialized] public AdState CurrentAdState = AdState.NONE;
     [System.NonSerialized] private LoadState _currentLoadState;
@@ -45,6 +36,10 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public delegate bool ButtonUseCondition();
     private ButtonUseCondition _clickCondition;
     
+    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public System.Action OnVisibilityChanged;
+
+    
     void Update()
     {
         Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
@@ -58,6 +53,9 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
             canvas.enabled = value;
             
             onVisibilityChanged?.Invoke(value);
+            
+            TimeScale = value ? 0.0f : 1.0f;
+            OnVisibilityChanged?.Invoke();
         }
     }
 
@@ -226,28 +224,28 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         _canInteract = false;
         _onClick?.Invoke();
     }
-    public void OnClick_PurchaseAd()
+    public void OnClick_Offer()
     {
         if (!_canInteract)
         {
             return;
         }
-        _onPurchase?.Invoke("com.iwi.combatris.noads", OnPurchaseSuccessful, OnPurchaseFailed);
+        // _onPurchase?.Invoke("com.iwi.combatris.noads", OnPurchaseSuccessful, OnPurchaseFailed);
     }
-    public void OnClick_PurchaseTicket()
-    {
-        if (!_canInteract)
-        {
-            return;
-        }
-        _onPurchase?.Invoke("com.iwi.combatris.ticketpack", OnPurchaseSuccessful, OnPurchaseFailed);
-    }
+    // public void OnClick_PurchaseTicket()
+    // {
+    //     if (!_canInteract)
+    //     {
+    //         return;
+    //     }
+    //     _onPurchase?.Invoke("com.iwi.combatris.ticketpack", OnPurchaseSuccessful, OnPurchaseFailed);
+    // }
 
-    private void OnPurchaseFailed()
+    public void OnOfferFailed()
     {
         Restart();
     }
-    private void OnPurchaseSuccessful()
+    public void OnOfferSuccessful()
     {
         Stop();
         _onClick?.Invoke();
