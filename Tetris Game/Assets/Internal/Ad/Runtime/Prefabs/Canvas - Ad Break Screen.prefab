@@ -481,9 +481,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FakeAdBanner, Internal.Ad
-        m_MethodName: HideOffer
+      - m_Target: {fileID: 8761230528319600152}
+        m_TargetAssemblyTypeName: AdBreakScreen, Internal.Ad
+        m_MethodName: OnClick_Offer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -983,9 +983,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FakeAdBanner, Internal.Ad
-        m_MethodName: HideOffer
+      - m_Target: {fileID: 8761230528319600152}
+        m_TargetAssemblyTypeName: AdBreakScreen, Internal.Ad
+        m_MethodName: OnClick_Offer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1064,21 +1064,6 @@ MonoBehaviour:
   plusTicketButton: {fileID: 5179550982178858918}
   adIcon: {fileID: 3291016145704852108}
   loadingIcon: {fileID: 6876960210875080674}
-  _onPurchase:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
-        m_MethodName: Purchase
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!223 &2846355456824160056
 Canvas:
   m_ObjectHideFlags: 0

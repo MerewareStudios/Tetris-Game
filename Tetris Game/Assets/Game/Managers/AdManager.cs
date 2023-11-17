@@ -204,6 +204,7 @@ namespace IWI
             AdBreakScreen.THIS.RemoveAdBreakButtonState(true);
             AdBreakScreen.THIS.PlusTicketState(false);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
+            AdBreakScreen.THIS.SetOfferScreen(OfferScreen.THIS, OfferScreen.THIS.OnClick_RemoveAds_AdBreakScreen, onFinish);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -232,7 +233,7 @@ namespace IWI
                     // GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
                 });
-            }, onFinish, 3.5f);
+            }, 3.5f);
                 
             // GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
@@ -261,6 +262,7 @@ namespace IWI
             AdBreakScreen.THIS.RemoveAdBreakButtonState(false);
             AdBreakScreen.THIS.PlusTicketState(true);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
+            AdBreakScreen.THIS.SetOfferScreen(OfferScreen.THIS, OfferScreen.THIS.OnClick_TicketPack_EarnTicketScreen, onReward);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -282,7 +284,7 @@ namespace IWI
                 {
                     // GameManager.GameTimeScale(1.0f);
                 });
-            }, onReward, 3.5f);
+            }, 3.5f);
 
             // GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();

@@ -26,7 +26,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     
     [System.NonSerialized] private bool _canInteract = false;
     [System.NonSerialized] private System.Action _onTimesUp;
-    [System.NonSerialized] private System.Action _onBypassReward;
+    // [System.NonSerialized] private System.Action _onBypassReward;
     [System.NonSerialized] private System.Action _onClick;
     [System.NonSerialized] public static System.Action<bool> onVisibilityChanged;
     
@@ -125,11 +125,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this._clickCondition = clickCondition;
         return this;
     }
-    public AdBreakScreen OnTimesUp(System.Action onTimesUp, System.Action onBypassReward, float duration)
+    // public AdBreakScreen OnTimesUp(System.Action onTimesUp, System.Action onBypassReward, float duration)
+    public AdBreakScreen OnTimesUp(System.Action onTimesUp, float duration)
     {
         this._duration = duration;
         this._onTimesUp = onTimesUp;
-        this._onBypassReward = onBypassReward;
+        // this._onBypassReward = onBypassReward;
         return this;
     }
     public AdBreakScreen RemoveAdBreakButtonState(bool state)
@@ -224,33 +225,44 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         _canInteract = false;
         _onClick?.Invoke();
     }
+    
+    #region Offer
+
+    private System.Action _onClickOffer;
+    private System.Action _onAcceptReward;
+    
+    public void SetOfferScreen(OfferScreen offerScreen, System.Action onClickOffer, System.Action onAcceptReward)
+    {
+        this._onClickOffer = onClickOffer;
+        this._onAcceptReward = onAcceptReward;
+        offerScreen.OnOfferRejected = OnOfferRejected;
+        offerScreen.OnOfferAccepted = OnOfferAccepted;
+    }
+    
     public void OnClick_Offer()
     {
         if (!_canInteract)
         {
             return;
         }
-        // _onPurchase?.Invoke("com.iwi.combatris.noads", OnPurchaseSuccessful, OnPurchaseFailed);
-    }
-    // public void OnClick_PurchaseTicket()
-    // {
-    //     if (!_canInteract)
-    //     {
-    //         return;
-    //     }
-    //     _onPurchase?.Invoke("com.iwi.combatris.ticketpack", OnPurchaseSuccessful, OnPurchaseFailed);
-    // }
 
-    public void OnOfferFailed()
+        Pause();
+        _onClickOffer?.Invoke();
+    }
+
+    private void OnOfferRejected()
     {
         Restart();
     }
-    public void OnOfferSuccessful()
+
+    private void OnOfferAccepted()
     {
         Stop();
         _onClick?.Invoke();
-        _onBypassReward?.Invoke();
+        _onAcceptReward?.Invoke();
     }
+    
+    #endregion
     
     [System.Serializable]
     public struct VisualData
