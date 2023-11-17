@@ -1,13 +1,20 @@
 using System;
 using DG.Tweening;
 using Internal.Core;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OfferScreen : Lazyingleton<OfferScreen>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private OfferData[] offerData;
+    [Header("Visuals")]
+    [SerializeField] private OfferPreview[] offerPreviews;
+    [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private TextMeshProUGUI infoText;
+    [SerializeField] private TextMeshProUGUI priceText;
     [System.NonSerialized] public float TimeScale = 1.0f;
     [System.NonSerialized] public System.Action OnVisibilityChanged;
     [System.NonSerialized] private System.Action _onOfferRejected;
@@ -72,9 +79,27 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
     }
 
-    public void SetupOffer(Type type)
+    private void SetupOffer(Type type)
     {
+        SetupVisuals(offerData[(int)type]);
+    }
+
+    private void SetupVisuals(OfferData data)
+    {
+        titleText.text = data.title;
+        infoText.text = data.detailedInfoStr;
+        priceText.text = "2.99$";
+
+        for (int i = 0; i < offerPreviews.Length; i++)
+        {
+            bool iconEnabled = i < data.previewDatas.Length;
+            offerPreviews[i].gameObject.SetActive(iconEnabled);
         
+            if (iconEnabled)
+            {
+                offerPreviews[i].Set(data.previewDatas[i]);
+            }
+        }
     }
     
     void Update()
@@ -102,7 +127,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         [SerializeField] public OfferScreen.Type offerType;
         [SerializeField] public string iapID;
-        [SerializeField] public Sprite[] offerIcons;
+        [SerializeField] public OfferPreview.PreviewData[] previewDatas;
         [TextArea] [SerializeField] public string title;
         [TextArea] [SerializeField] public string detailedInfoStr;
 
