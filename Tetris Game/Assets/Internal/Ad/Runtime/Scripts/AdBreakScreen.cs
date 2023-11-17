@@ -228,15 +228,13 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     
     #region Offer
 
-    private System.Action _onClickOffer;
-    private System.Action _onAcceptReward;
+    private System.Action _onClickOfferProcessing;
+    private System.Action _onBypass;
     
-    public void SetOfferScreen(OfferScreen offerScreen, System.Action onClickOffer, System.Action onAcceptReward)
+    public void OnClickOffer(System.Action onClickOffer, System.Action onBypass)
     {
-        this._onClickOffer = onClickOffer;
-        this._onAcceptReward = onAcceptReward;
-        offerScreen.OnOfferRejected = OnOfferRejected;
-        offerScreen.OnOfferAccepted = OnOfferAccepted;
+        this._onClickOfferProcessing = onClickOffer;
+        this._onBypass = onBypass;
     }
     
     public void OnClick_Offer()
@@ -247,19 +245,19 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         }
 
         Pause();
-        _onClickOffer?.Invoke();
+        _onClickOfferProcessing?.Invoke();
     }
 
-    private void OnOfferRejected()
+    public void OnOfferRejected()
     {
         Restart();
     }
 
-    private void OnOfferAccepted()
+    public void OnOfferAccepted()
     {
         Stop();
         _onClick?.Invoke();
-        _onAcceptReward?.Invoke();
+        _onBypass?.Invoke();
     }
     
     #endregion

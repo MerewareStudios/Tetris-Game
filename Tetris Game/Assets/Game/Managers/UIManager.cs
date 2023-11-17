@@ -148,33 +148,30 @@ public class UIManager : Singleton<UIManager>
 
    public void ShowOffer_BannerClose()
    {
-      OfferScreen.THIS.Open();
-      
+      AdManager.Offers.RemoveAds_Banner();
    }
    
    public void ShowOffer_CoinPlus()
    {
-      OfferScreen.THIS.Open();
-      
+      AdManager.Offers.CoinPack_Meta();
    }
    
    public void ShowOffer_PiggyCoinPlus()
    {
-      OfferScreen.THIS.Open();
-      
+      AdManager.Offers.PiggyPack_Meta();
    }
    
    public void ShowOffer_TicketPlus()
    {
-      OfferScreen.THIS.Open();
-      
+      AdManager.Offers.TicketPack_Meta();
    }
    
    public void ShowOffer_HeartPlus()
    {
-      OfferScreen.THIS.Open();
-      
+      AdManager.Offers.HealthPack_Gameplay();
    }
+   
+   
 
 #if UNITY_EDITOR
    private void Update()

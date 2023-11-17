@@ -8,16 +8,19 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] private CanvasGroup canvasGroup;
     [System.NonSerialized] public float TimeScale = 1.0f;
     [System.NonSerialized] public System.Action OnVisibilityChanged;
-    [System.NonSerialized] public System.Action OnOfferRejected;
-    [System.NonSerialized] public System.Action OnOfferAccepted;
+    [System.NonSerialized] private System.Action _onOfferRejected;
+    [System.NonSerialized] private System.Action _onOfferAccepted;
 
 
-    public OfferScreen Open()
+    public OfferScreen Open(System.Action onOfferAccepted = null, System.Action onOfferRejected = null)
     {
         if (canvas.enabled)
         {
             return this;
         }
+
+        this._onOfferAccepted = onOfferAccepted;
+        this._onOfferRejected = onOfferRejected;
         
         
         canvas.enabled = true;
@@ -57,7 +60,12 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public void OnClick_Close()
     {
         Close();
-        OnOfferRejected?.Invoke();
+        _onOfferRejected?.Invoke();
+    }
+    
+    public void OnClick_Buy()
+    {
+        
     }
     
     void Update()
@@ -65,21 +73,4 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
 
-
-    #region Offers
-
-    public void OnClick_RemoveAds_AdBreakScreen()
-    {
-        Open();
-      
-    }
-    public void OnClick_TicketPack_EarnTicketScreen()
-    {
-        Open();
-      
-    }
-    
-
-    #endregion
-    
 }
