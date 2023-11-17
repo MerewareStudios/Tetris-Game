@@ -102,7 +102,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         [SerializeField] public OfferScreen.Type offerType;
         [SerializeField] public string iapID;
-        [SerializeField] public Sprite sprite;
+        [SerializeField] public Sprite[] offerIcons;
         [TextArea] [SerializeField] public string title;
         [TextArea] [SerializeField] public string detailedInfoStr;
 
