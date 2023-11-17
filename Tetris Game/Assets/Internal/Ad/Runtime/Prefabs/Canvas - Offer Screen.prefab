@@ -912,44 +912,61 @@ MonoBehaviour:
   offerData:
   - offerType: 0
     iapID: com.iwi.combatris.noads
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+    title: <bounce a=0.05 f=1>REMOVE ADS
+    detailedInfoStr: '<sprite name=Check> No Ad Breaks
+
+      <sprite name=Check>
+      No Banner
+
+      <sprite name=Check> Keep Bonuses'
   - offerType: 1
     iapID: com.iwi.combatris.coinpack
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
+    title: <bounce a=0.05 f=1>COIN PACK
+    detailedInfoStr: <sprite name=Coin> +1500
   - offerType: 2
     iapID: com.iwi.combatris.piggycoinpack
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
+    title: <bounce a=0.05 f=1>PIGGY COIN PACK
+    detailedInfoStr: <sprite name=Piggy Coin> +1500
   - offerType: 3
     iapID: com.iwi.combatris.ticketpack
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+    title: <bounce a=0.05 f=1>TICKET PACK
+    detailedInfoStr: <sprite name=Ticket> +15
   - offerType: 4
     iapID: com.iwi.combatris.healthpack
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
+    title: <bounce a=0.05 f=1>MEDKIT
+    detailedInfoStr: <size=150%><sprite name=Heart>+5
   - offerType: 5
     iapID: com.iwi.combatris.basicchest
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
+    title: <bounce a=0.05 f=1>BASIC CHEST
+    detailedInfoStr: '<sprite name=Coin> +100
+
+      <sprite name=PiggyCoin> +5'
   - offerType: 6
     iapID: com.iwi.combatris.primechest
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
+    title: <bounce a=0.05 f=1>PRIME CHEST
+    detailedInfoStr: '<sprite name=Coin> +1000
+
+      <sprite name=PiggyCoin> +50
+
+      <sprite
+      name=Ticket> +5'
   - offerType: 7
     iapID: com.iwi.combatris.prestigechest
-    sprite: {fileID: 0}
-    title: 
-    detailedInfoStr: 
+    sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
+    title: <bounce a=0.05 f=1>PRESTIGE CHEST
+    detailedInfoStr: '<sprite name=Coin> +4000
+
+      <sprite name=PiggyCoin> +200
+
+      <sprite
+      name=Ticket> +15'
 --- !u!223 &4839256383956558153
 Canvas:
   m_ObjectHideFlags: 0
