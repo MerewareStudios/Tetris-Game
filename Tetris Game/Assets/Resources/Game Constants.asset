@@ -647,7 +647,7 @@ MonoBehaviour:
     coinTransactionData:
       value: 0
     gemTransactionData:
-      value: 0
+      value: 33
     adTransactionData:
       value: 0
     blockShopData:

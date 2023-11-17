@@ -7,12 +7,18 @@ public class OfferPreview : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI multText;
     [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private GameObject plus;
 
     public void Set(PreviewData previewData)
     {
         SetTitle(previewData.title);
         SetIcon(previewData.sprite);
         SetMultText(previewData.mult);
+    }
+
+    public void SetPlusState(bool plusEnabled)
+    {
+        plus.SetActive(plusEnabled);
     }
     
     private void SetIcon(Sprite sprite)

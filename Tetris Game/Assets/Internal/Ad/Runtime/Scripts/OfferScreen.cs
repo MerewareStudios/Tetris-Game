@@ -94,7 +94,10 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         {
             bool iconEnabled = i < data.previewDatas.Length;
             offerPreviews[i].gameObject.SetActive(iconEnabled);
-        
+
+            bool plusEnabled = iconEnabled && (i != data.previewDatas.Length - 1);
+            offerPreviews[i].SetPlusState(plusEnabled);
+
             if (iconEnabled)
             {
                 offerPreviews[i].Set(data.previewDatas[i]);
@@ -127,9 +130,9 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         [SerializeField] public OfferScreen.Type offerType;
         [SerializeField] public string iapID;
-        [SerializeField] public OfferPreview.PreviewData[] previewDatas;
         [TextArea] [SerializeField] public string title;
         [TextArea] [SerializeField] public string detailedInfoStr;
+        [SerializeField] public OfferPreview.PreviewData[] previewDatas;
 
         public string GetLocalPrice(GetPriceFunction getPriceFunction)
         {
