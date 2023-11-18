@@ -5,7 +5,7 @@
 
 #import "MAUnityAdManager.h"
 
-#define VERSION @"6.0.0"
+#define VERSION @"6.0.1"
 
 #define KEY_WINDOW [UIApplication sharedApplication].keyWindow
 #define DEVICE_SPECIFIC_ADVIEW_AD_FORMAT ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) ? MAAdFormat.leader : MAAdFormat.banner
@@ -1193,7 +1193,7 @@ static ALUnityBackgroundCallback backgroundCallback;
         MAAdView *adView = [self retrieveAdViewForAdUnitIdentifier: adUnitIdentifier adFormat: adFormat];
         if ( !adView )
         {
-            [self log: @"%@ does not exist for ad unit identifier %@.", adFormat.label, adUnitIdentifier];
+            [self log: @"%@ does not exist for ad unit identifier \"%@\".", adFormat.label, adUnitIdentifier];
             return;
         }
         
@@ -1314,7 +1314,7 @@ static ALUnityBackgroundCallback backgroundCallback;
         }
         else
         {
-            [self log: @"%@ does not exist for ad unit identifier %@. Saving extra parameter to be set when it is created.", adFormat, adUnitIdentifier];
+            [self log: @"%@ does not exist for ad unit identifier \"%@\". Saving extra parameter to be set when it is created.", adFormat, adUnitIdentifier];
             
             // The adView has not yet been created. Store the extra parameters, so that they can be added once the banner has been created.
             NSMutableDictionary<NSString *, NSString *> *extraParameters = self.adViewExtraParametersToSetAfterCreate[adUnitIdentifier];
@@ -1347,7 +1347,7 @@ static ALUnityBackgroundCallback backgroundCallback;
         }
         else
         {
-            [self log: @"%@ does not exist for ad unit identifier %@. Saving local extra parameter to be set when it is created.", adFormat, adUnitIdentifier];
+            [self log: @"%@ does not exist for ad unit identifier \"%@\". Saving local extra parameter to be set when it is created.", adFormat, adUnitIdentifier];
             
             // The adView has not yet been created. Store the loca extra parameters, so that they can be added once the adview has been created.
             NSMutableDictionary<NSString *, id> *localExtraParameters = self.adViewLocalExtraParametersToSetAfterCreate[adUnitIdentifier];

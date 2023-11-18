@@ -57,6 +57,7 @@ namespace AppLovinMax.Scripts.Editor
             "FBSDKLoginKit.xcframework",
             "FBSDKShareKit.xcframework",
             "HyprMX.xcframework",
+            "LinkedinAudienceNetwork.xcframework",
             "IASDKCore.xcframework",
             "MobileFuseSDK.xcframework",
             "OMSDK_Appodeal.xcframework",

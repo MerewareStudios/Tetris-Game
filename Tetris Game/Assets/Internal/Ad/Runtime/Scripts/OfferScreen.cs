@@ -1,9 +1,7 @@
-using System;
 using DG.Tweening;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OfferScreen : Lazyingleton<OfferScreen>
 {
@@ -94,13 +92,16 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     {
         titleText.text = data.title;
         infoText.text = data.detailedInfoStr;
-        priceText.text = OnGetLocalizedPriceString.Invoke(data.iapID);
+
+        string symbol = OnGetPriceSymbol.Invoke(data.iapID);
+        decimal price = OnGetPrice.Invoke(data.iapID);
+        
+        priceText.text = symbol + price;
 
         if (data.oldPriceMult > 1)
         {
             oldText.gameObject.SetActive(true);
-            decimal price = OnGetDecimalPrice.Invoke(data.iapID);
-            oldText.text = OnGetDecimalPrice.Invoke(data.iapID) + "$";
+            oldText.text = symbol + (price * 2);
         }
         else
         {

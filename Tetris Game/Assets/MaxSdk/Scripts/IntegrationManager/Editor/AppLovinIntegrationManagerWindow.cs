@@ -193,6 +193,12 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
 
                 DrawPluginDetails();
 
+                if (pluginData != null && pluginData.PartnerMicroSdks != null)
+                {
+                    EditorGUILayout.LabelField("AppLovin Micro SDK Partners", titleLabelStyle);
+                    DrawPartnerMicroSdks();
+                }
+
                 // Draw mediated networks
                 using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandHeight(false)))
                 {
@@ -390,6 +396,29 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
 
                     GUILayout.Space(10);
                 }
+            }
+
+            GUILayout.Space(5);
+            GUILayout.EndHorizontal();
+        }
+
+        private void DrawPartnerMicroSdks()
+        {
+            if (pluginData == null) return;
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            using (new EditorGUILayout.VerticalScope("box"))
+            {
+                DrawHeaders("Network", true);
+
+                var partnerMicroSdks = pluginData.PartnerMicroSdks;
+                foreach (var partnerMicroSdk in partnerMicroSdks)
+                {
+                    DrawNetworkDetailRow(partnerMicroSdk);
+                }
+
+                GUILayout.Space(10);
             }
 
             GUILayout.Space(5);

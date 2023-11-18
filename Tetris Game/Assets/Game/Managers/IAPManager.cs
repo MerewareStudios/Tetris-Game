@@ -108,7 +108,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     {
         if (_productCollection == null)
         {
-            return "No Connection";
+            return "Retrieving price...";
         }
         Product product = _productCollection.WithID(iapID);
         return product.metadata.isoCurrencyCode;

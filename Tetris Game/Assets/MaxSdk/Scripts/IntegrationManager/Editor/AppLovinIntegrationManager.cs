@@ -24,6 +24,7 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
     {
         public Network AppLovinMax;
         public Network[] MediatedNetworks;
+        public Network[] PartnerMicroSdks;
     }
 
     [Serializable]
@@ -164,7 +165,7 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
                 // Search for the asset with the default exported path first, In most cases, we should be able to find the asset.
                 // In some cases where we don't, use the platform specific export path to search for the asset (in case of migrating a project from Windows to Mac or vice versa).
                 var maxSdkScriptAssetPath = MaxSdkUtils.GetAssetPathForExportPath(MaxSdkAssetExportPath);
-                
+
                 // maxSdkScriptAssetPath will always have AltDirectorySeparatorChar (/) as the path separator. Convert to platform specific path.
                 return maxSdkScriptAssetPath.Replace(MaxSdkAssetExportPath, "")
                     .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
@@ -318,6 +319,11 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
                         foreach (var network in pluginData.MediatedNetworks)
                         {
                             UpdateCurrentVersions(network, mediationPluginParentDirectory);
+                        }
+
+                        foreach (var partnerMicroSdk in pluginData.PartnerMicroSdks)
+                        {
+                            UpdateCurrentVersions(partnerMicroSdk, mediationPluginParentDirectory);
                         }
                     }
 
