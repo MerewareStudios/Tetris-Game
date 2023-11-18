@@ -1633,7 +1633,7 @@ MonoBehaviour:
   - offerType: 5
     productType: 0
     iapID: iwi.combatris.offerpack1
-    title: <bounce a=0.05 f=1>BASIC CHEST
+    title: <bounce a=0.05 f=1>NEW OFFER
     detailedInfoStr: '<sprite name=Coin> +100
 
       <sprite name=PiggyCoin> +5'
@@ -1646,7 +1646,7 @@ MonoBehaviour:
   - offerType: 6
     productType: 0
     iapID: iwi.combatris.offerpack2
-    title: <bounce a=0.05 f=1>PRIME CHEST
+    title: <bounce a=0.05 f=1>NEW OFFER
     detailedInfoStr: '<sprite name=Coin> +1000
 
       <sprite name=PiggyCoin> +50
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   - offerType: 7
     productType: 0
     iapID: iwi.combatris.offerpack3
-    title: <bounce a=0.05 f=1>PRESTIGE CHEST
+    title: <bounce a=0.05 f=1>NEW OFFER
     detailedInfoStr: '<sprite name=Coin> +4000
 
       <sprite name=PiggyCoin> +200
@@ -1678,7 +1678,7 @@ MonoBehaviour:
   - offerType: 8
     productType: 0
     iapID: iwi.combatris.offerpack4
-    title: <bounce a=0.05 f=1>PRESTIGE CHEST
+    title: <bounce a=0.05 f=1>NEW OFFER
     detailedInfoStr: '<sprite name=Coin> +4000
 
       <sprite name=PiggyCoin> +200
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   - offerType: 9
     productType: 0
     iapID: iwi.combatris.offerpack5
-    title: <bounce a=0.05 f=1>PRESTIGE CHEST
+    title: <bounce a=0.05 f=1>NEW OFFER
     detailedInfoStr: '<sprite name=Coin> +4000
 
       <sprite name=PiggyCoin> +200

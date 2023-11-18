@@ -360,6 +360,36 @@ namespace IWI
                 OfferScreen.THIS.Open(OfferScreen.Type.TicketPack, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
      
             }
+            
+            public static void Offer1()
+            {
+                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack1);
+     
+            }
+            
+            public static void Offer2()
+            {
+                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack2);
+     
+            }
+            
+            public static void Offer3()
+            {
+                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack3);
+     
+            }
+            
+            public static void Offer4()
+            {
+                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack4);
+     
+            }
+            
+            public static void Offer5()
+            {
+                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack5);
+     
+            }
         }
         
 
