@@ -19,8 +19,8 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     public static System.Action<string> OnPurchase;
     public static GetOfferFunction OnGetOffers;
     
-    private System.Action _onSuccess = null;
-    private System.Action _onFail = null;
+    // private System.Action _onSuccess = null;
+    private System.Action<bool> _onFinish = null;
 
     private string _localCurrencySymbol = null;
 
@@ -82,15 +82,15 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         UnityPurchasing.Initialize(this, builder);
     }
 
-    public void Purchase(string purchaseID)
+    // public void Purchase(string purchaseID)
+    // {
+    //     _storeController.InitiatePurchase(purchaseID);
+    // }
+    public void Purchase(string purchaseID, System.Action<bool> onFinish = null)
     {
         _storeController.InitiatePurchase(purchaseID);
-    }
-    public void Purchase(string purchaseID, System.Action onSuccess = null, System.Action onFail = null)
-    {
-        _storeController.InitiatePurchase(purchaseID);
-        this._onSuccess = onSuccess;
-        this._onFail = onFail;
+        // this._onSuccess = onSuccess;
+        this._onFinish = onFinish;
     }
 
     public string GetPriceSymbol(string iapID)
@@ -116,9 +116,11 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         }
 #if UNITY_EDITOR
         return 1.99m;
-#endif
+        
+#else
         Product product = _productCollection.WithID(iapID);
         return product.metadata.localizedPrice;
+#endif
     }
 
     private string GetCurrencySymbol(string isoCode)
@@ -183,7 +185,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         var product = args.purchasedProduct;
         OnPurchase?.Invoke(product.definition.id);
         Debug.Log($"Purchase Complete - Product: {product.definition.id}");
-        _onSuccess?.Invoke();
+        _onFinish?.Invoke(true);
         return PurchaseProcessingResult.Complete;
     }
 
@@ -193,7 +195,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     }
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
-        _onFail?.Invoke();
+        _onFinish?.Invoke(false);
         Debug.Log($"Purchase failed - Product: '{product.definition.id}'," +
                   $" Purchase failure reason: {failureDescription.reason}," +
                   $" Purchase failure details: {failureDescription.message}");

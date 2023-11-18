@@ -88,6 +88,7 @@ public class GameManager : Singleton<GameManager>
 
         OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
         OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
+        OfferScreen.OnPurchaseOffer = (id) => IAPManager.THIS.Purchase(id, OfferScreen.THIS.PurchaseFinished);
 
         // Const.THIS.PrintLevelData();
     }
