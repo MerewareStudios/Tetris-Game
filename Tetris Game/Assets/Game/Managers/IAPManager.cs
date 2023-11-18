@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using System.Linq;
 using Internal.Core;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
@@ -20,20 +22,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     private System.Action _onSuccess = null;
     private System.Action _onFail = null;
 
-    private const string None = "-";
-    private string _localCurrencySymbol = None;
-    public string LocalCurrencySymbol
-    {
-        get
-        {
-            if (_localCurrencySymbol.Equals(None))
-            {
-                _localCurrencySymbol = "$";
-            }
-
-            return _localCurrencySymbol;
-        }
-    }
+    private string _localCurrencySymbol = null;
 
 
     void Awake()
@@ -106,21 +95,57 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
 
     public string GetPriceSymbol(string iapID)
     {
+        if (!string.IsNullOrEmpty(_localCurrencySymbol))
+        {
+            return _localCurrencySymbol;
+        }
         if (_productCollection == null)
         {
             return "Retrieving price...";
         }
         Product product = _productCollection.WithID(iapID);
-        return product.metadata.isoCurrencyCode;
+        return GetCurrencySymbol(product.metadata.isoCurrencyCode);
     }
     public decimal GetPriceDecimal(string iapID)
     {
         if (_productCollection == null)
         {
+            // Debug.LogError("Product collection is null");
+
             return 0;
         }
+#if UNITY_EDITOR
+        return 1.99m;
+#endif
         Product product = _productCollection.WithID(iapID);
         return product.metadata.localizedPrice;
+    }
+
+    private string GetCurrencySymbol(string isoCode)
+    {
+        #if UNITY_EDITOR
+            isoCode = "USD";
+        #endif
+        
+        _localCurrencySymbol = CultureInfo
+            .GetCultures(CultureTypes.AllCultures)
+            .Where(c => !c.IsNeutralCulture)
+            .Select(culture => {
+                try
+                {
+                    return new RegionInfo(culture.Name);
+                }
+                catch
+                {
+                    return null;
+                }
+            })
+            .Where(ri => ri!=null && ri.ISOCurrencySymbol == isoCode)
+            .Select(ri => ri.CurrencySymbol)
+            .FirstOrDefault();
+
+        // Debug.LogError(_localCurrencySymbol);
+        return _localCurrencySymbol ?? isoCode;
     }
 
 

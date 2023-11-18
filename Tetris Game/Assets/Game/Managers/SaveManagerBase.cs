@@ -6,7 +6,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
     [SerializeField] public SaveData saveData;
     [SerializeField] public bool DELETE_AT_START;
 
-    virtual public void Awake()
+    public virtual void Awake()
     {
         if (DELETE_AT_START)
         {
@@ -20,23 +20,17 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         var outputString = JsonUtility.ToJson(saveData);
         // Debug.Log(outputString);
         // Debug.LogWarning("Saved");
-        if (!outputString.Equals(""))
+        if (!string.IsNullOrEmpty(outputString))
         {
             PlayerPrefs.SetString(nameof(SaveData), outputString);
         }
     }
-    public void Load()
+
+    private void Load()
     {
         string inputString = PlayerPrefs.GetString(nameof(SaveData), "");
-        if (inputString.Equals(""))
-        {
-            saveData = new SaveData();
-        }
-        else
-        {
-            // Debug.Log(inputString);
-            saveData = JsonUtility.FromJson<SaveData>(inputString);
-        }
+        saveData = string.IsNullOrEmpty(inputString) ? new SaveData() : JsonUtility.FromJson<SaveData>(inputString);
+        // Debug.Log(inputString);
     }
 
 #if UNITY_EDITOR

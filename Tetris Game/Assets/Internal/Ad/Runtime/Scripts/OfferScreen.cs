@@ -14,6 +14,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI oldText;
     [SerializeField] private TextMeshProUGUI priceText;
+    [SerializeField] private TextMeshProUGUI promotionalText;
     [System.NonSerialized] public float TimeScale = 1.0f;
     [System.NonSerialized] public System.Action OnVisibilityChanged;
     [System.NonSerialized] private System.Action _onOfferRejected;
@@ -92,16 +93,19 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     {
         titleText.text = data.title;
         infoText.text = data.detailedInfoStr;
+        
+        promotionalText.transform.parent.gameObject.SetActive(!data.promotionalText.Equals(""));
+        promotionalText.text = data.promotionalText;
 
         string symbol = OnGetPriceSymbol.Invoke(data.iapID);
         decimal price = OnGetPrice.Invoke(data.iapID);
         
-        priceText.text = symbol + price;
+        priceText.text = symbol + price.ToString("#.00");
 
         if (data.oldPriceMult > 1)
         {
             oldText.gameObject.SetActive(true);
-            oldText.text = symbol + (price * 2);
+            oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
         }
         else
         {
@@ -141,9 +145,11 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         PiggyCoinPack,
         TicketPack,
         HealthPack,
-        BasicChest,
-        PrimeChest,
-        PrestigeChest,
+        OfferPack1,
+        OfferPack2,
+        OfferPack3,
+        OfferPack4,
+        OfferPack5,
     }
     
     [System.Serializable]
@@ -156,6 +162,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         [TextArea] [SerializeField] public string detailedInfoStr;
         [SerializeField] public OfferPreview.PreviewData[] previewDatas;
         [SerializeField] public int oldPriceMult = 1;
+        [TextArea] [SerializeField] public string promotionalText;
     }
 
     

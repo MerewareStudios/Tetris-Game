@@ -162,18 +162,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1.99$
+  m_text: $4.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
-  m_sharedMaterial: {fileID: 7374927986402738804, guid: c1482dbce654844b9ba1c753cbea5d80,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa17cec9f1c579044b81a9fd32c488c4, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d8d87616088397b499596aaa0bdb5199, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4291677645
-  m_fontColor: {r: 0.8037735, g: 0.8037735, b: 0.8037735, a: 1}
+  m_fontColor: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -200,7 +199,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 1.9
+  m_characterSpacing: 5.33
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -232,6 +231,82 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1778428701168515006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7641657183278623330}
+  - component: {fileID: 8727636235454987696}
+  - component: {fileID: 5325667868851441808}
+  m_Layer: 13
+  m_Name: Badge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7641657183278623330
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778428701168515006}
+  m_LocalRotation: {x: -0, y: -0, z: 0.21809864, w: 0.97592676}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8530035367148279092}
+  m_Father: {fileID: 8276622985926762481}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.195}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 6, y: -223}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &8727636235454987696
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778428701168515006}
+  m_CullTransparentMesh: 1
+--- !u!114 &5325667868851441808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778428701168515006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.2584905, b: 0.2584905, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: dcbda7fbd2ed8473e9c124b07bb3882f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1855568114274983028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1212,142 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &4998110153020579093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8530035367148279092}
+  - component: {fileID: 5714649327554086784}
+  - component: {fileID: 4644912590046440363}
+  m_Layer: 13
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8530035367148279092
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998110153020579093}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7641657183278623330}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000022888184, y: 8.100009}
+  m_SizeDelta: {x: 0, y: -16.199982}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5714649327554086784
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998110153020579093}
+  m_CullTransparentMesh: 1
+--- !u!114 &4644912590046440363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998110153020579093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'BEST
+
+    DEAL'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d1d61d82a010fde49842e548e81b6f22, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 56.4
+  m_fontSizeBase: 56.4
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: -5.5
+  m_wordSpacing: 0
+  m_lineSpacing: -36.29
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 0
+  m_parseCtrlCharacters: 0
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 0
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5440256898734209424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,6 +1525,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7641657183278623330}
   - {fileID: 5989390957909933930}
   - {fileID: 7129055568029155364}
   - {fileID: 3517305353470696803}
@@ -1344,8 +1556,8 @@ MonoBehaviour:
   canvasGroup: {fileID: 6475058585716381588}
   offerData:
   - offerType: 0
-    productType: 0
-    iapID: com.iwi.combatris.noads
+    productType: 1
+    iapID: iwi.combatris.noads
     title: <bounce a=0.05 f=1>BLOCK ADS
     detailedInfoStr: '<sprite name=Check> No more interstitial ads!
 
@@ -1360,10 +1572,11 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
       title: No Ads
       mult: 
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 1
     productType: 0
-    iapID: com.iwi.combatris.coinpack
+    iapID: iwi.combatris.coinpack
     title: <bounce a=0.05 f=1>BUY COIN
     detailedInfoStr: 'Use these at the shop to purchase upgrades and fill your Piggy
       Bank.
@@ -1374,10 +1587,11 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 2db9f4e410fc71344bf7f6fe9e691dfa, type: 3}
       title: Coin Pack
       mult: x 1
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 2
     productType: 0
-    iapID: com.iwi.combatris.piggycoinpack
+    iapID: iwi.combatris.piggycoinpack
     title: <bounce a=0.05 f=1>BUY GEM
     detailedInfoStr: 'Use these at the shop to purchase upgrades.
 
@@ -1388,10 +1602,11 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 8bbea6879e08f2748ac6df91206f27ce, type: 3}
       title: Gem Pack
       mult: x 1
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 3
     productType: 0
-    iapID: com.iwi.combatris.ticketpack
+    iapID: iwi.combatris.ticketpack
     title: <bounce a=0.05 f=1>BUY TICKET
     detailedInfoStr: 'You can skip ads, buy power-ups or purchase new items with
       these.
@@ -1402,20 +1617,22 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       title: Ticket Pack
       mult: x 1
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 4
     productType: 0
-    iapID: com.iwi.combatris.healthpack
+    iapID: iwi.combatris.healthpack
     title: <bounce a=0.05 f=1>HEALING
     detailedInfoStr: <size=150%><sprite name=Heart>+25
     previewDatas:
     - sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
       title: Medkit
       mult: x 1
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 5
     productType: 0
-    iapID: com.iwi.combatris.basicchest
+    iapID: iwi.combatris.offerpack1
     title: <bounce a=0.05 f=1>BASIC CHEST
     detailedInfoStr: '<sprite name=Coin> +100
 
@@ -1424,10 +1641,11 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
       title: 
       mult: 
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 6
     productType: 0
-    iapID: com.iwi.combatris.primechest
+    iapID: iwi.combatris.offerpack2
     title: <bounce a=0.05 f=1>PRIME CHEST
     detailedInfoStr: '<sprite name=Coin> +1000
 
@@ -1439,10 +1657,11 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
       title: 
       mult: 
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
   - offerType: 7
     productType: 0
-    iapID: com.iwi.combatris.prestigechest
+    iapID: iwi.combatris.offerpack3
     title: <bounce a=0.05 f=1>PRESTIGE CHEST
     detailedInfoStr: '<sprite name=Coin> +4000
 
@@ -1454,7 +1673,40 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
       title: 
       mult: 
-    discount: 0
+    oldPriceMult: 1
+    promotionalText: 
+  - offerType: 8
+    productType: 0
+    iapID: iwi.combatris.offerpack4
+    title: <bounce a=0.05 f=1>PRESTIGE CHEST
+    detailedInfoStr: '<sprite name=Coin> +4000
+
+      <sprite name=PiggyCoin> +200
+
+      <sprite
+      name=Ticket> +15'
+    previewDatas:
+    - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
+      title: 
+      mult: 
+    oldPriceMult: 1
+    promotionalText: 
+  - offerType: 9
+    productType: 0
+    iapID: iwi.combatris.offerpack5
+    title: <bounce a=0.05 f=1>PRESTIGE CHEST
+    detailedInfoStr: '<sprite name=Coin> +4000
+
+      <sprite name=PiggyCoin> +200
+
+      <sprite
+      name=Ticket> +15'
+    previewDatas:
+    - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
+      title: 
+      mult: 
+    oldPriceMult: 1
+    promotionalText: 
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
@@ -1463,6 +1715,7 @@ MonoBehaviour:
   infoText: {fileID: 7239389242888920404}
   oldText: {fileID: 6821608869360881295}
   priceText: {fileID: 6223752553925489054}
+  promotionalText: {fileID: 4644912590046440363}
 --- !u!223 &4839256383956558153
 Canvas:
   m_ObjectHideFlags: 0
@@ -1717,11 +1970,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1.99$
+  m_text: $1.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
-  m_sharedMaterial: {fileID: 7374927986402738804, guid: c1482dbce654844b9ba1c753cbea5d80,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa17cec9f1c579044b81a9fd32c488c4, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d8d87616088397b499596aaa0bdb5199, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1745,8 +1997,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.9
-  m_fontSizeBase: 73.9
+  m_fontSize: 74
+  m_fontSizeBase: 74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1755,7 +2007,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 1.9
+  m_characterSpacing: 5.33
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
