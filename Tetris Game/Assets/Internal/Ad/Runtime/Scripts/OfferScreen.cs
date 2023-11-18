@@ -9,18 +9,24 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private OfferData[] offerData;
+    [SerializeField] public OfferData[] offerData;
     [Header("Visuals")]
     [SerializeField] private OfferPreview[] offerPreviews;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI infoText;
+    [SerializeField] private TextMeshProUGUI oldText;
     [SerializeField] private TextMeshProUGUI priceText;
     [System.NonSerialized] public float TimeScale = 1.0f;
     [System.NonSerialized] public System.Action OnVisibilityChanged;
     [System.NonSerialized] private System.Action _onOfferRejected;
     [System.NonSerialized] private System.Action _onOfferAccepted;
+    
+    public delegate string STR2STR(string iapID);
+    public delegate decimal STR2DECIMAL(string iapID);
+    public static STR2STR OnGetPriceSymbol;
+    public static STR2DECIMAL OnGetPrice;
 
-
+    
     public OfferScreen Open(Type offerType, System.Action onOfferAccepted = null, System.Action onOfferRejected = null)
     {
         if (canvas.enabled)
@@ -88,7 +94,18 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     {
         titleText.text = data.title;
         infoText.text = data.detailedInfoStr;
-        priceText.text = "2.99$";
+        priceText.text = OnGetLocalizedPriceString.Invoke(data.iapID);
+
+        if (data.oldPriceMult > 1)
+        {
+            oldText.gameObject.SetActive(true);
+            decimal price = OnGetDecimalPrice.Invoke(data.iapID);
+            oldText.text = OnGetDecimalPrice.Invoke(data.iapID) + "$";
+        }
+        else
+        {
+            oldText.gameObject.SetActive(false);
+        }
 
         for (int i = 0; i < offerPreviews.Length; i++)
         {
@@ -110,6 +127,11 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
 
+    public static void OnPurchase(string iapID)
+    {
+        
+    }
+
     [System.Serializable]
     public enum Type
     {
@@ -126,18 +148,13 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [System.Serializable]
     public class OfferData
     {
-        public delegate string GetPriceFunction(string iapID);
-        
         [SerializeField] public OfferScreen.Type offerType;
+        [SerializeField] public UnityEngine.Purchasing.ProductType productType;
         [SerializeField] public string iapID;
         [TextArea] [SerializeField] public string title;
         [TextArea] [SerializeField] public string detailedInfoStr;
         [SerializeField] public OfferPreview.PreviewData[] previewDatas;
-
-        public string GetLocalPrice(GetPriceFunction getPriceFunction)
-        {
-            return getPriceFunction.Invoke(iapID);
-        }
+        [SerializeField] public int oldPriceMult = 1;
     }
 
     

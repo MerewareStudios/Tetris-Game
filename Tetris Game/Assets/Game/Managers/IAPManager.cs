@@ -1,7 +1,5 @@
 using System;
-using Game.UI;
 using Internal.Core;
-using IWI;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
 using UnityEngine;
@@ -14,16 +12,28 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     IStoreController _storeController;
     ProductCollection _productCollection;
 
-    private const string BasicChestID = "com.iwi.combatris.basicchest";
-    private const string RemoveAdBreakID = "com.iwi.combatris.noads";
-    private const string PiggyCoinPackID = "com.iwi.combatris.piggycoinpack";
-    private const string TicketPackID = "com.iwi.combatris.ticketpack";
-    private const string PrestigeChestID = "com.iwi.combatris.prestigechest";
-    private const string CoinPackID = "com.iwi.combatris.coinpack";
-    private const string PrimeChestID = "com.iwi.combatris.primechest";
-
+    public delegate OfferScreen.OfferData[] GetOfferFunction();
+    
+    public static System.Action<string> OnPurchase;
+    public static GetOfferFunction OnGetOffers;
+    
     private System.Action _onSuccess = null;
     private System.Action _onFail = null;
+
+    private const string None = "-";
+    private string _localCurrencySymbol = None;
+    public string LocalCurrencySymbol
+    {
+        get
+        {
+            if (_localCurrencySymbol.Equals(None))
+            {
+                _localCurrencySymbol = "$";
+            }
+
+            return _localCurrencySymbol;
+        }
+    }
 
 
     void Awake()
@@ -74,19 +84,18 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     public void Initialize()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        builder.AddProduct(BasicChestID, ProductType.Consumable);
-        builder.AddProduct(RemoveAdBreakID, ProductType.NonConsumable);
-        builder.AddProduct(PiggyCoinPackID, ProductType.Consumable);
-        builder.AddProduct(TicketPackID , ProductType.Consumable);
-        builder.AddProduct(PrestigeChestID, ProductType.Consumable);
-        builder.AddProduct(CoinPackID, ProductType.Consumable);
-        builder.AddProduct(PrimeChestID, ProductType.Consumable);
+
+        OfferScreen.OfferData[] offerDatas = OnGetOffers.Invoke();
+        foreach (var offer in offerDatas)
+        {
+            builder.AddProduct(offer.iapID, offer.productType);
+        }
         UnityPurchasing.Initialize(this, builder);
     }
 
-    public void Purchase(UpgradeMenu.PurchaseType purchaseType)
+    public void Purchase(string purchaseID)
     {
-        _storeController.InitiatePurchase(PurchaseType2ID(purchaseType));
+        _storeController.InitiatePurchase(purchaseID);
     }
     public void Purchase(string purchaseID, System.Action onSuccess = null, System.Action onFail = null)
     {
@@ -95,70 +104,25 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         this._onFail = onFail;
     }
 
-    // public void PurchaseAd()
-    // {
-    //     Purchase(RemoveAdBreakID);
-    // }
-    // public void PurchaseTicket()
-    // {
-    //     Purchase(TicketPackID);
-    // }
-    public string GetLocalPrice(UpgradeMenu.PurchaseType purchaseType)
+    public string GetPriceSymbol(string iapID)
     {
         if (_productCollection == null)
         {
             return "No Connection";
         }
-        Product product = _productCollection.WithID(PurchaseType2ID(purchaseType));
-        return product.metadata.localizedPriceString;
+        Product product = _productCollection.WithID(iapID);
+        return product.metadata.isoCurrencyCode;
+    }
+    public decimal GetPriceDecimal(string iapID)
+    {
+        if (_productCollection == null)
+        {
+            return 0;
+        }
+        Product product = _productCollection.WithID(iapID);
+        return product.metadata.localizedPrice;
     }
 
-
-    private string PurchaseType2ID(UpgradeMenu.PurchaseType purchaseType)
-    {
-        switch (purchaseType)
-        {
-            case UpgradeMenu.PurchaseType.REMOVE_ADS:
-                return RemoveAdBreakID;
-            case UpgradeMenu.PurchaseType.TICKET_PACK:
-                return TicketPackID;
-            case UpgradeMenu.PurchaseType.COIN_PACK:
-                return CoinPackID;
-            case UpgradeMenu.PurchaseType.PIGGY_COIN_PACK:
-                return PiggyCoinPackID;
-            case UpgradeMenu.PurchaseType.BASIC_CHEST:
-                return BasicChestID;
-            case UpgradeMenu.PurchaseType.PRIME_CHEST:
-                return PrimeChestID;
-            case UpgradeMenu.PurchaseType.PRESTIGE_CHEST:
-                return PrestigeChestID;
-        }
-        Debug.LogError("Purchase Type Not Found");
-        return "";
-    }
-    
-    private UpgradeMenu.PurchaseType ID2PurchaseType(string id)
-    {
-        switch (id)
-        {
-            case RemoveAdBreakID:
-                return UpgradeMenu.PurchaseType.REMOVE_ADS;
-            case TicketPackID:
-                return UpgradeMenu.PurchaseType.TICKET_PACK;
-            case CoinPackID:
-                return UpgradeMenu.PurchaseType.COIN_PACK;
-            case PiggyCoinPackID:
-                return UpgradeMenu.PurchaseType.PIGGY_COIN_PACK;
-            case BasicChestID:
-                return UpgradeMenu.PurchaseType.BASIC_CHEST;
-            case PrimeChestID:
-                return UpgradeMenu.PurchaseType.PRIME_CHEST;
-            case PrestigeChestID:
-                return UpgradeMenu.PurchaseType.PRESTIGE_CHEST;
-        }
-        Debug.LogError("Purchase Type Not Found");
-        return UpgradeMenu.PurchaseType.RESERVED_TWO;
-    }
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
@@ -166,12 +130,11 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         _storeController = controller;
         this._productCollection = _storeController.products;
         
-        
-        Product productRemoveAdBreak = _productCollection.WithID(RemoveAdBreakID);
-        if (productRemoveAdBreak != null && productRemoveAdBreak.hasReceipt)
-        {
-            AdManager.Bypass.Ads();
-        }
+        // Product productRemoveAdBreak = _productCollection.WithID(RemoveAdBreakID);
+        // if (productRemoveAdBreak != null && productRemoveAdBreak.hasReceipt)
+        // {
+        //     AdManager.Bypass.Ads();
+        // }
     }
     
     
@@ -193,7 +156,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
         var product = args.purchasedProduct;
-        UpgradeMenu.THIS.OnPurchase(ID2PurchaseType(product.definition.id));
+        OnPurchase?.Invoke(product.definition.id);
         Debug.Log($"Purchase Complete - Product: {product.definition.id}");
         _onSuccess?.Invoke();
         return PurchaseProcessingResult.Complete;

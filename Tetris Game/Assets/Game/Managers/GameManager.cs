@@ -82,7 +82,13 @@ public class GameManager : Singleton<GameManager>
     #endif
         
         AdManager.THIS.InitAdSDK();
-        
+
+        IAPManager.OnPurchase = OfferScreen.OnPurchase;
+        IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
+
+        OfferScreen.OnGetLocalizedPriceString = IAPManager.THIS.GetLocalizedPriceString;
+        OfferScreen.OnGetDecimalPrice = IAPManager.THIS.GetDecimalPrice;
+
         // Const.THIS.PrintLevelData();
     }
 

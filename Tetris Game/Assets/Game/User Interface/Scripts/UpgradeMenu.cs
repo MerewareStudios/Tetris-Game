@@ -174,11 +174,11 @@ namespace Game.UI
             //     return;
             // }
 
-            if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
-            {
-                IAPManager.THIS.Purchase((PurchaseType)purchaseIndex);
-                return;
-            }
+            // if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
+            // {
+            //     IAPManager.THIS.Purchase((PurchaseType)purchaseIndex);
+            //     return;
+            // }
             
             if (!Wallet.Consume(lookUp.currency))
             {
@@ -331,7 +331,8 @@ namespace Game.UI
 
             public string GetLocalPrice()
             {
-                return IAPManager.THIS.GetLocalPrice(purchaseType);
+                return "";
+                // return IAPManager.THIS.GetLocalPrice(purchaseType);
             }
         }
 

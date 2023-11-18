@@ -96,6 +96,142 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!1 &1421101413655985863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5989390957909933930}
+  - component: {fileID: 496689394739625282}
+  - component: {fileID: 6821608869360881295}
+  m_Layer: 13
+  m_Name: Old Price
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5989390957909933930
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421101413655985863}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2077176763123575061}
+  m_Father: {fileID: 8276622985926762481}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -197}
+  m_SizeDelta: {x: 297.45, y: 105.84}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &496689394739625282
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421101413655985863}
+  m_CullTransparentMesh: 1
+--- !u!114 &6821608869360881295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421101413655985863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 1.99$
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
+  m_sharedMaterial: {fileID: 7374927986402738804, guid: c1482dbce654844b9ba1c753cbea5d80,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4291677645
+  m_fontColor: {r: 0.8037735, g: 0.8037735, b: 0.8037735, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 52
+  m_fontSizeBase: 52
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 90
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 1.9
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 0
+  m_parseCtrlCharacters: 0
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 0
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1855568114274983028
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -368}
+  m_AnchoredPosition: {x: 0, y: -393}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8899753355762610430
@@ -828,6 +964,81 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &4125757670251599350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2077176763123575061}
+  - component: {fileID: 670227479213513645}
+  - component: {fileID: 6990610566397217777}
+  m_Layer: 13
+  m_Name: Cross
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2077176763123575061
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125757670251599350}
+  m_LocalRotation: {x: 0, y: 0, z: -0.62592345, w: 0.7798845}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5989390957909933930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -77.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 4.2, y: 144.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &670227479213513645
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125757670251599350}
+  m_CullTransparentMesh: 1
+--- !u!114 &6990610566397217777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125757670251599350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c0674a7cedf5549858d78f9a7e05aa20, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 12.4
 --- !u!1 &4161684783139674028
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +1075,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 526}
+  m_AnchoredPosition: {x: 0, y: 508}
   m_SizeDelta: {x: 356.5, y: 130.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4616689421194916872
@@ -960,7 +1171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -456}
+  m_AnchoredPosition: {x: 0, y: -487.99997}
   m_SizeDelta: {x: -200, y: 200.75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3873506045274127656
@@ -1103,6 +1314,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5989390957909933930}
   - {fileID: 7129055568029155364}
   - {fileID: 3517305353470696803}
   - {fileID: 2182470299187824803}
@@ -1132,6 +1344,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 6475058585716381588}
   offerData:
   - offerType: 0
+    productType: 0
     iapID: com.iwi.combatris.noads
     title: <bounce a=0.05 f=1>BLOCK ADS
     detailedInfoStr: '<sprite name=Check> No more interstitial ads!
@@ -1147,7 +1360,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
       title: No Ads
       mult: 
+    discount: 0
   - offerType: 1
+    productType: 0
     iapID: com.iwi.combatris.coinpack
     title: <bounce a=0.05 f=1>BUY COIN
     detailedInfoStr: 'Use these at the shop to purchase upgrades and fill your Piggy
@@ -1159,7 +1374,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 2db9f4e410fc71344bf7f6fe9e691dfa, type: 3}
       title: Coin Pack
       mult: x 1
+    discount: 0
   - offerType: 2
+    productType: 0
     iapID: com.iwi.combatris.piggycoinpack
     title: <bounce a=0.05 f=1>BUY GEM
     detailedInfoStr: 'Use these at the shop to purchase upgrades.
@@ -1171,7 +1388,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 8bbea6879e08f2748ac6df91206f27ce, type: 3}
       title: Gem Pack
       mult: x 1
+    discount: 0
   - offerType: 3
+    productType: 0
     iapID: com.iwi.combatris.ticketpack
     title: <bounce a=0.05 f=1>BUY TICKET
     detailedInfoStr: 'You can skip ads, buy power-ups or purchase new items with
@@ -1183,7 +1402,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       title: Ticket Pack
       mult: x 1
+    discount: 0
   - offerType: 4
+    productType: 0
     iapID: com.iwi.combatris.healthpack
     title: <bounce a=0.05 f=1>HEALING
     detailedInfoStr: <size=150%><sprite name=Heart>+25
@@ -1191,7 +1412,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
       title: Medkit
       mult: x 1
+    discount: 0
   - offerType: 5
+    productType: 0
     iapID: com.iwi.combatris.basicchest
     title: <bounce a=0.05 f=1>BASIC CHEST
     detailedInfoStr: '<sprite name=Coin> +100
@@ -1201,7 +1424,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
       title: 
       mult: 
+    discount: 0
   - offerType: 6
+    productType: 0
     iapID: com.iwi.combatris.primechest
     title: <bounce a=0.05 f=1>PRIME CHEST
     detailedInfoStr: '<sprite name=Coin> +1000
@@ -1214,7 +1439,9 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
       title: 
       mult: 
+    discount: 0
   - offerType: 7
+    productType: 0
     iapID: com.iwi.combatris.prestigechest
     title: <bounce a=0.05 f=1>PRESTIGE CHEST
     detailedInfoStr: '<sprite name=Coin> +4000
@@ -1227,12 +1454,14 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
       title: 
       mult: 
+    discount: 0
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
   - {fileID: 4684519488623589368}
   titleText: {fileID: 7027441585568935413}
   infoText: {fileID: 7239389242888920404}
+  oldText: {fileID: 6821608869360881295}
   priceText: {fileID: 6223752553925489054}
 --- !u!223 &4839256383956558153
 Canvas:
@@ -1382,7 +1611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -48}
+  m_AnchoredPosition: {x: 0, y: -77}
   m_SizeDelta: {x: 0, y: 534.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1827993954862968274
@@ -1457,7 +1686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -231}
+  m_AnchoredPosition: {x: 0, y: -263}
   m_SizeDelta: {x: 297.45, y: 105.84}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5427339531082545414
@@ -1488,7 +1717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $1.99
+  m_text: 1.99$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
   m_sharedMaterial: {fileID: 7374927986402738804, guid: c1482dbce654844b9ba1c753cbea5d80,
