@@ -5,6 +5,7 @@ using Game;
 using Google.Play.Review;
 using Internal.Core;
 using IWI;
+using IWI.UI;
 using UnityEngine;
 using Visual.Effects;
 
@@ -113,27 +114,32 @@ public class GameManager : Singleton<GameManager>
             }
             GameManager.UpdateTimeScale();
         };
-        OfferScreen.OnReward = rewards =>
+        OfferScreen.OnReward = (rewards, finish) =>
         {
-            foreach (var reward in rewards)
+            for (int i = 0; i < rewards.Length; i++)
             {
+                OfferScreen.Reward reward = rewards[i];
+                UIEmitter emitter = null;
                 switch (reward.rewardType)
                 {
                     case OfferScreen.RewardType.NoAds:
                         AdManager.Bypass.Ads();
-                        return true;
+                        continue;
                     case OfferScreen.RewardType.Coin:
+                        emitter = UIManager.THIS.coinEmitter;
                         break;
                     case OfferScreen.RewardType.PiggyCoin:
+                        emitter = UIManager.THIS.piggyCoinEmitter;
                         break;
                     case OfferScreen.RewardType.Ticket:
+                        emitter = UIManager.THIS.ticketEmitter;
                         break;
                     case OfferScreen.RewardType.Heart:
+                        emitter = UIManager.THIS.heartEmitter;
                         break;
-
                 }
+                UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, finish);
             }
-            return true;
         };
 
         // Const.THIS.PrintLevelData();

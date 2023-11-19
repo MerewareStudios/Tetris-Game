@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class OfferScreen : Lazyingleton<OfferScreen>
 {
     [System.NonSerialized] private Data _data;
+    [System.NonSerialized] private OfferData _currentOfferData;
     [System.NonSerialized] private bool Active = false;
     [System.NonSerialized] private ProcessState _currentProcessState;
     [System.NonSerialized] public float TimeScale = 1.0f;
@@ -26,6 +27,12 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [Header("Menu")]
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private Image offerGrid;
+    [SerializeField] private Vector2 offerGridOpenSize;
+    [SerializeField] private Vector2 offerGridCloseSize;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Color hiddenColor;
+    [SerializeField] private Color peakColor;
     [Header("Visuals")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI infoText;
@@ -43,7 +50,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     
     public delegate string STR2STR(string iapID);
     public delegate decimal STR2DECIMAL(string iapID);
-    public delegate bool UNPACK(Reward[] rewards);
+    public delegate void UNPACK(Reward[] rewards, System.Action onFinish);
     public static STR2STR OnGetPriceSymbol;
     public static STR2DECIMAL OnGetPrice;
     public static System.Action<string> OnPurchaseOffer;
@@ -65,6 +72,13 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         set
         {
             _currentProcessState = value;
+            
+            backgroundImage.DOKill();
+            backgroundImage.DOColor(hiddenColor, 0.125f).SetEase(Ease.InOutSine).SetUpdate(true);
+            
+            offerGrid.rectTransform.DOKill();
+            offerGrid.rectTransform.DOSizeDelta(offerGridOpenSize, 0.2f).SetEase(Ease.OutQuint).SetUpdate(true);
+            
             switch (value)
             {
                 case ProcessState.NONE:
@@ -109,7 +123,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     
     public void Open(OfferType offerType, Mode mode = Mode.Offer)
     {
-        SetupVisuals(offerData[(int)offerType], mode);
+        this._currentOfferData = offerData[(int)offerType];
+        SetupVisuals(_currentOfferData, mode);
         if (Active)
         {
             return;
@@ -164,12 +179,11 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                 offerPreviews[i].Set(data.previewDatas[i]);
             }
         }
-        
+
         switch (mode)
         {
             case Mode.Offer:
                 infoPanel.SetActive(true);
-                // visualsPanel.SetActive(true);
                 
                 _onBuy = () => OnPurchaseOffer?.Invoke(data.iapID);
 
@@ -197,11 +211,12 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                     oldText.gameObject.SetActive(false);
                 }
 
+                offerGrid.rectTransform.sizeDelta = offerGridOpenSize;
+
                 CurrentProcessState = ProcessState.NONE;
                 break;
             case Mode.Unpack:
                 infoPanel.SetActive(false);
-                // visualsPanel.SetActive(true);
                 
                 CurrentProcessState = ProcessState.UNPACK;
                 break;
@@ -220,7 +235,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     }
     public void OnClick_Unpack()
     {
-        UnpackReward(OfferType.CoinPack);
+        UnpackReward(_currentOfferData.offerType);
     }
 #endregion
 #region Purchase
@@ -229,11 +244,6 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         CurrentProcessState = ProcessState.PROCESSING;
     }
         
-    // public void PurchaseFinished(bool successful)
-    // {
-    //     CurrentProcessState = successful ? ProcessState.SUCCESS : ProcessState.FAIL;
-    // }
-
     public void OnPurchaseComplete(string iapID, bool successful)
     {
         if (!successful)
@@ -257,14 +267,16 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             return;
         }
         
-        bool unpacked = OnReward.Invoke(offerData[(int)offerType].rewards);
-        if (!unpacked)
-        {
-            return;
-        }
+        unpackPanel.SetActive(false);
+
+        offerGrid.rectTransform.DOKill();
+        offerGrid.rectTransform.DOSizeDelta(offerGridCloseSize, 0.25f).SetEase(Ease.OutQuint).SetUpdate(true);
         
+        backgroundImage.DOKill();
+        backgroundImage.DOColor(peakColor, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
+        
+        OnReward.Invoke(offerData[(int)offerType].rewards, ShowNextUnpackOrClose);
         _Data.offers.Remove(offerType);
-        ShowNextUnpackOrClose();
     }
 
     private void ShowNextUnpackOrClose()
@@ -281,6 +293,11 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     private OfferData ID2OfferData(string iapID)
     {
         return offerData.FirstOrDefault(data => data.iapID.Equals(iapID));
+    }
+
+    public Vector3 PreviewScreenPosition(int rewardIndex)
+    {
+        return offerPreviews[rewardIndex].transform.position;
     }
 #endregion
 #region Mono

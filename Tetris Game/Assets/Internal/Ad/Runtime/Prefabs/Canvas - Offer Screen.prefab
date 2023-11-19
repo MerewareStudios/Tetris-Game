@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1025,6 +1025,7 @@ GameObject:
   - component: {fileID: 4497483056411937608}
   - component: {fileID: 333138542462690690}
   - component: {fileID: 2659660091513458553}
+  - component: {fileID: 321028592425705937}
   m_Layer: 13
   m_Name: Grid
   m_TagString: Untagged
@@ -1055,7 +1056,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -30}
+  m_SizeDelta: {x: 0, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4497483056411937608
 CanvasRenderer:
@@ -1078,7 +1079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46417248, g: 0.29239213, b: 0.932, a: 1}
+  m_Color: {r: 0.42539483, g: 0.2703781, b: 0.85800004, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -1121,6 +1122,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &321028592425705937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518196755332966551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &3826902305323276547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1197,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2083,7 +2097,12 @@ MonoBehaviour:
     rewards:
     - rewardType: 3
       amount: 15
+    - rewardType: 3
+      amount: 15
     previewDatas:
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+      title: Ticket Pack
+      mult: x 1
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       title: Ticket Pack
       mult: x 1
@@ -2169,6 +2188,12 @@ MonoBehaviour:
   - {fileID: 4684519488623589368}
   canvas: {fileID: 4839256383956558153}
   canvasGroup: {fileID: 6475058585716381588}
+  offerGrid: {fileID: 2257522028320413269}
+  offerGridOpenSize: {x: 0, y: 534.54}
+  offerGridCloseSize: {x: 0, y: 40}
+  backgroundImage: {fileID: 6496630054381208996}
+  hiddenColor: {r: 0.49803922, g: 0.3137255, b: 1, a: 1}
+  peakColor: {r: 0.49803922, g: 0.3137255, b: 1, a: 0}
   titleText: {fileID: 7027441585568935413}
   infoText: {fileID: 7239389242888920404}
   rewardsText: {fileID: 425103094197257364}

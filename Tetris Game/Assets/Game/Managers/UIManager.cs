@@ -359,4 +359,11 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.ticketEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Ticket, OnArrive, OnAllArrive);
    }
+   
+   public static void EmitOfferReward(UIEmitter uiEmitter, Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.UI, null, canvasWorldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      uiEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
+   }
 }
