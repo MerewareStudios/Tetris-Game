@@ -309,7 +309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -564}
+  m_AnchoredPosition: {x: 0, y: -559}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2076327813115431260
@@ -2167,9 +2167,6 @@ MonoBehaviour:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
   - {fileID: 4684519488623589368}
-  failText: <sprite name="Warning">Payment Failed!
-  successText: <sprite name="Check">Payment Successful!
-  processingText: <sprite name="Warning">Processing Payment...
   canvas: {fileID: 4839256383956558153}
   canvasGroup: {fileID: 6475058585716381588}
   titleText: {fileID: 7027441585568935413}
@@ -2182,7 +2179,6 @@ MonoBehaviour:
   loadingBar: {fileID: 6198235276624832605}
   buyPanel: {fileID: 4161684783139674028}
   infoPanel: {fileID: 1180815753916079315}
-  visualsPanel: {fileID: 5476149733024528787}
   unpackPanel: {fileID: 7943025387140514935}
   closeButton: {fileID: 7105798280731364310}
 --- !u!223 &4839256383956558153
@@ -2205,8 +2201,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -754004807
-  m_SortingOrder: 0
+  m_SortingLayerID: -296820037
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3488761739996309189
 MonoBehaviour:
@@ -2270,7 +2266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: cdc78e9ee0b2b5a41932eea26cc4b62b, type: 2}
   m_Color: {r: 0.49803922, g: 0.3137255, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -2901,33 +2897,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
         type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
         type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
+      propertyPath: m_AnchorMin.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
         type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
+      propertyPath: m_SizeDelta.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
         type: 3}
@@ -2938,26 +2924,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4894268112937341690, guid: 527f54bacd29f364aafd03091a265a45,
         type: 3}

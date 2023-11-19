@@ -16,12 +16,9 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
 
     public delegate OfferScreen.OfferData[] GetOfferFunction();
     
-    public static System.Action<string> OnPurchase;
+    public static System.Action<string, bool> OnPurchaseFinish;
     public static GetOfferFunction OnGetOffers;
     
-    // private System.Action _onSuccess = null;
-    private System.Action<bool> _onFinish = null;
-
     private string _localCurrencySymbol = null;
 
 
@@ -82,15 +79,9 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         UnityPurchasing.Initialize(this, builder);
     }
 
-    // public void Purchase(string purchaseID)
-    // {
-    //     _storeController.InitiatePurchase(purchaseID);
-    // }
-    public void Purchase(string purchaseID, System.Action<bool> onFinish = null)
+    public void Purchase(string purchaseID)
     {
         _storeController.InitiatePurchase(purchaseID);
-        // this._onSuccess = onSuccess;
-        this._onFinish = onFinish;
     }
 
     public string GetPriceSymbol(string iapID)
@@ -183,21 +174,20 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
         var product = args.purchasedProduct;
-        OnPurchase?.Invoke(product.definition.id);
-        Debug.Log($"Purchase Complete - Product: {product.definition.id}");
-        _onFinish?.Invoke(true);
+        OnPurchaseFinish?.Invoke(product.definition.id, true);
+        // Debug.Log($"Purchase Complete - Product: {product.definition.id}");
         return PurchaseProcessingResult.Complete;
     }
 
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        Debug.Log($"Purchase failed - Product: '{product.definition.id}', PurchaseFailureReason: {failureReason}");
+        // Debug.Log($"Purchase failed - Product: '{product.definition.id}', PurchaseFailureReason: {failureReason}");
     }
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
-        _onFinish?.Invoke(false);
-        Debug.Log($"Purchase failed - Product: '{product.definition.id}'," +
-                  $" Purchase failure reason: {failureDescription.reason}," +
-                  $" Purchase failure details: {failureDescription.message}");
+        OnPurchaseFinish?.Invoke(product.definition.id, false);
+        // Debug.Log($"Purchase failed - Product: '{product.definition.id}'," +
+                  // $" Purchase failure reason: {failureDescription.reason}," +
+                  // $" Purchase failure details: {failureDescription.message}");
     }
 }

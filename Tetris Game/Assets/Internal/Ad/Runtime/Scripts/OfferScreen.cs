@@ -229,20 +229,26 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         CurrentProcessState = ProcessState.PROCESSING;
     }
         
-    public void PurchaseFinished(bool successful)
-    {
-        CurrentProcessState = successful ? ProcessState.SUCCESS : ProcessState.FAIL;
-    }
+    // public void PurchaseFinished(bool successful)
+    // {
+    //     CurrentProcessState = successful ? ProcessState.SUCCESS : ProcessState.FAIL;
+    // }
 
-    public void OnPurchaseComplete(string iapID)
+    public void OnPurchaseComplete(string iapID, bool successful)
     {
+        if (!successful)
+        {
+            CurrentProcessState = ProcessState.FAIL;
+            return;
+        }
         OfferData offerDat = ID2OfferData(iapID);
         if (offerDat == null)
         {
             return;
         }
+        
         _Data.offers.Add(offerDat.offerType);
-        Open(OfferType.CoinPack, Mode.Unpack);
+        ShowNextUnpackOrClose();
     }
     private void UnpackReward(OfferType offerType)
     {
@@ -252,10 +258,23 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         }
         
         bool unpacked = OnReward.Invoke(offerData[(int)offerType].rewards);
-        if (unpacked)
+        if (!unpacked)
         {
-            _Data.offers.Remove(offerType);
+            return;
         }
+        
+        _Data.offers.Remove(offerType);
+        ShowNextUnpackOrClose();
+    }
+
+    private void ShowNextUnpackOrClose()
+    {
+        if (_Data.offers.Count == 0)
+        {
+            Close();
+            return;
+        }
+        Open(_Data.offers.First(), Mode.Unpack);
     }
 #endregion
 #region Conversions

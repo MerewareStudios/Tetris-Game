@@ -3413,6 +3413,8 @@ MonoBehaviour:
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0
+    purchaseData:
+      offers: 
     baseInfo: SAVE END
   DELETE_AT_START: 1
   SKIP_ONBOARDING: 1
@@ -20009,7 +20011,7 @@ PrefabInstance:
     - target: {fileID: 7792230760714987986, guid: 40bc79e886d16c2449ef75caaf2d0e57,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowOffer_BannerClose
+      value: ShowOffer_RemoveAds
       objectReference: {fileID: 0}
     - target: {fileID: 7792230760714987986, guid: 40bc79e886d16c2449ef75caaf2d0e57,
         type: 3}
