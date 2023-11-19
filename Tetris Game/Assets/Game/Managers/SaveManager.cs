@@ -33,6 +33,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
             saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
             saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
             saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
+            saveData.purchaseData = Const.THIS.DefaultPurchaseData.Clone() as OfferScreen.Data;
         }
 
         if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
@@ -60,6 +61,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         BlockMenu.THIS._Data = saveData.userData.blockShopData;
         WeaponMenu.THIS._Data = saveData.userData.weaponShopData;
         PiggyMenu.THIS._Data = saveData.userData.piggyData;
+        OfferScreen.THIS._Data = saveData.purchaseData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
         Board.THIS._Data = saveData.userData.boardData;
@@ -117,6 +119,7 @@ public partial class SaveData
     [SerializeField] public User.Data userData;
     [SerializeField] public Player.Data playerData;
     [SerializeField] public AdManager.Data adData;
+    [SerializeField] public OfferScreen.Data purchaseData;
     // [SerializeField] public Concent.Data concentData;
 }
 

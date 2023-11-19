@@ -158,7 +158,11 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         {
             fillImage.fillAmount = value;
         };
-        _timerTween.onComplete = _onTimesUp.Invoke;
+        _timerTween.onComplete = () =>
+        {
+            _onTimesUp?.Invoke();
+            _timerTween = null;
+        };
 
 
         if (_byPassing)
@@ -210,6 +214,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     private void Stop()
     {
         _timerTween?.Kill();
+        _timerTween = null;
     }
     private void Pause()
     {
@@ -259,7 +264,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         _byPassing = false;
         Stop();
-        Close();
+        CloseImmediate();
         _onBypass?.Invoke();
     }
     

@@ -239,20 +239,20 @@ namespace Internal.Core
         {
             PunchUp(text.rectTransform, magnitude, duration);
         }
-        public static void CopyFrom<T>(this List<T> copyTo, List<T> copyFrom) where T : class, ICloneable
-        {
-            copyFrom.ForEach((item) =>
-            {
-                copyTo.Add(item.Clone() as T);
-            });
-        }
-        public static void CopyTo<T>(this List<T> copyFrom, List<T> copyTo) where T : class, ICloneable
-        {
-            copyFrom.ForEach((item) =>
-            {
-                copyTo.Add(item.Clone() as T);
-            });
-        }
+        // public static void CopyFrom<T>(this List<T> copyTo, List<T> copyFrom) where T : class, ICloneable
+        // {
+        //     copyFrom.ForEach((item) =>
+        //     {
+        //         copyTo.Add(item.Clone() as T);
+        //     });
+        // }
+        // public static void CopyTo<T>(this List<T> copyFrom, List<T> copyTo) where T : class, ICloneable
+        // {
+        //     copyFrom.ForEach((item) =>
+        //     {
+        //         copyTo.Add(item.Clone() as T);
+        //     });
+        // }
         public static Vector2 SwitchToRectTransform(RectTransform from, RectTransform to)
         {
             Vector2 localPoint;

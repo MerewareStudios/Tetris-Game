@@ -23,6 +23,7 @@ public class Const : SSingleton<Const>
     public Player.Data DefaultPlayerData;
     public User.Data DefaultUserData;
     public AdManager.Data DefaultAdData;
+    public OfferScreen.Data DefaultPurchaseData;
     [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
@@ -85,7 +86,7 @@ public class GameManager : Singleton<GameManager>
         AdBreakScreen.THIS.OnVisibilityChanged = UpdateTimeScale;
 
         
-        IAPManager.OnPurchase = OfferScreen.OnPurchase;
+        IAPManager.OnPurchase = OfferScreen.THIS.OnPurchaseComplete;
         IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
 
         OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
@@ -111,6 +112,28 @@ public class GameManager : Singleton<GameManager>
                 }
             }
             GameManager.UpdateTimeScale();
+        };
+        OfferScreen.OnReward = rewards =>
+        {
+            foreach (var reward in rewards)
+            {
+                switch (reward.rewardType)
+                {
+                    case OfferScreen.RewardType.NoAds:
+                        AdManager.Bypass.Ads();
+                        return true;
+                    case OfferScreen.RewardType.Coin:
+                        break;
+                    case OfferScreen.RewardType.PiggyCoin:
+                        break;
+                    case OfferScreen.RewardType.Ticket:
+                        break;
+                    case OfferScreen.RewardType.Heart:
+                        break;
+
+                }
+            }
+            return true;
         };
 
         // Const.THIS.PrintLevelData();

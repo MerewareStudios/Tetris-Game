@@ -427,7 +427,7 @@ namespace Game.UI
             {
                 inspectIndex = weaponShopData.inspectIndex;
                 equipIndex = weaponShopData.equipIndex;
-                gunShopDatas.CopyFrom(weaponShopData.gunShopDatas);
+                gunShopDatas = new List<GunShopData>(weaponShopData.gunShopDatas);
             }
             
             public int CurrentIndex(Gun.StatType statType)

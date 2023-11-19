@@ -327,52 +327,52 @@ namespace IWI
         {
             public static void RemoveAds()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.RemoveAds);
             }
             public static void CoinPack()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.CoinPack);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.CoinPack);
             }
             public static void PiggyPack()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.PiggyCoinPack);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.PiggyCoinPack);
             }
             public static void TicketPack()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.TicketPack);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.TicketPack);
             }
             public static void HealthPack()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.HealthPack);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.HealthPack);
             }
             
             public static void Offer1()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack1);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.OfferPack1);
      
             }
             
             public static void Offer2()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack2);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.OfferPack2);
      
             }
             
             public static void Offer3()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack3);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.OfferPack3);
      
             }
             
             public static void Offer4()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack4);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.OfferPack4);
      
             }
             
             public static void Offer5()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.OfferPack5);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.OfferPack5);
      
             }
         }

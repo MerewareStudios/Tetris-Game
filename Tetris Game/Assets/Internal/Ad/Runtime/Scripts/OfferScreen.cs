@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DG.Tweening;
 using Internal.Core;
@@ -7,11 +10,23 @@ using UnityEngine.UI;
 
 public class OfferScreen : Lazyingleton<OfferScreen>
 {
+    [System.NonSerialized] private Data _data;
+    [System.NonSerialized] private bool Active = false;
+    [System.NonSerialized] private ProcessState _currentProcessState;
+    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public System.Action<bool, ProcessState> OnVisibilityChanged;
+    [System.NonSerialized] private System.Action _onBuy;
+
+    [Header("Offer Data")]
+    [SerializeField] public OfferData[] offerData;
+    [SerializeField] private OfferPreview[] offerPreviews;
+    // [TextArea] [SerializeField] private string failText;
+    // [TextArea] [SerializeField] private string successText;
+    // [TextArea] [SerializeField] private string processingText;
+    [Header("Menu")]
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] public OfferData[] offerData;
     [Header("Visuals")]
-    [SerializeField] private OfferPreview[] offerPreviews;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI rewardsText;
@@ -21,81 +36,29 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] private TextMeshProUGUI processStateText;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private GameObject buyPanel;
+    [SerializeField] private GameObject infoPanel;
+    // [SerializeField] private GameObject visualsPanel;
+    [SerializeField] private GameObject unpackPanel;
     [SerializeField] private Button closeButton;
-    [System.NonSerialized] public float TimeScale = 1.0f;
-    [System.NonSerialized] public System.Action<bool, ProcessState> OnVisibilityChanged;
-    // [System.NonSerialized] private System.Action _onOfferRejected;
-    // [System.NonSerialized] private System.Action _onOfferAccepted;
-    [System.NonSerialized] private System.Action _onBuy;
-    [TextArea] [SerializeField] private string failText;
-    [TextArea] [SerializeField] private string successText;
-    [TextArea] [SerializeField] private string processingText;
     
     public delegate string STR2STR(string iapID);
     public delegate decimal STR2DECIMAL(string iapID);
+    public delegate bool UNPACK(Reward[] rewards);
     public static STR2STR OnGetPriceSymbol;
     public static STR2DECIMAL OnGetPrice;
     public static System.Action<string> OnPurchaseOffer;
+    public static UNPACK OnReward;
 
-    [System.NonSerialized] private ProcessState _currentProcessState;
-    [System.Serializable]
-    public enum ProcessState
-    {
-        NONE,
-        PROCESSING,
-        SUCCESS,
-        FAIL
-    }
     
-    // public OfferScreen Open(Type offerType, System.Action onOfferAccepted = null, System.Action onOfferRejected = null)
-    public OfferScreen Open(Type offerType)
+    public Data _Data
     {
-        if (canvas.enabled)
+        set
         {
-            return this;
+            this._data = value;
+            //open screen to give rewards
         }
-
-        // this._onOfferAccepted = onOfferAccepted;
-        // this._onOfferRejected = onOfferRejected;
-        
-        
-        canvas.enabled = true;
-        canvasGroup.DOKill();
-        canvasGroup.alpha = 0.0f;
-        canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
-        
-        this.gameObject.SetActive(true);
-        
-        
-        SetupOffer(offerType);
-        
-        TimeScale = 0.0f;
-        OnVisibilityChanged?.Invoke(true, _currentProcessState);
-
-        return this;
+        get => _data;
     }
-
-    public OfferScreen Close()
-    {
-        if (!canvas.enabled)
-        {
-            return this;
-        }
-        
-        canvasGroup.DOKill();
-        canvasGroup.DOFade(0.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
-        {
-            this.gameObject.SetActive(false);
-            canvas.enabled = false;
-        };        
-        
-        
-        TimeScale = 1.0f;
-        OnVisibilityChanged?.Invoke(false, _currentProcessState);
-        
-        return this;
-    }
-
     public ProcessState CurrentProcessState
     {
         get => _currentProcessState;
@@ -107,97 +70,87 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                 case ProcessState.NONE:
                     buyPanel.SetActive(true);
                     closeButton.gameObject.SetActive(true);
-                    
                     loadingBar.SetActive(false);
-                    
                     processStateText.gameObject.SetActive(false);
-                    // processStateText.text = "";
+                    unpackPanel.SetActive(false);
                     break;
                 case ProcessState.PROCESSING:
                     buyPanel.SetActive(false);
                     closeButton.gameObject.SetActive(false);
-                    
                     loadingBar.SetActive(true);
-                    
                     processStateText.gameObject.SetActive(true);
-                    processStateText.text = processingText;
+                    unpackPanel.SetActive(false);
                     break;
                 case ProcessState.SUCCESS:
                     buyPanel.SetActive(false);
-                    closeButton.gameObject.SetActive(true);
-                    
+                    closeButton.gameObject.SetActive(false);
                     loadingBar.SetActive(false);
-                    
-                    processStateText.gameObject.SetActive(true);
-                    processStateText.text = successText;
+                    processStateText.gameObject.SetActive(false);
+                    unpackPanel.SetActive(false);
                     break;
                 case ProcessState.FAIL:
                     buyPanel.SetActive(true);
                     closeButton.gameObject.SetActive(true);
-                    
                     loadingBar.SetActive(false);
-                    
                     processStateText.gameObject.SetActive(false);
-                    // processStateText.text = failText;
+                    unpackPanel.SetActive(false);
+                    break;
+                case ProcessState.UNPACK:
+                    buyPanel.SetActive(false);
+                    closeButton.gameObject.SetActive(false);
+                    loadingBar.SetActive(false);
+                    processStateText.gameObject.SetActive(false);
+                    unpackPanel.SetActive(true);
                     break;
             }
         }
     }
-
-    public void OnClick_Close()
-    {
-        Close();
-        // _onOfferRejected?.Invoke();
-    }
     
-    public void OnClick_Buy()
-    {
-        _onBuy?.Invoke();
-        PurchaseStarted();
-    }
-
-    private void SetupOffer(Type type)
-    {
-        SetupVisuals(offerData[(int)type]);
-    }
     
-    public void PurchaseStarted()
+    public void Open(OfferType offerType, Mode mode = Mode.Offer)
     {
-        CurrentProcessState = ProcessState.PROCESSING;
-    }
-        
-    public void PurchaseFinished(bool successful)
-    {
-        CurrentProcessState = successful ? ProcessState.SUCCESS : ProcessState.FAIL;
-    }
-
-    private void SetupVisuals(OfferData data)
-    {
-        _onBuy = () => OnPurchaseOffer?.Invoke(data.iapID);
-
-        
-        titleText.text = data.title;
-        rewardsText.text = data.RewardInfo();
-        infoText.text = data.detailedInfoStr;
-        
-        promotionalText.transform.parent.gameObject.SetActive(!data.promotionalText.Equals(""));
-        promotionalText.text = data.promotionalText;
-
-        string symbol = OnGetPriceSymbol.Invoke(data.iapID);
-        decimal price = OnGetPrice.Invoke(data.iapID);
-        
-        priceText.text = symbol + price.ToString("#.00");
-
-        if (data.oldPriceMult > 1)
+        SetupVisuals(offerData[(int)offerType], mode);
+        if (Active)
         {
-            oldText.gameObject.SetActive(true);
-            oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
-        }
-        else
-        {
-            oldText.gameObject.SetActive(false);
+            return;
         }
 
+        Active = true;
+
+
+        this.gameObject.SetActive(true);
+        canvas.enabled = true;
+        
+        canvasGroup.DOKill();
+        canvasGroup.alpha = 0.0f;
+        canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
+        
+        
+        TimeScale = 0.0f;
+        OnVisibilityChanged?.Invoke(true, _currentProcessState);
+    }
+    private void Close()
+    {
+        if (!Active)
+        {
+            return;
+        }
+
+        Active = false;
+        
+        canvasGroup.DOKill();
+        canvasGroup.DOFade(0.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+        {
+            this.gameObject.SetActive(false);
+            canvas.enabled = false;
+        };        
+        
+        
+        TimeScale = 1.0f;
+        OnVisibilityChanged?.Invoke(false, _currentProcessState);
+    }
+    private void SetupVisuals(OfferData data, Mode mode = Mode.Offer)
+    {
         for (int i = 0; i < offerPreviews.Length; i++)
         {
             bool iconEnabled = i < data.previewDatas.Length;
@@ -211,22 +164,124 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                 offerPreviews[i].Set(data.previewDatas[i]);
             }
         }
+        
+        switch (mode)
+        {
+            case Mode.Offer:
+                infoPanel.SetActive(true);
+                // visualsPanel.SetActive(true);
+                
+                _onBuy = () => OnPurchaseOffer?.Invoke(data.iapID);
 
-        CurrentProcessState = ProcessState.NONE;
+        
+                titleText.text = data.title;
+                rewardsText.text = data.RewardInfo();
+                infoText.text = data.detailedInfoStr;
+        
+                promotionalText.transform.parent.gameObject.SetActive(!data.promotionalText.Equals(""));
+                promotionalText.text = data.promotionalText;
+
+                string symbol = OnGetPriceSymbol.Invoke(data.iapID);
+                decimal price = OnGetPrice.Invoke(data.iapID);
+        
+                priceText.text = symbol + price.ToString("#.00");
+
+                oldText.gameObject.SetActive(data.oldPriceMult > 1);
+
+                if (data.oldPriceMult > 1)
+                {
+                    oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
+                }
+                else
+                {
+                    oldText.gameObject.SetActive(false);
+                }
+
+                CurrentProcessState = ProcessState.NONE;
+                break;
+            case Mode.Unpack:
+                infoPanel.SetActive(false);
+                // visualsPanel.SetActive(true);
+                
+                CurrentProcessState = ProcessState.UNPACK;
+                break;
+        }
     }
-    
+
+#region OnClick
+    public void OnClick_Close()
+    {
+        Close();
+    }
+    public void OnClick_Buy()
+    {
+        _onBuy?.Invoke();
+        PurchaseStarted();
+    }
+    public void OnClick_Unpack()
+    {
+        UnpackReward(OfferType.CoinPack);
+    }
+#endregion
+#region Purchase
+    public void PurchaseStarted()
+    {
+        CurrentProcessState = ProcessState.PROCESSING;
+    }
+        
+    public void PurchaseFinished(bool successful)
+    {
+        CurrentProcessState = successful ? ProcessState.SUCCESS : ProcessState.FAIL;
+    }
+
+    public void OnPurchaseComplete(string iapID)
+    {
+        OfferData offerDat = ID2OfferData(iapID);
+        if (offerDat == null)
+        {
+            return;
+        }
+        _Data.offers.Add(offerDat.offerType);
+        Open(OfferType.CoinPack, Mode.Unpack);
+    }
+    private void UnpackReward(OfferType offerType)
+    {
+        if (OnReward == null)
+        {
+            return;
+        }
+        
+        bool unpacked = OnReward.Invoke(offerData[(int)offerType].rewards);
+        if (unpacked)
+        {
+            _Data.offers.Remove(offerType);
+        }
+    }
+#endregion
+#region Conversions
+    private OfferData ID2OfferData(string iapID)
+    {
+        return offerData.FirstOrDefault(data => data.iapID.Equals(iapID));
+    }
+#endregion
+#region Mono
     void Update()
     {
         Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
-
-    public static void OnPurchase(string iapID)
-    {
-        
-    }
-
+#endregion
+#region Data
     [System.Serializable]
-    public enum Type
+    public enum ProcessState
+    {
+        NONE,
+        PROCESSING,
+        SUCCESS,
+        FAIL,
+        UNPACK,
+    }
+    [System.Serializable]
+    public enum OfferType
     {
         RemoveAds,
         CoinPack,
@@ -239,7 +294,6 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         OfferPack4,
         OfferPack5,
     }
-    
     [System.Serializable]
     public enum RewardType
     {
@@ -249,19 +303,22 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         Ticket,
         Heart,
     }
-    
-   
+    [System.Serializable]
+    public enum Mode
+    {
+        Offer,
+        Unpack,
+    }
     [System.Serializable]
     public class Reward
     {
         public RewardType rewardType;
         public int amount;
     }
-    
     [System.Serializable]
     public class OfferData
     {
-        [SerializeField] public OfferScreen.Type offerType;
+        [SerializeField] public OfferScreen.OfferType offerType;
         [SerializeField] public UnityEngine.Purchasing.ProductType productType;
         [SerializeField] public string iapID;
         [TextArea] [SerializeField] public string title;
@@ -295,6 +352,20 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             return stringBuilder.ToString();
         }
     }
+    [System.Serializable]
+    public class Data : ICloneable
+    {
+        [SerializeField] public List<OfferType> offers;
+            
+        public Data(Data data)
+        {
+            offers = new List<OfferType>(data.offers);
+        }
 
-    
+        public object Clone()
+        {
+            return new Data(this);
+        }
+    } 
+#endregion
 }

@@ -694,6 +694,8 @@ MonoBehaviour:
     removeAds: 0
     interSkipCount: 0
     interWatchCount: 0
+  DefaultPurchaseData:
+    rewards: []
   GunUpgradeData:
   - currency:
       type: 0
