@@ -25,6 +25,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [System.NonSerialized] private LoadState _currentLoadState;
     
     [System.NonSerialized] private bool _canInteract = false;
+    [System.NonSerialized] private bool _byPassing = false;
     [System.NonSerialized] private System.Action _onTimesUp;
     // [System.NonSerialized] private System.Action _onBypassReward;
     [System.NonSerialized] private System.Action _onClick;
@@ -57,6 +58,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
             TimeScale = value ? 0.0f : 1.0f;
             OnVisibilityChanged?.Invoke();
         }
+        get => canvas.enabled;
     }
 
     public enum AdState
@@ -157,6 +159,12 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
             fillImage.fillAmount = value;
         };
         _timerTween.onComplete = _onTimesUp.Invoke;
+
+
+        if (_byPassing)
+        {
+            Pause();
+        }
     }
 
     public void Open()
@@ -228,35 +236,30 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     
     #region Offer
 
-    private System.Action _onClickOfferProcessing;
     private System.Action _onBypass;
     
-    public void OnClickOffer(System.Action onClickOffer, System.Action onBypass)
+    public void OnByPass(System.Action onBypass)
     {
-        this._onClickOfferProcessing = onClickOffer;
         this._onBypass = onBypass;
     }
     
-    public void OnClick_Offer()
+    public void ByPassInProgress()
     {
-        if (!_canInteract)
-        {
-            return;
-        }
-
+        _byPassing = true;
         Pause();
-        _onClickOfferProcessing?.Invoke();
     }
 
-    public void OnOfferRejected()
+    public void RevokeByPass()
     {
+        _byPassing = false;
         Restart();
     }
 
-    public void OnOfferAccepted()
+    public void InvokeByPass()
     {
+        _byPassing = false;
         Stop();
-        _onClick?.Invoke();
+        Close();
         _onBypass?.Invoke();
     }
     

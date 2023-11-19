@@ -82,13 +82,36 @@ public class GameManager : Singleton<GameManager>
     #endif
         
         AdManager.THIS.InitAdSDK();
+        AdBreakScreen.THIS.OnVisibilityChanged = UpdateTimeScale;
 
+        
         IAPManager.OnPurchase = OfferScreen.OnPurchase;
         IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
 
         OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
         OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
         OfferScreen.OnPurchaseOffer = (id) => IAPManager.THIS.Purchase(id, OfferScreen.THIS.PurchaseFinished);
+        OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
+        {
+            if (AdBreakScreen.THIS.Visible)
+            {
+                if (visible)
+                {
+                    AdBreakScreen.THIS.ByPassInProgress();
+                }
+                else
+                {
+                    if (processState.Equals(OfferScreen.ProcessState.SUCCESS))
+                    {
+                        AdBreakScreen.THIS.InvokeByPass();
+                        return;
+                    }
+                    
+                    AdBreakScreen.THIS.RevokeByPass();
+                }
+            }
+            GameManager.UpdateTimeScale();
+        };
 
         // Const.THIS.PrintLevelData();
     }

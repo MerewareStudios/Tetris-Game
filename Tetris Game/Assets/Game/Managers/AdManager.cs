@@ -204,7 +204,7 @@ namespace IWI
             AdBreakScreen.THIS.RemoveAdBreakButtonState(true);
             AdBreakScreen.THIS.PlusTicketState(false);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
-            AdBreakScreen.THIS.OnClickOffer(Offers.RemoveAds_AdBreakScreen, onFinish);
+            AdBreakScreen.THIS.OnByPass(onFinish);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -262,7 +262,7 @@ namespace IWI
             AdBreakScreen.THIS.RemoveAdBreakButtonState(false);
             AdBreakScreen.THIS.PlusTicketState(true);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
-            AdBreakScreen.THIS.OnClickOffer(Offers.TicketPack_AdBreakScreen, onReward);
+            AdBreakScreen.THIS.OnByPass(onReward);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -325,42 +325,25 @@ namespace IWI
         
         public static class Offers
         {
-            public static void CoinPack_Meta()
+            public static void RemoveAds()
+            {
+                OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds);
+            }
+            public static void CoinPack()
             {
                 OfferScreen.THIS.Open(OfferScreen.Type.CoinPack);
-     
             }
-            public static void PiggyPack_Meta()
+            public static void PiggyPack()
             {
                 OfferScreen.THIS.Open(OfferScreen.Type.PiggyCoinPack);
-     
             }
-            public static void TicketPack_Meta()
+            public static void TicketPack()
             {
                 OfferScreen.THIS.Open(OfferScreen.Type.TicketPack);
-     
             }
-            public static void HealthPack_Gameplay()
+            public static void HealthPack()
             {
                 OfferScreen.THIS.Open(OfferScreen.Type.HealthPack);
-     
-            }
-            public static void RemoveAds_Banner()
-            {
-                OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds);
-     
-            }
-            public static void RemoveAds_AdBreakScreen()
-            {
-                // OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
-                OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds);
-     
-            }
-            public static void TicketPack_AdBreakScreen()
-            {
-                // OfferScreen.THIS.Open(OfferScreen.Type.TicketPack, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
-                OfferScreen.THIS.Open(OfferScreen.Type.TicketPack);
-     
             }
             
             public static void Offer1()

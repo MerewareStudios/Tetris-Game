@@ -113,13 +113,6 @@ public class UIManager : Singleton<UIManager>
          Wallet.ScaleTransactors(value ? 1.1f : 1.0f, value);
       };
 
-      OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
-      {
-         
-         GameManager.UpdateTimeScale();
-      };
-      AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
-
       CurrentMenu = null;
    }
 
@@ -150,29 +143,29 @@ public class UIManager : Singleton<UIManager>
    //    // });
    // }
 
-   public void ShowOffer_BannerClose()
+   public void ShowOffer_RemoveAds()
    {
-      AdManager.Offers.RemoveAds_Banner();
+      AdManager.Offers.RemoveAds();
    }
    
    public void ShowOffer_CoinPlus()
    {
-      AdManager.Offers.CoinPack_Meta();
+      AdManager.Offers.CoinPack();
    }
    
    public void ShowOffer_PiggyCoinPlus()
    {
-      AdManager.Offers.PiggyPack_Meta();
+      AdManager.Offers.PiggyPack();
    }
    
    public void ShowOffer_TicketPlus()
    {
-      AdManager.Offers.TicketPack_Meta();
+      AdManager.Offers.TicketPack();
    }
    
    public void ShowOffer_HeartPlus()
    {
-      AdManager.Offers.HealthPack_Gameplay();
+      AdManager.Offers.HealthPack();
    }
    
    
