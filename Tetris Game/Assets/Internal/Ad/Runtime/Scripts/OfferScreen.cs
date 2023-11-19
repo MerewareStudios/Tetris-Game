@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using DG.Tweening;
 using Internal.Core;
@@ -24,9 +23,9 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] private GameObject buyPanel;
     [SerializeField] private Button closeButton;
     [System.NonSerialized] public float TimeScale = 1.0f;
-    [System.NonSerialized] public System.Action OnVisibilityChanged;
-    [System.NonSerialized] private System.Action _onOfferRejected;
-    [System.NonSerialized] private System.Action _onOfferAccepted;
+    [System.NonSerialized] public System.Action<bool, ProcessState> OnVisibilityChanged;
+    // [System.NonSerialized] private System.Action _onOfferRejected;
+    // [System.NonSerialized] private System.Action _onOfferAccepted;
     [System.NonSerialized] private System.Action _onBuy;
     [TextArea] [SerializeField] private string failText;
     [TextArea] [SerializeField] private string successText;
@@ -38,6 +37,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public static STR2DECIMAL OnGetPrice;
     public static System.Action<string> OnPurchaseOffer;
 
+    [System.NonSerialized] private ProcessState _currentProcessState;
     [System.Serializable]
     public enum ProcessState
     {
@@ -47,15 +47,16 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         FAIL
     }
     
-    public OfferScreen Open(Type offerType, System.Action onOfferAccepted = null, System.Action onOfferRejected = null)
+    // public OfferScreen Open(Type offerType, System.Action onOfferAccepted = null, System.Action onOfferRejected = null)
+    public OfferScreen Open(Type offerType)
     {
         if (canvas.enabled)
         {
             return this;
         }
 
-        this._onOfferAccepted = onOfferAccepted;
-        this._onOfferRejected = onOfferRejected;
+        // this._onOfferAccepted = onOfferAccepted;
+        // this._onOfferRejected = onOfferRejected;
         
         
         canvas.enabled = true;
@@ -65,11 +66,11 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         this.gameObject.SetActive(true);
         
-        TimeScale = 0.0f;
-        OnVisibilityChanged?.Invoke();
-        
         
         SetupOffer(offerType);
+        
+        TimeScale = 0.0f;
+        OnVisibilityChanged?.Invoke(true, _currentProcessState);
 
         return this;
     }
@@ -90,15 +91,17 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         
         TimeScale = 1.0f;
-        OnVisibilityChanged?.Invoke();
+        OnVisibilityChanged?.Invoke(false, _currentProcessState);
         
         return this;
     }
 
     public ProcessState CurrentProcessState
     {
+        get => _currentProcessState;
         set
         {
+            _currentProcessState = value;
             switch (value)
             {
                 case ProcessState.NONE:
@@ -144,7 +147,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public void OnClick_Close()
     {
         Close();
-        _onOfferRejected?.Invoke();
+        // _onOfferRejected?.Invoke();
     }
     
     public void OnClick_Buy()

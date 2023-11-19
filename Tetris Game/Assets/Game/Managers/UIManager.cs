@@ -113,7 +113,11 @@ public class UIManager : Singleton<UIManager>
          Wallet.ScaleTransactors(value ? 1.1f : 1.0f, value);
       };
 
-      OfferScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
+      OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
+      {
+         
+         GameManager.UpdateTimeScale();
+      };
       AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
 
       CurrentMenu = null;

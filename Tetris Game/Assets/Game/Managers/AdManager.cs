@@ -352,12 +352,14 @@ namespace IWI
             }
             public static void RemoveAds_AdBreakScreen()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
+                // OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
+                OfferScreen.THIS.Open(OfferScreen.Type.RemoveAds);
      
             }
             public static void TicketPack_AdBreakScreen()
             {
-                OfferScreen.THIS.Open(OfferScreen.Type.TicketPack, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
+                // OfferScreen.THIS.Open(OfferScreen.Type.TicketPack, AdBreakScreen.THIS.OnOfferAccepted, AdBreakScreen.THIS.OnOfferRejected);
+                OfferScreen.THIS.Open(OfferScreen.Type.TicketPack);
      
             }
             
