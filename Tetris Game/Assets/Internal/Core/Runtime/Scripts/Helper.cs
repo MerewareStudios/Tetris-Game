@@ -293,15 +293,15 @@ namespace Internal.Core
         //     };
         //     return tween;
         // }
-        public static Tween DoFade_IWI(this CanvasGroup canvasGroup, float targetAlpha, float duration, Ease ease, System.Action OnEnd = null)
-        {
-            Tween tween = canvasGroup.DOFade(targetAlpha, duration).SetEase(ease);
-            tween.onComplete = () =>
-                {
-                    OnEnd?.Invoke();
-                };
-            return tween;
-        }
+        // public static Tween DoFade_IWI(this CanvasGroup canvasGroup, float targetAlpha, float duration, Ease ease, System.Action OnEnd = null)
+        // {
+        //     Tween tween = canvasGroup.DOFade(targetAlpha, duration).SetEase(ease);
+        //     tween.onComplete = () =>
+        //         {
+        //             OnEnd?.Invoke();
+        //         };
+        //     return tween;
+        // }
         public static string ToTMProKey(this string key)
         {
             return "<sprite name=" + key + ">";

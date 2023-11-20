@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DG.Tweening;
 using Internal.Core;
 using TMPro;
@@ -22,17 +21,19 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] public OfferData[] offerData;
     [SerializeField] private OfferPreview[] offerPreviews;
     // [TextArea] [SerializeField] private string failText;
-    // [TextArea] [SerializeField] private string successText;
-    // [TextArea] [SerializeField] private string processingText;
+    [TextArea] [SerializeField] private string successText;
+    [TextArea] [SerializeField] private string processingText;
     [Header("Menu")]
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private CanvasGroup fadeCanvasGroup;
     [SerializeField] private Image offerGrid;
     [SerializeField] private Vector2 offerGridOpenSize;
     [SerializeField] private Vector2 offerGridCloseSize;
-    [SerializeField] private Image backgroundImage;
-    [SerializeField] private Color hiddenColor;
-    [SerializeField] private Color peakColor;
+    // [SerializeField] private Image backgroundImage;
+    // [SerializeField] private Image backgroundImage;
+    // [SerializeField] private Color hiddenColor;
+    // [SerializeField] private Color peakColor;
     [Header("Visuals")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI infoText;
@@ -73,8 +74,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         {
             _currentProcessState = value;
             
-            backgroundImage.DOKill();
-            backgroundImage.DOColor(hiddenColor, 0.125f).SetEase(Ease.InOutSine).SetUpdate(true);
+            fadeCanvasGroup.DOKill();
+            fadeCanvasGroup.DOFade(1.0f, 0.125f).SetEase(Ease.InOutSine).SetUpdate(true);
             
             offerGrid.rectTransform.DOKill();
             offerGrid.rectTransform.DOSizeDelta(offerGridOpenSize, 0.2f).SetEase(Ease.OutQuint).SetUpdate(true);
@@ -93,14 +94,16 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                     closeButton.gameObject.SetActive(false);
                     loadingBar.SetActive(true);
                     processStateText.gameObject.SetActive(true);
+                    processStateText.text = processingText;
                     unpackPanel.SetActive(false);
                     break;
                 case ProcessState.SUCCESS:
                     buyPanel.SetActive(false);
                     closeButton.gameObject.SetActive(false);
                     loadingBar.SetActive(false);
-                    processStateText.gameObject.SetActive(false);
-                    unpackPanel.SetActive(false);
+                    processStateText.gameObject.SetActive(true);
+                    processStateText.text = successText;
+                    unpackPanel.SetActive(true);
                     break;
                 case ProcessState.FAIL:
                     buyPanel.SetActive(true);
@@ -108,13 +111,6 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                     loadingBar.SetActive(false);
                     processStateText.gameObject.SetActive(false);
                     unpackPanel.SetActive(false);
-                    break;
-                case ProcessState.UNPACK:
-                    buyPanel.SetActive(false);
-                    closeButton.gameObject.SetActive(false);
-                    loadingBar.SetActive(false);
-                    processStateText.gameObject.SetActive(false);
-                    unpackPanel.SetActive(true);
                     break;
             }
         }
@@ -218,7 +214,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             case Mode.Unpack:
                 infoPanel.SetActive(false);
                 
-                CurrentProcessState = ProcessState.UNPACK;
+                CurrentProcessState = ProcessState.SUCCESS;
                 break;
         }
     }
@@ -272,8 +268,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         offerGrid.rectTransform.DOKill();
         offerGrid.rectTransform.DOSizeDelta(offerGridCloseSize, 0.25f).SetEase(Ease.OutQuint).SetUpdate(true);
         
-        backgroundImage.DOKill();
-        backgroundImage.DOColor(peakColor, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
+        fadeCanvasGroup.DOKill();
+        fadeCanvasGroup.DOFade(0.0f, 0.2f).SetEase(Ease.InOutSine).SetUpdate(true);
         
         OnReward.Invoke(offerData[(int)offerType].rewards, ShowNextUnpackOrClose);
         _Data.offers.Remove(offerType);
@@ -314,7 +310,6 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         PROCESSING,
         SUCCESS,
         FAIL,
-        UNPACK,
     }
     [System.Serializable]
     public enum OfferType
