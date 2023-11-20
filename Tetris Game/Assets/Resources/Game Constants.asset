@@ -645,7 +645,7 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 33
+      value: 3333
     gemTransactionData:
       value: 0
     adTransactionData:
@@ -684,7 +684,7 @@ MonoBehaviour:
         type: 0
         amount: 0
       moneyCapacity: 10
-      breakInstance: 0
+      breakInstance: 1
       doubleInstance: 0
       skipInstance: 0
     upgradeMenuData:

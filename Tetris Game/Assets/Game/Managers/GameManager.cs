@@ -95,6 +95,18 @@ public class GameManager : Singleton<GameManager>
         OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
         OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
         {
+            if (PiggyMenu.THIS.Visible)
+            {
+                if (visible)
+                {
+                    PiggyMenu.THIS.Pause();
+                }
+                else
+                {
+                    PiggyMenu.THIS.Restart();
+                }
+            }
+            
             if (AdBreakScreen.THIS.Visible)
             {
                 if (visible)
@@ -111,6 +123,12 @@ public class GameManager : Singleton<GameManager>
                     
                     AdBreakScreen.THIS.RevokeByPass();
                 }
+            }
+
+
+            if (PiggyMenu.THIS.Visible)
+            {
+                PiggyMenu.THIS.SetMiddleSortingLayer(visible ? 0 : 9);                
             }
             GameManager.UpdateTimeScale();
         };
@@ -157,7 +175,9 @@ public class GameManager : Singleton<GameManager>
             DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
         };
 
-        OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible || PiggyMenu.THIS.Visible;
+        OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible
+                                               || UIManager.THIS.HoveringMeta
+                                               || UIManager.THIS.HoveringStat;
         
         OfferScreen.THIS.CheckForUnpack(2.5f);
         

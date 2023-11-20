@@ -236,17 +236,42 @@ public class UIManager : Singleton<UIManager>
    }
 #endif
 
+   public bool HoveringMeta
+   {
+      get
+      {
+         if (!UIManager.THIS.coinEmitter.Idle)
+         {
+            return true;
+         }
+         if (!UIManager.THIS.piggyCoinEmitter.Idle)
+         {
+            return true;
+         }
+         if (!UIManager.THIS.ticketEmitter.Idle)
+         {
+            return true;
+         }
+
+         return false;
+      }
+   }
+   public bool HoveringStat
+   {
+      get
+      {
+         if (!UIManager.THIS.heartEmitter.Idle)
+         {
+            return true;
+         }
+
+         return false;
+      }
+   }
+
    public static void ForceUpdateAvailableMenu()
    {
-      if (!UIManager.THIS.coinEmitter.Idle)
-      {
-         return;
-      }
-      if (!UIManager.THIS.piggyCoinEmitter.Idle)
-      {
-         return;
-      }
-      if (!UIManager.THIS.ticketEmitter.Idle)
+      if (UIManager.THIS.HoveringMeta)
       {
          return;
       }

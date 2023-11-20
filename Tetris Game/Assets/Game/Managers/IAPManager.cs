@@ -71,8 +71,8 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-        OfferScreen.OfferData[] offerDatas = OnGetOffers.Invoke();
-        foreach (var offer in offerDatas)
+        OfferScreen.OfferData[] offerData = OnGetOffers.Invoke();
+        foreach (var offer in offerData)
         {
             builder.AddProduct(offer.iapID, offer.productType);
         }

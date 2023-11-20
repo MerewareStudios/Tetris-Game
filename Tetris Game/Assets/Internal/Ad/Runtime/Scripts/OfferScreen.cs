@@ -149,8 +149,6 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         {
             return;
         }
-
-        Active = false;
         
         canvasGroup.DOKill();
         canvasGroup.DOFade(0.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
@@ -159,11 +157,12 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             canvas.enabled = false;
 
             CheckForUnpack(2.5f);
+            
+            Active = false;
+            
+            TimeScale = 1.0f;
+            OnVisibilityChanged?.Invoke(false, _currentProcessState);
         };        
-        
-        
-        TimeScale = 1.0f;
-        OnVisibilityChanged?.Invoke(false, _currentProcessState);
     }
     private void SetupVisuals(OfferData data, Mode mode = Mode.Offer)
     {
