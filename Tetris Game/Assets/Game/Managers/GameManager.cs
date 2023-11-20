@@ -117,8 +117,9 @@ public class GameManager : Singleton<GameManager>
         OfferScreen.OnReward = (rewards, onFinish) =>
         {
             onFinish += SaveManager.THIS.Save;
+
             float closeDelay = 0.5f;
-            // on finish not called at every path
+            bool forceUpdateMenu = true;
             for (int i = 0; i < rewards.Length; i++)
             {
                 OfferScreen.Reward reward = rewards[i];
@@ -130,24 +131,33 @@ public class GameManager : Singleton<GameManager>
                         continue;
                     case OfferScreen.RewardType.Coin:
                         emitter = UIManager.THIS.coinEmitter;
+                        forceUpdateMenu = false;
                         break;
                     case OfferScreen.RewardType.PiggyCoin:
                         emitter = UIManager.THIS.piggyCoinEmitter;
+                        forceUpdateMenu = false;
                         break;
                     case OfferScreen.RewardType.Ticket:
                         emitter = UIManager.THIS.ticketEmitter;
+                        forceUpdateMenu = false;
                         break;
                     case OfferScreen.RewardType.Heart:
                         emitter = UIManager.THIS.heartEmitter;
+                        forceUpdateMenu = false;
                         break;
                 }
                 float duration = UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
                 closeDelay = Mathf.Max(closeDelay, duration);
             }
 
+            if (forceUpdateMenu)
+            {
+                onFinish += UIManager.ForceUpdateAvailableMenu;
+            }
             DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
         };
 
+        OfferScreen.THIS.CheckForUnpack(2.5f);
         // Const.THIS.PrintLevelData();
     }
 

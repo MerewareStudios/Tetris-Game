@@ -277,7 +277,7 @@ namespace IWI.UI
 
         private float Now => _timeOffset + Time.time;
         // private bool Idle => _imageQueue.Count == imageSettings.maxImageCount;
-        private bool Idle => _aliveCount == 0;
+        public bool Idle => _aliveCount == 0;
         // private int AliveCount => _aliveCount;
 
         // void OnDestroy()

@@ -154,6 +154,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         {
             this.gameObject.SetActive(false);
             canvas.enabled = false;
+
+            CheckForUnpack(2.5f);
         };        
         
         
@@ -250,11 +252,15 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         OfferData offerDat = ID2OfferData(iapID);
         if (offerDat == null)
         {
+            Debug.LogError("Could not find purchase iapID.");
             return;
         }
         
         _Data.offers.Add(offerDat.offerType);
-        ShowNextUnpackOrClose();
+        if (!Active || (CurrentProcessState.Equals(ProcessState.PROCESSING) && _currentOfferData.offerType.Equals(offerDat.offerType)))
+        {
+            ShowNextUnpackOrClose();
+        }
     }
     private void UnpackReward(OfferType offerType)
     {
@@ -282,7 +288,24 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             Close();
             return;
         }
-        Open(_Data.offers.First(), Mode.Unpack);
+        Open(_Data.offers.Last(), Mode.Unpack);
+    }
+
+    public void CheckForUnpack(float delay)
+    {
+        DOVirtual.DelayedCall(delay, () =>
+        {
+            if (_Data.offers.Count == 0)
+            {
+                return;
+            }
+
+            if (Active)
+            {
+                return;
+            }
+            Open(_Data.offers.Last(), Mode.Unpack);
+        });
     }
 #endregion
 #region Conversions

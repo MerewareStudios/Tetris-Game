@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -17,7 +15,6 @@ using ValueType = IWI.Emitter.Enums.ValueType;
 public class UIManager : Singleton<UIManager>
 {
    [SerializeField] public TextMeshProUGUI levelText;
-   // [SerializeField] public TextMeshProUGUI levelProgressHealthText;
    [SerializeField] public TextMeshProUGUI levelTextMenu;
    [SerializeField] public GameObject levelProgressbar;
    [SerializeField] public Image levelProgress;
@@ -126,6 +123,7 @@ public class UIManager : Singleton<UIManager>
       image.Despawn(Pool.Image);
    }
 
+#region Ad Layer Clicks
    public void AdLayerClick_OpenShop()
    {
       AdManager.THIS.TryInterstitial(shop.OnClick_Open);
@@ -134,42 +132,29 @@ public class UIManager : Singleton<UIManager>
    {
       AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
    }
-   // public void AdLayerClick_OpenHealthShop()
-   // {
-   //    // AdManager.THIS.TryInterstitial(() =>
-   //    // {
-   //    //    shop.OpenDirect(MenuType.Upgrade);
-   //    //    UpgradeMenu.THIS.Prompt(UpgradeMenu.PurchaseType.MEDKIT, 0.1f, 0.25f);
-   //    // });
-   // }
-
+#endregion
+#region Offer
    public void ShowOffer_RemoveAds()
    {
       AdManager.Offers.RemoveAds();
    }
-   
    public void ShowOffer_CoinPlus()
    {
       AdManager.Offers.CoinPack();
    }
-   
    public void ShowOffer_PiggyCoinPlus()
    {
       AdManager.Offers.PiggyPack();
    }
-   
    public void ShowOffer_TicketPlus()
    {
       AdManager.Offers.TicketPack();
    }
-   
    public void ShowOffer_HeartPlus()
    {
       AdManager.Offers.HealthPack();
    }
-   
-   
-
+#endregion
 #if UNITY_EDITOR
    private void Update()
    {
@@ -241,11 +226,27 @@ public class UIManager : Singleton<UIManager>
          Warzone.THIS.Player.Gun.Boost();
 
       }
+      if (Input.GetKeyDown(KeyCode.U))
+      {
+         IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.ticketpack", true);
+      }
    }
 #endif
 
    public static void ForceUpdateAvailableMenu()
    {
+      if (!UIManager.THIS.coinEmitter.Idle)
+      {
+         return;
+      }
+      if (!UIManager.THIS.piggyCoinEmitter.Idle)
+      {
+         return;
+      }
+      if (!UIManager.THIS.ticketEmitter.Idle)
+      {
+         return;
+      }
       if (UIManager.CurrentMenu != null)
       {
          UIManager.CurrentMenu.Show();

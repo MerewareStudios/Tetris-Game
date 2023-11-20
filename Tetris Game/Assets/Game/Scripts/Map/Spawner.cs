@@ -34,25 +34,24 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
     [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
 
-    public bool NextBlockEnabled
+    public void SetNextBlockVisibility(bool visible, float duration)
     {
-        set
+        if (NextBlockVisible == visible)
         {
-            if (nextBlockVisual.activeSelf == value)
-            {
-                return;
-            }
-            nextBlockVisual.SetActive(value);
-            if (value)
-            {
-                nextBlockPivot.DOKill();
-                nextBlockPivot.position = FakeAdBanner.THIS.ButtonPosition;
-                nextBlockPivot.DOAnchorPos(Vector2.zero, 0.5f).SetEase(Ease.OutSine);
-                DisplayNextBlock();
-            }
+            return;
         }
-        get => nextBlockVisual.activeSelf;
+        nextBlockVisual.SetActive(visible);
+        nextBlockPivot.DOKill();
+        if (!visible)
+        {
+            return;
+        }
+        nextBlockPivot.position = FakeAdBanner.THIS.ButtonPosition;
+        nextBlockPivot.DOAnchorPos(Vector2.zero, duration).SetEase(Ease.OutSine).SetUpdate(true);
+        DisplayNextBlock();
     }
+
+    public bool NextBlockVisible => nextBlockVisual.activeSelf;
     
     private void Awake()
     {
@@ -389,7 +388,7 @@ public class Spawner : Singleton<Spawner>
             
             _nextBlock = this.RandomBlock();
 
-            if (NextBlockEnabled)
+            if (NextBlockVisible)
             {
                 DisplayNextBlock();
             }

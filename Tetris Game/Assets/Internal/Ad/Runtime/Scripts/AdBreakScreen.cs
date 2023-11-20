@@ -264,7 +264,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         _byPassing = false;
         Stop();
-        CloseImmediate();
+        Close();
         _onBypass?.Invoke();
     }
     

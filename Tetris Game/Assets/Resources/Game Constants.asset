@@ -695,7 +695,7 @@ MonoBehaviour:
     interSkipCount: 0
     interWatchCount: 0
   DefaultPurchaseData:
-    offers: 
+    offers: 00000000
   GunUpgradeData:
   - currency:
       type: 0
