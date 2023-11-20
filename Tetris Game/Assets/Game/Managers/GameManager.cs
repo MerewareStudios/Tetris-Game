@@ -114,8 +114,11 @@ public class GameManager : Singleton<GameManager>
             }
             GameManager.UpdateTimeScale();
         };
-        OfferScreen.OnReward = (rewards, finish) =>
+        OfferScreen.OnReward = (rewards, onFinish) =>
         {
+            onFinish += SaveManager.THIS.Save;
+            float closeDelay = 0.5f;
+            // on finish not called at every path
             for (int i = 0; i < rewards.Length; i++)
             {
                 OfferScreen.Reward reward = rewards[i];
@@ -138,8 +141,11 @@ public class GameManager : Singleton<GameManager>
                         emitter = UIManager.THIS.heartEmitter;
                         break;
                 }
-                UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, finish);
+                float duration = UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
+                closeDelay = Mathf.Max(closeDelay, duration);
             }
+
+            DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
         };
 
         // Const.THIS.PrintLevelData();

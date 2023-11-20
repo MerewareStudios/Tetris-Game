@@ -10,5 +10,7 @@ namespace IWI.UI
     {
         [SerializeField] public BurstSettings burstSettings;
         [SerializeField] public GeneralSettings generalSettings;
+
+        public float MaxDuration => (burstSettings.burst ? burstSettings.duration.constantMax : 0.0f) + generalSettings.duration.constantMax;
     }
 }

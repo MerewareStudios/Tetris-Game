@@ -36,7 +36,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [Header("Visuals")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI infoText;
-    [SerializeField] private TextMeshProUGUI rewardsText;
+    // [SerializeField] private TextMeshProUGUI rewardsText;
     [SerializeField] private TextMeshProUGUI oldText;
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private TextMeshProUGUI promotionalText;
@@ -189,7 +189,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 
         
                 titleText.text = data.title;
-                rewardsText.text = data.RewardInfo();
+                // rewardsText.text = data.RewardInfo();
                 infoText.text = data.detailedInfoStr;
         
                 promotionalText.transform.parent.gameObject.SetActive(!data.promotionalText.Equals(""));
@@ -364,29 +364,29 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         [SerializeField] public int oldPriceMult = 1;
         [TextArea] [SerializeField] public string promotionalText;
 
-        public string RewardInfo()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < rewards.Length; i++)
-            {
-                Reward reward = rewards[i];
-
-                if (reward.rewardType.Equals(RewardType.NoAds))
-                {
-                    continue;
-                }
-
-                stringBuilder.Append(reward.rewardType.ToTMProKey() + "+" + reward.amount);
-                if (i < rewards.Length - 1)
-                {
-                    stringBuilder.Append("    ");
-                }
-
-            }
-            
-            return stringBuilder.ToString();
-        }
+        // public string RewardInfo()
+        // {
+        //     StringBuilder stringBuilder = new StringBuilder();
+        //
+        //     for (int i = 0; i < rewards.Length; i++)
+        //     {
+        //         Reward reward = rewards[i];
+        //
+        //         if (reward.rewardType.Equals(RewardType.NoAds))
+        //         {
+        //             continue;
+        //         }
+        //
+        //         stringBuilder.Append(reward.rewardType.ToTMProKey() + "+" + reward.amount);
+        //         if (i < rewards.Length - 1)
+        //         {
+        //             stringBuilder.Append("    ");
+        //         }
+        //
+        //     }
+        //     
+        //     return stringBuilder.ToString();
+        // }
     }
     [System.Serializable]
     public class Data : ICloneable
