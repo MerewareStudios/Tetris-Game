@@ -30,7 +30,7 @@ namespace  Game
         [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
         [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
 
-        [System.NonSerialized] private List<SubModel> landMines = new List<SubModel>();
+        [System.NonSerialized] private readonly List<SubModel> _landMines = new();
         
 
         public bool Spawning { get; set; }
@@ -311,13 +311,13 @@ namespace  Game
 
         public void AddLandMine(SubModel subModel)
         {
-            this.landMines.Add(subModel);
+            this._landMines.Add(subModel);
         }
         
         public void ExplodeLandMine(Enemy enemy, SubModel subModel)
         {
             subModel.OnDespawn();
-            landMines.Remove(subModel);
+            _landMines.Remove(subModel);
             Vector3 pos = subModel.Position;
             Particle.Missile_Explosion.Play(pos);
             enemy.TakeDamage(20);
@@ -325,12 +325,12 @@ namespace  Game
         
         public void ClearLandMines()
         {
-            for (int i = 0; i < landMines.Count; i++)
+            for (int i = 0; i < _landMines.Count; i++)
             {
-                SubModel landMine = landMines[i];
+                SubModel landMine = _landMines[i];
                 landMine.OnDespawn();
             }
-            landMines.Clear();
+            _landMines.Clear();
         }
 
         #endregion
@@ -384,7 +384,7 @@ namespace  Game
         
         public void CheckLandmine(Enemy enemy)
         {
-            foreach (var landMine in landMines)
+            foreach (var landMine in _landMines)
             {
                 if ((enemy.PositionXZ - landMine.Position.XZ()).sqrMagnitude < 0.75f)
                 {

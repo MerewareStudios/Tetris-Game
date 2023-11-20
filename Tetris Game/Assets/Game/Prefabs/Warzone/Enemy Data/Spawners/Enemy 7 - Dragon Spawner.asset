@@ -110,7 +110,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards:
-  - type: 3
+  - type: 0
     amount: 12
     probability: 1
   maxHealth: 16

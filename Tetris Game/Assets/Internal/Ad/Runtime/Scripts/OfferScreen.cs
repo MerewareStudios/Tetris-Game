@@ -16,6 +16,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [System.NonSerialized] public float TimeScale = 1.0f;
     [System.NonSerialized] public System.Action<bool, ProcessState> OnVisibilityChanged;
     [System.NonSerialized] private System.Action _onBuy;
+    [System.NonSerialized] private Tween _delayedCheck = null;
 
     [Header("Offer Data")]
     [SerializeField] public OfferData[] offerData;
@@ -30,14 +31,9 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] private Image offerGrid;
     [SerializeField] private Vector2 offerGridOpenSize;
     [SerializeField] private Vector2 offerGridCloseSize;
-    // [SerializeField] private Image backgroundImage;
-    // [SerializeField] private Image backgroundImage;
-    // [SerializeField] private Color hiddenColor;
-    // [SerializeField] private Color peakColor;
     [Header("Visuals")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI infoText;
-    // [SerializeField] private TextMeshProUGUI rewardsText;
     [SerializeField] private TextMeshProUGUI oldText;
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private TextMeshProUGUI promotionalText;
@@ -45,17 +41,18 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private GameObject buyPanel;
     [SerializeField] private GameObject infoPanel;
-    // [SerializeField] private GameObject visualsPanel;
     [SerializeField] private GameObject unpackPanel;
     [SerializeField] private Button closeButton;
     
     public delegate string STR2STR(string iapID);
     public delegate decimal STR2DECIMAL(string iapID);
     public delegate void UNPACK(Reward[] rewards, System.Action onFinish);
+    public delegate bool CONDITIONAL();
     public static STR2STR OnGetPriceSymbol;
     public static STR2DECIMAL OnGetPrice;
     public static System.Action<string> OnPurchaseOffer;
     public static UNPACK OnReward;
+    public CONDITIONAL SkipCondition;
 
     
     public Data _Data
@@ -119,6 +116,12 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     
     public void Open(OfferType offerType, Mode mode = Mode.Offer)
     {
+        if (SkipCondition != null && SkipCondition.Invoke())
+        {
+            CheckForUnpack(5.0f);
+            return;
+        }
+        
         this._currentOfferData = offerData[(int)offerType];
         SetupVisuals(_currentOfferData, mode);
         if (Active)
@@ -237,7 +240,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     }
 #endregion
 #region Purchase
-    public void PurchaseStarted()
+    private void PurchaseStarted()
     {
         CurrentProcessState = ProcessState.PROCESSING;
     }
@@ -257,6 +260,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         }
         
         _Data.offers.Add(offerDat.offerType);
+        
         if (!Active || (CurrentProcessState.Equals(ProcessState.PROCESSING) && _currentOfferData.offerType.Equals(offerDat.offerType)))
         {
             ShowNextUnpackOrClose();
@@ -293,7 +297,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 
     public void CheckForUnpack(float delay)
     {
-        DOVirtual.DelayedCall(delay, () =>
+        _delayedCheck?.Kill();
+        _delayedCheck = DOVirtual.DelayedCall(delay, () =>
         {
             if (_Data.offers.Count == 0)
             {

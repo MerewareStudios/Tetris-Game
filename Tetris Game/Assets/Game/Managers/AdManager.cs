@@ -11,7 +11,7 @@ namespace IWI
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
-        [SerializeField] public float AdTimeInterval = 180.0f;
+        [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
         
 
@@ -24,7 +24,7 @@ namespace IWI
 
         public void InitAdSDK(System.Action onInitComplete = null)
         {
-            _Data.LastTimeAdShown = Time.realtimeSinceStartup;
+            _Data.LastTimeAdShown = (int)Time.time;
 
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
             MaxSdk.SetUserId(Account.Current.guid);
@@ -83,7 +83,7 @@ namespace IWI
                 return;
             }
 
-            if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
+            if (Time.time - _Data.LastTimeAdShown > adTimeInterval)
             {
                 ShowAdBreak(onSuccess);
                 return;
@@ -194,7 +194,6 @@ namespace IWI
                 return;
             }
             
-            _Data.LastTimeAdShown = Time.time;
 
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL);
@@ -221,21 +220,22 @@ namespace IWI
                 _Data.interWatchCount++;
                 AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, _Data.interSkipCount);
 
-                AdBreakScreen.THIS.CloseImmediate();
+                
+                _Data.LastTimeAdShown = (int)Time.time;
+                
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    // GameManager.GameTimeScale(1.0f);
+                    AdBreakScreen.THIS.CloseImmediate();
                     onFinish?.Invoke();
                 }, 
                 () =>
                 {
-                    // GameManager.GameTimeScale(1.0f);
+                    AdBreakScreen.THIS.CloseImmediate();
                     onFinish?.Invoke();
                 });
             }, 3.5f);
                 
-            // GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
         }
 
@@ -252,7 +252,13 @@ namespace IWI
 
             onReward += () =>
             {
-                AdManager.THIS._Data.LastTimeAdShown += 30;
+                // if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
+
+                int now = (int)Time.time;
+                int timeTheAdWillBeShown = AdManager.THIS._Data.LastTimeAdShown + AdManager.THIS.adTimeInterval;
+                int timeUntilAd = timeTheAdWillBeShown - now;
+                timeUntilAd = Mathf.Max(timeUntilAd, 30);
+                AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
             
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
@@ -267,26 +273,19 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    // GameManager.GameTimeScale(1.0f);
                     onClick?.Invoke();
                 },
                 () => true);
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
-                AdBreakScreen.THIS.CloseImmediate();
-                FakeAdRewarded.THIS.Show(
-                () =>
-                {
-                    // GameManager.GameTimeScale(1.0f);
-                }, 
+                FakeAdRewarded.THIS.Show(AdBreakScreen.THIS.CloseImmediate, 
                 onReward,
                 () =>
                 {
-                    // GameManager.GameTimeScale(1.0f);
+                    AdBreakScreen.THIS.Close();
                 });
             }, 3.5f);
 
-            // GameManager.GameTimeScale(0.0f);
             AdBreakScreen.THIS.Open();
         }
 
@@ -385,7 +384,7 @@ namespace IWI
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
             [System.NonSerialized] public bool BannerAccepted = false;
-            [System.NonSerialized] public float LastTimeAdShown;
+            [System.NonSerialized] public int LastTimeAdShown;
             
             public Data()
             {

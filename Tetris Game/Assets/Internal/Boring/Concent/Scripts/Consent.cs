@@ -17,6 +17,7 @@ public class Consent : Lazyingleton<Consent>
 
     public delegate bool GetActiveState();
     public static GetActiveState GetRestartButtonState;
+    // public static System.Action<bool> OnVisibilityChanged;
 
     
     public bool Loading
@@ -36,7 +37,9 @@ public class Consent : Lazyingleton<Consent>
             TimeScale = value ? 0.0f : 1.0f;
             GameManager.UpdateTimeScale();
             gameObject.SetActive(value);
+            // OnVisibilityChanged?.Invoke(value);
         }
+        get => gameObject.activeSelf;
     }
 
     public Consent SetInitialStates(bool privacyState, bool ageState)

@@ -157,7 +157,23 @@ public class GameManager : Singleton<GameManager>
             DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
         };
 
+        OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible || PiggyMenu.THIS.Visible;
+        
         OfferScreen.THIS.CheckForUnpack(2.5f);
+        
+        
+        Consent.GetRestartButtonState = () => ONBOARDING.UPGRADE_TAB.IsComplete()
+                                              && GameManager.PLAYING
+                                              && MaxSdk.IsUserConsentSet();
+
+        // Consent.OnVisibilityChanged = (visible) =>
+        // {
+        //     if (!visible)
+        //     {
+        //         OfferScreen.THIS.CheckForUnpack(2.5f);
+        //     }
+        // };
+        
         // Const.THIS.PrintLevelData();
     }
 
@@ -198,7 +214,6 @@ public class GameManager : Singleton<GameManager>
         {
             if (Wallet.COIN.Amount >= 25 && LevelManager.CurrentLevel >= 4)
             {
-                // ONBOARDING.UPGRADE_TAB.SetComplete();
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;

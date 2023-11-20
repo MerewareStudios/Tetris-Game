@@ -59,6 +59,11 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public Finger finger;
    [System.NonSerialized] public static IMenu CurrentMenu = null;
    [System.NonSerialized] public static bool MenuVisible = false;
+   [Header("Plus")]
+   [SerializeField] private Button plusCoinButton;
+   [SerializeField] private Button plusPiggyCoinButton;
+   [SerializeField] private Button plusTicketButton;
+   [SerializeField] private Button plusHealthButton;
 
    public void SetLevelProgress(float value, int health)
    {
@@ -93,9 +98,7 @@ public class UIManager : Singleton<UIManager>
       UIEmitter.SpawnFunction = SpawnImageIcon;
       UIEmitter.DespawnFunction = DespawnImageIcon;
 
-      Consent.GetRestartButtonState = () => ONBOARDING.UPGRADE_TAB.IsComplete()
-                                            && GameManager.PLAYING
-                                            && MaxSdk.IsUserConsentSet();
+      
 
       Wallet.CurrencyTransactors = new[] { Wallet.COIN, Wallet.PIGGY, Wallet.TICKET };
 
@@ -259,6 +262,17 @@ public class UIManager : Singleton<UIManager>
       CameraManager.THIS.gameCamera.enabled = !value;
       SaveManager.THIS.Save();
       OnMenuModeChanged?.Invoke(value);
+   }
+
+   public bool PlusButtonsState
+   {
+      set
+      {
+         UIManager.THIS.plusCoinButton.gameObject.SetActive(value);
+         UIManager.THIS.plusPiggyCoinButton.gameObject.SetActive(value);
+         UIManager.THIS.plusTicketButton.gameObject.SetActive(value);
+         UIManager.THIS.plusHealthButton.gameObject.SetActive(value);
+      }
    }
 }
 

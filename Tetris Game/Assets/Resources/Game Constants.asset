@@ -645,9 +645,9 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 0
-    gemTransactionData:
       value: 33
+    gemTransactionData:
+      value: 0
     adTransactionData:
       value: 0
     blockShopData:
@@ -695,7 +695,7 @@ MonoBehaviour:
     interSkipCount: 0
     interWatchCount: 0
   DefaultPurchaseData:
-    offers: 00000000
+    offers: 
   GunUpgradeData:
   - currency:
       type: 0

@@ -16,10 +16,9 @@ namespace Game.UI
         [SerializeField] private RectTransform parentContainer;
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup canvasGroup;
-        // [SerializeField] private Image _blocker;
         [SerializeField] private bool updateOnMoneyChange = true;
         [System.NonSerialized] private Tween showTween;
-        [System.NonSerialized] protected bool Visible = false;
+        [System.NonSerialized] public bool Visible = false;
 
         public bool Open(float duration = 0.5f)
         {
@@ -31,7 +30,6 @@ namespace Game.UI
             Visible = true;
             canvas.enabled = true;
             canvasGroup.alpha = 0.0f;
-            // _blocker.raycastTarget = true;
             showTween?.Kill();
             showTween = canvasGroup.DOFade(1.0f, duration).SetEase(Ease.InOutSine).SetUpdate(true);
 

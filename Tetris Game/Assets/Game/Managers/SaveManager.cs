@@ -72,7 +72,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.PASSIVE_META.IsComplete());
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.UPGRADE_TAB.IsComplete();
         
-        StatDisplayArranger.THIS.HealthButtonEnabled = ONBOARDING.UPGRADE_TAB.IsComplete();
+        UIManager.THIS.PlusButtonsState = ONBOARDING.UPGRADE_TAB.IsComplete();
         
         UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
     }

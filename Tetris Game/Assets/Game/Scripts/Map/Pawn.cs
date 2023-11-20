@@ -274,7 +274,6 @@ namespace Game
             if (rewardAmount > 0)
             {
                 SubModel.gameObject.SetActive(false);
-                Debug.Log(rewardAmount);
                 UIManagerExtensions.BoardCoinToPlayer(SubModel.Position,  Math.Min(rewardAmount, 5), rewardAmount);
             }
         }

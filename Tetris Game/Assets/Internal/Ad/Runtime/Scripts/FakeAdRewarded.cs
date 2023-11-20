@@ -6,7 +6,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 {
     private const string AdUnitId = "3a4b26d73c5511e1";
     private int _retryAttempt;
-    [System.NonSerialized] public System.Action OnFinish;
+    [System.NonSerialized] public System.Action OnHidden;
     [System.NonSerialized] public System.Action OnReward;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
@@ -27,9 +27,9 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
         }
     }
 
-    public void Show(System.Action onFinish = null, System.Action onReward = null, System.Action onFailedDisplay = null)
+    public void Show(System.Action onHidden = null, System.Action onReward = null, System.Action onFailedDisplay = null)
     {
-        this.OnFinish = onFinish;
+        this.OnHidden = onHidden;
         this.OnReward = onReward;
         this.OnFailedDisplay = onFailedDisplay;
         
@@ -112,7 +112,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 
     private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        this.OnFinish?.Invoke();
+        this.OnHidden?.Invoke();
 
         LoadAd();
     }

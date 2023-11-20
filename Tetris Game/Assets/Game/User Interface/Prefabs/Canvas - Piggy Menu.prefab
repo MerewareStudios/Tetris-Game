@@ -1858,7 +1858,6 @@ MonoBehaviour:
   parentContainer: {fileID: 1672978220886855027}
   canvas: {fileID: 6106314742807273286}
   canvasGroup: {fileID: 1104892895495784995}
-  _blocker: {fileID: 6731088479894531031}
   updateOnMoneyChange: 0
   _markedProgressPiggy: {fileID: 5437890640311185086}
   piggyCurrencyDisplay: {fileID: 1684459052215781095}

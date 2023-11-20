@@ -34,7 +34,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private TextMeshProUGUI actionButtonText;
     [SerializeField] private TextMeshProUGUI tipText;
     [System.NonSerialized] private Sequence _sequence;
-    [System.NonSerialized] private List<int> _randomTipsIndexes = new List<int>();
+    [System.NonSerialized] private List<int> _randomTipsIndexes = new();
 
     [Serializable]
     public class SlashAnimationSettings

@@ -6,7 +6,7 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 {
     private const string AdUnitId = "c447e9a9232d8a7e";
     private int _retryAttempt;
-    [System.NonSerialized] public System.Action OnFinish;
+    [System.NonSerialized] public System.Action OnHidden;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
     [System.NonSerialized] private bool _invoking = false;
@@ -26,9 +26,9 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
         }
     }
 
-    public void Show(System.Action onFinish = null, System.Action onFailedDisplay = null)
+    public void Show(System.Action onHidden = null, System.Action onFailedDisplay = null)
     {
-        this.OnFinish = onFinish;
+        this.OnHidden = onHidden;
         this.OnFailedDisplay = onFailedDisplay;
         
         if (Ready)
@@ -114,8 +114,7 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 
     private void OnInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        this.OnFinish?.Invoke();
-
+        this.OnHidden?.Invoke();
         LoadAd();
     }
 }

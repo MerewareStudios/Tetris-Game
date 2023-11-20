@@ -53,7 +53,13 @@ public class Shop : MonoBehaviour
         {
             ONBOARDING.UPGRADE_TAB.SetComplete();
             
-            StatDisplayArranger.THIS.HealthButtonEnabled = true;
+            if (ONBOARDING.USE_POWERUP.IsNotComplete())
+            {
+                ONBOARDING.USE_POWERUP.SetComplete();
+                Powerup.THIS.Enabled = true;
+            }
+            
+            UIManager.THIS.PlusButtonsState = true;
             
             MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
             Onboarding.HideFinger();

@@ -110,7 +110,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards:
-  - type: 3
+  - type: 0
     amount: 12
     probability: 1
   maxHealth: 44
@@ -123,7 +123,7 @@ MonoBehaviour:
   crossSize: 2
   castType: 1
   deathAction: 0
-  extraInt: 2
-  extraFloat: 10
+  spawnerCount: 2
+  spawnerDuration: 10
   spawnerExtra: 30
   extraData: {fileID: 0}
