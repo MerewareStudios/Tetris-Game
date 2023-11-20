@@ -33,7 +33,7 @@ public class EnemyData : ScriptableObject
     [System.Serializable]
     public class EnemyReward
     {
-        public UpgradeMenu.PurchaseType type;
+        public Enemy.EnemyReward type;
         public int amount;
         [Range(0.0f, 1.0f)] public float probability;
     }

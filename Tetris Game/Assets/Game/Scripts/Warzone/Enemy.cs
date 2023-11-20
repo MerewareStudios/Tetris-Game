@@ -303,10 +303,10 @@ namespace  Game
                 {
                     switch (reward.type)
                     {
-                        case UpgradeMenu.PurchaseType.COIN_PACK:
+                        case EnemyReward.Coin:
                             UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
-                        case UpgradeMenu.PurchaseType.RESERVED_ONE:
+                        case EnemyReward.Health:
                             UIManagerExtensions.HeartToPlayer(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
@@ -342,7 +342,11 @@ namespace  Game
             None,
             Swarm,
         }
-        
+        public enum EnemyReward
+        {
+            Coin,
+            Health,
+        }
         [System.Serializable]
         public class SpawnData
         {

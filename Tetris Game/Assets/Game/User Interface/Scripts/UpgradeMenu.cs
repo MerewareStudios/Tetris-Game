@@ -1,12 +1,8 @@
 using System;
-using DG.Tweening;
 using Internal.Core;
 using IWI;
-using IWI.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 namespace Game.UI
 {
@@ -73,13 +69,13 @@ namespace Game.UI
                 
                 purchaseOption
                     .SetIcon(lookUp.sprite)
-                    .SetBestBadge(lookUp.best)
+                    // .SetBestBadge(lookUp.best)
                     .SetInfo(lookUp.title, lookUp.info)
                     .SetExtra(lookUp.extra);
             }
         }
 
-        private void Show(bool glimmerByBadge = true)
+        public new void Show()
         {
             base.Show();
             SetOneTimeData();
@@ -102,24 +98,7 @@ namespace Game.UI
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
 
-                // bool extraCond = true;
-                // switch (lookUp.extraCondition)
-                // {
-                //     case ExtraCondition.ALWAYS:
-                //         extraCond = true;
-                //         break;
-                //     case ExtraCondition.PIGGY_CAP:
-                //         // extraCond = PiggyMenu.THIS._Data.moneyCapacity > 10;
-                //         extraCond = true;
-                //         // string extra = extraCond ? ("\nCurrent\n" + PiggyMenu.THIS._Data.currentMoney.amount + "/" + PiggyMenu.THIS._Data.moneyCapacity) : ("\nNot\nAvailable");
-                //         // string extra = ("\n" + PiggyMenu.THIS._Data.currentMoney.amount + "/" + PiggyMenu.THIS._Data.moneyCapacity);
-                //         // purchaseOption.SetInfo(lookUp.title, lookUp.info + extra);
-                //         break;
-                // }
-                
-
                 bool available = Wallet.HasFunds(lookUp.currency) || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
-                // available &= extraCond;
 
                 string purchaseText = "";
 
@@ -142,11 +121,11 @@ namespace Game.UI
 
                 purchaseOption.SetPrice(lookUp.currency.type.IsLocal() ? lookUp.GetLocalPrice() : CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
                 
-                if (glimmerByBadge)
-                {
-                    purchaseOption.GlimmerByBadge();
+                // if (glimmerByBadge)
+                // {
+                    purchaseOption.Glimmer();
                     purchaseOption.SetPurchaseText(purchaseText);
-                }
+                // }
             }
 
             maxStackText.text = Board.THIS.StackLimit.ToString();
@@ -156,29 +135,6 @@ namespace Game.UI
         public void OnClick_Purchase(int purchaseIndex)
         {
             PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[purchaseIndex];
-            
-            // bool extraCond = true;
-            // switch (lookUp.extraCondition)
-            // {
-            //     case ExtraCondition.ALWAYS:
-            //         extraCond = true;
-            //         break;
-            //     case ExtraCondition.PIGGY_CAP:
-            //         extraCond = PiggyMenu.THIS._Data.moneyCapacity > 10;
-            //         break;
-            // }
-
-            // if (!extraCond)
-            // {
-            //     purchaseOptions[purchaseIndex].Punch(new Vector3(0.0f, 15.0f));
-            //     return;
-            // }
-
-            // if (lookUp.currency.type.Equals(Const.CurrencyType.Local))
-            // {
-            //     IAPManager.THIS.Purchase((PurchaseType)purchaseIndex);
-            //     return;
-            // }
             
             if (!Wallet.Consume(lookUp.currency))
             {
@@ -213,49 +169,17 @@ namespace Game.UI
                 case PurchaseType.MAX_STACK:
                     Board.THIS._Data.maxStack++;
                     break;
-                case PurchaseType.TICKET_PACK:
-                    Wallet.TICKET.Transaction(10);
+                case PurchaseType.PIGGY_BANK:
+                    PiggyMenu.THIS._Data.moneyCapacity += 5;
                     break;
                 case PurchaseType.MEDKIT:
                     Warzone.THIS.Player._CurrentHealth += 15;
-                    break;
-                case PurchaseType.COIN_PACK:
-                    Wallet.COIN.Transaction(1500);
-                    break;
-                case PurchaseType.RESERVED_ONE:
-                    break;
-                case PurchaseType.RESERVED_TWO:
-                    break;
-                case PurchaseType.PIGGY_COIN_PACK:
-                    Wallet.PIGGY.Transaction(250);
-                    break;
-                case PurchaseType.PIGGY_CAPACITY_RESET:
-                    PiggyMenu.THIS._Data.moneyCapacity += 5;
-                    // PiggyMenu.THIS._Data.currentMoney.amount = 0;
-                    break;
-                case PurchaseType.BASIC_CHEST:
-                    Wallet.COIN.Transaction(100);
-                    Wallet.PIGGY.Transaction(5);
-                    break;
-                case PurchaseType.PRIME_CHEST:
-                    Wallet.COIN.Transaction(1000);
-                    Wallet.PIGGY.Transaction(50);
-                    Wallet.TICKET.Transaction(5);
-                    break;
-                case PurchaseType.PRESTIGE_CHEST:
-                    Wallet.COIN.Transaction(4000);
-                    Wallet.PIGGY.Transaction(200);
-                    Wallet.TICKET.Transaction(15);
-                    break;
-                case PurchaseType.REMOVE_ADS:
-                    AdManager.Bypass.Ads();
-                    _Data.hiddenData[(int)PurchaseType.REMOVE_ADS] = true;
                     break;
             }
 
             if (base.Visible)
             {
-                Show(false);
+                Show();
             }
 
             int index = (int)purchaseType;
@@ -287,17 +211,8 @@ namespace Game.UI
         public enum PurchaseType
         {
             MAX_STACK,
-            TICKET_PACK,
+            PIGGY_BANK,
             MEDKIT,
-            COIN_PACK,
-            RESERVED_ONE,
-            RESERVED_TWO,
-            PIGGY_COIN_PACK,
-            PIGGY_CAPACITY_RESET,
-            BASIC_CHEST,
-            PRIME_CHEST,
-            PRESTIGE_CHEST,
-            REMOVE_ADS,
         }
 
         [System.Serializable]
@@ -327,7 +242,7 @@ namespace Game.UI
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
             [TextArea] [SerializeField] public string extra;
-            [SerializeField] public bool best = false;
+            // [SerializeField] public bool best = false;
 
             public string GetLocalPrice()
             {

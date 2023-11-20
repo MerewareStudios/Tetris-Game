@@ -15,7 +15,7 @@ public class PurchaseOption : MonoBehaviour
     [SerializeField] private TextMeshProUGUI extraText;
     [SerializeField] private Image frameOutline;
     [SerializeField] private Image icon;
-    [SerializeField] private GameObject bestBadge;
+    // [SerializeField] private GameObject bestBadge;
     [System.NonSerialized] private Sequence _colorSequence;
 
     public PurchaseOption SetPurchaseText(string text)
@@ -40,11 +40,11 @@ public class PurchaseOption : MonoBehaviour
         extraText.text = extra;
         return this;
     }
-    public PurchaseOption SetBestBadge(bool value)
-    {
-        bestBadge.SetActive(value);
-        return this;
-    }
+    // public PurchaseOption SetBestBadge(bool value)
+    // {
+    //     bestBadge.SetActive(value);
+    //     return this;
+    // }
     public PurchaseOption SetInfo(string title, string details)
     {
         titleText.SetText(title);
@@ -74,13 +74,13 @@ public class PurchaseOption : MonoBehaviour
         transform.DOPunchScale(Vector3.one * amount, 0.35f, 1).SetUpdate(true).SetDelay(delay);
     }
 
-    public void GlimmerByBadge()
-    {
-        if (bestBadge.activeSelf)
-        {
-            glimmerFrame.Glimmer(AnimConst.THIS.glimmerSpeedUpgrade);
-        }
-    }
+    // public void GlimmerByBadge()
+    // {
+    //     if (bestBadge.activeSelf)
+    //     {
+    //         glimmerFrame.Glimmer(AnimConst.THIS.glimmerSpeedUpgrade);
+    //     }
+    // }
     public void Glimmer()
     {
         glimmerFrame.Glimmer(AnimConst.THIS.glimmerSpeedUpgrade);

@@ -688,8 +688,8 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     upgradeMenuData:
-      hiddenData: 000100010101010000000000
-      instanceData: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      hiddenData: 000000
+      instanceData: 000000000000000000000000
   DefaultAdData:
     removeAds: 0
     interSkipCount: 0
@@ -1047,62 +1047,7 @@ MonoBehaviour:
 
       STACK'
     extra: <sprite name=Check> Avoids wasting ammo on merge.
-    best: 0
   - purchaseType: 1
-    currency:
-      type: 3
-      amount: 1
-    sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
-    title: <bounce a=0.05 f=1>TICKET PACK
-    info: <sprite name=Ticket> +15
-    extra: 
-    best: 0
-  - purchaseType: 2
-    currency:
-      type: 1
-      amount: 5
-    sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
-    title: <bounce a=0.05 f=1>MEDKIT
-    info: <size=150%><sprite name=Heart>+5
-    extra: 
-    best: 0
-  - purchaseType: 3
-    currency:
-      type: 3
-      amount: 1
-    sprite: {fileID: 21300000, guid: 9af2199cc34ca954791e2aa1a9d00ab9, type: 3}
-    title: <bounce a=0.05 f=1>COIN PACK
-    info: <sprite name=Coin> +1500
-    extra: 
-    best: 0
-  - purchaseType: 4
-    currency:
-      type: 0
-      amount: 1
-    sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
-    title: 
-    info: 
-    extra: 
-    best: 0
-  - purchaseType: 5
-    currency:
-      type: 1
-      amount: 50
-    sprite: {fileID: 21300000, guid: 713f5034018052445b66c69711532b21, type: 3}
-    title: <bounce a=0.05 f=1>EXTRA SHIELD
-    info: <sprite name=Shield> +25
-    extra: 
-    best: 0
-  - purchaseType: 6
-    currency:
-      type: 3
-      amount: 1
-    sprite: {fileID: 21300000, guid: bd59d06ec5ad62f47916b19c66dccd73, type: 3}
-    title: <bounce a=0.05 f=1>PIGGY COIN PACK
-    info: <sprite name=PiggyCoin> +250
-    extra: 
-    best: 0
-  - purchaseType: 7
     currency:
       type: 1
       amount: 5
@@ -1111,63 +1056,15 @@ MonoBehaviour:
     info: '<color=#FF72BC><size=115%>Capacity
 
       <size=180%>+5'
-    extra: <sprite name=Check> Higher capacity rewards more<sprite name=PiggyCoin>
-    best: 0
-  - purchaseType: 8
+    extra: <sprite name=Check> Higher capacity rewards more <sprite name=PiggyCoin>
+  - purchaseType: 2
     currency:
-      type: 2
-      amount: 1
-    sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
-    title: <bounce a=0.05 f=1>BASIC CHEST
-    info: '<sprite name=Coin> +100
-
-      <sprite name=PiggyCoin> +5'
+      type: 1
+      amount: 5
+    sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
+    title: <bounce a=0.05 f=1>MEDKIT
+    info: <size=150%><sprite name=Heart>+5
     extra: 
-    best: 0
-  - purchaseType: 9
-    currency:
-      type: 3
-      amount: 7
-    sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
-    title: <bounce a=0.05 f=1>PRIME CHEST
-    info: '<sprite name=Coin> +1000
-
-      <sprite name=PiggyCoin> +50
-
-      <sprite
-      name=Ticket> +5'
-    extra: 
-    best: 0
-  - purchaseType: 10
-    currency:
-      type: 3
-      amount: 9
-    sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
-    title: <bounce a=0.05 f=1>PRESTIGE CHEST
-    info: '<sprite name=Coin> +4000
-
-      <sprite name=PiggyCoin> +200
-
-      <sprite
-      name=Ticket> +15'
-    extra: 
-    best: 1
-  - purchaseType: 11
-    currency:
-      type: 3
-      amount: 10
-    sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
-    title: <bounce a=0.05 f=1>REMOVE ADS
-    info: 'Remove
-
-      <sprite name=Uncheck> Ads
-
-      <sprite name=Uncheck> Banner
-
-      <sprite
-      name=Check> Bonuses'
-    extra: <sprite name=Check> Rewarded ads remain available.
-    best: 0
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
