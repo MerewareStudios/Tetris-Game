@@ -1,13 +1,14 @@
-using System;
+// #define FORCE_EDITOR_CONCENT
+
 using System.Collections;
 using DG.Tweening;
 using Game;
 using Google.Play.Review;
 using Internal.Core;
 using IWI;
-using IWI.UI;
 using UnityEngine;
 using Visual.Effects;
+
 
 public class GameManager : Singleton<GameManager>
 {
@@ -31,12 +32,6 @@ public class GameManager : Singleton<GameManager>
                          MenuNavigator.THIS.TimeScale *
                          PiggyMenu.THIS.TimeScale *
                          OfferScreen.THIS.TimeScale;
-        
-        // Debug.Log("A + " + GameManager.THIS._timeScale);
-        // Debug.Log("B + " + PowerSelectionScreen.THIS.Timescale);
-        // Debug.Log("C + " + Consent.THIS.TimeScale);
-        // Debug.Log("D + " + MenuNavigator.THIS.TimeScale);
-        // Debug.Log("E + " + PiggyMenu.THIS.TimeScale);
     }
 
     public static void GameTimeScale(float value)
@@ -67,7 +62,8 @@ public class GameManager : Singleton<GameManager>
         
         DOTween.SetTweensCapacity(100, 50);
         
-    #if !UNITY_EDITOR
+        
+    #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
         if (!MaxSdk.IsUserConsentSet())
         {
             Consent.THIS.Open(() =>
@@ -84,115 +80,7 @@ public class GameManager : Singleton<GameManager>
     #endif
         
         AdManager.THIS.InitAdSDK();
-        AdBreakScreen.THIS.OnVisibilityChanged = UpdateTimeScale;
-
-        
-        IAPManager.OnPurchaseFinish = OfferScreen.THIS.OnPurchaseComplete;
-        IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
-
-        OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
-        OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
-        OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
-        OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
-        {
-            if (PiggyMenu.THIS.Visible)
-            {
-                if (visible)
-                {
-                    PiggyMenu.THIS.Pause();
-                }
-                else
-                {
-                    PiggyMenu.THIS.Restart();
-                }
-            }
-            
-            if (AdBreakScreen.THIS.Visible)
-            {
-                if (visible)
-                {
-                    AdBreakScreen.THIS.ByPassInProgress();
-                }
-                else
-                {
-                    if (processState.Equals(OfferScreen.ProcessState.SUCCESS))
-                    {
-                        AdBreakScreen.THIS.InvokeByPass();
-                        return;
-                    }
-                    
-                    AdBreakScreen.THIS.RevokeByPass();
-                }
-            }
-
-
-            if (PiggyMenu.THIS.Visible)
-            {
-                PiggyMenu.THIS.SetMiddleSortingLayer(visible ? 0 : 9);                
-            }
-            GameManager.UpdateTimeScale();
-        };
-        OfferScreen.OnReward = (rewards, onFinish) =>
-        {
-            onFinish += SaveManager.THIS.Save;
-
-            float closeDelay = 0.5f;
-            bool forceUpdateMenu = true;
-            for (int i = 0; i < rewards.Length; i++)
-            {
-                OfferScreen.Reward reward = rewards[i];
-                UIEmitter emitter = null;
-                switch (reward.rewardType)
-                {
-                    case OfferScreen.RewardType.NoAds:
-                        AdManager.Bypass.Ads();
-                        continue;
-                    case OfferScreen.RewardType.Coin:
-                        emitter = UIManager.THIS.coinEmitter;
-                        forceUpdateMenu = false;
-                        break;
-                    case OfferScreen.RewardType.PiggyCoin:
-                        emitter = UIManager.THIS.piggyCoinEmitter;
-                        forceUpdateMenu = false;
-                        break;
-                    case OfferScreen.RewardType.Ticket:
-                        emitter = UIManager.THIS.ticketEmitter;
-                        forceUpdateMenu = false;
-                        break;
-                    case OfferScreen.RewardType.Heart:
-                        emitter = UIManager.THIS.heartEmitter;
-                        forceUpdateMenu = false;
-                        break;
-                }
-                float duration = UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
-                closeDelay = Mathf.Max(closeDelay, duration);
-            }
-
-            if (forceUpdateMenu)
-            {
-                onFinish += UIManager.ForceUpdateAvailableMenu;
-            }
-            DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
-        };
-
-        OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible
-                                               || UIManager.THIS.HoveringMeta
-                                               || UIManager.THIS.HoveringStat;
-        
         OfferScreen.THIS.CheckForUnpack(2.5f);
-        
-        
-        Consent.GetRestartButtonState = () => ONBOARDING.UPGRADE_TAB.IsComplete()
-                                              && GameManager.PLAYING
-                                              && MaxSdk.IsUserConsentSet();
-
-        // Consent.OnVisibilityChanged = (visible) =>
-        // {
-        //     if (!visible)
-        //     {
-        //         OfferScreen.THIS.CheckForUnpack(2.5f);
-        //     }
-        // };
         
         // Const.THIS.PrintLevelData();
     }

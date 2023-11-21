@@ -103,7 +103,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         string tipString = "";
         bool panelVisible = false;
 
-
         void ShowReview()
         {
             tipString = Onboarding.THIS.commentTip;
@@ -164,37 +163,53 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             });
             panelVisible = true;
         }
-        void ShowTip()
+        void ShowTip(int? specificIndex = null)
         {
-            if (_randomTipsIndexes.Count == 0)
+            int index;
+            if (specificIndex != null)
             {
-                for (int i = 0; i < Onboarding.THIS.tips.Length; i++)
-                {
-                    _randomTipsIndexes.Add(i);
-                }
-                _randomTipsIndexes.Shuffle();
-            }
-            int randomIndex = Random.Range(0, _randomTipsIndexes.Count);
-            int index = _randomTipsIndexes[randomIndex];
-            _randomTipsIndexes.RemoveAt(randomIndex);
-            tipString = Onboarding.THIS.tips[index];
-        }
-
-        if (state.Equals(State.Victory) && levelIndex % 6 == 0)
-        {
-            if (Account.Current.commented)
-            {
-                ShowShare();
+                index = specificIndex.Value;
             }
             else
             {
-                if (levelIndex % 12 == 0)
+                if (_randomTipsIndexes.Count == 0)
+                {
+                    for (int i = 0; i < Onboarding.THIS.tips.Length; i++)
+                    {
+                        _randomTipsIndexes.Add(i);
+                    }
+                    _randomTipsIndexes.Shuffle();
+                }
+                int randomIndex = Random.Range(0, _randomTipsIndexes.Count);
+                index = _randomTipsIndexes[randomIndex];
+                _randomTipsIndexes.RemoveAt(randomIndex);
+            }
+            tipString = Onboarding.THIS.tips[index];
+        }
+
+        Debug.Log(levelIndex);
+        if (levelIndex == 1 || (state.Equals(State.Victory) && levelIndex % 6 == 0))
+        {
+            if (levelIndex == 1)
+            {
+                ShowTip(17);
+            }
+            else
+            {
+                if (Account.Current.commented)
                 {
                     ShowShare();
                 }
                 else
                 {
-                    ShowReview();
+                    if (levelIndex % 12 == 0)
+                    {
+                        ShowShare();
+                    }
+                    else
+                    {
+                        ShowReview();
+                    }
                 }
             }
         }

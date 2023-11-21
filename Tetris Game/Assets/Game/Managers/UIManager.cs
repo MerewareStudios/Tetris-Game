@@ -112,6 +112,107 @@ public class UIManager : Singleton<UIManager>
          }
          Wallet.ScaleTransactors(value ? 1.1f : 1.0f, value);
       };
+      
+      IAPManager.OnPurchaseFinish = OfferScreen.THIS.OnPurchaseComplete;
+      IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
+
+      
+      AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
+
+      Consent.GetRestartButtonState = () => ONBOARDING.UPGRADE_TAB.IsComplete()
+                                            && GameManager.PLAYING
+                                            && MaxSdk.IsUserConsentSet();  
+      
+      OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
+      OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
+      OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
+      OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
+      {
+         if (PiggyMenu.THIS.Visible)
+         {
+             if (visible)
+             {
+                 PiggyMenu.THIS.Pause();
+             }
+             else
+             {
+                 PiggyMenu.THIS.Restart();
+             }
+         }
+         
+         if (AdBreakScreen.THIS.Visible)
+         {
+             if (visible)
+             {
+                 AdBreakScreen.THIS.ByPassInProgress();
+             }
+             else
+             {
+                 if (processState.Equals(OfferScreen.ProcessState.SUCCESS))
+                 {
+                     AdBreakScreen.THIS.InvokeByPass();
+                     return;
+                 }
+                 
+                 AdBreakScreen.THIS.RevokeByPass();
+             }
+         }
+
+
+         if (PiggyMenu.THIS.Visible)
+         {
+             PiggyMenu.THIS.SetMiddleSortingLayer(visible ? 0 : 9);                
+         }
+         GameManager.UpdateTimeScale();
+      };
+      OfferScreen.OnReward = (rewards, onFinish) =>
+      {
+         onFinish += SaveManager.THIS.Save;
+
+         float closeDelay = 0.5f;
+         bool forceUpdateMenu = true;
+         for (int i = 0; i < rewards.Length; i++)
+         {
+             OfferScreen.Reward reward = rewards[i];
+             UIEmitter emitter = null;
+             switch (reward.rewardType)
+             {
+                 case OfferScreen.RewardType.NoAds:
+                     AdManager.Bypass.Ads();
+                     continue;
+                 case OfferScreen.RewardType.Coin:
+                     emitter = UIManager.THIS.coinEmitter;
+                     forceUpdateMenu = false;
+                     break;
+                 case OfferScreen.RewardType.PiggyCoin:
+                     emitter = UIManager.THIS.piggyCoinEmitter;
+                     forceUpdateMenu = false;
+                     break;
+                 case OfferScreen.RewardType.Ticket:
+                     emitter = UIManager.THIS.ticketEmitter;
+                     forceUpdateMenu = false;
+                     break;
+                 case OfferScreen.RewardType.Heart:
+                     emitter = UIManager.THIS.heartEmitter;
+                     forceUpdateMenu = false;
+                     break;
+             }
+             float duration = UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
+             closeDelay = Mathf.Max(closeDelay, duration);
+         }
+
+         if (forceUpdateMenu)
+         {
+             onFinish += UIManager.ForceUpdateAvailableMenu;
+         }
+         DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
+      };
+
+      OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible
+                                            || UIManager.THIS.HoveringMeta
+                                            || UIManager.THIS.HoveringStat;
+
+        
 
       CurrentMenu = null;
    }

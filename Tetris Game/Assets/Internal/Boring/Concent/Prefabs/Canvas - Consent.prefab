@@ -1505,6 +1505,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7046378650255582983, guid: df14105129196a64e8cf16bbff117ab3,
+        type: 3}
+      propertyPath: m_KeepAnimatorStateOnDisable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8097185331990252832, guid: df14105129196a64e8cf16bbff117ab3,
         type: 3}
       propertyPath: m_Name
@@ -1680,6 +1685,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046378650255582983, guid: df14105129196a64e8cf16bbff117ab3,
+        type: 3}
+      propertyPath: m_KeepAnimatorStateOnDisable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8097185331990252832, guid: df14105129196a64e8cf16bbff117ab3,
         type: 3}
@@ -1861,16 +1871,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8183589172456954157, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 8183589172456954157, guid: 527f54bacd29f364aafd03091a265a45,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2404,6 +2404,7 @@ MonoBehaviour:
   - {fileID: 9202382}
   nextBlockVisual: {fileID: 1180491134}
   nextBlockPivot: {fileID: 35912847267462091}
+  spawnDelay: 0.1
 --- !u!1 &548236970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,7 +3632,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
     baseInfo: SAVE END
-  DELETE_AT_START: 1
+  DELETE_AT_START: 0
   SKIP_ONBOARDING: 0
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
@@ -6236,7 +6237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 321, y: -15}
+  m_AnchoredPosition: {x: 321, y: -45}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1374626321 stripped
@@ -9226,7 +9227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -48}
+  m_AnchoredPosition: {x: 0, y: -52}
   m_SizeDelta: {x: 300, y: 15}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2010237425

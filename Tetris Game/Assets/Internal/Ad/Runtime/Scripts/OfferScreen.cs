@@ -118,6 +118,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     {
         if (SkipCondition != null && SkipCondition.Invoke())
         {
+            Debug.LogWarning("Cannot skip");
             CheckForUnpack(5.0f);
             return;
         }

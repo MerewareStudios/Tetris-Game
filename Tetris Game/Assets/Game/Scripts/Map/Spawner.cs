@@ -20,6 +20,7 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private GameObject[] nextBlockPawns;
     [SerializeField] private GameObject nextBlockVisual;
     [SerializeField] private RectTransform nextBlockPivot;
+    [SerializeField] private float spawnDelay = 0.45f;
    
     [System.NonSerialized] public Block CurrentBlock;
     [System.NonSerialized] private Pool _nextBlock;
@@ -312,7 +313,7 @@ public class Spawner : Singleton<Spawner>
             if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
             {
                 StopDelayedSpawn();
-                DelayedSpawn(0.25f);
+                DelayedSpawn(spawnDelay);
                 return;
             }
             

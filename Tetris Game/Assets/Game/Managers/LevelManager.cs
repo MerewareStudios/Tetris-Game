@@ -27,7 +27,7 @@ public class LevelManager : Singleton<LevelManager>
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
        
-#if !UNITY_EDITOR
+#if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
         if (MaxSdk.IsUserConsentSet())
 #endif
         {
