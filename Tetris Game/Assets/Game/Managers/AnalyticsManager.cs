@@ -184,6 +184,17 @@ public static class AnalyticsManager
         Log(eventName, instance, EventType.Design);
 #endif
     }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void OfferShown(OfferScreen.OfferType offerType, UIManager.ActivityType activityType)
+    {
+        string eventName = "OFFER:" + offerType.ToString() + ":" + activityType.ToString();
+        int time = (int)Time.realtimeSinceStartup;
+        GameAnalytics.NewDesignEvent(eventName, time);
+#if UNITY_EDITOR
+        Log(eventName, time, EventType.Design);
+#endif
+    }
 
 #if UNITY_EDITOR
     private static bool Validate(string str, EventType eventType)

@@ -137,25 +137,40 @@ public class UIManager : Singleton<UIManager>
    }
 #endregion
 #region Offer
-   public void ShowOffer_RemoveAds()
+   public void ShowOffer_RemoveAds_Banner()
    {
       AdManager.Offers.RemoveAds();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.RemoveAds, ActivityType.BANNER);
+   }
+   public void ShowOffer_RemoveAds_AdBreakByPass()
+   {
+      AdManager.Offers.RemoveAds();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.RemoveAds, ActivityType.ADBREAKBYPASS);
+   }
+   public void ShowOffer_TicketPlus_AdBreakByPass()
+   {
+      AdManager.Offers.TicketPack();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.TicketPack, ActivityType.ADBREAKBYPASS);
    }
    public void ShowOffer_CoinPlus()
    {
       AdManager.Offers.CoinPack();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.CoinPack, CurrentActivityScreen);
    }
    public void ShowOffer_PiggyCoinPlus()
    {
       AdManager.Offers.PiggyPack();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.PiggyCoinPack, CurrentActivityScreen);
    }
    public void ShowOffer_TicketPlus()
    {
       AdManager.Offers.TicketPack();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.TicketPack, CurrentActivityScreen);
    }
    public void ShowOffer_HeartPlus()
    {
       AdManager.Offers.HealthPack();
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.HealthPack, CurrentActivityScreen);
    }
 #endregion
 #if UNITY_EDITOR
@@ -298,6 +313,45 @@ public class UIManager : Singleton<UIManager>
          UIManager.THIS.plusTicketButton.gameObject.SetActive(value);
          UIManager.THIS.plusHealthButton.gameObject.SetActive(value);
       }
+   }
+
+   public ActivityType CurrentActivityScreen
+   {
+      get
+      {
+         if (PiggyMenu.THIS.Visible)
+         {
+            return ActivityType.PIGGYSCREEN;
+         }
+         if (BlockMenu.THIS.Visible)
+         {
+            return ActivityType.BLOCKMENU;
+         }
+         if (WeaponMenu.THIS.Visible)
+         {
+            return ActivityType.WEAPONMENU;
+         }
+         if (UpgradeMenu.THIS.Visible)
+         {
+            return ActivityType.UPGRADEMENU;
+         }
+         if (AdBreakScreen.THIS.Visible)
+         {
+            return ActivityType.ADBREAK;
+         }
+         return ActivityType.GAME;
+      }
+   }
+   public enum ActivityType
+   {
+      GAME,
+      PIGGYSCREEN,
+      BLOCKMENU,
+      WEAPONMENU,
+      UPGRADEMENU,
+      BANNER,
+      ADBREAK,
+      ADBREAKBYPASS,
    }
 }
 
