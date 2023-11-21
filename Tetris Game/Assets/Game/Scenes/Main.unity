@@ -3678,7 +3678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiTouchEnabled: 0
   useNativeFrameRate: 0
-  targetFrameRate: 60
+  targetFrameRate: 55
   fpsText: {fileID: 1411092491}
   grabTextureFeature: {fileID: -6338918253107934900, guid: cd7807286d305c844a460fda197da952,
     type: 2}
