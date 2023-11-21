@@ -3632,8 +3632,8 @@ MonoBehaviour:
     purchaseData:
       offers: 
     baseInfo: SAVE END
-  DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  DELETE_AT_START: 0
+  SKIP_ONBOARDING: 0
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
@@ -13200,6 +13200,11 @@ PrefabInstance:
       propertyPath: crossHairScalePivot
       value: 
       objectReference: {fileID: 1382502349}
+    - target: {fileID: 397908684506922155, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: bulletGenericMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 98aa4987ed445744c8687550575b0d22, type: 2}
     - target: {fileID: 397908684506922155, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
       propertyPath: crossHairSpriteRenderer

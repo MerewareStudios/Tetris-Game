@@ -17,9 +17,7 @@ public class Const : SSingleton<Const>
     public EnemyData[] AutoGenerateEnemyDatas;
     public EnemyData[] AutoGenerateEnemySpanwerDatas;
     public PawnPlacement[] AutoGeneratePawnPlacements;
-    
     [Header("Save Default")]
-    // public Concent.Data DefaultConcentData;
     public Player.Data DefaultPlayerData;
     public User.Data DefaultUserData;
     public AdManager.Data DefaultAdData;
@@ -30,7 +28,6 @@ public class Const : SSingleton<Const>
     public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
     public Pawn.Usage[] gifts;
     public Pawn.Usage[] powerUps;
-    
     [Header("Colors")] 
     public Color steadyColor;
     public Color mergerMaxColor;
@@ -44,10 +41,6 @@ public class Const : SSingleton<Const>
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
     [Header("Button Textures")] 
-    // public Sprite[] buttonTextures;
-    // public Sprite getButtonTexture;
-    // public Sprite buyButtonTexture;
-    // public Sprite watchButtonTexture;
     public Sprite[] buttonSprites;
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
@@ -59,12 +52,10 @@ public class Const : SSingleton<Const>
     [Header("Hit")] 
     public Gradient hitGradient;
     public AnimationCurve hitScaleCurve;
-    
     [Header("Values")] 
     public float jumpDuration = 0.15f;
     public Vector3 jumpPower;
     public Ease rotationEase;
-    
     [Header("Pawn")] 
     public Pawn.VisualData[] pawnVisualData;
     [Header("Tutorıal")] 
@@ -73,6 +64,8 @@ public class Const : SSingleton<Const>
     [Header("Ad Break Icons")] 
     public Sprite earnTicketBackgroundImage;
     public Sprite skipAdBackgroundImage;
+    [Header("Bullet")] 
+    public Color[] bulletColors;
 
 
     public LevelSo GetLevelSo(int level)

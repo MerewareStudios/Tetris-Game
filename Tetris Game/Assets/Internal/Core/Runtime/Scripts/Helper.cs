@@ -192,11 +192,8 @@ namespace Internal.Core
             }
             return array;
         }
-        public static T At<T>(this T[] t, int index)
-        {
-            int finalIndex = Mathf.Clamp(index, 0, t.Length - 1);
-            return t[finalIndex];
-        }
+        public static T At<T>(this T[] t, int index) => t[Mathf.Min(index, t.Length - 1)];
+        
         public static void LogE(this object obj)
         {
             Debug.LogError(obj.ToString());

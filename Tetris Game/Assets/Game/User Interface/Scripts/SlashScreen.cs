@@ -187,7 +187,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             tipString = Onboarding.THIS.tips[index];
         }
 
-        Debug.Log(levelIndex);
         if (levelIndex == 1 || (state.Equals(State.Victory) && levelIndex % 6 == 0))
         {
             if (levelIndex == 1)
@@ -217,18 +216,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             ShowTip();
         }
-        // switch (state)
-        // {
-        //     case State.Victory when levelIndex % 5 == 0 && levelIndex % 10 != 0 && !Account.Current.commented:
-        //         ShowReview();
-        //         break;
-        //     case State.Victory when levelIndex % 10 == 0:
-        //         ShowShare();
-        //         break;
-        //     default:
-        //         ShowTip();
-        //         break;
-        // }
             
         if (panelVisible)
         {

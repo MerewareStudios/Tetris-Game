@@ -15,8 +15,8 @@ namespace Game
         [SerializeField] private Transform holster;
         [SerializeField] private Transform crossHair;
         [SerializeField] private Transform crossHairScalePivot;
-        // [SerializeField] public Transform lerpTarget;
         [SerializeField] public MeshRenderer crossHairMR;
+        [SerializeField] public Material bulletGenericMaterial;
         [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
         
         [System.NonSerialized] private Tween _crossColorTween;
@@ -33,6 +33,10 @@ namespace Game
         public float Emission
         {
             set => skin.sharedMaterial.SetColor(GameManager.EmisKey, emissionGradient.Evaluate(value));
+        }
+        public int BulletColorByMult
+        {
+            set => bulletGenericMaterial.SetColor(GameManager.BaseColor, Const.THIS.bulletColors.At(value - 1));
         }
 
         public Enemy CurrentEnemy
@@ -277,6 +281,7 @@ namespace Game
             crossHair.position = Vector3.zero;
 
             Emission = 0.0f;
+            BulletColorByMult = 1;
 
             if (_shouldGetUp)
             {

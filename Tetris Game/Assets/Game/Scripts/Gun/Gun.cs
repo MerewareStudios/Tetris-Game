@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using DG.Tweening;
 using Game;
-using Internal.Core;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -23,6 +22,7 @@ public class Gun : MonoBehaviour
             _data.Mult = 1;
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
             Warzone.THIS.Player.Emission = 0.0f;
+            Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         }
         get => _data;
     }
@@ -30,7 +30,8 @@ public class Gun : MonoBehaviour
     public void Boost()
     {
         this._Data.Mult++;
-        
+        Warzone.THIS.Player.BulletColorByMult = _data.Mult;
+
         StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Boost, this._Data.Mult, 0.5f, true);
 
         
@@ -48,6 +49,7 @@ public class Gun : MonoBehaviour
             _Data.Mult = 1;
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
             Warzone.THIS.Player.Emission = 0.0f;
+            Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         };
     }
 
@@ -61,14 +63,18 @@ public class Gun : MonoBehaviour
         int enemyID = enemy.ID;
         
         Transform bullet = Pool.Bullet.Spawn().transform;
+        bullet.localScale = Vector3.one * Mathf.Min(1.0f + (_Data.Mult - 1) * 0.3f, 2.5f);
         
         TrailRenderer trail = bullet.GetChild(1).GetComponent<TrailRenderer>();
+        trail.widthMultiplier = bullet.localScale.x * 0.17f;
         
         bullet.DOKill();
         bullet.transform.position = muzzle.position;
         trail.Clear();
 
-        Tween bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower / _Data.Mult, 1, GunSo.travelDuration / _Data.Mult).SetEase(GunSo.ease);
+        float divider = 1.0f + (_Data.Mult - 1) * 0.5f;
+        
+        Tween bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower / divider, 1, GunSo.travelDuration / divider).SetEase(GunSo.ease);
         bulletTween.onComplete = () =>
         {
             if (enemyID == enemy.ID)
