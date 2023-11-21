@@ -341,16 +341,16 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [System.Serializable]
     public enum OfferType
     {
-        RemoveAds,
-        CoinPack,
-        PiggyCoinPack,
-        TicketPack,
-        HealthPack,
-        OfferPack1,
-        OfferPack2,
-        OfferPack3,
-        OfferPack4,
-        OfferPack5,
+        REMOVEADS,
+        COINPACK,
+        PIGGYCOINPACK,
+        TICKETPACK,
+        HEALTHPACK,
+        OFFERPACK1,
+        OFFERPACK2,
+        OFFERPACK3,
+        OFFERPACK4,
+        OFFERPACK5,
     }
     [System.Serializable]
     public enum RewardType

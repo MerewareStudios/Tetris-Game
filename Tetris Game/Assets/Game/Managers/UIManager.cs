@@ -140,37 +140,37 @@ public class UIManager : Singleton<UIManager>
    public void ShowOffer_RemoveAds_Banner()
    {
       AdManager.Offers.RemoveAds();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.RemoveAds, ActivityType.BANNER);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.REMOVEADS, ActivityType.BANNER);
    }
    public void ShowOffer_RemoveAds_AdBreakByPass()
    {
       AdManager.Offers.RemoveAds();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.RemoveAds, ActivityType.ADBREAKBYPASS);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.REMOVEADS, ActivityType.ADBREAKBYPASS);
    }
    public void ShowOffer_TicketPlus_AdBreakByPass()
    {
       AdManager.Offers.TicketPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.TicketPack, ActivityType.ADBREAKBYPASS);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.TICKETPACK, ActivityType.ADBREAKBYPASS);
    }
    public void ShowOffer_CoinPlus()
    {
       AdManager.Offers.CoinPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.CoinPack, CurrentActivityScreen);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.COINPACK, CurrentActivityScreen);
    }
    public void ShowOffer_PiggyCoinPlus()
    {
       AdManager.Offers.PiggyPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.PiggyCoinPack, CurrentActivityScreen);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.PIGGYCOINPACK, CurrentActivityScreen);
    }
    public void ShowOffer_TicketPlus()
    {
       AdManager.Offers.TicketPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.TicketPack, CurrentActivityScreen);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.TICKETPACK, CurrentActivityScreen);
    }
    public void ShowOffer_HeartPlus()
    {
       AdManager.Offers.HealthPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.HealthPack, CurrentActivityScreen);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.HEALTHPACK, CurrentActivityScreen);
    }
 #endregion
 #if UNITY_EDITOR
@@ -321,7 +321,7 @@ public class UIManager : Singleton<UIManager>
       {
          if (PiggyMenu.THIS.Visible)
          {
-            return ActivityType.PIGGYSCREEN;
+            return ActivityType.PIGGYMENU;
          }
          if (BlockMenu.THIS.Visible)
          {
@@ -345,7 +345,7 @@ public class UIManager : Singleton<UIManager>
    public enum ActivityType
    {
       GAME,
-      PIGGYSCREEN,
+      PIGGYMENU,
       BLOCKMENU,
       WEAPONMENU,
       UPGRADEMENU,
