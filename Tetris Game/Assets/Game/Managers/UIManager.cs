@@ -128,7 +128,7 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
-         if (PiggyMenu.THIS.Visible)
+         if (PiggyMenu.THIS.Visible && !AdBreakScreen.THIS.Visible)
          {
              if (visible)
              {

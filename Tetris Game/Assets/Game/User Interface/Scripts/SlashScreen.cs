@@ -115,7 +115,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 {
                     _sequence.Pause();
 
-                    GameManager.GameTimeScale(0.0f);
+                    GameManager.GameTimeScale(0);
                     loadingBar.SetActive(true);
                     actionButtonParent.gameObject.SetActive(false);
                 }, (success) =>
@@ -123,7 +123,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     _sequence.Complete();
             
                     buttonPanel.gameObject.SetActive(false);
-                    GameManager.GameTimeScale(1.0f);
+                    GameManager.GameTimeScale(1);
                     if (success)
                     {
                         tipText.text = Onboarding.THIS.thanksText;
@@ -145,7 +145,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 {
                     _sequence.Pause();
 
-                    GameManager.GameTimeScale(0.0f);
+                    GameManager.GameTimeScale(0);
                     loadingBar.SetActive(true);
                     actionButtonParent.gameObject.SetActive(false);
                 }, (success) =>
@@ -153,7 +153,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     _sequence.Play();
                 
                     buttonPanel.gameObject.SetActive(false);
-                    GameManager.GameTimeScale(1.0f);
+                    GameManager.GameTimeScale(1);
                     if (success)
                     {
                         tipText.text = Onboarding.THIS.thanksText;

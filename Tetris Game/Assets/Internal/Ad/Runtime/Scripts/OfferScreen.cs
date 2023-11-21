@@ -13,7 +13,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [System.NonSerialized] private OfferData _currentOfferData;
     [System.NonSerialized] private bool Active = false;
     [System.NonSerialized] private ProcessState _currentProcessState;
-    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public int TimeScale = 1;
     [System.NonSerialized] public System.Action<bool, ProcessState> OnVisibilityChanged;
     [System.NonSerialized] private System.Action _onBuy;
     [System.NonSerialized] private Tween _delayedCheck = null;
@@ -141,7 +141,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         canvasGroup.DOFade(1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
         
         
-        TimeScale = 0.0f;
+        TimeScale = 0;
         OnVisibilityChanged?.Invoke(true, _currentProcessState);
     }
     private void Close()
@@ -161,7 +161,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             
             Active = false;
             
-            TimeScale = 1.0f;
+            TimeScale = 1;
             OnVisibilityChanged?.Invoke(false, _currentProcessState);
         };        
     }

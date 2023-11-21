@@ -223,15 +223,15 @@ namespace IWI
                 
                 _Data.LastTimeAdShown = (int)Time.time;
                 
+                    AdBreakScreen.THIS.CloseImmediate();
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    AdBreakScreen.THIS.CloseImmediate();
                     onFinish?.Invoke();
                 }, 
                 () =>
                 {
-                    AdBreakScreen.THIS.CloseImmediate();
+                    // AdBreakScreen.THIS.CloseImmediate();
                     onFinish?.Invoke();
                 });
             }, 3.5f);

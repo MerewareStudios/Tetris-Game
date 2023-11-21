@@ -20,8 +20,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private RectTransform _rectTransformPiggyIcon;
     [SerializeField] private RectTransform _coinTarget;
     [Header("Buttons")]
-    [SerializeField] private Button continueButton;
-    [SerializeField] private TextMeshProUGUI continueText;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private RectTransform closeButtonParent;
     [SerializeField] private Button investButton;
     [SerializeField] private Button breakButton;
     [SerializeField] private Transform frame;
@@ -52,7 +52,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private int _multiplier = 1;
     private Tween _shakeTween;
 
-    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public int TimeScale = 1;
 
     void Update()
     {
@@ -74,7 +74,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         SetMiddleSortingLayer(9);
 
-        TimeScale = 0.0f;
+        TimeScale = 0;
         GameManager.UpdateTimeScale();
         
         Show();
@@ -87,7 +87,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             return true;
         }
         
-        TimeScale = 1.0f;
+        TimeScale = 1;
         GameManager.UpdateTimeScale();
         
         SwitchToGame();
@@ -140,15 +140,22 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         }
 
-        continueButton.gameObject.SetActive(true);
-        Transform continueTrans = continueButton.transform;
-        continueTrans.DOKill();
-        continueTrans.localScale = Vector3.zero;
+        closeButtonParent.gameObject.SetActive(false);
+        closeButton.targetGraphic.raycastTarget = false;
+        closeButtonParent.DOKill();
+        closeButtonParent.localScale = Vector3.zero;
         if (ONBOARDING.PIGGY_INVEST.IsComplete())
         {
-            continueText.text = "LATER";
-            continueTrans.localPosition = Vector3.zero;
-            continueTrans.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true);
+            closeButtonParent.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true)
+                .OnStart(
+                    () =>
+                    {
+                        closeButtonParent.gameObject.SetActive(true);
+                    })
+                .onComplete = () =>
+                    {
+                        closeButton.targetGraphic.raycastTarget = true;
+                    };
         }
         
         piggyCurrencyDisplay.gameObject.SetActive(!_Data.IsFull);
@@ -304,7 +311,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             rewardedPiggy.gameObject.SetActive(false);
             base.CloseImmediate();
-            TimeScale = 1.0f;
+            TimeScale = 1;
             GameManager.UpdateTimeScale();
 
             GiveRewards();
@@ -383,12 +390,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             investButton.gameObject.SetActive(false);
         };
         
-        Transform continueTrans = continueButton.transform;
-        continueButton.targetGraphic.raycastTarget = false;
-        continueTrans.DOKill();
-        continueTrans.DOScale(Vector3.zero, 0.45f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        closeButton.targetGraphic.raycastTarget = false;
+        closeButtonParent.DOKill();
+        closeButtonParent.DOScale(Vector3.zero, 0.45f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
         {
-            continueButton.gameObject.SetActive(false);
+            closeButtonParent.gameObject.SetActive(false);
         };
         
         
@@ -400,7 +406,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_ContinuePiggyBank()
     {
-        continueButton.targetGraphic.raycastTarget = false;
+        closeButton.targetGraphic.raycastTarget = false;
         if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
         {
             ONBOARDING.PIGGY_CONTINUE.SetComplete();
@@ -501,25 +507,21 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     private void ShowContinueButton()
     {
-        Transform continueTrans = continueButton.transform;
-
-        continueButton.gameObject.SetActive(true);
-        continueText.text = "CONTINUE";
-        continueTrans.DOKill();
-        continueTrans.position = investButton.transform.position;
-        continueTrans.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
+        closeButtonParent.gameObject.SetActive(true);
+        closeButtonParent.DOKill();
+        closeButtonParent.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete =
             () =>
             {
-                continueButton.targetGraphic.raycastTarget = true;
+                closeButton.targetGraphic.raycastTarget = true;
                             
                             
                 if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickLocation_Continue.position, Finger.Cam.UI, () =>
                     {
-                        continueTrans.DOKill();
-                        continueTrans.localScale = Vector3.one;
-                        continueTrans.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                        closeButtonParent.DOKill();
+                        closeButtonParent.localScale = Vector3.one;
+                        closeButtonParent.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
                     });
                 }
                             

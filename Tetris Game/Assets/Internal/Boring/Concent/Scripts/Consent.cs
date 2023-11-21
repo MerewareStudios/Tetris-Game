@@ -13,7 +13,7 @@ public class Consent : Lazyingleton<Consent>
     [SerializeField] private GameObject subFrame;
     [SerializeField] private Button doneButton;
     [SerializeField] private Button restartButton;
-    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public int TimeScale = 1;
 
     public delegate bool GetActiveState();
     public static GetActiveState GetRestartButtonState;
@@ -33,7 +33,7 @@ public class Consent : Lazyingleton<Consent>
     {
         set
         {
-            TimeScale = value ? 0.0f : 1.0f;
+            TimeScale = value ? 0 : 1;
             GameManager.UpdateTimeScale();
             gameObject.SetActive(value);
         }

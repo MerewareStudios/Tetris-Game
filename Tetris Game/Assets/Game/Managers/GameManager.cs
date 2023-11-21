@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
     public static readonly int EmissionKey = Shader.PropertyToID("_EmissionColor");
     public static readonly int EmisKey = Shader.PropertyToID("_Emission");
     
-    private float _timeScale = 1.0f;
+    private int _timeScale = 1;
 
     private Coroutine _flowRoutine = null;
     
@@ -34,7 +34,7 @@ public class GameManager : Singleton<GameManager>
                          OfferScreen.THIS.TimeScale;
     }
 
-    public static void GameTimeScale(float value)
+    public static void GameTimeScale(int value)
     {
         GameManager.THIS._timeScale = value;
         UpdateTimeScale();

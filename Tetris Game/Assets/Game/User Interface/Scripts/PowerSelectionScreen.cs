@@ -13,7 +13,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
     [SerializeField] public Pawn.Usage[] powerUps;
     [SerializeField] public ToggleButton toggleButton;
     [SerializeField] public TextMeshProUGUI stashText;
-    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public int TimeScale = 1;
 
     void Start()
     {
@@ -49,7 +49,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         canvas.enabled = true;
         this.gameObject.SetActive(true);
         
-        TimeScale = 0.0f;
+        TimeScale = 0;
         GameManager.UpdateTimeScale();
         return true;
     }
@@ -63,7 +63,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         canvas.enabled = false;
         this.gameObject.SetActive(false);
         
-        TimeScale = 1.0f;
+        TimeScale = 1;
         GameManager.UpdateTimeScale();
         return false;
     }

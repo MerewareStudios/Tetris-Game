@@ -40,14 +40,14 @@ public class Shop : MonoBehaviour
             ONBOARDING.BLOCK_TAB.SetComplete();
             MenuNavigator.THIS.SetLastMenu(MenuType.Block);
             Onboarding.HideFinger();
-            GameManager.GameTimeScale(1.0f);
+            GameManager.GameTimeScale(1);
         }
         else if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             ONBOARDING.WEAPON_TAB.SetComplete();
             MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
             Onboarding.HideFinger();
-            GameManager.GameTimeScale(1.0f);
+            GameManager.GameTimeScale(1);
         }
         else if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
         {
@@ -63,7 +63,7 @@ public class Shop : MonoBehaviour
             
             MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
             Onboarding.HideFinger();
-            GameManager.GameTimeScale(1.0f);
+            GameManager.GameTimeScale(1);
         }
         
         MenuNavigator.THIS.Open();
@@ -105,7 +105,7 @@ public class Shop : MonoBehaviour
             if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
             {
                 background.enabled = true;
-                GameManager.GameTimeScale(0.0f);
+                GameManager.GameTimeScale(0);
             }
             
             _canvas.enabled = true;

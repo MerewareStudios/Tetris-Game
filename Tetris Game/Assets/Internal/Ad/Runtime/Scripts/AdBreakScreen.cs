@@ -37,7 +37,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public delegate bool ButtonUseCondition();
     private ButtonUseCondition _clickCondition;
     
-    [System.NonSerialized] public float TimeScale = 1.0f;
+    [System.NonSerialized] public int TimeScale = 1;
     [System.NonSerialized] public System.Action OnVisibilityChanged;
 
     
@@ -55,7 +55,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
             
             onVisibilityChanged?.Invoke(value);
             
-            TimeScale = value ? 0.0f : 1.0f;
+            TimeScale = value ? 0 : 1;
             OnVisibilityChanged?.Invoke();
         }
         get => canvas.enabled;
