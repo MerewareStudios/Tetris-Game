@@ -198,7 +198,7 @@ public class Spawner : Singleton<Spawner>
                 float smoothFactor = 0.0f;
                 while (true)
                 {
-                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 28.0f * smoothFactor);
+                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 34.0f * smoothFactor);
                     smoothFactor = Mathf.Lerp(smoothFactor, 1.25f, Time.deltaTime * _smoothFactorLerp);
                     Board.THIS.HighlightPlaces();
                     yield return null;
@@ -339,7 +339,7 @@ public class Spawner : Singleton<Spawner>
             Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift, timeIndependent:false);
         }
         
-        if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+        else if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
             Onboarding.ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Shake, infoEnabled:true, timeIndependent:false);
         }
@@ -402,7 +402,6 @@ public class Spawner : Singleton<Spawner>
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
     {
-        // Block block = pool.Spawn<Block>(spawnedBlockLocation);
         Block block = Pool.Block.Spawn<Block>(spawnedBlockLocation);
         
         block.RequiredPlaces = suggestedBlockData == null ? null : Board.THIS.Index2Place(suggestedBlockData.requiredPlaces);
