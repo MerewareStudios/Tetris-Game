@@ -666,7 +666,7 @@ namespace Game
         {
             Place spawnPlace = _places[horizontal, lineIndex];
             int totalAmmo = 0;
-            Pawn lastPawn = null;
+            Tween lastTween = null;
             
             for (int i = 0; i < _size.x; i++)
             {
@@ -676,7 +676,6 @@ namespace Game
                 {
                     continue;
                 }
-
 
                 
                 bool canMerge = pawn.Unpack();
@@ -688,26 +687,29 @@ namespace Game
                 
                 totalAmmo += pawn.Amount;
                 
-                lastPawn = pawn;
-                
                 
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.thisTransform.parent = null;
                 pawn.thisTransform.DOKill();
-                pawn.thisTransform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                    .onComplete = () =>
-                {
-                    pawn.Deconstruct();
-
-                    if (lastPawn == pawn)
-                    {
-                        CameraManager.THIS.Shake(0.2f + (0.1f * (multiplier - 1)), 0.5f);
-                        Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                    }
-                };
                 
-
+                Tween tween = pawn.thisTransform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur)
+                    .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
+                    .SetDelay(AnimConst.THIS.mergeTravelDelay);
+                
+                tween.onComplete = pawn.Deconstruct;
+                
+                lastTween = tween;
+                
                 place.Current = null;
+            }
+
+            if (lastTween != null)
+            {
+                lastTween.onComplete += () =>
+                {
+                    CameraManager.THIS.Shake(0.2f + (0.1f * (multiplier - 1)), 0.5f);
+                    Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                };
             }
 
             totalAmmo = Mathf.Min(totalAmmo * multiplier,StackLimit);
@@ -745,7 +747,7 @@ namespace Game
             
             Place spawnPlace = _places[horizontal, vertical];
             int totalAmmo = 0;
-            Pawn lastPawn = null;
+            Tween lastTween = null;
             
             for (int i = 0; i < _size.x; i++)
             {
@@ -774,8 +776,6 @@ namespace Game
                         continue;
                     }
                     
-                    lastPawn = pawn;
-
                     totalAmmo += pawn.Amount;
                     
                     bool canMerge = pawn.Unpack();
@@ -788,27 +788,31 @@ namespace Game
                     pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.thisTransform.parent = null;
                     pawn.thisTransform.DOKill();
-                    pawn.thisTransform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur).SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot).SetDelay(AnimConst.THIS.mergeTravelDelay)
-                        .onComplete += () =>
-                    {
-                        pawn.Deconstruct();
-
-                        if (lastPawn == pawn)
-                        {
-                            CameraManager.THIS.Shake(0.2f, 0.5f);
-
-                            if (totalAmmo > 0)
-                            {
-                                Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
-                            }
-                        }
-                    };
                     
-
+                    Tween tween = pawn.thisTransform
+                        .DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur)
+                        .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
+                        .SetDelay(AnimConst.THIS.mergeTravelDelay);
                     
+                    tween.onComplete = pawn.Deconstruct;
+
+                    lastTween = tween;
 
                     place.Current = null;
                 }
+            }
+            
+            if (lastTween != null)
+            {
+                lastTween.onComplete += () =>
+                {
+                    CameraManager.THIS.Shake(0.2f, 0.5f);
+
+                    if (totalAmmo > 0)
+                    {
+                        Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
+                    }
+                };
             }
 
             totalAmmo = Mathf.Min(totalAmmo,StackLimit);
