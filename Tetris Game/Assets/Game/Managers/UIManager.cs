@@ -246,7 +246,7 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.U))
       {
-         IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.ticketpack", true);
+         IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.noads", true);
       }
    }
 #endif
