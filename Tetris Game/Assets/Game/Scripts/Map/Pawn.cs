@@ -298,7 +298,7 @@ namespace Game
             ParentBlock = null;
             
             DeSpawnModel();
-            this.gameObject.Despawn(Pool.Pawn);
+            this.Despawn(Pool.Pawn);
         }
         
         public void OnLevelEnd()

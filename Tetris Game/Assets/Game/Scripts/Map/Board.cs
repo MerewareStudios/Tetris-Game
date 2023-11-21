@@ -879,19 +879,17 @@ namespace Game
 
         private void RemovePawn(Place place)
         {
-            Pawn pawn = place.Current;
-            
-            if (!pawn)
+            if (!place.Occupied)
             {
                 return;
             }
 
-            if (pawn.ParentBlock)
+            if (place.Current.ParentBlock)
             {
-                pawn.ParentBlock.DetachPawn(pawn);
+                place.Current.ParentBlock.DetachPawn(place.Current);
             }
             
-            pawn.Deconstruct();
+            place.Current.Deconstruct();
             place.Current = null;
         }
 
@@ -933,15 +931,14 @@ namespace Game
                     
                     if (place.Current && place.Current.UsageType.Equals(Pawn.Usage.Ammo) && !place.Current.Mover && !place.Current.Busy && place.Current.Available)
                     {
-                        Pawn currentPawn = place.Current;
-                        currentPawn.Amount -= 1;
+                        place.Current.Amount -= 1;
 
                         
-                        currentPawn.OnUse();
-                        if (currentPawn.Amount <= 0)
+                        place.Current.OnUse();
+                        if (place.Current.Amount <= 0)
                         {
+                            place.Current.DetachSubModelAndDeconstruct();
                             place.Current = null;
-                            currentPawn.DetachSubModelAndDeconstruct();
                             MarkMovers(place.Index.x, place.Index.y);
                         }
                         
