@@ -364,24 +364,33 @@ namespace Game
         }
 
 
-        public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
+        public void MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
             if (Busy)
             {
-                return true;
+                return;
             }
             if (!Mover)
             {
-                return false;
+                return;
             }
             
             Tick = tick;
             
-            Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-            forwardPlace.Accept(this, moveDuration); // 3
-            
             checkerPlace.Current = null;
-            return true;
+            
+            Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
+            if (forwardPlace)
+            {
+                forwardPlace.Accept(this, moveDuration); // 3
+            }
+#if UNITY_EDITOR
+            else
+            {
+                Debug.LogError("Forward null", this.gameObject);
+                Debug.Break();
+            }
+#endif        
         }
 
         public void Check(Place checkerPlace)
