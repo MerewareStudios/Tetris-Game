@@ -188,6 +188,10 @@ public class Spawner : Singleton<Spawner>
                     {
                         Onboarding.HideFinger();
                     }
+                    else if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+                    {
+                        Onboarding.HideFinger();
+                    }
                 }
 
                 float smoothFactor = 0.0f;
@@ -312,11 +316,6 @@ public class Spawner : Singleton<Spawner>
                 return;
             }
             
-            // if (ONBOARDING.TEACH_PICK.IsNotComplete())
-            // {
-            //     ONBOARDING.TEACH_PICK.SetComplete();
-            // }
-
             if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
             {
                 ONBOARDING.DRAG_AND_DROP.SetComplete();
@@ -337,6 +336,11 @@ public class Spawner : Singleton<Spawner>
         if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
             Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift, timeIndependent:false);
+        }
+        
+        if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+        {
+            Onboarding.ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Shake, infoEnabled:true, timeIndependent:false);
         }
 
         Mount();

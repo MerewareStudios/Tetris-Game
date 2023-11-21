@@ -88,22 +88,6 @@ public class Onboarding : SSingleton<Onboarding>
             DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift, timeIndependent:false);
         }
     }
-
-    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f, bool timeIndependent = true)
-    {
-        UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale, timeIndependent);
-    }
-    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f, bool infoEnabled = false, bool timeIndependent = true)
-    {
-        UIManager.THIS.finger.OnClick = OnClick;
-        UIManager.THIS.finger.Click(position, rendererCamera, scale, infoEnabled, timeIndependent);
-    }
-    public static void HideFinger()
-    {
-        UIManager.THIS.finger.Hide();
-    }
-    
     public static void SpawnSecondBlockAndTeachRotation()
     {
         Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
@@ -126,6 +110,22 @@ public class Onboarding : SSingleton<Onboarding>
             Spawner.THIS.Spawn();
         }
     }
+
+    public static void DragOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 1.0f, bool timeIndependent = true)
+    {
+        UIManager.THIS.finger.OnClick = OnClick;
+        UIManager.THIS.finger.ShortPressAndDrag(position, rendererCamera, scale, timeIndependent);
+    }
+    public static void ClickOn(Vector3 position, Finger.Cam rendererCamera, System.Action OnClick, float scale = 0.75f, bool infoEnabled = false, bool timeIndependent = true)
+    {
+        UIManager.THIS.finger.OnClick = OnClick;
+        UIManager.THIS.finger.Click(position, rendererCamera, scale, infoEnabled, timeIndependent);
+    }
+    public static void HideFinger()
+    {
+        UIManager.THIS.finger.Hide();
+    }
+    
     
     public static void TalkAboutMerge()
     {

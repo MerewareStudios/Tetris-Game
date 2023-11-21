@@ -141,6 +141,7 @@ namespace Game
             shakePivot.localPosition = Vector3.zero;
             shakePivot.localEulerAngles = Vector3.zero;
             shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
+            // .onUpdate = ResetSegmentRotations;
         }
         
         public void Lift(Vector3 tutorialLift)
@@ -176,7 +177,7 @@ namespace Game
             };
         }
 
-        private void ResetSegmentRotations()
+        public void ResetSegmentRotations()
         {
             foreach (var segment in Pawns)
             {
