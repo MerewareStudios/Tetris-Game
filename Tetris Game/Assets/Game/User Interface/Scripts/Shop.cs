@@ -147,6 +147,7 @@ public class Shop : MonoBehaviour
                 
                 if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
                 {
+                    MenuNavigator.THIS.gameNotificationShop.Count = 1;
                     Onboarding.ClickOn(clickTarget.position, Finger.Cam.Game, () =>
                     {
                         pivot.DOKill();

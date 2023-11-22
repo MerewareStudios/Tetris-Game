@@ -1,5 +1,4 @@
 using System;
-using Internal.Core;
 using IWI;
 using TMPro;
 using UnityEngine;
@@ -15,12 +14,32 @@ namespace Game.UI
         [SerializeField] private TextMeshProUGUI maxStackText;
         [SerializeField] private TextMeshProUGUI capacityText;
         [System.NonSerialized] private Data _data;
-        [System.NonSerialized] private bool oneTimeDataSet = false;
+        [System.NonSerialized] private bool _oneTimeDataSet = false;
 
         public Data _Data
         {
             set => _data = value;
             get => _data;
+        }
+
+        public int AvailablePurchaseCount
+        {
+            get
+            {
+                int total = 0;
+                for (int i = 0; i < Const.THIS.purchaseDataLookUp.Length; i++)
+                {
+                    PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
+                    bool hasFunds = Wallet.HasFunds(lookUp.currency);
+                    if (hasFunds)
+                    {
+                        total++;
+                    }
+                }
+
+                
+                return total;
+            }
         }
 
         public new bool Open(float duration = 0.5f)
@@ -43,11 +62,11 @@ namespace Game.UI
 
         private void SetOneTimeData()
         {
-            if (oneTimeDataSet)
+            if (_oneTimeDataSet)
             {
                 return;
             }
-            oneTimeDataSet = true;
+            _oneTimeDataSet = true;
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
@@ -65,11 +84,8 @@ namespace Game.UI
                 
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
-
-                
                 purchaseOption
                     .SetIcon(lookUp.sprite)
-                    // .SetBestBadge(lookUp.best)
                     .SetInfo(lookUp.title, lookUp.info)
                     .SetExtra(lookUp.extra);
             }
@@ -121,11 +137,8 @@ namespace Game.UI
 
                 purchaseOption.SetPrice(lookUp.currency.type.IsLocal() ? lookUp.GetLocalPrice() : CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
                 
-                // if (glimmerByBadge)
-                // {
-                    purchaseOption.Glimmer();
-                    purchaseOption.SetPurchaseText(purchaseText);
-                // }
+                purchaseOption.Glimmer();
+                purchaseOption.SetPurchaseText(purchaseText);
             }
 
             maxStackText.text = Board.THIS.StackLimit.ToString();
@@ -187,25 +200,25 @@ namespace Game.UI
             AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), _Data.instanceData[index]);
         }
 
-        public void Prompt(PurchaseType purchaseType, float amount, float delay)
-        {
-            PurchaseOption purchaseOption = purchaseOptions[(int)purchaseType];
-            purchaseOption.PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
-            purchaseOption.PunchScale(amount, delay);
-            this.WaitForFrame(() =>
-            {
-                SnapTo(purchaseOption.animationPivot);
-            });
-        }
+        // public void Prompt(PurchaseType purchaseType, float amount, float delay)
+        // {
+        //     PurchaseOption purchaseOption = purchaseOptions[(int)purchaseType];
+        //     purchaseOption.PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
+        //     purchaseOption.PunchScale(amount, delay);
+        //     this.WaitForFrame(() =>
+        //     {
+        //         SnapTo(purchaseOption.animationPivot);
+        //     });
+        // }
         
-        public void SnapTo(RectTransform target)
-        {
-            // Canvas.ForceUpdateCanvases();
-            
-            Vector2 dif = (Vector2)scrollRectFrame.transform.InverseTransformPoint(scrollPanel.position) - (Vector2)scrollRectFrame.transform.InverseTransformPoint(target.position);
-
-            scrollRectFrame.anchoredPosition = new Vector2(scrollRectFrame.anchoredPosition.x, dif.y);
-        }
+        // public void SnapTo(RectTransform target)
+        // {
+        //     // Canvas.ForceUpdateCanvases();
+        //     
+        //     Vector2 dif = (Vector2)scrollRectFrame.transform.InverseTransformPoint(scrollPanel.position) - (Vector2)scrollRectFrame.transform.InverseTransformPoint(target.position);
+        //
+        //     scrollRectFrame.anchoredPosition = new Vector2(scrollRectFrame.anchoredPosition.x, dif.y);
+        // }
 
         [Serializable]
         public enum PurchaseType
@@ -238,24 +251,14 @@ namespace Game.UI
             [SerializeField] public PurchaseType purchaseType;
             [SerializeField] public Const.Currency currency;
             [SerializeField] public Sprite sprite;
-            // [SerializeField] public ExtraCondition extraCondition;
             [TextArea] [SerializeField] public string title;
             [TextArea] [SerializeField] public string info;
             [TextArea] [SerializeField] public string extra;
-            // [SerializeField] public bool best = false;
 
             public string GetLocalPrice()
             {
                 return "";
-                // return IAPManager.THIS.GetLocalPrice(purchaseType);
             }
         }
-
-        // public enum ExtraCondition
-        // {
-        //     ALWAYS,
-        //     PIGGY_CAP,
-        // }
-        
     }
 }

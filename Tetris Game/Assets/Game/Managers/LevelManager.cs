@@ -26,6 +26,8 @@ public class LevelManager : Singleton<LevelManager>
 
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
+        
+        MenuNavigator.THIS.UpdateNotifications();
        
 #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
         if (MaxSdk.IsUserConsentSet())

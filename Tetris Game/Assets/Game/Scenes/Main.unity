@@ -3267,7 +3267,6 @@ MonoBehaviour:
   powerSelectionScreen: {fileID: 7372172419621164077}
   statDisplayArranger: {fileID: 4562074639441518961}
   offerScreen: {fileID: 9186680055652302901}
-  gameNotificationShop: {fileID: 0}
   shop: {fileID: 213108305}
   coinEmitter: {fileID: 1775779537}
   piggyCoinEmitter: {fileID: 1754738092}
@@ -3784,7 +3783,7 @@ MonoBehaviour:
       offers: 
     baseInfo: SAVE END
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
@@ -9537,6 +9536,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1972176484}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1966232453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2784768863333283690, guid: 68d36e6eb7edf374bbb424424572a0b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1972176484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca05fe5a9994f374292c5c61136ca770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1972176484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9654,6 +9665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Game Notification
+      objectReference: {fileID: 0}
+    - target: {fileID: 6946247307284564399, guid: 68d36e6eb7edf374bbb424424572a0b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11930,21 +11946,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4701173876687227622, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4701173876687227622, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4701173876687227622, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20251,6 +20252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
         type: 3}
+      propertyPath: gameNotificationShop
+      value: 
+      objectReference: {fileID: 1966232453}
+    - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
+        type: 3}
       propertyPath: gameNotificationBlock
       value: 
       objectReference: {fileID: 1533496600}
@@ -20262,6 +20268,26 @@ PrefabInstance:
     - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
         type: 3}
       propertyPath: gameNotificationUpgrade
+      value: 
+      objectReference: {fileID: 2024249755}
+    - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
+        type: 3}
+      propertyPath: gameNotifications.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
+        type: 3}
+      propertyPath: gameNotifications.Array.data[0]
+      value: 
+      objectReference: {fileID: 1533496600}
+    - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
+        type: 3}
+      propertyPath: gameNotifications.Array.data[1]
+      value: 
+      objectReference: {fileID: 1735825147}
+    - target: {fileID: 2280751699274451867, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,
+        type: 3}
+      propertyPath: gameNotifications.Array.data[2]
       value: 
       objectReference: {fileID: 2024249755}
     - target: {fileID: 2928664227830478969, guid: 7f2f1608e45ce7f46b1fb3cf65d83bdc,

@@ -34,10 +34,31 @@ namespace Game.UI
             get => this._blockShopData;
         }
         
-        public void Set(ref BlockShopData blockShopData)
+        public int AvailablePurchaseCount
         {
-        }
+            get
+            {
+                int total = 0;
+                for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
+                {
+                    BlockData lookUp = Const.THIS.DefaultBlockData[i];
 
+                    bool purchased = _Data.unlockedBlocks.Contains(lookUp.blockType);
+                    bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                    bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
+                    bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
+
+                    if (!purchased && (hasFunds || ticketType) && availableByLevel)
+                    {
+                        total++;
+                    }
+                }
+
+                
+                return total;
+            }
+        }
+        
         public new bool Open(float duration = 0.5f)
         {
             if (base.Open(duration))
@@ -65,14 +86,14 @@ namespace Game.UI
             _selectedBlockData = Const.THIS.DefaultBlockData[showIndex];
             
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
-            bool availableByPrice = Wallet.HasFunds(_selectedBlockData.Cost);
-            bool availableByTicket = _selectedBlockData.Cost.type.Equals(Const.CurrencyType.Ticket);
+            bool availableByPrice = Wallet.HasFunds(_selectedBlockData.ReducedCost);
+            bool availableByTicket = _selectedBlockData.ReducedCost.type.Equals(Const.CurrencyType.Ticket);
             bool purchasedBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
 
             bool canPurchase = (availableByPrice || availableByTicket) && availableByLevel;
 
             
-            SetPrice(_selectedBlockData.Cost, canPurchase, availableByTicket);
+            SetPrice(_selectedBlockData.ReducedCost, canPurchase, availableByTicket);
             SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
             
             
@@ -187,7 +208,7 @@ namespace Game.UI
                 return;
             }
             
-            if (Wallet.Consume(_selectedBlockData.Cost))
+            if (Wallet.Consume(_selectedBlockData.ReducedCost))
             {
                 _blockShopData.AddUnlockedBlock(_selectedBlockData);
                 
@@ -205,7 +226,7 @@ namespace Game.UI
             }
             else
             {
-                if (_selectedBlockData.Cost.type.Equals(Const.CurrencyType.Ticket))
+                if (_selectedBlockData.ReducedCost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {
@@ -263,7 +284,8 @@ namespace Game.UI
             [SerializeField] private Const.Currency currency;
             [SerializeField] public int unlockedAt = 1;
 
-            public Const.Currency Cost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+            public Const.Currency ReducedCost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+            public Const.CurrencyType CostType => currency.type;
         }
     }
 }

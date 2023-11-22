@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Game.UI;
 using Internal.Core;
@@ -12,9 +11,8 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [System.NonSerialized] private Data _data;
     [System.NonSerialized] public int TimeScale = 1;
     [Header("Game Notifications")]
-    [SerializeField] public GameNotification gameNotificationBlock;
-    [SerializeField] public GameNotification gameNotificationWeapon;
-    [SerializeField] public GameNotification gameNotificationUpgrade;
+    [SerializeField] public GameNotification gameNotificationShop;
+    [SerializeField] public GameNotification[] gameNotifications;
 
     public bool CostRedStamp
     {
@@ -36,6 +34,10 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
             return;
         }
 
+        // UpdateNotifications();
+        gameNotificationShop.Close();
+
+
         UIManager.MenuMode(true);
         
         TimeScale = 0;
@@ -44,6 +46,19 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         Wallet.ScaleTransactors(1.1f, true);
         Activate();
         OpenLastMenu();
+    }
+
+    public void UpdateNotifications()
+    {
+        int blockNotCount = BlockMenu.THIS.AvailablePurchaseCount;
+        int weaponNotCount = WeaponMenu.THIS.AvailablePurchaseCount;
+        int upgradeNotCount = UpgradeMenu.THIS.AvailablePurchaseCount;
+        
+        gameNotifications[(int)MenuType.Block].Count = blockNotCount;
+        gameNotifications[(int)MenuType.Weapon].Count = weaponNotCount;
+        gameNotifications[(int)MenuType.Upgrade].Count = upgradeNotCount;
+
+        gameNotificationShop.Count = blockNotCount + weaponNotCount + upgradeNotCount;
     }
 
     private void Activate()
@@ -91,22 +106,21 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         _menus[lastMenuIndex].GetParentContainer().SetAsLastSibling();
         _menus[lastMenuIndex].Open(duration);
         tabs[lastMenuIndex].Show();
+
+        gameNotifications[lastMenuIndex].Close();
     }
     
     public void OnTab_BlockMenu()
     {
         OpenTabMenu(MenuType.Block);
-        gameNotificationBlock.Count = 0;
     }
     public void OnTab_WeaponMenu()
     {
         OpenTabMenu(MenuType.Weapon);
-        gameNotificationWeapon.Count = 0;
     }
     public void OnTab_UpgradeMenu()
     {
         OpenTabMenu(MenuType.Upgrade);
-        gameNotificationUpgrade.Count = 0;
     }
 
     private void OpenTabMenu(MenuType menuTypeNext)
@@ -140,7 +154,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     
     
     [System.Serializable]
-    public class Data : ICloneable
+    public class Data : System.ICloneable
     {
         [SerializeField] public Game.UI.MenuType lastMenuType;
 

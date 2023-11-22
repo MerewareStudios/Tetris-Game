@@ -32,8 +32,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private PowerSelectionScreen powerSelectionScreen;
    [SerializeField] private StatDisplayArranger statDisplayArranger;
    [SerializeField] private OfferScreen offerScreen;
-   [Header("Game Notifications")]
-   [SerializeField] public GameNotification gameNotificationShop;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [FormerlySerializedAs("particleImageCoin")]

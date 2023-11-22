@@ -46,6 +46,31 @@ namespace Game.UI
             get => this._weaponShopData;
         }
         
+        public int AvailablePurchaseCount
+        {
+            get
+            {
+                int total = 0;
+                for (int i = 0; i < Const.THIS.GunUpgradeData.Length; i++)
+                {
+                    Gun.UpgradeData lookUp = Const.THIS.GunUpgradeData[i];
+
+                    bool purchased = _Data.gunShopDatas[i].purchased;
+                    bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                    bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
+                    bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
+
+                    if (!purchased && (hasFunds || ticketType) && availableByLevel)
+                    {
+                        total++;
+                    }
+                }
+
+                
+                return total;
+            }
+        }
+        
         public new bool Open(float duration = 0.5f)
         {
             if (base.Open(duration))
@@ -117,7 +142,7 @@ namespace Game.UI
            
             if (purchaseParent.gameObject.activeSelf && ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
             {
-                if (Wallet.HasFunds(_gunUpgradeData.GunCost) && availableByLevel)
+                if (Wallet.HasFunds(_gunUpgradeData.ReducedCost) && availableByLevel)
                 {
                     Onboarding.ClickOn(purchaseClickTarget.position, Finger.Cam.UI, () =>
                     {
@@ -135,7 +160,7 @@ namespace Game.UI
             
             if (!purchasedWeapon)
             {
-                SetPrice(_gunUpgradeData.GunCost, availableByLevel);
+                SetPrice(_gunUpgradeData.ReducedCost, availableByLevel);
                 return;
             }
             
@@ -182,11 +207,11 @@ namespace Game.UI
             }
             Const.Currency price = _gunUpgradeData.UpgradePrice(statType, currentIndex);
 
-            bool ticket = price.type.Equals(Const.CurrencyType.Ticket);
+            bool ticketType = price.type.Equals(Const.CurrencyType.Ticket);
             
             stageBar
                 .SetPrice(price)
-                .Available = Wallet.HasFunds(price) || ticket;
+                .Available = Wallet.HasFunds(price) || ticketType;
         }
         
         public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)
@@ -213,9 +238,8 @@ namespace Game.UI
         {
             bool hasFunds = Wallet.HasFunds(currency);
 
-            bool ticket = currency.type.Equals(Const.CurrencyType.Ticket);
-            purchaseButton.Available = (hasFunds || ticket) && availableByLevel;
-            // purchaseButton.ButtonSprite = ticket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
+            bool ticketType = currency.type.Equals(Const.CurrencyType.Ticket);
+            purchaseButton.Available = (hasFunds || ticketType) && availableByLevel;
             purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
 
             if (hasFunds)
@@ -360,7 +384,7 @@ namespace Game.UI
                 return;
             }
             
-            if (Wallet.Consume(_gunUpgradeData.GunCost))
+            if (Wallet.Consume(_gunUpgradeData.ReducedCost))
             {
                 if (ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
                 {
@@ -375,7 +399,7 @@ namespace Game.UI
             }
             else
             {
-                if (_gunUpgradeData.GunCost.type.Equals(Const.CurrencyType.Ticket))
+                if (_gunUpgradeData.ReducedCost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {
