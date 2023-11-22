@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 100
+  bundleVersionCode: 108
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -746,8 +746,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
     defaultValues: 010000000100000002000000
     damagePrice:
-    - type: 2
-      amount: 1
+    - type: 1
+      amount: 10
     fireRatePrice:
     - type: 0
       amount: 50
@@ -758,12 +758,12 @@ MonoBehaviour:
     - type: 0
       amount: 50
     splitShotPrice:
-    - type: 0
-      amount: 100
-    - type: 0
-      amount: 100
     - type: 1
-      amount: 3
+      amount: 10
+    - type: 1
+      amount: 10
+    - type: 2
+      amount: 1
     unlockedAt: 14
   - currency:
       type: 0
@@ -963,77 +963,77 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 20
-    unlockedAt: 5
+    unlockedAt: 10
   - blockType: 9
     currency:
       type: 2
       amount: 1
-    unlockedAt: 10
+    unlockedAt: 20
   - blockType: 7
     currency:
       type: 1
       amount: 25
-    unlockedAt: 15
+    unlockedAt: 30
   - blockType: 8
     currency:
       type: 1
       amount: 25
-    unlockedAt: 20
+    unlockedAt: 40
   - blockType: 11
     currency:
       type: 0
       amount: 500
-    unlockedAt: 25
+    unlockedAt: 50
   - blockType: 14
     currency:
       type: 1
       amount: 50
-    unlockedAt: 30
+    unlockedAt: 60
   - blockType: 15
     currency:
       type: 1
       amount: 50
-    unlockedAt: 35
+    unlockedAt: 70
   - blockType: 18
     currency:
       type: 0
       amount: 500
-    unlockedAt: 40
+    unlockedAt: 80
   - blockType: 72
     currency:
       type: 2
       amount: 1
-    unlockedAt: 45
+    unlockedAt: 90
   - blockType: 48
     currency:
       type: 0
       amount: 1000
-    unlockedAt: 50
+    unlockedAt: 100
   - blockType: 49
     currency:
       type: 1
       amount: 50
-    unlockedAt: 60
+    unlockedAt: 110
   - blockType: 50
     currency:
       type: 1
       amount: 100
-    unlockedAt: 70
+    unlockedAt: 120
   - blockType: 73
     currency:
       type: 0
       amount: 2000
-    unlockedAt: 80
+    unlockedAt: 130
   - blockType: 74
     currency:
       type: 0
       amount: 2500
-    unlockedAt: 90
+    unlockedAt: 140
   - blockType: 2
     currency:
       type: 1
       amount: 200
-    unlockedAt: 100
+    unlockedAt: 150
   purchaseDataLookUp:
   - purchaseType: 0
     currency:
@@ -1063,7 +1063,7 @@ MonoBehaviour:
       amount: 5
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
-    info: <size=150%><sprite name=Heart>+5
+    info: <size=150%><sprite name=Heart>+20
     extra: 
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000

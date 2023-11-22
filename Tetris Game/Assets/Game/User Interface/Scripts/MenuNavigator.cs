@@ -10,8 +10,11 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [SerializeField] private List<Tab> tabs = new();
     [SerializeField] private GameObject costReductionStamp;
     [System.NonSerialized] private Data _data;
-    
     [System.NonSerialized] public int TimeScale = 1;
+    [Header("Game Notifications")]
+    [SerializeField] public GameNotification gameNotificationBlock;
+    [SerializeField] public GameNotification gameNotificationWeapon;
+    [SerializeField] public GameNotification gameNotificationUpgrade;
 
     public bool CostRedStamp
     {
@@ -93,14 +96,17 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     public void OnTab_BlockMenu()
     {
         OpenTabMenu(MenuType.Block);
+        gameNotificationBlock.Count = 0;
     }
     public void OnTab_WeaponMenu()
     {
         OpenTabMenu(MenuType.Weapon);
+        gameNotificationWeapon.Count = 0;
     }
     public void OnTab_UpgradeMenu()
     {
         OpenTabMenu(MenuType.Upgrade);
+        gameNotificationUpgrade.Count = 0;
     }
 
     private void OpenTabMenu(MenuType menuTypeNext)

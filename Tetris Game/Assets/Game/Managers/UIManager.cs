@@ -32,6 +32,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private PowerSelectionScreen powerSelectionScreen;
    [SerializeField] private StatDisplayArranger statDisplayArranger;
    [SerializeField] private OfferScreen offerScreen;
+   [Header("Game Notifications")]
+   [SerializeField] public GameNotification gameNotificationShop;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [FormerlySerializedAs("particleImageCoin")]
@@ -478,6 +480,15 @@ public static class UIManagerExtensions
       }
 
       Pool.Distortion.Spawn<Distortion>().Distort(hitPoint, forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortPower, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
+   }
+   public static void DistortWarmUp()
+   {
+      if (!ApplicationManager.THIS.GrabFeatureEnabled)
+      {
+         ApplicationManager.THIS.GrabFeatureEnabled = true;
+      }
+      
+      Pool.Distortion.Spawn<Distortion>().Distort(new Vector3(0.0f, 1.0f, 0.0f), Vector3.up, 1.0f, 0.0f, 0.25f, Ease.Linear, 0.25f);
    }
    
    public static void Glimmer(this Image image, float speed)

@@ -23,7 +23,7 @@ MonoBehaviour:
   targetPracticeText: 'Target
 
     Practice'
-  ticketMergeText: '<size=80%><sprite name=Ticket><sprite name=Arrow><sprite name=Magnet> '
+  ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
   freePlacementText: Place it anywhere!
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=75%><sprite name=Check>

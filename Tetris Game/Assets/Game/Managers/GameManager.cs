@@ -82,6 +82,8 @@ public class GameManager : Singleton<GameManager>
         AdManager.THIS.InitAdSDK();
         OfferScreen.THIS.CheckForUnpack(2.5f);
         
+        UIManagerExtensions.DistortWarmUp();
+
         // Const.THIS.PrintLevelData();
     }
 

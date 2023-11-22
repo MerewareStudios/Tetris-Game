@@ -143,6 +143,7 @@ namespace Game
             private void LateUpdate()
             {
                 Spawner.THIS.UpdatePosition(spawnerPin.position);
+
                     
                 float offset = (bottomPin.position - Spawner.THIS.transform.position).z - 1.1f;
                     

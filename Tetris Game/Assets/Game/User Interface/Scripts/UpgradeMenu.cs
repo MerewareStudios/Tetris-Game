@@ -173,7 +173,7 @@ namespace Game.UI
                     PiggyMenu.THIS._Data.moneyCapacity += 5;
                     break;
                 case PurchaseType.MEDKIT:
-                    Warzone.THIS.Player._CurrentHealth += 15;
+                    Warzone.THIS.Player._CurrentHealth += 20;
                     break;
             }
 

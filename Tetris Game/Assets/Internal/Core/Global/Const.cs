@@ -149,31 +149,31 @@ public class Const : SSingleton<Const>
         return AutoGeneratePawnPlacements[boardSize.x - LevelSo.MinAutoWidth].data.Random().PawnPlacements;
     }
     
-    public void PrintLevelData()
-    {
-        int accumReward = 0;
-        for (int i = 0; i < Levels.Length; i++)
-        {
-            string colorTag;
-            
-            LevelSo levelSo = Levels[i];
-            (string info, int totalReward) = levelSo.ToString(i + 1);
-            accumReward += totalReward;
-
-            int accumDisplayed = accumReward;
-            if ((i+1) % 5 == 0)
-            {
-                colorTag = "yellow";
-                accumReward = 0;
-            }
-            else
-            {
-                colorTag = "cyan";
-            }
-            Debug.Log(info + " | <color=" + colorTag + ">Accum Reward : " + accumDisplayed + "</color>");
-            
-        }
-    }
+    // public void PrintLevelData()
+    // {
+    //     int accumReward = 0;
+    //     for (int i = 0; i < Levels.Length; i++)
+    //     {
+    //         string colorTag;
+    //         
+    //         LevelSo levelSo = Levels[i];
+    //         (string info, int totalReward) = levelSo.ToString(i + 1);
+    //         accumReward += totalReward;
+    //
+    //         int accumDisplayed = accumReward;
+    //         if ((i+1) % 5 == 0)
+    //         {
+    //             colorTag = "yellow";
+    //             accumReward = 0;
+    //         }
+    //         else
+    //         {
+    //             colorTag = "cyan";
+    //         }
+    //         Debug.Log(info + " | <color=" + colorTag + ">Accum Reward : " + accumDisplayed + "</color>");
+    //         
+    //     }
+    // }
 
     public Sprite GetButtonSprite(CurrencyType currencyType)
     {
