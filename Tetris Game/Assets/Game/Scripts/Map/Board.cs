@@ -930,8 +930,14 @@ namespace Game
                 {
                     Place place = _places[i, j];
                     
-                    if (place.Current && place.Current.UsageType.Equals(Pawn.Usage.Ammo) && !place.Current.Mover && !place.Current.Busy && place.Current.Available)
+                    if (place.Current
+                        && place.Current.UsageType.Equals(Pawn.Usage.Ammo)
+                        && place.Current.Amount > 0
+                        && !place.Current.Mover
+                        && !place.Current.Busy
+                        && place.Current.Available)
                     {
+                        
                         place.Current.Amount -= 1;
 
                         
