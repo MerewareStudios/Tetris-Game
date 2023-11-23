@@ -27,7 +27,7 @@ public class GameNotification : MonoBehaviour
                 }
 
                 transform.DOKill();
-                transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetDelay(0.25f).SetUpdate(true)
+                transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetDelay(0.15f).SetUpdate(true)
                     .onComplete = () =>
                 {
                     gameObject.SetActive(false);
@@ -43,7 +43,7 @@ public class GameNotification : MonoBehaviour
                 transform.DOPunchScale(new Vector3(0.15f, 0.15f, 0.15f), 0.35f).OnStart(() =>
                 {
                     count.text = value.ToString();
-                }).SetUpdate(true).SetDelay(0.25f);
+                }).SetUpdate(true).SetDelay(0.15f);
                 return;
             }
             this.gameObject.SetActive(true);
@@ -52,6 +52,23 @@ public class GameNotification : MonoBehaviour
             transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetUpdate(true);
 
             count.text = value.ToString();
+        }
+    }
+    public int CountImmediate
+    {
+        set
+        {
+            if (_current == value)
+            {
+                return;
+            }
+
+            _current = value;
+            count.text = value.ToString();
+            
+            transform.DOKill();
+            transform.localScale = _current > 0 ? Vector3.one : Vector3.zero;
+            gameObject.SetActive(_current > 0);
         }
     }
 }

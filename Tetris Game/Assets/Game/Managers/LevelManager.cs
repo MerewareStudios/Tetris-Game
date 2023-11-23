@@ -28,8 +28,7 @@ public class LevelManager : Singleton<LevelManager>
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
 
-        UIManager.UpdateNotifications(true);
-        // DOVirtual.DelayedCall(UIManager.THIS.motionData_PiggyReward.MaxDuration, MenuNavigator.THIS.UpdateNotifications);
+        UIManager.UpdateNotifications();
        
 #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
         if (MaxSdk.IsUserConsentSet())

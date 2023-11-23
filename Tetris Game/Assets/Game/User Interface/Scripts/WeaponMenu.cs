@@ -145,9 +145,8 @@ namespace Game.UI
         public new void Show()
         {
             base.Show();
+            UIManager.UpdateNotifications();
             CustomShow();
-            
-            UIManager.UpdateNotifications(false);
         }
 
         public void CustomShow(float gunPunchAmount = 0.1f, bool glimmer = false)

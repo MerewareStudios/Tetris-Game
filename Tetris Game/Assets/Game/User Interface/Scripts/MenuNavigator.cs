@@ -48,29 +48,25 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         OpenLastMenu();
     }
 
-    // public int UpdateSubNotifications()
-    // {
-    //     int blockNotCount = BlockMenu.THIS.AvailablePurchaseCount(true);
-    //     int weaponNotCount = WeaponMenu.THIS.AvailablePurchaseCount(true);
-    //     int upgradeNotCount = UpgradeMenu.THIS.AvailablePurchaseCount(true);
-    //     
-    //     gameNotifications[(int)MenuType.Block].Count = blockNotCount;
-    //     gameNotifications[(int)MenuType.Weapon].Count = weaponNotCount;
-    //     gameNotifications[(int)MenuType.Upgrade].Count = upgradeNotCount;
-    //
-    //     return blockNotCount + weaponNotCount + upgradeNotCount;
-    // }
-    
-    public void UpdateNotifyMenu(MenuType menuType, bool updatePage = false)
+    public void UpdateNotifyMenus(bool visible)
     {
-        int menuIndex = (int)menuType;
-        gameNotifications[menuIndex].Count = _menus[menuIndex].AvailablePurchaseCount(updatePage);
+        int block = _menus[0].AvailablePurchaseCount(!visible);
+        int weapon = _menus[1].AvailablePurchaseCount(!visible);
+        int upgrade = _menus[2].AvailablePurchaseCount(!visible);
+        if (visible)
+        {
+            gameNotifications[0].Count = block;
+            gameNotifications[1].Count = weapon;
+            gameNotifications[2].Count = upgrade;
+        }
+        else
+        {
+            gameNotifications[0].CountImmediate = block;
+            gameNotifications[1].CountImmediate = weapon;
+            gameNotifications[2].CountImmediate = upgrade;
+        }
     }
-    // public void UpdateNotifyMenuAndTotal(MenuType menuType, bool updatePage = false)
-    // {
-    //     UpdateNotifyMenu(menuType, updatePage);
-    //     UpdateTotalNotify();
-    // }
+    
     public void UpdateTotalNotify()
     {
         int total = 0;
@@ -81,17 +77,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         gameNotificationShop.Count = total;
     }
     
-    // public void UpdateNotifications()
-    // {
-    //     int total = UpdateSubNotifications();
-    //     if (total == 0)
-    //     {
-    //         gameNotificationShop.Count = 0;
-    //         return;
-    //     }
-    //     gameNotificationShop.Count = total;
-    // }
-
     private void Activate()
     {
         tabs[(int)MenuType.Block].gameObject.SetActive(ONBOARDING.BLOCK_TAB.IsComplete());

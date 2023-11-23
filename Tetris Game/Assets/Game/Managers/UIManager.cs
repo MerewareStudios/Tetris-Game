@@ -380,16 +380,17 @@ public class UIManager : Singleton<UIManager>
       }
    }
 
-   // public static void OnTransaction()
-   // {
-   //    MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Upgrade);
-   //    MenuNavigator.THIS.UpdateTotalNotify();
-   // }
-   public static void UpdateNotifications(bool updatePage)
+   public static void UpdateNotifications()
    {
-      MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Block, updatePage);
-      MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Weapon, updatePage);
-      MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Upgrade, updatePage);
+      if (!UIManager.THIS.coinEmitter.Idle)
+      {
+         return;
+      }
+      if (!UIManager.THIS.piggyCoinEmitter.Idle)
+      {
+         return;
+      }
+      MenuNavigator.THIS.UpdateNotifyMenus(UIManager.CurrentMenu != null);
       MenuNavigator.THIS.UpdateTotalNotify();
    }
    
