@@ -13,33 +13,30 @@ namespace Game.UI
         [SerializeField] private RectTransform scrollPanel;
         [SerializeField] private TextMeshProUGUI maxStackText;
         [SerializeField] private TextMeshProUGUI capacityText;
-        [System.NonSerialized] private Data _data;
         [System.NonSerialized] private bool _oneTimeDataSet = false;
+        [System.NonSerialized] private int _promptIndex = -1;
 
-        public Data _Data
-        {
-            set => _data = value;
-            get => _data;
-        }
+        [field: System.NonSerialized] public Data SavedData { set; get; }
 
-        public int AvailablePurchaseCount
+        public int AvailablePurchaseCount(bool updatePage)
         {
-            get
+            int total = 0;
+            for (int i = 0; i < Const.THIS.purchaseDataLookUp.Length; i++)
             {
-                int total = 0;
-                for (int i = 0; i < Const.THIS.purchaseDataLookUp.Length; i++)
+                PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
+                bool hasFunds = Wallet.HasFunds(lookUp.currency);
+                if (hasFunds)
                 {
-                    PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
-                    bool hasFunds = Wallet.HasFunds(lookUp.currency);
-                    if (hasFunds)
+                    if (updatePage)
                     {
-                        total++;
+                        _promptIndex = i;
                     }
-                }
 
-                
-                return total;
+                    total++;
+                    // return 1;
+                }
             }
+            return total;
         }
 
         public new bool Open(float duration = 0.5f)
@@ -75,7 +72,7 @@ namespace Game.UI
                     continue;
                 }
                 
-                purchaseOption.gameObject.SetActive(!_Data.hiddenData[i]);
+                purchaseOption.gameObject.SetActive(!SavedData.hiddenData[i]);
 
                 if (!purchaseOption.gameObject.activeSelf)
                 {
@@ -95,6 +92,7 @@ namespace Game.UI
         {
             base.Show();
             SetOneTimeData();
+            
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
@@ -103,7 +101,7 @@ namespace Game.UI
                     continue;
                 }
 
-                purchaseOption.gameObject.SetActive(!_Data.hiddenData[i]);
+                purchaseOption.gameObject.SetActive(!SavedData.hiddenData[i]);
 
                 if (!purchaseOption.gameObject.activeSelf)
                 {
@@ -123,7 +121,7 @@ namespace Game.UI
                     case Const.CurrencyType.Coin:
                         purchaseText = "GET";
                         break;
-                    case Const.CurrencyType.PiggyCoin:
+                    case Const.CurrencyType.Gem:
                         purchaseText = "GET";
                         break;
                     case Const.CurrencyType.Ticket:
@@ -135,14 +133,20 @@ namespace Game.UI
                 }
                 
 
-                purchaseOption.SetPrice(lookUp.currency.type.IsLocal() ? lookUp.GetLocalPrice() : CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
-                
-                purchaseOption.Glimmer();
+                // purchaseOption.SetPrice(lookUp.currency.type.IsLocal() ? lookUp.GetLocalPrice() : CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
+                purchaseOption.SetPrice(CurrencyDisplay.GetCurrencyString(lookUp.currency), lookUp.currency.type, available);
                 purchaseOption.SetPurchaseText(purchaseText);
+                
+                if (available)
+                {
+                    purchaseOption.Glimmer();
+                }
             }
 
             maxStackText.text = Board.THIS.StackLimit.ToString();
-            capacityText.text = PiggyMenu.THIS._Data.moneyCapacity.ToString();
+            capacityText.text = PiggyMenu.THIS.SavedData.moneyCapacity.ToString();
+            
+            MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
         }
 
         public void OnClick_Purchase(int purchaseIndex)
@@ -183,7 +187,7 @@ namespace Game.UI
                     Board.THIS._Data.maxStack++;
                     break;
                 case PurchaseType.PIGGY_BANK:
-                    PiggyMenu.THIS._Data.moneyCapacity += 5;
+                    PiggyMenu.THIS.SavedData.moneyCapacity += 5;
                     break;
                 case PurchaseType.MEDKIT:
                     Warzone.THIS.Player._CurrentHealth += 20;
@@ -196,19 +200,20 @@ namespace Game.UI
             }
 
             int index = (int)purchaseType;
-            _Data.instanceData[index]++;
-            AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), _Data.instanceData[index]);
+            SavedData.instanceData[index]++;
+            AnalyticsManager.PurchasedUpgrade(purchaseType.ToString(), SavedData.instanceData[index]);
         }
 
-        // public void Prompt(PurchaseType purchaseType, float amount, float delay)
+        // public void Prompt(int index, float amount, float duration, float delay)
         // {
-        //     PurchaseOption purchaseOption = purchaseOptions[(int)purchaseType];
+        //     PurchaseOption purchaseOption = purchaseOptions[index];
         //     purchaseOption.PunchColor(Const.THIS.acceptedFrameColor, Const.THIS.defaultFrameColor);
-        //     purchaseOption.PunchScale(amount, delay);
-        //     this.WaitForFrame(() =>
-        //     {
-        //         SnapTo(purchaseOption.animationPivot);
-        //     });
+        //     purchaseOption.PunchScale(amount, duration, delay);
+        //     purchaseOption.Glimmer();
+        //     // this.WaitForFrame(() =>
+        //     // {
+        //     //     SnapTo(purchaseOption.animationPivot);
+        //     // });
         // }
         
         // public void SnapTo(RectTransform target)
@@ -255,10 +260,10 @@ namespace Game.UI
             [TextArea] [SerializeField] public string info;
             [TextArea] [SerializeField] public string extra;
 
-            public string GetLocalPrice()
-            {
-                return "";
-            }
+            // public string GetLocalPrice()
+            // {
+            //     return "";
+            // }
         }
     }
 }

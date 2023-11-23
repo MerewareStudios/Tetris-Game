@@ -34,7 +34,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private OfferScreen offerScreen;
    [Header("Bars")]
    [SerializeField] public Shop shop;
-   [FormerlySerializedAs("particleImageCoin")]
    [Header("UI Emitter")]
    [SerializeField] public UIEmitter coinEmitter;
    [SerializeField] public UIEmitter piggyCoinEmitter;
@@ -284,10 +283,6 @@ public class UIManager : Singleton<UIManager>
       if (Input.GetKeyDown(KeyCode.P))
       {
          PiggyMenu.THIS.Open();
-      } 
-      if (Input.GetKeyDown(KeyCode.O))
-      {
-         PiggyMenu.THIS.GiveRewards();
       }
       if (Input.GetKeyDown(KeyCode.R))
       {

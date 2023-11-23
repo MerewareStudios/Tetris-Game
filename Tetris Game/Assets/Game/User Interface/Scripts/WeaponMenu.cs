@@ -36,39 +36,92 @@ namespace Game.UI
         [SerializeField] private GameObject nextButton;
         [SerializeField] private GameObject previousButton;
 
-        [System.NonSerialized] private WeaponShopData _weaponShopData;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> GunDataChanged = null;
 
-        public WeaponShopData _Data
+        [field : System.NonSerialized] public WeaponShopData SavedData { set; get; }
+
+        public int AvailablePurchaseCount(bool updatePage)
         {
-            set => _weaponShopData = value;
-            get => this._weaponShopData;
-        }
-        
-        public int AvailablePurchaseCount
-        {
-            get
+            int total = 0;
+            for (int i = 0; i < Const.THIS.GunUpgradeData.Length; i++)
             {
-                int total = 0;
-                for (int i = 0; i < Const.THIS.GunUpgradeData.Length; i++)
+                Gun.UpgradeData lookUp = Const.THIS.GunUpgradeData[i];
+                
+                if (i == SavedData.equipIndex)
                 {
-                    Gun.UpgradeData lookUp = Const.THIS.GunUpgradeData[i];
-
-                    bool purchased = _Data.gunShopDatas[i].purchased;
-                    bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
-                    bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
-                    bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
-
-                    if (!purchased && (hasFunds || ticketType) && availableByLevel)
-                    {
-                        total++;
-                    }
+                    continue;
                 }
 
+                bool purchased = SavedData.gunShopDatas[i].purchased;
+                // bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                // bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
+                bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
+                bool newShown = SavedData.newShown[i];
+
+                // if (!purchased && (hasFunds || ticketType) && availableByLevel)
+                if (!purchased && availableByLevel && !newShown)
+                {
+                    if (updatePage)
+                    {
+                        SavedData.inspectIndex = i;
+                    }
+
+                    total++;
+                    // return 1;
+                }
                 
-                return total;
+                if (!purchased)
+                {
+                    break;
+                }
             }
+
+            // if(UpgradeAvailable(SavedData.equipIndex, Gun.StatType.Damage))
+            // {
+            //     if (updatePage)
+            //     {
+            //         SavedData.inspectIndex = SavedData.equipIndex;
+            //     }
+            //     total++;
+            //     // return 1;
+            // }
+            // if(UpgradeAvailable(SavedData.equipIndex, Gun.StatType.Firerate))
+            // {
+            //     if (updatePage)
+            //     {
+            //         SavedData.inspectIndex = SavedData.equipIndex;
+            //     }
+            //     total++;
+            //     // return 1;
+            // }
+            // if(UpgradeAvailable(SavedData.equipIndex, Gun.StatType.Splitshot))
+            // {
+            //     if (updatePage)
+            //     {
+            //         SavedData.inspectIndex = SavedData.equipIndex;
+            //     }
+            //     total++;
+            //     // return 1;
+            // }
+            
+            return total;
+        }
+
+        private bool UpgradeAvailable(int gunIndex, Gun.StatType statType)
+        {
+            int upgradeIndex = SavedData.GetUpgradeIndex(gunIndex, statType);
+            Gun.UpgradeData upgradeData = Const.THIS.GunUpgradeData[gunIndex];
+            if (!upgradeData.HasAvailableUpgrade(statType, upgradeIndex))
+            {
+                return false;
+            }
+            
+            Const.Currency currency = upgradeData.ReducedUpgradeCost(statType, upgradeIndex);
+            bool hasFunds = Wallet.HasFunds(currency);
+            bool ticketType = currency.type.Equals(Const.CurrencyType.Ticket);
+            
+            return hasFunds || ticketType;
         }
         
         public new bool Open(float duration = 0.5f)
@@ -93,20 +146,22 @@ namespace Game.UI
         {
             base.Show();
             CustomShow();
+            
+            MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Weapon);
         }
 
         public void CustomShow(float gunPunchAmount = 0.1f, bool glimmer = false)
         {
             Onboarding.HideFinger();
 
-            bool purchasedWeapon = _weaponShopData.Purchased;
-            bool equippedWeapon = _weaponShopData.Equipped;
+            bool purchasedWeapon = SavedData.Purchased;
+            bool equippedWeapon = SavedData.Equipped;
 
             stageBarParent.gameObject.SetActive(purchasedWeapon);
             purchaseParent.gameObject.SetActive(!purchasedWeapon);
             equipButton.gameObject.SetActive(purchasedWeapon && !equippedWeapon);
             
-            _gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.inspectIndex];
+            _gunUpgradeData = Const.THIS.GunUpgradeData[SavedData.inspectIndex];
             
             SetSprite(_gunUpgradeData.sprite, gunPunchAmount);
             if (glimmer)
@@ -117,7 +172,13 @@ namespace Game.UI
             bool availableByLevel = LevelManager.CurrentLevel >= _gunUpgradeData.unlockedAt;
 
 
-            newTextBanner.gameObject.SetActive(!purchasedWeapon);
+            bool newBannerVisible = !purchasedWeapon && !SavedData.newShown[SavedData.inspectIndex];
+            newTextBanner.gameObject.SetActive(newBannerVisible);
+            if (newBannerVisible)
+            {
+                SavedData.newShown[SavedData.inspectIndex] = true;
+            }
+            
             equippedTextBanner.gameObject.SetActive(!availableByLevel || equippedWeapon);
             
             equipText.text = equippedWeapon ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _gunUpgradeData.unlockedAt;
@@ -155,7 +216,7 @@ namespace Game.UI
                 }
             }
             
-            previousButton.SetActive(_weaponShopData.inspectIndex != 0 || _weaponShopData.gunShopDatas.Last().purchased);
+            previousButton.SetActive(SavedData.inspectIndex != 0 || SavedData.gunShopDatas.Last().purchased);
             nextButton.SetActive(purchasedWeapon);
             
             if (!purchasedWeapon)
@@ -171,7 +232,7 @@ namespace Game.UI
             
             if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
             {
-                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, _weaponShopData.CurrentIndex(Gun.StatType.Firerate)))
+                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, SavedData.CurrentIndex(Gun.StatType.Firerate)))
                 {
                     Onboarding.ClickOn(stageBarFireRate.clickTarget.position, Finger.Cam.UI, () =>
                     {
@@ -190,7 +251,7 @@ namespace Game.UI
 
         private void FillStageBar(Gun.StatType statType, StageBar stageBar)
         {
-            int currentIndex = _weaponShopData.CurrentIndex(statType);
+            int currentIndex = SavedData.CurrentIndex(statType);
 
             bool max = _gunUpgradeData.IsFull(statType, currentIndex);
             int defaultValue = _gunUpgradeData.DefaultValue(statType);
@@ -286,7 +347,7 @@ namespace Game.UI
             get
             {
 
-                Gun.UpgradeData gunUpgradeData = Const.THIS.GunUpgradeData[_weaponShopData.equipIndex];
+                Gun.UpgradeData gunUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
 
                 int damage = CurrentDamage(gunUpgradeData);
                 int rate = CurrentFireRate(gunUpgradeData);
@@ -300,21 +361,21 @@ namespace Game.UI
 
         private int CurrentDamage(Gun.UpgradeData gunUpgradeData)
         {
-            int currentIndexDamage = _weaponShopData.CurrentIndex(Gun.StatType.Damage);
+            int currentIndexDamage = SavedData.CurrentIndex(Gun.StatType.Damage);
             int damage = gunUpgradeData.UpgradedValue(Gun.StatType.Damage, currentIndexDamage);
             return damage;
         }
         
         private int CurrentFireRate(Gun.UpgradeData gunUpgradeData)
         {
-            int currentIndexFireRate = _weaponShopData.CurrentIndex(Gun.StatType.Firerate);
+            int currentIndexFireRate = SavedData.CurrentIndex(Gun.StatType.Firerate);
             int rate = gunUpgradeData.UpgradedValue(Gun.StatType.Firerate, currentIndexFireRate);
             return rate;
         }
 
         private int CurrentSplitShot(Gun.UpgradeData gunUpgradeData)
         {
-            int currentIndexSplitShot = _weaponShopData.CurrentIndex(Gun.StatType.Splitshot);
+            int currentIndexSplitShot = SavedData.CurrentIndex(Gun.StatType.Splitshot);
             int split = gunUpgradeData.UpgradedValue(Gun.StatType.Splitshot, currentIndexSplitShot);
             return split;
         }
@@ -323,13 +384,13 @@ namespace Game.UI
         {
             Gun.StatType type = (Gun.StatType)statType;
 
-            Const.Currency price = _gunUpgradeData.UpgradePrice(type, _weaponShopData.CurrentIndex(type));
+            Const.Currency cost = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(type));
 
-            if (Wallet.Consume(price))
+            if (Wallet.Consume(cost))
             {
-                _weaponShopData.Upgrade(type, 1);
+                SavedData.Upgrade(type, 1);
 
-                if (_weaponShopData.Equipped)
+                if (SavedData.Equipped)
                 {
                     GunDataChanged?.Invoke(EquippedGunData);
                 }
@@ -340,6 +401,11 @@ namespace Game.UI
                 }
                 
                 CustomShow(0.2f, true);
+                
+                if (cost.type.Equals(Const.CurrencyType.Gem))
+                {
+                    MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
+                }
 
                 CheckMax();
                 void CheckMax()
@@ -347,19 +413,19 @@ namespace Game.UI
                     for (int i = 0; i < 3; i++)
                     {
                         Gun.StatType stat = (Gun.StatType)i;
-                        int currentIndex = _weaponShopData.CurrentIndex(stat);
+                        int currentIndex = SavedData.CurrentIndex(stat);
                         bool max = _gunUpgradeData.IsFull(stat, currentIndex);
                         if (!max)
                         {
                             return;
                         }
                     }
-                    AnalyticsManager.WeaponMaxed(_weaponShopData.inspectIndex);
+                    AnalyticsManager.WeaponMaxed(SavedData.inspectIndex);
                 }
             } 
             else
             {
-                if (price.type.Equals(Const.CurrencyType.Ticket))
+                if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {
@@ -372,7 +438,7 @@ namespace Game.UI
         
         public void OnClick_PurchaseWeapon()
         {
-            if (_weaponShopData.Purchased)
+            if (SavedData.Purchased)
             {
                 return;
             }
@@ -391,11 +457,11 @@ namespace Game.UI
                     ONBOARDING.PURCHASE_WEAPON.SetComplete();
                 }
                 
-                _weaponShopData.Purchase();
+                SavedData.Purchase();
 
                 OnClick_Equip();
                 
-                AnalyticsManager.PurchasedWeaponCount(_weaponShopData.PurchasedCount() - 1);
+                AnalyticsManager.PurchasedWeaponCount(SavedData.PurchasedCount() - 1);
             }
             else
             {
@@ -412,26 +478,26 @@ namespace Game.UI
         
         public void OnClick_Equip()
         {
-            _weaponShopData.Equip();
+            SavedData.Equip();
             GunDataChanged?.Invoke(EquippedGunData);
             CustomShow(0.3f, true);
         }
         
         public void OnClick_ShowNext()
         {
-            _weaponShopData.inspectIndex++;
-            if (_weaponShopData.inspectIndex >= Const.THIS.GunUpgradeData.Length)
+            SavedData.inspectIndex++;
+            if (SavedData.inspectIndex >= Const.THIS.GunUpgradeData.Length)
             {
-                _weaponShopData.inspectIndex = 0;
+                SavedData.inspectIndex = 0;
             }
             Show();
         }
         public void OnClick_ShowPrevious()
         {
-            _weaponShopData.inspectIndex--;
-            if (_weaponShopData.inspectIndex < 0)
+            SavedData.inspectIndex--;
+            if (SavedData.inspectIndex < 0)
             {
-                _weaponShopData.inspectIndex = Const.THIS.GunUpgradeData.Length - 1;
+                SavedData.inspectIndex = Const.THIS.GunUpgradeData.Length - 1;
             }
             Show();
         }
@@ -442,6 +508,7 @@ namespace Game.UI
             [SerializeField] public int inspectIndex;
             [SerializeField] public int equipIndex;
             [SerializeField] public List<GunShopData> gunShopDatas = new();
+            [SerializeField] public List<bool> newShown;
 
             public WeaponShopData()
             {
@@ -452,15 +519,16 @@ namespace Game.UI
                 inspectIndex = weaponShopData.inspectIndex;
                 equipIndex = weaponShopData.equipIndex;
                 gunShopDatas.CopyFrom(weaponShopData.gunShopDatas);
+                newShown = new List<bool>(weaponShopData.newShown);
             }
             
             public int CurrentIndex(Gun.StatType statType)
             {
                 return gunShopDatas[inspectIndex].upgradeIndexes[(int)statType];
             }
-            public int GetUpgradeIndexOfEquippedGun(Gun.StatType statType)
+            public int GetUpgradeIndex(int gunIndex, Gun.StatType statType)
             {
-                return gunShopDatas[equipIndex].upgradeIndexes[(int)statType];
+                return gunShopDatas[gunIndex].upgradeIndexes[(int)statType];
             }
             public void Upgrade(Gun.StatType statType, int amount)
             {

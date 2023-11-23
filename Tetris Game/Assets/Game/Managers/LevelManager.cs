@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Game;
 using GameAnalyticsSDK;
 using Internal.Core;
@@ -26,8 +27,8 @@ public class LevelManager : Singleton<LevelManager>
 
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
-        
-        MenuNavigator.THIS.UpdateNotifications();
+
+        DOVirtual.DelayedCall(UIManager.THIS.motionData_PiggyReward.MaxDuration, MenuNavigator.THIS.UpdateNotifications);
        
 #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
         if (MaxSdk.IsUserConsentSet())
@@ -35,7 +36,6 @@ public class LevelManager : Singleton<LevelManager>
         {
             BeginLevel();
         }
-
 
         if (ONBOARDING.UPGRADE_TAB.IsComplete())
         {

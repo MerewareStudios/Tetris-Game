@@ -20,6 +20,8 @@ namespace Game.UI
         [System.NonSerialized] private Tween showTween;
         [System.NonSerialized] public bool Visible = false;
 
+        
+        
         public bool Open(float duration = 0.5f)
         {
             if (Visible)
@@ -73,6 +75,11 @@ namespace Game.UI
             return this.parentContainer;
         }
 
+        int IMenu.AvailablePurchaseCount(bool updatePage)
+        {
+            return 0;
+        }
+
         public void CloseImmediate()
         {
             if (!Visible)
@@ -90,7 +97,8 @@ namespace Game.UI
     {
         bool Open(float duration = 0.25f);
         bool Close(float duration = 0.5f, float delay = 0.0f);
-        public void Show();
+        void Show();
         RectTransform GetParentContainer();
+        int AvailablePurchaseCount(bool updatePage);
     }
 }

@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 20
     pupData:
       available: 1
       currentUsage: 4
@@ -645,14 +645,15 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 0
+      value: 175
     gemTransactionData:
-      value: 0
+      value: 15
     adTransactionData:
-      value: 0
+      value: 5
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
+      newShown: 00000000000000000000000000000000
     weaponShopData:
       inspectIndex: 0
       equipIndex: 0
@@ -677,6 +678,7 @@ MonoBehaviour:
         upgradeIndexes: 000000000000000000000000
       - purchased: 0
         upgradeIndexes: 000000000000000000000000
+      newShown: 01000000000000000000
     menuNavData:
       lastMenuType: 0
     piggyData:

@@ -58,9 +58,9 @@ public class SaveManager : SaveManagerBase<SaveManager>
         AdManager.THIS._Data = saveData.adData;
         
         Powerup.THIS._Data = saveData.userData.pupData;
-        BlockMenu.THIS._Data = saveData.userData.blockShopData;
-        WeaponMenu.THIS._Data = saveData.userData.weaponShopData;
-        PiggyMenu.THIS._Data = saveData.userData.piggyData;
+        BlockMenu.THIS.SavedData = saveData.userData.blockShopData;
+        WeaponMenu.THIS.SavedData = saveData.userData.weaponShopData;
+        PiggyMenu.THIS.SavedData = saveData.userData.piggyData;
         OfferScreen.THIS._Data = saveData.purchaseData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
@@ -74,7 +74,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.UPGRADE_TAB.IsComplete();
         
-        UpgradeMenu.THIS._Data = saveData.userData.upgradeMenuData;
+        UpgradeMenu.THIS.SavedData = saveData.userData.upgradeMenuData;
     }
 }
 public static class SaveManagerExtensions

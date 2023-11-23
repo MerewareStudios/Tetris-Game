@@ -48,17 +48,34 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         OpenLastMenu();
     }
 
-    public void UpdateNotifications()
+    public int UpdateSubNotifications()
     {
-        int blockNotCount = BlockMenu.THIS.AvailablePurchaseCount;
-        int weaponNotCount = WeaponMenu.THIS.AvailablePurchaseCount;
-        int upgradeNotCount = UpgradeMenu.THIS.AvailablePurchaseCount;
+        int blockNotCount = BlockMenu.THIS.AvailablePurchaseCount(true);
+        int weaponNotCount = WeaponMenu.THIS.AvailablePurchaseCount(true);
+        int upgradeNotCount = UpgradeMenu.THIS.AvailablePurchaseCount(true);
         
         gameNotifications[(int)MenuType.Block].Count = blockNotCount;
         gameNotifications[(int)MenuType.Weapon].Count = weaponNotCount;
         gameNotifications[(int)MenuType.Upgrade].Count = upgradeNotCount;
 
-        gameNotificationShop.Count = blockNotCount + weaponNotCount + upgradeNotCount;
+        return blockNotCount + weaponNotCount + upgradeNotCount;
+    }
+    
+    public void QuickUpdateSubNotifications(MenuType menuType)
+    {
+        int menuIndex = (int)menuType;
+        gameNotifications[menuIndex].Count = _menus[menuIndex].AvailablePurchaseCount(false);
+    }
+
+    public void UpdateNotifications()
+    {
+        int total = UpdateSubNotifications();
+        if (total == 0)
+        {
+            gameNotificationShop.Count = 0;
+            return;
+        }
+        gameNotificationShop.Count = total;
     }
 
     private void Activate()
@@ -107,7 +124,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         _menus[lastMenuIndex].Open(duration);
         tabs[lastMenuIndex].Show();
 
-        gameNotifications[lastMenuIndex].Close();
+        // gameNotifications[lastMenuIndex].Close();
     }
     
     public void OnTab_BlockMenu()

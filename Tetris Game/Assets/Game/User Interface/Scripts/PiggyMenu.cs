@@ -53,6 +53,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private Tween _shakeTween;
 
     [System.NonSerialized] public int TimeScale = 1;
+    
+    [field: System.NonSerialized] public Data SavedData { set; get; }
 
     void Update()
     {
@@ -102,10 +104,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         UIManager.MenuMode(true);
         Wallet.ScaleTransactors(1.1f, true);
-        _Data = _data;
+        SavedData = SavedData;
         
-        piggyCurrencyDisplay.Display(_Data.currentMoney, _Data.moneyCapacity);
-        _markedProgressPiggy._Progress = _Data.PiggyPercent;
+        piggyCurrencyDisplay.Display(SavedData.currentMoney, SavedData.moneyCapacity);
+        _markedProgressPiggy._Progress = SavedData.PiggyPercent;
 
         frame.DOKill();
         frame.localPosition = Vector3.down * 2000.0f;
@@ -114,7 +116,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         investButton.gameObject.SetActive(false);
         investButton.targetGraphic.raycastTarget = false;
 
-        if (!_Data.IsFull)
+        if (!SavedData.IsFull)
         {
             investButton.transform.DOKill();
             investButton.transform.localScale = Vector3.zero;
@@ -158,11 +160,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     };
         }
         
-        piggyCurrencyDisplay.gameObject.SetActive(!_Data.IsFull);
+        piggyCurrencyDisplay.gameObject.SetActive(!SavedData.IsFull);
         
-        _markedProgressPiggy.gameObject.SetActive(!_Data.IsFull);
-        rewardedPiggy.gameObject.SetActive(_Data.IsFull);
-        if (_Data.IsFull)
+        _markedProgressPiggy.gameObject.SetActive(!SavedData.IsFull);
+        rewardedPiggy.gameObject.SetActive(SavedData.IsFull);
+        if (SavedData.IsFull)
         {
             rewardedPiggy.localPosition = Vector3.zero;
             rewardedPiggy.localScale = Vector3.one * 1.5f;
@@ -170,7 +172,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
         }
 
-        breakButton.gameObject.SetActive(_Data.IsFull);
+        breakButton.gameObject.SetActive(SavedData.IsFull);
         
         multiplyButton.gameObject.SetActive(false);
         
@@ -245,8 +247,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     _shakeTween?.Play();
                 }, UIEmitter.Cam.UI);
 
-            _Data.doubleInstance++;
-            AnalyticsManager.PiggyBreakDouble(_Data.doubleInstance);
+            SavedData.doubleInstance++;
+            AnalyticsManager.PiggyBreakDouble(SavedData.doubleInstance);
         }
     }
 
@@ -263,7 +265,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         };
 
 
-        if (_Data.breakInstance >= 1)
+        if (SavedData.breakInstance >= 1)
         {
             ticketImage.enabled = true;
             multProgress.localScale = Vector3.one;
@@ -310,17 +312,18 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         _shakeTween.onComplete = () =>
         {
             rewardedPiggy.gameObject.SetActive(false);
-            base.CloseImmediate();
             TimeScale = 1;
             GameManager.UpdateTimeScale();
 
             GiveRewards();
-            _Data.breakInstance++;
-            _Data.currentMoney.amount = 0;
-            _Data.moneyCapacity += PiggyCapIncrease;
+            SavedData.breakInstance++;
+            SavedData.currentMoney.amount = 0;
+            SavedData.moneyCapacity += PiggyCapIncrease;
             
             _shakeTween?.Kill();
             _shakeTween = null;
+            
+            base.CloseImmediate();
         };
         
         if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
@@ -329,22 +332,21 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Onboarding.HideFinger();
         }
         
-        AnalyticsManager.PiggyBreak(_Data.breakInstance + 1);
+        AnalyticsManager.PiggyBreak(SavedData.breakInstance + 1);
     }
 
     public void GiveRewards()
     {
         UIManager.THIS.piggyPS.Play();
         
-        int coinReward = (int)(_Data.currentMoney.amount * 0.25f);
+        int coinReward = (int)(SavedData.currentMoney.amount * 0.25f);
         GiveMeta(coinReward, 20, UIManagerExtensions.EmitPiggyRewardCoin);
-        int capacity2Piggy = _data.moneyCapacity / PiggyCapDiv;
+        int capacity2Piggy = SavedData.moneyCapacity / PiggyCapDiv;
         int piggyReward = (int)Random.Range(capacity2Piggy * 0.75f, capacity2Piggy) + 1;
         GiveMeta(piggyReward, 20, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         
-        if (_Data.breakInstance % TicketRewardEveryBreak == 0)
-        // if (_Data.breakInstance == 0 || (_Data.breakInstance % 5 == 0 && Helper.IsPossible(0.5f)))
+        if (SavedData.breakInstance % TicketRewardEveryBreak == 0)
         {
             ticketReward += 1;
         }
@@ -374,7 +376,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void OnClick_InvestPiggyBank()
     {
         int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
-        amount = Mathf.Clamp(amount, 0, _Data.Remaining);
+        amount = Mathf.Clamp(amount, 0, SavedData.Remaining);
         if (amount == 0)
         {
             OnClick_ContinuePiggyBank();
@@ -414,24 +416,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         }
         this.Close();
         
-        _Data.skipInstance++;
-        AnalyticsManager.PiggyBreakSkipped(_Data.skipInstance);
+        SavedData.skipInstance++;
+        AnalyticsManager.PiggyBreakSkipped(SavedData.skipInstance);
     }
     #endregion
-    
-    [System.NonSerialized] private Data _data;
 
 
     #region Fields
-    public Data _Data
-    {
-        set
-        {
-            _data = value;
-            
-        }
-        get => _data;
-    }
+    
    
     #endregion
     #region Animations
@@ -445,16 +437,16 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     #region Invest
     private void AddMoney(int count, float delay = 0.0f)
     {
-        _Data.currentMoney.amount += count;
-        _Data.currentMoney.amount = Mathf.Clamp(_Data.currentMoney.amount, 0, _Data.moneyCapacity);
+        SavedData.currentMoney.amount += count;
+        SavedData.currentMoney.amount = Mathf.Clamp(SavedData.currentMoney.amount, 0, SavedData.moneyCapacity);
         
-        _markedProgressPiggy.ProgressAnimated(_data.PiggyPercent, 0.5f, delay, Ease.OutQuad, 
+        _markedProgressPiggy.ProgressAnimated(SavedData.PiggyPercent, 0.5f, delay, Ease.OutQuad, 
             
-            (value) => piggyCurrencyDisplay.Display(_Data.Percent2Money(value), _Data.moneyCapacity), 
+            (value) => piggyCurrencyDisplay.Display(SavedData.Percent2Money(value), SavedData.moneyCapacity), 
             
             () =>
             {
-                if (_Data.IsFull)
+                if (SavedData.IsFull)
                 {
                     DOVirtual.DelayedCall(0.2f, () =>
                     {

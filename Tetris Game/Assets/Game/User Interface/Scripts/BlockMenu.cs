@@ -25,38 +25,44 @@ namespace Game.UI
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private TextMeshProUGUI equipText;
-        [System.NonSerialized] private BlockShopData _blockShopData;
         [System.NonSerialized] private BlockData _selectedBlockData;
 
-        public BlockShopData _Data
+        [field: System.NonSerialized] public BlockShopData SavedData { set; get; }
+
+        public int AvailablePurchaseCount(bool updatePage)
         {
-            set => _blockShopData = value;
-            get => this._blockShopData;
-        }
-        
-        public int AvailablePurchaseCount
-        {
-            get
+            int total = 0;
+            bool firstIndexSet = false;
+            for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
             {
-                int total = 0;
-                for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
+                BlockData lookUp = Const.THIS.DefaultBlockData[i];
+
+                bool purchased = SavedData.unlockedBlocks.Contains(lookUp.blockType);
+                bool newShown = SavedData.newShown[i];
+                // bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                // bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
+                bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
+
+                // if (!purchased && (hasFunds || ticketType) && availableByLevel)
+                if (!purchased && availableByLevel && !newShown)
                 {
-                    BlockData lookUp = Const.THIS.DefaultBlockData[i];
-
-                    bool purchased = _Data.unlockedBlocks.Contains(lookUp.blockType);
-                    bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
-                    bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
-                    bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
-
-                    if (!purchased && (hasFunds || ticketType) && availableByLevel)
+                    if (updatePage && !firstIndexSet)
                     {
-                        total++;
+                        SavedData.lastIndex = i;
+                        firstIndexSet = true;
                     }
+
+                    total++;
                 }
 
-                
-                return total;
+                if (!availableByLevel)
+                {
+                    break;
+                }
             }
+
+            
+            return total;
         }
         
         public new bool Open(float duration = 0.5f)
@@ -81,14 +87,12 @@ namespace Game.UI
         {
             base.Show();
 
-            int showIndex = _blockShopData.lastIndex;
-            // string indexStr = showIndex + " / " + Const.THIS.DefaultBlockData.Length;
-            _selectedBlockData = Const.THIS.DefaultBlockData[showIndex];
+            _selectedBlockData = Const.THIS.DefaultBlockData[SavedData.lastIndex];
             
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
             bool availableByPrice = Wallet.HasFunds(_selectedBlockData.ReducedCost);
             bool availableByTicket = _selectedBlockData.ReducedCost.type.Equals(Const.CurrencyType.Ticket);
-            bool purchasedBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
+            bool purchasedBlock = SavedData.HaveBlock(_selectedBlockData.blockType);
 
             bool canPurchase = (availableByPrice || availableByTicket) && availableByLevel;
 
@@ -98,8 +102,13 @@ namespace Game.UI
             
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
-            
-            newTextBanner.gameObject.SetActive(!purchasedBlock && availableByLevel);
+
+            bool newBannerVisible = !purchasedBlock && availableByLevel && !SavedData.newShown[SavedData.lastIndex];
+            newTextBanner.gameObject.SetActive(newBannerVisible);
+            if (newBannerVisible)
+            {
+                SavedData.newShown[SavedData.lastIndex] = true;
+            }
 
             equippedTextBanner.gameObject.SetActive(!availableByLevel || purchasedBlock);
             equipText.text = purchasedBlock ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _selectedBlockData.unlockedAt;
@@ -129,23 +138,25 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
             }
+            
+            MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Block);
         }
 
         public void OnClick_ShowNext()
         {
-            _blockShopData.lastIndex++;
-            if (_blockShopData.lastIndex >= Const.THIS.DefaultBlockData.Length)
+            SavedData.lastIndex++;
+            if (SavedData.lastIndex >= Const.THIS.DefaultBlockData.Length)
             {
-                _blockShopData.lastIndex = 0;
+                SavedData.lastIndex = 0;
             }
             Show();
         }
         public void OnClick_ShowPrevious()
         {
-            _blockShopData.lastIndex--;
-            if (_blockShopData.lastIndex < 0)
+            SavedData.lastIndex--;
+            if (SavedData.lastIndex < 0)
             {
-                _blockShopData.lastIndex = Const.THIS.DefaultBlockData.Length - 1;
+                SavedData.lastIndex = Const.THIS.DefaultBlockData.Length - 1;
             }
             Show();
         }
@@ -196,7 +207,7 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
-            bool haveBlock = _blockShopData.HaveBlock(_selectedBlockData.blockType);
+            bool haveBlock = SavedData.HaveBlock(_selectedBlockData.blockType);
             if (haveBlock)
             {
                 return;
@@ -207,10 +218,11 @@ namespace Game.UI
                 PunchPurchasedText(0.25f);
                 return;
             }
-            
-            if (Wallet.Consume(_selectedBlockData.ReducedCost))
+
+            Const.Currency cost = _selectedBlockData.ReducedCost;
+            if (Wallet.Consume(cost))
             {
-                _blockShopData.AddUnlockedBlock(_selectedBlockData);
+                SavedData.AddUnlockedBlock(_selectedBlockData);
                 
                 Spawner.THIS.InterchangeBlock(_selectedBlockData.blockType, Pawn.Usage.UnpackedAmmo);
 
@@ -220,9 +232,15 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
                 Show();
+
+                if (cost.type.Equals(Const.CurrencyType.Gem))
+                {
+                    MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
+                }
+                
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
                 
-                AnalyticsManager.PurchasedBlockCount(_blockShopData.UnlockedCount - 5);
+                AnalyticsManager.PurchasedBlockCount(SavedData.UnlockedCount - 5);
             }
             else
             {
@@ -242,6 +260,7 @@ namespace Game.UI
         {
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
+            [SerializeField] public List<bool> newShown;
 
             public int UnlockedCount => unlockedBlocks.Count;
             
@@ -253,6 +272,7 @@ namespace Game.UI
             {
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
+                newShown = new List<bool>(blockShopData.newShown);
             }
             public Pool GetRandomBlock()
             {

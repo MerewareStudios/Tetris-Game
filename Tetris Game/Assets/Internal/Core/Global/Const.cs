@@ -119,7 +119,7 @@ public class Const : SSingleton<Const>
     public enum CurrencyType
     {
         Coin,
-        PiggyCoin,
+        Gem,
         Ticket,
         Local,
     }

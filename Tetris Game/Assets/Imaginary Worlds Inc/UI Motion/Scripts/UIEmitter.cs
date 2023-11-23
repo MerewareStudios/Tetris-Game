@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using IWI.Emitter.Enums;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-// using Space = IWI.Emitter.Enums.Space;
 using ValueType = IWI.Emitter.Enums.ValueType;
 
 namespace IWI.UI
@@ -27,7 +25,6 @@ namespace IWI.UI
         }
         private Canvas _canvas;
         private RectTransform _canvasRect;
-        // private readonly Queue<Image> _imageQueue = new();
         [SerializeField] public DebugSettings debugSettings;
         [SerializeField] public ImageSettings imageSettings;
         [SerializeField] public ValueSettings valueSettings;
@@ -51,7 +48,6 @@ namespace IWI.UI
         {
             _canvas = GetComponent<Canvas>();
             _canvasRect = _canvas.GetComponent<RectTransform>();
-            // SetupPool();
 
             _timeOffset = Random.Range(0.0f, 100.0f);
 
@@ -66,44 +62,11 @@ namespace IWI.UI
             }
         }
 
-        // private void SetupPool()
-        // {
-        //     if (_imageQueue.Count > 0)
-        //     {
-        //         return;
-        //     }
-        //     for (int i = 0; i < imageSettings.maxImageCount; i++)
-        //     {
-        //         GameObject imagePrefab = new GameObject();
-        //         imagePrefab.layer = this.gameObject.layer;
-        //         imagePrefab.SetActive(false);
-        //         #if UNITY_EDITOR
-        //         imagePrefab.name = "Image";
-        //         imagePrefab.hideFlags = debugSettings.hideImagesInHierarchy ? HideFlags.HideInHierarchy : HideFlags.None;
-        //         #endif
-        //         RectTransform rectTransform = imagePrefab.AddComponent<RectTransform>();
-        //         rectTransform.SetParent(this.transform);
-        //         rectTransform.localScale = Vector3.one;
-        //         rectTransform.localPosition = Vector3.zero;
-        //         rectTransform.localEulerAngles = Vector3.zero;
-        //         Image image = imagePrefab.AddComponent<Image>();
-        //         
-        //         image.sprite = imageSettings.sprite;
-        //         image.raycastTarget = imageSettings.raycastTarget;
-        //         image.maskable = imageSettings.maskable;
-        //         
-        //         _imageQueue.Enqueue(image);
-        //     }
-        // }
 
         public Image SpawnImage()
         {
             Image image = SpawnFunction?.Invoke();
             
-            
-            // imagePrefab.name = "Image";
-            // imagePrefab.hideFlags = debugSettings.hideImagesInHierarchy ? HideFlags.HideInHierarchy : HideFlags.None;
-            // #endif
             RectTransform rectTransform = image.rectTransform;
             rectTransform.SetParent(_thisTransform);
             rectTransform.localScale = Vector3.one;
@@ -111,7 +74,6 @@ namespace IWI.UI
             rectTransform.localEulerAngles = Vector3.zero;
             
             rectTransform.gameObject.layer = this.gameObject.layer;
-            // Image image = imagePrefab.AddComponent<Image>();
             
             image.sprite = imageSettings.sprite;
             image.raycastTarget = imageSettings.raycastTarget;
@@ -120,16 +82,6 @@ namespace IWI.UI
 
             _aliveCount++;
             
-            // _imageQueue.Enqueue(image);
-            
-            
-            // if (_imageQueue.Count == 0)
-            // {
-            //     return null;
-            // }
-            // Image image = _imageQueue.Dequeue();
-            // image.gameObject.SetActive(true);
-
             return image;
         }
         public void DespawnImage(Image image)
@@ -137,8 +89,6 @@ namespace IWI.UI
             DespawnFunction?.Invoke(image);
             
             _aliveCount--;
-            // _imageQueue.Enqueue(image);
-            // image.gameObject.SetActive(false);
         }
 
         #region Play Functions
@@ -276,17 +226,7 @@ namespace IWI.UI
         #endregion
 
         private float Now => _timeOffset + Time.time;
-        // private bool Idle => _imageQueue.Count == imageSettings.maxImageCount;
         public bool Idle => _aliveCount == 0;
-        // private int AliveCount => _aliveCount;
-
-        // void OnDestroy()
-        // {
-        //     while (_imageQueue.Count > 0)
-        //     {
-        //         DestroyImmediate(_imageQueue.Dequeue().gameObject);
-        //     }
-        // }
     }
 
     [Serializable]
@@ -402,30 +342,30 @@ namespace IWI.Emitter.Enums
     }
 }
 
-#if UNITY_EDITOR
-namespace IWI.Editor
-{
-    using UnityEditor;
-    using IWI.UI;
-
-    [CustomEditor(typeof(UIEmitter))]
-    [CanEditMultipleObjects]
-    public class UIMotionEditor : Editor
-    {
-        private UIEmitter _uiEmitter;
-            
-        private void OnEnable()
-        {
-            _uiEmitter = target as UIEmitter;
-        }
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
-            if (GUILayout.Button(new GUIContent("Play", "Play the system")))
-            {
-                _uiEmitter.Play();
-            }
-        }
-    }
-}
-#endif
+// #if UNITY_EDITOR
+// namespace IWI.Editor
+// {
+//     using UnityEditor;
+//     using IWI.UI;
+//
+//     [CustomEditor(typeof(UIEmitter))]
+//     [CanEditMultipleObjects]
+//     public class UIMotionEditor : Editor
+//     {
+//         private UIEmitter _uiEmitter;
+//             
+//         private void OnEnable()
+//         {
+//             _uiEmitter = target as UIEmitter;
+//         }
+//         public override void OnInspectorGUI()
+//         {
+//             DrawDefaultInspector();
+//             if (GUILayout.Button(new GUIContent("Play", "Play the system")))
+//             {
+//                 _uiEmitter.Play();
+//             }
+//         }
+//     }
+// }
+// #endif
