@@ -380,16 +380,25 @@ public class UIManager : Singleton<UIManager>
       }
    }
 
+   public static void OnGemTransaction()
+   {
+      MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
+   }
+   
    public static void ForceUpdateAvailableMenu()
    {
       if (UIManager.THIS.HoveringMeta)
       {
          return;
       }
-      if (UIManager.CurrentMenu != null)
+      if (UIManager.CurrentMenu == null)
       {
-         UIManager.CurrentMenu.Show();
+         MenuNavigator.THIS.UpdateShopNotification();
+         return;
       }
+      UIManager.CurrentMenu.Show();
+      
+      MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
    }
 
    public static void MenuMode(bool value)

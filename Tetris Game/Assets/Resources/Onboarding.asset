@@ -56,7 +56,7 @@ MonoBehaviour:
   - <sprite name=Warning>Upgrade or purchase weapons at the shop!
   - <sprite name=Warning>Don't forget to upgrade your Max Stack at the shop!
   - <sprite name=Warning>Remember to buy fresh blocks from the shop!
-  - <sprite name=Warning>Increase your Piggy Bank capacity to earn more<sprite name=PiggyCoin>
+  - <sprite name=Warning>Increase your Piggy Bank capacity to earn more<sprite name=Gem>
   - <sprite name=Warning>Use<sprite name=Ticket> to skip ads.
   - <sprite name=Warning>There is 10% chance Piggy Bank drops<sprite name=Ticket>
   - <sprite name=Warning>Merged ammo <sprite name=Box> is limited by your Max Stack!
@@ -66,7 +66,7 @@ MonoBehaviour:
     to the new levels!
   - <sprite name=Warning>Unlocked powerups <sprite name=Magnet> will carry over to
     the new levels!
-  - <sprite name=Warning>Breaking open the Piggy Bank rewards you with <sprite name=PiggyCoin>
+  - <sprite name=Warning>Breaking open the Piggy Bank rewards you with <sprite name=Gem>
   - <sprite name=Warning>Activate banner ads to unlock privileges!
   - <sprite name=Warning>Don't forget to take breaks from the gameplay.
   - <sprite name=Warning>Think ahead and strategize your moves.

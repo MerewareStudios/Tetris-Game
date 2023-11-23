@@ -647,7 +647,7 @@ MonoBehaviour:
     coinTransactionData:
       value: 175
     gemTransactionData:
-      value: 15
+      value: 0
     adTransactionData:
       value: 5
     blockShopData:
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   - purchaseType: 0
     currency:
       type: 1
-      amount: 10
+      amount: 15
     sprite: {fileID: 21300000, guid: bea6a6482ff6f124cbb37ea7ca4a6069, type: 3}
     title: <bounce a=0.05 f=1>STACK LIMIT
     info: '+1<sprite name=Ammo>
@@ -1052,13 +1052,13 @@ MonoBehaviour:
   - purchaseType: 1
     currency:
       type: 1
-      amount: 5
+      amount: 10
     sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
     title: <bounce a=0.05 f=1>PIGGY BANK
     info: '<color=#FF72BC><size=115%>Capacity
 
       <size=180%>+5'
-    extra: <sprite name=Check> Higher capacity rewards more <sprite name=PiggyCoin>
+    extra: <sprite name=Check> Higher capacity rewards more <sprite name=Gem>
   - purchaseType: 2
     currency:
       type: 1

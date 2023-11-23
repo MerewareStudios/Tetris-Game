@@ -25,9 +25,19 @@ public class GameNotification : MonoBehaviour
             }
         }
     }
+    public int CountImmediate
+    {
+        set
+        {
+            count.text = value.ToString();
+            transform.DOKill();
+            transform.localScale = value > 0 ? Vector3.one : Vector3.zero;
+        }
+    }
     public void Close()
     {
         transform.DOKill();
-        transform.DOScale(Vector3.zero, 0.25f).SetDelay(0.3f).SetEase(Ease.InBack).SetUpdate(true);
+        transform.localScale = Vector3.zero;
+        // transform.DOScale(Vector3.zero, 0.25f).SetDelay(0.3f).SetEase(Ease.InBack).SetUpdate(true);
     }
 }

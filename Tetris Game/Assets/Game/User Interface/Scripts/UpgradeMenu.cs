@@ -20,7 +20,7 @@ namespace Game.UI
 
         public int AvailablePurchaseCount(bool updatePage)
         {
-            int total = 0;
+            base.TotalNotify = 0;
             for (int i = 0; i < Const.THIS.purchaseDataLookUp.Length; i++)
             {
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
@@ -32,11 +32,11 @@ namespace Game.UI
                         _promptIndex = i;
                     }
 
-                    total++;
+                    base.TotalNotify++;
                     // return 1;
                 }
             }
-            return total;
+            return base.TotalNotify;
         }
 
         public new bool Open(float duration = 0.5f)

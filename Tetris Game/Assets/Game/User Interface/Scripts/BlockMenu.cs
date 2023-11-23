@@ -31,7 +31,7 @@ namespace Game.UI
 
         public int AvailablePurchaseCount(bool updatePage)
         {
-            int total = 0;
+            base.TotalNotify = 0;
             bool firstIndexSet = false;
             for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
             {
@@ -52,7 +52,7 @@ namespace Game.UI
                         firstIndexSet = true;
                     }
 
-                    total++;
+                    base.TotalNotify++;
                 }
 
                 if (!availableByLevel)
@@ -62,7 +62,7 @@ namespace Game.UI
             }
 
             
-            return total;
+            return base.TotalNotify;
         }
         
         public new bool Open(float duration = 0.5f)

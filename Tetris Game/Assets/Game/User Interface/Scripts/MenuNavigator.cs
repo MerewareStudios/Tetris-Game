@@ -11,8 +11,8 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [System.NonSerialized] private Data _data;
     [System.NonSerialized] public int TimeScale = 1;
     [Header("Game Notifications")]
-    [SerializeField] public GameNotification gameNotificationShop;
-    [SerializeField] public GameNotification[] gameNotifications;
+    [SerializeField] private GameNotification gameNotificationShop;
+    [SerializeField] private GameNotification[] gameNotifications;
 
     public bool CostRedStamp
     {
@@ -48,18 +48,18 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         OpenLastMenu();
     }
 
-    public int UpdateSubNotifications()
-    {
-        int blockNotCount = BlockMenu.THIS.AvailablePurchaseCount(true);
-        int weaponNotCount = WeaponMenu.THIS.AvailablePurchaseCount(true);
-        int upgradeNotCount = UpgradeMenu.THIS.AvailablePurchaseCount(true);
-        
-        gameNotifications[(int)MenuType.Block].Count = blockNotCount;
-        gameNotifications[(int)MenuType.Weapon].Count = weaponNotCount;
-        gameNotifications[(int)MenuType.Upgrade].Count = upgradeNotCount;
-
-        return blockNotCount + weaponNotCount + upgradeNotCount;
-    }
+    // public int UpdateSubNotifications()
+    // {
+    //     int blockNotCount = BlockMenu.THIS.AvailablePurchaseCount(true);
+    //     int weaponNotCount = WeaponMenu.THIS.AvailablePurchaseCount(true);
+    //     int upgradeNotCount = UpgradeMenu.THIS.AvailablePurchaseCount(true);
+    //     
+    //     gameNotifications[(int)MenuType.Block].Count = blockNotCount;
+    //     gameNotifications[(int)MenuType.Weapon].Count = weaponNotCount;
+    //     gameNotifications[(int)MenuType.Upgrade].Count = upgradeNotCount;
+    //
+    //     return blockNotCount + weaponNotCount + upgradeNotCount;
+    // }
     
     public void QuickUpdateSubNotifications(MenuType menuType)
     {
@@ -67,16 +67,26 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         gameNotifications[menuIndex].Count = _menus[menuIndex].AvailablePurchaseCount(false);
     }
 
-    public void UpdateNotifications()
+    public void UpdateShopNotification()
     {
-        int total = UpdateSubNotifications();
-        if (total == 0)
+        int total = 0;
+        foreach (var menu in _menus)
         {
-            gameNotificationShop.Count = 0;
-            return;
+            total += menu.TotalNotify;
         }
         gameNotificationShop.Count = total;
     }
+    
+    // public void UpdateNotifications()
+    // {
+    //     int total = UpdateSubNotifications();
+    //     if (total == 0)
+    //     {
+    //         gameNotificationShop.Count = 0;
+    //         return;
+    //     }
+    //     gameNotificationShop.Count = total;
+    // }
 
     private void Activate()
     {

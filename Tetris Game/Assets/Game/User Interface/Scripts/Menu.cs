@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -17,8 +16,9 @@ namespace Game.UI
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private bool updateOnMoneyChange = true;
-        [System.NonSerialized] private Tween showTween;
+        [System.NonSerialized] private Tween _showTween;
         [System.NonSerialized] public bool Visible = false;
+        [field: System.NonSerialized] public int TotalNotify { get; set; }
 
         
         
@@ -32,8 +32,8 @@ namespace Game.UI
             Visible = true;
             canvas.enabled = true;
             canvasGroup.alpha = 0.0f;
-            showTween?.Kill();
-            showTween = canvasGroup.DOFade(1.0f, duration).SetEase(Ease.InOutSine).SetUpdate(true);
+            _showTween?.Kill();
+            _showTween = canvasGroup.DOFade(1.0f, duration).SetEase(Ease.InOutSine).SetUpdate(true);
 
             if (updateOnMoneyChange)
             {
@@ -52,9 +52,9 @@ namespace Game.UI
             Visible = false;
             
             // _blocker.raycastTarget = true;
-            showTween?.Kill();
-            showTween = canvasGroup.DOFade(0.0f, duration).SetEase(Ease.InOutSine).SetDelay(delay).SetUpdate(true);
-            showTween.onComplete = () =>
+            _showTween?.Kill();
+            _showTween = canvasGroup.DOFade(0.0f, duration).SetEase(Ease.InOutSine).SetDelay(delay).SetUpdate(true);
+            _showTween.onComplete = () =>
             {
                 canvas.enabled = false;
                 this.gameObject.SetActive(false);
@@ -80,6 +80,7 @@ namespace Game.UI
             return 0;
         }
 
+
         public void CloseImmediate()
         {
             if (!Visible)
@@ -100,5 +101,6 @@ namespace Game.UI
         void Show();
         RectTransform GetParentContainer();
         int AvailablePurchaseCount(bool updatePage);
+        int TotalNotify { get; set; }
     }
 }

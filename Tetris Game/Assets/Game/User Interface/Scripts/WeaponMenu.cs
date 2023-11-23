@@ -43,7 +43,7 @@ namespace Game.UI
 
         public int AvailablePurchaseCount(bool updatePage)
         {
-            int total = 0;
+            base.TotalNotify = 0;
             for (int i = 0; i < Const.THIS.GunUpgradeData.Length; i++)
             {
                 Gun.UpgradeData lookUp = Const.THIS.GunUpgradeData[i];
@@ -67,7 +67,7 @@ namespace Game.UI
                         SavedData.inspectIndex = i;
                     }
 
-                    total++;
+                    base.TotalNotify++;
                     // return 1;
                 }
                 
@@ -105,7 +105,7 @@ namespace Game.UI
             //     // return 1;
             // }
             
-            return total;
+            return base.TotalNotify;
         }
 
         private bool UpgradeAvailable(int gunIndex, Gun.StatType statType)

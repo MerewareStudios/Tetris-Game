@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 {
@@ -10,6 +11,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     [SerializeField] private RectTransform scalePivot;
     [SerializeField] private Vector3 defaultAnchor;
     [SerializeField] private Vector3 scaledAnchor;
+    [SerializeField] private UnityEvent onConsume;
     [System.NonSerialized] private float _targetScale = 1.0f;
 
     public override void Set(ref User.TransactionData<int> transactionData)
@@ -39,6 +41,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     {
         if (amount < 0 && Amount < amount.Abs())
         {
+            onConsume?.Invoke();
             Punch(-0.15f);
             return false;
         }
