@@ -54,7 +54,7 @@ public static class Wallet
         }
         CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
-        return !currencyTransactor || currencyTransactor.Transaction(currency.amount);
+        return !currencyTransactor || currencyTransactor.Add(currency.amount);
     }
     public static bool Consume(Const.Currency currency)
     {
@@ -64,7 +64,7 @@ public static class Wallet
         }
         CurrencyTransactor currencyTransactor = Wallet.CurrencyTransactors[(int)currency.type];
 
-        return !currencyTransactor || currencyTransactor.Transaction(-currency.amount);
+        return !currencyTransactor || currencyTransactor.Consume(currency.amount);
     }
     
     public static void ScaleTransactors(float scale, bool distance = false)

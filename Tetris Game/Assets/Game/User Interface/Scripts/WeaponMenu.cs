@@ -54,13 +54,13 @@ namespace Game.UI
                 }
 
                 bool purchased = SavedData.gunShopDatas[i].purchased;
-                // bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
-                // bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
+                bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
                 bool newShown = SavedData.newShown[i];
 
-                // if (!purchased && (hasFunds || ticketType) && availableByLevel)
-                if (!purchased && availableByLevel && !newShown)
+                if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
+                // if (!purchased && availableByLevel && !newShown)
                 {
                     if (updatePage)
                     {
@@ -147,7 +147,7 @@ namespace Game.UI
             base.Show();
             CustomShow();
             
-            MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Weapon);
+            UIManager.UpdateNotifications(false);
         }
 
         public void CustomShow(float gunPunchAmount = 0.1f, bool glimmer = false)
@@ -168,11 +168,17 @@ namespace Game.UI
             {
                 frame.Glimmer(AnimConst.THIS.glimmerSpeedWeapon);
             }
+
+            Const.Currency cost = _gunUpgradeData.ReducedCost;
             
+            bool hasFunds = Wallet.HasFunds(cost);
+            bool ticketType = cost.type.Equals(Const.CurrencyType.Ticket);
             bool availableByLevel = LevelManager.CurrentLevel >= _gunUpgradeData.unlockedAt;
+            
+            bool canPurchase = (hasFunds || ticketType) && availableByLevel;
 
 
-            bool newBannerVisible = !purchasedWeapon && !SavedData.newShown[SavedData.inspectIndex];
+            bool newBannerVisible = !purchasedWeapon && canPurchase && !SavedData.newShown[SavedData.inspectIndex];
             newTextBanner.gameObject.SetActive(newBannerVisible);
             if (newBannerVisible)
             {
@@ -221,7 +227,7 @@ namespace Game.UI
             
             if (!purchasedWeapon)
             {
-                SetPrice(_gunUpgradeData.ReducedCost, availableByLevel);
+                SetPrice(_gunUpgradeData.ReducedCost, canPurchase);
                 return;
             }
             
@@ -295,22 +301,18 @@ namespace Game.UI
             gunStatText.text = stringBuilder.ToString();
         }
         
-        private bool SetPrice(Const.Currency currency, bool availableByLevel)
+        private void SetPrice(Const.Currency currency, bool canPurchase)
         {
-            bool hasFunds = Wallet.HasFunds(currency);
-
-            bool ticketType = currency.type.Equals(Const.CurrencyType.Ticket);
-            purchaseButton.Available = (hasFunds || ticketType) && availableByLevel;
+            purchaseButton.Available = canPurchase;
             purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
 
-            if (hasFunds)
+            if (canPurchase)
             {   
                 PunchButton(0.2f);
             }
             
             currencyDisplay.Display(currency);
             PunchMoney(0.2f);
-            return hasFunds;
         }
         
         private void SetSprite(Sprite sprite, float punchAmount)
@@ -402,11 +404,6 @@ namespace Game.UI
                 
                 CustomShow(0.2f, true);
                 
-                if (cost.type.Equals(Const.CurrencyType.Gem))
-                {
-                    MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
-                }
-
                 CheckMax();
                 void CheckMax()
                 {

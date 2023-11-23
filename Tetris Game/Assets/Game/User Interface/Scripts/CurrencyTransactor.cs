@@ -37,16 +37,23 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     
     public Const.Currency Currency => new Const.Currency(currencyType, base.TransactionData.value);
 
-    public bool Transaction(int amount)
+    public bool Add(int amount)
     {
-        if (amount < 0 && Amount < amount.Abs())
+        Punch(0.15f * Mathf.Sign(amount));
+        Amount += amount;
+        return true;
+    }
+    
+    public bool Consume(int amount)
+    {
+        if (Amount < amount.Abs())
         {
-            onConsume?.Invoke();
             Punch(-0.15f);
             return false;
         }
         Punch(0.15f * Mathf.Sign(amount));
-        Amount += amount;
+        Amount -= amount;
+        onConsume?.Invoke();
         return true;
     }
 

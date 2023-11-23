@@ -327,10 +327,10 @@ public class UIManager : Singleton<UIManager>
                });
          }
       }
-      if (Input.GetKeyDown(KeyCode.T))
-      {
-         Wallet.TICKET.Transaction(1);
-      }
+      // if (Input.GetKeyDown(KeyCode.T))
+      // {
+      //    Wallet.TICKET.Transaction(1);
+      // }
       if (Input.GetKeyDown(KeyCode.H))
       {
          UIManagerExtensions.HeartToPlayer(Vector3.zero,  1, 1);
@@ -380,9 +380,17 @@ public class UIManager : Singleton<UIManager>
       }
    }
 
-   public static void OnGemTransaction()
+   // public static void OnTransaction()
+   // {
+   //    MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Upgrade);
+   //    MenuNavigator.THIS.UpdateTotalNotify();
+   // }
+   public static void UpdateNotifications(bool updatePage)
    {
-      MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
+      MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Block, updatePage);
+      MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Weapon, updatePage);
+      MenuNavigator.THIS.UpdateNotifyMenu(MenuType.Upgrade, updatePage);
+      MenuNavigator.THIS.UpdateTotalNotify();
    }
    
    public static void ForceUpdateAvailableMenu()
@@ -393,12 +401,9 @@ public class UIManager : Singleton<UIManager>
       }
       if (UIManager.CurrentMenu == null)
       {
-         MenuNavigator.THIS.UpdateShopNotification();
          return;
       }
       UIManager.CurrentMenu.Show();
-      
-      MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
    }
 
    public static void MenuMode(bool value)

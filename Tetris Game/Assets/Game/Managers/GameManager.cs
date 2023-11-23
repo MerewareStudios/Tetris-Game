@@ -221,15 +221,15 @@ public class GameManager : Singleton<GameManager>
     
     public static void AddCoin(int value)
     {
-       Wallet.COIN.Transaction(value);
+       Wallet.COIN.Add(value);
     }
     public static void AddPiggyCoin(int value)
     {
-        Wallet.PIGGY.Transaction(value);
+        Wallet.PIGGY.Add(value);
     }
     public static void AddTicket(int value)
     {
-        Wallet.TICKET.Transaction(value);
+        Wallet.TICKET.Add(value);
     }
     public static void AddHeart(int value)
     {

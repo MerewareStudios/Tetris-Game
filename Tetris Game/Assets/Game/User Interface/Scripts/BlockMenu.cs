@@ -39,12 +39,12 @@ namespace Game.UI
 
                 bool purchased = SavedData.unlockedBlocks.Contains(lookUp.blockType);
                 bool newShown = SavedData.newShown[i];
-                // bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
-                // bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
+                bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
 
-                // if (!purchased && (hasFunds || ticketType) && availableByLevel)
-                if (!purchased && availableByLevel && !newShown)
+                if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
+                // if (!purchased && availableByLevel && !newShown)
                 {
                     if (updatePage && !firstIndexSet)
                     {
@@ -103,7 +103,7 @@ namespace Game.UI
             
             frame.color = purchasedBlock ? upgradeColor : purchaseColor;
 
-            bool newBannerVisible = !purchasedBlock && availableByLevel && !SavedData.newShown[SavedData.lastIndex];
+            bool newBannerVisible = !purchasedBlock && canPurchase && !SavedData.newShown[SavedData.lastIndex];
             newTextBanner.gameObject.SetActive(newBannerVisible);
             if (newBannerVisible)
             {
@@ -139,7 +139,7 @@ namespace Game.UI
                 }
             }
             
-            MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Block);
+            UIManager.UpdateNotifications(false);
         }
 
         public void OnClick_ShowNext()
@@ -233,11 +233,6 @@ namespace Game.UI
                 }
                 Show();
 
-                if (cost.type.Equals(Const.CurrencyType.Gem))
-                {
-                    MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
-                }
-                
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
                 
                 AnalyticsManager.PurchasedBlockCount(SavedData.UnlockedCount - 5);

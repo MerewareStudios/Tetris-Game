@@ -145,8 +145,6 @@ namespace Game.UI
 
             maxStackText.text = Board.THIS.StackLimit.ToString();
             capacityText.text = PiggyMenu.THIS.SavedData.moneyCapacity.ToString();
-            
-            MenuNavigator.THIS.QuickUpdateSubNotifications(MenuType.Upgrade);
         }
 
         public void OnClick_Purchase(int purchaseIndex)

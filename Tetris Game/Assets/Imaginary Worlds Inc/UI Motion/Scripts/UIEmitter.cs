@@ -54,15 +54,6 @@ namespace IWI.UI
             _thisTransform = this.transform;
         }
 
-        void Start()
-        {
-            if (motionData.generalSettings.playAtStart)
-            {
-                Play();
-            }
-        }
-
-
         public Image SpawnImage()
         {
             Image image = SpawnFunction?.Invoke();
@@ -92,12 +83,6 @@ namespace IWI.UI
         }
 
         #region Play Functions
-
-        public void Play()
-        {
-            int emitCount = (int)motionData.generalSettings.startCount.Evaluate(Now, Random.value);
-            Emit(emitCount, valueSettings, targetSettingsStart, targetSettingsEnd, null, callbackSettings.OnArrive.Invoke, callbackSettings.OnAllArrive.Invoke);
-        }
         public void Emit(int emitCount, ValueSettings value, TargetSettings? start, TargetSettings? end, MotionData motionDataSO = null, System.Action<int> OnArriveAction = null, System.Action OnAllArriveAction = null)
         {
             MotionData md = motionDataSO ? motionDataSO : this.motionData;
@@ -108,7 +93,7 @@ namespace IWI.UI
             Vector3 endPosition = GetLocal(end ?? this.targetSettingsEnd);
 
             OnArriveAction ??= callbackSettings.OnArrive.Invoke;
-            OnAllArriveAction ??= callbackSettings.OnAllArrive.Invoke;
+            // OnAllArriveAction ??= callbackSettings.OnAllArrive.Invoke;
 
             int valuePerInstance;
             int excess;
@@ -127,8 +112,6 @@ namespace IWI.UI
                     throw new ArgumentOutOfRangeException();
             }
 
-            int arrivedCount = 0;
-            
             for (int i = 0; i < emitCount; i++)
             {
                 int index = i;
@@ -185,15 +168,9 @@ namespace IWI.UI
                     DespawnImage(image);
                     OnArriveAction?.Invoke(valuePerInstance + ((index + 1 == emitCount) ? excess : 0));
 
-                    arrivedCount++;
-                    
-                    if (arrivedCount == emitCount)
-                    {
-                        OnAllArriveAction?.Invoke();
-                    }
-
                     if (Idle)
                     {
+                        OnAllArriveAction?.Invoke();
                         callbackSettings.OnComplete?.Invoke();
                     }
                 };
@@ -254,7 +231,6 @@ namespace IWI.UI
     [Serializable]
     public class GeneralSettings
     {
-        [SerializeField] public bool playAtStart = true;
         [SerializeField] public ParticleSystem.MinMaxCurve startCount = new ParticleSystem.MinMaxCurve(1, 10);
         [SerializeField] public ParticleSystem.MinMaxCurve startSize = new ParticleSystem.MinMaxCurve(50.0f, 75.0f);
         [SerializeField] public ParticleSystem.MinMaxCurve duration = new ParticleSystem.MinMaxCurve(0.5f, 0.6f);
@@ -280,7 +256,6 @@ namespace IWI.UI
     [Serializable]
     public struct TargetSettings
     {
-        // [SerializeField] public IWI.Emitter.Enums.Space space;
         [SerializeField] public UIEmitter.Cam cam;
         [SerializeField] public Transform transform;
         [System.NonSerialized] public Vector3 Position;
@@ -297,7 +272,7 @@ namespace IWI.UI
     public class CallbackSettings
     {
         [SerializeField] public UnityEvent<int> OnArrive;
-        [SerializeField] public UnityEvent OnAllArrive;
+        // [SerializeField] public UnityEvent OnAllArrive;
         [SerializeField] public UnityEvent OnComplete;
     }
     
