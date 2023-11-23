@@ -16,13 +16,13 @@ MonoBehaviour:
   boardSize: {x: 7, y: 8}
   EnemySpawnData:
     spawnDelay: 3
-    spawnInterval: 6
+    spawnInterval: 1.75
     countDatas:
-    - enemyData: {fileID: 11400000, guid: 5752fb17a1e721c438e4300b7edbee06, type: 2}
-      count: 5
+    - enemyData: {fileID: 11400000, guid: 9dea817639ce57c43a16f56b9803cbf5, type: 2}
+      count: 50
   victoryReward:
     type: 0
-    amount: 50
+    amount: 60
   failReward:
     type: 0
     amount: 10
@@ -52,4 +52,3 @@ MonoBehaviour:
   - usage: 3
     index: {x: 6, y: 3}
     extra: 0
-  powerUps: 

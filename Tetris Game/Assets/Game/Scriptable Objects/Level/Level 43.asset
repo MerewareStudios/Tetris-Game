@@ -24,7 +24,7 @@ MonoBehaviour:
       count: 5
   victoryReward:
     type: 0
-    amount: 50
+    amount: 80
   failReward:
     type: 0
     amount: 10
@@ -48,4 +48,3 @@ MonoBehaviour:
   - usage: 13
     index: {x: 7, y: 2}
     extra: 0
-  powerUps: 

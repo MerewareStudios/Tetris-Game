@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 4 - Powerfull
+  m_Name: Enemy 5 - Strong Bat
   m_EditorClassIdentifier: 
-  type: 38
+  type: 39
   scale: {x: 1, y: 1, z: 1}
   extraWait: 0
   colorGrad:
@@ -49,8 +49,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 0.32941177, g: 0.8980392, b: 0.34142244, a: 1}
-      key1: {r: 1, g: 0.24905658, b: 0.98938406, a: 1}
+      key0: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+      key1: {r: 0.6117647, g: 0.2392157, b: 0.9450981, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -111,16 +111,16 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards:
   - type: 0
-    amount: 50
+    amount: 3
     probability: 1
-  maxHealth: 200
-  speed: 0.075
+  maxHealth: 5
+  speed: 0.2
   forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 2
+  crossSize: 1
   castType: 0
   deathAction: 0
   spawnerCount: 0

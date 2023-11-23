@@ -22,10 +22,9 @@ MonoBehaviour:
       count: 8
   victoryReward:
     type: 0
-    amount: 50
+    amount: 70
   failReward:
     type: 0
     amount: 10
   suggestedBlocks: []
   pawnPlacements: []
-  powerUps: 
