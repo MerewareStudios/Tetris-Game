@@ -66,6 +66,8 @@ public class Shop : MonoBehaviour
             GameManager.GameTimeScale(1);
         }
         
+        
+        // Debug.Log("shop open");
         MenuNavigator.THIS.Open();
 
         if (ONBOARDING.UPGRADE_TAB.IsNotComplete())

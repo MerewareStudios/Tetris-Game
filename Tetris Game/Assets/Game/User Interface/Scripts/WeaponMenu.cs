@@ -134,19 +134,19 @@ namespace Game.UI
             return false;
         }
 
-        public void OnClick_Close()
-        {
-            if (base.Close())
-            {
-                return;
-            }
-        }
+        // public void OnClick_Close()
+        // {
+        //     if (base.Close())
+        //     {
+        //         return;
+        //     }
+        // }
         
         public new void Show()
         {
             base.Show();
-            UIManager.UpdateNotifications();
             CustomShow();
+            UIManager.UpdateNotifications();
         }
 
         public void CustomShow(float gunPunchAmount = 0.1f, bool glimmer = false)

@@ -75,11 +75,13 @@ namespace IWI
             if (_Data.removeAds)
             {
                 onSuccess?.Invoke();
+                // Debug.Log("remove ads");
                 return;
             }
             if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
             {
                 onSuccess?.Invoke();
+                // Debug.Log("UPGRADE_TAB not comp");
                 return;
             }
 
@@ -88,6 +90,7 @@ namespace IWI
                 ShowAdBreak(onSuccess);
                 return;
             }
+                // Debug.Log("not yet time");
             onSuccess?.Invoke();
         }
         
@@ -156,7 +159,8 @@ namespace IWI
             {
                 SetBannerBonuses(visible, true);
             };
-            UIManager.OnMenuModeChanged += ChangeBannerPosition;
+            
+            UIManager.OnMenuModeChanged = ChangeBannerPosition;
         }
         private void DestroyBanner()
         {
@@ -180,20 +184,22 @@ namespace IWI
             if (!MaxSdk.IsInitialized())
             {
                 onFinish?.Invoke();
+                // Debug.Log("not init");
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
                 FakeAdInterstitial.THIS.LoadAd();
                 onFinish?.Invoke();
+                // Debug.Log("load");
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
                 onFinish?.Invoke();
+                // Debug.Log("not ready");
                 return;
             }
-            
 
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL);

@@ -75,18 +75,17 @@ namespace Game.UI
             return false;
         }
 
-        public void OnClick_Close()
-        {
-            if (base.Close())
-            {
-                return;
-            }
-        }
+        // public void OnClick_Close()
+        // {
+        //     if (base.Close())
+        //     {
+        //         return;
+        //     }
+        // }
 
         public new void Show()
         {
             base.Show();
-            UIManager.UpdateNotifications();
 
             _selectedBlockData = Const.THIS.DefaultBlockData[SavedData.lastIndex];
             
@@ -139,6 +138,8 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
             }
+            
+            UIManager.UpdateNotifications();
         }
 
         public void OnClick_ShowNext()

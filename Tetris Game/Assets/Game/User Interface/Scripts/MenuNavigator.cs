@@ -36,6 +36,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
         // UpdateNotifications();
         // gameNotificationShop.Close();
+        // Debug.Log("Menu navigator open");
 
 
         UIManager.MenuMode(true);
@@ -66,7 +67,13 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
             gameNotifications[2].CountImmediate = upgrade;
         }
     }
-    
+
+    // private void UpdateNotify(int menuIndex)
+    // {
+    //     int block = _menus[menuIndex].AvailablePurchaseCount(false);
+    //     gameNotifications[menuIndex].Count = block;
+    // }
+    //
     public void UpdateTotalNotify()
     {
         int total = 0;
@@ -101,7 +108,10 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         int lastMenuIndex = (int)_Data.lastMenuType;
         tabs[lastMenuIndex].Hide();
         _menus[lastMenuIndex].Close(0.2f);
+
         
+        // UpdateNotify(lastMenuIndex);
+        // UpdateTotalNotify();
         
         return false;
     }

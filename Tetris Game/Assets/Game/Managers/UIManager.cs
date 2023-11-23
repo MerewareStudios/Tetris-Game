@@ -412,6 +412,7 @@ public class UIManager : Singleton<UIManager>
       MenuVisible = value;
       CameraManager.THIS.gameCamera.enabled = !value;
       SaveManager.THIS.Save();
+      
       OnMenuModeChanged?.Invoke(value);
    }
 

@@ -342,7 +342,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         int coinReward = (int)(SavedData.currentMoney.amount * 0.25f);
         GiveMeta(coinReward, 20, UIManagerExtensions.EmitPiggyRewardCoin);
         int capacity2Piggy = SavedData.moneyCapacity / PiggyCapDiv;
-        int piggyReward = (int)Random.Range(capacity2Piggy * 0.75f, capacity2Piggy) + 1;
+        // int piggyReward = (int)Random.Range(capacity2Piggy * 0.75f, capacity2Piggy) + 1;
+        int piggyReward = capacity2Piggy;
         GiveMeta(piggyReward, 20, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;
         

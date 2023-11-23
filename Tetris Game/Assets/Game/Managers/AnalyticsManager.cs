@@ -1,4 +1,6 @@
 #if UNITY_EDITOR
+// #define LOG_WARNING
+#define LOG_ERROR
 using System.Text.RegularExpressions;
 #endif
 using System;
@@ -14,7 +16,7 @@ public static class AnalyticsManager
     private static int _currentTrackedStartTime;
     
     private static int _shopOpenedCount = 0;
-
+    
     public static void Init()
     {
         _shopOpenedCount = 0;
@@ -228,12 +230,16 @@ public static class AnalyticsManager
         string message = tag + "</color>\n" + eventTypeTag + "<color=yellow>" + trace + "</color>" + "\n" + extra;
         if (isValid)
         {
+#if LOG_WARNING
             Debug.LogWarning(message);
+#endif
         }
         else
         {
+#if LOG_ERROR
             Debug.LogError(message);
         }
+#endif
     }
 
     public enum EventType

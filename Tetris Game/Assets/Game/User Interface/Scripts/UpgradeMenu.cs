@@ -49,13 +49,13 @@ namespace Game.UI
             return false;
         }
 
-        public void OnClick_Close()
-        {
-            if (base.Close())
-            {
-                return;
-            }
-        }
+        // public void OnClick_Close()
+        // {
+        //     if (base.Close())
+        //     {
+        //         return;
+        //     }
+        // }
 
         private void SetOneTimeData()
         {

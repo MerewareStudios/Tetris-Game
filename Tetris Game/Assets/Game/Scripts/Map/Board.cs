@@ -687,7 +687,8 @@ namespace Game
                 }
                 
                 totalAmmo += pawn.Amount;
-                
+
+                pawn.Available = false;
                 
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.thisTransform.parent = null;
@@ -785,6 +786,8 @@ namespace Game
                     {
                         continue;
                     }
+                    
+                    pawn.Available = false;
                     
                     pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                     pawn.thisTransform.parent = null;

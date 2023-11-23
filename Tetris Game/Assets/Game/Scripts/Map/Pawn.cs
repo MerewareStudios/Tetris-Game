@@ -25,7 +25,17 @@ namespace Game
         public bool Connected => ParentBlock;
         [System.NonSerialized] public Pawn.Usage UsageType = Usage.Empty;
         
-        public bool Available => this.SubModel && SubModel.IsAvailable();
+        public bool Available
+        {
+            get => this.SubModel && SubModel.IsAvailable();
+            set
+            {
+                if (this.SubModel)
+                {
+                    this.SubModel.MarkAvailable(value);
+                }
+            }
+        }
 
         public void SetUsageType(Usage value, int extra)
         {

@@ -286,10 +286,14 @@ namespace  Game
             animator.SetTrigger(DEATH_HASH);
 
             _wipeTween?.Kill();
+
+            // float t = Time.realtimeSinceStartup;
+            // Debug.Log("checking end level after delay : " + so.wipeDelay + " " + t);
             _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
+                // Debug.Log("checked" + " " + (Time.realtimeSinceStartup - t));
                 this.Deconstruct();
                 LevelManager.THIS.CheckEndLevel();
             }, false);
