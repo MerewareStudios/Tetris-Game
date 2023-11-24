@@ -365,6 +365,10 @@ namespace  Game
         public void OnVictory()
         {
             StopSpawning();
+            // foreach (var enemy in _enemies)
+            // {
+            //     enemy.OnVictory();
+            // }
             Player.OnVictory();
         }
 
@@ -372,6 +376,10 @@ namespace  Game
         {
             Announcer.THIS.Stop();
             StopSpawning();
+            // foreach (var enemy in _enemies)
+            // {
+            //     enemy.OnFail();
+            // }
             Player.OnFail();
         }
 

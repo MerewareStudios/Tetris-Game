@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Game.UI;
 using Internal.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -107,11 +105,16 @@ namespace  Game
             if (so.spawnerDuration >= 0.0f)
             {
                 _castTweenLoop?.Kill();
+                Debug.Log("delayed cast");
                 _castTweenLoop = DOVirtual.DelayedCall(so.spawnerDuration, Cast, false).SetLoops(-1);
             }
         }
         public void OnCast()
         {
+            if (!GameManager.PLAYING)
+            {
+                return;
+            }
             animator.SetBool(CASTING_BOOL_HASH, false);
             switch (so.castType)
             {
@@ -318,6 +321,17 @@ namespace  Game
             }
         }
     #endregion
+
+        // public void OnVictory()
+        // {
+        //     
+        // }
+        //
+        // public void OnFail()
+        // {
+        //     _castTweenLoop?.Kill();
+        //
+        // }
 
         public void Deconstruct()
         {
