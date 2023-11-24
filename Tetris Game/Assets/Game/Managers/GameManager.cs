@@ -33,7 +33,7 @@ public class GameManager : Singleton<GameManager>
                          PiggyMenu.THIS.TimeScale *
                          OfferScreen.THIS.TimeScale;
     }
-
+    
     public static void GameTimeScale(int value)
     {
         GameManager.THIS._timeScale = value;

@@ -353,6 +353,17 @@ public class UIManager : Singleton<UIManager>
 
       StringBuilder stringBuilder = new StringBuilder();
       
+      var list = DOTween.PlayingTweens();
+      stringBuilder.AppendLine(list.Count + " Playing Tweens Count");
+      foreach (var tween in list)
+      {
+         // Debug.Log("obj", MonoBehaviour.Findobjectby);
+         // Component component = (Component)(tween.target);
+         // Debug.Log(component.name, component.gameObject);
+         Debug.LogError(tween.target, (Object)tween.target);
+         // Debug.Log("comp", component.gameObject);
+         // Debug.LogError(component.name, component.gameObject);
+      }
       stringBuilder.AppendLine(DOTween.TotalActiveSequences() + " max : " + MaxTotalActiveSequences);
       stringBuilder.AppendLine(DOTween.TotalActiveTweeners() + " max : " + MaxTotalActiveTweeners);
       stringBuilder.AppendLine(DOTween.TotalActiveTweens() + " max : " + MaxTotalActiveTweens);
