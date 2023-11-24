@@ -97,7 +97,9 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 
     private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        
+    #if UNITY_EDITOR
+        Time.timeScale = 0.0f;
+    #endif
     }
 
     private void OnInterstitialAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)
@@ -114,6 +116,9 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 
     private void OnInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
+    #if UNITY_EDITOR
+        Time.timeScale = 1.0f;
+    #endif
         this.OnHidden?.Invoke();
         LoadAd();
     }

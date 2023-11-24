@@ -44,6 +44,9 @@ public class ParticleUnit : MonoBehaviour
     
     void OnParticleSystemStopped()
     {
+        // Debug.Log("despawn " + Time.realtimeSinceStartup + " " + this.gameObject.activeInHierarchy, this.gameObject);
+        // ps.Stop();
+        // this.gameObject.SetActive(false);
         this.Despawn(key);    
     }
 }

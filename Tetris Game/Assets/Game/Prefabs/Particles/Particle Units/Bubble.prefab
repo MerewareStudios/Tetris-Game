@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719177446949797339}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
@@ -4921,10 +4921,10 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281155141387000226}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.2
   simulationSpeed: 1
   stopAction: 0
-  cullingMode: 3
+  cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0

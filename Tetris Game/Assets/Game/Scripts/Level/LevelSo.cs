@@ -88,8 +88,9 @@ namespace Game
                 countDatas = new List<Enemy.CountData>()
             };
 
-            int excess = Mathf.Min(seed, 60) - 50;
-            int maxHealth = 250 + excess * 50;
+            // int excess = Mathf.Min(seed, 60) - 50;
+            // int maxHealth = 250 + excess * 50;
+            int maxHealth = 250 + (seed - 50) * 25;
             int currentHealth = 0;
 
             int spawnerCount = Random.Range(0, 2);

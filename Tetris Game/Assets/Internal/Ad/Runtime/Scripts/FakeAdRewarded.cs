@@ -96,7 +96,9 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 
     private void OnRewardedAdDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        
+#if UNITY_EDITOR
+        Time.timeScale = 0.0f;
+#endif
     }
 
     private void OnRewardedAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)
@@ -112,6 +114,9 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 
     private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
+#if UNITY_EDITOR
+        Time.timeScale = 1.0f;
+#endif
         this.OnHidden?.Invoke();
 
         LoadAd();

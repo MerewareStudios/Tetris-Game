@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 39
     pupData:
       available: 1
       currentUsage: 4
@@ -653,7 +653,7 @@ MonoBehaviour:
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
-      newShown: 00000000000000000000000000000000
+      newShown: 00000000000000000000000000
     weaponShopData:
       inspectIndex: 0
       equipIndex: 0
@@ -1054,26 +1054,11 @@ MonoBehaviour:
       type: 1
       amount: 500
     unlockedAt: 110
-  - blockType: 50
-    currency:
-      type: 1
-      amount: 1000
-    unlockedAt: 120
-  - blockType: 73
-    currency:
-      type: 1
-      amount: 1000
-    unlockedAt: 130
-  - blockType: 74
-    currency:
-      type: 0
-      amount: 3000
-    unlockedAt: 140
   - blockType: 2
     currency:
       type: 1
       amount: 1000
-    unlockedAt: 150
+    unlockedAt: 120
   purchaseDataLookUp:
   - purchaseType: 0
     currency:

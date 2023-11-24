@@ -3769,8 +3769,8 @@ MonoBehaviour:
     purchaseData:
       offers: 
     baseInfo: SAVE END
-  DELETE_AT_START: 0
-  SKIP_ONBOARDING: 0
+  DELETE_AT_START: 1
+  SKIP_ONBOARDING: 1
   Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
   AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
   Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
@@ -3839,42 +3839,42 @@ MonoBehaviour:
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: 9189636363719299060, guid: d6401d84ce3397544998197c6d710631,
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: 8862035874212248650, guid: 9fbf607ecf9902142aa17d282629e6f5,
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: -7391691405654601271, guid: d78905771f16db240b81d520383007bd,
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: 8435657357507864835, guid: 85da333c0e20b81439c42d5687ed9685,
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: -8636348353984119622, guid: 34391479fa976d743bd0a3a523dbf05d,
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: -3387101932959172268, guid: 5e4679ebd41173943bcd3a4f7eeb1dcc,
       type: 3}
     emitOnly: 1
     preload: 0
-    capacity: 0
+    capacity: 50
   - particleUnit: {fileID: 3277492842507619318, guid: 82f8a2620ef98d74daac956814e77ac1,
       type: 3}
     emitOnly: 0
     preload: 0
-    capacity: 0
+    capacity: 50
 --- !u!114 &715436867
 MonoBehaviour:
   m_ObjectHideFlags: 0

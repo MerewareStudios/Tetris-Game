@@ -229,7 +229,7 @@ namespace IWI
                 
                 _Data.LastTimeAdShown = (int)Time.time;
                 
-                    AdBreakScreen.THIS.CloseImmediate();
+                AdBreakScreen.THIS.CloseImmediate();
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
@@ -284,12 +284,11 @@ namespace IWI
                 () => true);
             AdBreakScreen.THIS.OnTimesUp(() =>
             {
-                FakeAdRewarded.THIS.Show(AdBreakScreen.THIS.CloseImmediate, 
-                onReward,
-                () =>
-                {
-                    AdBreakScreen.THIS.Close();
-                });
+                AdBreakScreen.THIS.CloseImmediate();
+                FakeAdRewarded.THIS.Show(
+                    null, 
+                    onReward,
+                null);
             }, 3.5f);
 
             AdBreakScreen.THIS.Open();
