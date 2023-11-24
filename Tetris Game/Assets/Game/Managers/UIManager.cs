@@ -1,3 +1,4 @@
+using System.Text;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -344,9 +345,28 @@ public class UIManager : Singleton<UIManager>
       {
          IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.noads", true);
       }
+
+      MaxTotalActiveSequences = Mathf.Max(MaxTotalActiveSequences, DOTween.TotalActiveSequences());
+      MaxTotalActiveTweeners = Mathf.Max(MaxTotalActiveTweeners, DOTween.TotalActiveTweeners());
+      MaxTotalActiveTweens = Mathf.Max(MaxTotalActiveTweens, DOTween.TotalActiveTweens());
+      MaxTotalPlayingTweens = Mathf.Max(MaxTotalPlayingTweens, DOTween.TotalPlayingTweens());
+
+      StringBuilder stringBuilder = new StringBuilder();
+      
+      stringBuilder.AppendLine(DOTween.TotalActiveSequences() + " max : " + MaxTotalActiveSequences);
+      stringBuilder.AppendLine(DOTween.TotalActiveTweeners() + " max : " + MaxTotalActiveTweeners);
+      stringBuilder.AppendLine(DOTween.TotalActiveTweens() + " max : " + MaxTotalActiveTweens);
+      stringBuilder.AppendLine(DOTween.TotalPlayingTweens() + " max : " + MaxTotalPlayingTweens);
+      
+      Debug.LogError(stringBuilder.ToString());
    }
 #endif
 
+   private int MaxTotalActiveSequences = 0;
+   private int MaxTotalActiveTweeners = 0;
+   private int MaxTotalActiveTweens = 0;
+   private int MaxTotalPlayingTweens = 0;
+   
    public bool HoveringMeta
    {
       get

@@ -102,10 +102,9 @@ namespace  Game
                     break;
             }
 
-            if (so.spawnerDuration >= 0.0f)
+            if (so.spawnerDuration > 0.1f)
             {
                 _castTweenLoop?.Kill();
-                Debug.Log("delayed cast");
                 _castTweenLoop = DOVirtual.DelayedCall(so.spawnerDuration, Cast, false).SetLoops(-1);
             }
         }
