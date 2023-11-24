@@ -34,7 +34,7 @@ public enum Pool
     Gun_8 = 31,
     Gun_9 = 32,
     Gun_10 = 33,
-    Cube_Explosion = 34,
+    Placeholder = 34,
     Glimmer = 35,
     Enemy_2 = 36,
     Enemy_3 = 37,

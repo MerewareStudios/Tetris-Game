@@ -8,5 +8,6 @@ public enum Particle
     Confetti = 5,
     Bubble = 6,
     Kamikaze = 7,
+    Debris = 8,
 
 }

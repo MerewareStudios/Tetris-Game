@@ -156,7 +156,11 @@ public static class ParticleManagerExtensions
         particleUnit.SetForward(forward);
         particleUnit.PlayAtPosition(position);
     }
-    
+    public static void Emit(this Particle key, int amount, Vector3 position)
+    {
+        ParticleUnit particleUnit = ParticleManager.Spawn(key);
+        particleUnit.EmitAtPosition(position, amount);
+    }
     public static void Emit(this Particle key, int amount, Vector3 position, Vector3 forward)
     {
         ParticleUnit particleUnit = ParticleManager.Spawn(key);
