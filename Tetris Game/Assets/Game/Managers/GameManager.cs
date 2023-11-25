@@ -60,7 +60,7 @@ public class GameManager : Singleton<GameManager>
 
         LevelManager.THIS.LoadLevel();
         
-        DOTween.SetTweensCapacity(100, 50);
+        DOTween.SetTweensCapacity(200, 50);
         
         
     #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT

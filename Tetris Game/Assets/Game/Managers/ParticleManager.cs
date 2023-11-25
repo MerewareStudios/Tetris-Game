@@ -60,7 +60,7 @@ public class ParticleManager : Singleton<ParticleManager>
         {
             get
             {
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
                 if (emitOnly)
                 {
                     if (!_emitInstance)
@@ -69,7 +69,7 @@ public class ParticleManager : Singleton<ParticleManager>
                     }
                     return _emitInstance;
                 }
-#endif
+// #endif
                 if (!this._pool)
                 {
                     InstantiatePool();
@@ -80,13 +80,13 @@ public class ParticleManager : Singleton<ParticleManager>
 
         public void Despawn(ParticleUnit particleUnit)
         {
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
             if (emitOnly)
             {
                 Debug.LogError("This pool is emit only, cannot despawn!");
                 return;
             }
-#endif
+// #endif
             
             _pool.Despawn(particleUnit.gameObject);
         }
