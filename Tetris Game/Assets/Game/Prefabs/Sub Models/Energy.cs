@@ -22,7 +22,7 @@ public class Energy : SubModel
         {
             Warzone.THIS.Player.Gun.Boost();
             Particle.Energy.Play(Position);
-            UIManagerExtensions.Distort(Position, 0.0f);
+            UIManagerExtensions.QuickDistort(Position);
             OnDeconstruct();
         };
     }

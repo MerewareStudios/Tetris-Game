@@ -10,7 +10,7 @@ public class Magnet : SubModel
         
         RefreshSequence();
         
-        UIManagerExtensions.Distort(Position, 0.0f);
+        UIManagerExtensions.QuickDistort(Position);
 
         const float duration = 0.25f;
         

@@ -13,7 +13,7 @@ namespace Visual.Effects
         [System.NonSerialized] public static System.Action<GameObject, bool> Complete;
         [System.NonSerialized] private Tween _animationTween;
     
-        public void Distort(Vector3 worldPosition, Vector3 forward, float scale, float power, float duration, Ease ease, float delay)
+        public void Distort(Vector3 worldPosition, Vector3 forward, float scale, float power, float duration, Ease ease)
         {
             var thisTransform = transform;
             thisTransform.position = worldPosition;
@@ -24,7 +24,7 @@ namespace Visual.Effects
             
             float value = 0.0f;
             _animationTween?.Kill();
-            _animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetDelay(delay).SetUpdate(true);
+            _animationTween = DOTween.To((x) => value = x, 0.0f, 1.0f, duration).SetEase(ease).SetUpdate(true);
             _animationTween.onUpdate = () =>
             {
                 meshRenderer.material.SetFloat(PowerID, power * (1.0f - value));

@@ -49,7 +49,7 @@ public class Bomb : SubModel
             
             Particle.Missile_Explosion.Play(hitTarget);
             CameraManager.THIS.Shake(0.2f, 0.5f);
-            UIManagerExtensions.Distort(Position, 0.0f);
+            UIManagerExtensions.QuickDistort(Position);
             
             OnDeconstruct();
         };
@@ -68,7 +68,7 @@ public class Bomb : SubModel
         base.OnExplode();
         
         Particle.Missile_Explosion.Play(base.Position);
-        UIManagerExtensions.Distort(Position, 0.0f);
+        UIManagerExtensions.Distort(Position, 9.0f, 0.05f, 1.1f, Ease.OutSine);
 
         OnDeconstruct();
     }

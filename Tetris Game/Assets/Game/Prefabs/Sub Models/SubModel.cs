@@ -47,7 +47,7 @@ public class SubModel : MonoBehaviour
         _delayedTween?.Kill();
         _delayedTween = DOVirtual.DelayedCall(AnimConst.THIS.MergeShowDelay, () =>
         {
-            UIManagerExtensions.Distort(ThisTransform.position + Vector3.up * 0.45f, 0.0f);
+            UIManagerExtensions.QuickDistort(ThisTransform.position + Vector3.up * 0.45f);
             Particle.Merge_Circle.Play(ThisTransform.position  + new Vector3(0.0f, 0.85f, 0.0f), Quaternion.identity, Vector3.one * 0.5f);
         
             ThisTransform.DOKill();
