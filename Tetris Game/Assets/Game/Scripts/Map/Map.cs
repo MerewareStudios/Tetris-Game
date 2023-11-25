@@ -68,7 +68,7 @@ namespace Game
                         }
                         Board.THIS.MergeLines(tetrisLines);
                     
-                        Board.THIS.MarkMover(tetrisLines[0]);
+                        Board.THIS.MarkMoverByTetris(tetrisLines);
                         Board.THIS.CheckAll();
                         Board.THIS.HighlightPlaces();
 

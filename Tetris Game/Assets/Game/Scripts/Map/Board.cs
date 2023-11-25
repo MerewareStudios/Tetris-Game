@@ -1,5 +1,6 @@
 using Internal.Core;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
@@ -521,7 +522,7 @@ namespace Game
                         if (place.Current && !place.Current.Connected)
                         {
                             place.Current.Mover = true;
-                            place.Current.JumpUp(0.2f, 0.3f, (j - y) * 0.075f + 0.25f);
+                            // place.Current.JumpUp(0.2f, 0.3f, (j - y) * 0.075f + 0.25f);
                         }
                     }
                 }
@@ -902,16 +903,35 @@ namespace Game
         }
 
         
-        public void MarkMover(int horizontal)
+        public void MarkMoverByTetris(List<int> tetrisLines)
         {
+            int min = tetrisLines.Min();
+            
             Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
             {
-                if (place.Current && !place.Current.Connected && verticalIndex > horizontal)
+                if (place.Current && !place.Current.Connected && verticalIndex > min)
                 {
                     place.Current.Mover = true;
-                    place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - horizontal) * 0.075f + 0.25f);
                 }
             });
+            
+            for (int y = 0; y < tetrisLines.Count; y++)
+            {
+                int plusLineIndex = tetrisLines[y] + 1;
+                if (tetrisLines.Contains(plusLineIndex) || plusLineIndex >= _size.y)
+                {
+                    continue;
+                }
+                
+                for (int x = 0; x < _size.x; x++)
+                {
+                    Place place = _places[x, plusLineIndex];
+                    if (place.Occupied && !place.Current.Connected)
+                    {
+                        place.Current.JumpUp(0.2f, 0.3f, 0.25f);
+                    }
+                }
+            }
         }
        
         
@@ -922,7 +942,7 @@ namespace Game
                 if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
                     place.Current.Mover = true;
-                    place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
+                    // place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
                 }
             });
         }

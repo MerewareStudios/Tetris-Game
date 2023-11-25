@@ -346,37 +346,37 @@ public class UIManager : Singleton<UIManager>
          IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.noads", true);
       }
 
-      MaxTotalActiveSequences = Mathf.Max(MaxTotalActiveSequences, DOTween.TotalActiveSequences());
-      MaxTotalActiveTweeners = Mathf.Max(MaxTotalActiveTweeners, DOTween.TotalActiveTweeners());
-      MaxTotalActiveTweens = Mathf.Max(MaxTotalActiveTweens, DOTween.TotalActiveTweens());
-      MaxTotalPlayingTweens = Mathf.Max(MaxTotalPlayingTweens, DOTween.TotalPlayingTweens());
-
-      StringBuilder stringBuilder = new StringBuilder();
-      
+      // MaxTotalActiveSequences = Mathf.Max(MaxTotalActiveSequences, DOTween.TotalActiveSequences());
+      // MaxTotalActiveTweeners = Mathf.Max(MaxTotalActiveTweeners, DOTween.TotalActiveTweeners());
+      // MaxTotalActiveTweens = Mathf.Max(MaxTotalActiveTweens, DOTween.TotalActiveTweens());
+      // MaxTotalPlayingTweens = Mathf.Max(MaxTotalPlayingTweens, DOTween.TotalPlayingTweens());
+      //
+      // StringBuilder stringBuilder = new StringBuilder();
+      //
       // var list = DOTween.PlayingTweens();
       // stringBuilder.AppendLine(list.Count + " Playing Tweens Count");
+      // stringBuilder.AppendLine(DOTween.TotalActiveSequences() + " max : " + MaxTotalActiveSequences);
+      // stringBuilder.AppendLine(DOTween.TotalActiveTweeners() + " max : " + MaxTotalActiveTweeners);
+      // stringBuilder.AppendLine(DOTween.TotalActiveTweens() + " max : " + MaxTotalActiveTweens);
+      // stringBuilder.AppendLine(DOTween.TotalPlayingTweens() + " max : " + MaxTotalPlayingTweens);
       // foreach (var tween in list)
       // {
-      //    // Debug.Log("obj", MonoBehaviour.Findobjectby);
-      //    // Component component = (Component)(tween.target);
-      //    // Debug.Log(component.name, component.gameObject);
       //    Debug.LogError(tween.target, (Object)tween.target);
-      //    // Debug.Log("comp", component.gameObject);
-      //    // Debug.LogError(component.name, component.gameObject);
       // }
-      stringBuilder.AppendLine(DOTween.TotalActiveSequences() + " max : " + MaxTotalActiveSequences);
-      stringBuilder.AppendLine(DOTween.TotalActiveTweeners() + " max : " + MaxTotalActiveTweeners);
-      stringBuilder.AppendLine(DOTween.TotalActiveTweens() + " max : " + MaxTotalActiveTweens);
-      stringBuilder.AppendLine(DOTween.TotalPlayingTweens() + " max : " + MaxTotalPlayingTweens);
-      
-      Debug.LogError(stringBuilder.ToString());
+      //
+      // Debug.LogError(stringBuilder.ToString());
+      //
+      // if (list != null && list.Count > 40)
+      // {
+      //    Debug.Break();
+      // }
    }
-#endif
 
-   private int MaxTotalActiveSequences = 0;
-   private int MaxTotalActiveTweeners = 0;
-   private int MaxTotalActiveTweens = 0;
-   private int MaxTotalPlayingTweens = 0;
+   // private int MaxTotalActiveSequences = 0;
+   // private int MaxTotalActiveTweeners = 0;
+   // private int MaxTotalActiveTweens = 0;
+   // private int MaxTotalPlayingTweens = 0;
+#endif
    
    public bool HoveringMeta
    {
@@ -500,7 +500,7 @@ public class UIManager : Singleton<UIManager>
 
 public static class UIManagerExtensions
 {
-   public static void Distort(Vector3 worldPosition, float delay)
+   public static void Distort(Vector3 worldPosition, float scale, float power, float duration, Ease ease)
    {
       if (!ApplicationManager.THIS.GrabFeatureEnabled)
       {
@@ -519,16 +519,15 @@ public static class UIManagerExtensions
          hitPoint = ray.GetPoint(enter);
       }
 
-      Pool.Distortion.Spawn<Distortion>().Distort(hitPoint, forward, AnimConst.THIS.distortScale, AnimConst.THIS.distortPower, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase, delay);
+      Pool.Distortion.Spawn<Distortion>().Distort(hitPoint, forward, scale, power, duration, ease);
+   }
+   public static void QuickDistort(Vector3 worldPosition)
+   {
+      Distort(worldPosition, AnimConst.THIS.distortScale, AnimConst.THIS.distortPower, AnimConst.THIS.distortDuration, AnimConst.THIS.distortEase);
    }
    public static void DistortWarmUp()
    {
-      if (!ApplicationManager.THIS.GrabFeatureEnabled)
-      {
-         ApplicationManager.THIS.GrabFeatureEnabled = true;
-      }
-      
-      Pool.Distortion.Spawn<Distortion>().Distort(new Vector3(0.0f, 1.0f, 0.0f), Vector3.up, 1.0f, 0.0f, 0.25f, Ease.Linear, 0.25f);
+      Distort(new Vector3(0.0f, 1.0f, 0.0f), 1.0f, 0.0f, 0.25f, Ease.Linear);
    }
    
    public static void Glimmer(this Image image, float speed)
