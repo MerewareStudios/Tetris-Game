@@ -50,6 +50,7 @@ public class ParticleManager : Singleton<ParticleManager>
     {
         [SerializeField] public ParticleUnit particleUnit;
         [SerializeField] public bool emitOnly = false;
+        [SerializeField] public bool asInstance = false;
         [SerializeField] public int preload = 0;
         [SerializeField] public int capacity = 50;
         [System.NonSerialized] private LeanGameObjectPool _pool;
@@ -92,8 +93,12 @@ public class ParticleManager : Singleton<ParticleManager>
 
         private void InstantiateEmitter()
         {
+            if (asInstance)
+            {
+                _emitInstance = particleUnit;
+                return;
+            }
             _emitInstance = ParticleManager.THIS.Clone(particleUnit);
-
         }
 
         private void InstantiatePool()
