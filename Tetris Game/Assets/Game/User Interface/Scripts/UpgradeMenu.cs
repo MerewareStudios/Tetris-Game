@@ -25,7 +25,8 @@ namespace Game.UI
             {
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
                 bool hasFunds = Wallet.HasFunds(lookUp.currency);
-                if (hasFunds)
+                bool ticketType = lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
+                if (hasFunds && !ticketType)
                 {
                     if (updatePage)
                     {
