@@ -9,12 +9,10 @@ namespace Game.UI
     {
         [Header("Purchase Options")]
         [SerializeField] private PurchaseOption[] purchaseOptions;
-        [SerializeField] private RectTransform scrollRectFrame;
-        [SerializeField] private RectTransform scrollPanel;
         [SerializeField] private TextMeshProUGUI maxStackText;
         [SerializeField] private TextMeshProUGUI capacityText;
+        [SerializeField] private TextMeshProUGUI currentHealthText;
         [System.NonSerialized] private bool _oneTimeDataSet = false;
-        [System.NonSerialized] private int _promptIndex = -1;
 
         [field: System.NonSerialized] public Data SavedData { set; get; }
 
@@ -25,16 +23,14 @@ namespace Game.UI
             {
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
                 bool hasFunds = Wallet.HasFunds(lookUp.currency);
-                bool ticketType = lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
-                if (hasFunds && !ticketType)
+                bool needToNotify = SavedData.notifiedAt[i] < SavedData.instanceData[i];
+                // bool newShown = SavedData.newShown[i];
+                
+                if (hasFunds && needToNotify)
                 {
-                    if (updatePage)
-                    {
-                        _promptIndex = i;
-                    }
-
+                    // SavedData.notifiedAt[i] = SavedData.instanceData[i];
                     base.TotalNotify++;
-                    // return 1;
+                    // SavedData.newShown[i] = false;
                 }
             }
             return base.TotalNotify;
@@ -49,14 +45,6 @@ namespace Game.UI
             Show();
             return false;
         }
-
-        // public void OnClick_Close()
-        // {
-        //     if (base.Close())
-        //     {
-        //         return;
-        //     }
-        // }
 
         private void SetOneTimeData()
         {
@@ -73,8 +61,6 @@ namespace Game.UI
                     continue;
                 }
                 
-                purchaseOption.gameObject.SetActive(!SavedData.hiddenData[i]);
-
                 if (!purchaseOption.gameObject.activeSelf)
                 {
                     continue;
@@ -93,27 +79,26 @@ namespace Game.UI
         {
             base.Show();
             SetOneTimeData();
-            
+            ShowAlways();
+            UIManager.UpdateNotifications();
+        }
+
+        private void ShowAlways()
+        {
             for (int i = 0; i < purchaseOptions.Length; i++)
             {
                 PurchaseOption purchaseOption = purchaseOptions[i];
-                if (!purchaseOption)
-                {
-                    continue;
-                }
-
-                purchaseOption.gameObject.SetActive(!SavedData.hiddenData[i]);
-
-                if (!purchaseOption.gameObject.activeSelf)
-                {
-                    continue;
-                }
-                
-                
                 PurchaseDataLookUp lookUp = Const.THIS.purchaseDataLookUp[i];
 
+                bool hasCurrency = Wallet.HasFunds(lookUp.currency);
+                bool available = hasCurrency || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
 
-                bool available = Wallet.HasFunds(lookUp.currency) || lookUp.currency.type.Equals(Const.CurrencyType.Ticket);
+                if (SavedData.notifiedAt[i] != SavedData.instanceData[i] && hasCurrency)
+                {
+                    purchaseOption.PunchScale(0.125f, 0.5f, 0.2f);
+                    SavedData.notifiedAt[i] = SavedData.instanceData[i];
+                }
+
 
                 string purchaseText = "";
 
@@ -146,6 +131,7 @@ namespace Game.UI
 
             maxStackText.text = Board.THIS.StackLimit.ToString();
             capacityText.text = PiggyMenu.THIS.SavedData.moneyCapacity.ToString();
+            currentHealthText.text = "(YOU HAVE<sprite name=Heart>" + Warzone.THIS.Player._Data.currentHealth.ToString() + " )";
         }
 
         public void OnClick_Purchase(int purchaseIndex)
@@ -189,7 +175,7 @@ namespace Game.UI
                     PiggyMenu.THIS.SavedData.moneyCapacity += 5;
                     break;
                 case PurchaseType.MEDKIT:
-                    Warzone.THIS.Player._CurrentHealth += 20;
+                    Warzone.THIS.Player._CurrentHealth += 50;
                     break;
             }
 
@@ -235,13 +221,15 @@ namespace Game.UI
         [System.Serializable]
         public class Data : ICloneable
         {
-            [SerializeField] public bool[] hiddenData;
             [SerializeField] public int[] instanceData;
+            // [SerializeField] public bool[] newShown;
+            [SerializeField] public int[] notifiedAt;
             
             public Data(Data data)
             {
-                hiddenData = data.hiddenData.Clone() as bool[];
                 instanceData = data.instanceData.Clone() as int[];
+                // newShown = data.newShown.Clone() as bool[];
+                notifiedAt = data.notifiedAt.Clone() as int[];
             }
 
             public object Clone()

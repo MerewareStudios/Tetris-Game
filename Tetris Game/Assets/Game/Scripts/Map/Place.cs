@@ -165,19 +165,22 @@ namespace Game
             }
         }
 
-        public void Accept(Pawn pawn, float duration = 0.0f, System.Action onComplete = null)
+        public void Accept(Pawn pawn, float? duration = null, System.Action onComplete = null)
         {
             Current = pawn; // 4
 
-            if (duration <= 0.0f)
+            
+            if (duration == null)
             {
                 pawn.thisTransform.position = segmentParent.position;
+                pawn.Busy = false;
                 onComplete?.Invoke();
                 return;
             }
 
-            pawn.Move(PawnTargetPosition, duration, AnimConst.THIS.moveEase, () =>
+            pawn.Move(PawnTargetPosition, duration.Value, AnimConst.THIS.moveEase, () =>
             {
+                pawn.Busy = false;
                 onComplete?.Invoke();
             });
         }

@@ -378,10 +378,12 @@ namespace Game
         {
             if (Busy)
             {
+                // Debug.Log("Busy cannot move", this.gameObject);
                 return;
             }
             if (!Mover)
             {
+                // Debug.Log("Not mover", this.gameObject);
                 return;
             }
             

@@ -999,6 +999,8 @@ namespace Game
         
         public void Place(Block block)
         {
+            _tick++;
+            
             block.PlacedOnGrid = true;
             List<Pawn> temporary = new List<Pawn>(block.Pawns);
             foreach (Pawn pawn in temporary)
@@ -1012,7 +1014,7 @@ namespace Game
                 
                 place.Accept(currentPawn, 0.1f, () =>
                 {
-                    currentPawn.Busy = false;
+                    // currentPawn.Busy = false;
                     place.Current.Check(place);
                     Map.THIS.MapWaitForCycle = true;
                 });

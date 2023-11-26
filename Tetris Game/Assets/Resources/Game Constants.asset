@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 116
+  bundleVersionCode: 124
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -690,8 +690,8 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     upgradeMenuData:
-      hiddenData: 000000
       instanceData: 000000000000000000000000
+      notifiedAt: ffffffffffffffffffffffff
   DefaultAdData:
     removeAds: 0
     interSkipCount: 0
@@ -1088,7 +1088,7 @@ MonoBehaviour:
       amount: 1
     sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
     title: <bounce a=0.05 f=1>MEDKIT
-    info: <size=150%><sprite name=Heart>+20
+    info: <size=150%><sprite name=Heart>+50
     extra: 
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000
