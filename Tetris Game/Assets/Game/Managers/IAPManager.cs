@@ -106,7 +106,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
             return 0;
         }
 #if UNITY_EDITOR
-        return 4.99m;
+        return 9.99m;
         
 #else
         Product product = _productCollection.WithID(iapID);

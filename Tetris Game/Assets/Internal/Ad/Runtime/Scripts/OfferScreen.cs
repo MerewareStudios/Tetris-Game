@@ -205,8 +205,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 
                 if (data.oldPriceMult > 1)
                 {
-                    oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
-                    // oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult)).ToString("#.00");
+                    // oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
+                    oldText.text = symbol + ((float)price * data.oldPriceMult).ToString("0.00");
                 }
                 else
                 {

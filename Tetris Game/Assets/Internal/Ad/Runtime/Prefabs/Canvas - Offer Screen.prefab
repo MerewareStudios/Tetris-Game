@@ -1812,8 +1812,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 388.905}
-  m_SizeDelta: {x: -100, y: -1578.3298}
+  m_AnchoredPosition: {x: 0, y: 403.45505}
+  m_SizeDelta: {x: -100, y: -1607.4299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3873506045274127656
 CanvasRenderer:
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_fontSizeMax: 64.4
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -7.76
   m_wordSpacing: 0
@@ -2192,7 +2192,7 @@ MonoBehaviour:
       3 New Packs for a price of 2!'
     rewards:
     - rewardType: 1
-      amount: 500
+      amount: 1250
     - rewardType: 2
       amount: 250
     - rewardType: 3
@@ -2201,7 +2201,7 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Coin>+500
+      mult: <sprite name=Coin>+1250
     - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
       free: 0
       title: NEW
@@ -2210,7 +2210,7 @@ MonoBehaviour:
       free: 1
       title: 
       mult: <sprite name=Ticket>+25
-    oldPriceMult: 1.33
+    oldPriceMult: 1.5
     promotionalText: '3 FOR 2
 
       DEAL'
@@ -2218,27 +2218,34 @@ MonoBehaviour:
     productType: 0
     iapID: iwi.combatris.offerpack5
     title: <bounce a=0.05 f=1>HELPER PACK
-    detailedInfoStr: '
+    detailedInfoStr: '<size=125%>Keep up with the upgrades!
 
-      <size=125%>Keep up with the upgrades!'
+      Remove ads for
+      free!'
     rewards:
     - rewardType: 2
-      amount: 250
+      amount: 500
     - rewardType: 3
-      amount: 25
+      amount: 50
+    - rewardType: 0
+      amount: 1
     previewDatas:
     - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Gem>+250
+      mult: <sprite name=Gem>+500
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+25
+      mult: <sprite name=Ticket>+50
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      free: 1
+      title: 
+      mult: No Ads
     oldPriceMult: 1.25
-    promotionalText: '%25
+    promotionalText: 'FREE
 
-      OFF'
+      ONE'
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
