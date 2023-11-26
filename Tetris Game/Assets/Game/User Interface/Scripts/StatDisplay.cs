@@ -48,7 +48,7 @@ public class StatDisplay : MonoBehaviour
         this.gameObject.SetActive(true);
         animationPivot.DOKill();
         animationPivot.localScale = Vector3.one;
-        animationPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);
+        animationPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetUpdate(true);
     }
     
     public void UpdatePercent(float timePercent)
@@ -67,7 +67,7 @@ public class StatDisplay : MonoBehaviour
         this.gameObject.SetActive(true);
         animationPivot.DOKill();
         animationPivot.localScale = Vector3.one;
-        animationPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack);    
+        animationPivot.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetUpdate(true);    
     }
     public void Hide()
     {
@@ -77,7 +77,7 @@ public class StatDisplay : MonoBehaviour
         }
         _currentValue = -1;
         animationPivot.DOKill();
-        animationPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).onComplete += () =>
+        animationPivot.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).SetUpdate(true).onComplete += () =>
         {
             this.gameObject.SetActive(false);
         };
@@ -92,7 +92,7 @@ public class StatDisplay : MonoBehaviour
     {
         punchPivot.DOKill();
         punchPivot.localScale = Vector3.one;
-        punchPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1);
+        punchPivot.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
     }
 
     [Serializable]

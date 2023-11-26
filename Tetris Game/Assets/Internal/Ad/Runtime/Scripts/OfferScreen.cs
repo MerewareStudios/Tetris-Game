@@ -199,13 +199,14 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                 string symbol = OnGetPriceSymbol.Invoke(data.iapID);
                 decimal price = OnGetPrice.Invoke(data.iapID);
         
-                priceText.text = symbol + price.ToString("#.00");
+                priceText.text = symbol + price.ToString("0.00");
 
                 oldText.gameObject.SetActive(data.oldPriceMult > 1);
 
                 if (data.oldPriceMult > 1)
                 {
                     oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
+                    // oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult)).ToString("#.00");
                 }
                 else
                 {
@@ -344,7 +345,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     {
         REMOVEADS,
         COINPACK,
-        PIGGYCOINPACK,
+        GEMPACK,
         TICKETPACK,
         HEALTHPACK,
         OFFERPACK1,
@@ -358,7 +359,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     {
         NoAds,
         Coin,
-        PiggyCoin,
+        Gem,
         Ticket,
         Heart,
     }
@@ -384,7 +385,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         [TextArea] [SerializeField] public string detailedInfoStr;
         [SerializeField] public Reward[] rewards;
         [SerializeField] public OfferPreview.PreviewData[] previewDatas;
-        [SerializeField] public int oldPriceMult = 1;
+        [SerializeField] public float oldPriceMult = 1;
         [TextArea] [SerializeField] public string promotionalText;
 
         // public string RewardInfo()

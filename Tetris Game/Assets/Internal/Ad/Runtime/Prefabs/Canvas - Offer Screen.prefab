@@ -170,11 +170,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2077176763123575061}
+  - {fileID: 576675478249655598}
   m_Father: {fileID: 4237175169244461533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -197}
+  m_AnchoredPosition: {x: 0, y: -114.00012}
   m_SizeDelta: {x: 297.45, y: 105.84}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &496689394739625282
@@ -286,6 +287,7 @@ GameObject:
   - component: {fileID: 7202186276228510632}
   - component: {fileID: 5167377106043906032}
   - component: {fileID: 861714949583388039}
+  - component: {fileID: 2649412528080977634}
   m_Layer: 13
   m_Name: Fade Panel
   m_TagString: Untagged
@@ -364,6 +366,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2649412528080977634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482272570434586184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15aa49b1bdaa9be48ba292cc69e79344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeBottom: 0
+  safeTop: 1
 --- !u!1 &1509060181019756356
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.195}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 6, y: -223}
+  m_AnchoredPosition: {x: -22, y: -168}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8727636235454987696
@@ -609,7 +625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -393}
+  m_AnchoredPosition: {x: 0, y: -310.00012}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8899753355762610430
@@ -1200,7 +1216,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 30
     m_Right: 30
-    m_Top: 62
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: -16.57
@@ -1488,7 +1504,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4.2, y: 144.4}
+  m_SizeDelta: {x: 6.08, y: 194.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &670227479213513645
 CanvasRenderer:
@@ -1511,7 +1527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.70980394}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -1794,11 +1810,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4237175169244461533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -487.99997}
-  m_SizeDelta: {x: -100, y: 240.51}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 388.905}
+  m_SizeDelta: {x: -100, y: -1578.3298}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3873506045274127656
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1827,7 +1843,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can skip ads, buy power-ups or purchase new items with these.
+  m_text: 'Get a x25 Ticket Pack
+
+    +
+
+    Keep enjoying the game without ads FOR
+    FREE!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 95b1987717372aa45a20efc7bdb6e943, type: 2}
@@ -1866,9 +1887,9 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: -7.76
   m_wordSpacing: 0
-  m_lineSpacing: -43.73
+  m_lineSpacing: -16.1
   m_lineSpacingMax: 0
-  m_paragraphSpacing: 19.23
+  m_paragraphSpacing: -22.4
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
@@ -2003,6 +2024,7 @@ MonoBehaviour:
       amount: 1
     previewDatas:
     - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      free: 0
       title: No Ads
       mult: 
     oldPriceMult: 1
@@ -2010,44 +2032,47 @@ MonoBehaviour:
   - offerType: 1
     productType: 0
     iapID: iwi.combatris.coinpack
-    title: <bounce a=0.05 f=1>BUY COIN
+    title: <bounce a=0.05 f=1>COIN PACK
     detailedInfoStr: Use these at the shop to purchase upgrades and fill your Piggy
       Bank.
     rewards:
     - rewardType: 1
-      amount: 1000
+      amount: 500
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 2db9f4e410fc71344bf7f6fe9e691dfa, type: 3}
-      title: Coin Pack
-      mult: x 1
+    - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Coin>+500
     oldPriceMult: 1
     promotionalText: 
   - offerType: 2
     productType: 0
     iapID: iwi.combatris.piggycoinpack
-    title: <bounce a=0.05 f=1>BUY GEM
+    title: <bounce a=0.05 f=1>GEM PACK
     detailedInfoStr: Use these at the shop to purchase upgrades.
     rewards:
     - rewardType: 2
-      amount: 50
+      amount: 100
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 8bbea6879e08f2748ac6df91206f27ce, type: 3}
-      title: Gem Pack
-      mult: x 1
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Gem>+100
     oldPriceMult: 1
     promotionalText: 
   - offerType: 3
     productType: 0
     iapID: iwi.combatris.ticketpack
-    title: <bounce a=0.05 f=1>BUY TICKET
+    title: <bounce a=0.05 f=1>SKIP TICKETS
     detailedInfoStr: You can skip ads, buy power-ups or purchase new items with these.
     rewards:
     - rewardType: 3
-      amount: 15
+      amount: 10
     previewDatas:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
-      title: Ticket Pack
-      mult: x 15
+      free: 0
+      title: NEW
+      mult: <sprite name=Ticket>+10
     oldPriceMult: 1
     promotionalText: 
   - offerType: 4
@@ -2057,73 +2082,163 @@ MonoBehaviour:
     detailedInfoStr: Instantly heal and increase your chance of survival!
     rewards:
     - rewardType: 4
-      amount: 15
+      amount: 400
     previewDatas:
-    - sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
-      title: Medkit
-      mult: x 1
+    - sprite: {fileID: 21300000, guid: 5b80265b922dd48439edcb5137e671ca, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Heart>+400
     oldPriceMult: 1
     promotionalText: 
   - offerType: 5
     productType: 0
     iapID: iwi.combatris.offerpack1
-    title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: 
-    rewards: []
+    title: <bounce a=0.05 f=1>SPECIAL OFFER
+    detailedInfoStr: 'Get a Gem Pack
+
+      +
+
+      Keep enjoying the game without
+      ads
+
+
+      FOR FREE!'
+    rewards:
+    - rewardType: 3
+      amount: 25
+    - rewardType: 0
+      amount: 1
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 5b982ed242a5fe942b97ec05725a6cca, type: 3}
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Ticket>+25
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      free: 1
       title: 
-      mult: 
-    oldPriceMult: 1
-    promotionalText: 
+      mult: No Ads
+    oldPriceMult: 2
+    promotionalText: '%50
+
+      OFF'
   - offerType: 6
     productType: 0
     iapID: iwi.combatris.offerpack2
     title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: 
-    rewards: []
+    detailedInfoStr: 'Get a Gem Pack
+
+      +
+
+      Keep enjoying the game without
+      ads
+
+
+      FOR FREE!'
+    rewards:
+    - rewardType: 2
+      amount: 250
+    - rewardType: 0
+      amount: 1
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 208e2e27d7e73f14bb31bb382de09f11, type: 3}
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Gem>+250
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      free: 1
       title: 
-      mult: 
-    oldPriceMult: 1
-    promotionalText: 
+      mult: No Ads
+    oldPriceMult: 2
+    promotionalText: '%50
+
+      OFF'
   - offerType: 7
     productType: 0
     iapID: iwi.combatris.offerpack3
-    title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: 
-    rewards: []
+    title: <bounce a=0.05 f=1>KEEP LOSING?
+    detailedInfoStr: 'Get stronger
+
+      +
+
+      Keep enjoying the game without
+      ads
+
+
+      FOR FREE!'
+    rewards:
+    - rewardType: 4
+      amount: 1000
+    - rewardType: 0
+      amount: 1
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
+    - sprite: {fileID: 21300000, guid: 5b80265b922dd48439edcb5137e671ca, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Heart>+1000
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      free: 1
       title: 
-      mult: 
-    oldPriceMult: 1
-    promotionalText: 
+      mult: No Ads
+    oldPriceMult: 2
+    promotionalText: '%50
+
+      OFF'
   - offerType: 8
     productType: 0
     iapID: iwi.combatris.offerpack4
     title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: 
-    rewards: []
+    detailedInfoStr: '
+
+      3 New Packs for a price of 2!'
+    rewards:
+    - rewardType: 1
+      amount: 500
+    - rewardType: 2
+      amount: 250
+    - rewardType: 3
+      amount: 25
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
+    - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Coin>+500
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Gem>+250
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+      free: 1
       title: 
-      mult: 
-    oldPriceMult: 1
-    promotionalText: 
+      mult: <sprite name=Ticket>+25
+    oldPriceMult: 1.33
+    promotionalText: '3 FOR 2
+
+      DEAL'
   - offerType: 9
     productType: 0
     iapID: iwi.combatris.offerpack5
-    title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: 
-    rewards: []
+    title: <bounce a=0.05 f=1>HELPER PACK
+    detailedInfoStr: '
+
+      <size=125%>Keep up with the upgrades!'
+    rewards:
+    - rewardType: 2
+      amount: 250
+    - rewardType: 3
+      amount: 25
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 1659c49897cbe1c4eb03da85c7522d7f, type: 3}
-      title: 
-      mult: 
-    oldPriceMult: 1
-    promotionalText: 
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Gem>+250
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Ticket>+25
+    oldPriceMult: 1.25
+    promotionalText: '%25
+
+      OFF'
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
@@ -2134,7 +2249,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 6475058585716381588}
   fadeCanvasGroup: {fileID: 7202186276228510632}
   offerGrid: {fileID: 2257522028320413269}
-  offerGridOpenSize: {x: 0, y: 534.54}
+  offerGridOpenSize: {x: 0, y: 570}
   offerGridCloseSize: {x: 0, y: 40}
   titleText: {fileID: 7027441585568935413}
   infoText: {fileID: 7239389242888920404}
@@ -2394,6 +2509,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7446156164775246622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576675478249655598}
+  - component: {fileID: 1171587787289625215}
+  - component: {fileID: 1333373579171881463}
+  m_Layer: 13
+  m_Name: Cross
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &576675478249655598
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446156164775246622}
+  m_LocalRotation: {x: 0, y: 0, z: 0.62592345, w: 0.7798845}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5989390957909933930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 77.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 6.08, y: 194.12}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1171587787289625215
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446156164775246622}
+  m_CullTransparentMesh: 1
+--- !u!114 &1333373579171881463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446156164775246622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.70980394}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c0674a7cedf5549858d78f9a7e05aa20, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 12.4
 --- !u!1 &7867324006841184345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,8 +2619,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 0, y: 534.54}
+  m_AnchoredPosition: {x: 0, y: -39}
+  m_SizeDelta: {x: 0, y: 570}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1827993954862968274
 CanvasRenderer:
@@ -2602,7 +2792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -263}
+  m_AnchoredPosition: {x: 0, y: -180.00012}
   m_SizeDelta: {x: 297.45, y: 105.84}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5427339531082545414
@@ -2824,11 +3014,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8555941519868848981, guid: 3709b7e136de9d54187380b56739f1ee,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3061,11 +3246,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8555941519868848981, guid: 3709b7e136de9d54187380b56739f1ee,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3263,6 +3443,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Offer Preview
       objectReference: {fileID: 0}
+    - target: {fileID: 2656493906471563333, guid: 3709b7e136de9d54187380b56739f1ee,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6013905999038485815, guid: 3709b7e136de9d54187380b56739f1ee,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3365,8 +3550,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555941519868848981, guid: 3709b7e136de9d54187380b56739f1ee,
         type: 3}
-      propertyPath: m_fontSize
-      value: 71.35
+      propertyPath: m_fontSizeBase
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

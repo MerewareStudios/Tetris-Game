@@ -184,7 +184,7 @@ public class UIManager : Singleton<UIManager>
                      emitter = UIManager.THIS.coinEmitter;
                      forceUpdateMenu = false;
                      break;
-                 case OfferScreen.RewardType.PiggyCoin:
+                 case OfferScreen.RewardType.Gem:
                      emitter = UIManager.THIS.piggyCoinEmitter;
                      forceUpdateMenu = false;
                      break;
@@ -261,7 +261,7 @@ public class UIManager : Singleton<UIManager>
    public void ShowOffer_PiggyCoinPlus()
    {
       AdManager.Offers.PiggyPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.PIGGYCOINPACK, CurrentActivityScreen);
+      AnalyticsManager.OfferShown(OfferScreen.OfferType.GEMPACK, CurrentActivityScreen);
    }
    public void ShowOffer_TicketPlus()
    {
@@ -343,7 +343,8 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.U))
       {
-         IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.noads", true);
+         AdManager.Offers.Offer5();
+         // IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.noads", true);
       }
 
       // MaxTotalActiveSequences = Mathf.Max(MaxTotalActiveSequences, DOTween.TotalActiveSequences());

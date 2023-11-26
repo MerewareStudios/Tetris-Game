@@ -339,7 +339,7 @@ namespace IWI
             }
             public static void PiggyPack()
             {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.PIGGYCOINPACK);
+                OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK);
             }
             public static void TicketPack()
             {
