@@ -635,6 +635,8 @@ MonoBehaviour:
   - {fileID: 4015499408296543160}
   - {fileID: 6466271715161654677}
   costReductionStamp: {fileID: 8395863271506408679}
+  gameNotificationShop: {fileID: 0}
+  gameNotifications: []
 --- !u!223 &632556369961824273
 Canvas:
   m_ObjectHideFlags: 0
