@@ -215,8 +215,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291677645
-  m_fontColor: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 1}
+    rgba: 4294309365
+  m_fontColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1504,7 +1504,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 6.08, y: 194.12}
+  m_SizeDelta: {x: 3.85, y: 194.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &670227479213513645
 CanvasRenderer:
@@ -1812,8 +1812,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 403.45505}
-  m_SizeDelta: {x: -100, y: -1607.4299}
+  m_AnchoredPosition: {x: 0, y: 412.58502}
+  m_SizeDelta: {x: -100, y: -1589.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3873506045274127656
 CanvasRenderer:
@@ -2093,16 +2093,8 @@ MonoBehaviour:
   - offerType: 5
     productType: 0
     iapID: iwi.combatris.offerpack1
-    title: <bounce a=0.05 f=1>SPECIAL OFFER
-    detailedInfoStr: 'Get a Gem Pack
-
-      +
-
-      Keep enjoying the game without
-      ads
-
-
-      FOR FREE!'
+    title: <bounce a=0.05 f=1>NEW BUNDLE
+    detailedInfoStr: <size=125%>Keep enjoying the game without ads for FREE!
     rewards:
     - rewardType: 3
       amount: 25
@@ -2118,22 +2110,14 @@ MonoBehaviour:
       title: 
       mult: No Ads
     oldPriceMult: 2
-    promotionalText: '%50
+    promotionalText: 'FREE
 
-      OFF'
+      ONE'
   - offerType: 6
     productType: 0
     iapID: iwi.combatris.offerpack2
-    title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: 'Get a Gem Pack
-
-      +
-
-      Keep enjoying the game without
-      ads
-
-
-      FOR FREE!'
+    title: <bounce a=0.05 f=1>NEW BUNDLE
+    detailedInfoStr: <size=125%>Keep enjoying the game without ads for FREE!
     rewards:
     - rewardType: 2
       amount: 250
@@ -2155,30 +2139,24 @@ MonoBehaviour:
   - offerType: 7
     productType: 0
     iapID: iwi.combatris.offerpack3
-    title: <bounce a=0.05 f=1>KEEP LOSING?
-    detailedInfoStr: 'Get stronger
+    title: <bounce a=0.05 f=1>BOOSTER
+    detailedInfoStr: '<size=125%>Get a Gem Pack and
 
-      +
-
-      Keep enjoying the game without
-      ads
-
-
-      FOR FREE!'
+      Get stronger for FREE!'
     rewards:
+    - rewardType: 2
+      amount: 250
     - rewardType: 4
       amount: 1000
-    - rewardType: 0
-      amount: 1
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 5b80265b922dd48439edcb5137e671ca, type: 3}
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Heart>+1000
-    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      mult: <sprite name=Gem>+250
+    - sprite: {fileID: 21300000, guid: 5b80265b922dd48439edcb5137e671ca, type: 3}
       free: 1
       title: 
-      mult: No Ads
+      mult: <sprite name=Heart>+1000
     oldPriceMult: 2
     promotionalText: '%50
 
@@ -2187,9 +2165,11 @@ MonoBehaviour:
     productType: 0
     iapID: iwi.combatris.offerpack4
     title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: '
+    detailedInfoStr: '<size=115%>2 New Packs
 
-      3 New Packs for a price of 2!'
+      +
+
+      Free Ticket Pack'
     rewards:
     - rewardType: 1
       amount: 1250
@@ -2217,11 +2197,8 @@ MonoBehaviour:
   - offerType: 9
     productType: 0
     iapID: iwi.combatris.offerpack5
-    title: <bounce a=0.05 f=1>HELPER PACK
-    detailedInfoStr: '<size=125%>Keep up with the upgrades!
-
-      Remove ads for
-      free!'
+    title: <bounce a=0.05 f=1>NEW BUNDLE!
+    detailedInfoStr: <size=125%>Remove ads for free!
     rewards:
     - rewardType: 2
       amount: 500
@@ -2243,9 +2220,9 @@ MonoBehaviour:
       title: 
       mult: No Ads
     oldPriceMult: 1.25
-    promotionalText: 'FREE
+    promotionalText: '%25
 
-      ONE'
+      OFF'
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
@@ -2551,7 +2528,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 6.08, y: 194.12}
+  m_SizeDelta: {x: 3.85, y: 194.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1171587787289625215
 CanvasRenderer:

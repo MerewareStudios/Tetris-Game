@@ -1,4 +1,3 @@
-using System.Text;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -8,7 +7,6 @@ using IWI.Tutorial;
 using IWI.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Visual.Effects;
 using ValueType = IWI.Emitter.Enums.ValueType;
@@ -328,10 +326,6 @@ public class UIManager : Singleton<UIManager>
                });
          }
       }
-      // if (Input.GetKeyDown(KeyCode.T))
-      // {
-      //    Wallet.TICKET.Transaction(1);
-      // }
       if (Input.GetKeyDown(KeyCode.H))
       {
          UIManagerExtensions.HeartToPlayer(Vector3.zero,  1, 1);
@@ -341,42 +335,27 @@ public class UIManager : Singleton<UIManager>
          Warzone.THIS.Player.Gun.Boost();
 
       }
-      if (Input.GetKeyDown(KeyCode.U))
+      if (Input.GetKeyDown(KeyCode.Alpha1))
+      {
+         AdManager.Offers.Offer1();
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha2))
+      {
+         AdManager.Offers.Offer2();
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha3))
+      {
+         AdManager.Offers.Offer3();
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha4))
+      {
+         AdManager.Offers.Offer4();
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha5))
       {
          AdManager.Offers.Offer5();
-         // IAPManager.OnPurchaseFinish?.Invoke("iwi.combatris.noads", true);
       }
-
-      // MaxTotalActiveSequences = Mathf.Max(MaxTotalActiveSequences, DOTween.TotalActiveSequences());
-      // MaxTotalActiveTweeners = Mathf.Max(MaxTotalActiveTweeners, DOTween.TotalActiveTweeners());
-      // MaxTotalActiveTweens = Mathf.Max(MaxTotalActiveTweens, DOTween.TotalActiveTweens());
-      // MaxTotalPlayingTweens = Mathf.Max(MaxTotalPlayingTweens, DOTween.TotalPlayingTweens());
-      //
-      // StringBuilder stringBuilder = new StringBuilder();
-      //
-      // var list = DOTween.PlayingTweens();
-      // stringBuilder.AppendLine(list.Count + " Playing Tweens Count");
-      // stringBuilder.AppendLine(DOTween.TotalActiveSequences() + " max : " + MaxTotalActiveSequences);
-      // stringBuilder.AppendLine(DOTween.TotalActiveTweeners() + " max : " + MaxTotalActiveTweeners);
-      // stringBuilder.AppendLine(DOTween.TotalActiveTweens() + " max : " + MaxTotalActiveTweens);
-      // stringBuilder.AppendLine(DOTween.TotalPlayingTweens() + " max : " + MaxTotalPlayingTweens);
-      // foreach (var tween in list)
-      // {
-      //    Debug.LogError(tween.target, (Object)tween.target);
-      // }
-      //
-      // Debug.LogError(stringBuilder.ToString());
-      //
-      // if (list != null && list.Count > 40)
-      // {
-      //    Debug.Break();
-      // }
    }
-
-   // private int MaxTotalActiveSequences = 0;
-   // private int MaxTotalActiveTweeners = 0;
-   // private int MaxTotalActiveTweens = 0;
-   // private int MaxTotalPlayingTweens = 0;
 #endif
    
    public bool HoveringMeta
