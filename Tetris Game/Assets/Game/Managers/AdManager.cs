@@ -210,6 +210,7 @@ namespace IWI
             AdBreakScreen.THIS.PlusTicketState(false);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
             AdBreakScreen.THIS.OnByPass(onFinish);
+            AdBreakScreen.THIS.SetMiniOffer(UIManager.THIS.GetAdBreakOffer());
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -275,6 +276,7 @@ namespace IWI
             AdBreakScreen.THIS.PlusTicketState(true);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
             AdBreakScreen.THIS.OnByPass(onReward);
+            AdBreakScreen.THIS.SetMiniOffer(UIManager.THIS.GetTicketOffer());
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -353,31 +355,26 @@ namespace IWI
             public static void Offer1()
             {
                 OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK1);
-     
             }
             
             public static void Offer2()
             {
                 OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2);
-     
             }
             
             public static void Offer3()
             {
                 OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK3);
-     
             }
             
             public static void Offer4()
             {
                 OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK4);
-     
             }
             
             public static void Offer5()
             {
                 OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK5);
-     
             }
         }
         

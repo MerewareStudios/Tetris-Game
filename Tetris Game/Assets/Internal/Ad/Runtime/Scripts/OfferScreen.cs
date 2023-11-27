@@ -190,28 +190,19 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 
         
                 titleText.text = data.title;
-                // rewardsText.text = data.RewardInfo();
                 infoText.text = data.detailedInfoStr;
         
                 promotionalText.transform.parent.gameObject.SetActive(!data.promotionalText.Equals(""));
                 promotionalText.text = data.promotionalText;
 
-                string symbol = OnGetPriceSymbol.Invoke(data.iapID);
-                decimal price = OnGetPrice.Invoke(data.iapID);
-        
-                priceText.text = symbol + price.ToString("0.00");
+                // string symbol = OnGetPriceSymbol.Invoke(data.iapID);
+                // decimal price = OnGetPrice.Invoke(data.iapID);
 
+                (string oldPrice, string newPrice) = GetPriceData(data);
+                priceText.text = newPrice;
+                oldText.text = oldPrice;
                 oldText.gameObject.SetActive(data.oldPriceMult > 1);
-
-                if (data.oldPriceMult > 1)
-                {
-                    // oldText.text = symbol + (Mathf.Ceil((float)price * data.oldPriceMult) - 0.01f).ToString("#.00");
-                    oldText.text = symbol + ((float)price * data.oldPriceMult).ToString("0.00");
-                }
-                else
-                {
-                    oldText.gameObject.SetActive(false);
-                }
+                
 
                 offerGrid.rectTransform.sizeDelta = offerGridOpenSize;
 
@@ -223,6 +214,23 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                 CurrentProcessState = ProcessState.SUCCESS;
                 break;
         }
+    }
+
+    public (string, string) GetPriceData(OfferData data)
+    {
+        string symbol = OnGetPriceSymbol.Invoke(data.iapID);
+        decimal price = OnGetPrice.Invoke(data.iapID);
+
+        
+        string newPrice = symbol + price.ToString("0.00");
+        string oldPrice = symbol + ((float)price * data.oldPriceMult).ToString("0.00");
+        
+        return (oldPrice, newPrice);
+    }
+
+    public OfferData GetOfferData(OfferScreen.OfferType offerType)
+    {
+        return offerData[(int)offerType];
     }
 
 #region OnClick
@@ -387,6 +395,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         [SerializeField] public OfferPreview.PreviewData[] previewDatas;
         [SerializeField] public float oldPriceMult = 1;
         [TextArea] [SerializeField] public string promotionalText;
+        [TextArea] [SerializeField] public string miniText;
 
         // public string RewardInfo()
         // {

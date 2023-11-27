@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -271,6 +272,15 @@ public class UIManager : Singleton<UIManager>
       AdManager.Offers.HealthPack();
       AnalyticsManager.OfferShown(OfferScreen.OfferType.HEALTHPACK, CurrentActivityScreen);
    }
+   
+   public OfferScreen.OfferType? GetTicketOffer()
+   {
+      return OfferScreen.OfferType.OFFERPACK4;
+   }
+   public OfferScreen.OfferType? GetAdBreakOffer()
+   {
+      return OfferScreen.OfferType.OFFERPACK2;
+   }
 #endregion
 #if UNITY_EDITOR
    private void Update()
@@ -475,6 +485,7 @@ public class UIManager : Singleton<UIManager>
       BANNER,
       ADBREAK,
       ADBREAKBYPASS,
+      PIGGYSHOW,
    }
 }
 

@@ -20,6 +20,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private Button plusTicketButton;
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
+    [SerializeField] private MiniOffer miniOffer;
     
     [System.NonSerialized] public AdState CurrentAdState = AdState.NONE;
     [System.NonSerialized] private LoadState _currentLoadState;
@@ -112,7 +113,16 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         backgroundImage.sprite = sprite;
         return this;
     }
-
+    public AdBreakScreen SetMiniOffer(OfferScreen.OfferType? offerType)
+    {
+        miniOffer.gameObject.SetActive(offerType != null);
+        if (offerType == null)
+        {
+            return this;
+        }
+        miniOffer.ShowOffer(offerType.Value);
+        return this;
+    }
 
     public AdBreakScreen SetInfo(string infoStr, string buttonStr)
     {

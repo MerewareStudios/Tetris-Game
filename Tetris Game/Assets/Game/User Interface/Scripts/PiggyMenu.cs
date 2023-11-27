@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DG.Tweening;
 using Game.UI;
 using IWI;
@@ -8,7 +9,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Helper = Internal.Core.Helper;
-using Random = UnityEngine.Random;
 
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
@@ -45,6 +45,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Color doubleColor;
     [SerializeField] private Transform multProgress;
     [SerializeField] private Canvas piggyBankCanvas;
+   
     public const int PiggyCapIncrease = 5;
     public const int PiggyCapDiv = 5;
     public const int TicketRewardEveryBreak = 8;
