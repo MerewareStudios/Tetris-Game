@@ -10,7 +10,8 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform clickTarget;
-    
+    [SerializeField] private GameObject reductionIcon;
+
     public bool Available
     {
         set => purchaseButton.Available = value;
@@ -23,8 +24,10 @@ public class StageBar : MonoBehaviour
         currencyDisplay.gameObject.SetActive(state);
         return this;
     }
-    public StageBar SetPrice(Const.Currency currency)
+    public StageBar SetPrice(Const.Currency currency, bool reduced)
     {
+        Debug.Log(reduced);
+        reductionIcon.SetActive(reduced);
         currencyDisplay.Display(currency);
         return this;
     }

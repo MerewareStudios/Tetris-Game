@@ -25,6 +25,7 @@ namespace Game.UI
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private TextMeshProUGUI equipText;
+        [SerializeField] private GameObject reductionIcon;
         [System.NonSerialized] private BlockData _selectedBlockData;
 
         [field: System.NonSerialized] public BlockShopData SavedData { set; get; }
@@ -36,10 +37,11 @@ namespace Game.UI
             for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
             {
                 BlockData lookUp = Const.THIS.DefaultBlockData[i];
+                (Const.Currency cost, bool reduced) = lookUp.ReducedCost;
 
                 bool purchased = SavedData.unlockedBlocks.Contains(lookUp.blockType);
                 bool newShown = SavedData.newShown[i];
-                bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                bool hasFunds = Wallet.HasFunds(cost);
                 bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
 
@@ -88,16 +90,17 @@ namespace Game.UI
             base.Show();
 
             _selectedBlockData = Const.THIS.DefaultBlockData[SavedData.lastIndex];
+            (Const.Currency cost, bool reduced) = _selectedBlockData.ReducedCost;
             
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
-            bool availableByPrice = Wallet.HasFunds(_selectedBlockData.ReducedCost);
-            bool availableByTicket = _selectedBlockData.ReducedCost.type.Equals(Const.CurrencyType.Ticket);
+            bool availableByPrice = Wallet.HasFunds(cost);
+            bool availableByTicket = cost.type.Equals(Const.CurrencyType.Ticket);
             bool purchasedBlock = SavedData.HaveBlock(_selectedBlockData.blockType);
 
             bool canPurchase = (availableByPrice || availableByTicket) && availableByLevel;
 
-            
-            SetPrice(_selectedBlockData.ReducedCost, canPurchase, availableByTicket);
+
+            SetPrice(cost, canPurchase, reduced);
             SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
             
             
@@ -185,7 +188,7 @@ namespace Game.UI
             newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByTicket)
+        private void SetPrice(Const.Currency currency, bool canPurchase, bool reduced)
         {
             purchaseButton.Available = canPurchase;
             // purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
@@ -195,7 +198,7 @@ namespace Game.UI
             {   
                 PunchButton(0.2f);
             }
-            
+            reductionIcon.SetActive(reduced);
             currencyDisplay.Display(currency);
             PunchMoney(0.2f);
             PunchPurchasedText(0.2f);
@@ -219,7 +222,7 @@ namespace Game.UI
                 return;
             }
 
-            Const.Currency cost = _selectedBlockData.ReducedCost;
+            (Const.Currency cost, bool reduced) = _selectedBlockData.ReducedCost;
             if (Wallet.Consume(cost))
             {
                 SavedData.AddUnlockedBlock(_selectedBlockData);
@@ -239,7 +242,7 @@ namespace Game.UI
             }
             else
             {
-                if (_selectedBlockData.ReducedCost.type.Equals(Const.CurrencyType.Ticket))
+                if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {
@@ -299,7 +302,7 @@ namespace Game.UI
             [SerializeField] private Const.Currency currency;
             [SerializeField] public int unlockedAt = 1;
 
-            public Const.Currency ReducedCost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+            public (Const.Currency, bool) ReducedCost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
             public Const.CurrencyType CostType => currency.type;
         }
     }

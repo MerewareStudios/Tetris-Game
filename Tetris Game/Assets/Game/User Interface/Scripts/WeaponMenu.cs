@@ -35,6 +35,7 @@ namespace Game.UI
         [SerializeField] private TextMeshProUGUI gunStatText;
         [SerializeField] private GameObject nextButton;
         [SerializeField] private GameObject previousButton;
+        [SerializeField] private GameObject weaponReductionIcon;
 
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> GunDataChanged = null;
@@ -53,8 +54,11 @@ namespace Game.UI
                     continue;
                 }
 
+                (Const.Currency cost, bool reduced) = lookUp.ReducedCost;
+
+                
                 bool purchased = SavedData.gunShopDatas[i].purchased;
-                bool hasFunds = Wallet.HasFunds(lookUp.ReducedCost);
+                bool hasFunds = Wallet.HasFunds(cost);
                 bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
                 bool newShown = SavedData.newShown[i];
@@ -117,9 +121,10 @@ namespace Game.UI
                 return false;
             }
             
-            Const.Currency currency = upgradeData.ReducedUpgradeCost(statType, upgradeIndex);
-            bool hasFunds = Wallet.HasFunds(currency);
-            bool ticketType = currency.type.Equals(Const.CurrencyType.Ticket);
+            (Const.Currency cost, bool reduced) = upgradeData.ReducedUpgradeCost(statType, upgradeIndex);
+
+            bool hasFunds = Wallet.HasFunds(cost);
+            bool ticketType = cost.type.Equals(Const.CurrencyType.Ticket);
             
             return hasFunds || ticketType;
         }
@@ -167,8 +172,8 @@ namespace Game.UI
             {
                 frame.Glimmer(AnimConst.THIS.glimmerSpeedWeapon);
             }
-
-            Const.Currency cost = _gunUpgradeData.ReducedCost;
+            
+            (Const.Currency cost, bool reduced) = _gunUpgradeData.ReducedCost;
             
             bool hasFunds = Wallet.HasFunds(cost);
             bool ticketType = cost.type.Equals(Const.CurrencyType.Ticket);
@@ -208,7 +213,7 @@ namespace Game.UI
            
             if (purchaseParent.gameObject.activeSelf && ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
             {
-                if (Wallet.HasFunds(_gunUpgradeData.ReducedCost) && availableByLevel)
+                if (Wallet.HasFunds(cost) && availableByLevel)
                 {
                     Onboarding.ClickOn(purchaseClickTarget.position, Finger.Cam.UI, () =>
                     {
@@ -226,7 +231,7 @@ namespace Game.UI
             
             if (!purchasedWeapon)
             {
-                SetPrice(_gunUpgradeData.ReducedCost, canPurchase);
+                SetPrice(cost, canPurchase, reduced);
                 return;
             }
             
@@ -271,12 +276,12 @@ namespace Game.UI
                 stageBar.Available = true;
                 return;
             }
-            Const.Currency price = _gunUpgradeData.UpgradePrice(statType, currentIndex);
+            (Const.Currency price, bool reduced) = _gunUpgradeData.UpgradePrice(statType, currentIndex);
 
             bool ticketType = price.type.Equals(Const.CurrencyType.Ticket);
             
             stageBar
-                .SetPrice(price)
+                .SetPrice(price, reduced)
                 .Available = Wallet.HasFunds(price) || ticketType;
         }
         
@@ -300,7 +305,7 @@ namespace Game.UI
             gunStatText.text = stringBuilder.ToString();
         }
         
-        private void SetPrice(Const.Currency currency, bool canPurchase)
+        private void SetPrice(Const.Currency currency, bool canPurchase, bool reduced)
         {
             purchaseButton.Available = canPurchase;
             purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
@@ -309,7 +314,7 @@ namespace Game.UI
             {   
                 PunchButton(0.2f);
             }
-            
+            weaponReductionIcon.SetActive(reduced);
             currencyDisplay.Display(currency);
             PunchMoney(0.2f);
         }
@@ -385,7 +390,7 @@ namespace Game.UI
         {
             Gun.StatType type = (Gun.StatType)statType;
 
-            Const.Currency cost = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(type));
+            (Const.Currency cost, bool reduced) = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(type));
 
             if (Wallet.Consume(cost))
             {
@@ -445,8 +450,10 @@ namespace Game.UI
                 PunchPurchasedText(0.25f);
                 return;
             }
+
+            (Const.Currency cost, bool reduced) = _gunUpgradeData.ReducedCost;
             
-            if (Wallet.Consume(_gunUpgradeData.ReducedCost))
+            if (Wallet.Consume(cost))
             {
                 if (ONBOARDING.PURCHASE_WEAPON.IsNotComplete())
                 {
@@ -461,7 +468,7 @@ namespace Game.UI
             }
             else
             {
-                if (_gunUpgradeData.ReducedCost.type.Equals(Const.CurrencyType.Ticket))
+                if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(() =>
                     {

@@ -655,6 +655,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: FakeAdBanner, Internal.Ad
       objectReference: {fileID: 0}
+    - target: {fileID: 9088445916721556834, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c132ac662665cc74a974f55fe7bce062,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -694,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 4551772904412375416, guid: 343712c1b7bb2ce42bb6afc9287a9ddd,
         type: 3}
       propertyPath: m_text
-      value: '<size=150%><color=#FFFF>10%</color></size>
+      value: '<size=150%><sprite name=Down><color=#FFFF>10%</color></size>
 
         <color=#FF3872>COST
 
