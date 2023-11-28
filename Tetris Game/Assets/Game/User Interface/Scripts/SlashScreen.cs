@@ -79,9 +79,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         topPivot.anchoredPosition = Vector3.right * -distance;
 
         topBannerImage.DOKill();
-        
-
-        
 
         centerImage.rectTransform.sizeDelta = new Vector2(distance, centerMinHeight);
     }
@@ -128,6 +125,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     {
                         tipText.text = Onboarding.THIS.thanksText;
                         Account.Current.commented = true;
+
+                        UIManagerExtensions.SocialRewardTicket(loadingBar.transform.position, 1, 1, null);
                     }
                 });
             });
@@ -157,7 +156,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     if (success)
                     {
                         tipText.text = Onboarding.THIS.thanksText;
-                        // Account.Current.commented = true;
+                        
+                        UIManagerExtensions.SocialRewardTicket(loadingBar.transform.position, 1, 1, null);
                     }
                 });
             });
