@@ -14,7 +14,7 @@ public static class Wallet
         set
         {
             CostReduction = value ? 10.0f : 0.0f;
-            MenuNavigator.THIS.CostRedStamp = value;
+            // MenuNavigator.THIS.CostRedStamp = value;
         }
     }
     

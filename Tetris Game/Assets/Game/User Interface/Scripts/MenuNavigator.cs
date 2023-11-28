@@ -7,17 +7,17 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 {
     [System.NonSerialized] private List<IMenu> _menus = new();
     [SerializeField] private List<Tab> tabs = new();
-    [SerializeField] private GameObject costReductionStamp;
+    // [SerializeField] private GameObject costReductionStamp;
     [System.NonSerialized] private Data _data;
     [System.NonSerialized] public int TimeScale = 1;
     [Header("Game Notifications")]
     [SerializeField] private GameNotification gameNotificationShop;
     [SerializeField] private GameNotification[] gameNotifications;
 
-    public bool CostRedStamp
-    {
-        set => costReductionStamp.SetActive(value);
-    }
+    // public bool CostRedStamp
+    // {
+    //     set => costReductionStamp.SetActive(value);
+    // }
     
     public MenuNavigator Setup()
     {
