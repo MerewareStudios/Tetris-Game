@@ -186,7 +186,7 @@ namespace Game.UI
             
             equippedTextBanner.gameObject.SetActive(!availableByLevel || equippedWeapon);
             
-            equipText.text = equippedWeapon ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _gunUpgradeData.unlockedAt;
+            equipText.text = equippedWeapon ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + LevelManager.CurrentLevel + "/" + _gunUpgradeData.unlockedAt;
             
             
             if (!purchasedWeapon)

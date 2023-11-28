@@ -111,7 +111,7 @@ namespace Game.UI
             }
 
             equippedTextBanner.gameObject.SetActive(!availableByLevel || purchasedBlock);
-            equipText.text = purchasedBlock ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _selectedBlockData.unlockedAt;
+            equipText.text = purchasedBlock ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + LevelManager.CurrentLevel + "/" + _selectedBlockData.unlockedAt;
 
             if (!purchasedBlock)
             {

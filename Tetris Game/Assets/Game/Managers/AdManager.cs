@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game;
 using Game.UI;
 using Internal.Core;
@@ -14,6 +15,37 @@ namespace IWI
         [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
         
+        
+        [Header("Offer Sets")]
+        [SerializeField] private int ticketOfferLevelIndex = 5;
+        [SerializeField] private int ticketAdBreakLevelIndex = 5;
+        [SerializeField] private List<OfferScreen.OfferType> offerTypesTicket;
+        [SerializeField] private List<OfferScreen.OfferType> offerTypesAdBreak;
+   
+        public static OfferScreen.OfferType? GetTicketOffer()
+        {
+            if (LevelManager.CurrentLevel < AdManager.THIS.ticketOfferLevelIndex)
+            {
+                return null;
+            }
+            // if (AdManager.THIS._Data.removeAds)
+            // {
+            //     return AdManager.THIS.offerTypesTicket.Random();
+            // }
+            return AdManager.THIS.offerTypesTicket.Random();
+        }
+        public static OfferScreen.OfferType? GetAdBreakOffer()
+        {
+            if (LevelManager.CurrentLevel < AdManager.THIS.ticketAdBreakLevelIndex)
+            {
+                return null;
+            }
+            if (AdManager.THIS._Data.removeAds)
+            {
+                return null;
+            }
+            return AdManager.THIS.offerTypesAdBreak.Random();
+        }
 
         void Awake()
         {
@@ -210,7 +242,7 @@ namespace IWI
             AdBreakScreen.THIS.PlusTicketState(false);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
             AdBreakScreen.THIS.OnByPass(onFinish);
-            AdBreakScreen.THIS.SetMiniOffer(UIManager.THIS.GetAdBreakOffer());
+            AdBreakScreen.THIS.SetMiniOffer(GetAdBreakOffer());
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -276,7 +308,7 @@ namespace IWI
             AdBreakScreen.THIS.PlusTicketState(true);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
             AdBreakScreen.THIS.OnByPass(onReward);
-            AdBreakScreen.THIS.SetMiniOffer(UIManager.THIS.GetTicketOffer());
+            AdBreakScreen.THIS.SetMiniOffer(GetTicketOffer());
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {

@@ -1474,8 +1474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15aa49b1bdaa9be48ba292cc69e79344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeBottom: 1
-  safeTop: 0
+  safeBottom: 0
+  safeTop: 1
 --- !u!222 &1403309844496524427
 CanvasRenderer:
   m_ObjectHideFlags: 0

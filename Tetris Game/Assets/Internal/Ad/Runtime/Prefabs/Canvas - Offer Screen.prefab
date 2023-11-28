@@ -2097,77 +2097,77 @@ MonoBehaviour:
   - offerType: 5
     productType: 0
     iapID: iwi.combatris.offerpack1
-    title: <bounce a=0.05 f=1>NEW BUNDLE
-    detailedInfoStr: <size=125%>Keep enjoying the game without ads for FREE!
+    title: <bounce a=0.05 f=1>DOUBLE PACK
+    detailedInfoStr: '<size=125%>Get two packs,
+
+      for the price of one!'
     rewards:
     - rewardType: 3
-      amount: 25
+      amount: 10
+    - rewardType: 3
+      amount: 10
+    previewDatas:
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Ticket>+10
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Ticket>+10
+    oldPriceMult: 2
+    promotionalText: EXTRA
+    miniText: FREE
+  - offerType: 6
+    productType: 0
+    iapID: iwi.combatris.offerpack2
+    title: <bounce a=0.05 f=1>2 in 1
+    detailedInfoStr: <size=125%>Enjoy the Ticket Pack without ads!
+    rewards:
+    - rewardType: 3
+      amount: 10
     - rewardType: 0
       amount: 1
     previewDatas:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+25
+      mult: <sprite name=Ticket>+10
     - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
       free: 1
       title: 
       mult: No Ads
     oldPriceMult: 2
-    promotionalText: 'FREE
+    promotionalText: 'BEST
 
-      ONE'
-    miniText: 
-  - offerType: 6
-    productType: 0
-    iapID: iwi.combatris.offerpack2
-    title: <bounce a=0.05 f=1>NEW BUNDLE
-    detailedInfoStr: <size=125%>Keep enjoying the game without ads for FREE!
-    rewards:
-    - rewardType: 2
-      amount: 250
-    - rewardType: 0
-      amount: 1
-    previewDatas:
-    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
-      free: 0
-      title: NEW
-      mult: <sprite name=Gem>+250
-    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
-      free: 1
-      title: 
-      mult: No Ads
-    oldPriceMult: 2
-    promotionalText: '%50
-
-      OFF'
+      DEAL'
     miniText: FREE
   - offerType: 7
     productType: 0
     iapID: iwi.combatris.offerpack3
-    title: <bounce a=0.05 f=1>BOOSTER
-    detailedInfoStr: '<size=125%>Get a Gem Pack and
-
-      Get stronger for FREE!'
+    title: <bounce a=0.05 f=1>MEGA PACK
+    detailedInfoStr: <size=125%>Enjoy the Mega Ticket Pack without ads!
     rewards:
-    - rewardType: 2
-      amount: 250
-    - rewardType: 4
-      amount: 1000
+    - rewardType: 3
+      amount: 50
+    - rewardType: 0
+      amount: 1
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Gem>+250
-    - sprite: {fileID: 21300000, guid: 5b80265b922dd48439edcb5137e671ca, type: 3}
+      mult: <sprite name=Ticket>+50
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
       free: 1
       title: 
-      mult: <sprite name=Heart>+1000
-    oldPriceMult: 2
-    promotionalText: '%50
+      mult: No Ads
+    oldPriceMult: 1.25
+    promotionalText: '%25
 
       OFF'
-    miniText: 
+    miniText: 'MEGA
+
+      PACK'
   - offerType: 8
     productType: 0
     iapID: iwi.combatris.offerpack4
