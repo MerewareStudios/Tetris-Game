@@ -2012,7 +2012,7 @@ MonoBehaviour:
   offerData:
   - offerType: 0
     productType: 1
-    iapID: iwi.combatris.noads
+    iapID: iwi.combatris.product.noads
     title: <bounce a=0.05 f=1>BLOCK ADS
     detailedInfoStr: 'Remove interstitial and banner ads, keep enjoying bonuses!
 
@@ -2031,7 +2031,7 @@ MonoBehaviour:
     miniText: 
   - offerType: 1
     productType: 0
-    iapID: iwi.combatris.coinpack
+    iapID: iwi.combatris.product.coinpack
     title: <bounce a=0.05 f=1>COIN PACK
     detailedInfoStr: Use these at the shop to purchase upgrades and fill your Piggy
       Bank.
@@ -2048,7 +2048,7 @@ MonoBehaviour:
     miniText: 
   - offerType: 2
     productType: 0
-    iapID: iwi.combatris.piggycoinpack
+    iapID: iwi.combatris.product.gempack
     title: <bounce a=0.05 f=1>GEM PACK
     detailedInfoStr: Use these at the shop to purchase upgrades.
     rewards:
@@ -2064,7 +2064,7 @@ MonoBehaviour:
     miniText: 
   - offerType: 3
     productType: 0
-    iapID: iwi.combatris.ticketpack
+    iapID: iwi.combatris.product.ticketpack
     title: <bounce a=0.05 f=1>SKIP TICKETS
     detailedInfoStr: You can skip ads, buy power-ups or purchase new items with these.
     rewards:
@@ -2080,7 +2080,7 @@ MonoBehaviour:
     miniText: 
   - offerType: 4
     productType: 0
-    iapID: iwi.combatris.healthpack
+    iapID: iwi.combatris.product.healthpack
     title: <bounce a=0.05 f=1>HEALING
     detailedInfoStr: Instantly heal and increase your chance of survival!
     rewards:
@@ -2096,7 +2096,7 @@ MonoBehaviour:
     miniText: 
   - offerType: 5
     productType: 0
-    iapID: iwi.combatris.offerpack1
+    iapID: iwi.combatris.product.offerpack1
     title: <bounce a=0.05 f=1>DOUBLE PACK
     detailedInfoStr: '<size=125%>Get two packs,
 
@@ -2120,7 +2120,7 @@ MonoBehaviour:
     miniText: FREE
   - offerType: 6
     productType: 0
-    iapID: iwi.combatris.offerpack2
+    iapID: iwi.combatris.product.offerpack2
     title: <bounce a=0.05 f=1>2 in 1
     detailedInfoStr: <size=125%>Enjoy the Ticket Pack without ads!
     rewards:
@@ -2144,7 +2144,7 @@ MonoBehaviour:
     miniText: FREE
   - offerType: 7
     productType: 0
-    iapID: iwi.combatris.offerpack3
+    iapID: iwi.combatris.product.offerpack3
     title: <bounce a=0.05 f=1>MEGA PACK
     detailedInfoStr: <size=125%>Enjoy the Mega Ticket Pack without ads!
     rewards:
@@ -2170,7 +2170,7 @@ MonoBehaviour:
       PACK'
   - offerType: 8
     productType: 0
-    iapID: iwi.combatris.offerpack4
+    iapID: iwi.combatris.product.offerpack4
     title: <bounce a=0.05 f=1>NEW BUNDLE
     detailedInfoStr: '<size=115%>2 New Packs
 
@@ -2206,7 +2206,7 @@ MonoBehaviour:
       BUNDLE'
   - offerType: 9
     productType: 0
-    iapID: iwi.combatris.offerpack5
+    iapID: iwi.combatris.product.offerpack5
     title: <bounce a=0.05 f=1>NEW BUNDLE
     detailedInfoStr: '<size=125%>3 New Packs
 
@@ -3405,7 +3405,7 @@ PrefabInstance:
     - target: {fileID: 6013905999038485815, guid: 3709b7e136de9d54187380b56739f1ee,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 350
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6013905999038485815, guid: 3709b7e136de9d54187380b56739f1ee,
         type: 3}
@@ -3450,7 +3450,7 @@ PrefabInstance:
     - target: {fileID: 6013905999038485815, guid: 3709b7e136de9d54187380b56739f1ee,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 413.84976
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6013905999038485815, guid: 3709b7e136de9d54187380b56739f1ee,
         type: 3}

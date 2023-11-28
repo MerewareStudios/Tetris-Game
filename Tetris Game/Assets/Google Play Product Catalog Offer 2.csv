@@ -1,0 +1,11 @@
+Product ID,Published State,Purchase Type,Auto Translate,Locale; Title; Description,Auto Fill Prices,Price,Pricing Template ID
+iwi.combatris.product.noads,published,managed_by_android,false,en_US;No Ads;Remove ads.,false,,4635266173163957563
+iwi.combatris.product.coinpack,published,managed_by_android,false,en_US;Coin Pack;Coin package.,false,,4636629548781949107
+iwi.combatris.product.gempack,published,managed_by_android,false,en_US;Gem;Gem package.,false,,4636629548781949107
+iwi.combatris.product.ticketpack,published,managed_by_android,false,en_US;Ticket Pack;Ticket package.,false,,4636629548781949107
+iwi.combatris.product.healthpack,published,managed_by_android,false,en_US;Health Pack;Health package.,false,,4636629548781949107
+iwi.combatris.product.offerpack1,published,managed_by_android,false,en_US;Offer Pack 1;Offer package 1.,false,,4637531078454734800
+iwi.combatris.product.offerpack2,published,managed_by_android,false,en_US;Offer Pack 2;Offer package 2.,false,,4636260861123074048
+iwi.combatris.product.offerpack3,published,managed_by_android,false,en_US;Offer Pack 3;Offer package 3.,false,,4635247696697744409
+iwi.combatris.product.offerpack4,published,managed_by_android,false,en_US;Offer Pack 4;Offer package 4.,false,,4636260861123074048
+iwi.combatris.product.offerpack5,published,managed_by_android,false,en_US;Offer Pack 5;Offer package 5.,false,,4635247696697744409
