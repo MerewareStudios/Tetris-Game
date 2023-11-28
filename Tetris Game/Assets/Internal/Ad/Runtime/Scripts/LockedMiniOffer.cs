@@ -14,16 +14,26 @@ public class LockedMiniOffer : MonoBehaviour
     [SerializeField] private MiniOffer miniOffer;
     [SerializeField] private int durationSec;
     [SerializeField] private int increment = 10;
+    [SerializeField] private int availableLevel = 7;
+    [TextArea] [SerializeField] private string prefix;
     [System.NonSerialized] private Coroutine _timeCoroutine = null;
     [SerializeField] public OfferScreen.OfferType[] offerList;
+    [SerializeField] public OfferScreen.AdPlacement adPlacement;
 
     public delegate int GetCurrentFunc();
     public GetCurrentFunc GetCurrent;
 
-    [field: System.NonSerialized] public LockedMiniOffer.Data SavedData { get; set; }
+    [field: System.NonSerialized] public Data SavedData { get; set; }
 
     public void Set()
     {
+        bool available = GetCurrent() >= availableLevel;
+        this.gameObject.SetActive(available);
+        if (!available)
+        {
+            return;
+        }
+        
         if (!SavedData.enabled)
         {
             if (GetCurrent() >= SavedData.unlockedAt)
@@ -54,7 +64,7 @@ public class LockedMiniOffer : MonoBehaviour
 
         fill.DOKill();
         fill.fillAmount = 0.0f;
-        fill.DOFillAmount((GetCurrent() - SavedData.startAt) / (float)SavedData.Dif, 0.3f).SetDelay(0.25f).SetEase(Ease.OutSine).SetUpdate(true);
+        fill.DOFillAmount(1.0f - (GetCurrent() - SavedData.startAt) / (float)SavedData.Dif, 0.3f).SetDelay(0.25f).SetEase(Ease.OutSine).SetUpdate(true);
             //     .onComplete =
             // () =>
             // {
@@ -65,7 +75,8 @@ public class LockedMiniOffer : MonoBehaviour
             //         return;
             //     }
             // };
-        centerText.text = "LEVEL " + SavedData.unlockedAt;
+        centerText.text = prefix + SavedData.unlockedAt;
+        // centerText.text = SavedData.unlockedAt.ToString();
     }
     private void ShowOffer()
     {
@@ -73,7 +84,7 @@ public class LockedMiniOffer : MonoBehaviour
         visualParent.SetActive(false);
         endStamp.gameObject.SetActive(true);
         
-        miniOffer.ShowOffer(offerList[SavedData.offerIndex % offerList.Length]);
+        miniOffer.ShowOffer(offerList[SavedData.offerIndex % offerList.Length], adPlacement);
         
         StopTimer();
         _timeCoroutine = StartCoroutine(TimerRoutine());

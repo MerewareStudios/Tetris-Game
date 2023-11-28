@@ -72,7 +72,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.344
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905875863299591172}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c41b2b0e1d4cd7a489e596674ef58325, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61a44d8f49a027d4399fea61625acb70, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -798,8 +798,11 @@ MonoBehaviour:
   fill: {fileID: 7495345042447379862}
   miniOffer: {fileID: 0}
   durationSec: 200
-  increment: 2
+  increment: 10
+  availableLevel: 7
+  prefix: <pend a=0.1 f=2><sprite name=Lock><size=125%>
   offerList: 0800000009000000
+  adPlacement: 12
 --- !u!1 &8643625905348914034
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +814,7 @@ GameObject:
   - component: {fileID: 1728057154436270399}
   - component: {fileID: 3232064563349947432}
   - component: {fileID: 2351276024058359214}
+  - component: {fileID: 666835609671137744}
   m_Layer: 13
   m_Name: Center Text
   m_TagString: Untagged
@@ -852,7 +856,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8643625905348914034}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -936,3 +940,33 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &666835609671137744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8643625905348914034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 1
+  _text: <pend a=0.1 f=2>EQUIPPED<sprite name=Check>
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 0
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: c80b1c99406fe444a8aee788d56df149, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 19bcc656e956efa47ac8c8703f1e9367,
+    type: 2}
+  databaseActions: {fileID: 11400000, guid: 110a50557b269714685e2b581dea980b, type: 2}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0

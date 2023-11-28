@@ -21,7 +21,6 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [Header("Offer Data")]
     [SerializeField] public OfferData[] offerData;
     [SerializeField] private OfferPreview[] offerPreviews;
-    // [TextArea] [SerializeField] private string failText;
     [TextArea] [SerializeField] private string successText;
     [TextArea] [SerializeField] private string processingText;
     [Header("Menu")]
@@ -48,11 +47,13 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public delegate decimal STR2DECIMAL(string iapID);
     public delegate void UNPACK(Reward[] rewards, System.Action onFinish);
     public delegate bool CONDITIONAL();
+    public delegate void ANALYTICS(OfferType offerType, OfferScreen.AdPlacement adPlacement, Mode mode);
     public static STR2STR OnGetPriceSymbol;
     public static STR2DECIMAL OnGetPrice;
     public static System.Action<string> OnPurchaseOffer;
     public static UNPACK OnReward;
     public CONDITIONAL SkipCondition;
+    public static ANALYTICS AnalyticsCall;
 
     
     public Data _Data
@@ -114,14 +115,15 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     }
     
     
-    public void Open(OfferType offerType, Mode mode = Mode.Offer)
+    public void Open(OfferType offerType, AdPlacement adPlacement, Mode mode = Mode.OFFER)
     {
         if (SkipCondition != null && SkipCondition.Invoke())
         {
-            Debug.LogWarning("Cannot skip");
             CheckForUnpack(5.0f);
             return;
         }
+        
+        AnalyticsCall?.Invoke(offerType, adPlacement, mode);
         
         this._currentOfferData = offerData[(int)offerType];
         SetupVisuals(_currentOfferData, mode);
@@ -165,7 +167,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             OnVisibilityChanged?.Invoke(false, _currentProcessState);
         };        
     }
-    private void SetupVisuals(OfferData data, Mode mode = Mode.Offer)
+    private void SetupVisuals(OfferData data, Mode mode = Mode.OFFER)
     {
         for (int i = 0; i < offerPreviews.Length; i++)
         {
@@ -183,7 +185,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 
         switch (mode)
         {
-            case Mode.Offer:
+            case Mode.OFFER:
                 infoPanel.SetActive(true);
                 
                 _onBuy = () => OnPurchaseOffer?.Invoke(data.iapID);
@@ -208,7 +210,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 
                 CurrentProcessState = ProcessState.NONE;
                 break;
-            case Mode.Unpack:
+            case Mode.UNPACK:
                 infoPanel.SetActive(false);
                 
                 CurrentProcessState = ProcessState.SUCCESS;
@@ -301,7 +303,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             Close();
             return;
         }
-        Open(_Data.offers.Last(), Mode.Unpack);
+        Open(_Data.offers.Last(), AdPlacement.UNPACK, Mode.UNPACK);
     }
 
     public void CheckForUnpack(float delay)
@@ -318,7 +320,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             {
                 return;
             }
-            Open(_Data.offers.Last(), Mode.Unpack);
+            Open(_Data.offers.Last(), AdPlacement.UNPACK, Mode.UNPACK);
         });
     }
 #endregion
@@ -340,6 +342,23 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     }
 #endregion
 #region Data
+    public enum AdPlacement
+    {
+        UNPACK,
+        INGAME,
+        PIGGYMENU,
+        BLOCKMENU,
+        WEAPONMENU,
+        UPGRADEMENU,
+        BANNER,
+        ADBREAK,
+        ADBREAKBYPASS,
+        // PIGGYSHOW,
+        AFTERAD,
+        ADBREAKMINI,
+        TICKEDADMINI,
+        MENUMINI,
+    }
     [System.Serializable]
     public enum ProcessState
     {
@@ -374,8 +393,8 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     [System.Serializable]
     public enum Mode
     {
-        Offer,
-        Unpack,
+        OFFER,
+        UNPACK,
     }
     [System.Serializable]
     public class Reward

@@ -126,6 +126,7 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
+      OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
          if (PiggyMenu.THIS.Visible && !AdBreakScreen.THIS.Visible)
@@ -238,43 +239,39 @@ public class UIManager : Singleton<UIManager>
    }
 #endregion
 #region Offer
+   public void ShowOffer_RemoveAds_AfterInterAd()
+   {
+      OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2, OfferScreen.AdPlacement.AFTERAD);
+   }
    public void ShowOffer_RemoveAds_Banner()
    {
-      AdManager.Offers.RemoveAds();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.REMOVEADS, ActivityType.BANNER);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.AdPlacement.BANNER);
    }
    public void ShowOffer_RemoveAds_AdBreakByPass()
    {
-      AdManager.Offers.RemoveAds();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.REMOVEADS, ActivityType.ADBREAKBYPASS);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.AdPlacement.ADBREAKBYPASS);
    }
    public void ShowOffer_TicketPlus_AdBreakByPass()
    {
-      AdManager.Offers.TicketPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.TICKETPACK, ActivityType.ADBREAKBYPASS);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.AdPlacement.ADBREAKBYPASS);
    }
    public void ShowOffer_CoinPlus()
    {
-      AdManager.Offers.CoinPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.COINPACK, CurrentActivityScreen);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK, CurrentAdPlacement);
    }
    public void ShowOffer_PiggyCoinPlus()
    {
-      AdManager.Offers.PiggyPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.GEMPACK, CurrentActivityScreen);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK, CurrentAdPlacement);
    }
    public void ShowOffer_TicketPlus()
    {
-      AdManager.Offers.TicketPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.TICKETPACK, CurrentActivityScreen);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, CurrentAdPlacement);
    }
    public void ShowOffer_HeartPlus()
    {
-      AdManager.Offers.HealthPack();
-      AnalyticsManager.OfferShown(OfferScreen.OfferType.HEALTHPACK, CurrentActivityScreen);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, CurrentAdPlacement);
    }
 
-  
 #endregion
 #if UNITY_EDITOR
    private void Update()
@@ -339,26 +336,26 @@ public class UIManager : Singleton<UIManager>
          Warzone.THIS.Player.Gun.Boost();
 
       }
-      if (Input.GetKeyDown(KeyCode.Alpha1))
-      {
-         AdManager.Offers.Offer1();
-      }
-      if (Input.GetKeyDown(KeyCode.Alpha2))
-      {
-         AdManager.Offers.Offer2();
-      }
-      if (Input.GetKeyDown(KeyCode.Alpha3))
-      {
-         AdManager.Offers.Offer3();
-      }
-      if (Input.GetKeyDown(KeyCode.Alpha4))
-      {
-         AdManager.Offers.Offer4();
-      }
-      if (Input.GetKeyDown(KeyCode.Alpha5))
-      {
-         AdManager.Offers.Offer5();
-      }
+      // if (Input.GetKeyDown(KeyCode.Alpha1))
+      // {
+      //    AdManager.Offers.Offer1();
+      // }
+      // if (Input.GetKeyDown(KeyCode.Alpha2))
+      // {
+      //    AdManager.Offers.Offer2();
+      // }
+      // if (Input.GetKeyDown(KeyCode.Alpha3))
+      // {
+      //    AdManager.Offers.Offer3();
+      // }
+      // if (Input.GetKeyDown(KeyCode.Alpha4))
+      // {
+      //    AdManager.Offers.Offer4();
+      // }
+      // if (Input.GetKeyDown(KeyCode.Alpha5))
+      // {
+      //    AdManager.Offers.Offer5();
+      // }
    }
 #endif
    
@@ -442,45 +439,34 @@ public class UIManager : Singleton<UIManager>
       }
    }
 
-   public ActivityType CurrentActivityScreen
+   public OfferScreen.AdPlacement CurrentAdPlacement
    {
       get
       {
          if (PiggyMenu.THIS.Visible)
          {
-            return ActivityType.PIGGYMENU;
+            return OfferScreen.AdPlacement.PIGGYMENU;
          }
          if (BlockMenu.THIS.Visible)
          {
-            return ActivityType.BLOCKMENU;
+            return OfferScreen.AdPlacement.BLOCKMENU;
          }
          if (WeaponMenu.THIS.Visible)
          {
-            return ActivityType.WEAPONMENU;
+            return OfferScreen.AdPlacement.WEAPONMENU;
          }
          if (UpgradeMenu.THIS.Visible)
          {
-            return ActivityType.UPGRADEMENU;
+            return OfferScreen.AdPlacement.UPGRADEMENU;
          }
          if (AdBreakScreen.THIS.Visible)
          {
-            return ActivityType.ADBREAK;
+            return OfferScreen.AdPlacement.ADBREAK;
          }
-         return ActivityType.GAME;
+         return OfferScreen.AdPlacement.INGAME;
       }
    }
-   public enum ActivityType
-   {
-      GAME,
-      PIGGYMENU,
-      BLOCKMENU,
-      WEAPONMENU,
-      UPGRADEMENU,
-      BANNER,
-      ADBREAK,
-      ADBREAKBYPASS,
-      PIGGYSHOW,
-   }
+   
 }
 
 public static class UIManagerExtensions

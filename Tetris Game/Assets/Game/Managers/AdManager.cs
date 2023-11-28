@@ -28,10 +28,6 @@ namespace IWI
             {
                 return null;
             }
-            // if (AdManager.THIS._Data.removeAds)
-            // {
-            //     return AdManager.THIS.offerTypesTicket.Random();
-            // }
             return AdManager.THIS.offerTypesTicket.Random();
         }
         public static OfferScreen.OfferType? GetAdBreakOffer()
@@ -242,7 +238,7 @@ namespace IWI
             AdBreakScreen.THIS.PlusTicketState(false);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
             AdBreakScreen.THIS.OnByPass(onFinish);
-            AdBreakScreen.THIS.SetMiniOffer(GetAdBreakOffer());
+            AdBreakScreen.THIS.SetMiniOffer(GetAdBreakOffer(), OfferScreen.AdPlacement.ADBREAKMINI);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -267,6 +263,13 @@ namespace IWI
                 () =>
                 {
                     onFinish?.Invoke();
+
+                    if (!_data.removeAds && _data.InterAdInstance % 3 == 0)
+                    {
+                        UIManager.THIS.ShowOffer_RemoveAds_AfterInterAd();
+                    }
+                    _data.InterAdInstance++;
+                    GameManager.UpdateTimeScale();
                 }, 
                 () =>
                 {
@@ -308,7 +311,7 @@ namespace IWI
             AdBreakScreen.THIS.PlusTicketState(true);
             AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
             AdBreakScreen.THIS.OnByPass(onReward);
-            AdBreakScreen.THIS.SetMiniOffer(GetTicketOffer());
+            AdBreakScreen.THIS.SetMiniOffer(GetTicketOffer(), OfferScreen.AdPlacement.TICKEDADMINI);
             AdBreakScreen.THIS.OnClick(
                 () =>
                 {
@@ -320,7 +323,7 @@ namespace IWI
             {
                 AdBreakScreen.THIS.CloseImmediate();
                 FakeAdRewarded.THIS.Show(
-                    null, 
+                    GameManager.UpdateTimeScale, 
                     onReward,
                 null);
             }, 3.5f);
@@ -361,55 +364,6 @@ namespace IWI
             }
         }
         
-        public static class Offers
-        {
-            public static void RemoveAds()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS);
-            }
-            public static void CoinPack()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK);
-            }
-            public static void PiggyPack()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK);
-            }
-            public static void TicketPack()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK);
-            }
-            public static void HealthPack()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK);
-            }
-            
-            public static void Offer1()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK1);
-            }
-            
-            public static void Offer2()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2);
-            }
-            
-            public static void Offer3()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK3);
-            }
-            
-            public static void Offer4()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK4);
-            }
-            
-            public static void Offer5()
-            {
-                OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK5);
-            }
-        }
-        
 
         [System.Serializable]
         public class Data : ICloneable
@@ -419,6 +373,7 @@ namespace IWI
             [SerializeField] public int interWatchCount;
             [System.NonSerialized] public bool BannerAccepted = false;
             [System.NonSerialized] public int LastTimeAdShown;
+            [System.NonSerialized] public int InterAdInstance = 1;
             
             public Data()
             {

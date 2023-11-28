@@ -113,14 +113,14 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         backgroundImage.sprite = sprite;
         return this;
     }
-    public AdBreakScreen SetMiniOffer(OfferScreen.OfferType? offerType)
+    public AdBreakScreen SetMiniOffer(OfferScreen.OfferType? offerType, OfferScreen.AdPlacement adPlacement)
     {
         miniOffer.gameObject.SetActive(offerType != null);
         if (offerType == null)
         {
             return this;
         }
-        miniOffer.ShowOffer(offerType.Value);
+        miniOffer.ShowOffer(offerType.Value, adPlacement);
         return this;
     }
 

@@ -11,10 +11,12 @@ public class MiniOffer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI oldPriceText;
     [SerializeField] private TextMeshProUGUI priceText;
     [System.NonSerialized] private OfferScreen.OfferData _offerData;
+    [System.NonSerialized] private OfferScreen.AdPlacement _adPlacement;
 
-    public void ShowOffer(OfferScreen.OfferType offerType)
+    public void ShowOffer(OfferScreen.OfferType offerType, OfferScreen.AdPlacement adPlacement)
     {
         this._offerData = OfferScreen.THIS.offerData[(int)offerType];
+        this._adPlacement = adPlacement;
      
         (string oldPrice, string newPrice) = OfferScreen.THIS.GetPriceData(_offerData);
         priceText.text = newPrice;
@@ -26,6 +28,6 @@ public class MiniOffer : MonoBehaviour
 
     public void OnClick_ShowOffer()
     {
-        OfferScreen.THIS.Open(this._offerData.offerType);
+        OfferScreen.THIS.Open(this._offerData.offerType, _adPlacement);
     }
 }

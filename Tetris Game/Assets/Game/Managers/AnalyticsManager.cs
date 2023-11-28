@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-// #define LOG_WARNING
+#define LOG_WARNING
 #define LOG_ERROR
 using System.Text.RegularExpressions;
 #endif
@@ -188,9 +188,9 @@ public static class AnalyticsManager
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void OfferShown(OfferScreen.OfferType offerType, UIManager.ActivityType activityType)
+    public static void OfferShown(OfferScreen.OfferType offerType, OfferScreen.AdPlacement adPlacement, OfferScreen.Mode mode)
     {
-        string eventName = "OFFER:" + offerType.ToString() + ":" + activityType.ToString();
+        string eventName = "OFFER:" + offerType.ToString() + ":" + adPlacement.ToString() + ":" + mode.ToString();
         int time = (int)Time.realtimeSinceStartup;
         GameAnalytics.NewDesignEvent(eventName, time);
 #if UNITY_EDITOR

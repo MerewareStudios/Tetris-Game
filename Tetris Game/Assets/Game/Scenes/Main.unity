@@ -3797,7 +3797,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  adTimeInterval: 180
+  adTimeInterval: 0
   ticketOfferLevelIndex: 7
   ticketAdBreakLevelIndex: 7
   offerTypesTicket: 05000000
