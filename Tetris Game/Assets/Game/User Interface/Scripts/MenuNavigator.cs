@@ -8,12 +8,23 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [System.NonSerialized] private List<IMenu> _menus = new();
     [SerializeField] private List<Tab> tabs = new();
     // [SerializeField] private GameObject costReductionStamp;
-    [System.NonSerialized] private Data _data;
+    [System.NonSerialized] private Data _savedData;
     [System.NonSerialized] public int TimeScale = 1;
     [Header("Game Notifications")]
     [SerializeField] private GameNotification gameNotificationShop;
     [SerializeField] private GameNotification[] gameNotifications;
+    [Header("Offer")]
+    [SerializeField] private LockedMiniOffer lockedMiniOffer;
 
+    public Data SavedData
+    {
+        set
+        {
+            _savedData = value;
+            lockedMiniOffer.SavedData = _savedData.lockedMiniOffer;
+        }
+        get => _savedData;
+    }
     // public bool CostRedStamp
     // {
     //     set => costReductionStamp.SetActive(value);
@@ -47,6 +58,8 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         Wallet.ScaleTransactors(1.1f, true);
         Activate();
         OpenLastMenu();
+        
+        lockedMiniOffer.Set(LevelManager.CurrentLevel);
     }
 
     public void UpdateNotifyMenus(bool visible)
@@ -105,7 +118,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         Wallet.ScaleTransactors(1.0f);
         Onboarding.HideFinger();
 
-        int lastMenuIndex = (int)_Data.lastMenuType;
+        int lastMenuIndex = (int)SavedData.lastMenuType;
         tabs[lastMenuIndex].Hide();
         _menus[lastMenuIndex].Close(0.2f);
 
@@ -123,12 +136,12 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
     public void SetLastMenu(MenuType menuType)
     {
-        _Data.lastMenuType = menuType;
+        SavedData.lastMenuType = menuType;
     }
 
     private void OpenLastMenu(float duration = 0.25f)
     {
-        int lastMenuIndex = (int)_Data.lastMenuType;
+        int lastMenuIndex = (int)SavedData.lastMenuType;
         _menus[lastMenuIndex].GetParentContainer().SetAsLastSibling();
         _menus[lastMenuIndex].Open(duration);
         tabs[lastMenuIndex].Show();
@@ -151,38 +164,32 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
     private void OpenTabMenu(MenuType menuTypeNext)
     {
-        if (_data.lastMenuType.Equals(menuTypeNext))
+        if (_savedData.lastMenuType.Equals(menuTypeNext))
         {
             return;
         }
         
         Onboarding.HideFinger();
 
-        int index = (int)_data.lastMenuType;
+        int index = (int)_savedData.lastMenuType;
         _menus[index].Close(0.1f, 0.1f);
         tabs[index].Hide();
 
-        _data.lastMenuType = menuTypeNext;
+        _savedData.lastMenuType = menuTypeNext;
         OpenLastMenu(0.1f);
     }
     void Update()
     {
         Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
-    public Data _Data
-    {
-        set
-        {
-            _data = value;
-        }
-        get => _data;
-    }
+   
     
     
     [System.Serializable]
     public class Data : System.ICloneable
     {
         [SerializeField] public Game.UI.MenuType lastMenuType;
+        [SerializeField] public LockedMiniOffer.Data lockedMiniOffer;
 
         public Data()
         {
@@ -191,6 +198,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         public Data(Data data)
         {
             lastMenuType = data.lastMenuType;
+            lockedMiniOffer = data.lockedMiniOffer.Clone() as LockedMiniOffer.Data;
         }   
         public object Clone()
         {

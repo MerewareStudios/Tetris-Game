@@ -66,7 +66,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Warzone.THIS.Player._Data = saveData.playerData;
         Board.THIS._Data = saveData.userData.boardData;
 
-        MenuNavigator.THIS._Data = saveData.userData.menuNavData;
+        MenuNavigator.THIS.SavedData = saveData.userData.menuNavData;
         
         UIManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
         UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.PASSIVE_META.IsComplete());
