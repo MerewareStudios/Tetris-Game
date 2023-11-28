@@ -22,6 +22,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         {
             _savedData = value;
             lockedMiniOffer.SavedData = _savedData.lockedMiniOffer;
+            lockedMiniOffer.GetCurrent = () => LevelManager.CurrentLevel;
         }
         get => _savedData;
     }
@@ -59,7 +60,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         Activate();
         OpenLastMenu();
         
-        lockedMiniOffer.Set(LevelManager.CurrentLevel);
+        lockedMiniOffer.Set();
     }
 
     public void UpdateNotifyMenus(bool visible)
@@ -123,6 +124,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         _menus[lastMenuIndex].Close(0.2f);
 
         
+        lockedMiniOffer.Pause();
         // UpdateNotify(lastMenuIndex);
         // UpdateTotalNotify();
         

@@ -1,49 +1,153 @@
+using System;
+using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LockedMiniOffer : MonoBehaviour
 {
+    [SerializeField] private GameObject visualParent;
     [SerializeField] private TextMeshProUGUI centerText;
+    [SerializeField] private TextMeshProUGUI endStamp;
     [SerializeField] private Image fill;
     [SerializeField] private MiniOffer miniOffer;
-    [System.NonSerialized] private Data _savedData;
+    [SerializeField] private int durationSec;
+    [SerializeField] private int increment = 10;
+    [System.NonSerialized] private Coroutine _timeCoroutine = null;
+    [SerializeField] public OfferScreen.OfferType[] offerList;
 
-    public LockedMiniOffer.Data SavedData
+    public delegate int GetCurrentFunc();
+    public GetCurrentFunc GetCurrent;
+
+    [field: System.NonSerialized] public LockedMiniOffer.Data SavedData { get; set; }
+
+    public void Set()
     {
-        get => _savedData;
-        set
+        if (!SavedData.enabled)
         {
-            _savedData = value;
-            centerText.text = "LEVEL " + value.unlockedAt;
+            if (GetCurrent() >= SavedData.unlockedAt)
+            {
+                EnableOffer();
+                ShowOffer();
+                return;
+            }
+            SetupOfferProgress();
+            return;
+        }
+        if (SavedData.OfferEnded)
+        {
+            IncrementOffer();
+            SetupOfferProgress();
+            return;
+        }
+
+        ShowOffer();
+    }
+
+    
+    private void SetupOfferProgress()
+    {
+        miniOffer.gameObject.SetActive(false);
+        visualParent.SetActive(true);
+        endStamp.gameObject.SetActive(false);
+
+        fill.DOKill();
+        fill.fillAmount = 0.0f;
+        fill.DOFillAmount((GetCurrent() - SavedData.startAt) / (float)SavedData.Dif, 0.3f).SetDelay(0.25f).SetEase(Ease.OutSine).SetUpdate(true);
+            //     .onComplete =
+            // () =>
+            // {
+            //     if (GetCurrent() >= SavedData.unlockedAt)
+            //     {
+            //         EnableOffer();
+            //         ShowOffer();
+            //         return;
+            //     }
+            // };
+        centerText.text = "LEVEL " + SavedData.unlockedAt;
+    }
+    private void ShowOffer()
+    {
+        miniOffer.gameObject.SetActive(true);
+        visualParent.SetActive(false);
+        endStamp.gameObject.SetActive(true);
+        
+        miniOffer.ShowOffer(offerList[SavedData.offerIndex % offerList.Length]);
+        
+        StopTimer();
+        _timeCoroutine = StartCoroutine(TimerRoutine());
+        return;
+
+        IEnumerator TimerRoutine()
+        {
+            while (true)
+            {
+                endStamp.text = SavedData.CurrentStamp.ToString(@"mm\:ss");
+                if (SavedData.OfferEnded)
+                {
+                    IncrementOffer();
+                    SetupOfferProgress();
+                    yield break;
+                }
+                yield return new WaitForSecondsRealtime(1);
+            }
         }
     }
 
-    public LockedMiniOffer Set(int current)
+    private void IncrementOffer()
     {
-        fill.fillAmount = current / (float)_savedData.unlockedAt;
-        miniOffer.gameObject.SetActive(current == _savedData.unlockedAt);
-        this.gameObject.SetActive(current != _savedData.unlockedAt);
-        return this;
+        SavedData.startAt = GetCurrent();
+        SavedData.unlockedAt = SavedData.startAt + increment;
+        SavedData.offerIndex++;
+        SavedData.enabled = false;
     }
-    public int UnlockedAt
+    private void EnableOffer()
     {
-        set => _savedData.unlockedAt = value;
-        get => _savedData.unlockedAt;
+        SavedData.enabled = false;
+        SavedData.offerEnds = DateTime.Now.Ticks + TimeSpan.FromSeconds(durationSec).Ticks;
+    }
+    
+    public void Pause()
+    {
+        fill.DOKill();
+        StopTimer();
+    }
+    private void StopTimer()
+    {
+        if (_timeCoroutine == null)
+        {
+            return;
+        }
+        StopCoroutine(_timeCoroutine);
+        _timeCoroutine = null;
     }
     
     [System.Serializable]
     public class Data : System.ICloneable
     {
+        [SerializeField] public int startAt = 0;
         [SerializeField] public int unlockedAt = 15;
+        [SerializeField] public int offerIndex;
+        [SerializeField] public bool enabled = false;
+        [SerializeField] public long offerEnds;
             
+        public TimeSpan CurrentStamp => TimeSpan.FromTicks(offerEnds - DateTime.Now.Ticks);
+        public bool OfferEnded => CurrentStamp.Ticks < 0;
+        public int Dif => unlockedAt - startAt;
+
+        
         public Data()
         {
                 
         }
         public Data(Data data)
         {
+            this.startAt = data.startAt;
             this.unlockedAt = data.unlockedAt;
+            this.offerIndex = data.offerIndex;
+            this.enabled = data.enabled;
+            this.offerEnds = data.offerEnds;
         }
 
         public object Clone()

@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 5
+    level: 15
     pupData:
       available: 1
       currentUsage: 4
@@ -682,7 +682,11 @@ MonoBehaviour:
     menuNavData:
       lastMenuType: 0
       lockedMiniOffer:
+        startAt: 0
         unlockedAt: 15
+        offerIndex: 0
+        enabled: 0
+        offerEnds: 0
     piggyData:
       currentMoney:
         type: 0

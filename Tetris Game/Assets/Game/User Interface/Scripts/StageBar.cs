@@ -26,7 +26,6 @@ public class StageBar : MonoBehaviour
     }
     public StageBar SetPrice(Const.Currency currency, bool reduced)
     {
-        Debug.Log(reduced);
         reductionIcon.SetActive(reduced);
         currencyDisplay.Display(currency);
         return this;

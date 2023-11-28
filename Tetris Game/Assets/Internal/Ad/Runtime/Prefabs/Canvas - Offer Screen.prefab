@@ -2162,7 +2162,7 @@ MonoBehaviour:
       title: 
       mult: No Ads
     oldPriceMult: 1.25
-    promotionalText: '%25
+    promotionalText: '25%
 
       OFF'
     miniText: 'MEGA
@@ -2171,69 +2171,73 @@ MonoBehaviour:
   - offerType: 8
     productType: 0
     iapID: iwi.combatris.offerpack4
-    title: <bounce a=0.05 f=1>NEW OFFER
-    detailedInfoStr: '<size=115%>New Packs
+    title: <bounce a=0.05 f=1>NEW BUNDLE
+    detailedInfoStr: '<size=115%>2 New Packs
 
       +
 
       Free Ticket Pack'
     rewards:
     - rewardType: 1
-      amount: 1250
-    - rewardType: 2
-      amount: 250
+      amount: 500
     - rewardType: 3
-      amount: 25
+      amount: 10
+    - rewardType: 2
+      amount: 100
     previewDatas:
     - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Coin>+1250
-    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
-      free: 0
-      title: NEW
-      mult: <sprite name=Gem>+250
+      mult: <sprite name=Coin>+500
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 1
       title: 
-      mult: <sprite name=Ticket>+25
+      mult: <sprite name=Ticket>+10
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Gem>+100
     oldPriceMult: 1.5
     promotionalText: '3 FOR 2
 
       DEAL'
-    miniText: '%50
+    miniText: 'NEW
 
-      OFF'
+      BUNDLE'
   - offerType: 9
     productType: 0
     iapID: iwi.combatris.offerpack5
-    title: <bounce a=0.05 f=1>NEW BUNDLE!
-    detailedInfoStr: <size=125%>Remove ads for free!
+    title: <bounce a=0.05 f=1>NEW BUNDLE
+    detailedInfoStr: '<size=125%>3 New Packs
+
+      for Half Price!'
     rewards:
-    - rewardType: 2
-      amount: 500
     - rewardType: 3
-      amount: 50
-    - rewardType: 0
-      amount: 1
+      amount: 20
+    - rewardType: 2
+      amount: 200
+    - rewardType: 1
+      amount: 1000
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
-      free: 0
-      title: NEW
-      mult: <sprite name=Gem>+500
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+50
-    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
-      free: 1
-      title: 
-      mult: No Ads
-    oldPriceMult: 1.25
-    promotionalText: '%25
+      mult: <sprite name=Ticket>+10
+    - sprite: {fileID: 21300000, guid: 3c1babbd9befb49439ec2f4acfd330c5, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Gem>+100
+    - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
+      free: 0
+      title: NEW
+      mult: <sprite name=Coin>+500
+    oldPriceMult: 1.5
+    promotionalText: '50%
 
       OFF'
-    miniText: 
+    miniText: 'HALF
+
+      PRICE'
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}
