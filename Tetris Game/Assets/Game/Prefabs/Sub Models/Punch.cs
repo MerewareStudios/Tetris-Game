@@ -51,7 +51,7 @@ public class Punch : SubModel
                 enemy.Drag(2.0f, Warzone.THIS.AssignClosestEnemy);
             }
             
-            CameraManager.THIS.Shake(1.0f, 0.75f);
+            CameraManager.THIS.Shake(0.75f, 0.75f);
             Particle.Pow.Play(hitTarget);
             
             OnDeconstruct();

@@ -22,6 +22,7 @@ public static class AnalyticsManager
         _shopOpenedCount = 0;
         GameAnalytics.SetCustomId(Account.Current.guid);
         GameAnalytics.Initialize();
+        GameAnalyticsILRD.SubscribeMaxImpressions();
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]

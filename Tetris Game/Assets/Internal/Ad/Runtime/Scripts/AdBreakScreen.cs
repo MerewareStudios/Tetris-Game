@@ -253,9 +253,10 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 
     private System.Action _onBypass;
     
-    public void OnByPass(System.Action onBypass)
+    public AdBreakScreen OnByPass(System.Action onBypass)
     {
         this._onBypass = onBypass;
+        return this;
     }
     
     public void ByPassInProgress()

@@ -710,7 +710,7 @@ namespace Game
             {
                 lastTween.onComplete += () =>
                 {
-                    CameraManager.THIS.Shake(0.2f + (0.1f * (multiplier - 1)), 0.5f);
+                    CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
                     // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                 };
@@ -812,7 +812,8 @@ namespace Game
             {
                 lastTween.onComplete += () =>
                 {
-                    CameraManager.THIS.Shake(0.2f, 0.5f);
+                    // CameraManager.THIS.Shake(0.2f, 0.5f);
+                    CameraManager.THIS.Shake(Random.Range(0.3f, 0.4f), 0.5f);
 
                     if (totalAmmo > 0)
                     {

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Game;
-using Game.UI;
 using Internal.Core;
 using UnityEngine;
 
@@ -15,16 +14,15 @@ namespace IWI
         [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
         
-        
         [Header("Offer Sets")]
-        [SerializeField] private int ticketOfferLevelIndex = 5;
-        [SerializeField] private int ticketAdBreakLevelIndex = 5;
+        [SerializeField] private int adBreakOfferLevel = 5;
+        [SerializeField] private int ticketOfferLevel = 5;
         [SerializeField] private List<OfferScreen.OfferType> offerTypesTicket;
         [SerializeField] private List<OfferScreen.OfferType> offerTypesAdBreak;
    
         public static OfferScreen.OfferType? GetTicketOffer()
         {
-            if (LevelManager.CurrentLevel < AdManager.THIS.ticketOfferLevelIndex)
+            if (LevelManager.CurrentLevel < AdManager.THIS.ticketOfferLevel)
             {
                 return null;
             }
@@ -32,7 +30,7 @@ namespace IWI
         }
         public static OfferScreen.OfferType? GetAdBreakOffer()
         {
-            if (LevelManager.CurrentLevel < AdManager.THIS.ticketAdBreakLevelIndex)
+            if (LevelManager.CurrentLevel < AdManager.THIS.adBreakOfferLevel)
             {
                 return null;
             }
@@ -230,16 +228,16 @@ namespace IWI
             }
 
 
-            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL);
-            AdBreakScreen.THIS.SetLoadState(FakeAdInterstitial.THIS.LoadState);
-            AdBreakScreen.THIS.SetInfo(Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText);
-            AdBreakScreen.THIS.SetVisualData(Onboarding.THIS.adBreakVisualData);
-            AdBreakScreen.THIS.RemoveAdBreakButtonState(true);
-            AdBreakScreen.THIS.PlusTicketState(false);
-            AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.skipAdBackgroundImage);
-            AdBreakScreen.THIS.OnByPass(onFinish);
-            AdBreakScreen.THIS.SetMiniOffer(GetAdBreakOffer(), OfferScreen.AdPlacement.ADBREAKMINI);
-            AdBreakScreen.THIS.OnClick(
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL)
+            .SetLoadState(FakeAdInterstitial.THIS.LoadState)
+            .SetInfo(Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText)
+            .SetVisualData(Onboarding.THIS.adBreakVisualData)
+            .RemoveAdBreakButtonState(true)
+            .PlusTicketState(false)
+            .SetBackgroundImage(Const.THIS.skipAdBackgroundImage)
+            .OnByPass(onFinish)
+            .SetMiniOffer(GetAdBreakOffer(), OfferScreen.AdPlacement.ADBREAKMINI)
+            .OnClick(
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
@@ -249,8 +247,8 @@ namespace IWI
                     _Data.interSkipCount++;
                     AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, _Data.interSkipCount);
                 },
-                () => Wallet.Consume(Const.Currency.OneAd));
-            AdBreakScreen.THIS.OnTimesUp(() =>
+                () => Wallet.Consume(Const.Currency.OneAd))
+            .OnTimesUp(() =>
             {
                 _Data.interWatchCount++;
                 AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, _Data.interSkipCount);
@@ -276,9 +274,8 @@ namespace IWI
                     // AdBreakScreen.THIS.CloseImmediate();
                     onFinish?.Invoke();
                 });
-            }, 3.5f);
-                
-            AdBreakScreen.THIS.Open();
+            }, 3.5f)
+            .Open();
         }
 
         public static void ShowTicketAd(System.Action onReward, System.Action onClick = null)
@@ -303,32 +300,31 @@ namespace IWI
                 AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
             
-            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED);
-            AdBreakScreen.THIS.SetLoadState(FakeAdRewarded.THIS.LoadState);
-            AdBreakScreen.THIS.SetInfo(Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText);
-            AdBreakScreen.THIS.SetVisualData(Onboarding.THIS.rewardedAdVisualData);
-            AdBreakScreen.THIS.RemoveAdBreakButtonState(false);
-            AdBreakScreen.THIS.PlusTicketState(true);
-            AdBreakScreen.THIS.SetBackgroundImage(Const.THIS.earnTicketBackgroundImage);
-            AdBreakScreen.THIS.OnByPass(onReward);
-            AdBreakScreen.THIS.SetMiniOffer(GetTicketOffer(), OfferScreen.AdPlacement.TICKEDADMINI);
-            AdBreakScreen.THIS.OnClick(
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED)
+            .SetLoadState(FakeAdRewarded.THIS.LoadState)
+            .SetInfo(Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText)
+            .SetVisualData(Onboarding.THIS.rewardedAdVisualData)
+            .RemoveAdBreakButtonState(false)
+            .PlusTicketState(true)
+            .SetBackgroundImage(Const.THIS.earnTicketBackgroundImage)
+            .OnByPass(onReward)
+            .SetMiniOffer(GetTicketOffer(), OfferScreen.AdPlacement.TICKEDADMINI)
+            .OnClick(
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
                     onClick?.Invoke();
                 },
-                () => true);
-            AdBreakScreen.THIS.OnTimesUp(() =>
+                () => true)
+            .OnTimesUp(() =>
             {
                 AdBreakScreen.THIS.CloseImmediate();
                 FakeAdRewarded.THIS.Show(
                     GameManager.UpdateTimeScale, 
                     onReward,
                 null);
-            }, 3.5f);
-
-            AdBreakScreen.THIS.Open();
+            }, 3.5f)
+            .Open();
         }
 
         public Data _Data

@@ -25,6 +25,6 @@ public class CameraManager : Singleton<CameraManager>
     {
         shakePivot.DOKill();
         shakePivot.localRotation = Quaternion.identity;
-        shakePivot.DOPunchRotation(Random.insideUnitSphere * amplitude, duration).SetEase(Ease.InOutSine);
+        shakePivot.DOPunchRotation(Random.insideUnitSphere.normalized * amplitude, duration).SetEase(Ease.InOutSine);
     }
 }
