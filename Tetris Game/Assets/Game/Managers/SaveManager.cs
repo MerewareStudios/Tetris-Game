@@ -68,8 +68,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         MenuNavigator.THIS.SavedData = saveData.userData.menuNavData;
         
-        UIManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
-        UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.PASSIVE_META.IsComplete());
+        LevelManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.WEAPON_TAB.IsComplete();
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();

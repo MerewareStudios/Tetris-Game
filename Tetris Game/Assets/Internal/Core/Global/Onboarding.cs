@@ -184,9 +184,7 @@ public class Onboarding : SSingleton<Onboarding>
 
 
             ONBOARDING.PASSIVE_META.SetComplete();
-            UIManager.THIS.levelText.enabled = true;
-            UIManager.THIS.levelProgressbar.SetActive(true);
-            UIManager.THIS.levelProgress.fillAmount = 1.0f;
+            LevelManager.THIS.levelText.enabled = true;
             StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, Warzone.THIS.Player._CurrentHealth);
             Warzone.THIS.Begin();
         }

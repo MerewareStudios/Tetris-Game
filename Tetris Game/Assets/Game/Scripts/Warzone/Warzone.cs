@@ -117,8 +117,6 @@ namespace  Game
                 }
                 _leftEnemyHealth = _totalEnemyHealth;
 
-                UpdateProgress();
-
                 yield return new WaitForSeconds(0.25f);
                 
                 
@@ -140,8 +138,6 @@ namespace  Game
                
 
                 
-                UpdateProgress();
-
                 enemyPool.Shuffle();
 
                 _spawnRangeNorm = 0.0f;
@@ -179,11 +175,6 @@ namespace  Game
             }
         }
 
-        private void UpdateProgress()
-        {
-            UIManager.THIS.SetLevelProgress(_leftEnemyHealth / (float) _totalEnemyHealth, _leftEnemyHealth);
-        }
-
         public void OnLevelLoad()
         {
             Player.Replenish();
@@ -209,7 +200,6 @@ namespace  Game
             enemy.Replenish();
 
             _leftEnemyHealth -= enemyData.maxHealth;
-            UpdateProgress();
             
             return enemy;
         }

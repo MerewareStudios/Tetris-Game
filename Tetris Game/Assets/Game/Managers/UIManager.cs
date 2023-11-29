@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -15,10 +13,7 @@ using ValueType = IWI.Emitter.Enums.ValueType;
 
 public class UIManager : Singleton<UIManager>
 {
-   [SerializeField] public TextMeshProUGUI levelText;
-   [SerializeField] public TextMeshProUGUI levelTextMenu;
-   [SerializeField] public GameObject levelProgressbar;
-   [SerializeField] public Image levelProgress;
+   
    [SerializeField] public ParticleSystem piggyPS;
    [Header("Canvases")]
    [SerializeField] private Consent consent;
@@ -64,20 +59,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private Button plusTicketButton;
    [SerializeField] private Button plusHealthButton;
 
-   public void SetLevelProgress(float value, int health)
-   {
-      levelProgressbar.gameObject.SetActive(true);
-      levelProgress.DOKill();
-      levelProgress.DOFillAmount(value, 0.2f).SetEase(Ease.OutQuad).onComplete = () =>
-      {
-         if (health > 0)
-         {
-            return;
-         }
-         levelProgressbar.gameObject.SetActive(false);
-      };
-   }
-   
    void Awake()
    {
       Consent.THIS = consent;
@@ -422,6 +403,8 @@ public class UIManager : Singleton<UIManager>
       MenuVisible = value;
       CameraManager.THIS.gameCamera.enabled = !value;
       SaveManager.THIS.Save();
+      
+      LevelManager.THIS.ScaleLevelText(value);
       
       OnMenuModeChanged?.Invoke(value);
    }

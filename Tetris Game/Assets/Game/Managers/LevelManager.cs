@@ -3,10 +3,18 @@ using Game;
 using GameAnalyticsSDK;
 using Internal.Core;
 using IWI;
+using TMPro;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    [SerializeField] public TextMeshProUGUI levelText;
+    [SerializeField] public RectTransform levelTextRect;
+    [SerializeField] public Vector3 gameScale;
+    [SerializeField] public Vector3 menuScale;
+    [SerializeField] public Vector3 gameAnchor;
+    [SerializeField] public Vector3 menuAnchor;
+    
     public static int CurrentLevel => THIS.CurrentLevel();
     private static LevelSo _currentLevelSo;
     public static float DeltaMult = 1.0f;
@@ -21,8 +29,7 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        UIManager.THIS.levelText.text = "LEVEL " + CurrentLevel;
-        UIManager.THIS.levelTextMenu.text = UIManager.THIS.levelText.text;
+        levelText.text = "LEVEL " + CurrentLevel;
         DeltaMult = GetDeltaMult();
 
         Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
@@ -41,6 +48,13 @@ public class LevelManager : Singleton<LevelManager>
         {
             AdManager.THIS.ShowBannerOffer();
         }
+    }
+    
+    public void ScaleLevelText(bool menuMode)
+    {
+        levelTextRect.DOKill();
+        levelTextRect.DOScale(menuMode ? menuScale : gameScale, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
+        levelTextRect.DOAnchorPos(menuMode ? menuAnchor : gameAnchor, 0.35f).SetUpdate(true).SetEase(Ease.OutSine);
     }
 
     public void BeginLevel()
