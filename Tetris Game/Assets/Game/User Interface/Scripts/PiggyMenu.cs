@@ -46,7 +46,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform multProgress;
     [SerializeField] private Canvas piggyBankCanvas;
    
-    public const int PiggyCapIncrease = 5;
+    public const int PiggyCapIncrease = 1;
     public const int PiggyCapDiv = 5;
     public const int TicketRewardEveryBreak = 8;
 
