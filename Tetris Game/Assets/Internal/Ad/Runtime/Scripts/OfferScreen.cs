@@ -349,7 +349,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         PIGGYMENU,
         BLOCKMENU,
         WEAPONMENU,
-        UPGRADEMENU,
+        // UPGRADEMENU,
         BANNER,
         ADBREAK,
         ADBREAKBYPASS,

@@ -25,7 +25,6 @@ public class Const : SSingleton<Const>
     [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
-    public UpgradeMenu.PurchaseDataLookUp[] purchaseDataLookUp;
     public Pawn.Usage[] gifts;
     public Pawn.Usage[] powerUps;
     [Header("Colors")] 

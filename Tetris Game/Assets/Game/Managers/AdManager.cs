@@ -74,13 +74,11 @@ namespace IWI
             if (_Data.removeAds)
             {
                 onSuccess?.Invoke();
-                // Debug.Log("remove ads");
                 return;
             }
-            if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+            if (ONBOARDING.WEAPON_TAB.IsNotComplete())
             {
                 onSuccess?.Invoke();
-                // Debug.Log("UPGRADE_TAB not comp");
                 return;
             }
 
@@ -89,7 +87,6 @@ namespace IWI
                 ShowAdBreak(onSuccess);
                 return;
             }
-                // Debug.Log("not yet time");
             onSuccess?.Invoke();
         }
         
@@ -183,20 +180,17 @@ namespace IWI
             if (!MaxSdk.IsInitialized())
             {
                 onFinish?.Invoke();
-                // Debug.Log("not init");
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
                 FakeAdInterstitial.THIS.LoadAd();
                 onFinish?.Invoke();
-                // Debug.Log("load");
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
                 onFinish?.Invoke();
-                // Debug.Log("not ready");
                 return;
             }
 
@@ -213,7 +207,6 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    // GameManager.GameTimeScale(1.0f);
                     onFinish?.Invoke();
 
                     _Data.interSkipCount++;
@@ -243,7 +236,6 @@ namespace IWI
                 }, 
                 () =>
                 {
-                    // AdBreakScreen.THIS.CloseImmediate();
                     onFinish?.Invoke();
                 });
             }, 3.5f)
@@ -263,8 +255,6 @@ namespace IWI
 
             onReward += () =>
             {
-                // if (Time.time - _Data.LastTimeAdShown > AdTimeInterval)
-
                 int now = (int)Time.time;
                 int timeTheAdWillBeShown = AdManager.THIS._Data.LastTimeAdShown + AdManager.THIS.adTimeInterval;
                 int timeUntilAd = timeTheAdWillBeShown - now;
@@ -357,6 +347,5 @@ namespace IWI
                 return new Data(this);
             }
         } 
-        
     }
 }

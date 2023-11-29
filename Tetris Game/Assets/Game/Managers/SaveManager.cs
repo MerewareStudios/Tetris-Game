@@ -70,11 +70,9 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
         UIManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
         UIManager.THIS.levelProgressbar.SetActive(ONBOARDING.PASSIVE_META.IsComplete());
-        UIManager.THIS.shop.VisibleImmediate = ONBOARDING.UPGRADE_TAB.IsComplete();
+        UIManager.THIS.shop.VisibleImmediate = ONBOARDING.WEAPON_TAB.IsComplete();
         
-        UIManager.THIS.PlusButtonsState = ONBOARDING.UPGRADE_TAB.IsComplete();
-        
-        UpgradeMenu.THIS.SavedData = saveData.userData.upgradeMenuData;
+        UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
     }
 }
 public static class SaveManagerExtensions
@@ -185,7 +183,6 @@ namespace User
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
         [SerializeField] public PiggyMenu.Data piggyData;
-        [SerializeField] public UpgradeMenu.Data upgradeMenuData;
 
         public Data(Data data)
         {
@@ -199,7 +196,6 @@ namespace User
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
             piggyData = data.piggyData.Clone() as PiggyMenu.Data;
-            upgradeMenuData = data.upgradeMenuData.Clone() as UpgradeMenu.Data;
         }
        
 
@@ -226,7 +222,6 @@ public enum ONBOARDING
     
     BLOCK_TAB,
     WEAPON_TAB,
-    UPGRADE_TAB,
     
     PURCHASE_BLOCK,
     PURCHASE_FIRERATE,

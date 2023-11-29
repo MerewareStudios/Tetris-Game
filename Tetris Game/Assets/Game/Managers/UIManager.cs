@@ -24,7 +24,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private Consent consent;
    [SerializeField] private BlockMenu blockMenu;
    [SerializeField] public WeaponMenu weaponMenu;
-   [SerializeField] private UpgradeMenu upgradeMenu;
    [SerializeField] private SlashScreen slashScreen;
    [SerializeField] private MenuNavigator menuNavigator;
    [SerializeField] private PiggyMenu piggyMenu;
@@ -84,7 +83,6 @@ public class UIManager : Singleton<UIManager>
       Consent.THIS = consent;
       BlockMenu.THIS = blockMenu;
       WeaponMenu.THIS = weaponMenu;
-      UpgradeMenu.THIS = upgradeMenu;
       SlashScreen.THIS = slashScreen;
       MenuNavigator.THIS = menuNavigator.Setup();
       PiggyMenu.THIS = piggyMenu;
@@ -119,7 +117,7 @@ public class UIManager : Singleton<UIManager>
       
       AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
 
-      Consent.GetRestartButtonState = () => ONBOARDING.UPGRADE_TAB.IsComplete()
+      Consent.GetRestartButtonState = () => ONBOARDING.WEAPON_TAB.IsComplete()
                                             && GameManager.PLAYING
                                             && MaxSdk.IsUserConsentSet();  
       
@@ -454,10 +452,6 @@ public class UIManager : Singleton<UIManager>
          if (WeaponMenu.THIS.Visible)
          {
             return OfferScreen.AdPlacement.WEAPONMENU;
-         }
-         if (UpgradeMenu.THIS.Visible)
-         {
-            return OfferScreen.AdPlacement.UPGRADEMENU;
          }
          if (AdBreakScreen.THIS.Visible)
          {

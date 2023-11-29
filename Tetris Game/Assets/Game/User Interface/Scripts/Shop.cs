@@ -19,12 +19,6 @@ public class Shop : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private Image background;
 
-    public void OpenDirect(MenuType menuType)
-    {
-        MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
-        OnClick_Open();
-    }
-    
     public void OnClick_Open()
     {
         if (!GameManager.PLAYING)
@@ -45,13 +39,6 @@ public class Shop : MonoBehaviour
         else if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             ONBOARDING.WEAPON_TAB.SetComplete();
-            MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
-            Onboarding.HideFinger();
-            GameManager.GameTimeScale(1);
-        }
-        else if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
-        {
-            ONBOARDING.UPGRADE_TAB.SetComplete();
             
             if (ONBOARDING.USE_POWERUP.IsNotComplete())
             {
@@ -61,16 +48,14 @@ public class Shop : MonoBehaviour
             
             UIManager.THIS.PlusButtonsState = true;
             
-            MenuNavigator.THIS.SetLastMenu(MenuType.Upgrade);
+            MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
             Onboarding.HideFinger();
             GameManager.GameTimeScale(1);
         }
-        
-        
-        // Debug.Log("shop open");
+
         MenuNavigator.THIS.Open();
 
-        if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+        if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             button.targetGraphic.raycastTarget = false;
             buttonTransform.DOKill();
@@ -104,7 +89,7 @@ public class Shop : MonoBehaviour
         void Show()
         {
             background.enabled = false;
-            if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+            if (ONBOARDING.WEAPON_TAB.IsNotComplete())
             {
                 background.enabled = true;
                 GameManager.GameTimeScale(0);
@@ -147,7 +132,7 @@ public class Shop : MonoBehaviour
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
                 
-                if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+                if (ONBOARDING.WEAPON_TAB.IsNotComplete())
                 {
                     Onboarding.ClickOn(clickTarget.position, Finger.Cam.Game, () =>
                     {

@@ -53,7 +53,7 @@ public class GameManager : Singleton<GameManager>
             }
         };
 
-        if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
+        if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             Board.THIS.OnMerge += CheckMergeOnboarding;
         }
@@ -116,14 +116,6 @@ public class GameManager : Singleton<GameManager>
             if (Wallet.COIN.Amount >= 25)
             {
                 // ONBOARDING.WEAPON_TAB.SetComplete();
-                UIManager.THIS.shop.AnimatedShow();
-            }
-            return;
-        }
-        if (ONBOARDING.UPGRADE_TAB.IsNotComplete())
-        {
-            if (Wallet.COIN.Amount >= 25 && LevelManager.CurrentLevel >= 4)
-            {
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;

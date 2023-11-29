@@ -7,7 +7,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 {
     [System.NonSerialized] private List<IMenu> _menus = new();
     [SerializeField] private List<Tab> tabs = new();
-    // [SerializeField] private GameObject costReductionStamp;
     [System.NonSerialized] private Data _savedData;
     [System.NonSerialized] public int TimeScale = 1;
     [Header("Game Notifications")]
@@ -26,16 +25,11 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         }
         get => _savedData;
     }
-    // public bool CostRedStamp
-    // {
-    //     set => costReductionStamp.SetActive(value);
-    // }
     
     public MenuNavigator Setup()
     {
         _menus.Add(BlockMenu.THIS);
         _menus.Add(WeaponMenu.THIS);
-        _menus.Add(UpgradeMenu.THIS);
         return this;
     }
 
@@ -45,12 +39,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         {
             return;
         }
-
-        // UpdateNotifications();
-        // gameNotificationShop.Close();
-        // Debug.Log("Menu navigator open");
-
-
         UIManager.MenuMode(true);
         
         TimeScale = 0;
@@ -67,27 +55,18 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     {
         int block = _menus[0].AvailablePurchaseCount(!visible);
         int weapon = _menus[1].AvailablePurchaseCount(!visible);
-        int upgrade = _menus[2].AvailablePurchaseCount(!visible);
         if (visible)
         {
             gameNotifications[0].Count = block;
             gameNotifications[1].Count = weapon;
-            gameNotifications[2].Count = upgrade;
         }
         else
         {
             gameNotifications[0].CountImmediate = block;
             gameNotifications[1].CountImmediate = weapon;
-            gameNotifications[2].CountImmediate = upgrade;
         }
     }
 
-    // private void UpdateNotify(int menuIndex)
-    // {
-    //     int block = _menus[menuIndex].AvailablePurchaseCount(false);
-    //     gameNotifications[menuIndex].Count = block;
-    // }
-    //
     public void UpdateTotalNotify()
     {
         int total = 0;
@@ -102,7 +81,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     {
         tabs[(int)MenuType.Block].gameObject.SetActive(ONBOARDING.BLOCK_TAB.IsComplete());
         tabs[(int)MenuType.Weapon].gameObject.SetActive(ONBOARDING.WEAPON_TAB.IsComplete());
-        tabs[(int)MenuType.Upgrade].gameObject.SetActive(ONBOARDING.UPGRADE_TAB.IsComplete());
     }
     
     public new bool Close(float duration = 0.25f, float delay = 0.0f)
@@ -125,8 +103,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
 
         
         lockedMiniOffer.Pause();
-        // UpdateNotify(lastMenuIndex);
-        // UpdateTotalNotify();
         
         return false;
     }
@@ -147,8 +123,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         _menus[lastMenuIndex].GetParentContainer().SetAsLastSibling();
         _menus[lastMenuIndex].Open(duration);
         tabs[lastMenuIndex].Show();
-
-        // gameNotifications[lastMenuIndex].Close();
     }
     
     public void OnTab_BlockMenu()
@@ -158,10 +132,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     public void OnTab_WeaponMenu()
     {
         OpenTabMenu(MenuType.Weapon);
-    }
-    public void OnTab_UpgradeMenu()
-    {
-        OpenTabMenu(MenuType.Upgrade);
     }
 
     private void OpenTabMenu(MenuType menuTypeNext)

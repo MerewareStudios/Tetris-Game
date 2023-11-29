@@ -39,7 +39,7 @@ public class Powerup : Lazyingleton<Powerup>
             OpenImmediate(_data.available);
             SetPowerup(_data.currentUsage, byPassUse:true);
 
-            Enabled = ONBOARDING.USE_POWERUP.IsComplete() || ONBOARDING.UPGRADE_TAB.IsComplete();
+            Enabled = ONBOARDING.USE_POWERUP.IsComplete() || ONBOARDING.WEAPON_TAB.IsComplete();
         }
         get => this._data;
     }

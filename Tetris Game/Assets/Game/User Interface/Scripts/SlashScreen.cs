@@ -191,7 +191,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             if (levelIndex == 1)
             {
-                ShowTip(17);
+                ShowTip(15);
             }
             else
             {

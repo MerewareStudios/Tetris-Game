@@ -37,7 +37,7 @@ public class LevelManager : Singleton<LevelManager>
             BeginLevel();
         }
 
-        if (ONBOARDING.UPGRADE_TAB.IsComplete())
+        if (ONBOARDING.WEAPON_TAB.IsComplete())
         {
             AdManager.THIS.ShowBannerOffer();
         }

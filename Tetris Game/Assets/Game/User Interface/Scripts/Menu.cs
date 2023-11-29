@@ -8,7 +8,6 @@ namespace Game.UI
     {
         Block,
         Weapon,
-        Upgrade
     }
     public class Menu<T> : Lazyingleton<T>, IMenu where T : MonoBehaviour
     {

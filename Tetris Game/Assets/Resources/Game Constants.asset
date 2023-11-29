@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 10
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -695,9 +695,6 @@ MonoBehaviour:
       breakInstance: 0
       doubleInstance: 0
       skipInstance: 0
-    upgradeMenuData:
-      instanceData: 000000000000000000000000
-      notifiedAt: ffffffffffffffffffffffff
   DefaultAdData:
     removeAds: 0
     interSkipCount: 0
@@ -1065,37 +1062,6 @@ MonoBehaviour:
       type: 1
       amount: 1000
     unlockedAt: 120
-  purchaseDataLookUp:
-  - purchaseType: 0
-    currency:
-      type: 0
-      amount: 200
-    sprite: {fileID: 21300000, guid: bea6a6482ff6f124cbb37ea7ca4a6069, type: 3}
-    title: <bounce a=0.05 f=1>STACK LIMIT
-    info: '+1<sprite name=Ammo>
-
-      <color=#FFC738>EXTRA
-
-      STACK'
-    extra: <sprite name=Check> Avoids wasting ammo on merge.
-  - purchaseType: 1
-    currency:
-      type: 1
-      amount: 10
-    sprite: {fileID: 21300000, guid: cba7a1c45ebae1d4f91f23bee9941333, type: 3}
-    title: <bounce a=0.05 f=1>PIGGY BANK
-    info: '<color=#FF72BC><size=115%>Capacity
-
-      <size=180%>+5'
-    extra: <sprite name=Check> Higher capacity rewards more <sprite name=Gem>
-  - purchaseType: 2
-    currency:
-      type: 2
-      amount: 1
-    sprite: {fileID: 21300000, guid: d6ddee8bc93e80f42a8f67d3aaa25e0d, type: 3}
-    title: <bounce a=0.05 f=1>MEDKIT
-    info: <size=150%><sprite name=Heart>+50
-    extra: 
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}

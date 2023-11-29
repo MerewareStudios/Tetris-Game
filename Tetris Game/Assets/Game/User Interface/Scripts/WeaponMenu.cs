@@ -64,7 +64,6 @@ namespace Game.UI
                 bool newShown = SavedData.newShown[i];
 
                 if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
-                // if (!purchased && availableByLevel && !newShown)
                 {
                     if (updatePage)
                     {
