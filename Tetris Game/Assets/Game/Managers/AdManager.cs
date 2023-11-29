@@ -20,27 +20,6 @@ namespace IWI
         [SerializeField] private List<OfferScreen.OfferType> offerTypesTicket;
         [SerializeField] private List<OfferScreen.OfferType> offerTypesAdBreak;
    
-        public static OfferScreen.OfferType? GetTicketOffer()
-        {
-            if (LevelManager.CurrentLevel < AdManager.THIS.ticketOfferLevel)
-            {
-                return null;
-            }
-            return AdManager.THIS.offerTypesTicket.Random();
-        }
-        public static OfferScreen.OfferType? GetAdBreakOffer()
-        {
-            if (LevelManager.CurrentLevel < AdManager.THIS.adBreakOfferLevel)
-            {
-                return null;
-            }
-            if (AdManager.THIS._Data.removeAds)
-            {
-                return null;
-            }
-            return AdManager.THIS.offerTypesAdBreak.Random();
-        }
-
         void Awake()
         {
             FakeAdBanner.THIS = fakeAdBanner;
@@ -236,7 +215,6 @@ namespace IWI
             .PlusTicketState(false)
             .SetBackgroundImage(Const.THIS.skipAdBackgroundImage)
             .OnByPass(onFinish)
-            .SetMiniOffer(GetAdBreakOffer(), OfferScreen.AdPlacement.ADBREAKMINI)
             .OnClick(
                 () =>
                 {
@@ -308,7 +286,6 @@ namespace IWI
             .PlusTicketState(true)
             .SetBackgroundImage(Const.THIS.earnTicketBackgroundImage)
             .OnByPass(onReward)
-            .SetMiniOffer(GetTicketOffer(), OfferScreen.AdPlacement.TICKEDADMINI)
             .OnClick(
                 () =>
                 {
