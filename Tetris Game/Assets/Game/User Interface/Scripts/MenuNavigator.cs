@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Game.UI;
 using Internal.Core;
+using IWI;
 using UnityEngine;
 
 public class MenuNavigator : Menu<MenuNavigator>, IMenu
@@ -22,6 +23,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
             _savedData = value;
             lockedMiniOffer.SavedData = _savedData.lockedMiniOffer;
             lockedMiniOffer.GetCurrent = () => LevelManager.CurrentLevel;
+            lockedMiniOffer.GetAdState = () => AdManager.THIS._Data.removeAds;
         }
         get => _savedData;
     }

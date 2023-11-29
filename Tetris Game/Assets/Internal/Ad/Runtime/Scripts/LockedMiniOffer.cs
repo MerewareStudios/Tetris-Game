@@ -17,42 +17,34 @@ public class LockedMiniOffer : MonoBehaviour
     [SerializeField] private int availableLevel = 7;
     [TextArea] [SerializeField] private string prefix;
     [System.NonSerialized] private Coroutine _timeCoroutine = null;
-    [SerializeField] public OfferScreen.OfferType[] offerList;
+    [SerializeField] public OfferScreen.OfferType[] offerListWithAds;
+    [SerializeField] public OfferScreen.OfferType[] offerListWithoutAds;
     [SerializeField] public OfferScreen.AdPlacement adPlacement;
 
     public delegate int GetCurrentFunc();
+    public delegate bool GetAdStateFunc();
     public GetCurrentFunc GetCurrent;
+    public GetAdStateFunc GetAdState;
 
     [field: System.NonSerialized] public Data SavedData { get; set; }
 
     public void Set()
     {
-        bool available = GetCurrent() >= availableLevel;
-        this.gameObject.SetActive(available);
-        if (!available)
+        if (GetCurrent() < availableLevel)
         {
+            this.gameObject.SetActive(false);
+            this.miniOffer.gameObject.SetActive(false);
             return;
         }
-        
-        if (!SavedData.enabled)
+        this.gameObject.SetActive(true);
+
+        if (SavedData.timerRunning)
         {
-            if (GetCurrent() >= SavedData.unlockedAt)
-            {
-                EnableOffer();
-                ShowOffer();
-                return;
-            }
-            SetupOfferProgress();
-            return;
-        }
-        if (SavedData.OfferEnded)
-        {
-            IncrementOffer();
-            SetupOfferProgress();
+            ShowOffer();
             return;
         }
 
-        ShowOffer();
+        SetupOfferProgress();
     }
 
     
@@ -64,27 +56,24 @@ public class LockedMiniOffer : MonoBehaviour
 
         fill.DOKill();
         fill.fillAmount = 0.0f;
-        fill.DOFillAmount(1.0f - (GetCurrent() - SavedData.startAt) / (float)SavedData.Dif, 0.3f).SetDelay(0.25f).SetEase(Ease.OutSine).SetUpdate(true);
-            //     .onComplete =
-            // () =>
-            // {
-            //     if (GetCurrent() >= SavedData.unlockedAt)
-            //     {
-            //         EnableOffer();
-            //         ShowOffer();
-            //         return;
-            //     }
-            // };
+        fill.DOFillAmount((GetCurrent() - SavedData.startAt) / (float)SavedData.Dif, 0.5f).SetDelay(0.25f).SetEase(Ease.Linear).SetUpdate(true)
+            .onComplete = () =>
+        {
+            if (GetCurrent() >= SavedData.unlockedAt)
+            {
+                EnableOffer();
+                ShowOffer();
+            }
+        };
         centerText.text = prefix + SavedData.unlockedAt;
-        // centerText.text = SavedData.unlockedAt.ToString();
     }
     private void ShowOffer()
     {
-        miniOffer.gameObject.SetActive(true);
         visualParent.SetActive(false);
-        endStamp.gameObject.SetActive(true);
         
-        miniOffer.ShowOffer(offerList[SavedData.offerIndex % offerList.Length], adPlacement);
+        miniOffer.ShowOffer(GetNextOffer(), adPlacement);
+        
+        endStamp.gameObject.SetActive(true);
         
         StopTimer();
         _timeCoroutine = StartCoroutine(TimerRoutine());
@@ -92,18 +81,25 @@ public class LockedMiniOffer : MonoBehaviour
 
         IEnumerator TimerRoutine()
         {
-            while (true)
+            while (SavedData.timerRunning)
             {
-                endStamp.text = SavedData.CurrentStamp.ToString(@"mm\:ss");
                 if (SavedData.OfferEnded)
                 {
                     IncrementOffer();
                     SetupOfferProgress();
                     yield break;
                 }
+                endStamp.text = SavedData.CurrentStamp.ToString(@"mm\:ss");
                 yield return new WaitForSecondsRealtime(1);
             }
         }
+    }
+
+    private OfferScreen.OfferType GetNextOffer()
+    {
+        OfferScreen.OfferType[] offerTypes = GetAdState() ? this.offerListWithoutAds : offerListWithAds;
+        OfferScreen.OfferType offerType = offerTypes[SavedData.offerIndex % offerTypes.Length];
+        return offerType;
     }
 
     private void IncrementOffer()
@@ -111,11 +107,11 @@ public class LockedMiniOffer : MonoBehaviour
         SavedData.startAt = GetCurrent();
         SavedData.unlockedAt = SavedData.startAt + increment;
         SavedData.offerIndex++;
-        SavedData.enabled = false;
+        SavedData.timerRunning = false;
     }
     private void EnableOffer()
     {
-        SavedData.enabled = false;
+        SavedData.timerRunning = true;
         SavedData.offerEnds = DateTime.Now.Ticks + TimeSpan.FromSeconds(durationSec).Ticks;
     }
     
@@ -123,6 +119,7 @@ public class LockedMiniOffer : MonoBehaviour
     {
         fill.DOKill();
         StopTimer();
+        miniOffer.Halt();
     }
     private void StopTimer()
     {
@@ -138,9 +135,9 @@ public class LockedMiniOffer : MonoBehaviour
     public class Data : System.ICloneable
     {
         [SerializeField] public int startAt = 0;
-        [SerializeField] public int unlockedAt = 15;
+        [SerializeField] public int unlockedAt;
         [SerializeField] public int offerIndex;
-        [SerializeField] public bool enabled = false;
+        [SerializeField] public bool timerRunning = false;
         [SerializeField] public long offerEnds;
             
         public TimeSpan CurrentStamp => TimeSpan.FromTicks(offerEnds - DateTime.Now.Ticks);
@@ -157,7 +154,7 @@ public class LockedMiniOffer : MonoBehaviour
             this.startAt = data.startAt;
             this.unlockedAt = data.unlockedAt;
             this.offerIndex = data.offerIndex;
-            this.enabled = data.enabled;
+            this.timerRunning = data.timerRunning;
             this.offerEnds = data.offerEnds;
         }
 

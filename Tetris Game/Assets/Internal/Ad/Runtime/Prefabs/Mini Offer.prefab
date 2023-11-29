@@ -5253,6 +5253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38e46feb2761bd47965d0abb9507657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisTransform: {fileID: 1626292358556766518}
   offerImage: {fileID: 4526456117126360366}
   miniPromoText: {fileID: 3297414893285761726}
   oldPriceText: {fileID: 1071183137075551634}

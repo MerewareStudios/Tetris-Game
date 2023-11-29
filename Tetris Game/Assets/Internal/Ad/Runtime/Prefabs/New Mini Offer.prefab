@@ -766,7 +766,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8637781064157257569}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -798,11 +798,12 @@ MonoBehaviour:
   fill: {fileID: 7495345042447379862}
   miniOffer: {fileID: 0}
   durationSec: 200
-  increment: 10
-  availableLevel: 7
-  prefix: <pend a=0.1 f=2><sprite name=Lock><size=125%>
-  offerList: 0800000009000000
-  adPlacement: 12
+  increment: 2
+  availableLevel: 1
+  prefix: <pend a=0.1 f=2><sprite name=Lock>
+  offerListWithAds: 050000000600000007000000
+  offerListWithoutAds: 0800000009000000
+  adPlacement: 11
 --- !u!1 &8643625905348914034
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,8 +839,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -90.000015, y: -26.54}
+  m_AnchoredPosition: {x: 0, y: -2.8850055}
+  m_SizeDelta: {x: -90.000015, y: -20.770012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3232064563349947432
 CanvasRenderer:
@@ -903,7 +904,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 83.5
+  m_fontSizeMax: 65.1
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

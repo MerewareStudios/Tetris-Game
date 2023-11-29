@@ -3740,7 +3740,7 @@ MonoBehaviour:
           startAt: 0
           unlockedAt: 15
           offerIndex: 0
-          enabled: 0
+          timerRunning: 0
           offerEnds: 0
       piggyData:
         currentMoney:

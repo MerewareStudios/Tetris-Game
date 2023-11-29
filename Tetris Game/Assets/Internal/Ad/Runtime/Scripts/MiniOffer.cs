@@ -1,4 +1,5 @@
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class MiniOffer : MonoBehaviour
 {
     [Header("Offer")]
+    [SerializeField] private Transform thisTransform;
     [SerializeField] private Image offerImage;
     [SerializeField] private TextMeshProUGUI miniPromoText;
     [SerializeField] private TextMeshProUGUI oldPriceText;
@@ -24,10 +26,20 @@ public class MiniOffer : MonoBehaviour
         
         miniPromoText.text = _offerData.miniText;
         offerImage.sprite = _offerData.previewDatas.Last().sprite;
+        
+        this.gameObject.SetActive(true);
+        thisTransform.DOKill();
+        thisTransform.localScale = Vector3.zero;
+        thisTransform.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void OnClick_ShowOffer()
     {
         OfferScreen.THIS.Open(this._offerData.offerType, _adPlacement);
+    }
+
+    public void Halt()
+    {
+        thisTransform.DOKill();
     }
 }
