@@ -14,12 +14,6 @@ namespace IWI
         [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
         
-        [Header("Offer Sets")]
-        [SerializeField] private int adBreakOfferLevel = 5;
-        [SerializeField] private int ticketOfferLevel = 5;
-        [SerializeField] private List<OfferScreen.OfferType> offerTypesTicket;
-        [SerializeField] private List<OfferScreen.OfferType> offerTypesAdBreak;
-   
         void Awake()
         {
             FakeAdBanner.THIS = fakeAdBanner;
@@ -274,7 +268,7 @@ namespace IWI
                 int now = (int)Time.time;
                 int timeTheAdWillBeShown = AdManager.THIS._Data.LastTimeAdShown + AdManager.THIS.adTimeInterval;
                 int timeUntilAd = timeTheAdWillBeShown - now;
-                timeUntilAd = Mathf.Max(timeUntilAd, 30);
+                timeUntilAd = Mathf.Max(timeUntilAd, 20);
                 AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
             

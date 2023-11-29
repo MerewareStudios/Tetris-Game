@@ -3798,10 +3798,6 @@ MonoBehaviour:
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
   adTimeInterval: 180
-  adBreakOfferLevel: 10
-  ticketOfferLevel: 10
-  offerTypesTicket: 05000000
-  offerTypesAdBreak: 0600000007000000
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0
