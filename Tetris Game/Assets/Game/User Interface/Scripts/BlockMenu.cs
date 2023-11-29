@@ -100,7 +100,7 @@ namespace Game.UI
             bool canPurchase = (availableByPrice || availableByTicket) && availableByLevel;
 
 
-            SetPrice(cost, canPurchase, reduced);
+            SetPrice(cost, canPurchase, availableByLevel, purchasedBlock, reduced);
             SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
             
             
@@ -120,9 +120,6 @@ namespace Game.UI
             {
                 PunchNewBanner(0.4f);
             }
-
-            currencyDisplay.gameObject.SetActive(!purchasedBlock);
-            purchaseButton.gameObject.SetActive(!purchasedBlock);
 
             if (ONBOARDING.PURCHASE_BLOCK.IsNotComplete())
             {
@@ -188,8 +185,14 @@ namespace Game.UI
             newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        private void SetPrice(Const.Currency currency, bool canPurchase, bool reduced)
+        private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByLevel, bool purchasedBlock, bool reduced)
         {
+            purchaseButton.gameObject.SetActive(availableByLevel && !purchasedBlock);
+            currencyDisplay.gameObject.SetActive(availableByLevel && !purchasedBlock);
+            if (!availableByLevel || purchasedBlock)
+            {
+                return;
+            }
             purchaseButton.Available = canPurchase;
             // purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
             purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);

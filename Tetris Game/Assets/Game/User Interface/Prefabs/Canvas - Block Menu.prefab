@@ -65,8 +65,8 @@ MonoBehaviour:
   buttonRectTransform: {fileID: 1631929674316152345}
   buttonClickTarget: {fileID: 8276612906383227367}
   frame: {fileID: 407926203923498667}
-  upgradeColor: {r: 0.23529412, g: 0.48235294, b: 0.8117647, a: 1}
-  purchaseColor: {r: 0.69411767, g: 0.84705883, b: 0.050980393, a: 1}
+  upgradeColor: {r: 0.69411767, g: 0.84705883, b: 0.050980393, a: 1}
+  purchaseColor: {r: 0.23529412, g: 0.48235294, b: 0.8117647, a: 1}
   currencyDisplay: {fileID: 8288912999898188822}
   purchaseButton: {fileID: 5480907385518865175}
   newTextBanner: {fileID: 3981730914584499999}
@@ -633,8 +633,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 4.199951}
-  m_SizeDelta: {x: -109.400024, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1.9100342}
+  m_SizeDelta: {x: -109.400024, y: -12.219943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8961315800668872601
 CanvasRenderer:
@@ -664,10 +664,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name=Lock> LEVEL <size=125%>
+  m_text: <sprite name=Lock>5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: ddd8728c73f00364b97fe2096efacbca, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 996911f6730016143b4a6b27fd500d63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -691,19 +691,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 118.1
-  m_fontSizeBase: 120.3
+  m_fontSize: 107.8
+  m_fontSizeBase: 55.04
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 140
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -11.7
-  m_wordSpacing: 7.96
-  m_lineSpacing: -35.97
+  m_characterSpacing: 1.3
+  m_wordSpacing: -1.3
+  m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
