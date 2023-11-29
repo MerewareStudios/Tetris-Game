@@ -210,11 +210,13 @@ public class UIManager : Singleton<UIManager>
 #region Ad Layer Clicks
    public void AdLayerClick_OpenShop()
    {
-      AdManager.THIS.TryInterstitial(shop.OnClick_Open);
+      shop.OnClick_Open();
+      AdManager.THIS.TryInterstitial();
    }
    public void AdLayerClick_OpenPiggyBank()
    {
-      AdManager.THIS.TryInterstitial(() => PiggyMenu.THIS.Open(0.225f));
+      PiggyMenu.THIS.Open(0.225f);
+      AdManager.THIS.TryInterstitial();
    }
 #endregion
 #region Offer

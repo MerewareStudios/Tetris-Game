@@ -69,25 +69,20 @@ namespace IWI
             MaxSdk.ShowMediationDebugger();
         }
         
-        public void TryInterstitial(System.Action onSuccess)
+        public void TryInterstitial()
         {
             if (_Data.removeAds)
             {
-                onSuccess?.Invoke();
                 return;
             }
             if (ONBOARDING.WEAPON_TAB.IsNotComplete())
             {
-                onSuccess?.Invoke();
                 return;
             }
-
             if (Time.time - _Data.LastTimeAdShown > adTimeInterval)
             {
-                ShowAdBreak(onSuccess);
-                return;
+                ShowAdBreak();
             }
-            onSuccess?.Invoke();
         }
         
         // private void InitMRec()
@@ -175,25 +170,26 @@ namespace IWI
             Wallet.ReduceCosts = state;
         }
 
-        public void ShowAdBreak(System.Action onFinish)
+        public void ShowAdBreak()
         {
             if (!MaxSdk.IsInitialized())
             {
-                onFinish?.Invoke();
+                // onFinish?.Invoke();
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
                 FakeAdInterstitial.THIS.LoadAd();
-                onFinish?.Invoke();
+                // onFinish?.Invoke();
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                onFinish?.Invoke();
+                // onFinish?.Invoke();
                 return;
             }
 
+            // onFinish?.Invoke();
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL)
             .SetLoadState(FakeAdInterstitial.THIS.LoadState)
@@ -202,12 +198,11 @@ namespace IWI
             .RemoveAdBreakButtonState(true)
             .PlusTicketState(false)
             .SetBackgroundImage(Const.THIS.skipAdBackgroundImage)
-            .OnByPass(onFinish)
+            .OnByPass(null)
             .OnClick(
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    onFinish?.Invoke();
 
                     _Data.interSkipCount++;
                     AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, _Data.interSkipCount);
@@ -220,24 +215,18 @@ namespace IWI
 
                 
                 _Data.LastTimeAdShown = (int)Time.time;
-                
                 AdBreakScreen.THIS.CloseImmediate();
+
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    onFinish?.Invoke();
-
                     if (!_data.removeAds && _data.InterAdInstance % 3 == 0)
                     {
                         UIManager.THIS.ShowOffer_RemoveAds_AfterInterAd();
                     }
                     _data.InterAdInstance++;
                     GameManager.UpdateTimeScale();
-                }, 
-                () =>
-                {
-                    onFinish?.Invoke();
-                });
+                }, null);
             }, 3.5f)
             .Open();
         }

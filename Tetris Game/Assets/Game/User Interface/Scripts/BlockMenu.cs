@@ -114,7 +114,7 @@ namespace Game.UI
             }
 
             equippedTextBanner.gameObject.SetActive(!availableByLevel || purchasedBlock);
-            equipText.text = purchasedBlock ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText +  _selectedBlockData.unlockedAt;
+            equipText.text = purchasedBlock ? Onboarding.THIS.hasText : Onboarding.THIS.unlockedAtText +  _selectedBlockData.unlockedAt;
 
             if (!purchasedBlock)
             {
@@ -195,7 +195,7 @@ namespace Game.UI
             }
             purchaseButton.Available = canPurchase;
             // purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
-            purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
+            // purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
 
             if (canPurchase)
             {   

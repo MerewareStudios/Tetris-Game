@@ -39,8 +39,8 @@ public class Const : SSingleton<Const>
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
-    [Header("Button Textures")] 
-    public Sprite[] buttonSprites;
+    // [Header("Button Textures")] 
+    // public Sprite[] buttonSprites;
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;
@@ -174,10 +174,10 @@ public class Const : SSingleton<Const>
     //     }
     // }
 
-    public Sprite GetButtonSprite(CurrencyType currencyType)
-    {
-        return buttonSprites[(int)currencyType];
-    }
+    // public Sprite GetButtonSprite(CurrencyType currencyType)
+    // {
+    //     return buttonSprites[(int)currencyType];
+    // }
 }
 
 public static class ConstExtensions

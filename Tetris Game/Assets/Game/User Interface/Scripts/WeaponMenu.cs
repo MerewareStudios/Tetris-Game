@@ -307,7 +307,7 @@ namespace Game.UI
         private void SetPrice(Const.Currency currency, bool canPurchase, bool reduced)
         {
             purchaseButton.Available = canPurchase;
-            purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
+            // purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
 
             if (canPurchase)
             {   
