@@ -129,7 +129,7 @@ namespace  Game
                 }
                 
                 
-                airplane.CarryCargo(Pawn.Usage.MaxStack);
+                airplane.CarryCargo(Cargo.Type.MaxStack);
 
 
                 _spawnRangeNorm = 0.0f;

@@ -25,6 +25,8 @@ MonoBehaviour:
     Practice'
   ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
   freePlacementText: Place it anywhere!
+  maxStackDropCheer: Nice! <color=#FFD919><bounce a=1 f=2 w=0.5>+STACK</bounce></color>
+  airDropFull: Oh no! <color=#FF3E3E>FULL!
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=50%>MAX
   plusText: <size=50%>GET

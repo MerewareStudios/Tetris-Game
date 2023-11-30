@@ -464,7 +464,6 @@ namespace Game
             Gift,
             Punch,
             Lock,
-            MaxStack,
         }
 
         [Serializable]

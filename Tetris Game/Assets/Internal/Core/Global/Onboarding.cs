@@ -16,6 +16,9 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string targetPracticeText;
     [TextArea] [SerializeField] public string ticketMergeText;
     [TextArea] [SerializeField] public string freePlacementText;
+    [Header("Air Drop")]
+    [TextArea] [SerializeField] public string maxStackDropCheer;
+    [TextArea] [SerializeField] public string airDropFull;
     [Header("Other")]
     [TextArea] [SerializeField] public string waveText;
     [Header("Block Menu")]
@@ -46,6 +49,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string reviewText;
     [TextArea] [SerializeField] public string shareText;
     [TextArea] [SerializeField] public string thanksText;
+    
     
     public Coroutine Coroutine = null;
 

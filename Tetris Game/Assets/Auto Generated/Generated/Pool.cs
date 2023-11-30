@@ -76,5 +76,6 @@ public enum Pool
     V_Block = 73,
     Triangle_Block = 74,
     Image = 75,
+    Max_Stack = 76,
 
 }

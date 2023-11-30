@@ -31,12 +31,13 @@ public class SpeechBubble : MonoBehaviour
         {
             textAnimatorPlayer.ShowText(txt);
         });
-        
-        if (autoCloseDelay != null)
+
+        if (autoCloseDelay == null)
         {
-            _delayTween?.Kill();
-            _delayTween = DOVirtual.DelayedCall((float)autoCloseDelay, Hide, false);
+            return;
         }
+        _delayTween?.Kill();
+        _delayTween = DOVirtual.DelayedCall(autoCloseDelay.Value, Hide, false);
     }
     
     public void Hide()

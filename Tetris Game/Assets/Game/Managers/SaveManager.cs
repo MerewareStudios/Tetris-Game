@@ -64,6 +64,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         OfferScreen.THIS._Data = saveData.purchaseData;
 
         Warzone.THIS.Player._Data = saveData.playerData;
+        Warzone.THIS.airplane.SavedData = saveData.userData.airplaneData;
         Board.THIS._Data = saveData.userData.boardData;
 
         MenuNavigator.THIS.SavedData = saveData.userData.menuNavData;
@@ -182,6 +183,7 @@ namespace User
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
         [SerializeField] public PiggyMenu.Data piggyData;
+        [SerializeField] public Airplane.Data airplaneData;
 
         public Data(Data data)
         {
@@ -195,6 +197,7 @@ namespace User
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
             piggyData = data.piggyData.Clone() as PiggyMenu.Data;
+            airplaneData = data.airplaneData.Clone() as Airplane.Data;
         }
        
 

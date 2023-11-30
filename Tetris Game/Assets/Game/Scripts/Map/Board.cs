@@ -172,6 +172,8 @@ namespace Game
                 StatDisplayArranger.THIS.SetLocalY(local.y);
                 
                 
+                Warzone.THIS.airplane.UpdatePositions();
+                
                 this.enabled = false;
             }
 
