@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 3
+    level: 8
     pupData:
       available: 1
       currentUsage: 4
@@ -1102,11 +1102,6 @@ MonoBehaviour:
   - {r: 1, g: 0.6431373, b: 0.84705883, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
-  buttonSprites:
-  - {fileID: 21300000, guid: 93a417ab4775c024885926be13a07f08, type: 3}
-  - {fileID: 21300000, guid: 52185db7d0765e943a6b8bb4975e0c9e, type: 3}
-  - {fileID: 21300000, guid: c79b4cfa6c66aec4c9d67c102da2cb3f, type: 3}
-  - {fileID: 21300000, guid: 6b2ba9c2f5d2ceb4f8763ec34cc77faf, type: 3}
   currenyButtonNormalColor: {r: 1, g: 1, b: 1, a: 1}
   currenyButtonFadedColor: {r: 1, g: 1, b: 1, a: 0.29803923}
   defaultFrameColor: {r: 1, g: 1, b: 1, a: 0.8117647}

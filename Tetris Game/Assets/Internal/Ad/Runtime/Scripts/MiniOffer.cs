@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
@@ -12,9 +13,18 @@ public class MiniOffer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI miniPromoText;
     [SerializeField] private TextMeshProUGUI oldPriceText;
     [SerializeField] private TextMeshProUGUI priceText;
+    // [SerializeField] public ParticleSystem ps;
     [System.NonSerialized] private OfferScreen.OfferData _offerData;
     [System.NonSerialized] private OfferScreen.AdPlacement _adPlacement;
 
+    // private void OnEnable()
+    // {
+    //     ps.Play();
+    // }
+    // private void OnDisable()
+    // {
+    //     ps.Stop();
+    // }
     public void ShowOffer(OfferScreen.OfferType offerType, OfferScreen.AdPlacement adPlacement)
     {
         this._offerData = OfferScreen.THIS.offerData[(int)offerType];

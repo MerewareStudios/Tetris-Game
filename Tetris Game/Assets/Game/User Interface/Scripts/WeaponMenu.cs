@@ -32,7 +32,7 @@ namespace Game.UI
         [SerializeField] private RectTransform priceTextPivot;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private Button equipButton;
-        [SerializeField] private TextMeshProUGUI gunStatText;
+        // [SerializeField] private TextMeshProUGUI gunStatText;
         [SerializeField] private GameObject nextButton;
         [SerializeField] private GameObject previousButton;
         [SerializeField] private GameObject weaponReductionIcon;
@@ -188,9 +188,17 @@ namespace Game.UI
                 SavedData.newShown[SavedData.inspectIndex] = true;
             }
             
-            equippedTextBanner.gameObject.SetActive(!availableByLevel || equippedWeapon);
-            
-            equipText.text = equippedWeapon ? Onboarding.THIS.equippedText : Onboarding.THIS.unlockedAtText + _gunUpgradeData.unlockedAt;
+
+            if (availableByLevel)
+            {
+                equipText.text = equippedWeapon ? Onboarding.THIS.equippedText : "";
+                equippedTextBanner.gameObject.SetActive(purchasedWeapon);
+            }
+            else
+            {
+                equippedTextBanner.gameObject.SetActive(true);
+                equipText.text = Onboarding.THIS.unlockedAtText + _gunUpgradeData.unlockedAt;
+            }
             
             
             if (!purchasedWeapon)
@@ -198,15 +206,13 @@ namespace Game.UI
                 PunchNewBanner(0.4f);
             }
             
-            int damage = CurrentDamage(_gunUpgradeData);
-            int rate = CurrentFireRate(_gunUpgradeData);
-            int split = CurrentSplitShot(_gunUpgradeData);
+            
 
             int damageDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Damage);
             int rateDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Firerate);
             int splitDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Splitshot);
 
-            SetStats(damage, damage != damageDefault, rate, rate != rateDefault, split, split != splitDefault);
+            // SetStats(damage, damage != damageDefault, rate, rate != rateDefault, split, split != splitDefault);
 
             PunchPurchasedText(0.2f);
            
@@ -234,9 +240,9 @@ namespace Game.UI
                 return;
             }
             
-            FillStageBar(Gun.StatType.Damage, stageBarDamage);
-            FillStageBar(Gun.StatType.Firerate, stageBarFireRate);
-            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot);
+            FillStageBar(Gun.StatType.Damage, stageBarDamage, CurrentDamage(_gunUpgradeData));
+            FillStageBar(Gun.StatType.Firerate, stageBarFireRate, CurrentFireRate(_gunUpgradeData));
+            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot, CurrentSplitShot(_gunUpgradeData));
             
             
             if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
@@ -258,7 +264,7 @@ namespace Game.UI
             equippedTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        private void FillStageBar(Gun.StatType statType, StageBar stageBar)
+        private void FillStageBar(Gun.StatType statType, StageBar stageBar, int currentStat)
         {
             int currentIndex = SavedData.CurrentIndex(statType);
 
@@ -268,6 +274,7 @@ namespace Game.UI
             stageBar
                 .SetMaxed(!max)
                 .SetCurrencyStampVisible(!max)
+                .SetStat(currentStat)
                 .SetBars(_gunUpgradeData.UpgradeCount(statType), currentIndex, defaultValue);
 
             if (max)
@@ -286,22 +293,22 @@ namespace Game.UI
         
         public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)
         {
-            StringBuilder stringBuilder = new();
-            
-            stringBuilder.Append(Onboarding.THIS.damageText);
-            stringBuilder.Append(changedDamage ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
-            stringBuilder.Append(damage);
-            
-            stringBuilder.Append(Onboarding.THIS.fireRateText);
-            stringBuilder.Append(changedRate ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
-            stringBuilder.Append(rate);
-            
-            stringBuilder.Append(Onboarding.THIS.splitShotText);
-            stringBuilder.Append(changedSplit ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
-            stringBuilder.Append(split);
+            // StringBuilder stringBuilder = new();
+            //
+            // stringBuilder.Append(Onboarding.THIS.damageText);
+            // stringBuilder.Append(changedDamage ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
+            // stringBuilder.Append(damage);
+            //
+            // stringBuilder.Append(Onboarding.THIS.fireRateText);
+            // stringBuilder.Append(changedRate ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
+            // stringBuilder.Append(rate);
+            //
+            // stringBuilder.Append(Onboarding.THIS.splitShotText);
+            // stringBuilder.Append(changedSplit ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
+            // stringBuilder.Append(split);
 
 
-            gunStatText.text = stringBuilder.ToString();
+            // gunStatText.text = stringBuilder.ToString();
         }
         
         private void SetPrice(Const.Currency currency, bool canPurchase, bool reduced)

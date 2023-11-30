@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform clickTarget;
     [SerializeField] private GameObject reductionIcon;
+    [SerializeField] private TextMeshProUGUI stat;
+    [System.NonSerialized] private int _prevStat = -1;
 
     public bool Available
     {
@@ -28,6 +31,21 @@ public class StageBar : MonoBehaviour
     {
         reductionIcon.SetActive(reduced);
         currencyDisplay.Display(currency);
+        return this;
+    }
+    public StageBar SetStat(int value)
+    {
+        if (_prevStat == value)
+        {
+            return this;
+        }
+        
+        _prevStat = value;
+        stat.text = value.ToString();
+
+        stat.rectTransform.DOKill();
+        stat.rectTransform.localScale = Vector3.one;
+        stat.rectTransform.DOPunchScale(Vector3.one * 0.15f, 0.3f, 1).SetUpdate(true);
         return this;
     }
     // public StageBar SetInteractable(bool state)
