@@ -1,4 +1,4 @@
-// #define FORCE_EDITOR_CONCENT
+#define FORCE_EDITOR_CONCENT
 
 using System.Collections;
 using DG.Tweening;

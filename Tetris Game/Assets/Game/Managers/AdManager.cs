@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Game;
 using Internal.Core;
 using UnityEngine;
@@ -13,6 +12,7 @@ namespace IWI
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
         [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
+        [System.NonSerialized] private System.Action _maxSDKInitComplete;
         
         void Awake()
         {
@@ -21,8 +21,9 @@ namespace IWI
             FakeAdRewarded.THIS = fakeAdRewarded;
         }
 
-        public void InitAdSDK(System.Action onInitComplete = null)
+        public void InitAdSDK(System.Action onInit = null)
         {
+            _maxSDKInitComplete += onInit;
             _Data.LastTimeAdShown = (int)Time.time;
 
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
@@ -30,7 +31,6 @@ namespace IWI
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {
-                    onInitComplete?.Invoke();
                     
                     FakeAdRewarded.THIS.Initialize();
                     FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
@@ -45,6 +45,8 @@ namespace IWI
                     SetBannerBonuses(_Data.removeAds, false);
                     if (_Data.removeAds)
                     {
+                        _maxSDKInitComplete?.Invoke();
+                        _maxSDKInitComplete = null;
                         return;
                     }
                     
@@ -61,6 +63,9 @@ namespace IWI
                         }
                         AdBreakScreen.THIS.SetLoadState(state);
                     };
+                    
+                    _maxSDKInitComplete?.Invoke();
+                    _maxSDKInitComplete = null;
                 };
         }
 
@@ -122,6 +127,7 @@ namespace IWI
             }
             if (!MaxSdk.IsInitialized())
             {
+                _maxSDKInitComplete += ShowBannerOffer;
                 return;
             }
             if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))
