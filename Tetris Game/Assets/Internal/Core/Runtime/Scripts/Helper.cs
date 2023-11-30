@@ -35,6 +35,11 @@ namespace Internal.Core
 
     public static class Helper
     {
+        public static Vector3 DirectionIgnoreY(this Vector3 dir)
+        {
+            dir.y = 0.0f;
+            return dir.normalized;
+        }
         public static readonly int UnscaledTime = Shader.PropertyToID("_UnscaledTime");
 
         public static Vector2 XZ(this Vector3 value) => new Vector2(value.x, value.z);

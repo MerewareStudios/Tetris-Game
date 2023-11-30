@@ -9,12 +9,10 @@ namespace  Game
 {
     public class Warzone : Singleton<Warzone>
     {
-        [Header("Level")] [System.NonSerialized]
-        public Enemy.SpawnData EnemySpawnData;
-
         [Header("Players")] [SerializeField] public Player Player;
         [Header("Zones")] [SerializeField] public ParticleSystem bloodPS;
         [SerializeField] public Vector3 goreOffset;
+        [SerializeField] public Airplane airplane;
         [System.NonSerialized] public ParticleSystem.MainModule psMain;
         [System.NonSerialized] public ParticleSystem.ShapeModule psShape;
         [System.NonSerialized] public Transform psTransform;
@@ -37,8 +35,8 @@ namespace  Game
         public bool HasEnemy => _enemies.Count > 0;
         public bool IsCleared => !Spawning && !HasEnemy;
         public int EnemyCount => _enemies.Count;
-        private int _totalEnemyHealth;
-        private int _leftEnemyHealth;
+        // private int _totalEnemyHealth;
+        // private int _leftEnemyHealth;
         public Enemy GetEnemy(int index) => _enemies[index];
         public int GetNewEnemyID() => ++_enemyID;
 
@@ -102,72 +100,71 @@ namespace  Game
             {
                 Spawning = true;
 
-                List<EnemyData> enemyPool = new();
-                int enemyIndex = 0;
+                int spawnIndex = 0;
 
-                _totalEnemyHealth = 0;
-
-                foreach (var countData in EnemySpawnData.countDatas)
+                int totalHealth = 0;
+                foreach (var data in LevelManager.LevelSo.enemySpawnData)
                 {
-                    for (int i = 0; i < countData.count; i++)
-                    {
-                        enemyPool.Add(countData.enemyData);
-                        _totalEnemyHealth += countData.enemyData.maxHealth;
-                    }
+                    totalHealth += data.enemyData.maxHealth * data.count;
                 }
-                _leftEnemyHealth = _totalEnemyHealth;
 
-                yield return new WaitForSeconds(0.25f);
+                int totalCoinLeft = LevelManager.LevelSo.totalCoin;
+                float coinPerHealth = totalCoinLeft / (float)totalHealth;
+
+                
+                // yield return new WaitForSeconds(0.25f);
                 
                 
                 Player.StartSearching();
                 
-                if (EnemySpawnData.spawnDelay > 0)
+                if (LevelManager.LevelSo.countdown > 0)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
-                    yield return Announcer.THIS.Count(startingText, EnemySpawnData.spawnDelay);
+                    yield return Announcer.THIS.Count(startingText, LevelManager.LevelSo.countdown);
                 }
                 else
                 {
                     string startingText = Onboarding.THIS.targetPracticeText;
                     yield return Announcer.THIS.Show(startingText, 0.5f);
                 }
-
-
-
-               
-
                 
-                enemyPool.Shuffle();
+                
+                airplane.CarryCargo(Pawn.Usage.MaxStack);
+
 
                 _spawnRangeNorm = 0.0f;
 
-
-
                 
-                while (enemyIndex < enemyPool.Count)
+                while (spawnIndex < LevelManager.LevelSo.enemySpawnData.Length)
                 {
-                    EnemyData enemyData = enemyPool[enemyIndex++];
-                    if (enemyData.extraWait > 0.0f)
+                    LevelSo.EnemySpawnDatum enemySpawnDatum = LevelManager.LevelSo.enemySpawnData[spawnIndex];
+
+                    Enemy enemy = null;
+                    for (int i = 0; i < enemySpawnDatum.count; i++)
                     {
-                        yield return new WaitForSeconds(enemyData.extraWait);
+                        enemy = SpawnEnemy(enemySpawnDatum.enemyData);
+                        int coinAmount = Mathf.Max(Mathf.FloorToInt(enemy.Health * coinPerHealth), 1);
+
+                        enemy.CoinAmount = coinAmount;
+
+                        totalCoinLeft -= coinAmount;
+                            
+                        _enemies.Add(enemy);
                     }
-                    _enemies.Add(SpawnEnemy(enemyData));
+                    
                     if (!Player.CurrentEnemy)
                     {
                         AssignClosestEnemy();
                     }
 
-                    if (enemyIndex >= enemyPool.Count)
+                    spawnIndex++;
+
+                    if (spawnIndex == LevelManager.LevelSo.enemySpawnData.Length && enemy && totalCoinLeft > 0)
                     {
-                        break;
+                        enemy.CoinAmount += totalCoinLeft;
                     }
 
-                    float stamp = Time.time;
-                    while (HasEnemy && Time.time - stamp < EnemySpawnData.spawnInterval)
-                    {
-                        yield return new WaitForSeconds(1.0f);
-                    }
+                    yield return new WaitForSeconds(enemySpawnDatum.delay);
                 }
 
                 Spawning = false;
@@ -199,8 +196,6 @@ namespace  Game
             enemy.OnSpawn(NextSpawnPosition(enemy.so.RandomForwardRange()), GetNewEnemyID());
             enemy.Replenish();
 
-            _leftEnemyHealth -= enemyData.maxHealth;
-            
             return enemy;
         }
         public Enemy CustomSpawnEnemy(EnemyData enemyData, Vector3 position)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needAmmoText: <size=125%>Hey! I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
     </bounce></size>!
-  stackText: <size=125%>Wait for <color=#40FFA8><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
+  stackText: <size=125%>Wait for <color=#FFD919><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
   greatCheerText: <wiggle a=0.8 f=3><size=120%>Great!</size>
   niceOneText: <wiggle a=1.3 f=3><size=150%>Nice one!</size>

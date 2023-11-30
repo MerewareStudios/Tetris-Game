@@ -16,11 +16,11 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] public Vector3 menuAnchor;
     
     public static int CurrentLevel => THIS.CurrentLevel();
-    private static LevelSo _currentLevelSo;
+    public static LevelSo LevelSo { get; set; }
     public static float DeltaMult = 1.0f;
     public void LoadLevel()
     {
-        _currentLevelSo = Const.THIS.GetLevelSo(CurrentLevel);
+        LevelSo = Const.THIS.GetLevelSo(CurrentLevel);
         AnalyticsManager.LevelStart(CurrentLevel);
         
         Board.THIS.Construct(BoardSize());
@@ -32,7 +32,6 @@ public class LevelManager : Singleton<LevelManager>
         levelText.text = "LEVEL " + CurrentLevel;
         DeltaMult = GetDeltaMult();
 
-        Warzone.THIS.EnemySpawnData = GetEnemySpawnData();
         Warzone.THIS.OnLevelLoad();
 
         UIManager.UpdateNotifications();
@@ -117,32 +116,32 @@ public class LevelManager : Singleton<LevelManager>
         }
         OnFail();
     }
-    public static Enemy.SpawnData GetEnemySpawnData()
+    public static LevelSo.EnemySpawnDatum[] GetEnemySpawnData()
     {
-        return _currentLevelSo.EnemySpawnData;
+        return LevelSo.enemySpawnData;
     }
     public static Const.Currency GetVictoryReward()
     {
-        return _currentLevelSo.victoryReward;
+        return LevelSo.victoryReward;
     }
     public static Const.Currency GetFailReward()
     {
-        return _currentLevelSo.failReward;
+        return LevelSo.failReward;
     }
     public static Board.SuggestedBlock[] GetSuggestedBlocks()
     {
-        return _currentLevelSo.suggestedBlocks;
+        return LevelSo.suggestedBlocks;
     }
     public static float GetDeltaMult()
     {
-        return _currentLevelSo.deltaMult;
+        return LevelSo.deltaMult;
     }
     public static Vector2Int BoardSize()
     {
-        return _currentLevelSo.boardSize;
+        return LevelSo.boardSize;
     }
     public static Board.PawnPlacement[] PawnPlacements()
     {
-        return _currentLevelSo.pawnPlacements;
+        return LevelSo.pawnPlacements;
     }
 }

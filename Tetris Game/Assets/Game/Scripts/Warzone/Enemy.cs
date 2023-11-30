@@ -24,6 +24,7 @@ namespace  Game
         [System.NonSerialized] public bool DragTarget = false;
         [System.NonSerialized] private Tween _castTweenLoop;
         [System.NonSerialized] private Tween _wipeTween;
+        [System.NonSerialized] public int CoinAmount;
 
         private static int WALK_HASH = Animator.StringToHash("Walk");
         private static int DEATH_HASH = Animator.StringToHash("Death");
@@ -303,6 +304,8 @@ namespace  Game
 
         private void GiveRewards()
         {
+            UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(CoinAmount, 0, 15), CoinAmount);
+
             foreach (var reward in so.enemyRewards)
             {
                 if(Helper.IsPossible(reward.probability))
@@ -364,24 +367,6 @@ namespace  Game
             Coin,
             Health,
         }
-        [System.Serializable]
-        public class SpawnData
-        {
-            [SerializeField] public int spawnDelay = 3;
-            [SerializeField] public float spawnInterval = 6.0f;
-            [SerializeField] public List<CountData> countDatas;
-        } 
-        [System.Serializable]
-        public class CountData
-        {
-            [SerializeField] public EnemyData enemyData;
-            [SerializeField] public int count;
-            public CountData(EnemyData enemyData, int count)
-            {
-                this.enemyData = enemyData;
-                this.count = count;
-            }
-        } 
         [System.Serializable]
         public class BossData
         {
