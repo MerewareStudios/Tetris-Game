@@ -107,39 +107,39 @@ namespace IWI
         //     };
         // }
 
-        public void ShowBanner()
+        // public void ShowBanner()
+        // {
+        //     if (_Data.removeAds)
+        //     {
+        //         return;
+        //     }
+        //     FakeAdBanner.THIS.ShowAd();
+        // }
+        public void ShowBannerFrame()
         {
             if (_Data.removeAds)
             {
                 return;
             }
-            FakeAdBanner.THIS.ShowAd();
-        }
-        public void ShowBannerOffer()
-        {
-            if (_Data.removeAds)
-            {
-                return;
-            }
-            if (_Data.BannerAccepted)
+            if (FakeAdBanner.THIS.Visible)
             {
                 return;
             }
             if (!MaxSdk.IsInitialized())
             {
-                _maxSDKInitComplete += ShowBannerOffer;
+                _maxSDKInitComplete += ShowBannerFrame;
                 return;
             }
             if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))
             {
                 FakeAdBanner.THIS.LoadAd();
             }
-            FakeAdBanner.THIS.ShowOffer();
+            FakeAdBanner.THIS.ShowFrame();
         }
 
         private void ChangeBannerPosition(bool top)
         {
-            FakeAdBanner.THIS.SetBannerPosition(top ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter);
+            FakeAdBanner.THIS.Position = top ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter;
         }
 
 
@@ -152,20 +152,20 @@ namespace IWI
             //     ShowBanner();
             //     AnalyticsManager.OnBannerEnabled();
             // };
-            FakeAdBanner.THIS.VisibilityChanged = (visible) =>
-            {
-                // SetBannerBonuses(visible, true);
-            };
+            // FakeAdBanner.THIS.VisibilityChanged = (visible) =>
+            // {
+            //     // SetBannerBonuses(visible, true);
+            // };
             
             UIManager.OnMenuModeChanged = ChangeBannerPosition;
         }
         private void DestroyBanner()
         {
-            _Data.BannerAccepted = false;
+            // _Data.BannerAccepted = false;
             FakeAdBanner.THIS.DestroyBanner();
 
             // FakeAdBanner.THIS.OnOfferAccepted = null;
-            FakeAdBanner.THIS.VisibilityChanged = null;
+            // FakeAdBanner.THIS.VisibilityChanged = null;
             UIManager.OnMenuModeChanged -= ChangeBannerPosition;
         }
         
@@ -322,7 +322,7 @@ namespace IWI
             [SerializeField] public bool removeAds = false;
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
-            [System.NonSerialized] public bool BannerAccepted = false;
+            // [System.NonSerialized] public bool BannerAccepted = false;
             [System.NonSerialized] public int LastTimeAdShown;
             [System.NonSerialized] public int InterAdInstance = 1;
             

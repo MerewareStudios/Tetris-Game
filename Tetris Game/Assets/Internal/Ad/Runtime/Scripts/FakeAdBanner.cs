@@ -1,6 +1,8 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 {
@@ -10,16 +12,44 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private RectTransform offerFrame;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
+    [SerializeField] private RectTransform topPivot;
+    [SerializeField] private RectTransform bottomPivot;
+    [SerializeField] private Button closeButton;
     
     // [System.NonSerialized] public System.Action OnOfferAccepted;
-    [System.NonSerialized] public System.Action<bool> VisibilityChanged;
-    [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
-    [System.NonSerialized] private bool _visible = false;
+    // [System.NonSerialized] public System.Action<bool> VisibilityChanged;
+    // [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
+    // [System.NonSerialized] private bool _visible = false;
+    
+    [System.NonSerialized] private MaxSdk.BannerPosition _currentPosition = MaxSdkBase.BannerPosition.BottomCenter;
+    public MaxSdk.BannerPosition Position
+    {
+        set
+        {
+            _currentPosition = value;
+            MaxSdk.UpdateBannerPosition(BannerAdUnitId, value);
+            switch (_currentPosition)
+            {
+                case MaxSdkBase.BannerPosition.TopCenter:
+                    offerFrame.position = topPivot.position;
+                    offerFrame.rotation = topPivot.rotation;
+                    closeButton.gameObject.SetActive(true);
+                    break;
+                case MaxSdkBase.BannerPosition.BottomCenter:
+                    offerFrame.position = bottomPivot.position;
+                    offerFrame.rotation = bottomPivot.rotation;
+                    closeButton.gameObject.SetActive(false);
+                    break;
+                
+            }
+        }
+    }
     
     public Vector3 ActionPosition => offerFrame.position;
-    private const float OfferDistance = -220.0f;
+    private const float OfferDistance = -300.0f;
     
     public bool Ready => _loadState.Equals(LoadState.Success);
+    public bool Visible => canvas.enabled;
 
     [System.NonSerialized] private LoadState _loadState = LoadState.None;
 
@@ -37,6 +67,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
                     break;
                 case LoadState.Success:
                     loadingBar.SetActive(false);
+                    ShowAd();
                     break;
                 case LoadState.Fail:
                     break;
@@ -50,12 +81,10 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         }
     }
     
-    public void ShowOffer()
+    public void ShowFrame()
     {
         SetOfferState(true);
-
         offerFrame.DOKill();
-
         offerFrame.anchoredPosition = new Vector2(0.0f, OfferDistance);
         offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f);
     }
@@ -89,27 +118,27 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         {
             return;
         }
-        _visible = true;
-        VisibilityChanged?.Invoke(true);
+        // _visible = true;
+        // VisibilityChanged?.Invoke(true);
         MaxSdk.ShowBanner(BannerAdUnitId);
     }
     
-    public void HideAd()
-    {
-        _visible = false;
-        VisibilityChanged?.Invoke(false);
-        MaxSdk.HideBanner(BannerAdUnitId);
-    }
+    // public void HideAd()
+    // {
+    //     _visible = false;
+    //     VisibilityChanged?.Invoke(false);
+    //     MaxSdk.HideBanner(BannerAdUnitId);
+    // }
 
-    public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
-    {
-        if (!_visible)
-        {
-            return;
-        }
-        _lastBannerPosition = bannerPosition;
-        MaxSdk.UpdateBannerPosition(BannerAdUnitId, bannerPosition);
-    }
+    // public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
+    // {
+    //     if (!_visible)
+    //     {
+    //         return;
+    //     }
+    //     _lastBannerPosition = bannerPosition;
+    //     MaxSdk.UpdateBannerPosition(BannerAdUnitId, bannerPosition);
+    // }
     
     public void Initialize()
     {
@@ -129,12 +158,13 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     public void LoadAd()
     {
         CurrentLoadState = LoadState.Loading;
-        MaxSdk.CreateBanner(BannerAdUnitId, _lastBannerPosition);
+        Position = MaxSdkBase.BannerPosition.BottomCenter;
+        MaxSdk.CreateBanner(BannerAdUnitId, _currentPosition);
     }
 
     public void DestroyBanner()
     {
-        _visible = false;
+        // _visible = false;
         MaxSdk.DestroyBanner(BannerAdUnitId);
         CurrentLoadState = LoadState.Destroyed;
     }

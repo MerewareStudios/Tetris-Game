@@ -45,7 +45,7 @@ public class LevelManager : Singleton<LevelManager>
 
         if (ONBOARDING.WEAPON_TAB.IsComplete())
         {
-            AdManager.THIS.ShowBannerOffer();
+            AdManager.THIS.ShowBannerFrame();
         }
     }
     
