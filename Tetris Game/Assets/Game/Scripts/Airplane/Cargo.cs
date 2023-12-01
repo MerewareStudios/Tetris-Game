@@ -1,5 +1,8 @@
+using System;
 using DG.Tweening;
+using Game;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Cargo : MonoBehaviour
 {
@@ -47,10 +50,24 @@ public class Cargo : MonoBehaviour
     public void Unpack()
     {
         transform.parent = null;
-        thisTransform.DOScale(Vector3.zero, 0.15f).SetEase(Ease.InBack).onComplete = () =>
+        thisTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).onComplete = () =>
         {
+            
+            switch (this.type)
+            {
+                case Type.MaxStack:
+                    Board.THIS.StackLimit++;
+                    break;
+                case Type.Health:
+                    UIManagerExtensions.BoardHeartToPlayer(transform.position,  10, 50);
+                    break;
+            }
+            
+            Particle.Confetti.Play(transform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), new Vector3(2.5f, 2.5f, 2.5f));
             this.Despawn(pool);
         };
+
+        
     }
     
     [SerializeField]

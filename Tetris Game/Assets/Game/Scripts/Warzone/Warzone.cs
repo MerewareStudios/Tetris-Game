@@ -127,9 +127,16 @@ namespace  Game
                     string startingText = Onboarding.THIS.targetPracticeText;
                     yield return Announcer.THIS.Show(startingText, 0.5f);
                 }
-                
-                
-                airplane.CarryCargo(Cargo.Type.MaxStack);
+
+
+                if (LevelManager.CurrentLevel > airplane.SavedData.arrival)
+                {
+                    Airplane.CarryData carryData = LevelManager.LevelSo.carryData;
+                    if (carryData.delay >= 0)
+                    {
+                        airplane.CarryCargo(carryData);
+                    }
+                }
 
 
                 _spawnRangeNorm = 0.0f;
@@ -343,6 +350,8 @@ namespace  Game
             _enemies.Clear();
             
             ClearLandMines();
+            
+            airplane.OnDeconstruct();
 
             ResetSelf();
         }

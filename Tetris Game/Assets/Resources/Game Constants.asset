@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 3
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -696,8 +696,8 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     airplaneData:
-      cargoTypes: 00000000000000000000000000000000
-      lastLevel: -1
+      cargoTypes: 
+      arrival: -1
   DefaultAdData:
     removeAds: 0
     interSkipCount: 0

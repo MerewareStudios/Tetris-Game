@@ -99,7 +99,7 @@ public class StatDisplay : MonoBehaviour
     public enum Type
     {
         Health,
-        Shield,
+        MaxStack,
         Boost,
         // Firerate,
         // Splitshot,

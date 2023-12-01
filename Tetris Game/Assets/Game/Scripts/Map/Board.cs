@@ -39,11 +39,28 @@ namespace Game
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
         [SerializeField] public int[] DropPositions;
-        [System.NonSerialized] public bool BoostingStack = false;
         [System.NonSerialized] public List<SubModel> LoseSubModels = new();
 
-        public int StackLimit => _Data.maxStack + (BoostingStack ? 1 : 0);
-        
+        [System.NonSerialized] private bool _boostingStack = false;
+        public bool BoostingStack
+        {
+            get => _boostingStack;
+            set
+            {
+                _boostingStack = value;
+                UpdateStackStat();
+            }
+        }
+        public int StackLimit
+        {
+            get => _Data.maxStack + (BoostingStack ? 1 : 0);
+            set
+            {
+                _data.maxStack = value;
+                UpdateStackStat();
+            }
+        }
+
         void Awake()
         {
             this._thisTransform = this.transform;
@@ -56,8 +73,21 @@ namespace Game
             set
             {
                 _data = value;
+                UpdateStackStat();
             }
             get => _data;
+        }
+
+        private void UpdateStackStat()
+        {
+            if (StackLimit > 6)
+            {
+                StatDisplayArranger.THIS.Show(StatDisplay.Type.MaxStack, StackLimit, punch:true);
+            }
+            else
+            {
+                StatDisplayArranger.THIS.Hide(StatDisplay.Type.MaxStack);
+            }
         }
 
         #region Construct - Deconstruct

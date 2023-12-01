@@ -18,6 +18,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string freePlacementText;
     [Header("Air Drop")]
     [TextArea] [SerializeField] public string maxStackDropCheer;
+    [TextArea] [SerializeField] public string healthDropCheer;
     [TextArea] [SerializeField] public string airDropFull;
     [Header("Other")]
     [TextArea] [SerializeField] public string waveText;

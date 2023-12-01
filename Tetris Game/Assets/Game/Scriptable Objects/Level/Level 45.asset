@@ -14,12 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deltaMult: 1
   boardSize: {x: 8, y: 7}
-  EnemySpawnData:
-    spawnDelay: 3
-    spawnInterval: 15
-    countDatas:
-    - enemyData: {fileID: 11400000, guid: d7e9af3664d71694c9b8440039b7d5ce, type: 2}
-      count: 3
+  countdown: 3
+  totalCoin: 100
+  enemySpawnData: []
   victoryReward:
     type: 0
     amount: 80
@@ -40,3 +37,6 @@ MonoBehaviour:
   - usage: 12
     index: {x: 7, y: 3}
     extra: 0
+  carryData:
+    type: 0
+    delay: -1

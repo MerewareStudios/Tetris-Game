@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4750690996591348408
 Transform:
   m_ObjectHideFlags: 0
@@ -223,10 +223,9 @@ MonoBehaviour:
   altitude: 3.74
   leftEnginePS: {fileID: 561355516120606252}
   rightEnginePS: {fileID: 2656920112596448926}
-  cargoType2Pool: 4c0000004c000000
+  cargoType2Pool: 4c0000004d000000
   getCanvas: {fileID: 0}
   getButton: {fileID: 0}
-  buttonText: {fileID: 0}
 --- !u!1001 &561355516106623030
 PrefabInstance:
   m_ObjectHideFlags: 0

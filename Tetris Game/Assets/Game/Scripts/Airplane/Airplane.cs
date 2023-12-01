@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -98,6 +96,7 @@ public class Airplane : MonoBehaviour
         if (_currentCargo != null)
         {
             _currentCargo.Redrop();
+            return;
         }
         
         if (!SavedData.Has)
@@ -106,7 +105,7 @@ public class Airplane : MonoBehaviour
         }
     }
 
-    public void CarryCargo(Cargo.Type type)
+    public void CarryCargo(CarryData carryData)
     {
         this.gameObject.SetActive(true);
         thisTransform.DOKill();
@@ -122,7 +121,7 @@ public class Airplane : MonoBehaviour
         thisTransform.position = startPosition;
         thisTransform.forward = direction;
 
-        Travel(targetPosition, 5.0f, Ease.OutSine).onComplete = () =>
+        Travel(targetPosition, 5.0f, Ease.OutSine).SetDelay(carryData.delay).onComplete = () =>
         {
             Travel(endPosition, 12.0f, SavedData.Full ? Ease.InBack : Ease.InSine).onComplete = () =>
             {
@@ -136,7 +135,18 @@ public class Airplane : MonoBehaviour
                 UIManager.THIS.speechBubble.Speak(Onboarding.THIS.airDropFull, 0.0f, 1.5f);
                 return;
             }
-            DropCargo(type);
+
+            switch (carryData.type)
+            {
+                case Cargo.Type.MaxStack:
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.maxStackDropCheer, 0.25f, 1.5f);
+                    break;
+                case Cargo.Type.Health:
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.healthDropCheer, 0.25f, 1.5f);
+                    break;
+            }
+
+            DropCargo(carryData.type);
         };
         
         leftEnginePS.Clear();
@@ -151,12 +161,11 @@ public class Airplane : MonoBehaviour
         _currentCargo.Drop(cargoParent, altitude - 0.75f, () =>
         {
             SavedData.AddCargo(_currentCargo);
-            SavedData.lastLevel = LevelManager.CurrentLevel;
+            SavedData.arrival = LevelManager.CurrentLevel;
             if (SavedData.Has)
             {
                 ShowButton();
             }
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.maxStackDropCheer, 0.0f, 1.5f);
 
             _currentCargo = null;
         });
@@ -175,14 +184,27 @@ public class Airplane : MonoBehaviour
     {
         return thisTransform.DOMove(toPosition, speed).SetSpeedBased(true).SetEase(ease, 4.0f);
     }
-    
-  
-    
+
+    public void OnDeconstruct()
+    {
+        this.gameObject.SetActive(false);
+        thisTransform.DOKill();
+        _delayedDisable?.Kill();
+    }
+
+    [System.Serializable]
+    public class CarryData
+    {
+        [SerializeField] public Cargo.Type type;
+        [SerializeField] public int delay = -1;
+    }
+
+
     [System.Serializable]
     public class Data : ICloneable
     {
         [SerializeField] public List<Cargo.Type> cargoTypes;
-        [SerializeField] public int lastLevel = -1;
+        [SerializeField] public int arrival = -1;
         [System.NonSerialized] public List<Cargo> Cargoes = new();
             
         public Data()
@@ -192,7 +214,7 @@ public class Airplane : MonoBehaviour
         public Data(Data data)
         {
             this.cargoTypes = new List<Cargo.Type>(data.cargoTypes);
-            this.lastLevel = data.lastLevel;
+            this.arrival = data.arrival;
         }
 
         public void AddCargo(Cargo cargo)

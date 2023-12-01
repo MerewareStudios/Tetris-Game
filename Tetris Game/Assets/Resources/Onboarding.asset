@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d99e4016d76fe4692c3a2308544fb7, type: 3}
   m_Name: Onboarding
   m_EditorClassIdentifier: 
-  needAmmoText: <size=125%>Hey! I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
+  needAmmoText: <size=125%>Hey! Need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
     </bounce></size>!
   stackText: <size=125%>Wait for <color=#FFD919><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
@@ -25,7 +25,9 @@ MonoBehaviour:
     Practice'
   ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
   freePlacementText: Place it anywhere!
-  maxStackDropCheer: Nice! <color=#FFD919><bounce a=1 f=2 w=0.5>+STACK</bounce></color>
+  maxStackDropCheer: Nice! <color=#FFD919><bounce a=1 f=2 w=0.5>+1 STACK!</bounce></color>
+  healthDropCheer: Nice! <color=#FFFFFF><bounce a=1 f=2 w=0.5>+50<size=90%><sprite
+    name=Heart></bounce></color>
   airDropFull: Oh no! <color=#FF3E3E>FULL!
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=50%>MAX

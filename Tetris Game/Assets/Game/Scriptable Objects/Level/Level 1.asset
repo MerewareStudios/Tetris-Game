@@ -42,3 +42,6 @@ MonoBehaviour:
     blockRot: 0
     canRotate: 1
   pawnPlacements: []
+  carryData:
+    type: 1
+    delay: -1

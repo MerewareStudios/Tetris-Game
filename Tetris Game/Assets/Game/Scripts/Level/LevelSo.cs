@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Febucci.Attributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -19,6 +17,7 @@ namespace Game
         [SerializeField] public Const.Currency failReward;
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
         [SerializeField] public Board.PawnPlacement[] pawnPlacements;
+        [SerializeField] public Airplane.CarryData carryData;
         // [SerializeField] public Pawn.Usage[] powerUps;
 
 
