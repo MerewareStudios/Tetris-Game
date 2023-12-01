@@ -77,5 +77,6 @@ public enum Pool
     Triangle_Block = 74,
     Image = 75,
     Max_Stack = 76,
+    Healt_Drop = 77,
 
 }
