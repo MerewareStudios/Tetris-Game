@@ -84,13 +84,18 @@ public class UIManager : Singleton<UIManager>
 
       Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
-      AdBreakScreen.onVisibilityChanged = (value) =>
+      AdBreakScreen.onVisibilityChanged = (visible) =>
       {
+         if (PiggyMenu.THIS.Visible)
+         {
+            PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
+         }
+         
          if (MenuVisible)
          {
             return;
          }
-         Wallet.ScaleTransactors(value ? 1.1f : 1.0f, value);
+         Wallet.ScaleTransactors(visible ? 1.1f : 1.0f, visible);
       };
       
       IAPManager.OnPurchaseFinish = OfferScreen.THIS.OnPurchaseComplete;
@@ -142,7 +147,7 @@ public class UIManager : Singleton<UIManager>
 
          if (PiggyMenu.THIS.Visible)
          {
-             PiggyMenu.THIS.SetMiddleSortingLayer(visible ? 0 : 9);                
+            PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
          }
          GameManager.UpdateTimeScale();
       };

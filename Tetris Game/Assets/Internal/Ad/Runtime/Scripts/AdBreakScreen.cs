@@ -180,7 +180,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
 
         canvasGroup.alpha = 0.0f;
         canvasGroup.DOKill();
-        canvasGroup.DOFade(1.0f, 0.25f).SetEase(Ease.InOutSine).SetUpdate(true).onComplete = () =>
+        canvasGroup.DOFade(1.0f, 0.25f).SetEase(Ease.InOutSine).SetDelay(0.6f).SetUpdate(true).onComplete = () =>
         {
             _canInteract = true;
             StartTimer();

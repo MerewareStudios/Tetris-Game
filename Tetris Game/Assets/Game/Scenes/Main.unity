@@ -1615,7 +1615,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -296820037
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &349259215
 GameObject:
@@ -3822,6 +3822,7 @@ MonoBehaviour:
       airplaneData:
         cargoTypes: 
         arrival: -1
+        total: 0
     playerData:
       currentHealth: 1
       turnRate: 6
@@ -13209,6 +13210,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2846355456824160056, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2846355456824160056, guid: 61dc09709f4686947b5c9064486c6f96,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -296820037
+      objectReference: {fileID: 0}
     - target: {fileID: 5179550982178858918, guid: 61dc09709f4686947b5c9064486c6f96,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -21079,6 +21090,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839256383956558153, guid: 482e1e50f0398f74195eceedc9c511ed,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7140015546402700437, guid: 482e1e50f0398f74195eceedc9c511ed,
         type: 3}
