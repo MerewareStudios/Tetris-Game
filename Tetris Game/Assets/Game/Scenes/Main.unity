@@ -3294,6 +3294,7 @@ MonoBehaviour:
   heartEmitter: {fileID: 1175637157}
   motionData_Enemy_Burst: {fileID: 11400000, guid: 20479afacb54b1d4ca007042b406f67b,
     type: 2}
+  motionData_Chest: {fileID: 11400000, guid: f5b46d830559bcb4fa3a982647beab49, type: 2}
   motionData_LevelReward: {fileID: 11400000, guid: 7dbd65f44c20a9d428ad94ff4cf87161,
     type: 2}
   motionData_PiggyReward: {fileID: 11400000, guid: 826d88ff66e9c86479507e688bb183b9,
@@ -3714,12 +3715,17 @@ MonoBehaviour:
       type: 3}
     readOnly: 0
     preload: 0
-    capacity: 250
+    capacity: 5
   - gameObject: {fileID: 4248930608123927514, guid: 98d8dae1df152e14aa29d6d71921f550,
       type: 3}
     readOnly: 0
     preload: 0
-    capacity: 250
+    capacity: 5
+  - gameObject: {fileID: 4248930608123927514, guid: 526ab45a274e00e4ba0e241030c030b8,
+      type: 3}
+    readOnly: 0
+    preload: 0
+    capacity: 5
 --- !u!114 &715436860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20536,7 +20542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -261}
+  m_AnchoredPosition: {x: 0, y: -274}
   m_SizeDelta: {x: 433.22, y: 214.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &8372524303063821209

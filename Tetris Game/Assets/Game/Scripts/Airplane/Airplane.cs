@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using IWI;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -91,9 +92,24 @@ public class Airplane : MonoBehaviour
             return;
         }
 
+        if (!Wallet.Consume(Const.Currency.OneAd))
+        {
+            AdManager.ShowTicketAd(() =>
+            {
+                Wallet.Transaction(Const.Currency.OneAd);
+                OnClick_Get();
+            });
+            return;
+        }
+        
+
         SavedData.UnpackCargo(SavedData.Count - 1);
         
-        if (_currentCargo != null)
+        
+        AnalyticsManager.CargoUnpack(SavedData.total);
+
+        
+        if (_currentCargo)
         {
             _currentCargo.Redrop();
             return;
@@ -143,6 +159,9 @@ public class Airplane : MonoBehaviour
                     break;
                 case Cargo.Type.Health:
                     UIManager.THIS.speechBubble.Speak(Onboarding.THIS.healthDropCheer, 0.25f, 1.5f);
+                    break;
+                case Cargo.Type.Chest:
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.chestDropCheer, 0.25f, 1.5f);
                     break;
             }
 
@@ -205,6 +224,7 @@ public class Airplane : MonoBehaviour
     {
         [SerializeField] public List<Cargo.Type> cargoTypes;
         [SerializeField] public int arrival = -1;
+        [SerializeField] public int total = 0;
         [System.NonSerialized] public List<Cargo> Cargoes = new();
             
         public Data()
@@ -215,6 +235,7 @@ public class Airplane : MonoBehaviour
         {
             this.cargoTypes = new List<Cargo.Type>(data.cargoTypes);
             this.arrival = data.arrival;
+            this.total = data.total;
         }
 
         public void AddCargo(Cargo cargo)
@@ -228,6 +249,8 @@ public class Airplane : MonoBehaviour
             Cargoes[index].Unpack();
             Cargoes.RemoveAt(index);
             cargoTypes.RemoveAt(index);
+            
+            total++;
         }
 
         public int Count => cargoTypes.Count;

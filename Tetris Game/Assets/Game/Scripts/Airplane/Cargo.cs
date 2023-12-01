@@ -49,7 +49,7 @@ public class Cargo : MonoBehaviour
 
     public void Unpack()
     {
-        transform.parent = null;
+        thisTransform.parent = null;
         thisTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).onComplete = () =>
         {
             
@@ -59,11 +59,16 @@ public class Cargo : MonoBehaviour
                     Board.THIS.StackLimit++;
                     break;
                 case Type.Health:
-                    UIManagerExtensions.BoardHeartToPlayer(transform.position,  10, 50);
+                    UIManagerExtensions.BoardHeartToPlayer(thisTransform.position,  10, 50);
+                    break;
+                case Type.Chest:
+                    UIManagerExtensions.EmitChestCoinBurst(thisTransform.position, 15, 50);
+                    UIManagerExtensions.EmitChestGemBurst(thisTransform.position, 3, 3);
+
                     break;
             }
             
-            Particle.Confetti.Play(transform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), new Vector3(2.5f, 2.5f, 2.5f));
+            Particle.Confetti.Play(thisTransform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), new Vector3(2.5f, 2.5f, 2.5f));
             this.Despawn(pool);
         };
 
@@ -75,5 +80,6 @@ public class Cargo : MonoBehaviour
     {
         MaxStack,
         Health,
+        Chest,
     }
 }

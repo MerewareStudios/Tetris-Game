@@ -35,6 +35,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public UIEmitter ticketEmitter;
    [SerializeField] public UIEmitter heartEmitter;
    [SerializeField] public MotionData motionData_Enemy_Burst;
+   [SerializeField] public MotionData motionData_Chest;
    [SerializeField] public MotionData motionData_LevelReward;
    [SerializeField] public MotionData motionData_PiggyReward;
    [SerializeField] public MotionData motionData_PiggyFill;
@@ -491,6 +492,18 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
+   }
+   public static void EmitChestCoinBurst(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Chest);
+   }
+   public static void EmitChestGemBurst(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Chest);
    }
    public static void EmitLevelRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
    {

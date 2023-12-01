@@ -99,6 +99,7 @@ public class Powerup : Lazyingleton<Powerup>
 
         if (_Data.use)
         {
+            _canUse = true;
             OnClick_Use();
         }
     }
@@ -106,7 +107,8 @@ public class Powerup : Lazyingleton<Powerup>
     public void PunchUse()
     {
         icon.rectTransform.DOKill();
-        icon.rectTransform.DOPunchScale(Vector3.one * 0.4f, 0.4f, 1).SetUpdate(true);
+        icon.rectTransform.localScale = Vector3.one;
+        icon.rectTransform.DOPunchScale(Vector3.one * 0.3f, 0.4f, 1).SetUpdate(true);
 
         PunchFrame();
     }
@@ -131,6 +133,8 @@ public class Powerup : Lazyingleton<Powerup>
         {
             return;
         }
+        Debug.Log(Available);
+
         if (Available)
         {
             if (!_canUse)

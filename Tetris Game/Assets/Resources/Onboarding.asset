@@ -28,6 +28,7 @@ MonoBehaviour:
   maxStackDropCheer: Nice! <color=#FFD919><bounce a=1 f=2 w=0.5>+1 STACK!</bounce></color>
   healthDropCheer: Nice! <color=#FFFFFF><bounce a=1 f=2 w=0.5>+50<size=90%><sprite
     name=Heart></bounce></color>
+  chestDropCheer: <bounce a=1 f=2 w=0.5>New chest!</bounce>
   airDropFull: Oh no! <color=#FF3E3E>FULL!
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=50%>MAX

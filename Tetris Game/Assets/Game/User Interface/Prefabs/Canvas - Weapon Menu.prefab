@@ -1680,7 +1680,12 @@ PrefabInstance:
     - target: {fileID: 986885518858573025, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
       propertyPath: m_text
-      value: <sprite name=Firerate>FIRERATE
+      value: FIRERATE
+      objectReference: {fileID: 0}
+    - target: {fileID: 986885518858573025, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4287037340
       objectReference: {fileID: 0}
     - target: {fileID: 1304560341753659410, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
@@ -2331,7 +2336,12 @@ PrefabInstance:
     - target: {fileID: 986885518858573025, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
       propertyPath: m_text
-      value: <sprite name=Splitshot>SPLIT SHOT
+      value: SPLIT SHOT
+      objectReference: {fileID: 0}
+    - target: {fileID: 986885518858573025, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4287037340
       objectReference: {fileID: 0}
     - target: {fileID: 1304560341753659410, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}
@@ -3121,6 +3131,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 986885518858573025, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4287037340
       objectReference: {fileID: 0}
     - target: {fileID: 1304560341753659410, guid: aaf0b63e8005f3c4db7a6deeb61b2882,
         type: 3}

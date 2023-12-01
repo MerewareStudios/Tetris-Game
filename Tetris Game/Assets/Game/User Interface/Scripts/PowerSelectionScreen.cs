@@ -11,15 +11,17 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private List<PowerSelection> powerSelections;
     [SerializeField] public Pawn.Usage[] powerUps;
+    [SerializeField] public int[] unlockIndexes;
     [SerializeField] public ToggleButton toggleButton;
     [SerializeField] public TextMeshProUGUI stashText;
+    [SerializeField] public Sprite lockIcon;
     [System.NonSerialized] public int TimeScale = 1;
 
     void Start()
     {
         for (int i = 0; i < powerSelections.Count; i++)
         {
-            powerSelections[i].Set(Select, powerUps[i].Icon(), i);
+            powerSelections[i].Set(Select, i);
         }
         SetStashState(Powerup.THIS._Data.use);
     }
@@ -48,6 +50,13 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         }
         canvas.enabled = true;
         this.gameObject.SetActive(true);
+
+        int currentLevel = LevelManager.CurrentLevel;
+        for (int i = 0; i < powerSelections.Count; i++)
+        {
+            bool unlocked = currentLevel >= unlockIndexes[i];
+            powerSelections[i].SetIcon(unlocked ? powerUps[i].Icon() : lockIcon);
+        }
         
         TimeScale = 0;
         GameManager.UpdateTimeScale();
@@ -74,9 +83,15 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         canvasGroup.DOFade(state ? 0.0f : 1.0f, 0.1f).SetEase(Ease.InOutSine).SetUpdate(true);
     }
 
-    public void Select(PowerSelection powerSelection)
+    private void Select(int index)
     {
-        Powerup.THIS.SetPowerup(powerUps[powerSelection.PowerIndex], true, false);
+        int currentLevel = LevelManager.CurrentLevel;
+        bool unlocked = currentLevel >= unlockIndexes[index];
+        if (!unlocked)
+        {
+            return;
+        }
+        Powerup.THIS.SetPowerup(powerUps[index], true, false);
         Close();
     }
 }

@@ -7,14 +7,14 @@ public class PowerSelection : MonoBehaviour
 {
     [SerializeField] private Button button;
     [SerializeField] private Image icon;
-    [System.NonSerialized] public int PowerIndex;
 
-    public void Set(System.Action<PowerSelection> onClick, Sprite sprite, int powerIndex)
+    public void Set(System.Action<int> onClick, int powerIndex)
+    {
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => onClick.Invoke(powerIndex));
+    }
+    public void SetIcon(Sprite sprite)
     {
         icon.sprite = sprite;
-        PowerIndex = powerIndex;
-        
-        button.onClick.AddListener(() => onClick.Invoke(this));
     }
-
 }

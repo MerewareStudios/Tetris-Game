@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 40
     pupData:
       available: 1
       currentUsage: 4
@@ -649,7 +649,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 0
     adTransactionData:
-      value: 0
+      value: 5
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -696,7 +696,7 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     airplaneData:
-      cargoTypes: 
+      cargoTypes: 02000000
       arrival: -1
   DefaultAdData:
     removeAds: 0

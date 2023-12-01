@@ -1,11 +1,9 @@
 using System;
-using System.Linq;
 using DG.Tweening;
 using Game.UI;
 using IWI;
 using IWI.Tutorial;
 using IWI.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Helper = Internal.Core.Helper;

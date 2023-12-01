@@ -198,6 +198,16 @@ public static class AnalyticsManager
         Log(eventName, time, EventType.Design);
 #endif
     }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void CargoUnpack(int total)
+    {
+        string eventName = "CARGO:UNPACK";
+        GameAnalytics.NewDesignEvent(eventName, total);
+#if UNITY_EDITOR
+        Log(eventName, total, EventType.Design);
+#endif
+    }
 
 #if UNITY_EDITOR
     private static bool Validate(string str, EventType eventType)
