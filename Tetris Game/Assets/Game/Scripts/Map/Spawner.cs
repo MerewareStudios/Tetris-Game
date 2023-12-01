@@ -47,7 +47,7 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        nextBlockPivot.position = FakeAdBanner.THIS.ButtonPosition;
+        nextBlockPivot.position = FakeAdBanner.THIS.ActionPosition;
         nextBlockPivot.DOAnchorPos(Vector2.zero, duration).SetEase(Ease.OutSine).SetUpdate(true);
         DisplayNextBlock();
     }
