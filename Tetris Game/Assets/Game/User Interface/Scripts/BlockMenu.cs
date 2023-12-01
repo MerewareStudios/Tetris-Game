@@ -25,7 +25,6 @@ namespace Game.UI
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private TextMeshProUGUI equipText;
-        [SerializeField] private GameObject reductionIcon;
         [System.NonSerialized] private BlockData _selectedBlockData;
 
         [field: System.NonSerialized] public BlockShopData SavedData { set; get; }
@@ -37,7 +36,7 @@ namespace Game.UI
             for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
             {
                 BlockData lookUp = Const.THIS.DefaultBlockData[i];
-                (Const.Currency cost, bool reduced) = lookUp.ReducedCost;
+                Const.Currency cost = lookUp.Cost;
 
                 bool purchased = SavedData.unlockedBlocks.Contains(lookUp.blockType);
                 bool newShown = SavedData.newShown[i];
@@ -90,7 +89,7 @@ namespace Game.UI
             base.Show();
 
             _selectedBlockData = Const.THIS.DefaultBlockData[SavedData.lastIndex];
-            (Const.Currency cost, bool reduced) = _selectedBlockData.ReducedCost;
+            Const.Currency cost = _selectedBlockData.Cost;
             
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
             bool availableByPrice = Wallet.HasFunds(cost);
@@ -100,7 +99,7 @@ namespace Game.UI
             bool canPurchase = (availableByPrice || availableByTicket) && availableByLevel;
 
 
-            SetPrice(cost, canPurchase, availableByLevel, purchasedBlock, reduced);
+            SetPrice(cost, canPurchase, availableByLevel, purchasedBlock);
             SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
             
             
@@ -185,7 +184,7 @@ namespace Game.UI
             newTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByLevel, bool purchasedBlock, bool reduced)
+        private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByLevel, bool purchasedBlock)
         {
             purchaseButton.gameObject.SetActive(availableByLevel && !purchasedBlock);
             currencyDisplay.gameObject.SetActive(availableByLevel && !purchasedBlock);
@@ -201,7 +200,6 @@ namespace Game.UI
             {   
                 PunchButton(0.2f);
             }
-            reductionIcon.SetActive(reduced);
             currencyDisplay.Display(currency);
             PunchMoney(0.2f);
             PunchPurchasedText(0.2f);
@@ -225,7 +223,7 @@ namespace Game.UI
                 return;
             }
 
-            (Const.Currency cost, bool reduced) = _selectedBlockData.ReducedCost;
+            Const.Currency cost = _selectedBlockData.Cost;
             if (Wallet.Consume(cost))
             {
                 SavedData.AddUnlockedBlock(_selectedBlockData);
@@ -305,7 +303,7 @@ namespace Game.UI
             [SerializeField] private Const.Currency currency;
             [SerializeField] public int unlockedAt = 1;
 
-            public (Const.Currency, bool) ReducedCost => currency.ReduceCost(Const.CurrencyType.Coin, Wallet.CostReduction);
+            public Const.Currency Cost => currency;
             public Const.CurrencyType CostType => currency.type;
         }
     }

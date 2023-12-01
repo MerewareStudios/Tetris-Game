@@ -88,16 +88,6 @@ public class Const : SSingleton<Const>
             this.amount = amount;
         }
 
-        public (Currency, bool) ReduceCost(Const.CurrencyType specificType, float percent)
-        {
-            if (!type.Equals(specificType))
-            {
-                return (this, false);
-            }
-            int reducedCost = amount.ReduceFloor(percent);
-            return (new Const.Currency(type, reducedCost), percent > 0.0f);
-        }
-
         public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);
     }
     

@@ -41,19 +41,9 @@ namespace Game
         [SerializeField] public int[] DropPositions;
         [System.NonSerialized] public List<SubModel> LoseSubModels = new();
 
-        [System.NonSerialized] private bool _boostingStack = false;
-        public bool BoostingStack
-        {
-            get => _boostingStack;
-            set
-            {
-                _boostingStack = value;
-                UpdateStackStat();
-            }
-        }
         public int StackLimit
         {
-            get => _Data.maxStack + (BoostingStack ? 1 : 0);
+            get => _Data.maxStack;
             set
             {
                 _data.maxStack = value;

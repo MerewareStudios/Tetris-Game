@@ -42,7 +42,7 @@ namespace IWI
                         AdBreakScreen.THIS.SetLoadState(state);
                     };
                     
-                    SetBannerBonuses(_Data.removeAds, false);
+                    // SetBannerBonuses(_Data.removeAds, false);
                     if (_Data.removeAds)
                     {
                         _maxSDKInitComplete?.Invoke();
@@ -146,15 +146,15 @@ namespace IWI
         private void InitBanner()
         {
             FakeAdBanner.THIS.Initialize();
-            FakeAdBanner.THIS.OnOfferAccepted = () =>
-            {
-                _Data.BannerAccepted = true;
-                ShowBanner();
-                AnalyticsManager.OnBannerEnabled();
-            };
+            // FakeAdBanner.THIS.OnOfferAccepted = () =>
+            // {
+            //     _Data.BannerAccepted = true;
+            //     ShowBanner();
+            //     AnalyticsManager.OnBannerEnabled();
+            // };
             FakeAdBanner.THIS.VisibilityChanged = (visible) =>
             {
-                SetBannerBonuses(visible, true);
+                // SetBannerBonuses(visible, true);
             };
             
             UIManager.OnMenuModeChanged = ChangeBannerPosition;
@@ -164,17 +164,17 @@ namespace IWI
             _Data.BannerAccepted = false;
             FakeAdBanner.THIS.DestroyBanner();
 
-            FakeAdBanner.THIS.OnOfferAccepted = null;
+            // FakeAdBanner.THIS.OnOfferAccepted = null;
             FakeAdBanner.THIS.VisibilityChanged = null;
             UIManager.OnMenuModeChanged -= ChangeBannerPosition;
         }
         
-        private void SetBannerBonuses(bool state, bool animated)
-        {
-            Spawner.THIS.SetNextBlockVisibility(state, animated ? 0.5f : 0.0f);
-            Board.THIS.BoostingStack = state;
-            Wallet.ReduceCosts = state;
-        }
+        // private void SetBannerBonuses(bool state, bool animated)
+        // {
+        //     Spawner.THIS.SetNextBlockVisibility(state, animated ? 0.5f : 0.0f);
+        //     Board.THIS.BoostingStack = state;
+        //     Wallet.ReduceCosts = state;
+        // }
 
         public void ShowAdBreak()
         {
@@ -311,8 +311,7 @@ namespace IWI
             private static void Banner()
             {
                 AdManager.THIS.DestroyBanner();
-                AdManager.THIS.SetBannerBonuses(true, true);
-                
+                // AdManager.THIS.SetBannerBonuses(true, true);
             }
         }
         

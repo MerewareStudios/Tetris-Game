@@ -11,7 +11,6 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform clickTarget;
-    [SerializeField] private GameObject reductionIcon;
     [SerializeField] private TextMeshProUGUI stat;
     [System.NonSerialized] private int _prevStat = -1;
 
@@ -27,9 +26,8 @@ public class StageBar : MonoBehaviour
         currencyDisplay.gameObject.SetActive(state);
         return this;
     }
-    public StageBar SetPrice(Const.Currency currency, bool reduced)
+    public StageBar SetPrice(Const.Currency currency)
     {
-        reductionIcon.SetActive(reduced);
         currencyDisplay.Display(currency);
         return this;
     }
@@ -48,11 +46,6 @@ public class StageBar : MonoBehaviour
         stat.rectTransform.DOPunchScale(Vector3.one * 0.15f, 0.3f, 1).SetUpdate(true);
         return this;
     }
-    // public StageBar SetInteractable(bool state)
-    // {
-    //     purchaseButton.Available = state;
-    //     return this;
-    // }
     public StageBar SetMaxed(bool state)
     {
         purchaseButton.SetButton(state ? Onboarding.THIS.plusText : Onboarding.THIS.fullText, state);

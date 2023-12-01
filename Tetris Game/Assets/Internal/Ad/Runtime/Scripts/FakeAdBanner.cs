@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 {
@@ -11,10 +10,8 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private RectTransform offerFrame;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
-    [SerializeField] private Image fillImage;
-    [SerializeField] private Button closeButton;
     
-    [System.NonSerialized] public System.Action OnOfferAccepted;
+    // [System.NonSerialized] public System.Action OnOfferAccepted;
     [System.NonSerialized] public System.Action<bool> VisibilityChanged;
     [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
     [System.NonSerialized] private bool _visible = false;
@@ -24,7 +21,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
     public bool Ready => _loadState.Equals(LoadState.Success);
 
-    [System.NonSerialized] public LoadState _loadState = LoadState.None;
+    [System.NonSerialized] private LoadState _loadState = LoadState.None;
 
     public LoadState CurrentLoadState
     {
@@ -32,34 +29,19 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         private set
         {
             _loadState = value;
-            fillImage.DOKill();
 
             switch (value)
             {
                 case LoadState.None:
                     loadingBar.SetActive(true);
-                    closeButton.gameObject.SetActive(false);
-                    fillImage.fillAmount = 0.0f;
-                    // enableButton.gameObject.SetActive(false);
                     break;
                 case LoadState.Success:
                     loadingBar.SetActive(false);
-                    closeButton.gameObject.SetActive(true);
-
-                    fillImage.DOFillAmount(1.0f, 3.0f).SetEase(Ease.Linear).onComplete = () =>
-                    {
-                        OnClick_AcceptOffer();
-                    };
-                    // enableButton.gameObject.SetActive(true);
                     break;
                 case LoadState.Fail:
-                    closeButton.gameObject.SetActive(true);
                     break;
                 case LoadState.Loading:
                     loadingBar.SetActive(true);
-                    closeButton.gameObject.SetActive(false);
-                    fillImage.fillAmount = 0.0f;
-                    // enableButton.gameObject.SetActive(false);
                     break;
                 case LoadState.Destroyed:
                     SetOfferState(false);
@@ -72,19 +54,14 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
         SetOfferState(true);
 
-        // enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
 
         offerFrame.anchoredPosition = new Vector2(0.0f, OfferDistance);
-        offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f).onComplete = () =>
-        {
-            // enableButton.targetGraphic.raycastTarget = true;
-        };
+        offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f);
     }
 
     public void HideOffer()
     {
-        // enableButton.targetGraphic.raycastTarget = false;
         offerFrame.DOKill();
 
         offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetUpdate(true).SetEase(Ease.InSine).onComplete = () =>
@@ -99,11 +76,11 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         this.gameObject.SetActive(value);
     }
 
-    public void OnClick_AcceptOffer()
-    {
-        HideOffer();
-        OnOfferAccepted?.Invoke();
-    }
+    // public void OnClick_AcceptOffer()
+    // {
+    //     HideOffer();
+    //     OnOfferAccepted?.Invoke();
+    // }
 
     
     public void ShowAd()
