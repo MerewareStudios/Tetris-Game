@@ -27,13 +27,14 @@ namespace Game.UI
         [SerializeField] private TextMeshProUGUI equipText;
         [SerializeField] private RectTransform redDot;
         [System.NonSerialized] private BlockData _selectedBlockData;
+        [System.NonSerialized] private int _lastBlockIndexShown = -1;
 
         [field: System.NonSerialized] public BlockShopData SavedData { set; get; }
 
         public int AvailablePurchaseCount(bool updatePage)
         {
             base.TotalNotify = 0;
-            bool firstIndexSet = false;
+            // bool firstIndexSet = false;
             for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
             {
                 BlockData lookUp = Const.THIS.DefaultBlockData[i];
@@ -49,10 +50,12 @@ namespace Game.UI
                 // if (!purchased && (hasFunds || ticketType) && availableByLevel // !newShown)
                 // if (!purchased && availableByLevel && !newShown)
                 {
-                    if (updatePage && !firstIndexSet)
+                    // if (updatePage && !firstIndexSet)
+                    if (updatePage && _lastBlockIndexShown < i)
                     {
                         SavedData.lastIndex = i;
-                        firstIndexSet = true;
+                        _lastBlockIndexShown = i;
+                        // firstIndexSet = true;
                     }
 
                     base.TotalNotify++;

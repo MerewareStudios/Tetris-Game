@@ -39,6 +39,8 @@ namespace Game.UI
         [SerializeField] private RectTransform redDot;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> GunDataChanged = null;
+
+        [System.NonSerialized] private int _lastWeaponIndexShown = -1;
         // [System.NonSerialized] private int[] _statNotifies = new int[3] {-1, -1, -1};
 
         [field : System.NonSerialized] public WeaponShopData SavedData { set; get; }
@@ -67,9 +69,10 @@ namespace Game.UI
                 // if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
                 if (!purchased && (hasFunds || ticketType) && availableByLevel)
                 {
-                    if (updatePage)
+                    if (updatePage && _lastWeaponIndexShown < i)
                     {
                         SavedData.inspectIndex = i;
+                        _lastWeaponIndexShown = i;
                     }
 
                     base.TotalNotify++;
@@ -330,9 +333,9 @@ namespace Game.UI
             //     this._statNotifies[2] = currentSplitShot;
             // }
             //
-            FillStageBar(Gun.StatType.Damage, stageBarDamage, currentDamage);
-            FillStageBar(Gun.StatType.Firerate, stageBarFireRate, currentFireRate);
-            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot, currentSplitShot);
+            FillStageBar(Gun.StatType.Damage, stageBarDamage, currentDamage, equippedWeapon);
+            FillStageBar(Gun.StatType.Firerate, stageBarFireRate, currentFireRate, equippedWeapon);
+            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot, currentSplitShot, equippedWeapon);
             
             
             if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
@@ -354,7 +357,7 @@ namespace Game.UI
             equippedTextBanner.DOPunchScale(Vector3.one * amount, 0.25f, 1).SetUpdate(true);
         }
 
-        private void FillStageBar(Gun.StatType statType, StageBar stageBar, int currentStat)
+        private void FillStageBar(Gun.StatType statType, StageBar stageBar, int currentStat, bool equipped)
         {
             int currentIndex = SavedData.CurrentIndex(statType);
 
@@ -383,7 +386,7 @@ namespace Game.UI
             stageBar
                 .SetPrice(price)
                 .Available = canPurchase;
-            stageBar.Marked = canPurchase;
+            stageBar.Marked = canPurchase && equipped;
         }
         
         private void SetPrice(Const.Currency currency, bool canPurchase)
