@@ -133,7 +133,6 @@ public class Powerup : Lazyingleton<Powerup>
         {
             return;
         }
-        Debug.Log(Available);
 
         if (Available)
         {

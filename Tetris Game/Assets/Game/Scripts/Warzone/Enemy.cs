@@ -316,7 +316,7 @@ namespace  Game
                             UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                         case EnemyReward.Health:
-                            UIManagerExtensions.HeartToPlayer(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
+                            UIManagerExtensions.BoardHeartToPlayer(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
                 }

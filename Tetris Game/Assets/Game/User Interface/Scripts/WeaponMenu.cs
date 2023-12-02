@@ -32,13 +32,11 @@ namespace Game.UI
         [SerializeField] private RectTransform priceTextPivot;
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private Button equipButton;
-        // [SerializeField] private TextMeshProUGUI gunStatText;
         [SerializeField] private GameObject nextButton;
         [SerializeField] private GameObject previousButton;
-        // [SerializeField] private GameObject weaponReductionIcon;
-
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> GunDataChanged = null;
+        [System.NonSerialized] private int[] _statNotifies = new int[3] {-1, -1, -1};
 
         [field : System.NonSerialized] public WeaponShopData SavedData { set; get; }
 
@@ -80,53 +78,64 @@ namespace Game.UI
                 }
             }
 
-            // if(UpgradeAvailable(SavedData.equipIndex, Gun.StatType.Damage))
-            // {
-            //     if (updatePage)
-            //     {
-            //         SavedData.inspectIndex = SavedData.equipIndex;
-            //     }
-            //     total++;
-            //     // return 1;
-            // }
-            // if(UpgradeAvailable(SavedData.equipIndex, Gun.StatType.Firerate))
-            // {
-            //     if (updatePage)
-            //     {
-            //         SavedData.inspectIndex = SavedData.equipIndex;
-            //     }
-            //     total++;
-            //     // return 1;
-            // }
-            // if(UpgradeAvailable(SavedData.equipIndex, Gun.StatType.Splitshot))
-            // {
-            //     if (updatePage)
-            //     {
-            //         SavedData.inspectIndex = SavedData.equipIndex;
-            //     }
-            //     total++;
-            //     // return 1;
-            // }
+
+            if(NotifyForUpgrade(Gun.StatType.Damage))
+            {
+                base.TotalNotify++;
+            }
+            if(NotifyForUpgrade(Gun.StatType.Firerate))
+            {
+                base.TotalNotify++;
+            }
+            if(NotifyForUpgrade(Gun.StatType.Splitshot))
+            {
+                base.TotalNotify++;
+            }
             
             return base.TotalNotify;
         }
 
-        private bool UpgradeAvailable(int gunIndex, Gun.StatType statType)
+        private bool NotifyForUpgrade(Gun.StatType statType)
         {
-            int upgradeIndex = SavedData.GetUpgradeIndex(gunIndex, statType);
-            Gun.UpgradeData upgradeData = Const.THIS.GunUpgradeData[gunIndex];
-            if (!upgradeData.HasAvailableUpgrade(statType, upgradeIndex))
+            Gun.UpgradeData equippedUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
+            GunShopData equippedSavedData = SavedData.gunShopDatas[SavedData.equipIndex];
+
+            int statIndex = (int)statType;
+            
+            int currentDamageIndex = equippedSavedData.upgradeIndexes[statIndex];
+            if (!equippedUpgradeData.HasAvailableUpgrade(statType, currentDamageIndex))
             {
                 return false;
             }
             
-            Const.Currency cost = upgradeData.ReducedUpgradeCost(statType, upgradeIndex);
-
-            bool hasFunds = Wallet.HasFunds(cost);
-            bool ticketType = cost.type.Equals(Const.CurrencyType.Ticket);
-            
-            return hasFunds || ticketType;
+            Const.Currency upgradeCost = equippedUpgradeData.UpgradeCost(statType, currentDamageIndex);
+            bool hasFunds = Wallet.HasFunds(upgradeCost);
+            bool ticketType = upgradeCost.type.Equals(Const.CurrencyType.Ticket);
+            if (!hasFunds && !ticketType)
+            {
+                return false;
+            }
+            Debug.Log("checking " + statType);
+            Debug.Log(_statNotifies[statIndex] + " " + currentDamageIndex);
+            return _statNotifies[statIndex] < currentDamageIndex;
         }
+
+        // private bool UpgradeAvailable(int gunIndex, Gun.StatType statType)
+        // {
+        //     int upgradeIndex = SavedData.GetUpgradeIndex(gunIndex, statType);
+        //     Gun.UpgradeData upgradeData = Const.THIS.GunUpgradeData[gunIndex];
+        //     if (!upgradeData.HasAvailableUpgrade(statType, upgradeIndex))
+        //     {
+        //         return false;
+        //     }
+        //     
+        //     Const.Currency cost = upgradeData.UpgradeCost(statType, upgradeIndex);
+        //
+        //     bool hasFunds = Wallet.HasFunds(cost);
+        //     bool ticketType = cost.type.Equals(Const.CurrencyType.Ticket);
+        //     
+        //     return hasFunds || ticketType;
+        // }
         
         public new bool Open(float duration = 0.5f)
         {
@@ -207,12 +216,12 @@ namespace Game.UI
             {
                 PunchNewBanner(0.4f);
             }
-            
-            
 
-            int damageDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Damage);
-            int rateDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Firerate);
-            int splitDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Splitshot);
+           
+
+            // int damageDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Damage);
+            // int rateDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Firerate);
+            // int splitDefault = _gunUpgradeData.DefaultValue(Gun.StatType.Splitshot);
 
             // SetStats(damage, damage != damageDefault, rate, rate != rateDefault, split, split != splitDefault);
 
@@ -242,10 +251,21 @@ namespace Game.UI
                 SetPrice(cost, canPurchase);
                 return;
             }
-            
-            FillStageBar(Gun.StatType.Damage, stageBarDamage, CurrentDamage(_gunUpgradeData));
-            FillStageBar(Gun.StatType.Firerate, stageBarFireRate, CurrentFireRate(_gunUpgradeData));
-            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot, CurrentSplitShot(_gunUpgradeData));
+
+            int currentDamage = CurrentStat(_gunUpgradeData, Gun.StatType.Damage);
+            int currentFireRate = CurrentStat(_gunUpgradeData, Gun.StatType.Firerate);
+            int currentSplitShot = CurrentStat(_gunUpgradeData, Gun.StatType.Splitshot);
+
+            // if (SavedData.equipIndex == SavedData.inspectIndex)
+            // {
+            //     this._statNotifies[0] = currentDamage;
+            //     this._statNotifies[1] = currentFireRate;
+            //     this._statNotifies[2] = currentSplitShot;
+            // }
+            //
+            FillStageBar(Gun.StatType.Damage, stageBarDamage, currentDamage);
+            FillStageBar(Gun.StatType.Firerate, stageBarFireRate, currentFireRate);
+            FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot, currentSplitShot);
             
             
             if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
@@ -280,6 +300,11 @@ namespace Game.UI
                 .SetStat(currentStat)
                 .SetBars(_gunUpgradeData.UpgradeCount(statType), currentIndex, defaultValue);
 
+            if (SavedData.equipIndex == SavedData.inspectIndex)
+            {
+                this._statNotifies[(int)statType] = currentIndex;
+            }
+            
             if (max)
             {
                 stageBar.Available = true;
@@ -364,9 +389,9 @@ namespace Game.UI
 
                 Gun.UpgradeData gunUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
 
-                int damage = CurrentDamage(gunUpgradeData);
-                int rate = CurrentFireRate(gunUpgradeData);
-                int split = CurrentSplitShot(gunUpgradeData);
+                int damage = CurrentStat(gunUpgradeData, Gun.StatType.Damage);
+                int rate = CurrentStat(gunUpgradeData, Gun.StatType.Firerate);
+                int split = CurrentStat(gunUpgradeData, Gun.StatType.Damage);
 
                 Pool gunType = gunUpgradeData.gunType;
 
@@ -374,26 +399,21 @@ namespace Game.UI
             }
         }
 
-        private int CurrentDamage(Gun.UpgradeData gunUpgradeData)
-        {
-            int currentIndexDamage = SavedData.CurrentIndex(Gun.StatType.Damage);
-            int damage = gunUpgradeData.UpgradedValue(Gun.StatType.Damage, currentIndexDamage);
-            return damage;
-        }
+        private int CurrentStat(Gun.UpgradeData gunUpgradeData, Gun.StatType statType) => gunUpgradeData.UpgradedValue(statType, SavedData.CurrentIndex(statType));
         
-        private int CurrentFireRate(Gun.UpgradeData gunUpgradeData)
-        {
-            int currentIndexFireRate = SavedData.CurrentIndex(Gun.StatType.Firerate);
-            int rate = gunUpgradeData.UpgradedValue(Gun.StatType.Firerate, currentIndexFireRate);
-            return rate;
-        }
-
-        private int CurrentSplitShot(Gun.UpgradeData gunUpgradeData)
-        {
-            int currentIndexSplitShot = SavedData.CurrentIndex(Gun.StatType.Splitshot);
-            int split = gunUpgradeData.UpgradedValue(Gun.StatType.Splitshot, currentIndexSplitShot);
-            return split;
-        }
+        // private int CurrentFireRate(Gun.UpgradeData gunUpgradeData)
+        // {
+        //     int currentIndexFireRate = SavedData.CurrentIndex(Gun.StatType.Firerate);
+        //     int rate = gunUpgradeData.UpgradedValue(Gun.StatType.Firerate, currentIndexFireRate);
+        //     return rate;
+        // }
+        //
+        // private int CurrentSplitShot(Gun.UpgradeData gunUpgradeData)
+        // {
+        //     int currentIndexSplitShot = SavedData.CurrentIndex(Gun.StatType.Splitshot);
+        //     int split = gunUpgradeData.UpgradedValue(Gun.StatType.Splitshot, currentIndexSplitShot);
+        //     return split;
+        // }
 
         public void OnClick_PurchaseUpgrade(int statType)
         {

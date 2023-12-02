@@ -171,7 +171,14 @@ namespace  Game
                         enemy.CoinAmount += totalCoinLeft;
                     }
 
-                    yield return new WaitForSeconds(enemySpawnDatum.delay);
+                    float waitTill = Time.time + enemySpawnDatum.delay;
+
+                    yield return new WaitWhile(() => Time.time < waitTill && HasEnemy);
+
+                    if (Time.time < waitTill)
+                    {
+                        yield return new WaitForSeconds((waitTill - Time.time) * 0.25f);
+                    }
                 }
 
                 Spawning = false;

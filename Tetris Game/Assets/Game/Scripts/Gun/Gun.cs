@@ -193,7 +193,7 @@ public class Gun : MonoBehaviour
         public int UpgradedValue(Gun.StatType statType, int upgradeIndex) => DefaultValue(statType) + upgradeIndex;
         public int UpgradeCount(Gun.StatType statType) => Prices(statType).Length;
         
-        public Const.Currency ReducedUpgradeCost(Gun.StatType statType, int upgradeIndex) => Prices(statType)[upgradeIndex];
+        public Const.Currency UpgradeCost(Gun.StatType statType, int upgradeIndex) => Prices(statType)[upgradeIndex];
         public bool HasAvailableUpgrade(Gun.StatType statType, int upgradeIndex) => upgradeIndex < Prices(statType).Length;
         public bool IsFull(Gun.StatType statType, int upgradeIndex) => upgradeIndex >= Prices(statType).Length;
 
