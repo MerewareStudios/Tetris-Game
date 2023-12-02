@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -500,6 +501,12 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
    }
+   public static void EmitEnemyGemBurst(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
+   }
    public static void EmitChestCoinBurst(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
@@ -512,11 +519,25 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Chest);
    }
-   public static void EmitLevelRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
+   public static void EmitLevelReward(Const.Currency currency, Vector3 canvasWorldPosition, System.Action OnAllArrive)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, canvasWorldPosition);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, currency.amount);
+
+      UIEmitter emitter = UIManager.THIS.coinEmitter;
+      switch (currency.type)
+      {
+         case Const.CurrencyType.Coin:
+            emitter = UIManager.THIS.coinEmitter;
+            break;
+         case Const.CurrencyType.Gem:
+            emitter = UIManager.THIS.piggyCoinEmitter;
+            break;
+         case Const.CurrencyType.Ticket:
+            emitter = UIManager.THIS.ticketEmitter;
+            break;
+      }
+      emitter.Emit(Mathf.Min(currency.amount, 15), valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
    }
    public static void EmitPiggyRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
    {
@@ -567,6 +588,12 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
    }
+   // public static void BoardGemToPlayer(Vector3 worldPosition, int count, int totalValue)
+   // {
+   //    TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+   //    ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+   //    UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
+   // }
    public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);

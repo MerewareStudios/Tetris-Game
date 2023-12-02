@@ -265,7 +265,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             Hide(animationSettingsHide, () => 
             // DOVirtual.DelayedCall(animationSettingsHide.expandDelay + 0.05f, () =>
             {
-                UIManagerExtensions.EmitLevelRewardCoin(currencyDisplay.iconPivot.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount, () =>
+                UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {
                     Close();
                     GameManager.THIS.Deconstruct();

@@ -318,6 +318,9 @@ namespace  Game
                         case EnemyReward.Health:
                             UIManagerExtensions.BoardHeartToPlayer(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
+                        case EnemyReward.Gem:
+                            UIManagerExtensions.EmitEnemyGemBurst(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
+                            break;
                     }
                 }
             }
@@ -366,6 +369,7 @@ namespace  Game
         {
             Coin,
             Health,
+            Gem,
         }
         [System.Serializable]
         public class BossData

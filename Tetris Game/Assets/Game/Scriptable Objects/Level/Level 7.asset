@@ -13,16 +13,31 @@ MonoBehaviour:
   m_Name: Level 7
   m_EditorClassIdentifier: 
   deltaMult: 1
-  boardSize: {x: 7, y: 8}
+  boardSize: {x: 4, y: 6}
   countdown: 3
-  totalCoin: 100
-  enemySpawnData: []
+  totalCoin: 30
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+    count: 2
+    delay: 10
+  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+    count: 2
+    delay: 8
+  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+    count: 2
+    delay: 10
+  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+    count: 2
+    delay: 13
+  - enemyData: {fileID: 11400000, guid: 5e4c67a992f93d84f899d43ab5a2f182, type: 2}
+    count: 1
+    delay: 0
   victoryReward:
     type: 0
-    amount: 15
+    amount: 10
   failReward:
     type: 0
-    amount: 6
+    amount: 5
   suggestedBlocks: []
   pawnPlacements: []
   carryData:

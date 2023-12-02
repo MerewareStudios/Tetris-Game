@@ -12,17 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 8
   m_EditorClassIdentifier: 
-  deltaMult: 1
-  boardSize: {x: 7, y: 8}
+  deltaMult: 1.2
+  boardSize: {x: 6, y: 7}
   countdown: 3
-  totalCoin: 100
-  enemySpawnData: []
+  totalCoin: 50
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 4212e2f93630d1043b31de3b27a6d92d, type: 2}
+    count: 2
+    delay: 15
+  - enemyData: {fileID: 11400000, guid: 4212e2f93630d1043b31de3b27a6d92d, type: 2}
+    count: 1
+    delay: 15
+  - enemyData: {fileID: 11400000, guid: 4212e2f93630d1043b31de3b27a6d92d, type: 2}
+    count: 1
+    delay: 15
+  - enemyData: {fileID: 11400000, guid: f72f3315206305842ad8936dc1a241a7, type: 2}
+    count: 1
+    delay: 0
   victoryReward:
     type: 0
     amount: 15
   failReward:
     type: 0
-    amount: 6
+    amount: 5
   suggestedBlocks: []
   pawnPlacements: []
   carryData:

@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] public Transform muzzle; 
     [SerializeField] public Game.GunSo GunSo; 
-    [System.NonSerialized] private Data _data;
+    [SerializeField] private Data _data;
     [System.NonSerialized] private Tween _boostTween = null;
 
     public Data _Data

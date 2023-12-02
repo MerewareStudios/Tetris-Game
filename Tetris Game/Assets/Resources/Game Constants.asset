@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 148
+  bundleVersionCode: 150
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 9f886e85a01374c4683978ed17c3c115, type: 2}
   - {fileID: 11400000, guid: 56b41a19d057a41409b19e2ec6a2c3a2, type: 2}
-  - {fileID: 11400000, guid: 697abf42c7c6e414aa0f7914f30195ba, type: 2}
-  - {fileID: 11400000, guid: e4353455167fce442adedf049c782dd4, type: 2}
-  - {fileID: 11400000, guid: 9e04db72e1d0d28488b552729a5e35ad, type: 2}
-  - {fileID: 11400000, guid: b24b6eea25130734ba4217d4228b7bac, type: 2}
+  - {fileID: 11400000, guid: d6ec8d56563cdb44886e652ff6c7e57b, type: 2}
+  - {fileID: 11400000, guid: 518928411149439459451e9232aa32d9, type: 2}
+  - {fileID: 11400000, guid: 0a5b431d47c83024ba09a40d01d403da, type: 2}
+  - {fileID: 11400000, guid: a0d9d6201d61cf949b25b7046767e5c9, type: 2}
   - {fileID: 11400000, guid: d2277228e3bdae843a74111c50cfad1b, type: 2}
   - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
   - {fileID: 11400000, guid: 2c08d8f6108b20f4f997dcc84b557d18, type: 2}
@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 8
+    level: 9
     pupData:
       available: 1
       currentUsage: 4
@@ -645,11 +645,11 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 0
+      value: 111
     gemTransactionData:
-      value: 0
+      value: 111
     adTransactionData:
-      value: 0
+      value: 111
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -721,8 +721,8 @@ MonoBehaviour:
     splitShotPrice: []
     unlockedAt: 1
   - currency:
-      type: 0
-      amount: 100
+      type: 1
+      amount: 8
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
     defaultValues: 010000000200000001000000

@@ -338,7 +338,7 @@ namespace Game.UI
             FillStageBar(Gun.StatType.Splitshot, stageBarSplitShot, currentSplitShot, equippedWeapon);
             
             
-            if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_FIRERATE.IsNotComplete() && stageBarFireRate.Available)
+            if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_UPGRADE.IsNotComplete() && stageBarFireRate.Available)
             {
                 if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, SavedData.CurrentIndex(Gun.StatType.Firerate)))
                 {
@@ -435,12 +435,11 @@ namespace Game.UI
         {
             get
             {
-
                 Gun.UpgradeData gunUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
 
                 int damage = CurrentStat(gunUpgradeData, Gun.StatType.Damage);
                 int rate = CurrentStat(gunUpgradeData, Gun.StatType.Firerate);
-                int split = CurrentStat(gunUpgradeData, Gun.StatType.Damage);
+                int split = CurrentStat(gunUpgradeData, Gun.StatType.Splitshot);
 
                 Pool gunType = gunUpgradeData.gunType;
 
@@ -479,9 +478,9 @@ namespace Game.UI
                     GunDataChanged?.Invoke(EquippedGunData);
                 }
                 
-                if (ONBOARDING.PURCHASE_FIRERATE.IsNotComplete())
+                if (ONBOARDING.PURCHASE_UPGRADE.IsNotComplete())
                 {
-                    ONBOARDING.PURCHASE_FIRERATE.SetComplete();
+                    ONBOARDING.PURCHASE_UPGRADE.SetComplete();
                 }
                 
                 CustomShow(0.2f, true);
