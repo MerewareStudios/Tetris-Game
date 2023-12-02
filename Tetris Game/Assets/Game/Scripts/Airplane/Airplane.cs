@@ -19,7 +19,7 @@ public class Airplane : MonoBehaviour
     [SerializeField] private Canvas getCanvas;
     [SerializeField] private Button getButton;
     [System.NonSerialized] private Cargo _currentCargo = null;
-    [System.NonSerialized] private Tween _delayedDisable;
+    // [System.NonSerialized] private Tween _delayedDisable;
     
     [System.NonSerialized] private Airplane.Data _savedData;
 
@@ -125,7 +125,7 @@ public class Airplane : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         thisTransform.DOKill();
-        _delayedDisable?.Kill();
+        // _delayedDisable?.Kill();
         
         Vector3 startPosition = startPivot.position + Vector3.forward * Random.Range(-7.0f, 7.0f);
         startPosition.y = altitude;
@@ -136,15 +136,23 @@ public class Airplane : MonoBehaviour
 
         thisTransform.position = startPosition;
         thisTransform.forward = direction;
+        thisTransform.localScale = Vector3.zero;
+
+        thisTransform.DOScale(Vector3.one, 0.25f).SetDelay(carryData.delay);
 
         Travel(targetPosition, 5.0f, Ease.OutSine).SetDelay(carryData.delay).onComplete = () =>
         {
             Travel(endPosition, 12.0f, SavedData.Full ? Ease.InBack : Ease.InSine).onComplete = () =>
             {
-                _delayedDisable = DOVirtual.DelayedCall(0.6f, () =>
-                {
-                    this.gameObject.SetActive(false);
-                }, false);
+                // _delayedDisable = DOVirtual.DelayedCall(0.6f, () =>
+                // {
+                    
+                    thisTransform.DOScale(Vector3.zero, 0.5f).onComplete = () =>
+                    {
+                        this.gameObject.SetActive(false);
+                    };
+
+                // }, false);
             };
             if (SavedData.Full)
             {
@@ -208,7 +216,7 @@ public class Airplane : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         thisTransform.DOKill();
-        _delayedDisable?.Kill();
+        // _delayedDisable?.Kill();
     }
 
     [System.Serializable]
