@@ -26,5 +26,5 @@ MonoBehaviour:
   suggestedBlocks: []
   pawnPlacements: []
   carryData:
-    type: 1
-    delay: 3
+    type: 3
+    delay: 0

@@ -171,6 +171,9 @@ public class Airplane : MonoBehaviour
                 case Cargo.Type.Chest:
                     UIManager.THIS.speechBubble.Speak(Onboarding.THIS.chestDropCheer, 0.25f, 1.5f);
                     break;
+                case Cargo.Type.Intel:
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.intelDropCheer, 0.25f, 1.5f);
+                    break;
             }
 
             DropCargo(carryData.type);

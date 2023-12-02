@@ -19,7 +19,9 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] public Vector3 tutorialLift;
     [SerializeField] private GameObject[] nextBlockPawns;
     [SerializeField] private GameObject nextBlockVisual;
-    [SerializeField] private RectTransform nextBlockPivot;
+    [SerializeField] private Transform seeLeftover;
+    [SerializeField] private int leftOverCount = 0;
+    private const int maxLeftOverCount = 25;
     [SerializeField] private float spawnDelay = 0.45f;
    
     [System.NonSerialized] public Block CurrentBlock;
@@ -35,21 +37,21 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
     [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
 
-    public void SetNextBlockVisibility(bool visible, float duration)
+    public void SetNextBlockVisibility(bool visible)
     {
         if (NextBlockVisible == visible)
         {
             return;
         }
-        nextBlockVisual.SetActive(visible);
-        nextBlockPivot.DOKill();
-        if (!visible)
+        else
         {
-            return;
+            leftOverCount = maxLeftOverCount;
         }
-        // nextBlockPivot.position = FakeAdBanner.THIS.ActionPosition;
-        nextBlockPivot.DOAnchorPos(Vector2.zero, duration).SetEase(Ease.OutSine).SetUpdate(true);
-        DisplayNextBlock();
+        nextBlockVisual.SetActive(visible);
+        if (visible)
+        {
+            DisplayNextBlock();
+        }
     }
 
     public bool NextBlockVisible => nextBlockVisual.activeSelf;
@@ -451,11 +453,18 @@ public class Spawner : Singleton<Spawner>
 
     private void DisplayNextBlock()
     {
+        leftOverCount--;
+        if (leftOverCount == 0)
+        {
+            SetNextBlockVisibility(false);
+            return;
+        }
+        
         List<Transform> segmentTransforms = _nextBlock.Prefab<Block>().segmentTransforms;
-
         for (int i = 0; i < segmentTransforms.Count; i++)
         {
             nextBlockPawns[i].SetActive(segmentTransforms[i]);
         }
+        seeLeftover.localScale = new Vector3(leftOverCount / (float)maxLeftOverCount, 1.0f, 1.0f);
     }
 }

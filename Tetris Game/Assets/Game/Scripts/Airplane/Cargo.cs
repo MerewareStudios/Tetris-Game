@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Game;
 using UnityEngine;
@@ -64,7 +63,9 @@ public class Cargo : MonoBehaviour
                 case Type.Chest:
                     UIManagerExtensions.EmitChestCoinBurst(thisTransform.position, 15, 50);
                     UIManagerExtensions.EmitChestGemBurst(thisTransform.position, 3, 3);
-
+                    break;
+                case Type.Intel:
+                    Spawner.THIS.SetNextBlockVisibility(true);
                     break;
             }
             
@@ -81,5 +82,6 @@ public class Cargo : MonoBehaviour
         MaxStack,
         Health,
         Chest,
+        Intel,
     }
 }

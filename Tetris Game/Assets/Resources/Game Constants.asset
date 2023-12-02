@@ -696,7 +696,7 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     airplaneData:
-      cargoTypes: 00000000
+      cargoTypes: 
       arrival: -1
       total: 0
   DefaultAdData:

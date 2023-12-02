@@ -29,6 +29,8 @@ MonoBehaviour:
     !
   healthDropCheer: +50<color=#FFFFFF><size=90%><sprite name=Heart></size>
   chestDropCheer: EXTRA<sprite name=Gem>  <bounce a=1 f=2 w=0.5>!
+  intelDropCheer: <color=#FFFFFF><bounce a=1 f=2 w=0.5>SEE NEXT 25</bounce></color>
+    !
   airDropFull: Oh no! <color=#FF3E3E>FULL!
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=50%>MAX

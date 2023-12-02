@@ -79,5 +79,6 @@ public enum Pool
     Max_Stack = 76,
     Healt_Drop = 77,
     Chest = 78,
+    Intel = 79,
 
 }

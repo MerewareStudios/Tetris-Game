@@ -223,7 +223,7 @@ MonoBehaviour:
   altitude: 3.74
   leftEnginePS: {fileID: 561355516120606252}
   rightEnginePS: {fileID: 2656920112596448926}
-  cargoType2Pool: 4c0000004d0000004e000000
+  cargoType2Pool: 4c0000004d0000004e0000004f000000
   getCanvas: {fileID: 0}
   getButton: {fileID: 0}
 --- !u!1001 &561355516106623030
