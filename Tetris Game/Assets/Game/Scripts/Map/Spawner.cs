@@ -19,7 +19,7 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] public Vector3 tutorialLift;
     [SerializeField] private GameObject[] nextBlockPawns;
     [SerializeField] private GameObject nextBlockVisual;
-    [SerializeField] private Transform seeLeftover;
+    [SerializeField] private RectTransform seeLeftover;
     [SerializeField] private int leftOverCount = 0;
     private const int maxLeftOverCount = 25;
     [SerializeField] private float spawnDelay = 0.45f;
@@ -39,19 +39,18 @@ public class Spawner : Singleton<Spawner>
 
     public void SetNextBlockVisibility(bool visible)
     {
-        if (NextBlockVisible == visible)
-        {
-            return;
-        }
-        else
+        if(visible)
         {
             leftOverCount = maxLeftOverCount;
-        }
-        nextBlockVisual.SetActive(visible);
-        if (visible)
-        {
             DisplayNextBlock();
         }
+        nextBlockVisual.SetActive(true);
+        nextBlockVisual.transform.DOKill();
+        nextBlockVisual.transform.DOScale(visible ? Vector3.one : Vector3.zero, 0.25f).SetEase(visible ? Ease.OutBack : Ease.InBack).onComplete =
+            () =>
+            {
+                nextBlockVisual.SetActive(visible);
+            };
     }
 
     public bool NextBlockVisible => nextBlockVisual.activeSelf;
@@ -465,6 +464,6 @@ public class Spawner : Singleton<Spawner>
         {
             nextBlockPawns[i].SetActive(segmentTransforms[i]);
         }
-        seeLeftover.localScale = new Vector3(leftOverCount / (float)maxLeftOverCount, 1.0f, 1.0f);
+        seeLeftover.DOSizeDelta(new Vector2(100.0f * (leftOverCount / (float)maxLeftOverCount), 7.24f), 0.2f);
     }
 }
