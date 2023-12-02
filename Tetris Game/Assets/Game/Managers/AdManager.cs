@@ -234,7 +234,7 @@ namespace IWI
                     GameManager.UpdateTimeScale();
                 }, null);
             }, 3.5f)
-            .Open();
+            .Open(0.6f);
         }
 
         public static void ShowTicketAd(System.Action onReward, System.Action onClick = null)
@@ -280,7 +280,7 @@ namespace IWI
                     onReward,
                 null);
             }, 3.5f)
-            .Open();
+            .Open(0.1f);
         }
 
         public Data _Data

@@ -278,7 +278,8 @@ namespace Game
             ReplenishHealth();
             
             crossHair.gameObject.SetActive(false);
-            crossHair.position = Vector3.zero;
+            crossHair.position = transform.position + new Vector3(0.0f, 0.0f, -2.0f);
+            // crossHair.position = new Vector3(0.0f, 0.0f, 25.0f);
 
             Emission = 0.0f;
             BulletColorByMult = 1;

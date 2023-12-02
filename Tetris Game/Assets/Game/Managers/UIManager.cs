@@ -114,6 +114,8 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
+         FakeAdBanner.THIS.HideAd(visible);
+         
          if (PiggyMenu.THIS.Visible && !AdBreakScreen.THIS.Visible)
          {
              if (visible)

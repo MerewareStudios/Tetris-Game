@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 130
+  bundleVersionCode: 144
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 3
     pupData:
       available: 1
       currentUsage: 4
@@ -649,7 +649,7 @@ MonoBehaviour:
     gemTransactionData:
       value: 0
     adTransactionData:
-      value: 1
+      value: 0
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -696,7 +696,7 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     airplaneData:
-      cargoTypes: 02000000
+      cargoTypes: 00000000
       arrival: -1
       total: 0
   DefaultAdData:
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
-  mergerMaxColor: {r: 1, g: 0.6627451, b: 0.09803922, a: 1}
+  mergerMaxColor: {r: 1, g: 0.654902, b: 0.07450981, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
   ghostNormal: {r: 0.42352942, g: 0.72156864, b: 1, a: 0.42745098}
   ghostFade: {r: 0.42352942, g: 0.72156864, b: 1, a: 0}

@@ -10,12 +10,14 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform offerFrame;
+    [SerializeField] private RectTransform animPivot;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private Color backgroundColor;
     [SerializeField] private RectTransform topPivot;
     [SerializeField] private RectTransform bottomPivot;
     [SerializeField] private Button closeButton;
-    
+
+    [System.NonSerialized] private bool _overlayVisible = true;
     // [System.NonSerialized] public System.Action OnOfferAccepted;
     // [System.NonSerialized] public System.Action<bool> VisibilityChanged;
     // [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
@@ -45,7 +47,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         }
     }
     
-    public Vector3 ActionPosition => offerFrame.position;
+    // public Vector3 ActionPosition => offerFrame.position;
     private const float OfferDistance = -300.0f;
     
     public bool Ready => _loadState.Equals(LoadState.Success);
@@ -84,20 +86,20 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     public void ShowFrame()
     {
         SetOfferState(true);
-        offerFrame.DOKill();
-        offerFrame.anchoredPosition = new Vector2(0.0f, OfferDistance);
-        offerFrame.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f);
+        animPivot.DOKill();
+        animPivot.anchoredPosition = new Vector2(0.0f, OfferDistance);
+        animPivot.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f);
     }
 
-    public void HideOffer()
-    {
-        offerFrame.DOKill();
-
-        offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetUpdate(true).SetEase(Ease.InSine).onComplete = () =>
-        {
-            SetOfferState(false);
-        };
-    }
+    // public void HideOffer()
+    // {
+    //     offerFrame.DOKill();
+    //
+    //     offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetUpdate(true).SetEase(Ease.InSine).onComplete = () =>
+    //     {
+    //         SetOfferState(false);
+    //     };
+    // }
 
     public void SetOfferState(bool value)
     {
@@ -118,17 +120,27 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         {
             return;
         }
-        // _visible = true;
-        // VisibilityChanged?.Invoke(true);
+        if (!_overlayVisible)
+        {
+            return;
+        }
         MaxSdk.ShowBanner(BannerAdUnitId);
+        Position = _currentPosition;
     }
     
-    // public void HideAd()
-    // {
-    //     _visible = false;
-    //     VisibilityChanged?.Invoke(false);
-    //     MaxSdk.HideBanner(BannerAdUnitId);
-    // }
+    public void HideAd(bool hide)
+    {
+        _overlayVisible = !hide;
+
+        if (hide)
+        {
+            MaxSdk.HideBanner(BannerAdUnitId);
+        }
+        else
+        {
+            ShowAd();
+        }
+    }
 
     // public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
     // {
