@@ -39,7 +39,7 @@ MonoBehaviour:
   fireRateText: <sprite name=Firerate>
   splitShotText: <sprite name=Splitshot>
   equippedText: <pend a=0.1 f=2>EQUIPPED
-  hasText: PURCHASED
+  hasText: <pend a=0.1 f=2>PURCHASED
   unlockedAtText: <pend a=0.1 f=2><sprite name=Lock>
   useTicketText: AD BREAK
   earnTicketText: EARN <sprite name=Ticket>

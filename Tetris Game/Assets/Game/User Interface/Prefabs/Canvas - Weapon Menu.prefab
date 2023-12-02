@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: cdc78e9ee0b2b5a41932eea26cc4b62b, type: 2}
-  m_Color: {r: 0.72156864, g: 0.3137255, b: 1, a: 1}
+  m_Color: {r: 0.56078434, g: 0.20784314, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -730,6 +730,10 @@ MonoBehaviour:
   stageBarFireRate: {fileID: 2137664936923186284}
   stageBarSplitShot: {fileID: 7196575194297301887}
   gunImage: {fileID: 7820052811860946232}
+  statFrame: {fileID: 5070006401634095050}
+  equippedColor: {r: 0.8392157, g: 1, b: 0.16470589, a: 1}
+  lockedColor: {r: 0.99607843, g: 0.76862746, b: 0.12156863, a: 1}
+  unequippedColor: {r: 1, g: 1, b: 1, a: 1}
   newTextBanner: {fileID: 7822963770624305000}
   equippedTextBanner: {fileID: 5739733788645733611}
   equipText: {fileID: 5077321107627947039}
@@ -743,6 +747,7 @@ MonoBehaviour:
   equipButton: {fileID: 2478148795318923586}
   nextButton: {fileID: 8609599973894753032}
   previousButton: {fileID: 1615351963110613480}
+  redDot: {fileID: 4229981063705648784}
 --- !u!223 &1764179146799194572
 Canvas:
   m_ObjectHideFlags: 0
@@ -847,6 +852,81 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7818257256479058976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4229981063705648784}
+  - component: {fileID: 6349261749825929252}
+  - component: {fileID: 6126415514628918045}
+  m_Layer: 5
+  m_Name: Red Dot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4229981063705648784
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818257256479058976}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5210471893864975075}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -31.4, y: -32.1}
+  m_SizeDelta: {x: 40, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6349261749825929252
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818257256479058976}
+  m_CullTransparentMesh: 1
+--- !u!114 &6126415514628918045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818257256479058976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.17924517, b: 0.17924517, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: dcbda7fbd2ed8473e9c124b07bb3882f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2214,6 +2294,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4454387118084748279}
+    - targetCorrespondingSourceObject: {fileID: 8220688171497981974, guid: 353850972df4ef844923b87166f1f0bf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4229981063705648784}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353850972df4ef844923b87166f1f0bf, type: 3}
 --- !u!114 &1367563538118758381 stripped
@@ -2933,7 +3017,7 @@ PrefabInstance:
     - target: {fileID: 8106883349545571549, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 426.21
+      value: 641.33
       objectReference: {fileID: 0}
     - target: {fileID: 8106883349545571549, guid: f94add2f176c9a24f91aa2e94ffbce52,
         type: 3}

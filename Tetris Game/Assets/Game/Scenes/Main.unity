@@ -3878,12 +3878,10 @@ MonoBehaviour:
       blockShopData:
         unlockedBlocks: 
         lastIndex: 0
-        newShown: 
       weaponShopData:
         inspectIndex: 0
         equipIndex: 0
         gunShopDatas: []
-        newShown: 
       menuNavData:
         lastMenuType: 0
         lockedMiniOffer:

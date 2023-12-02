@@ -21,6 +21,8 @@ namespace Game.UI
         [SerializeField] private StageBar stageBarFireRate;
         [SerializeField] private StageBar stageBarSplitShot;
         [SerializeField] private Image gunImage;
+        [SerializeField] private Image statFrame;
+        [SerializeField] private Color equippedColor, lockedColor, unequippedColor;
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private TextMeshProUGUI equipText;
@@ -34,9 +36,10 @@ namespace Game.UI
         [SerializeField] private Button equipButton;
         [SerializeField] private GameObject nextButton;
         [SerializeField] private GameObject previousButton;
+        [SerializeField] private RectTransform redDot;
         [System.NonSerialized] private Gun.UpgradeData _gunUpgradeData;
         [System.NonSerialized] public System.Action<Gun.Data> GunDataChanged = null;
-        [System.NonSerialized] private int[] _statNotifies = new int[3] {-1, -1, -1};
+        // [System.NonSerialized] private int[] _statNotifies = new int[3] {-1, -1, -1};
 
         [field : System.NonSerialized] public WeaponShopData SavedData { set; get; }
 
@@ -59,9 +62,10 @@ namespace Game.UI
                 bool hasFunds = Wallet.HasFunds(cost);
                 bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
-                bool newShown = SavedData.newShown[i];
+                // bool newShown = SavedData.newShown[i];
 
-                if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
+                // if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
+                if (!purchased && (hasFunds || ticketType) && availableByLevel)
                 {
                     if (updatePage)
                     {
@@ -79,47 +83,105 @@ namespace Game.UI
             }
 
 
-            if(NotifyForUpgrade(Gun.StatType.Damage))
+            if(UpgradeAvailableEquipped(Gun.StatType.Damage))
             {
                 base.TotalNotify++;
             }
-            if(NotifyForUpgrade(Gun.StatType.Firerate))
+            if(UpgradeAvailableEquipped(Gun.StatType.Firerate))
             {
                 base.TotalNotify++;
             }
-            if(NotifyForUpgrade(Gun.StatType.Splitshot))
+            if(UpgradeAvailableEquipped(Gun.StatType.Splitshot))
             {
                 base.TotalNotify++;
             }
             
             return base.TotalNotify;
         }
-
-        private bool NotifyForUpgrade(Gun.StatType statType)
+        
+        public bool Marked
         {
-            Gun.UpgradeData equippedUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
-            GunShopData equippedSavedData = SavedData.gunShopDatas[SavedData.equipIndex];
-
-            int statIndex = (int)statType;
-            
-            int currentDamageIndex = equippedSavedData.upgradeIndexes[statIndex];
-            if (!equippedUpgradeData.HasAvailableUpgrade(statType, currentDamageIndex))
+            set
             {
-                return false;
+                redDot.DOKill();
+                redDot.localScale = Vector3.zero;
+                if (value)
+                {
+                    redDot.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+                }
             }
-            
-            Const.Currency upgradeCost = equippedUpgradeData.UpgradeCost(statType, currentDamageIndex);
-            bool hasFunds = Wallet.HasFunds(upgradeCost);
-            bool ticketType = upgradeCost.type.Equals(Const.CurrencyType.Ticket);
-            if (!hasFunds && !ticketType)
-            {
-                return false;
-            }
-            Debug.Log("checking " + statType);
-            Debug.Log(_statNotifies[statIndex] + " " + currentDamageIndex);
-            return _statNotifies[statIndex] < currentDamageIndex;
         }
 
+        // private bool NotifyForUpgrade(Gun.StatType statType)
+        // {
+        //     Gun.UpgradeData equippedUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
+        //     GunShopData equippedSavedData = SavedData.gunShopDatas[SavedData.equipIndex];
+        //
+        //     int statIndex = (int)statType;
+        //     
+        //     int currentDamageIndex = equippedSavedData.upgradeIndexes[statIndex];
+        //     if (!equippedUpgradeData.HasAvailableUpgrade(statType, currentDamageIndex))
+        //     {
+        //         return false;
+        //     }
+        //     
+        //     Const.Currency upgradeCost = equippedUpgradeData.UpgradeCost(statType, currentDamageIndex);
+        //     bool hasFunds = Wallet.HasFunds(upgradeCost);
+        //     bool ticketType = upgradeCost.type.Equals(Const.CurrencyType.Ticket);
+        //     if (!hasFunds && !ticketType)
+        //     {
+        //         return false;
+        //     }
+        //     // Debug.Log("checking " + statType);
+        //     // Debug.Log(_statNotifies[statIndex] + " " + currentDamageIndex);
+        //     // return _statNotifies[statIndex] < currentDamageIndex;
+        //     return true;
+        // }
+
+        // private bool UpgradeAvailable(Gun.StatType statType)
+        // {
+        //     Gun.UpgradeData equippedUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
+        //     GunShopData equippedSavedData = SavedData.gunShopDatas[SavedData.equipIndex];
+        //
+        //     int statIndex = (int)statType;
+        //     
+        //     int currentDamageIndex = equippedSavedData.upgradeIndexes[statIndex];
+        //     if (!equippedUpgradeData.HasAvailableUpgrade(statType, currentDamageIndex))
+        //     {
+        //         return false;
+        //     }
+        //     
+        //     Const.Currency upgradeCost = equippedUpgradeData.UpgradeCost(statType, currentDamageIndex);
+        //     bool hasFunds = Wallet.HasFunds(upgradeCost);
+        //     bool ticketType = upgradeCost.type.Equals(Const.CurrencyType.Ticket);
+        //     if (!hasFunds && !ticketType)
+        //     {
+        //         return false;
+        //     }
+        //     // Debug.Log("checking " + statType);
+        //     // Debug.Log(_statNotifies[statIndex] + " " + currentDamageIndex);
+        //     // return _statNotifies[statIndex] < currentDamageIndex;
+        //     return true;
+        // }
+        
+        private bool UpgradeAvailableEquipped(Gun.StatType statType)
+        {
+            Gun.UpgradeData equippedUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
+            int upgradeIndex = SavedData.GetUpgradeIndex(SavedData.equipIndex, statType);
+            
+            if (!equippedUpgradeData.HasAvailableUpgrade(statType, upgradeIndex))
+            {
+                return false;
+            }
+            
+            Const.Currency cost = equippedUpgradeData.UpgradeCost(statType, upgradeIndex);
+        
+            bool hasFunds = Wallet.HasFunds(cost);
+            bool ticketType = cost.type.Equals(Const.CurrencyType.Ticket);
+            
+            return hasFunds || ticketType;
+        }
+        
         // private bool UpgradeAvailable(int gunIndex, Gun.StatType statType)
         // {
         //     int upgradeIndex = SavedData.GetUpgradeIndex(gunIndex, statType);
@@ -191,13 +253,18 @@ namespace Game.UI
             
             bool canPurchase = (hasFunds || ticketType) && availableByLevel;
 
+            statFrame.color = equippedWeapon ? equippedColor : (availableByLevel ? unequippedColor : lockedColor);
 
-            bool newBannerVisible = !purchasedWeapon && canPurchase && !SavedData.newShown[SavedData.inspectIndex];
+            // bool newBannerVisible = !purchasedWeapon && canPurchase && !SavedData.newShown[SavedData.inspectIndex];
+            bool newBannerVisible = !purchasedWeapon && availableByLevel;
             newTextBanner.gameObject.SetActive(newBannerVisible);
-            if (newBannerVisible)
-            {
-                SavedData.newShown[SavedData.inspectIndex] = true;
-            }
+            
+            Marked = canPurchase;
+
+            // if (newBannerVisible)
+            // {
+            //     SavedData.newShown[SavedData.inspectIndex] = true;
+            // }
             
 
             if (availableByLevel)
@@ -300,44 +367,23 @@ namespace Game.UI
                 .SetStat(currentStat)
                 .SetBars(_gunUpgradeData.UpgradeCount(statType), currentIndex, defaultValue);
 
-            if (SavedData.equipIndex == SavedData.inspectIndex)
-            {
-                this._statNotifies[(int)statType] = currentIndex;
-            }
             
             if (max)
             {
                 stageBar.Available = true;
+                stageBar.Marked = false;
                 return;
             }
             
             Const.Currency price = _gunUpgradeData.UpgradePrice(statType, currentIndex);
 
             bool ticketType = price.type.Equals(Const.CurrencyType.Ticket);
+            bool canPurchase = Wallet.HasFunds(price) || ticketType;
             
             stageBar
                 .SetPrice(price)
-                .Available = Wallet.HasFunds(price) || ticketType;
-        }
-        
-        public void SetStats(int damage, bool changedDamage, int rate, bool changedRate, int split, bool changedSplit)
-        {
-            // StringBuilder stringBuilder = new();
-            //
-            // stringBuilder.Append(Onboarding.THIS.damageText);
-            // stringBuilder.Append(changedDamage ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
-            // stringBuilder.Append(damage);
-            //
-            // stringBuilder.Append(Onboarding.THIS.fireRateText);
-            // stringBuilder.Append(changedRate ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
-            // stringBuilder.Append(rate);
-            //
-            // stringBuilder.Append(Onboarding.THIS.splitShotText);
-            // stringBuilder.Append(changedSplit ? Onboarding.THIS.weaponStatChange : Onboarding.THIS.weaponStatUnchange);
-            // stringBuilder.Append(split);
-
-
-            // gunStatText.text = stringBuilder.ToString();
+                .Available = canPurchase;
+            stageBar.Marked = canPurchase;
         }
         
         private void SetPrice(Const.Currency currency, bool canPurchase)
@@ -436,7 +482,8 @@ namespace Game.UI
                 }
                 
                 CustomShow(0.2f, true);
-                
+                UIManager.UpdateNotifications();
+
                 CheckMax();
                 void CheckMax()
                 {
@@ -513,6 +560,7 @@ namespace Game.UI
             SavedData.Equip();
             GunDataChanged?.Invoke(EquippedGunData);
             CustomShow(0.3f, true);
+            UIManager.UpdateNotifications();
         }
         
         public void OnClick_ShowNext()
@@ -540,7 +588,7 @@ namespace Game.UI
             [SerializeField] public int inspectIndex;
             [SerializeField] public int equipIndex;
             [SerializeField] public List<GunShopData> gunShopDatas = new();
-            [SerializeField] public List<bool> newShown;
+            // [SerializeField] public List<bool> newShown;
 
             public WeaponShopData()
             {
@@ -551,7 +599,7 @@ namespace Game.UI
                 inspectIndex = weaponShopData.inspectIndex;
                 equipIndex = weaponShopData.equipIndex;
                 gunShopDatas.CopyFrom(weaponShopData.gunShopDatas);
-                newShown = new List<bool>(weaponShopData.newShown);
+                // newShown = new List<bool>(weaponShopData.newShown);
             }
             
             public int CurrentIndex(Gun.StatType statType)

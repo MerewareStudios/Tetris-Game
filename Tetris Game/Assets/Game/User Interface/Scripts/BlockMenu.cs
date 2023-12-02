@@ -19,12 +19,13 @@ namespace Game.UI
         [SerializeField] private RectTransform buttonRectTransform;
         [SerializeField] private RectTransform buttonClickTarget;
         [SerializeField] private Image frame;
-        [SerializeField] private Color upgradeColor, purchaseColor;
+        [SerializeField] private Color upgradeColor, purchaseColor, lockedColor;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private CurrenyButton purchaseButton;
         [SerializeField] private RectTransform newTextBanner;
         [SerializeField] private RectTransform equippedTextBanner;
         [SerializeField] private TextMeshProUGUI equipText;
+        [SerializeField] private RectTransform redDot;
         [System.NonSerialized] private BlockData _selectedBlockData;
 
         [field: System.NonSerialized] public BlockShopData SavedData { set; get; }
@@ -39,12 +40,13 @@ namespace Game.UI
                 Const.Currency cost = lookUp.Cost;
 
                 bool purchased = SavedData.unlockedBlocks.Contains(lookUp.blockType);
-                bool newShown = SavedData.newShown[i];
+                // bool newShown = SavedData.newShown[i];
                 bool hasFunds = Wallet.HasFunds(cost);
                 bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
 
-                if (!purchased && (hasFunds || ticketType) && availableByLevel && !newShown)
+                if (!purchased && (hasFunds || ticketType) && availableByLevel)
+                // if (!purchased && (hasFunds || ticketType) && availableByLevel // !newShown)
                 // if (!purchased && availableByLevel && !newShown)
                 {
                     if (updatePage && !firstIndexSet)
@@ -64,6 +66,19 @@ namespace Game.UI
 
             
             return base.TotalNotify;
+        }
+        
+        public bool Marked
+        {
+            set
+            {
+                redDot.DOKill();
+                redDot.localScale = Vector3.zero;
+                if (value)
+                {
+                    redDot.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+                }
+            }
         }
         
         public new bool Open(float duration = 0.5f)
@@ -103,14 +118,17 @@ namespace Game.UI
             SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
             
             
-            frame.color = purchasedBlock ? upgradeColor : purchaseColor;
+            frame.color = availableByLevel ? (purchasedBlock ? upgradeColor : purchaseColor) : lockedColor;
 
-            bool newBannerVisible = !purchasedBlock && canPurchase && !SavedData.newShown[SavedData.lastIndex];
+            // bool newBannerVisible = !purchasedBlock && canPurchase && !SavedData.newShown[SavedData.lastIndex];
+            bool newBannerVisible = !purchasedBlock && availableByLevel;
             newTextBanner.gameObject.SetActive(newBannerVisible);
-            if (newBannerVisible)
-            {
-                SavedData.newShown[SavedData.lastIndex] = true;
-            }
+            
+            Marked = canPurchase;
+            // if (newBannerVisible)
+            // {
+            //     SavedData.newShown[SavedData.lastIndex] = true;
+            // }
 
             equippedTextBanner.gameObject.SetActive(!availableByLevel || purchasedBlock);
             equipText.text = purchasedBlock ? Onboarding.THIS.hasText : Onboarding.THIS.unlockedAtText +  _selectedBlockData.unlockedAt;
@@ -259,7 +277,7 @@ namespace Game.UI
         {
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
-            [SerializeField] public List<bool> newShown;
+            // [SerializeField] public List<bool> newShown;
 
             public int UnlockedCount => unlockedBlocks.Count;
             
@@ -271,7 +289,7 @@ namespace Game.UI
             {
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
-                newShown = new List<bool>(blockShopData.newShown);
+                // newShown = new List<bool>(blockShopData.newShown);
             }
             public Pool GetRandomBlock()
             {

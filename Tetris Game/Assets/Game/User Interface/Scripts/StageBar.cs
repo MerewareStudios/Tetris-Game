@@ -12,6 +12,7 @@ public class StageBar : MonoBehaviour
     [SerializeField] private CurrencyDisplay currencyDisplay;
     [SerializeField] public RectTransform clickTarget;
     [SerializeField] private TextMeshProUGUI stat;
+    [SerializeField] private RectTransform redDot;
     [System.NonSerialized] private int _prevStat = -1;
 
     public bool Available
@@ -19,7 +20,18 @@ public class StageBar : MonoBehaviour
         set => purchaseButton.Available = value;
         get => purchaseButton.Available;
     }
-
+    public bool Marked
+    {
+        set
+        {
+            redDot.DOKill();
+            redDot.localScale = Vector3.zero;
+            if (value)
+            {
+                redDot.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+            }
+        }
+    }
 
     public StageBar SetCurrencyStampVisible(bool state)
     {
