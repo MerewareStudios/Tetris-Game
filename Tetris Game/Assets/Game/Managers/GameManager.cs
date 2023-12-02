@@ -104,7 +104,7 @@ public class GameManager : Singleton<GameManager>
 
         if (ONBOARDING.BLOCK_TAB.IsNotComplete())
         {
-            if (Wallet.COIN.Amount >= 15)
+            if (Wallet.COIN.Amount >= 10)
             {
                 // ONBOARDING.BLOCK_TAB.SetComplete();
                 UIManager.THIS.shop.AnimatedShow();

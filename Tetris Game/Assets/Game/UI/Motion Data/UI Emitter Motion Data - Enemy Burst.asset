@@ -134,7 +134,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   generalSettings:
-    playAtStart: 0
     startCount:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -168,7 +167,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 4
-      m_ConstantMax: 85
+      m_ConstantMax: 70
     duration:
       m_Mode: 3
       m_CurveMultiplier: 0

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Game;
-using Game.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,7 +8,6 @@ public class EnemyData : ScriptableObject
 {
     public Pool type;
     public Vector3 scale = Vector3.one;
-    public float extraWait;
     public ParticleSystem.MinMaxGradient colorGrad;
     public Gradient hitGradient;
     public List<EnemyReward> enemyRewards;

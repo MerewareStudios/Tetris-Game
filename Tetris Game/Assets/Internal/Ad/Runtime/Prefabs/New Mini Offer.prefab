@@ -796,8 +796,8 @@ MonoBehaviour:
   fill: {fileID: 7495345042447379862}
   miniOffer: {fileID: 0}
   durationSec: 200
-  increment: 2
-  availableLevel: 1
+  increment: 8
+  availableLevel: 7
   prefix: <pend a=0.1 f=2><sprite name=Lock>
   offerListWithAds: 050000000600000007000000
   offerListWithoutAds: 0800000009000000

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  deltaMult: 0.35
+  deltaMult: 1
   boardSize: {x: 6, y: 7}
   countdown: 0
-  totalCoin: 50
+  totalCoin: 15
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
     count: 1
-    delay: 4
+    delay: 4.5
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
     count: 1
-    delay: 4
+    delay: 4.5
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
     count: 1
     delay: 0
@@ -43,5 +43,5 @@ MonoBehaviour:
     canRotate: 1
   pawnPlacements: []
   carryData:
-    type: 2
-    delay: 1
+    type: 0
+    delay: -1

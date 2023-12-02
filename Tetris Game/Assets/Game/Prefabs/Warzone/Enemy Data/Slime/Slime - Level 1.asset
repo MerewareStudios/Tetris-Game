@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 1
+  m_Name: Slime - Level 1
   m_EditorClassIdentifier: 
   type: 19
   scale: {x: 1, y: 1, z: 1}
@@ -111,7 +111,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   enemyRewards: []
   maxHealth: 6
-  speed: 0.075
+  speed: 0.04125
   forwardRange: {x: 1, y: 1}
   radius: 0.5
   emitCount: 10

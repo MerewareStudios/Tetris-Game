@@ -271,7 +271,7 @@ namespace Game
                     
                     break;
                 case Usage.Gift:
-                    rewardAmount = 8;
+                    rewardAmount = 5;
                     break;
                 case Usage.Punch:
                     rewardAmount = 5;

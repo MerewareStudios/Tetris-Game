@@ -17,8 +17,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
-  - {fileID: 11400000, guid: 5911b8b0ca804b64bb850bba329fcccb, type: 2}
-  - {fileID: 11400000, guid: cc2355365b2a36a468897a57acafc510, type: 2}
+  - {fileID: 11400000, guid: 9f886e85a01374c4683978ed17c3c115, type: 2}
+  - {fileID: 11400000, guid: 56b41a19d057a41409b19e2ec6a2c3a2, type: 2}
   - {fileID: 11400000, guid: 697abf42c7c6e414aa0f7914f30195ba, type: 2}
   - {fileID: 11400000, guid: e4353455167fce442adedf049c782dd4, type: 2}
   - {fileID: 11400000, guid: 9e04db72e1d0d28488b552729a5e35ad, type: 2}
@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 3
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -696,7 +696,7 @@ MonoBehaviour:
       doubleInstance: 0
       skipInstance: 0
     airplaneData:
-      cargoTypes: 03000000
+      cargoTypes: 
       arrival: -1
       total: 0
   DefaultAdData:
@@ -717,9 +717,9 @@ MonoBehaviour:
     - type: 0
       amount: 25
     - type: 0
-      amount: 30
+      amount: 50
     - type: 0
-      amount: 35
+      amount: 75
     splitShotPrice: []
     unlockedAt: 1
   - currency:
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   - blockType: 10
     currency:
       type: 0
-      amount: 15
+      amount: 10
     unlockedAt: 1
   - blockType: 12
     currency:
