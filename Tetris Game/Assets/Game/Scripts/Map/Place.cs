@@ -76,6 +76,11 @@ namespace Game
             SetTargetColorType(NormalDarkLight);
             FinalizeImmediate();
         }
+
+        // public void Warmup()
+        // {
+        //     gridTile.material.SetColor(GameManager.BaseColor, gridTile.material.GetColor(GameManager.BaseColor));
+        // }
         public void Deconstruct()
         {
             if (Occupied)

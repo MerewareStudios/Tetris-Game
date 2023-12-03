@@ -107,6 +107,7 @@ namespace Game
                         _places[i, j] = place;
                         place.Index = new Vector2Int(i, j);
                         place.Construct();
+                        // place.Warmup();
                     }
                 }
 

@@ -12,12 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 12
   m_EditorClassIdentifier: 
-  deltaMult: 1
+  deltaMult: 2
   boardSize: {x: 7, y: 7}
   countdown: 3
-  totalCoin: 50
+  totalCoin: 75
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: 60cbfb4ef8a39ed4f9105ce70d9e0d1f, type: 2}
+  - enemyData: {fileID: 11400000, guid: b4f2054285085e94598171b8e7f0d719, type: 2}
+    count: 1
+    delay: 5
+  - enemyData: {fileID: 11400000, guid: b4f2054285085e94598171b8e7f0d719, type: 2}
+    count: 1
+    delay: 5
+  - enemyData: {fileID: 11400000, guid: b4f2054285085e94598171b8e7f0d719, type: 2}
+    count: 1
+    delay: 5
+  - enemyData: {fileID: 11400000, guid: b4f2054285085e94598171b8e7f0d719, type: 2}
+    count: 1
+    delay: 5
+  - enemyData: {fileID: 11400000, guid: b4f2054285085e94598171b8e7f0d719, type: 2}
+    count: 1
+    delay: 11
+  - enemyData: {fileID: 11400000, guid: 5bcd561981dae7e49a6f875839f18bb0, type: 2}
     count: 1
     delay: 0
   victoryReward:

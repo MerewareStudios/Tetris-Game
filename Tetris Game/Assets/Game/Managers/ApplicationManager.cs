@@ -1,4 +1,3 @@
-using System;
 using Internal.Core;
 using TMPro;
 using UnityEngine;
@@ -10,12 +9,12 @@ public class ApplicationManager : Singleton<ApplicationManager>
     [SerializeField] public bool useNativeFrameRate = true;
     [SerializeField] public int targetFrameRate = 60;
     [SerializeField] private ScriptableRendererFeature grabTextureFeature;
-    [SerializeField] public GameObject appLabel;
-    [SerializeField] public TextMeshProUGUI fpsText;
     
 #if FPS
     [System.NonSerialized] private int _fps;
     [System.NonSerialized] private float _fpsTimestamp;
+    [SerializeField] public TextMeshProUGUI fpsText;
+    [SerializeField] public GameObject appLabel;
 #endif
 
     public bool GrabFeatureEnabled
@@ -36,8 +35,6 @@ public class ApplicationManager : Singleton<ApplicationManager>
 #if FPS
         _fpsTimestamp = Time.realtimeSinceStartup;
         appLabel.SetActive(true);
-#else
-        appLabel.SetActive(false);
 #endif
         
         

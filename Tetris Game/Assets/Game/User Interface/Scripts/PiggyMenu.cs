@@ -256,16 +256,16 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     {
         _multiplier = 1;
         
-        breakButton.targetGraphic.raycastTarget = false;
-        breakButton.transform.DOKill();
-        breakButton.transform.DOScale(new Vector3(0.0f, 1.0f, 1.0f), 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
-        {
+        // breakButton.targetGraphic.raycastTarget = false;
+        // breakButton.transform.DOKill();
+        // breakButton.transform.DOScale(new Vector3(0.0f, 1.0f, 1.0f), 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
+        // {
             breakButton.gameObject.SetActive(false);
-        };
+        // };
 
 
-        if (SavedData.breakInstance >= 1)
-        {
+        // if (SavedData.breakInstance >= 1)
+        // {
             ticketImage.enabled = true;
             multProgress.localScale = Vector3.one;
             multiplyButton.gameObject.SetActive(true);
@@ -276,7 +276,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 multiplyButton.targetGraphic.raycastTarget = true;
             };
-        }
+        // }
         
         
         rewardPiggyGlow.transform.localScale = Vector3.zero;
@@ -454,18 +454,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         breakButton.gameObject.SetActive(true);
                         breakButton.transform.DOKill();
                         breakButton.transform.localScale = Vector3.zero;
-                        breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
-                        {
-                            if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
-                            {
-                                Onboarding.ClickOn(clickLocation_Break.position, Finger.Cam.UI, () =>
-                                {
-                                    breakButton.transform.DOKill();
-                                    breakButton.transform.localScale = Vector3.one;
-                                    breakButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
-                                });
-                            }
-                        };
+                        breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
+                       
                         
                         _markedProgressPiggy.gameObject.SetActive(false);
                         piggyCurrencyDisplay.gameObject.SetActive(false);
@@ -483,6 +473,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                             {
                                 breakButton.targetGraphic.raycastTarget = true;
 
+                                if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
+                                {
+                                    Onboarding.ClickOn(clickLocation_Break.position, Finger.Cam.UI, () =>
+                                    {
+                                        rewardedPiggy.DOKill();
+                                        rewardedPiggy.localScale = Vector3.one * 1.5f;
+                                        rewardedPiggy.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+                                    });
+                                }
                             };
                         
                         rewardPiggyGlow.color = glowColorStart;
