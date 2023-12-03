@@ -29,6 +29,7 @@ namespace Game
         [System.NonSerialized] private Enemy _currentEnemy = null;
         
         [System.NonSerialized] private const float AutoEnemySortInterval = 6.0f;
+        // [System.NonSerialized] private float _bubbleShootStamp = 0.0f;
 
         public float Emission
         {
@@ -160,7 +161,12 @@ namespace Game
             if (shootCount == 0)
             {
                 animator.SetTrigger(SHOOT_HASH);
+
+                // if (Time.time - _bubbleShootStamp >= 0.5f)
+                // {
                 Gun.Bubble();
+                    // _bubbleShootStamp = Time.time;
+                // }
 
                 if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
                 {
@@ -219,7 +225,7 @@ namespace Game
                 crossHair.gameObject.SetActive(true);
 
                 _Data.Time = 0.0f;
-                Gun._Data.prevShoot = -0.5f;
+                Gun._Data.prevShoot = 0.0f;
                 
                 while (true)
                 {
@@ -244,7 +250,10 @@ namespace Game
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
+                            // if (givenBulletCount > 0)
+                            // {
                             Gun._Data.prevShoot = _Data.Time;
+                            // }
                         }
 
                         _Data.Time += Time.deltaTime;
@@ -262,6 +271,11 @@ namespace Game
             }
         }
 
+        // public void AdvanceShoot()
+        // {
+        //     Gun._Data.prevShoot = _Data.Time - Gun._Data.FireInterval + 0.2f;
+        // }
+
         public void StopSearching()
         {
             if (_searchRoutine != null)
@@ -278,10 +292,11 @@ namespace Game
             ReplenishHealth();
             
             crossHair.gameObject.SetActive(false);
-            crossHair.position = transform.position + new Vector3(0.0f, 0.0f, -2.0f);
+            crossHair.position = new Vector3(0.0f, 0.0f, 30.0f);
             // crossHair.position = new Vector3(0.0f, 0.0f, 25.0f);
 
             Emission = 0.0f;
+            UIManager.THIS.powerEffect.enabled = false;
             BulletColorByMult = 1;
 
             if (_shouldGetUp)

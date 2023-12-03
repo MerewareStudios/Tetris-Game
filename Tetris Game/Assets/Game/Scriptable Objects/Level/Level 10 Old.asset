@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 10
+  m_Name: Level 10 Old
   m_EditorClassIdentifier: 
   deltaMult: 1
-  boardSize: {x: 6, y: 7}
+  boardSize: {x: 7, y: 8}
   countdown: 3
-  totalCoin: 50
-  enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
-    count: 1
-    delay: 20
-  - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
-    count: 1
-    delay: 20
-  - enemyData: {fileID: 11400000, guid: 95f9a45dc53f8c04f8d0f69e7ae0fb13, type: 2}
-    count: 1
-    delay: 0
+  totalCoin: 100
+  enemySpawnData: []
   victoryReward:
     type: 0
     amount: 20
   failReward:
     type: 0
-    amount: 5
+    amount: 6
   suggestedBlocks: []
-  pawnPlacements: []
+  pawnPlacements:
+  - usage: 5
+    index: {x: 3, y: 0}
+    extra: 0
+  - usage: 7
+    index: {x: 0, y: 0}
+    extra: 0
+  - usage: 7
+    index: {x: 6, y: 0}
+    extra: 0
   carryData:
     type: 0
     delay: -1

@@ -19,9 +19,9 @@ public class Screw : SubModel
         return _current <= 0;
     }
 
-    public override void OnUse()
+    public override void OnUnpack()
     {
-        base.OnUse();
+        base.OnUnpack();
         
         const float duration = 0.35f;
         

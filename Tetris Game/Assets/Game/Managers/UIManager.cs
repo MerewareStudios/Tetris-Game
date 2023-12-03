@@ -60,6 +60,8 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private Button plusPiggyCoinButton;
    [SerializeField] private Button plusTicketButton;
    [SerializeField] private Button plusHealthButton;
+   [Header("Effects")]
+   [SerializeField] public Image powerEffect;
 
    void Awake()
    {

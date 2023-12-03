@@ -13,6 +13,7 @@ namespace IWI
         [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
         [System.NonSerialized] private System.Action _maxSDKInitComplete;
+        [System.NonSerialized] private const int ADBlockSuggestionMod = 5;
         
         void Awake()
         {
@@ -226,7 +227,7 @@ namespace IWI
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    if (!_data.removeAds && _data.InterAdInstance % 3 == 0)
+                    if (!_data.removeAds && _data.InterAdInstance % ADBlockSuggestionMod == 0)
                     {
                         UIManager.THIS.ShowOffer_RemoveAds_AfterInterAd();
                     }

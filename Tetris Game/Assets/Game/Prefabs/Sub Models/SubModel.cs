@@ -55,6 +55,7 @@ public class SubModel : MonoBehaviour
             ThisTransform.DOPunchScale(Vector3.one * AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 1).onComplete = () =>
             {
                 MarkAvailable(true);
+                // Warzone.THIS.Player.AdvanceShoot();
             };
         }, false);
     }
@@ -141,7 +142,15 @@ public class SubModel : MonoBehaviour
     {
         return true;
     }
+    public virtual void OnUnpack()
+    {
+        
+    }
     public virtual void OnUse()
+    {
+        
+    }
+    public virtual void OnMerge()
     {
         
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 150
+  bundleVersionCode: 151
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -23,9 +23,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 518928411149439459451e9232aa32d9, type: 2}
   - {fileID: 11400000, guid: 0a5b431d47c83024ba09a40d01d403da, type: 2}
   - {fileID: 11400000, guid: a0d9d6201d61cf949b25b7046767e5c9, type: 2}
-  - {fileID: 11400000, guid: d2277228e3bdae843a74111c50cfad1b, type: 2}
-  - {fileID: 11400000, guid: c103666f40799a74c8c6510a6974f74f, type: 2}
-  - {fileID: 11400000, guid: 2c08d8f6108b20f4f997dcc84b557d18, type: 2}
+  - {fileID: 11400000, guid: e8148948d5d60364d943a60331471396, type: 2}
+  - {fileID: 11400000, guid: c2321d979a8d25c41ae405cc414d008f, type: 2}
+  - {fileID: 11400000, guid: c87117814acb58f438bd683088358d6c, type: 2}
   - {fileID: 11400000, guid: 089c2e7d53f14ba4682d48a1fd2d0edc, type: 2}
   - {fileID: 11400000, guid: cdf743b26b83e0c438c812d31c869a5a, type: 2}
   - {fileID: 11400000, guid: a39180f68760ee842b1235f8a1ef016e, type: 2}
@@ -634,7 +634,7 @@ MonoBehaviour:
     currentHealth: 1
     turnRate: 12
   DefaultUserData:
-    level: 9
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -645,11 +645,11 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 111
+      value: 0
     gemTransactionData:
-      value: 111
+      value: 0
     adTransactionData:
-      value: 111
+      value: 0
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -725,19 +725,19 @@ MonoBehaviour:
       amount: 8
     gunType: 25
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
-    defaultValues: 010000000200000001000000
+    defaultValues: 010000000100000001000000
     damagePrice:
     - type: 2
       amount: 1
     fireRatePrice:
-    - type: 1
-      amount: 2
-    - type: 1
-      amount: 2
-    - type: 1
-      amount: 2
-    - type: 1
-      amount: 2
+    - type: 0
+      amount: 25
+    - type: 0
+      amount: 50
+    - type: 0
+      amount: 75
+    - type: 0
+      amount: 100
     splitShotPrice: []
     unlockedAt: 8
   - currency:
@@ -1067,6 +1067,36 @@ MonoBehaviour:
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
   powerUps: 0300000004000000060000000700000008000000090000000b0000000c000000
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  mergeGradient:
+    serializedVersion: 2
+    key0: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
+    key1: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
+    key2: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 17193
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
   mergerMaxColor: {r: 1, g: 0.654902, b: 0.07450981, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
   ghostNormal: {r: 0.42352942, g: 0.72156864, b: 1, a: 0.42745098}
@@ -1094,6 +1124,36 @@ MonoBehaviour:
   - {x: 0, y: 0.24, z: 0}
   - {x: 0, y: 0.24, z: 0}
   ghostPawnStateDouble: 00000000000000000101
+  powerEffectGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.67058825, b: 0, a: 0.02745098}
+    key1: {r: 1, g: 0.67058825, b: 0, a: 0.3529412}
+    key2: {r: 0, g: 0, b: 0, a: 0.02745098}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 32768
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 3
   metaTextMaterials:
   - {fileID: 2100000, guid: 4812700c5406ce844bf2780748e99ad1, type: 2}
   - {fileID: 2100000, guid: 7ff1e9882c8111841ae0ecc13b72a9de, type: 2}

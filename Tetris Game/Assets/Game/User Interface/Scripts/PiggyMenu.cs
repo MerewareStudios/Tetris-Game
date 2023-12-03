@@ -44,7 +44,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform multProgress;
     [SerializeField] private Canvas piggyBankCanvas;
    
-    // public const int PiggyCapIncrease = 1;
+    public const int PiggyCapIncrease = 25;
     public const int PiggyCapDiv = 10;
     public const int TicketRewardEveryBreak = 8;
 
@@ -317,7 +317,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             GiveRewards();
             SavedData.breakInstance++;
             SavedData.currentMoney.amount = 0;
-            // SavedData.moneyCapacity += PiggyCapIncrease;
+            SavedData.moneyCapacity += PiggyCapIncrease;
             
             _shakeTween?.Kill();
             _shakeTween = null;

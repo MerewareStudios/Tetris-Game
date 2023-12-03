@@ -63,7 +63,7 @@ namespace Game
                         if (tetrisLines.Count > 1)
                         {
                             float totalDuration = UIManager.THIS.comboText.Show(tetrisLines.Count);
-                            yield return new WaitForSeconds(totalDuration* 0.85f);
+                            yield return new WaitForSeconds(totalDuration * 0.5f);
 
                         }
                         Board.THIS.MergeLines(tetrisLines);

@@ -13,27 +13,21 @@ MonoBehaviour:
   m_Name: Level 11
   m_EditorClassIdentifier: 
   deltaMult: 1
-  boardSize: {x: 8, y: 9}
+  boardSize: {x: 6, y: 5}
   countdown: 3
-  totalCoin: 100
-  enemySpawnData: []
+  totalCoin: 50
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 60cbfb4ef8a39ed4f9105ce70d9e0d1f, type: 2}
+    count: 1
+    delay: 0
   victoryReward:
     type: 0
     amount: 20
   failReward:
     type: 0
-    amount: 6
+    amount: 5
   suggestedBlocks: []
-  pawnPlacements:
-  - usage: 5
-    index: {x: 0, y: 2}
-    extra: 0
-  - usage: 5
-    index: {x: 0, y: 3}
-    extra: 0
-  - usage: 5
-    index: {x: 0, y: 4}
-    extra: 0
+  pawnPlacements: []
   carryData:
-    type: 0
-    delay: -1
+    type: 3
+    delay: 0

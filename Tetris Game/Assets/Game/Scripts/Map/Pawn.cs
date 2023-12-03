@@ -75,13 +75,21 @@ namespace Game
                 SubModel.MakeAvailable();
             }
         }
-        public void OnUse()
+        public void UseSubModel()
         {
             if (SubModel)
             {
                 SubModel.OnUse();
             }
         }
+        public void OnMerge()
+        {
+            if (SubModel)
+            {
+                SubModel.OnMerge();
+            }
+        }
+
 
         public bool Unpack()
         {
@@ -105,22 +113,22 @@ namespace Game
                     break;
                 case Usage.Energy:
                     SubModel.Lose();
-                    SubModel.OnUse();
+                    SubModel.OnUnpack();
                     SubModel = null;
                     break;
                 case Usage.Magnet:
                     SubModel.Lose();
-                    SubModel.OnUse();
+                    SubModel.OnUnpack();
                     SubModel = null;
                     break;
                 case Usage.Nugget:
                     SubModel.Lose();
-                    SubModel.OnUse();
+                    SubModel.OnUnpack();
                     SubModel = null;
                     break;
                 case Usage.Medic:
                     SubModel.Lose();
-                    SubModel.OnUse();
+                    SubModel.OnUnpack();
                     SubModel = null;
                     break;
                 case Usage.Rocket:
@@ -152,7 +160,7 @@ namespace Game
                     if (SubModel.OnCustomUnpack())
                     {
                         SubModel.Lose();
-                        SubModel.OnUse();
+                        SubModel.OnUnpack();
                         SubModel = null;
                         return true;
                     }

@@ -29,6 +29,7 @@ public class Const : SSingleton<Const>
     public Pawn.Usage[] powerUps;
     [Header("Colors")] 
     public Color steadyColor;
+    public Gradient mergeGradient;
     public Color mergerMaxColor;
     public Color mergerColor;
     public Color ghostNormal;
@@ -36,6 +37,7 @@ public class Const : SSingleton<Const>
     public Color[] placeColorsDouble;
     public Vector3[] placePosDouble;
     public bool[] ghostPawnStateDouble;
+    public Gradient powerEffectGradient;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;

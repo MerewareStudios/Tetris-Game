@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Medic : SubModel
 {
-    public override void OnUse()
+    public override void OnUnpack()
     {
-        base.OnUse();
+        base.OnUnpack();
         
         RefreshSequence();
 

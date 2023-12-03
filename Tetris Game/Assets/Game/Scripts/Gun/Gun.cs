@@ -22,6 +22,7 @@ public class Gun : MonoBehaviour
             _data.Mult = 1;
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
             Warzone.THIS.Player.Emission = 0.0f;
+            UIManager.THIS.powerEffect.enabled = false;
             Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         }
         get => _data;
@@ -31,6 +32,8 @@ public class Gun : MonoBehaviour
     {
         this._Data.Mult++;
         Warzone.THIS.Player.BulletColorByMult = _data.Mult;
+        
+        UIManager.THIS.powerEffect.enabled = true;
 
         StatDisplayArranger.THIS.UpdateAmount(StatDisplay.Type.Boost, this._Data.Mult, 0.5f, true);
 
@@ -42,13 +45,18 @@ public class Gun : MonoBehaviour
         {
             StatDisplayArranger.THIS.UpdatePercent(StatDisplay.Type.Boost, percent);
 
-            Warzone.THIS.Player.Emission = Mathf.Repeat(percent * 10.0f, 1.0f);
+            float loop = Mathf.Repeat(percent * 7.5f, 1.0f);
+            Warzone.THIS.Player.Emission = loop;
+            
+            UIManager.THIS.powerEffect.color = Const.THIS.powerEffectGradient.Evaluate(loop);
+
         };
         _boostTween.onComplete = () =>
         {
             _Data.Mult = 1;
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
             Warzone.THIS.Player.Emission = 0.0f;
+            UIManager.THIS.powerEffect.enabled = false;
             Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         };
     }

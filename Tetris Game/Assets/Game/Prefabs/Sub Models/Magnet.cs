@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Magnet : SubModel
 {
-    public override void OnUse()
+    public override void OnUnpack()
     {
-        base.OnUse();
+        base.OnUnpack();
         
         RefreshSequence();
         

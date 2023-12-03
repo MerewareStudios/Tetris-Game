@@ -712,6 +712,8 @@ namespace Game
                 totalAmmo += pawn.Amount;
 
                 pawn.Available = false;
+                pawn.OnMerge();
+                
                 
                 pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
                 pawn.thisTransform.parent = null;
@@ -983,7 +985,7 @@ namespace Game
                     if (place.Current
                         && place.Current.UsageType.Equals(Pawn.Usage.Ammo)
                         && place.Current.Amount > 0
-                        && !place.Current.Mover
+                        // && !place.Current.Mover
                         && !place.Current.Busy
                         && place.Current.Available)
                     {
@@ -991,7 +993,7 @@ namespace Game
                         place.Current.Amount -= 1;
 
                         
-                        place.Current.OnUse();
+                        place.Current.UseSubModel();
                         if (place.Current.Amount <= 0)
                         {
                             place.Current.DetachSubModelAndDeconstruct();
