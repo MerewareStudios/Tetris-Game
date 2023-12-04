@@ -33,6 +33,7 @@ extern "C"
     static NSString *_userIdentifierToSet;
     static NSString *_userSegmentNameToSet;
     static NSArray<NSString *> *_testDeviceIdentifiersToSet;
+    static NSNumber *_mutedToSet;
     static NSNumber *_verboseLoggingToSet;
     static NSNumber *_creativeDebuggerEnabledToSet;
     static NSNumber *_exceptionHandlerEnabledToSet;
@@ -107,6 +108,12 @@ extern "C"
         {
             settings.testDeviceAdvertisingIdentifiers = _testDeviceIdentifiersToSet;
             _testDeviceIdentifiersToSet = nil;
+        }
+        
+        if ( _mutedToSet != nil)
+        {
+            _sdk.settings.muted = _mutedToSet.boolValue;
+            _mutedToSet = nil;
         }
         
         if ( _verboseLoggingToSet != nil )
@@ -922,12 +929,25 @@ extern "C"
         return !ALUtils.simulator;
     }
 
+    int _MaxGetTcfConsentStatus(int vendorIdentifier)
+    {
+        NSNumber *consentStatus = [ALUtils tcfConsentStatusForVendorIdentifier: vendorIdentifier];
+        if ( consentStatus )
+        {
+            return consentStatus.intValue;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
     int _MaxGetAdditionalConsentStatus(int atpIdentifier)
     {
         NSNumber *consentStatus = [ALUtils additionalConsentStatusForATPIdentifier: atpIdentifier];
         if ( consentStatus )
         {
-            return [consentStatus intValue];
+            return consentStatus.intValue;
         }
        else
        {
@@ -943,16 +963,29 @@ extern "C"
     
     void _MaxSetMuted(bool muted)
     {
-        if ( !_sdk ) return;
-        
-        _sdk.settings.muted = muted;
+        if ( _sdk )
+        {
+            _sdk.settings.muted = muted;
+            _mutedToSet = nil;
+        }
+        else
+        {
+            _mutedToSet = @(muted);
+        }
     }
     
     bool _MaxIsMuted()
     {
-        if ( !_sdk ) return false;
+        if ( _sdk )
+        {
+            return _sdk.settings.muted;
+        }
+        else if ( _mutedToSet != nil )
+        {
+            return _mutedToSet.boolValue;
+        }
         
-        return _sdk.settings.muted;
+        return false;
     }
     
     float _MaxScreenDensity()

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 19
   scale: {x: 1, y: 1, z: 1}
-  extraWait: 0
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,10 +108,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards:
-  - type: 0
-    amount: 2
-    probability: 1
+  enemyRewards: []
   maxHealth: 1
   speed: 0.075
   forwardRange: {x: 0.3, y: 0.9}

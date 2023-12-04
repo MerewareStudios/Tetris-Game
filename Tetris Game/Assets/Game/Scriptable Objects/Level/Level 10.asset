@@ -19,12 +19,18 @@ MonoBehaviour:
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
     count: 1
+    distance: 0.8
+    offset: 0
     delay: 20
   - enemyData: {fileID: 11400000, guid: 4c1a9543480a4004abced519a2c44796, type: 2}
     count: 1
+    distance: 0
+    offset: -0.8
     delay: 20
   - enemyData: {fileID: 11400000, guid: 95f9a45dc53f8c04f8d0f69e7ae0fb13, type: 2}
     count: 1
+    distance: 0
+    offset: 0
     delay: 0
   victoryReward:
     type: 0

@@ -30,6 +30,8 @@ namespace Game
         {
             [SerializeField] public EnemyData enemyData;
             [MinValue(1)][SerializeField] public int count = 1;
+            [SerializeField] public float distance = 0.0f;
+            [SerializeField] public float offset = 0.0f;
             [SerializeField] public float delay = 0;
         } 
         

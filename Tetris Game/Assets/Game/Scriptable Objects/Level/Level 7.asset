@@ -17,20 +17,30 @@ MonoBehaviour:
   countdown: 3
   totalCoin: 30
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+  - enemyData: {fileID: 11400000, guid: 00d0d6fca4b013f42876e3a8545e9d42, type: 2}
     count: 2
+    distance: 0.5
+    offset: 0
     delay: 10
-  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+  - enemyData: {fileID: 11400000, guid: 00d0d6fca4b013f42876e3a8545e9d42, type: 2}
     count: 2
-    delay: 8
-  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
-    count: 2
+    distance: 0.6
+    offset: 0
     delay: 10
-  - enemyData: {fileID: 11400000, guid: 93e852246bda80240b356dcbd5df2595, type: 2}
+  - enemyData: {fileID: 11400000, guid: 00d0d6fca4b013f42876e3a8545e9d42, type: 2}
     count: 2
-    delay: 13
-  - enemyData: {fileID: 11400000, guid: 5e4c67a992f93d84f899d43ab5a2f182, type: 2}
+    distance: 0.7
+    offset: 0
+    delay: 10
+  - enemyData: {fileID: 11400000, guid: 00d0d6fca4b013f42876e3a8545e9d42, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 10
+  - enemyData: {fileID: 11400000, guid: 85de5a048cfc57d47aab2fc687e6acbf, type: 2}
     count: 1
+    distance: 0
+    offset: 0
     delay: 0
   victoryReward:
     type: 0

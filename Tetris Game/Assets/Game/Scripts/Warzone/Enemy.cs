@@ -136,7 +136,7 @@ namespace  Game
                 case CastTypes.SpawnEnemy:
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
-                        Vector3 pos = Warzone.THIS.NextSpawnPosition(so.extraData.RandomForwardRange());
+                        Vector3 pos = Warzone.THIS.RandomPos(so.extraData.RandomForwardRange());
                         Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);
                         Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos);
                     }
@@ -321,6 +321,9 @@ namespace  Game
                         case EnemyReward.Gem:
                             UIManagerExtensions.EmitEnemyGemBurst(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
+                        case EnemyReward.Ticket:
+                            UIManagerExtensions.EmitEnemyTicketBurst(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
+                            break;
                     }
                 }
             }
@@ -370,6 +373,7 @@ namespace  Game
             Coin,
             Health,
             Gem,
+            Ticket,
         }
         [System.Serializable]
         public class BossData

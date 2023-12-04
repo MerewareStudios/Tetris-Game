@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Slime - Level 2
+  m_Name: Slime - (20)
   m_EditorClassIdentifier: 
   type: 19
-  scale: {x: 1.15, y: 1.15, z: 1.15}
+  scale: {x: 1.2, y: 1.2, z: 1.2}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,14 +109,14 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 10
-  speed: 0.045
+  maxHealth: 20
+  speed: 0.05
   forwardRange: {x: 1, y: 1}
   radius: 0.5
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 1.8
+  crossSize: 1.9
   castType: 0
   deathAction: 0
   spawnerCount: 0

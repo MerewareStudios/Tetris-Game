@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
   m_Name: Enemy 5 - Strong Bat
   m_EditorClassIdentifier: 
-  type: 39
+  type: 0
   scale: {x: 1, y: 1, z: 1}
-  extraWait: 0
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,10 +108,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards:
-  - type: 0
-    amount: 3
-    probability: 1
+  enemyRewards: []
   maxHealth: 5
   speed: 0.2
   forwardRange: {x: 1, y: 1}

@@ -71,7 +71,7 @@ public class Gun : MonoBehaviour
         int enemyID = enemy.ID;
         
         Transform bullet = Pool.Bullet.Spawn().transform;
-        bullet.localScale = Vector3.one * Mathf.Min(1.0f + (_Data.Mult - 1) * 0.3f, 2.5f);
+        // bullet.localScale = Vector3.one * Mathf.Min(1.0f + (_Data.Mult - 1) * 0.3f, 2.5f);
         
         TrailRenderer trail = bullet.GetChild(1).GetComponent<TrailRenderer>();
         trail.widthMultiplier = bullet.localScale.x * 0.17f;

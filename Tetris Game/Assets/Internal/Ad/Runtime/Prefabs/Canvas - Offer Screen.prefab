@@ -2158,7 +2158,7 @@ MonoBehaviour:
     productType: 0
     iapID: iwi.combatris.product.offerpack2
     title: <bounce a=0.05 f=1>2 in 1
-    detailedInfoStr: <size=125%>Enjoy the Ticket Pack without ads!
+    detailedInfoStr: <size=125%>Get a Ticket Pack and enjoy the game without ads!
     rewards:
     - rewardType: 3
       amount: 10

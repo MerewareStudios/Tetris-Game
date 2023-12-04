@@ -12,19 +12,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 17
   m_EditorClassIdentifier: 
-  deltaMult: 1
-  boardSize: {x: 7, y: 8}
+  deltaMult: 0.9
+  boardSize: {x: 7, y: 6}
   countdown: 3
-  totalCoin: 100
-  enemySpawnData: []
+  totalCoin: 75
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+    count: 2
+    distance: 0.48
+    offset: 0
+    delay: 9
+  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+    count: 2
+    distance: 0.48
+    offset: 0.48
+    delay: 9
+  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+    count: 2
+    distance: 0.48
+    offset: -0.48
+    delay: 9
+  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+    count: 2
+    distance: 0.48
+    offset: 0
+    delay: 9
+  - enemyData: {fileID: 11400000, guid: 5e4c67a992f93d84f899d43ab5a2f182, type: 2}
+    count: 1
+    distance: 0
+    offset: 0
+    delay: 0
   victoryReward:
     type: 0
-    amount: 30
+    amount: 20
   failReward:
     type: 0
-    amount: 6
+    amount: 5
   suggestedBlocks: []
-  pawnPlacements: []
+  pawnPlacements:
+  - usage: 13
+    index: {x: 0, y: 0}
+    extra: 0
+  - usage: 13
+    index: {x: 6, y: 0}
+    extra: 0
+  - usage: 13
+    index: {x: 0, y: 1}
+    extra: 0
+  - usage: 13
+    index: {x: 6, y: 1}
+    extra: 0
+  - usage: 13
+    index: {x: 0, y: 2}
+    extra: 0
+  - usage: 13
+    index: {x: 6, y: 2}
+    extra: 0
   carryData:
     type: 0
     delay: -1

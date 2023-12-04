@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 152
+  bundleVersionCode: 163
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -26,14 +26,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8148948d5d60364d943a60331471396, type: 2}
   - {fileID: 11400000, guid: c2321d979a8d25c41ae405cc414d008f, type: 2}
   - {fileID: 11400000, guid: c87117814acb58f438bd683088358d6c, type: 2}
-  - {fileID: 11400000, guid: 089c2e7d53f14ba4682d48a1fd2d0edc, type: 2}
-  - {fileID: 11400000, guid: cdf743b26b83e0c438c812d31c869a5a, type: 2}
-  - {fileID: 11400000, guid: a39180f68760ee842b1235f8a1ef016e, type: 2}
-  - {fileID: 11400000, guid: 417557808c75c974c9e5389785b0901b, type: 2}
-  - {fileID: 11400000, guid: 16f8002cb43aec740a9ba39340952351, type: 2}
-  - {fileID: 11400000, guid: 547fd3375cd681440af7a88d5ee4d565, type: 2}
-  - {fileID: 11400000, guid: 222fbe040db86af4b9c8bac415f577a2, type: 2}
-  - {fileID: 11400000, guid: a5c428c02530ec4409dcdccae4e38b5d, type: 2}
+  - {fileID: 11400000, guid: bf29bd26d7fa4e64aa3ba996e2355afa, type: 2}
+  - {fileID: 11400000, guid: e85409582e2322b459ccc4d51fe99ac5, type: 2}
+  - {fileID: 11400000, guid: 76b047bb663c6694fbfb2ac5b3460f9f, type: 2}
+  - {fileID: 11400000, guid: bf6756a400c17694d9bd3064fdda0468, type: 2}
+  - {fileID: 11400000, guid: 4b716385ebfd3774a815f33ae3630b15, type: 2}
+  - {fileID: 11400000, guid: b7cc80f847b3ef24ca0a29180df3c69e, type: 2}
+  - {fileID: 11400000, guid: 41711cdc6d5a0a44bb1307c5f4e2acb7, type: 2}
+  - {fileID: 11400000, guid: 38caa2ff4835e754e9ea79319c9c5e62, type: 2}
   - {fileID: 11400000, guid: 847dc36ae01d26d4ab1251139f3356c9, type: 2}
   - {fileID: 11400000, guid: dfebef6867aa67646836c2e151e70124, type: 2}
   - {fileID: 11400000, guid: 8d737cd2f0d9dbc458843b00682728f3, type: 2}
@@ -681,7 +681,7 @@ MonoBehaviour:
       lastMenuType: 0
       lockedMiniOffer:
         startAt: 1
-        unlockedAt: 5
+        unlockedAt: 10
         offerIndex: 0
         timerRunning: 0
         offerEnds: 0
@@ -746,45 +746,41 @@ MonoBehaviour:
     gunType: 26
     sprite: {fileID: 21300000, guid: 035de1c2d8d7c524b83dc90ca9bdaca1, type: 3}
     defaultValues: 010000000100000001000000
-    damagePrice:
-    - type: 1
-      amount: 10
+    damagePrice: []
     fireRatePrice:
     - type: 0
-      amount: 50
+      amount: 25
     - type: 0
       amount: 50
+    - type: 0
+      amount: 75
+    - type: 0
+      amount: 100
     splitShotPrice:
     - type: 1
       amount: 5
-    - type: 1
-      amount: 5
-    - type: 2
-      amount: 1
-    unlockedAt: 14
+    unlockedAt: 15
   - currency:
       type: 0
-      amount: 300
+      amount: 500
     gunType: 27
     sprite: {fileID: 21300000, guid: 766cfd5cf91c19c4791d88b97e6c532d, type: 3}
-    defaultValues: 010000000500000001000000
+    defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1
-      amount: 20
+      amount: 10
     fireRatePrice:
     - type: 0
-      amount: 50
+      amount: 70
     - type: 0
-      amount: 50
+      amount: 80
     - type: 0
-      amount: 50
+      amount: 90
     - type: 0
-      amount: 50
+      amount: 100
     splitShotPrice:
     - type: 1
       amount: 10
-    - type: 2
-      amount: 1
     unlockedAt: 20
   - currency:
       type: 1
@@ -1070,7 +1066,7 @@ MonoBehaviour:
   mergeGradient:
     serializedVersion: 2
     key0: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
-    key1: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
+    key1: {r: 0.404, g: 0.404, b: 0.404, a: 1}
     key2: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1127,7 +1123,7 @@ MonoBehaviour:
   powerEffectGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.67058825, b: 0, a: 0.02745098}
-    key1: {r: 1, g: 0.67058825, b: 0, a: 0.3529412}
+    key1: {r: 1, g: 0.67058825, b: 0, a: 0.4509804}
     key2: {r: 0, g: 0, b: 0, a: 0.02745098}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1347,4 +1343,4 @@ MonoBehaviour:
     type: 3}
   bulletColors:
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0.93333334, b: 0, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}

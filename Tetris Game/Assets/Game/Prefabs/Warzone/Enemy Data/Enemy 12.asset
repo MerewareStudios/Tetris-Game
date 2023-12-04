@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 71
   scale: {x: 1, y: 1, z: 1}
-  extraWait: 0
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -110,9 +109,6 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards:
-  - type: 0
-    amount: 75
-    probability: 1
   - type: 1
     amount: 10
     probability: 1

@@ -29,7 +29,7 @@ public class LevelManager : Singleton<LevelManager>
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
-        levelText.text = "LEVEL " + CurrentLevel;
+        levelText.text = "Level " + CurrentLevel;
         DeltaMult = GetDeltaMult();
 
         Warzone.THIS.OnLevelLoad();

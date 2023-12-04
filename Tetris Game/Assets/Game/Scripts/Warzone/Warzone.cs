@@ -25,8 +25,8 @@ namespace  Game
         [System.NonSerialized] private List<Enemy> _enemies = new();
         [System.NonSerialized] private float _spawnRangeNorm = 0.5f;
         [System.NonSerialized] private int _enemyID = 0;
-        [System.NonSerialized] private const float SpawnMinOffset = 0.3f;
-        [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
+        // [System.NonSerialized] private const float SpawnMinOffset = 0.2f;
+        // [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
 
         [System.NonSerialized] private readonly List<SubModel> _landMines = new();
         
@@ -147,9 +147,13 @@ namespace  Game
                     LevelSo.EnemySpawnDatum enemySpawnDatum = LevelManager.LevelSo.enemySpawnData[spawnIndex];
 
                     Enemy enemy = null;
+
+                    float start = 0.0f;
                     for (int i = 0; i < enemySpawnDatum.count; i++)
                     {
-                        enemy = SpawnEnemy(enemySpawnDatum.enemyData);
+                        enemy = SpawnEnemy(enemySpawnDatum.enemyData, start + (enemySpawnDatum.count - 1) * enemySpawnDatum.distance * -0.5f - enemySpawnDatum.offset);
+                        start += enemySpawnDatum.distance;
+                        
                         int coinAmount = Mathf.Max(Mathf.FloorToInt(enemy.Health * coinPerHealth), 1);
 
                         enemy.CoinAmount = coinAmount;
@@ -203,11 +207,14 @@ namespace  Game
             Spawning = false;
         }
 
-        public Enemy SpawnEnemy(EnemyData enemyData)
+        public Enemy SpawnEnemy(EnemyData enemyData, float hor)
         {
             Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
-            enemy.OnSpawn(NextSpawnPosition(enemy.so.RandomForwardRange()), GetNewEnemyID());
+            
+            Vector3 pos = new Vector3(hor * SpawnRange, 0.0f, Mathf.Lerp(EndLine, StartLine, enemy.so.RandomForwardRange()));
+
+            enemy.OnSpawn(pos, GetNewEnemyID());
             enemy.Replenish();
 
             return enemy;
@@ -238,10 +245,10 @@ namespace  Game
             Player.CurrentEnemy = _enemies.FirstOrDefault();
         }
 
-        public Vector3 NextSpawnPosition(float forwardPercent)
+        public Vector3 RandomPos(float forwardPercent)
         {
-            _spawnRangeNorm = Mathf.Repeat(_spawnRangeNorm + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
-            return new Vector3(Mathf.Lerp(-SpawnRange, SpawnRange, _spawnRangeNorm), 0.0f, Mathf.Lerp(EndLine, StartLine, forwardPercent));
+            // _spawnRangeNorm = Mathf.Repeat(_spawnRangeNorm + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
+            return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, Mathf.Lerp(EndLine, StartLine, forwardPercent));
         }
         
         public Enemy GetRandomTarget()

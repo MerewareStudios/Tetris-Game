@@ -254,7 +254,7 @@ namespace IWI
                 int now = (int)Time.time;
                 int timeTheAdWillBeShown = AdManager.THIS._Data.LastTimeAdShown + AdManager.THIS.adTimeInterval;
                 int timeUntilAd = timeTheAdWillBeShown - now;
-                timeUntilAd = Mathf.Max(timeUntilAd, 20);
+                timeUntilAd = Mathf.Max(timeUntilAd, 40);
                 AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
             

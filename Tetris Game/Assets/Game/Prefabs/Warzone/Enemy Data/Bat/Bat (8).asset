@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Slime - Level 2 Gem
+  m_Name: Bat (8)
   m_EditorClassIdentifier: 
-  type: 19
-  scale: {x: 1.15, y: 1.15, z: 1.15}
+  type: 39
+  scale: {x: 1.2, y: 1.2, z: 1.2}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -48,8 +48,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 1, g: 0.1310675, b: 0, a: 1}
-      key1: {r: 1, g: 0.22075468, b: 0.37690642, a: 1}
+      key0: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+      key1: {r: 0.6117647, g: 0.2392157, b: 0.9450981, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -77,11 +77,11 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
-    m_ColorMax: {r: 1, g: 0.2113207, b: 0.2113207, a: 1}
+    m_ColorMax: {r: 0, g: 0, b: 0, a: 0}
   hitGradient:
     serializedVersion: 2
     key0: {r: 0, g: 0, b: 0, a: 1}
-    key1: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -108,18 +108,15 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards:
-  - type: 2
-    amount: 1
-    probability: 1
-  maxHealth: 10
-  speed: 0.045
+  enemyRewards: []
+  maxHealth: 8
+  speed: 0.18
   forwardRange: {x: 1, y: 1}
-  radius: 0.5
+  radius: 0.6
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 1.8
+  crossSize: 1
   castType: 0
   deathAction: 0
   spawnerCount: 0

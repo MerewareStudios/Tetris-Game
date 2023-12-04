@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Turtle- Level 3
+  m_Name: Turtle (40)
   m_EditorClassIdentifier: 
   type: 37
-  scale: {x: 1, y: 1, z: 1}
+  scale: {x: 0.9, y: 0.9, z: 0.9}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,8 +109,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 170
-  speed: 0.045
+  maxHealth: 40
+  speed: 0.05
   forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10

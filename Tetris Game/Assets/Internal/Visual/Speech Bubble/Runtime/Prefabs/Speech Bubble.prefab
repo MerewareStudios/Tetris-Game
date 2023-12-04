@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: <size=125%>Hey! Need <size=120%><color=#6DDFFF>ammo</color> </size>!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c26ef8b191e5fd84eba560bacc8713a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b2a14db9f231be24a993d7aa73f06e47, type: 2}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281586943
+    rgba: 4294958580
   m_fontColor: {r: 0.95686275, g: 0.8666667, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 138.98
-  m_fontSizeBase: 138.98
+  m_fontSize: 127.72
+  m_fontSizeBase: 127.72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -199,7 +199,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   waitForNormalChars: 0.03
-  waitLong: 0.4
+  waitLong: 0.35
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
   waitForNewLines: 1
@@ -298,10 +298,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 49
-    m_Right: 36
-    m_Top: -6
-    m_Bottom: 41
+    m_Left: 63
+    m_Right: 50
+    m_Top: 6
+    m_Bottom: 38
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -337,7 +337,6 @@ GameObject:
   - component: {fileID: 3728734376013363940}
   - component: {fileID: 5806487978586115636}
   - component: {fileID: 4258932405410861150}
-  - component: {fileID: 2341302503572706958}
   - component: {fileID: 2199842794891399279}
   m_Layer: 5
   m_Name: Speech Bubble
@@ -355,7 +354,7 @@ RectTransform:
   m_GameObject: {fileID: 5047599091159351233}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3757019, y: 0.37570187, z: 0.37570187}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6155186091693886136}
@@ -391,9 +390,9 @@ Canvas:
   m_GameObject: {fileID: 5047599091159351233}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 10
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -427,24 +426,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!114 &2341302503572706958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5047599091159351233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  m_PresetInfoIsWorld: 1
 --- !u!225 &2199842794891399279
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -488,8 +470,8 @@ RectTransform:
   - {fileID: 4854667067426975871}
   m_Father: {fileID: 296816733488146172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -334, y: -760}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.00002331633, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}

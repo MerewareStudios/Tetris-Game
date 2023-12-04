@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -6,7 +5,6 @@ using Internal.Core;
 using IWI;
 using IWI.Tutorial;
 using IWI.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Visual.Effects;
@@ -508,6 +506,12 @@ public static class UIManagerExtensions
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
+   }
+   public static void EmitEnemyTicketBurst(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.ticketEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
    }
    public static void EmitChestCoinBurst(Vector3 worldPosition, int count, int totalValue)
    {

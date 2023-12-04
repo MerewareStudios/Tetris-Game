@@ -21,7 +21,7 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private GameObject nextBlockVisual;
     [SerializeField] private RectTransform seeLeftover;
     [SerializeField] private int leftOverCount = 0;
-    private const int maxLeftOverCount = 25;
+    private const int MaxLeftOverCount = 25;
     [SerializeField] private float spawnDelay = 0.45f;
    
     [System.NonSerialized] public Block CurrentBlock;
@@ -41,7 +41,7 @@ public class Spawner : Singleton<Spawner>
     {
         if(visible)
         {
-            leftOverCount = maxLeftOverCount;
+            leftOverCount = MaxLeftOverCount;
             DisplayNextBlock();
         }
         nextBlockVisual.SetActive(true);
@@ -464,6 +464,6 @@ public class Spawner : Singleton<Spawner>
         {
             nextBlockPawns[i].SetActive(segmentTransforms[i]);
         }
-        seeLeftover.DOSizeDelta(new Vector2(100.0f * (leftOverCount / (float)maxLeftOverCount), 7.24f), 0.2f);
+        seeLeftover.DOSizeDelta(new Vector2(100.0f * (leftOverCount / (float)MaxLeftOverCount), 7.24f), 0.2f);
     }
 }
