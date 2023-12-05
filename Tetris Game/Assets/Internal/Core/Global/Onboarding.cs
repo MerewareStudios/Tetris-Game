@@ -182,7 +182,7 @@ public class Onboarding : SSingleton<Onboarding>
 
         IEnumerator Routine()
         {
-            Warzone.THIS.Player.Replenish();
+            Warzone.THIS.Player.Replenish(6);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.niceOneText, 0.15f);
             Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
 

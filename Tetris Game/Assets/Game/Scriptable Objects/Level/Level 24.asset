@@ -12,31 +12,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 24
   m_EditorClassIdentifier: 
+  sortInterval: 1
   deltaMult: 1
-  boardSize: {x: 7, y: 7}
+  boardSize: {x: 6, y: 5}
   countdown: 3
   totalCoin: 100
-  enemySpawnData: []
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
+    count: 1
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 12
+  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
+    count: 1
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 4
+  - enemyData: {fileID: 11400000, guid: c848350c96d8fba4d88250cb9da23514, type: 2}
+    count: 2
+    distance: 0.8
+    offset: 0
+    delay: 0
   victoryReward:
     type: 0
-    amount: 50
+    amount: 30
   failReward:
     type: 0
-    amount: 10
+    amount: 5
   suggestedBlocks: []
   pawnPlacements:
   - usage: 10
     index: {x: 0, y: 0}
-    extra: 0
-  - usage: 10
-    index: {x: 1, y: 0}
-    extra: 0
+    extra: 3
   - usage: 10
     index: {x: 5, y: 0}
-    extra: 0
-  - usage: 10
-    index: {x: 6, y: 0}
-    extra: 0
+    extra: 3
   carryData:
     type: 0
     delay: -1

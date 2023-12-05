@@ -61,8 +61,8 @@ public class Cargo : MonoBehaviour
                     UIManagerExtensions.BoardHeartToPlayer(thisTransform.position,  10, 50);
                     break;
                 case Type.Chest:
-                    UIManagerExtensions.EmitChestCoinBurst(thisTransform.position, 15, 50);
-                    UIManagerExtensions.EmitChestGemBurst(thisTransform.position, 3, 3);
+                    // UIManagerExtensions.EmitChestCoinBurst(thisTransform.position, 15, 50);
+                    UIManagerExtensions.EmitChestGemBurst(thisTransform.position, 10, 10);
                     break;
                 case Type.Intel:
                     Spawner.THIS.SetNextBlockVisibility(true);

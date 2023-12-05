@@ -32,7 +32,7 @@ public class LevelManager : Singleton<LevelManager>
         levelText.text = "Level " + CurrentLevel;
         DeltaMult = GetDeltaMult();
 
-        Warzone.THIS.OnLevelLoad();
+        Warzone.THIS.OnLevelLoad(LevelSo.sortInterval);
 
         UIManager.UpdateNotifications();
        

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 11
   m_EditorClassIdentifier: 
+  sortInterval: 6
   deltaMult: 1
   boardSize: {x: 6, y: 5}
   countdown: 3
@@ -19,6 +20,8 @@ MonoBehaviour:
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: 60cbfb4ef8a39ed4f9105ce70d9e0d1f, type: 2}
     count: 1
+    distance: 0
+    offset: 0
     delay: 0
   victoryReward:
     type: 0
@@ -29,5 +32,5 @@ MonoBehaviour:
   suggestedBlocks: []
   pawnPlacements: []
   carryData:
-    type: 3
-    delay: 0
+    type: 0
+    delay: -1

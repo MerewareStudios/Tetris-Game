@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 15
   m_EditorClassIdentifier: 
+  sortInterval: 6
   deltaMult: 0.9
   boardSize: {x: 7, y: 6}
   countdown: 3
@@ -67,5 +68,5 @@ MonoBehaviour:
     index: {x: 6, y: 0}
     extra: 0
   carryData:
-    type: 1
-    delay: 16
+    type: 0
+    delay: -1

@@ -190,9 +190,9 @@ namespace  Game
             }
         }
 
-        public void OnLevelLoad()
+        public void OnLevelLoad(float sortInterval)
         {
-            Player.Replenish();
+            Player.Replenish(sortInterval);
         }
 
         private void StopSpawning()

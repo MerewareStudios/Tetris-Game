@@ -12,17 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 23
   m_EditorClassIdentifier: 
+  sortInterval: 6
   deltaMult: 1
   boardSize: {x: 7, y: 7}
   countdown: 3
   totalCoin: 100
-  enemySpawnData: []
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
+    count: 1
+    distance: 0.5
+    offset: 0.3
+    delay: 0
+  - enemyData: {fileID: 11400000, guid: ab16338246d07e641a075d1aa0d2c0e1, type: 2}
+    count: 1
+    distance: 0
+    offset: -0.6
+    delay: 30
+  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
+    count: 2
+    distance: 0.5
+    offset: -0.3
+    delay: 0
+  - enemyData: {fileID: 11400000, guid: ab16338246d07e641a075d1aa0d2c0e1, type: 2}
+    count: 1
+    distance: 0
+    offset: 0.6
+    delay: 30
+  - enemyData: {fileID: 11400000, guid: ab16338246d07e641a075d1aa0d2c0e1, type: 2}
+    count: 2
+    distance: 0.96
+    offset: 0
+    delay: 0
   victoryReward:
     type: 0
-    amount: 45
+    amount: 30
   failReward:
     type: 0
-    amount: 10
+    amount: 5
   suggestedBlocks: []
   pawnPlacements: []
   carryData:

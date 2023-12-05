@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 17
   m_EditorClassIdentifier: 
+  sortInterval: 6
   deltaMult: 0.9
   boardSize: {x: 7, y: 6}
   countdown: 3
   totalCoin: 75
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
-    count: 2
+    count: 1
     distance: 0.48
     offset: 0
     delay: 9

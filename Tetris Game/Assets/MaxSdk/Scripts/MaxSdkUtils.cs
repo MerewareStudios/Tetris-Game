@@ -368,8 +368,10 @@ public class MaxSdkUtils
         }
     }
 
+#if UNITY_IOS
     [DllImport("__Internal")]
     private static extern int _MaxGetTcfConsentStatus(int vendorIdentifier);
+#endif
 
     private static int GetPlatformSpecificTcfConsentStatus(int vendorId)
     {
@@ -383,11 +385,6 @@ public class MaxSdkUtils
         return -1;
 #endif
     }
-
-#if UNITY_IOS
-    [DllImport("__Internal")]
-    private static extern int _MaxGetAdditionalConsentStatus(int atpIdentifier);
-#endif
 
     /// <summary>
     /// Parses the Google UMP's Additional Consent (AC) string to determine the consent status for the advertising entity represented by the provided Ad Technology Provider (ATP) ID.
@@ -410,6 +407,11 @@ public class MaxSdkUtils
             return additionalConsentStatus == 1;
         }
     }
+
+#if UNITY_IOS
+    [DllImport("__Internal")]
+    private static extern int _MaxGetAdditionalConsentStatus(int atpIdentifier);
+#endif
 
     private static int GetPlatformSpecificAdditionalConsentStatus(int atpId)
     {

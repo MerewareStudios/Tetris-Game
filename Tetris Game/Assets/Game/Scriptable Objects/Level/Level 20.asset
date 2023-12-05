@@ -12,16 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
   m_Name: Level 20
   m_EditorClassIdentifier: 
+  sortInterval: 6
   deltaMult: 1
   boardSize: {x: 6, y: 5}
   countdown: 3
   totalCoin: 50
   enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 1b95aeefa4e63d7479c164ebb1228766, type: 2}
+    count: 1
+    distance: 0.96
+    offset: 0
+    delay: 32
   - enemyData: {fileID: 11400000, guid: d60d4ca86fa415a4d94beb2b5cc3e1b9, type: 2}
     count: 2
     distance: 0.96
     offset: 0
-    delay: 12
+    delay: 0
   victoryReward:
     type: 0
     amount: 25

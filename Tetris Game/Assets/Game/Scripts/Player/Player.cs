@@ -4,7 +4,6 @@ using DG.Tweening;
 using Game.UI;
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game
 {
@@ -28,7 +27,7 @@ namespace Game
         [System.NonSerialized] private Coroutine _searchRoutine = null;
         [System.NonSerialized] private Enemy _currentEnemy = null;
         
-        [System.NonSerialized] private const float AutoEnemySortInterval = 6.0f;
+        [System.NonSerialized] public float AutoEnemySortInterval = 1.0f;
         // [System.NonSerialized] private float _bubbleShootStamp = 0.0f;
 
         public float Emission
@@ -234,7 +233,8 @@ namespace Game
                         var targetPosition = CurrentEnemy.Position;
 
                         crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.turnRate * smoothFactor);
-                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor);
+                        float enemyRotFactor = CurrentEnemy.so.speed * 20.0f;
+                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor * enemyRotFactor);
                         
                         Vector2 direction = targetPosition.XZ() - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
@@ -246,7 +246,7 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        if ((_Data.Time - Gun._Data.prevShoot >= Gun._Data.FireInterval) && angleDif <= 1.0f)
+                        if ((_Data.Time - Gun._Data.prevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
@@ -287,9 +287,11 @@ namespace Game
             CurrentEnemy = null;
             crossHair.gameObject.SetActive(false);
         }
-        public void Replenish()
+        public void Replenish(float sortInterval)
         {
             ReplenishHealth();
+
+            this.AutoEnemySortInterval = sortInterval;
             
             crossHair.gameObject.SetActive(false);
             crossHair.position = new Vector3(0.0f, 0.0f, 30.0f);

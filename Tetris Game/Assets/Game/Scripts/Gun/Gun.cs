@@ -80,9 +80,12 @@ public class Gun : MonoBehaviour
         bullet.transform.position = muzzle.position;
         trail.Clear();
 
-        float divider = 1.0f + (_Data.Mult - 1) * 0.5f;
+        // float divider = 1.0f + (_Data.Mult - 1) * 0.5f;
+
+        Vector3 target = enemy.hitTarget.position + new Vector3(0.0f, enemy.so.speed * -0.5f, 0.0f);
+        float distance = (bullet.position - target).magnitude;
         
-        Tween bulletTween = bullet.DOJump(enemy.hitTarget.position, GunSo.jumpPower / divider, 1, GunSo.travelDuration / divider).SetEase(GunSo.ease);
+        Tween bulletTween = bullet.DOJump(target, GunSo.jumpPower * distance * 0.2f, 1, distance / GunSo.travelDuration).SetEase(GunSo.ease);
         bulletTween.onComplete = () =>
         {
             if (enemyID == enemy.ID)

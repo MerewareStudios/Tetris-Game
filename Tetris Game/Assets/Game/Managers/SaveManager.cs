@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class SaveManager : SaveManagerBase<SaveManager>
 {
+    // [SerializeField] public SaveData preSaveData;
+    // [SerializeField] public bool USE_PRESAVE = true;
     [SerializeField] public bool SKIP_ONBOARDING = true;
     [SerializeField] public Const Const;
     [SerializeField] public AnimConst AnimConst;
@@ -20,6 +22,11 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Const.THIS = this.Const;
         AnimConst.THIS = this.AnimConst;
         Onboarding.THIS = this.Onboarding;
+
+        // if (USE_PRESAVE)
+        // {
+            // saveData = preSaveData;
+        // }
 
         if (!saveData.saveGenerated)
         {

@@ -8,6 +8,7 @@ namespace Game
     [CreateAssetMenu(fileName = "Level", menuName = "Game/Level Data", order = 0)]
     public class LevelSo : ScriptableObject
     {
+        [SerializeField] public float sortInterval = 6.0f;
         [SerializeField] public float deltaMult = 1.0f;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(6, 7);
         [SerializeField] public int countdown = 3;
