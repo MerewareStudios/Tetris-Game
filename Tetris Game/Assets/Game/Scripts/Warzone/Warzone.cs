@@ -23,7 +23,7 @@ namespace  Game
         //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
         [System.NonSerialized] private List<Enemy> _enemies = new();
-        [System.NonSerialized] private float _spawnRangeNorm = 0.5f;
+        // [System.NonSerialized] private float _spawnRangeNorm = 0.5f;
         [System.NonSerialized] private int _enemyID = 0;
         // [System.NonSerialized] private const float SpawnMinOffset = 0.2f;
         // [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
@@ -139,7 +139,7 @@ namespace  Game
                 }
 
 
-                _spawnRangeNorm = 0.0f;
+                // _spawnRangeNorm = 0.0f;
 
                 
                 while (spawnIndex < LevelManager.LevelSo.enemySpawnData.Length)

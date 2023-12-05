@@ -321,9 +321,9 @@ namespace Game.UI
                 return;
             }
 
-            int currentDamage = CurrentStat(_gunUpgradeData, Gun.StatType.Damage);
-            int currentFireRate = CurrentStat(_gunUpgradeData, Gun.StatType.Firerate);
-            int currentSplitShot = CurrentStat(_gunUpgradeData, Gun.StatType.Splitshot);
+            int currentDamage = CurrentStatOf(SavedData.inspectIndex, Gun.StatType.Damage);
+            int currentFireRate = CurrentStatOf(SavedData.inspectIndex, Gun.StatType.Firerate);
+            int currentSplitShot = CurrentStatOf(SavedData.inspectIndex, Gun.StatType.Splitshot);
 
             // if (SavedData.equipIndex == SavedData.inspectIndex)
             // {
@@ -339,7 +339,7 @@ namespace Game.UI
             
             if (stageBarParent.gameObject.activeSelf && ONBOARDING.PURCHASE_UPGRADE.IsNotComplete() && stageBarFireRate.Available)
             {
-                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, SavedData.CurrentIndex(Gun.StatType.Firerate)))
+                if (_gunUpgradeData.HasAvailableUpgrade(Gun.StatType.Firerate, SavedData.CurrentIndex(SavedData.inspectIndex, Gun.StatType.Firerate)))
                 {
                     Onboarding.ClickOn(stageBarFireRate.clickTarget.position, Finger.Cam.UI, () =>
                     {
@@ -358,7 +358,7 @@ namespace Game.UI
 
         private void FillStageBar(Gun.StatType statType, StageBar stageBar, int currentStat, bool equipped)
         {
-            int currentIndex = SavedData.CurrentIndex(statType);
+            int currentIndex = SavedData.CurrentIndex(SavedData.inspectIndex, statType);
 
             bool max = _gunUpgradeData.IsFull(statType, currentIndex);
             int defaultValue = _gunUpgradeData.DefaultValue(statType);
@@ -436,9 +436,11 @@ namespace Game.UI
             {
                 Gun.UpgradeData gunUpgradeData = Const.THIS.GunUpgradeData[SavedData.equipIndex];
 
-                int damage = CurrentStat(gunUpgradeData, Gun.StatType.Damage);
-                int rate = CurrentStat(gunUpgradeData, Gun.StatType.Firerate);
-                int split = CurrentStat(gunUpgradeData, Gun.StatType.Splitshot);
+                int damage = CurrentStatOf(SavedData.equipIndex, Gun.StatType.Damage);
+                int rate = CurrentStatOf(SavedData.equipIndex, Gun.StatType.Firerate);
+                int split = CurrentStatOf(SavedData.equipIndex, Gun.StatType.Splitshot);
+                
+                // Debug.Log(SavedData.equipIndex + " " + damage + " " + rate + " " + split);
 
                 Pool gunType = gunUpgradeData.gunType;
 
@@ -446,7 +448,7 @@ namespace Game.UI
             }
         }
 
-        private int CurrentStat(Gun.UpgradeData gunUpgradeData, Gun.StatType statType) => gunUpgradeData.UpgradedValue(statType, SavedData.CurrentIndex(statType));
+        private int CurrentStatOf(int gunDataIndex, Gun.StatType statType) => Const.THIS.GunUpgradeData[gunDataIndex].UpgradedValue(statType, SavedData.CurrentIndex(gunDataIndex, statType));
         
         // private int CurrentFireRate(Gun.UpgradeData gunUpgradeData)
         // {
@@ -466,7 +468,7 @@ namespace Game.UI
         {
             Gun.StatType type = (Gun.StatType)statType;
 
-            Const.Currency cost = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(type));
+            Const.Currency cost = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(SavedData.inspectIndex, type));
 
             if (Wallet.Consume(cost))
             {
@@ -491,7 +493,7 @@ namespace Game.UI
                     for (int i = 0; i < 3; i++)
                     {
                         Gun.StatType stat = (Gun.StatType)i;
-                        int currentIndex = SavedData.CurrentIndex(stat);
+                        int currentIndex = SavedData.CurrentIndex(SavedData.inspectIndex, stat);
                         bool max = _gunUpgradeData.IsFull(stat, currentIndex);
                         if (!max)
                         {
@@ -603,9 +605,9 @@ namespace Game.UI
                 // newShown = new List<bool>(weaponShopData.newShown);
             }
             
-            public int CurrentIndex(Gun.StatType statType)
+            public int CurrentIndex(int gunDataIndex, Gun.StatType statType)
             {
-                return gunShopDatas[inspectIndex].upgradeIndexes[(int)statType];
+                return gunShopDatas[gunDataIndex].upgradeIndexes[(int)statType];
             }
             public int GetUpgradeIndex(int gunIndex, Gun.StatType statType)
             {
