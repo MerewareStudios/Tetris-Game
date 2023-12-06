@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 41
+  m_Name: Level 42
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 7, y: 7}
+  boardSize: {x: 7, y: 5}
   countdown: 3
   totalCoin: 100
   enemySpawnData:

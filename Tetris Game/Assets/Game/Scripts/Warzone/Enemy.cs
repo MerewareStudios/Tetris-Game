@@ -201,7 +201,7 @@ namespace  Game
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
                         Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position, 1);
-                        Vector3 target = thisTransform.position + new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(0.35f, 2.0f));
+                        Vector3 target = thisTransform.position + new Vector3(Random.Range(-2.0f, 2.0f), 0.0f, Random.Range(-2.0f, 2.0f));
                         target.z = Mathf.Min(Warzone.THIS.StartLine, target.z);
                         enemy.Jump(target);
                     }
@@ -345,7 +345,7 @@ namespace  Game
         {
             _castTweenLoop?.Kill();
             _wipeTween?.Kill();
-
+            thisTransform.DOKill();
             model.DOKill();
 
             if (_dragTrail)

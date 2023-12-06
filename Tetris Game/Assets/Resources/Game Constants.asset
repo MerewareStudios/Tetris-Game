@@ -54,14 +54,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43c8dcbdd176cf2478206fed3017471e, type: 2}
   - {fileID: 11400000, guid: b00ee58d304cc46469eac01ec746ab63, type: 2}
   - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
-  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
-  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
-  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
-  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
   - {fileID: 11400000, guid: 310e3e8ad04618f438a8e1a4bfe64749, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 85e68f07d4f511443a54b779da97e786, type: 2}
+  - {fileID: 11400000, guid: f7e063330604b8a45abeedb629f5e201, type: 2}
+  - {fileID: 11400000, guid: 7a09cf2c182cafb4db26e94567c5d3b7, type: 2}
+  - {fileID: 11400000, guid: 32b75230acd62d64996f291a12575355, type: 2}
+  - {fileID: 11400000, guid: 5a1ae794d7a5eb24fa98cd1fa36e6181, type: 2}
+  - {fileID: 11400000, guid: 4a009c2cd89326f45b1009316b8b88fb, type: 2}
+  - {fileID: 11400000, guid: 4a009c2cd89326f45b1009316b8b88fb, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   AutoGenerateEnemyDatas:
@@ -633,7 +633,7 @@ MonoBehaviour:
   DefaultPlayerData:
     currentHealth: 1
   DefaultUserData:
-    level: 40
+    level: 46
     pupData:
       available: 1
       currentUsage: 4
@@ -844,23 +844,45 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 39746413ce4ab7a4086960bfc4f14931, type: 3}
     defaultValues: 010000000100000001000000
     damagePrice:
+    - type: 1
+      amount: 25
+    - type: 1
+      amount: 50
+    - type: 2
+      amount: 1
+    fireRatePrice:
+    - type: 0
+      amount: 25
+    - type: 0
+      amount: 50
+    - type: 0
+      amount: 75
     - type: 0
       amount: 100
     - type: 0
       amount: 125
     - type: 0
       amount: 150
+    - type: 0
+      amount: 175
+    - type: 0
+      amount: 200
     - type: 2
-      amount: 75
-    fireRatePrice: []
-    splitShotPrice: []
+      amount: 1
+    splitShotPrice:
+    - type: 1
+      amount: 25
+    - type: 1
+      amount: 50
+    - type: 2
+      amount: 1
     unlockedAt: 40
   - currency:
       type: 0
       amount: 1000
     gunType: 31
     sprite: {fileID: 21300000, guid: 3dbc7cab995ea074e91ba3ecbac5e305, type: 3}
-    defaultValues: 030000000300000003000000
+    defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1
       amount: 25
@@ -871,12 +893,22 @@ MonoBehaviour:
     fireRatePrice:
     - type: 1
       amount: 25
-    - type: 0
+    - type: 1
+      amount: 25
+    - type: 1
+      amount: 50
+    - type: 1
+      amount: 75
+    - type: 1
       amount: 100
-    - type: 0
-      amount: 100
-    - type: 2
-      amount: 1
+    - type: 1
+      amount: 125
+    - type: 1
+      amount: 150
+    - type: 1
+      amount: 175
+    - type: 1
+      amount: 200
     splitShotPrice:
     - type: 1
       amount: 25

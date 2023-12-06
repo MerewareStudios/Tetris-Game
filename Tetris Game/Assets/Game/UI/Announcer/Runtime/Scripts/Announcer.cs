@@ -44,7 +44,7 @@ namespace  Game.UI
                 for (int i = 0; i < seconds; i++)
                 {
                     ShowText((seconds - i).ToString());
-                    yield return new WaitForSeconds(0.75f);
+                    yield return new WaitForSeconds(0.7f);
                 }
             }
 

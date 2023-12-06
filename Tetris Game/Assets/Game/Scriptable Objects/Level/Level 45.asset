@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
-  m_Name: Level 41
+  m_Name: Level 45
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 7, y: 7}
+  boardSize: {x: 2, y: 5}
   countdown: 3
   totalCoin: 100
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: d8117a3cb38ee284b93b399514250063, type: 2}
-    count: 1
-    distance: 0
+  - enemyData: {fileID: 11400000, guid: 5aa7682da6eea724ca3aff06898be258, type: 2}
+    count: 2
+    distance: 2
     offset: 0
     delay: 0
-  - enemyData: {fileID: 11400000, guid: efba3fb6480ad6c41b30794d64be42bf, type: 2}
-    count: 5
-    distance: 0.75
+  - enemyData: {fileID: 11400000, guid: e219aadf7ef413a449cb03713225f4f5, type: 2}
+    count: 1
+    distance: 0
     offset: 0
     delay: 0
   victoryReward:
