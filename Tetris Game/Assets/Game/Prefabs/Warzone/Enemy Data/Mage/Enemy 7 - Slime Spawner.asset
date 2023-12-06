@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Slime Spawner 2
+  m_Name: Enemy 7 - Slime Spawner
   m_EditorClassIdentifier: 
-  type: 0
+  type: 66
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
@@ -109,7 +109,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 100
+  maxHealth: 44
   speed: 0.075
   forwardRange: {x: 1, y: 1}
   radius: 0.6
@@ -117,9 +117,9 @@ MonoBehaviour:
   deathEmitCount: 35
   wipeDelay: 1.1
   crossSize: 2
-  castType: 3
+  castType: 0
   deathAction: 0
-  spawnerCount: 3
-  spawnerDuration: 4
-  spawnerExtra: 1
-  extraData: {fileID: 11400000, guid: 108334ab88aa9d540a5d2b6ccd056ee5, type: 2}
+  spawnerCount: 5
+  spawnerDuration: 15
+  spawnerExtra: 0
+  extraData: {fileID: 11400000, guid: 85a053a70348c4141b69138f3051f7dc, type: 2}

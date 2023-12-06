@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class Board : Singleton<Board>
+    public class Board : Lazyingleton<Board>
     {
         [SerializeField] private Vector3 indexOffset;
         

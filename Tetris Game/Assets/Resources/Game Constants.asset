@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 166
+  bundleVersionCode: 170
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -44,21 +44,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8be596d262ae5604eb589cc5a043ab12, type: 2}
   - {fileID: 11400000, guid: 06ee065380bf48f41a11f91fa609bfd9, type: 2}
   - {fileID: 11400000, guid: 2e4fa7e35e398804dbeeacd315a75128, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7d462bc0fbf7fe043a2d13f7dc778ef4, type: 2}
+  - {fileID: 11400000, guid: 0cb5e39d0a7000844b7d9d3f8cae8976, type: 2}
+  - {fileID: 11400000, guid: cd881f90e54ba00449142c06803a7919, type: 2}
+  - {fileID: 11400000, guid: 99290c5511a1d724781a49a7c475c242, type: 2}
+  - {fileID: 11400000, guid: 02eef80cd001f3e4a985c1d99da6a24f, type: 2}
+  - {fileID: 11400000, guid: 05749ea1bcdc7694990cd71c1a5d8e04, type: 2}
+  - {fileID: 11400000, guid: fd39f8a75600ef8428390d61e210246e, type: 2}
+  - {fileID: 11400000, guid: 43c8dcbdd176cf2478206fed3017471e, type: 2}
+  - {fileID: 11400000, guid: b00ee58d304cc46469eac01ec746ab63, type: 2}
+  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
+  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
+  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
+  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
+  - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
+  - {fileID: 11400000, guid: 310e3e8ad04618f438a8e1a4bfe64749, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -632,9 +632,8 @@ MonoBehaviour:
         extra: 35
   DefaultPlayerData:
     currentHealth: 1
-    turnRate: 12
   DefaultUserData:
-    level: 1
+    level: 40
     pupData:
       available: 1
       currentUsage: 4
@@ -645,11 +644,11 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 0
+      value: 33333
     gemTransactionData:
-      value: 0
+      value: 33333
     adTransactionData:
-      value: 0
+      value: 33333
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
@@ -789,73 +788,73 @@ MonoBehaviour:
       amount: 50
     gunType: 28
     sprite: {fileID: 21300000, guid: b0c71ae055b38b04b82bf8cdbc8b4a8f, type: 3}
-    defaultValues: 010000000100000001000000
+    defaultValues: 020000000100000001000000
     damagePrice:
     - type: 0
-      amount: 100
+      amount: 50
     - type: 0
-      amount: 100
-    - type: 0
-      amount: 100
+      amount: 75
     - type: 0
       amount: 100
     - type: 2
       amount: 1
     fireRatePrice:
     - type: 1
-      amount: 10
-    splitShotPrice: []
-    unlockedAt: 25
+      amount: 2
+    - type: 1
+      amount: 4
+    - type: 1
+      amount: 6
+    splitShotPrice:
+    - type: 2
+      amount: 1
+    unlockedAt: 30
   - currency:
       type: 2
       amount: 1
     gunType: 29
     sprite: {fileID: 21300000, guid: 79e5ad55b156b4b4b9345ba2bfed4e1a, type: 3}
-    defaultValues: 010000000100000003000000
+    defaultValues: 010000000100000002000000
     damagePrice:
     - type: 2
       amount: 1
     fireRatePrice:
-    - type: 2
-      amount: 1
+    - type: 1
+      amount: 2
+    - type: 1
+      amount: 4
+    - type: 1
+      amount: 6
     splitShotPrice:
     - type: 0
-      amount: 100
+      amount: 25
+    - type: 0
+      amount: 50
+    - type: 0
+      amount: 75
     - type: 0
       amount: 100
-    - type: 0
-      amount: 100
-    - type: 0
-      amount: 100
+    - type: 2
+      amount: 1
     unlockedAt: 33
   - currency:
       type: 1
       amount: 50
     gunType: 30
     sprite: {fileID: 21300000, guid: 39746413ce4ab7a4086960bfc4f14931, type: 3}
-    defaultValues: 020000000200000002000000
+    defaultValues: 010000000100000001000000
     damagePrice:
     - type: 0
       amount: 100
-    - type: 1
-      amount: 20
-    - type: 2
-      amount: 1
-    fireRatePrice:
     - type: 0
-      amount: 100
-    - type: 1
-      amount: 20
-    - type: 2
-      amount: 1
-    splitShotPrice:
+      amount: 125
     - type: 0
-      amount: 100
-    - type: 1
-      amount: 20
+      amount: 150
     - type: 2
-      amount: 1
-    unlockedAt: 35
+      amount: 75
+    fireRatePrice: []
+    splitShotPrice: []
+    unlockedAt: 40
   - currency:
       type: 0
       amount: 1000
@@ -885,7 +884,7 @@ MonoBehaviour:
       amount: 25
     - type: 1
       amount: 25
-    unlockedAt: 40
+    unlockedAt: 50
   - currency:
       type: 0
       amount: 1500
@@ -1016,7 +1015,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 50
-    unlockedAt: 30
+    unlockedAt: 35
   - blockType: 8
     currency:
       type: 1

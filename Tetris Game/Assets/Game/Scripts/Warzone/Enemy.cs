@@ -138,7 +138,7 @@ namespace  Game
                     {
                         Vector3 pos = Warzone.THIS.RandomPos(so.extraData.RandomForwardRange());
                         Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);
-                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos);
+                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos, 1);
                     }
                     Warzone.THIS.AssignClosestEnemy();
                     break;
@@ -200,7 +200,7 @@ namespace  Game
                 case DeathAction.Swarm:
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
-                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position);
+                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position, 1);
                         Vector3 target = thisTransform.position + new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(0.35f, 2.0f));
                         target.z = Mathf.Min(Warzone.THIS.StartLine, target.z);
                         enemy.Jump(target);

@@ -210,18 +210,18 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-
                     _Data.interSkipCount++;
+                    _Data.LastTimeAdShown = (int)Time.time;
                     AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, _Data.interSkipCount);
                 },
                 () => Wallet.Consume(Const.Currency.OneAd))
             .OnTimesUp(() =>
             {
                 _Data.interWatchCount++;
-                AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, _Data.interSkipCount);
-
-                
                 _Data.LastTimeAdShown = (int)Time.time;
+
+                AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, _Data.interSkipCount);
+                
                 AdBreakScreen.THIS.CloseImmediate();
 
                 FakeAdInterstitial.THIS.Show(

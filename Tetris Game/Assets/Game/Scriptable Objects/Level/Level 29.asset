@@ -16,7 +16,7 @@ MonoBehaviour:
   deltaMult: 1
   boardSize: {x: 6, y: 6}
   countdown: 3
-  totalCoin: 100
+  totalCoin: 125
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: 8f75702917162c343b972ffc332240ac, type: 2}
     count: 2

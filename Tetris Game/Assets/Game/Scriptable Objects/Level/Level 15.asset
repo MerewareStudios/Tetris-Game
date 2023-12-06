@@ -52,7 +52,7 @@ MonoBehaviour:
     count: 1
     distance: 0
     offset: 0
-    delay: 1
+    delay: 0
   victoryReward:
     type: 0
     amount: 20
@@ -69,4 +69,4 @@ MonoBehaviour:
     extra: 0
   carryData:
     type: 0
-    delay: -1
+    delay: 0

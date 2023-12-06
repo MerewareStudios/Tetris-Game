@@ -1,5 +1,6 @@
 // #define FORCE_EDITOR_CONCENT
 
+using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
@@ -13,6 +14,10 @@ using Visual.Effects;
 public class GameManager : Singleton<GameManager>
 {
     [System.NonSerialized] public static bool PLAYING = false;
+
+    [SerializeField] private Map map;
+    [SerializeField] private Board board;
+    [SerializeField] private Warzone warzone;
     
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
@@ -38,6 +43,13 @@ public class GameManager : Singleton<GameManager>
     {
         GameManager.THIS._timeScale = value;
         UpdateTimeScale();
+    }
+
+    public void Init()
+    {
+        Map.THIS = map;
+        Board.THIS = board;
+        Warzone.THIS = warzone;
     }
 
     void Start()

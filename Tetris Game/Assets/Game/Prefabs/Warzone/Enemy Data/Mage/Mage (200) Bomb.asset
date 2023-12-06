@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Short Bomb 2
+  m_Name: Mage (200) Bomb
   m_EditorClassIdentifier: 
-  type: 0
-  scale: {x: 0.9, y: 0.9, z: 0.9}
+  type: 66
+  scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,8 +109,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 10
-  speed: 0.1
+  maxHealth: 200
+  speed: 0.075
   forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10
@@ -119,7 +119,7 @@ MonoBehaviour:
   crossSize: 2
   castType: 1
   deathAction: 0
-  spawnerCount: 2
-  spawnerDuration: 20
-  spawnerExtra: 75
+  spawnerCount: 1
+  spawnerDuration: 10
+  spawnerExtra: 50
   extraData: {fileID: 0}

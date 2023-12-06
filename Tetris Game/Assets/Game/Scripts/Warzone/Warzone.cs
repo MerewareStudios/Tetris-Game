@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace  Game
 {
-    public class Warzone : Singleton<Warzone>
+    public class Warzone : Lazyingleton<Warzone>
     {
         [Header("Players")] [SerializeField] public Player Player;
         [Header("Zones")] [SerializeField] public ParticleSystem bloodPS;
@@ -142,7 +142,7 @@ namespace  Game
                 // _spawnRangeNorm = 0.0f;
 
                 
-                while (spawnIndex < LevelManager.LevelSo.enemySpawnData.Length)
+                while (true)
                 {
                     LevelSo.EnemySpawnDatum enemySpawnDatum = LevelManager.LevelSo.enemySpawnData[spawnIndex];
 
@@ -176,6 +176,11 @@ namespace  Game
                     }
 
                     float waitTill = Time.time + enemySpawnDatum.delay;
+
+                    if (spawnIndex >= LevelManager.LevelSo.enemySpawnData.Length)
+                    {
+                        break;
+                    }
 
                     yield return new WaitWhile(() => Time.time < waitTill && HasEnemy);
 
@@ -219,13 +224,14 @@ namespace  Game
 
             return enemy;
         }
-        public Enemy CustomSpawnEnemy(EnemyData enemyData, Vector3 position)
+        public Enemy CustomSpawnEnemy(EnemyData enemyData, Vector3 position, int coinAmount)
         {
             Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
+            enemy.CoinAmount = coinAmount;
             enemy.OnSpawn(position, GetNewEnemyID());
             enemy.Replenish();
-            
+
             _enemies.Add(enemy);
             
             return enemy;

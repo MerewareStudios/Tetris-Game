@@ -86,7 +86,7 @@ namespace Game
 
         private void UpdateGunData(Gun.Data newGunData)
         {
-            newGunData.prevShoot = _GunData.prevShoot;
+            newGunData.PrevShoot = _GunData.PrevShoot;
             _GunData = newGunData;
         }
                 
@@ -224,7 +224,7 @@ namespace Game
                 crossHair.gameObject.SetActive(true);
 
                 _Data.Time = 0.0f;
-                Gun._Data.prevShoot = 0.0f;
+                Gun._Data.PrevShoot = 0.0f;
                 
                 while (true)
                 {
@@ -232,27 +232,27 @@ namespace Game
                     {
                         var targetPosition = CurrentEnemy.Position;
 
-                        crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.turnRate * smoothFactor);
+                        crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.TurnRate * smoothFactor);
                         float enemyRotFactor = CurrentEnemy.so.speed * 20.0f;
-                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.turnRate * smoothFactor * enemyRotFactor);
+                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.TurnRate * smoothFactor * enemyRotFactor);
                         
                         Vector2 direction = targetPosition.XZ() - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
 
                         smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * 10.0f);
-                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.turnRate * smoothFactor * _GunData.Mult);
+                        _currentAngle = Mathf.LerpAngle(_currentAngle, targetAngle, Time.deltaTime * _Data.TurnRate * smoothFactor * _GunData.Mult);
 
                         transform.eulerAngles = new Vector3(0.0f, _currentAngle, 0.0f);
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        if ((_Data.Time - Gun._Data.prevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
+                        if ((_Data.Time - Gun._Data.PrevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
                             // if (givenBulletCount > 0)
                             // {
-                            Gun._Data.prevShoot = _Data.Time;
+                            Gun._Data.PrevShoot = _Data.Time;
                             // }
                         }
 
@@ -337,22 +337,22 @@ namespace Game
         [System.Serializable]
         public class Data : ICloneable
         {
+            [SerializeField] public int currentHealth = 0;
             [System.NonSerialized] public float Time;
             [System.NonSerialized] public float LastTimeEnemySorted;
-            [SerializeField] public int currentHealth = 0;
-            [SerializeField] public int turnRate = 6;
+            [System.NonSerialized] public int TurnRate = 12;
 
             
             public Data()
             {
                 this.Time = 0.0f;
                 this.currentHealth = 0;
-                this.turnRate = 6;
+                // this.TurnRate = 6;
             }
             public Data(Data data)
             {
                 this.currentHealth = data.currentHealth;
-                this.turnRate = data.turnRate;
+                // this.TurnRate = data.TurnRate;
             }
 
             public object Clone()

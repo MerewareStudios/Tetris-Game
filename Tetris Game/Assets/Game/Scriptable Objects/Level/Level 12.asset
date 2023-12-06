@@ -47,7 +47,7 @@ MonoBehaviour:
     count: 1
     distance: 0
     offset: -0.92
-    delay: 6
+    delay: 111
   victoryReward:
     type: 0
     amount: 20

@@ -393,6 +393,10 @@ public class Spawner : Singleton<Spawner>
             pool = _nextBlock;
             
             _nextBlock = this.RandomBlock();
+            if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block)) && Helper.IsPossible(0.5f))
+            {
+                _nextBlock = this.RandomBlock();
+            }
 
             if (NextBlockVisible)
             {

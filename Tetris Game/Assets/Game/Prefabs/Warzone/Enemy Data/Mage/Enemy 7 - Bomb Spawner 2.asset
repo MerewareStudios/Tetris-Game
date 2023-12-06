@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Skeleton Spawner
+  m_Name: Enemy 7 - Bomb Spawner 2
   m_EditorClassIdentifier: 
-  type: 0
+  type: 66
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
@@ -117,9 +117,9 @@ MonoBehaviour:
   deathEmitCount: 35
   wipeDelay: 1.1
   crossSize: 2
-  castType: 3
+  castType: 0
   deathAction: 0
   spawnerCount: 2
   spawnerDuration: 10
-  spawnerExtra: 0
-  extraData: {fileID: 11400000, guid: d0c0e0e091f9b554d9e5a3634f30492c, type: 2}
+  spawnerExtra: 30
+  extraData: {fileID: 0}

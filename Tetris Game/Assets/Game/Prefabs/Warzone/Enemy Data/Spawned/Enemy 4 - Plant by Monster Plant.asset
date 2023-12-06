@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
   m_Name: Enemy 4 - Plant by Monster Plant
   m_EditorClassIdentifier: 
-  type: 38
+  type: 0
   scale: {x: 0.8, y: 0.8, z: 0.8}
   colorGrad:
     m_Mode: 4

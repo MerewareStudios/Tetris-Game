@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Slime Spawner
+  m_Name: Skeleton (52) Range 2
   m_EditorClassIdentifier: 
-  type: 0
+  type: 69
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
@@ -48,8 +48,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 0.3803922, g: 0.32941177, b: 0.7176471, a: 1}
-      key1: {r: 0.6509804, g: 0.36862746, b: 0.9568628, a: 1}
+      key0: {r: 0.7843138, g: 0.73333335, b: 0.6156863, a: 1}
+      key1: {r: 0.36078432, g: 0.34117648, b: 0.4901961, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -109,17 +109,17 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 44
-  speed: 0.075
-  forwardRange: {x: 1, y: 1}
+  maxHealth: 52
+  speed: 0.1
+  forwardRange: {x: 0.4, y: 1}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
-  wipeDelay: 1.1
-  crossSize: 2
-  castType: 3
+  wipeDelay: 1.5
+  crossSize: 1.5
+  castType: 0
   deathAction: 0
-  spawnerCount: 5
-  spawnerDuration: 15
+  spawnerCount: 0
+  spawnerDuration: 0
   spawnerExtra: 0
-  extraData: {fileID: 11400000, guid: 85a053a70348c4141b69138f3051f7dc, type: 2}
+  extraData: {fileID: 0}

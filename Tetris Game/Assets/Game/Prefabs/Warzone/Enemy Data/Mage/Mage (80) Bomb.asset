@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 7 - Dragon Spawner
+  m_Name: Mage (80) Bomb
   m_EditorClassIdentifier: 
-  type: 0
+  type: 66
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
@@ -109,17 +109,17 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 16
-  speed: 0.075
+  maxHealth: 80
+  speed: 0.08
   forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
   wipeDelay: 1.1
   crossSize: 2
-  castType: 3
+  castType: 1
   deathAction: 0
   spawnerCount: 1
-  spawnerDuration: 15
-  spawnerExtra: 0
-  extraData: {fileID: 11400000, guid: 1293cdac54028144d9ba312ba8e9cfda, type: 2}
+  spawnerDuration: 10
+  spawnerExtra: 50
+  extraData: {fileID: 0}

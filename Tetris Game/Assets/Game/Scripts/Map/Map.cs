@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Map : Singleton<Map>
+    public class Map : Lazyingleton<Map>
     {
         [System.NonSerialized] private Coroutine _mainRoutine = null;
         [System.NonSerialized] public bool MapWaitForCycle = false;

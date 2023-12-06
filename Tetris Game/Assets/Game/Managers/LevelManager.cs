@@ -22,7 +22,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         LevelSo = Const.THIS.GetLevelSo(CurrentLevel);
         AnalyticsManager.LevelStart(CurrentLevel);
-        
+
         Board.THIS.Construct(BoardSize());
 
         GameManager.PLAYING = true;

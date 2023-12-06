@@ -113,7 +113,7 @@ public class Gun : MonoBehaviour
     public class Data : ICloneable
     {
         [SerializeField] public Pool gunType;
-        [SerializeField] public float prevShoot = 0.0f;
+        [System.NonSerialized] public float PrevShoot = 0.0f;
         [SerializeField] private int rate = 1;
         [SerializeField] private int split = 1;
         [SerializeField] private int damage = 1;
@@ -148,7 +148,7 @@ public class Gun : MonoBehaviour
         {
             this.rate = 1;
             this.split = 1;
-            this.prevShoot = 0.0f;
+            this.PrevShoot = 0.0f;
             this.damage = 1;
         }
         public Data(Pool gunType, int damage, int rate, int split)
@@ -162,7 +162,7 @@ public class Gun : MonoBehaviour
         {
             this.gunType = data.gunType;
             this.FireRate = data.rate;
-            this.prevShoot = data.prevShoot;
+            // this.PrevShoot = data.PrevShoot;
             this.split = data.split;
             this.damage = data.damage;
         }

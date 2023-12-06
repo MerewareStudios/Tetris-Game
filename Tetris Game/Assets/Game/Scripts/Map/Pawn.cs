@@ -316,6 +316,10 @@ namespace Game
             ParentBlock = null;
             
             DeSpawnModel();
+            
+            Busy = false;
+            Mover = false;
+
             this.Despawn(Pool.Pawn);
         }
         

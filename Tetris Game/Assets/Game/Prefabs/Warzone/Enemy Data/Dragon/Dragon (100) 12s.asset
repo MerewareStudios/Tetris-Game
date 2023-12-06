@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Enemy 12
+  m_Name: Dragon (100) 12s
   m_EditorClassIdentifier: 
-  type: 71
+  type: 68
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
@@ -48,8 +48,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 0.5549208, g: 0.7924528, b: 0.4440726, a: 1}
-      key1: {r: 0.47058827, g: 0.4784314, b: 0.48235297, a: 1}
+      key0: {r: 1, g: 0.15471691, b: 0.15471691, a: 1}
+      key1: {r: 1, g: 0.8356226, b: 0.6264151, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -108,21 +108,18 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards:
-  - type: 1
-    amount: 10
-    probability: 1
-  maxHealth: 250
-  speed: 0.045
-  forwardRange: {x: 0.9, y: 0.9}
+  enemyRewards: []
+  maxHealth: 100
+  speed: 0.075
+  forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
-  wipeDelay: 1.5
-  crossSize: 2.5
-  castType: 0
+  wipeDelay: 0.7
+  crossSize: 1.5
+  castType: 2
   deathAction: 0
-  spawnerCount: 0
-  spawnerDuration: 0
+  spawnerCount: 1
+  spawnerDuration: 12
   spawnerExtra: 0
   extraData: {fileID: 0}

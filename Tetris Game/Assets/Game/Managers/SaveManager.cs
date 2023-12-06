@@ -7,13 +7,10 @@ using UnityEngine;
 
 public class SaveManager : SaveManagerBase<SaveManager>
 {
-    // [SerializeField] public SaveData preSaveData;
-    // [SerializeField] public bool USE_PRESAVE = true;
     [SerializeField] public bool SKIP_ONBOARDING = true;
     [SerializeField] public Const Const;
     [SerializeField] public AnimConst AnimConst;
     [SerializeField] public Onboarding Onboarding;
-
 
     public override void Awake()
     {
@@ -22,11 +19,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Const.THIS = this.Const;
         AnimConst.THIS = this.AnimConst;
         Onboarding.THIS = this.Onboarding;
-
-        // if (USE_PRESAVE)
-        // {
-            // saveData = preSaveData;
-        // }
 
         if (!saveData.saveGenerated)
         {
@@ -53,8 +45,8 @@ public class SaveManager : SaveManagerBase<SaveManager>
             ONBOARDING.ALL_BLOCK_STEPS.ClearStep();
         }
         
-        // Concent.THIS._Data = saveData.concentData;
-
+        GameManager.THIS.Init();
+        
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.COIN.Active = ONBOARDING.PASSIVE_META.IsComplete();
         Wallet.PIGGY.Set(ref saveData.userData.gemTransactionData);
@@ -84,7 +76,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
 }
 public static class SaveManagerExtensions
 {
-
     public static bool IsNotComplete(this ONBOARDING onboardingStep)
     {
         return !SaveManager.THIS.SKIP_ONBOARDING && SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
@@ -96,7 +87,6 @@ public static class SaveManagerExtensions
     public static void SetComplete(this ONBOARDING onboardingStep)
     {
         SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = false;
-        
         AnalyticsManager.OnboardingStepComplete(onboardingStep.ToString());
     }
     public static void ClearStep(this ONBOARDING onboardingStep)
@@ -125,7 +115,6 @@ public partial class SaveData
     [SerializeField] public Player.Data playerData;
     [SerializeField] public AdManager.Data adData;
     [SerializeField] public OfferScreen.Data purchaseData;
-    // [SerializeField] public Concent.Data concentData;
 }
 
 
@@ -206,7 +195,6 @@ namespace User
             piggyData = data.piggyData.Clone() as PiggyMenu.Data;
             airplaneData = data.airplaneData.Clone() as Airplane.Data;
         }
-       
 
         public object Clone()
         {
