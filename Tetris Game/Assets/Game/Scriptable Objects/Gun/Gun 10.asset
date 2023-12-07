@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Gun 10
   m_EditorClassIdentifier: 
   holsterTransformData:
-    localPosition: {x: -0.0583, y: 0.0634, z: 0.033}
-    localEulerAngles: {x: 345.06342, y: 167.65662, z: 263.77203}
-    localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
-  jumpPower: 0.15
-  travelDuration: 40
+    localPosition: {x: -0.058, y: 0.09, z: 0.038}
+    localEulerAngles: {x: 341.23737, y: 167.38011, z: 263.88647}
+    localScale: {x: 0.47555292, y: 0.47555292, z: 0.47555292}
+  jumpPower: 0.1
+  travelDuration: 25
   ease: 1

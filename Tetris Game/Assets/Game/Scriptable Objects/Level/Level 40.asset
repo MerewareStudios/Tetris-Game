@@ -28,9 +28,9 @@ MonoBehaviour:
     amount: 30
   failReward:
     type: 0
-    amount: 5
+    amount: 80
   suggestedBlocks: []
   pawnPlacements: []
   carryData:
     type: 0
-    delay: -1
+    delay: 0

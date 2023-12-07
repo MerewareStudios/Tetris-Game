@@ -69,6 +69,10 @@ namespace  Game
                 enemy.Kamikaze();
                 CameraManager.THIS.Shake();
                 this.Player._CurrentHealth -= enemy.Damage;
+                if (Player._CurrentHealth > 0)
+                {
+                    enemy.GiveRewards();
+                }
                 LevelManager.THIS.CheckEndLevel();
             }
             else
@@ -103,6 +107,8 @@ namespace  Game
                 int spawnIndex = 0;
 
                 int totalHealth = 0;
+                Debug.Log(LevelManager.LevelSo.enemySpawnData == null );
+                Debug.Log(LevelManager.LevelSo.name);
                 foreach (var data in LevelManager.LevelSo.enemySpawnData)
                 {
                     totalHealth += data.enemyData.maxHealth * data.count;
@@ -186,7 +192,7 @@ namespace  Game
 
                     if (Time.time < waitTill)
                     {
-                        yield return new WaitForSeconds((waitTill - Time.time) * 0.25f);
+                        yield return new WaitForSeconds((waitTill - Time.time) * 0.15f);
                     }
                 }
 

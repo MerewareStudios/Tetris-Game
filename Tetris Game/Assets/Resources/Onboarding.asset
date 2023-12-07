@@ -84,6 +84,7 @@ MonoBehaviour:
   - <sprite name=Warning>Punch <sprite name=Punch>enemies to drag them back!
   - <sprite name=Warning>Increase Stack Limit to avoid wasting ammo.
   - <sprite name=Warning>Prepare power-ups before it gets sticky.
+  - <sprite name=Warning>Switching to a different weapon can give you an advantage.
   commentTip: 'Leave a feedback!
 
     Earn<sprite name=Ticket> '

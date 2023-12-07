@@ -19,7 +19,7 @@ MonoBehaviour:
   totalCoin: 100
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: 5aa7682da6eea724ca3aff06898be258, type: 2}
-    count: 2
+    count: 1
     distance: 2
     offset: 0
     delay: 0
@@ -30,12 +30,12 @@ MonoBehaviour:
     delay: 0
   victoryReward:
     type: 0
-    amount: 30
+    amount: 80
   failReward:
     type: 0
     amount: 5
   suggestedBlocks: []
   pawnPlacements: []
   carryData:
-    type: 0
-    delay: -1
+    type: 2
+    delay: 0

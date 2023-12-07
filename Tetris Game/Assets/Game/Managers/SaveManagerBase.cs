@@ -42,14 +42,17 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         SaveSO saveSo = ScriptableObject.CreateInstance<SaveSO>();
         saveSo.saveData = SaveManager.THIS.saveData.Clone() as SaveData;
 
-        string path = "Assets/Game/Managers/Save SO";
+        string path = Path.Combine("Assets", "Game", "Managers", "Save SO");
+        string subPath = Path.Combine(path, saveSo.saveData.accountData.guid);
 
-        if (!AssetDatabase.IsValidFolder(path))
+        if (!AssetDatabase.IsValidFolder(subPath))
         {
+            Debug.Log("create folder");
             AssetDatabase.CreateFolder(path, saveSo.saveData.accountData.guid);
+            AssetDatabase.SaveAssets();
         }
         
-        AssetDatabase.CreateAsset(saveSo, Path.Combine("Assets/Game/Managers/Save SO", saveSo.saveData.accountData.guid, prefix + ".asset"));
+        AssetDatabase.CreateAsset(saveSo, Path.Combine(path, saveSo.saveData.accountData.guid, prefix + ".asset"));
         AssetDatabase.SaveAssets();
     }
 
@@ -115,6 +118,10 @@ namespace  Game.Editor
             if (Application.isPlaying && GUILayout.Button(new GUIContent("Create Save Point", "Create save point.")))
             {
                 SaveManager.CreateSavePoint("Manual");
+            }
+            if (!Application.isPlaying && GUILayout.Button(new GUIContent("Delete Save", "Delete save file.")))
+            {
+                SaveManager.Delete();
             }
             DrawDefaultInspector();
         }

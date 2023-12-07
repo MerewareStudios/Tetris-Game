@@ -113,7 +113,7 @@ MonoBehaviour:
     amount: 15
     probability: 1
   maxHealth: 300
-  speed: 0.15
+  speed: 0.11
   forwardRange: {x: 1, y: 1}
   radius: 0.6
   emitCount: 10

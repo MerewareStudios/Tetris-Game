@@ -65,8 +65,9 @@ public class Const : SSingleton<Const>
 
     public LevelSo GetLevelSo(int level)
     {
-        if (level >= Levels.Length)
+        if (level > Levels.Length)
         {
+            Debug.Log(level);
             return LevelSo.AutoGenerate(level);
         }
         return Levels[level - 1];

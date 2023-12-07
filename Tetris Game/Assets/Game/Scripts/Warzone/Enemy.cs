@@ -272,7 +272,6 @@ namespace  Game
         public void Kamikaze()
         {
             _castTweenLoop?.Kill();
-            
             model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
@@ -302,7 +301,7 @@ namespace  Game
             }, false);
         }
 
-        private void GiveRewards()
+        public void GiveRewards()
         {
             UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(CoinAmount, 0, 15), CoinAmount);
 

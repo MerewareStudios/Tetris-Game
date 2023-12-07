@@ -22,7 +22,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         LevelSo = Const.THIS.GetLevelSo(CurrentLevel);
         #if UNITY_EDITOR
-            SaveManager.CreateSavePoint("Level " + CurrentLevel);
+            SaveManager.CreateSavePoint("Level " + CurrentLevel + " Save Data");
         #endif
         AnalyticsManager.LevelStart(CurrentLevel);
 

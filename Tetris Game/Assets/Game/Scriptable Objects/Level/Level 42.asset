@@ -30,7 +30,7 @@ MonoBehaviour:
     delay: 0
   victoryReward:
     type: 0
-    amount: 30
+    amount: 80
   failReward:
     type: 0
     amount: 5

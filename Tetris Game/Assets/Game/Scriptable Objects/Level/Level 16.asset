@@ -69,5 +69,5 @@ MonoBehaviour:
     index: {x: 6, y: 1}
     extra: 0
   carryData:
-    type: 2
-    delay: 0
+    type: 0
+    delay: -1

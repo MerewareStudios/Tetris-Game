@@ -194,7 +194,7 @@ MonoBehaviour:
       amount: 75
     splitShotPrice:
     - type: 1
-      amount: 5
+      amount: 10
     unlockedAt: 15
   - currency:
       type: 0
@@ -210,10 +210,10 @@ MonoBehaviour:
     fireRatePrice:
     - type: 0
       amount: 25
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 75
+    - type: 1
+      amount: 5
+    - type: 1
+      amount: 5
     - type: 0
       amount: 100
     splitShotPrice:
@@ -223,27 +223,27 @@ MonoBehaviour:
       amount: 1
     unlockedAt: 20
   - currency:
-      type: 1
-      amount: 50
+      type: 0
+      amount: 400
     gunType: 28
     sprite: {fileID: 21300000, guid: b0c71ae055b38b04b82bf8cdbc8b4a8f, type: 3}
     defaultValues: 020000000100000001000000
     damagePrice:
+    - type: 1
+      amount: 8
+    - type: 1
+      amount: 8
+    - type: 1
+      amount: 8
+    - type: 2
+      amount: 1
+    fireRatePrice:
+    - type: 0
+      amount: 25
     - type: 0
       amount: 50
     - type: 0
       amount: 75
-    - type: 0
-      amount: 100
-    - type: 2
-      amount: 1
-    fireRatePrice:
-    - type: 1
-      amount: 2
-    - type: 1
-      amount: 4
-    - type: 1
-      amount: 6
     splitShotPrice:
     - type: 2
       amount: 1
@@ -286,7 +286,7 @@ MonoBehaviour:
     - type: 1
       amount: 25
     - type: 1
-      amount: 50
+      amount: 25
     - type: 2
       amount: 1
     fireRatePrice:
@@ -306,13 +306,13 @@ MonoBehaviour:
       amount: 175
     - type: 0
       amount: 200
-    - type: 2
-      amount: 1
+    - type: 0
+      amount: 250
     splitShotPrice:
     - type: 1
       amount: 25
     - type: 1
-      amount: 50
+      amount: 25
     - type: 2
       amount: 1
     unlockedAt: 40
@@ -324,87 +324,77 @@ MonoBehaviour:
     defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1
-      amount: 25
+      amount: 20
     - type: 1
-      amount: 25
+      amount: 20
     - type: 1
-      amount: 25
+      amount: 20
+    - type: 1
+      amount: 20
+    - type: 2
+      amount: 1
     fireRatePrice:
-    - type: 1
+    - type: 0
       amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
+    - type: 0
       amount: 50
-    - type: 1
+    - type: 0
       amount: 75
-    - type: 1
+    - type: 0
       amount: 100
-    - type: 1
+    - type: 0
       amount: 125
-    - type: 1
-      amount: 150
-    - type: 1
-      amount: 175
-    - type: 1
-      amount: 200
+    - type: 2
+      amount: 1
     splitShotPrice:
     - type: 1
       amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
+    - type: 2
+      amount: 1
     unlockedAt: 50
   - currency:
-      type: 0
-      amount: 1500
+      type: 2
+      amount: 1
     gunType: 32
     sprite: {fileID: 21300000, guid: 53b4750ed534c5542ac2b0f4399edf86, type: 3}
     defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1
-      amount: 50
+      amount: 20
     - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
+      amount: 20
+    - type: 2
+      amount: 1
     fireRatePrice:
     - type: 0
-      amount: 200
+      amount: 25
     - type: 0
-      amount: 200
+      amount: 50
     - type: 0
-      amount: 200
+      amount: 75
     - type: 0
-      amount: 200
+      amount: 100
     - type: 0
-      amount: 200
+      amount: 125
+    - type: 0
+      amount: 150
+    - type: 2
+      amount: 1
     splitShotPrice:
     - type: 1
-      amount: 50
+      amount: 10
     - type: 1
-      amount: 50
+      amount: 10
     - type: 1
-      amount: 50
+      amount: 10
     - type: 1
-      amount: 50
-    - type: 1
-      amount: 50
+      amount: 10
+    - type: 2
+      amount: 1
     unlockedAt: 60
   - currency:
       type: 0
-      amount: 3000
+      amount: 2500
     gunType: 33
     sprite: {fileID: 21300000, guid: 531071e6eb9041846a0c3196c5dfa9a1, type: 3}
     defaultValues: 010000000100000001000000
@@ -428,22 +418,10 @@ MonoBehaviour:
     - type: 2
       amount: 1
     fireRatePrice:
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
+    - type: 0
+      amount: 100
+    - type: 0
+      amount: 100
     - type: 2
       amount: 1
     splitShotPrice:
@@ -486,7 +464,7 @@ MonoBehaviour:
     currency:
       type: 1
       amount: 50
-    unlockedAt: 35
+    unlockedAt: 30
   - blockType: 8
     currency:
       type: 1
