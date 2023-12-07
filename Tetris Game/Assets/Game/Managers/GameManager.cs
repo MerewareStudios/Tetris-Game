@@ -132,7 +132,6 @@ public class GameManager : Singleton<GameManager>
         {
             if (Wallet.COIN.Amount >= 25)
             {
-                // ONBOARDING.WEAPON_TAB.SetComplete();
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;

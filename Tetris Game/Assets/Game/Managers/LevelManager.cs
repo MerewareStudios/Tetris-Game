@@ -102,7 +102,7 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.PLAYING = false;
         
         GameManager.THIS.OnFail();
-        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.25f, GetFailReward(), CurrentLevel);
+        SlashScreen.THIS.Show(SlashScreen.State.Fail, 0.1f, GetFailReward(), CurrentLevel);
         
         AnalyticsManager.LevelEnd(GAProgressionStatus.Fail);
     }

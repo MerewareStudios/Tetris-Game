@@ -61,6 +61,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.WEAPON_TAB.IsComplete();
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
+        UIManager.THIS.settingsCanvas.enabled = ONBOARDING.WEAPON_TAB.IsComplete();
     }
 }
 public static class SaveManagerExtensions
@@ -227,7 +228,6 @@ public enum ONBOARDING
     
     USE_POWERUP,
     PLACE_POWERUP,
-    
 }
 
 #if UNITY_EDITOR

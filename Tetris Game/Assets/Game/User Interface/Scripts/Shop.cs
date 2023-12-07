@@ -47,6 +47,7 @@ public class Shop : MonoBehaviour
             }
             
             UIManager.THIS.PlusButtonsState = true;
+            UIManager.THIS.settingsCanvas.enabled = true;
             
             MenuNavigator.THIS.SetLastMenu(MenuType.Weapon);
             Onboarding.HideFinger();

@@ -26,6 +26,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private PowerSelectionScreen powerSelectionScreen;
    [SerializeField] private StatDisplayArranger statDisplayArranger;
    [SerializeField] private OfferScreen offerScreen;
+   [SerializeField] public Canvas settingsCanvas;
    [Header("Bars")]
    [SerializeField] public Shop shop;
    [Header("UI Emitter")]
@@ -105,8 +106,8 @@ public class UIManager : Singleton<UIManager>
       
       AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
 
-      Consent.GetRestartButtonState = () => ONBOARDING.WEAPON_TAB.IsComplete()
-                                            && GameManager.PLAYING
+      Consent.GetRestartButtonState = () => GameManager.PLAYING
+      // Consent.GetRestartButtonState = () => ONBOARDING.WEAPON_TAB.IsComplete()
                                             && MaxSdk.IsUserConsentSet();  
       
       OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
@@ -226,6 +227,12 @@ public class UIManager : Singleton<UIManager>
    {
       PiggyMenu.THIS.Open(0.225f);
       AdManager.THIS.TryInterstitial();
+   }
+   public void AdLayerClick_Concede()
+   {
+      LevelManager.THIS.OnClick_Restart();
+      AdManager.THIS.PrependInterstitial();
+      // AdManager.THIS.TryInterstitial();
    }
 #endregion
 #region Offer

@@ -87,8 +87,14 @@ namespace IWI
             }
             if (Time.time - _Data.LastTimeAdShown > adTimeInterval)
             {
+                Debug.Log("show");
                 ShowAdBreak();
             }
+        }
+
+        public void PrependInterstitial()
+        {
+            _Data.LastTimeAdShown = (int)(Time.time - adTimeInterval) - 1;
         }
         
         // private void InitMRec()

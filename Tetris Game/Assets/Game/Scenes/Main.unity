@@ -3257,6 +3257,7 @@ MonoBehaviour:
   powerSelectionScreen: {fileID: 7372172419621164077}
   statDisplayArranger: {fileID: 4562074639441518961}
   offerScreen: {fileID: 9186680055652302901}
+  settingsCanvas: {fileID: 1154082534}
   shop: {fileID: 213108305}
   coinEmitter: {fileID: 1775779537}
   piggyCoinEmitter: {fileID: 1754738092}
@@ -3824,8 +3825,8 @@ MonoBehaviour:
       interWatchCount: 0
     purchaseData:
       offers: 
-  DELETE_AT_START: 0
-  SKIP_ONBOARDING: 0
+  DELETE_AT_START: 1
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4415,7 +4416,7 @@ Transform:
   m_GameObject: {fileID: 860089791}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.033, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11480,16 +11481,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 715436861}
+      objectReference: {fileID: 715436858}
     - target: {fileID: 4842650522790992143, guid: 11eeaf7bb22381548ad05dfc878c51af,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClick_Restart
+      value: AdLayerClick_Concede
       objectReference: {fileID: 0}
     - target: {fileID: 4842650522790992143, guid: 11eeaf7bb22381548ad05dfc878c51af,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LevelManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20648,7 +20649,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: -105}
+  m_RaycastPadding: {x: -62, y: -67, z: -62, w: -218}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
