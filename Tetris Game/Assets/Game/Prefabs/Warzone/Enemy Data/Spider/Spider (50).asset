@@ -116,7 +116,7 @@ MonoBehaviour:
   emitCount: 3
   deathEmitCount: 5
   wipeDelay: 0.7
-  crossSize: 1.25
+  crossSize: 0.9
   castType: 0
   deathAction: 1
   spawnerCount: 5

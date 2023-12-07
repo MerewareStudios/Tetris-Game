@@ -61,9 +61,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32b75230acd62d64996f291a12575355, type: 2}
   - {fileID: 11400000, guid: 5a1ae794d7a5eb24fa98cd1fa36e6181, type: 2}
   - {fileID: 11400000, guid: 4a009c2cd89326f45b1009316b8b88fb, type: 2}
-  - {fileID: 11400000, guid: 4a009c2cd89326f45b1009316b8b88fb, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: dcd399affde9f9246b22137e457bc278, type: 2}
+  - {fileID: 11400000, guid: e28f396e92ca9fa4e9ac8feb548d4933, type: 2}
+  - {fileID: 11400000, guid: 0adaa5c43f9934d4d832bbeeb6613699, type: 2}
   AutoGenerateEnemyDatas:
   - {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
   - {fileID: 11400000, guid: 53cb06763de1ecb498d7e2946d1b15fb, type: 2}
@@ -633,7 +633,7 @@ MonoBehaviour:
   DefaultPlayerData:
     currentHealth: 1
   DefaultUserData:
-    level: 46
+    level: 49
     pupData:
       available: 1
       currentUsage: 4
@@ -644,11 +644,11 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 33333
+      value: 1
     gemTransactionData:
-      value: 33333
+      value: 1
     adTransactionData:
-      value: 33333
+      value: 1
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0

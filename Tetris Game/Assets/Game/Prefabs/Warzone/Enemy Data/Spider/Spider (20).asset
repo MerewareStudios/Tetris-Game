@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Spider (25)
+  m_Name: Spider (20)
   m_EditorClassIdentifier: 
   type: 67
-  scale: {x: 0.8, y: 0.8, z: 0.8}
+  scale: {x: 0.65, y: 0.65, z: 0.65}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,17 +109,17 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 25
+  maxHealth: 40
   speed: 0.075
   forwardRange: {x: 1, y: 1}
   radius: 0.6
-  emitCount: 3
-  deathEmitCount: 5
+  emitCount: 10
+  deathEmitCount: 35
   wipeDelay: 0.7
-  crossSize: 0.8
+  crossSize: 0.6
   castType: 0
-  deathAction: 0
-  spawnerCount: 0
+  deathAction: 1
+  spawnerCount: 3
   spawnerDuration: 0
   spawnerExtra: 0
-  extraData: {fileID: 0}
+  extraData: {fileID: 11400000, guid: cef3a9f1e6c7ad64888fae445b22edd5, type: 2}
