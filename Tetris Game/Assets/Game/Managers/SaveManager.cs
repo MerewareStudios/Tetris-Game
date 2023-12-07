@@ -230,27 +230,3 @@ public enum ONBOARDING
     PLACE_POWERUP,
 }
 
-#if UNITY_EDITOR
-namespace  Game.Editor
-{
-    using UnityEditor;
-
-    [CustomEditor(typeof(SaveManagerBase<SaveManager>), true)]
-    [CanEditMultipleObjects]
-    public class SaveManagerBaseGUI : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            if (Application.isPlaying && GUILayout.Button(new GUIContent("Create Save Point", "Create save point.")))
-            {
-                SaveSO saveSo = ScriptableObject.CreateInstance<SaveSO>();
-                saveSo.saveData = SaveManager.THIS.saveData.Clone() as SaveData;
-                
-                AssetDatabase.CreateAsset(saveSo, "Assets/Game/Managers/Save SO/" + saveSo.saveData.accountData.guid + ".asset");
-                AssetDatabase.SaveAssets();
-            }
-            DrawDefaultInspector();
-        }
-    }
-}
-#endif

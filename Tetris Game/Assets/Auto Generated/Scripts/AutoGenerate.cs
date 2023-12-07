@@ -166,10 +166,15 @@ namespace Internal.Core
         // {
         //     UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal("Assets/Game/Managers/EventManager.cs", 1);
         // }
-        [MenuItem("PREFS/Clear Player Prefs")]
+        [MenuItem("SAVE/Clear Player Prefs")]
         private static void ClearPlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
+        }
+        [MenuItem("SAVE/Clear Save")]
+        private static void ClearSave()
+        {
+            SaveManager.Delete();
         }
         // [MenuItem("PREFS/Clear Editor Prefs")]
         // private static void ClearEditorPrefs()

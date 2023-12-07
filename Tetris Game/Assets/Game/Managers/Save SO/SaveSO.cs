@@ -24,7 +24,7 @@ namespace  Game.Editor
         {
             if (GUILayout.Button(new GUIContent("USE", "Use save point. Disables DELETE_ON_START")))
             {
-                SaveManager.THIS.Save(((SaveSO)target).saveData);
+                SaveManager.Save(((SaveSO)target).saveData);
             }
             DrawDefaultInspector();
         }

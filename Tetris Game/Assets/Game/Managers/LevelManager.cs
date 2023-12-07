@@ -21,6 +21,9 @@ public class LevelManager : Singleton<LevelManager>
     public void LoadLevel()
     {
         LevelSo = Const.THIS.GetLevelSo(CurrentLevel);
+        #if UNITY_EDITOR
+            SaveManager.CreateSavePoint("Level " + CurrentLevel);
+        #endif
         AnalyticsManager.LevelStart(CurrentLevel);
 
         Board.THIS.Construct(BoardSize());

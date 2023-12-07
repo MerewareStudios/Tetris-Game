@@ -1,16 +1,21 @@
+using System.IO;
+using Game;
 using Internal.Core;
+using UnityEditor;
 using UnityEngine;
 
 public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 {
     [SerializeField] public SaveData saveData;
     [SerializeField] public bool DELETE_AT_START;
+    
+    private static string SavePath => Path.Combine(Application.persistentDataPath, "Data.json");
 
     public virtual void Awake()
     {
         if (DELETE_AT_START)
         {
-            PlayerPrefs.DeleteAll();
+            Delete();
         }
         Load();
     }
@@ -20,22 +25,58 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         Save(saveData);
     }
 
-    public void Save(SaveData data)
+    public static void Save(SaveData data)
     {
         Save(JsonUtility.ToJson(data));
     }
-    public void Save(string str)
+    public static void Save(string content)
     {
-        if (!string.IsNullOrEmpty(str))
+        if (!string.IsNullOrEmpty(content))
         {
-            PlayerPrefs.SetString(nameof(SaveData), str);
+            File.WriteAllText(SavePath, content);
         }
+    }
+
+    public static void CreateSavePoint(string prefix)
+    {
+        SaveSO saveSo = ScriptableObject.CreateInstance<SaveSO>();
+        saveSo.saveData = SaveManager.THIS.saveData.Clone() as SaveData;
+
+        string path = "Assets/Game/Managers/Save SO";
+
+        if (!AssetDatabase.IsValidFolder(path))
+        {
+            AssetDatabase.CreateFolder(path, saveSo.saveData.accountData.guid);
+        }
+        
+        AssetDatabase.CreateAsset(saveSo, Path.Combine("Assets/Game/Managers/Save SO", saveSo.saveData.accountData.guid, prefix + ".asset"));
+        AssetDatabase.SaveAssets();
     }
 
     private void Load()
     {
-        string inputString = PlayerPrefs.GetString(nameof(SaveData), "");
-        saveData = string.IsNullOrEmpty(inputString) ? null : JsonUtility.FromJson<SaveData>(inputString);
+        saveData = null;
+        if (!File.Exists(SavePath))
+        {
+            return;
+        }
+        string inputString = File.ReadAllText(SavePath);
+
+        if (string.IsNullOrEmpty(inputString))
+        {
+            return;
+        }
+        saveData = JsonUtility.FromJson<SaveData>(inputString);
+    }
+
+    public static void Delete()
+    {
+        if (!File.Exists(SavePath))
+        {
+            return;
+        }
+        File.Delete(SavePath);
+        Debug.LogWarning("Save file deleted.");
     }
 
 #if UNITY_EDITOR
@@ -60,3 +101,23 @@ public partial class SaveData : System.ICloneable
     // [SerializeField] public string baseInfo = "SAVE END";
 }
 
+#if UNITY_EDITOR
+namespace  Game.Editor
+{
+    using UnityEditor;
+
+    [CustomEditor(typeof(SaveManagerBase<>), true)]
+    [CanEditMultipleObjects]
+    public class SaveManagerBaseGUI : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            if (Application.isPlaying && GUILayout.Button(new GUIContent("Create Save Point", "Create save point.")))
+            {
+                SaveManager.CreateSavePoint("Manual");
+            }
+            DrawDefaultInspector();
+        }
+    }
+}
+#endif
