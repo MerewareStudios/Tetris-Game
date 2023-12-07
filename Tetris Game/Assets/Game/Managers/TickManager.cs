@@ -83,26 +83,4 @@ public class TickManager : Singleton<TickManager>
 			_coroutine = null;
 		}
 	}
-	
- //    public static TickManager operator +(TickManager tickManager, ITickable tickable)
- //    {
- //        tickManager.AddTickable(tickable);
- //        return tickManager;
- //    }
- //    public static TickManager operator -(TickManager tickManager, ITickable tickable)
- //    {
- //        tickManager.RemoveTickable(tickable);
- //        return tickManager;
- //    }
- //    public static TickManager operator +(TickManager tickManager, CustomTickable customTickable)
- //    {
- //        tickManager.AddCustomTickable(customTickable);
- //        return tickManager;
- //    }
- //    public static TickManager operator -(TickManager tickManager, CustomTickable customTickable)
- //    {
- //        tickManager.RemoveCustomTickable(customTickable);
- //        return tickManager;
- //    }
- //
 }

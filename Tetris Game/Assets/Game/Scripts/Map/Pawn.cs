@@ -250,7 +250,6 @@ namespace Game
                 case Usage.Empty:
                     break;
                 case Usage.Ammo:
-                    // rewardAmount = 2;
                     break;
                 case Usage.UnpackedAmmo:
                     break;
@@ -349,7 +348,7 @@ namespace Game
         #region Colors
         public void MarkSteadyColor()
         {
-            if (this.UsageType.Equals(Usage.UnpackedAmmo)) // not powerup
+            if (this.UsageType.Equals(Usage.UnpackedAmmo))
             {
                 SubModel.BaseColor = Const.THIS.steadyColor;
             }
@@ -390,12 +389,10 @@ namespace Game
         {
             if (Busy)
             {
-                // Debug.Log("Busy cannot move", this.gameObject);
                 return;
             }
             if (!Mover)
             {
-                // Debug.Log("Not mover", this.gameObject);
                 return;
             }
             
@@ -406,15 +403,8 @@ namespace Game
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
             if (forwardPlace)
             {
-                forwardPlace.Accept(this, moveDuration); // 3
+                forwardPlace.Accept(this, moveDuration);
             }
-#if UNITY_EDITOR
-            else
-            {
-                Debug.LogError("Forward null", this.gameObject);
-                Debug.Break();
-            }
-#endif        
         }
 
         public void Check(Place checkerPlace)
@@ -430,13 +420,13 @@ namespace Game
         {
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
 
-            if (!forwardPlace) // if at the edge of the map
+            if (!forwardPlace)
             {
                 Mover = false;
                 return;
             }
 
-            if (forwardPlace.Occupied && !forwardPlace.Current.Mover) // if front place is occupied and not a mover
+            if (forwardPlace.Occupied && !forwardPlace.Current.Mover)
             {
                 Mover = false;
                 return;

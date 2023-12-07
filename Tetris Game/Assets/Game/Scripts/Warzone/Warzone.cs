@@ -20,13 +20,9 @@ namespace  Game
         [System.NonSerialized] public float EndLine;
         [System.NonSerialized] public float SpawnRange;
 
-        //Routines
         [System.NonSerialized] private Coroutine _spawnRoutine = null;
         [System.NonSerialized] private List<Enemy> _enemies = new();
-        // [System.NonSerialized] private float _spawnRangeNorm = 0.5f;
         [System.NonSerialized] private int _enemyID = 0;
-        // [System.NonSerialized] private const float SpawnMinOffset = 0.2f;
-        // [System.NonSerialized] private const float SpawnMaxOffset = 1.0f - SpawnMinOffset;
 
         [System.NonSerialized] private readonly List<SubModel> _landMines = new();
         
@@ -35,8 +31,6 @@ namespace  Game
         public bool HasEnemy => _enemies.Count > 0;
         public bool IsCleared => !Spawning && !HasEnemy;
         public int EnemyCount => _enemies.Count;
-        // private int _totalEnemyHealth;
-        // private int _leftEnemyHealth;
         public Enemy GetEnemy(int index) => _enemies[index];
         public int GetNewEnemyID() => ++_enemyID;
 
@@ -118,9 +112,6 @@ namespace  Game
                 float coinPerHealth = totalCoinLeft / (float)totalHealth;
 
                 
-                // yield return new WaitForSeconds(0.25f);
-                
-                
                 Player.StartSearching();
                 
                 if (LevelManager.LevelSo.countdown > 0)
@@ -145,9 +136,6 @@ namespace  Game
                 }
 
 
-                // _spawnRangeNorm = 0.0f;
-
-                
                 while (true)
                 {
                     LevelSo.EnemySpawnDatum enemySpawnDatum = LevelManager.LevelSo.enemySpawnData[spawnIndex];
@@ -259,7 +247,6 @@ namespace  Game
 
         public Vector3 RandomPos(float forwardPercent)
         {
-            // _spawnRangeNorm = Mathf.Repeat(_spawnRangeNorm + Random.Range(SpawnMinOffset, SpawnMaxOffset), 1.0f);
             return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, Mathf.Lerp(EndLine, StartLine, forwardPercent));
         }
         
@@ -385,10 +372,6 @@ namespace  Game
         public void OnVictory()
         {
             StopSpawning();
-            // foreach (var enemy in _enemies)
-            // {
-            //     enemy.OnVictory();
-            // }
             Player.OnVictory();
         }
 
@@ -396,10 +379,6 @@ namespace  Game
         {
             Announcer.THIS.Stop();
             StopSpawning();
-            // foreach (var enemy in _enemies)
-            // {
-            //     enemy.OnFail();
-            // }
             Player.OnFail();
         }
 

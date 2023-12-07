@@ -19,13 +19,7 @@ namespace Game
         [SerializeField] public Board.SuggestedBlock[] suggestedBlocks;
         [SerializeField] public Board.PawnPlacement[] pawnPlacements;
         [SerializeField] public Airplane.CarryData carryData;
-        // [SerializeField] public Pawn.Usage[] powerUps;
 
-
-        public const int MinAutoWidth = 5;
-        public const int MaxAutoWidthAdded = 4;
-        
-        
         [System.Serializable]
         public class EnemySpawnDatum
         {
@@ -36,49 +30,6 @@ namespace Game
             [SerializeField] public float delay = 0;
         } 
         
-        // public (string, int) ToString(int level)
-        // {
-        //     int totalReward = 0;
-        //     StringBuilder stringBuilder = new StringBuilder();
-        //     
-        //     stringBuilder.AppendLine("<color=black>" + "Level " + level + "</color>");
-        //     stringBuilder.Append("<color=white>" + "Delta Mult : " + deltaMult + "</color>");
-        //     stringBuilder.Append("<color=white>" + " | Board Size : " + boardSize.x + "x" + boardSize.y + "</color>");
-        //     stringBuilder.AppendLine("<color=white>" + " | Spawn Interval : " + EnemySpawnData.spawnInterval + "</color>");
-        //
-        //     int totalHealth = 0;
-        //     
-        //     foreach (var countData in EnemySpawnData.countDatas)
-        //     {
-        //         int enemyTotalReward = countData.enemyData.enemyRewards[0].amount * countData.count;
-        //         stringBuilder.AppendLine("<color=red>" + countData.enemyData.name + " x" + countData.count + " (" + (countData.enemyData.maxHealth * countData.count) + ") : " + enemyTotalReward + "</color>");
-        //
-        //         totalReward += enemyTotalReward;
-        //         totalHealth += countData.enemyData.maxHealth * countData.count;
-        //     }
-        //     int nuggetCount = 0;
-        //     foreach (var pawnPlacement in pawnPlacements)
-        //     {
-        //         if (pawnPlacement.usage.Equals(Pawn.Usage.Nugget))
-        //         {
-        //             nuggetCount++;
-        //         }
-        //     }
-        //     if (nuggetCount > 0)
-        //     {
-        //         totalReward += nuggetCount * 10;
-        //         stringBuilder.AppendLine("<color=yellow>" + "Nugget x" + nuggetCount + " : " + (nuggetCount * 10) + "</color>");
-        //     }
-        //     stringBuilder.AppendLine("<color=magenta>" + "Victory Reward : " + victoryReward.amount + "</color>");
-        //     
-        //     totalReward += victoryReward.amount;
-        //     
-        //     stringBuilder.Append("<color=cyan>" + "Total Reward : " + totalReward + " | Total Health : " + totalHealth + "</color>");
-        //     
-        //     return (stringBuilder.ToString(), totalReward);
-        // }
-
-
         public static LevelSo AutoGenerate(int seed)
         {
             Random.InitState(seed);

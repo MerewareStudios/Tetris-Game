@@ -15,7 +15,6 @@ namespace Game
         [SerializeField] private Transform crossHair;
         [SerializeField] private Transform crossHairScalePivot;
         [SerializeField] public MeshRenderer crossHairMR;
-        // [SerializeField] public Material bulletGenericMaterial;
         [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
         
         [System.NonSerialized] private Tween _crossColorTween;
@@ -28,16 +27,11 @@ namespace Game
         [System.NonSerialized] private Enemy _currentEnemy = null;
         
         [System.NonSerialized] public float AutoEnemySortInterval = 1.0f;
-        // [System.NonSerialized] private float _bubbleShootStamp = 0.0f;
 
         public float Emission
         {
             set => skin.sharedMaterial.SetColor(GameManager.EmisKey, emissionGradient.Evaluate(value));
         }
-        // public int BulletColorByMult
-        // {
-        //     set => bulletGenericMaterial.SetColor(GameManager.BaseColor, Const.THIS.bulletColors.At(value - 1));
-        // }
 
         public Enemy CurrentEnemy
         {
@@ -70,7 +64,6 @@ namespace Game
         [System.NonSerialized] public static readonly int SHOW_HASH = Animator.StringToHash("Show");
         [System.NonSerialized] public static readonly int POINT_HASH = Animator.StringToHash("Point");
 
-        // public static int RANDOM_DEATH_HASH => DEATH_HASHES.Random(); 
 #region  Mono
 
         void Start()
@@ -141,7 +134,6 @@ namespace Game
                 }
 
                 Gun._Data = new Gun.Data(value);
-                // Debug.Log(Gun._Data);
             }
             get => Gun._Data;
         }
@@ -161,16 +153,11 @@ namespace Game
             {
                 animator.SetTrigger(SHOOT_HASH);
 
-                // if (Time.time - _bubbleShootStamp >= 0.5f)
-                // {
                 Gun.Bubble();
-                    // _bubbleShootStamp = Time.time;
-                // }
 
                 if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
                 {
                     Onboarding.TalkAboutNeedMoreAmmo();
-                    // ONBOARDING.PASSIVE_NEED.SetComplete();
                     ONBOARDING.ALL_BLOCK_STEPS.SetComplete();
                     return;
                 }
@@ -250,10 +237,7 @@ namespace Game
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
                             Shoot(givenBulletCount);
-                            // if (givenBulletCount > 0)
-                            // {
                             Gun._Data.PrevShoot = _Data.Time;
-                            // }
                         }
 
                         _Data.Time += Time.deltaTime;
@@ -270,11 +254,6 @@ namespace Game
                 }
             }
         }
-
-        // public void AdvanceShoot()
-        // {
-        //     Gun._Data.prevShoot = _Data.Time - Gun._Data.FireInterval + 0.2f;
-        // }
 
         public void StopSearching()
         {
@@ -295,11 +274,9 @@ namespace Game
             
             crossHair.gameObject.SetActive(false);
             crossHair.position = new Vector3(0.0f, 0.0f, 30.0f);
-            // crossHair.position = new Vector3(0.0f, 0.0f, 25.0f);
 
             Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;
-            // BulletColorByMult = 1;
 
             if (_shouldGetUp)
             {
@@ -347,12 +324,10 @@ namespace Game
             {
                 this.Time = 0.0f;
                 this.currentHealth = 0;
-                // this.TurnRate = 6;
             }
             public Data(Data data)
             {
                 this.currentHealth = data.currentHealth;
-                // this.TurnRate = data.TurnRate;
             }
 
             public object Clone()

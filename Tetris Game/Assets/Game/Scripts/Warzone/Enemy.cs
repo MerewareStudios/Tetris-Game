@@ -31,7 +31,6 @@ namespace  Game
         private static int HIT_CROSS = Animator.StringToHash("Base Layer.Hit");
         private static int CAST_HASH = Animator.StringToHash("Cast");
         private static int CASTING_BOOL_HASH = Animator.StringToHash("Casting");
-        // private static int CAN_WALK_HASH = Animator.StringToHash("CanWalk");
 
         public int Damage => Health;
         public Vector3 Position => thisTransform.position;
@@ -222,7 +221,6 @@ namespace  Game
             float finalDrag = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance);
             
             thisTransform.DOKill();
-            // thisTransform.localScale = Vector3.one;
             thisTransform.DOMoveZ(finalDrag, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>
             {
                 _dragTrail.Despawn(Pool.Drag_Trail);
@@ -289,13 +287,10 @@ namespace  Game
 
             _wipeTween?.Kill();
 
-            // float t = Time.realtimeSinceStartup;
-            // Debug.Log("checking end level after delay : " + so.wipeDelay + " " + t);
             _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
-                // Debug.Log("checked" + " " + (Time.realtimeSinceStartup - t));
                 this.Deconstruct();
                 LevelManager.THIS.CheckEndLevel();
             }, false);
@@ -328,17 +323,6 @@ namespace  Game
             }
         }
     #endregion
-
-        // public void OnVictory()
-        // {
-        //     
-        // }
-        //
-        // public void OnFail()
-        // {
-        //     _castTweenLoop?.Kill();
-        //
-        // }
 
         public void Deconstruct()
         {

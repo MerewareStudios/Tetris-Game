@@ -1,11 +1,5 @@
-using System;
 using DG.Tweening;
-using Game;
-using Internal.Core;
-using IWI;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LoanBar : MonoBehaviour
@@ -59,7 +53,5 @@ public class LoanBar : MonoBehaviour
         {
             return;
         }
-        // MakeUnavailable(Const.THIS.adSettings.loanBarProtectionInterval);
-        // Spawner.THIS.InterchangeBlock(Pool.Single_Block, Pawn.Usage.HorMerge);
     }
 }

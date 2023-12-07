@@ -50,7 +50,6 @@ namespace Game.UI
             }
             Visible = false;
             
-            // _blocker.raycastTarget = true;
             _showTween?.Kill();
             _showTween = canvasGroup.DOFade(0.0f, duration).SetEase(Ease.InOutSine).SetDelay(delay).SetUpdate(true);
             _showTween.onComplete = () =>

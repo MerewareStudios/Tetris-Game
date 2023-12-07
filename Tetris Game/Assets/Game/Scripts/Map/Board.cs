@@ -107,7 +107,6 @@ namespace Game
                         _places[i, j] = place;
                         place.Index = new Vector2Int(i, j);
                         place.Construct();
-                        // place.Warmup();
                     }
                 }
 
@@ -333,7 +332,7 @@ namespace Game
                 {
                     continue;
                 }
-                place.Current.MoveForward(place, _tick, moveDuration); // 2
+                place.Current.MoveForward(place, _tick, moveDuration);
             }
         }
         public void CheckAll()
@@ -545,7 +544,6 @@ namespace Game
                         if (place.Current && !place.Current.Connected)
                         {
                             place.Current.Mover = true;
-                            // place.Current.JumpUp(0.2f, 0.3f, (j - y) * 0.075f + 0.25f);
                         }
                     }
                 }
@@ -627,7 +625,6 @@ namespace Game
                 CreatePawnAtHorizontal(horIndex, lineIndex, lines.Count, mergeIndex);
             }
             
-            // OnMerge?.Invoke(lines.Count);
             OnMerge?.Invoke();
 
             for (int i = 0; i < lines.Count; i++)
@@ -737,7 +734,6 @@ namespace Game
                 {
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
-                    // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                 };
             }
 
@@ -837,13 +833,11 @@ namespace Game
             {
                 lastTween.onComplete += () =>
                 {
-                    // CameraManager.THIS.Shake(0.2f, 0.5f);
                     CameraManager.THIS.Shake(Random.Range(0.3f, 0.4f), 0.5f);
 
                     if (totalAmmo > 0)
                     {
                         Particle.Debris.Emit(30, spawnPlace.Position);
-                        // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(spawnPlace.Position + new Vector3(0.0f, 0.6f, 0.0f));
                     }
                 };
             }
@@ -907,7 +901,6 @@ namespace Game
                     RemovePawn(place);
 
                     Particle.Debris.Emit(30, place.Position);
-                    // Pool.Cube_Explosion.Spawn<CubeExplosion>().Explode(place.Position + new Vector3(0.0f, 0.6f, 0.0f));
                 }
             }
         }
@@ -968,7 +961,6 @@ namespace Game
                 if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
                 {
                     place.Current.Mover = true;
-                    // place.Current.JumpUp(0.2f, 0.3f, (verticalIndex - y - 1) * 0.075f);
                 }
             });
         }
@@ -986,7 +978,6 @@ namespace Game
                     if (place.Current
                         && place.Current.UsageType.Equals(Pawn.Usage.Ammo)
                         && place.Current.Amount > 0
-                        // && !place.Current.Mover
                         && !place.Current.Busy
                         && place.Current.Available)
                     {
@@ -1040,7 +1031,6 @@ namespace Game
                 
                 place.Accept(currentPawn, 0.1f, () =>
                 {
-                    // currentPawn.Busy = false;
                     place.Current.Check(place);
                     Map.THIS.MapWaitForCycle = true;
                 });
@@ -1273,14 +1263,11 @@ namespace Game
 
                             Place place = Project(finalPos);
                             
-                            // Helper.Sphere(finalPos + Vector3.up, 0.5f, Color.red, 0.5f);
-
                             if (!place)
                             {
                                 found = false;
                                 break;
                             }
-                            // Helper.Sphere(place.Position + Vector3.up * 1.5f, 0.15f, Color.blue, 0.5f);
 
                             foundPlaces.Add(place);
                         }

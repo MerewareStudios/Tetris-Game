@@ -100,8 +100,6 @@ public class GameManager : Singleton<GameManager>
         OfferScreen.THIS.CheckForUnpack(2.5f);
         
         UIManagerExtensions.DistortWarmUp();
-
-        // Const.THIS.PrintLevelData();
     }
 
     public void MarkTabStepsComplete()
@@ -123,7 +121,6 @@ public class GameManager : Singleton<GameManager>
         {
             if (Wallet.COIN.Amount >= 10)
             {
-                // ONBOARDING.BLOCK_TAB.SetComplete();
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;

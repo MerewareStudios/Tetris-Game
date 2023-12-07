@@ -41,8 +41,7 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
         InitializeGamingServies(
             () =>
             {
-                // var text = "Congratulations!\nUnity Gaming Services has been successfully initialized.";
-                // Debug.Log(text);
+                
             },
             message =>
             {
@@ -101,8 +100,6 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     {
         if (_productCollection == null)
         {
-            // Debug.LogError("Product collection is null");
-
             return 0;
         }
 #if UNITY_EDITOR
@@ -137,22 +134,14 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
             .Select(ri => ri.CurrencySymbol)
             .FirstOrDefault();
 
-        // Debug.LogError(_localCurrencySymbol);
         return _localCurrencySymbol ?? isoCode;
     }
 
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
-        // Debug.Log("In-App Purchasing successfully initialized");
         _storeController = controller;
         this._productCollection = _storeController.products;
-        
-        // Product productRemoveAdBreak = _productCollection.WithID(RemoveAdBreakID);
-        // if (productRemoveAdBreak != null && productRemoveAdBreak.hasReceipt)
-        // {
-        //     AdManager.Bypass.Ads();
-        // }
     }
     
     
@@ -175,19 +164,15 @@ public class IAPManager : Singleton<IAPManager>, IDetailedStoreListener
     {
         var product = args.purchasedProduct;
         OnPurchaseFinish?.Invoke(product.definition.id, true);
-        // Debug.Log($"Purchase Complete - Product: {product.definition.id}");
         return PurchaseProcessingResult.Complete;
     }
 
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        // Debug.Log($"Purchase failed - Product: '{product.definition.id}', PurchaseFailureReason: {failureReason}");
+        
     }
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
         OnPurchaseFinish?.Invoke(product.definition.id, false);
-        // Debug.Log($"Purchase failed - Product: '{product.definition.id}'," +
-                  // $" Purchase failure reason: {failureDescription.reason}," +
-                  // $" Purchase failure details: {failureDescription.message}");
     }
 }

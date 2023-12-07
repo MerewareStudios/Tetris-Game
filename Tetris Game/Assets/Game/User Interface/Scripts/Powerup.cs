@@ -187,19 +187,10 @@ public class Powerup : Lazyingleton<Powerup>
         
         _data.available = true;
         SetPowerup(Pawn.Usage.Empty, byPassUse:true);
-        // SetPowerup(LevelManager.GetRandomPowerUp());
         PunchCost(50.0f);
         PowerSelectionScreen.THIS.Open();
 
-        // UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
-        //     (value) =>
-        //     {
-        //           
-        //     },
-        //     () =>
-        //     {
         OpenAnimated(true);
-            // });
 
         
         _Data.purchaseCount++;

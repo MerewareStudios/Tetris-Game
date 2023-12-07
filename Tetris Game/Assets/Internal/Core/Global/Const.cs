@@ -19,12 +19,9 @@ public class Const : SSingleton<Const>
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
     [Header("Auto")]
-    public EnemyData[] AutoGenerateEnemyDatas;
-    public EnemyData[] AutoGenerateEnemySpanwerDatas;
-    public PawnPlacement[] AutoGeneratePawnPlacements;
+    public LevelSo[] AutoLevels;
 
     public Pawn.Usage[] gifts;
-    public Pawn.Usage[] powerUps;
     [Header("Colors")] 
     public Color steadyColor;
     public Gradient mergeGradient;
@@ -42,10 +39,6 @@ public class Const : SSingleton<Const>
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;
-    [Header("Purchase Option")] 
-    public Color defaultFrameColor;
-    public Color acceptedFrameColor;
-    public Color deniedFrameColor;
     [Header("Hit")] 
     public Gradient hitGradient;
     public AnimationCurve hitScaleCurve;
@@ -110,13 +103,9 @@ public class Const : SSingleton<Const>
         Local,
     }
 
-    public EnemyData GetRandomEnemyData()
+    public LevelSo GetAutoLevel(int index)
     {
-        return AutoGenerateEnemyDatas.Random();
-    }
-    public EnemyData GetRandomSpawnerEnemyData()
-    {
-        return AutoGenerateEnemySpanwerDatas.Random();
+        return AutoLevels[index % AutoLevels.Length];
     }
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)
     {
@@ -125,46 +114,6 @@ public class Const : SSingleton<Const>
         text.color = Const.THIS.metaTextColors[enumInt];
         text.fontSharedMaterial = Const.THIS.metaTextMaterials[enumInt];
     }
-
-    public Board.PawnPlacement[] GetRandomPawnPlacement(Vector2Int boardSize)
-    {
-        if (Helper.IsPossible(0.5f))
-        {
-            return null;
-        }
-        return AutoGeneratePawnPlacements[boardSize.x - LevelSo.MinAutoWidth].data.Random().PawnPlacements;
-    }
-    
-    // public void PrintLevelData()
-    // {
-    //     int accumReward = 0;
-    //     for (int i = 0; i < Levels.Length; i++)
-    //     {
-    //         string colorTag;
-    //         
-    //         LevelSo levelSo = Levels[i];
-    //         (string info, int totalReward) = levelSo.ToString(i + 1);
-    //         accumReward += totalReward;
-    //
-    //         int accumDisplayed = accumReward;
-    //         if ((i+1) % 5 == 0)
-    //         {
-    //             colorTag = "yellow";
-    //             accumReward = 0;
-    //         }
-    //         else
-    //         {
-    //             colorTag = "cyan";
-    //         }
-    //         Debug.Log(info + " | <color=" + colorTag + ">Accum Reward : " + accumDisplayed + "</color>");
-    //         
-    //     }
-    // }
-
-    // public Sprite GetButtonSprite(CurrencyType currencyType)
-    // {
-    //     return buttonSprites[(int)currencyType];
-    // }
 }
 
 public static class ConstExtensions

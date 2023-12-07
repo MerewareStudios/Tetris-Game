@@ -101,7 +101,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 [System.Serializable]
 public partial class SaveData : System.ICloneable
 {
-    // [SerializeField] public string baseInfo = "SAVE END";
+    
 }
 
 #if UNITY_EDITOR

@@ -26,8 +26,6 @@ public class BlockVisualGrid : MonoBehaviour
                 blocks[i].transform.localScale = Vector3.one;
                 blocks[i].transform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
             }
-            // bullets[i].text = GetAmmoImage(lookUp[i]);
-            // bullets[i].text = GetAmmoImage(lookUp[i]);
         }
     }
 

@@ -34,28 +34,22 @@ namespace Game.UI
         public int AvailablePurchaseCount(bool updatePage)
         {
             base.TotalNotify = 0;
-            // bool firstIndexSet = false;
             for (int i = 0; i < Const.THIS.DefaultBlockData.Length; i++)
             {
                 BlockData lookUp = Const.THIS.DefaultBlockData[i];
                 Const.Currency cost = lookUp.Cost;
 
                 bool purchased = SavedData.unlockedBlocks.Contains(lookUp.blockType);
-                // bool newShown = SavedData.newShown[i];
                 bool hasFunds = Wallet.HasFunds(cost);
                 bool ticketType = lookUp.CostType.Equals(Const.CurrencyType.Ticket);
                 bool availableByLevel = LevelManager.CurrentLevel >= lookUp.unlockedAt;
 
                 if (!purchased && (hasFunds || ticketType) && availableByLevel)
-                // if (!purchased && (hasFunds || ticketType) && availableByLevel // !newShown)
-                // if (!purchased && availableByLevel && !newShown)
                 {
-                    // if (updatePage && !firstIndexSet)
                     if (updatePage && _lastBlockIndexShown < i)
                     {
                         SavedData.lastIndex = i;
                         _lastBlockIndexShown = i;
-                        // firstIndexSet = true;
                     }
 
                     base.TotalNotify++;
@@ -94,14 +88,6 @@ namespace Game.UI
             return false;
         }
 
-        // public void OnClick_Close()
-        // {
-        //     if (base.Close())
-        //     {
-        //         return;
-        //     }
-        // }
-
         public new void Show()
         {
             base.Show();
@@ -123,15 +109,10 @@ namespace Game.UI
             
             frame.color = availableByLevel ? (purchasedBlock ? upgradeColor : purchaseColor) : lockedColor;
 
-            // bool newBannerVisible = !purchasedBlock && canPurchase && !SavedData.newShown[SavedData.lastIndex];
             bool newBannerVisible = !purchasedBlock && availableByLevel;
             newTextBanner.gameObject.SetActive(newBannerVisible);
             
             Marked = canPurchase;
-            // if (newBannerVisible)
-            // {
-            //     SavedData.newShown[SavedData.lastIndex] = true;
-            // }
 
             equippedTextBanner.gameObject.SetActive(!availableByLevel || purchasedBlock);
             equipText.text = purchasedBlock ? Onboarding.THIS.hasText : Onboarding.THIS.unlockedAtText +  _selectedBlockData.unlockedAt;
@@ -214,8 +195,6 @@ namespace Game.UI
                 return;
             }
             purchaseButton.Available = canPurchase;
-            // purchaseButton.ButtonSprite = availableByTicket ? Const.THIS.watchButtonTexture : Const.THIS.getButtonTexture;
-            // purchaseButton.ButtonSprite = Const.THIS.GetButtonSprite(currency.type);
 
             if (canPurchase)
             {   
@@ -280,7 +259,6 @@ namespace Game.UI
         {
             [SerializeField] public List<Pool> unlockedBlocks = new();
             [SerializeField] public int lastIndex = 0;
-            // [SerializeField] public List<bool> newShown;
 
             public int UnlockedCount => unlockedBlocks.Count;
             
@@ -292,7 +270,6 @@ namespace Game.UI
             {
                 unlockedBlocks = new List<Pool>(blockShopData.unlockedBlocks);
                 lastIndex = blockShopData.lastIndex;
-                // newShown = new List<bool>(blockShopData.newShown);
             }
             public Pool GetRandomBlock()
             {

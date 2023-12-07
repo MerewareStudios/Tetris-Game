@@ -263,7 +263,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         _sequence.onComplete += () =>
         {
             Hide(animationSettingsHide, () => 
-            // DOVirtual.DelayedCall(animationSettingsHide.expandDelay + 0.05f, () =>
             {
                 UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {

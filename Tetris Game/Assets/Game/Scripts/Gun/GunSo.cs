@@ -11,7 +11,6 @@ namespace Game
         [SerializeField] public TransformData holsterTransformData;
         [SerializeField] public float jumpPower = 2.25f;
         [SerializeField] public float travelDuration = 0.45f;
-        // [SerializeField] public bool jump = true;
         [SerializeField] public Ease ease = Ease.Linear;
     }
 
@@ -26,16 +25,6 @@ namespace Game
 
 public static class GunSoExtension
 {
-    // public static Pool GetPrefab(this Pool gunType)
-    // {
-    //     GunSo gunSo = Const.THIS.Guns[(int)gunType];
-    //     return gunSo.prefab;
-    // } 
-    // public static TransformData GetTransformData(this Pool type)
-    // {
-    //     GunSo gunSo = Const.THIS.Guns[(int)type];
-    //     return gunSo.holsterTransformData;
-    // }
     public static void Set(this Transform transform, TransformData transformData)
     {
         transform.localPosition = transformData.localPosition;

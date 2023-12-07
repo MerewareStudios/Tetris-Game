@@ -1,7 +1,5 @@
 using System.Collections;
 using Game;
-using Game.UI;
-using Internal.Core;
 using IWI.Tutorial;
 using UnityEngine;
 
@@ -34,8 +32,6 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string hasText;
     [TextArea] [SerializeField] public string unlockedAtText;
     [Header("Ad Break")]
-    // [TextArea] [SerializeField] public string adBreakText;
-    // [TextArea] [SerializeField] public string earnText;
     [TextArea] [SerializeField] public string useTicketText;
     [TextArea] [SerializeField] public string earnTicketText;
     [TextArea] [SerializeField] public string skipButtonText;

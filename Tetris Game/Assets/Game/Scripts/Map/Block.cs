@@ -9,17 +9,6 @@ namespace Game
 {
     public class Block : MonoBehaviour
     {
-        // private void OnDrawGizmos()
-        // {
-        //     foreach (var se in segmentTransforms)
-        //     {
-        //         if (se)
-        //         {
-        //             Gizmos.DrawCube(se.position, Vector3.one * 0.95f);
-        //         }
-        //     }
-        // }
-
         [SerializeField] private Transform shakePivot;
         [SerializeField] public List<Transform> segmentTransforms;
         [SerializeField] private Transform rotatePivot;
@@ -90,8 +79,6 @@ namespace Game
                 pawn.Show();
                 Pawns.Add(pawn);
             }
-            
-            // this.rotatePivot.localPosition = mimicBlock.rotatePivot.localPosition;
         }
 
         public void Deconstruct()
@@ -141,7 +128,6 @@ namespace Game
             shakePivot.localPosition = Vector3.zero;
             shakePivot.localEulerAngles = Vector3.zero;
             shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
-            // .onUpdate = ResetSegmentRotations;
         }
         
         public void Lift(Vector3 tutorialLift)

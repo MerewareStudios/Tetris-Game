@@ -43,7 +43,6 @@ namespace IWI
                         AdBreakScreen.THIS.SetLoadState(state);
                     };
                     
-                    // SetBannerBonuses(_Data.removeAds, false);
                     if (_Data.removeAds)
                     {
                         _maxSDKInitComplete?.Invoke();
@@ -53,7 +52,6 @@ namespace IWI
                     
                     
                     InitBanner();
-                    // InitMRec();
                     
                     FakeAdInterstitial.THIS.Initialize();
                     FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
@@ -97,31 +95,6 @@ namespace IWI
             _Data.LastTimeAdShown = (int)(Time.time - adTimeInterval) - 1;
         }
         
-        // private void InitMRec()
-        // {
-        //     FakeAdMREC.THIS.Initialize();
-        //
-        //     PiggyMenu.THIS.VisibilityChanged += visible =>
-        //     {
-        //         if (visible)
-        //         {
-        //             FakeAdMREC.THIS.Show();
-        //         }
-        //         else
-        //         {
-        //             FakeAdMREC.THIS.Hide();
-        //         }
-        //     };
-        // }
-
-        // public void ShowBanner()
-        // {
-        //     if (_Data.removeAds)
-        //     {
-        //         return;
-        //     }
-        //     FakeAdBanner.THIS.ShowAd();
-        // }
         public void ShowBannerFrame()
         {
             if (_Data.removeAds)
@@ -153,56 +126,29 @@ namespace IWI
         private void InitBanner()
         {
             FakeAdBanner.THIS.Initialize();
-            // FakeAdBanner.THIS.OnOfferAccepted = () =>
-            // {
-            //     _Data.BannerAccepted = true;
-            //     ShowBanner();
-            //     AnalyticsManager.OnBannerEnabled();
-            // };
-            // FakeAdBanner.THIS.VisibilityChanged = (visible) =>
-            // {
-            //     // SetBannerBonuses(visible, true);
-            // };
-            
             UIManager.OnMenuModeChanged = ChangeBannerPosition;
         }
         private void DestroyBanner()
         {
-            // _Data.BannerAccepted = false;
             FakeAdBanner.THIS.DestroyBanner();
-
-            // FakeAdBanner.THIS.OnOfferAccepted = null;
-            // FakeAdBanner.THIS.VisibilityChanged = null;
             UIManager.OnMenuModeChanged -= ChangeBannerPosition;
         }
-        
-        // private void SetBannerBonuses(bool state, bool animated)
-        // {
-        //     Spawner.THIS.SetNextBlockVisibility(state, animated ? 0.5f : 0.0f);
-        //     Board.THIS.BoostingStack = state;
-        //     Wallet.ReduceCosts = state;
-        // }
 
         public void ShowAdBreak()
         {
             if (!MaxSdk.IsInitialized())
             {
-                // onFinish?.Invoke();
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
                 FakeAdInterstitial.THIS.LoadAd();
-                // onFinish?.Invoke();
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                // onFinish?.Invoke();
                 return;
             }
-
-            // onFinish?.Invoke();
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL)
             .SetLoadState(FakeAdInterstitial.THIS.LoadState)
@@ -318,7 +264,6 @@ namespace IWI
             private static void Banner()
             {
                 AdManager.THIS.DestroyBanner();
-                // AdManager.THIS.SetBannerBonuses(true, true);
             }
         }
         
@@ -329,7 +274,6 @@ namespace IWI
             [SerializeField] public bool removeAds = false;
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
-            // [System.NonSerialized] public bool BannerAccepted = false;
             [System.NonSerialized] public int LastTimeAdShown;
             [System.NonSerialized] public int InterAdInstance = 1;
             

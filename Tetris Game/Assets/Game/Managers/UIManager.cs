@@ -107,7 +107,6 @@ public class UIManager : Singleton<UIManager>
       AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
 
       Consent.GetRestartButtonState = () => GameManager.PLAYING
-      // Consent.GetRestartButtonState = () => ONBOARDING.WEAPON_TAB.IsComplete()
                                             && MaxSdk.IsUserConsentSet();  
       
       OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
@@ -232,7 +231,6 @@ public class UIManager : Singleton<UIManager>
    {
       LevelManager.THIS.OnClick_Restart();
       AdManager.THIS.PrependInterstitial();
-      // AdManager.THIS.TryInterstitial();
    }
 #endregion
 #region Offer
@@ -333,26 +331,6 @@ public class UIManager : Singleton<UIManager>
          Warzone.THIS.Player.Gun.Boost();
 
       }
-      // if (Input.GetKeyDown(KeyCode.Alpha1))
-      // {
-      //    AdManager.Offers.Offer1();
-      // }
-      // if (Input.GetKeyDown(KeyCode.Alpha2))
-      // {
-      //    AdManager.Offers.Offer2();
-      // }
-      // if (Input.GetKeyDown(KeyCode.Alpha3))
-      // {
-      //    AdManager.Offers.Offer3();
-      // }
-      // if (Input.GetKeyDown(KeyCode.Alpha4))
-      // {
-      //    AdManager.Offers.Offer4();
-      // }
-      // if (Input.GetKeyDown(KeyCode.Alpha5))
-      // {
-      //    AdManager.Offers.Offer5();
-      // }
    }
 #endif
    
@@ -601,12 +579,6 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
    }
-   // public static void BoardGemToPlayer(Vector3 worldPosition, int count, int totalValue)
-   // {
-   //    TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
-   //    ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-   //    UIManager.THIS.piggyCoinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
-   // }
    public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);

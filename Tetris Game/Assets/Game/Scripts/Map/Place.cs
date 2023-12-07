@@ -44,7 +44,7 @@ namespace Game
 #if UNITY_EDITOR
                 if (value && this._current)
                 {
-                    Debug.LogError("Current is not null"); // 6
+                    Debug.LogError("Current is not null");
                 }
 #endif
                 this._current = value;
@@ -77,10 +77,6 @@ namespace Game
             FinalizeImmediate();
         }
 
-        // public void Warmup()
-        // {
-        //     gridTile.material.SetColor(GameManager.BaseColor, gridTile.material.GetColor(GameManager.BaseColor));
-        // }
         public void Deconstruct()
         {
             if (Occupied)
@@ -138,7 +134,6 @@ namespace Game
             gridTile.material.SetColor(GameManager.BaseColor, targetColor);
             
             Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
-            // tileTransform.DOKill();
             tileTransform.localPosition = targetPos;
         }
 
@@ -146,7 +141,6 @@ namespace Game
         {
             _colorTween?.Kill();
             _colorTween = gridTile.material.DOColor(color, Fast ? 0.1f : 0.2f).SetEase(Ease.OutQuad);
-            // gridTile.material.SetColor(GameManager.BaseColor, color);
         }
 
         private void DoGhostPawn(bool add)
@@ -172,7 +166,7 @@ namespace Game
 
         public void Accept(Pawn pawn, float? duration = null, System.Action onComplete = null)
         {
-            Current = pawn; // 4
+            Current = pawn;
 
             
             if (duration == null)

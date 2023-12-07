@@ -92,14 +92,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         GameManager.UpdateTimeScale();
         
         SwitchToGame();
-        // this.VisibilityChanged?.Invoke(false);
         return false;
     }
     public new void Show()
     {
         base.Show();
-        
-        // this.VisibilityChanged?.Invoke(true);
         
         UIManager.MenuMode(true);
         Wallet.ScaleTransactors(1.1f, true);
@@ -215,11 +212,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         void Mult()
         {
-            // if (!Wallet.Consume(Const.Currency.OneAd))
-            // {
-            //     return;
-            // }
-            
             Transform mulTransform = multiplyButton.transform;
             mulTransform.DOKill();
             mulTransform.DOPunchScale(Vector3.one * 0.35f, 0.25f).SetUpdate(true);
@@ -256,27 +248,19 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     {
         _multiplier = 1;
         
-        // breakButton.targetGraphic.raycastTarget = false;
-        // breakButton.transform.DOKill();
-        // breakButton.transform.DOScale(new Vector3(0.0f, 1.0f, 1.0f), 0.25f).SetEase(Ease.InBack).SetUpdate(true).onComplete = () =>
-        // {
-            breakButton.gameObject.SetActive(false);
-        // };
+        breakButton.gameObject.SetActive(false);
 
 
-        // if (SavedData.breakInstance >= 1)
-        // {
-            ticketImage.enabled = true;
-            multProgress.localScale = Vector3.one;
-            multiplyButton.gameObject.SetActive(true);
-            multiplyButton.targetGraphic.raycastTarget = false;
-            multiplyButton.transform.localScale = Vector3.zero;
-            multiplyButton.transform.DOKill();
-            multiplyButton.transform.DOScale(Vector3.one, 0.15f).SetDelay(0.2f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
-            {
-                multiplyButton.targetGraphic.raycastTarget = true;
-            };
-        // }
+        ticketImage.enabled = true;
+        multProgress.localScale = Vector3.one;
+        multiplyButton.gameObject.SetActive(true);
+        multiplyButton.targetGraphic.raycastTarget = false;
+        multiplyButton.transform.localScale = Vector3.zero;
+        multiplyButton.transform.DOKill();
+        multiplyButton.transform.DOScale(Vector3.one, 0.15f).SetDelay(0.2f).SetEase(Ease.OutBack).SetUpdate(true).onComplete = () =>
+        {
+            multiplyButton.targetGraphic.raycastTarget = true;
+        };
         
         
         rewardPiggyGlow.transform.localScale = Vector3.zero;
@@ -338,10 +322,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     {
         UIManager.THIS.piggyPS.Play();
         
-        // int coinReward = (int)(SavedData.currentMoney.amount * 0.25f);
-        // GiveMeta(coinReward, 20, UIManagerExtensions.EmitPiggyRewardCoin);
         int capacity2Piggy = SavedData.moneyCapacity / PiggyCapDiv;
-        // int piggyReward = (int)Random.Range(capacity2Piggy * 0.75f, capacity2Piggy) + 1;
         int piggyReward = capacity2Piggy;
         GiveMeta(piggyReward, 20, UIManagerExtensions.EmitPiggyRewardPiggy);
         int ticketReward = 0;

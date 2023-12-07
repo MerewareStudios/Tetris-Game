@@ -40,8 +40,8 @@ MonoBehaviour:
         unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c0000000900000007000000
         lastIndex: 5
       weaponShopData:
-        inspectIndex: 9
-        equipIndex: 9
+        inspectIndex: 7
+        equipIndex: 7
         gunShopDatas:
         - purchased: 1
           upgradeIndexes: 000000000300000000000000

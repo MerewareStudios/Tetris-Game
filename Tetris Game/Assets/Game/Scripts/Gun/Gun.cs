@@ -23,7 +23,6 @@ public class Gun : MonoBehaviour
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
             Warzone.THIS.Player.Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;
-            // Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         }
         get => _data;
     }
@@ -31,7 +30,6 @@ public class Gun : MonoBehaviour
     public void Boost()
     {
         this._Data.Mult++;
-        // Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         
         UIManager.THIS.powerEffect.enabled = true;
 
@@ -57,7 +55,6 @@ public class Gun : MonoBehaviour
             StatDisplayArranger.THIS.Hide(StatDisplay.Type.Boost);
             Warzone.THIS.Player.Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;
-            // Warzone.THIS.Player.BulletColorByMult = _data.Mult;
         };
     }
 
@@ -71,7 +68,6 @@ public class Gun : MonoBehaviour
         int enemyID = enemy.ID;
         
         Transform bullet = Pool.Bullet.Spawn().transform;
-        // bullet.localScale = Vector3.one * Mathf.Min(1.0f + (_Data.Mult - 1) * 0.3f, 2.5f);
         
         TrailRenderer trail = bullet.GetChild(1).GetComponent<TrailRenderer>();
         trail.widthMultiplier = bullet.localScale.x * 0.17f;
@@ -79,8 +75,6 @@ public class Gun : MonoBehaviour
         bullet.DOKill();
         bullet.transform.position = muzzle.position;
         trail.Clear();
-
-        // float divider = 1.0f + (_Data.Mult - 1) * 0.5f;
 
         Vector3 target = enemy.hitTarget.position + new Vector3(0.0f, enemy.so.speed * -0.5f, 0.0f);
         float distance = (bullet.position - target).magnitude;
@@ -162,7 +156,6 @@ public class Gun : MonoBehaviour
         {
             this.gunType = data.gunType;
             this.FireRate = data.rate;
-            // this.PrevShoot = data.PrevShoot;
             this.split = data.split;
             this.damage = data.damage;
         }

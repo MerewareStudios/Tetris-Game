@@ -1,5 +1,3 @@
-
-using System;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -10,11 +8,6 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] public Camera gameCamera;
     [SerializeField] public Camera uiCamera;
     [SerializeField] private Transform shakePivot;
-
-    // void Awake()
-    // {
-    //     gameCamera.enabled = false;
-    // }
 
     public float OrtoSize
     {

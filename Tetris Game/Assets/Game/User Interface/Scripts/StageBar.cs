@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class StageBar : MonoBehaviour
 {
-    [SerializeField] private Color[] barColors; // Empty, Locked, Upgraded
+    [SerializeField] private Color[] barColors;
     [SerializeField] private Image[] images;
     [SerializeField] private CurrenyButton purchaseButton;
     [SerializeField] private CurrencyDisplay currencyDisplay;

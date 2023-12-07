@@ -9,14 +9,11 @@ namespace Game
     {
         [System.NonSerialized] private Coroutine _mainRoutine = null;
         [System.NonSerialized] public bool MapWaitForCycle = false;
-        // [System.NonSerialized] public static bool Moving = false;
 
         public void StartMainLoop()
         {
             StopLoop();
             _mainRoutine = StartCoroutine(MainLoop());
-
-            // Moving = false;
 
             IEnumerator MainLoop()
             {
@@ -26,8 +23,7 @@ namespace Game
                 {
                     Board.THIS.CheckAll();
 
-                    // Map.Moving = true;
-                    Board.THIS.MoveAll(0.2f); // 1
+                    Board.THIS.MoveAll(0.2f);
                     Board.THIS.HighlightPlaces();
 
                     yield return new WaitForSeconds(0.2f);

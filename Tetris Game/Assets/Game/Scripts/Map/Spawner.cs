@@ -261,7 +261,6 @@ public class Spawner : Singleton<Spawner>
         }
 
         UpdateTargetPosition();
-        // Board.THIS.HighlightPlaces();
     }
 
     private void RecordFingerStart()
