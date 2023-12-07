@@ -633,7 +633,7 @@ MonoBehaviour:
   DefaultPlayerData:
     currentHealth: 1
   DefaultUserData:
-    level: 49
+    level: 1
     pupData:
       available: 1
       currentUsage: 4
@@ -644,11 +644,11 @@ MonoBehaviour:
       maxStack: 6
       defaultSupplyLine: 6
     coinTransactionData:
-      value: 1
+      value: 0
     gemTransactionData:
-      value: 1
+      value: 0
     adTransactionData:
-      value: 1
+      value: 0
     blockShopData:
       unlockedBlocks: 030000000400000005000000060000000d000000
       lastIndex: 0
