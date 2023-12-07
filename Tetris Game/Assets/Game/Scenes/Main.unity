@@ -3747,11 +3747,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe0098ec719cd0439a6e26236b7822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveData:
+    onboardingList: 
+    accountData:
+      commented: 0
+      guid: 
+    userData:
+      level: 1
+      playerData:
+        currentHealth: 1
+      pupData:
+        available: 1
+        currentUsage: 4
+        purchaseCount: 0
+        use: 1
+      boardData:
+        defaultStack: 6
+        maxStack: 6
+        defaultSupplyLine: 6
+      coinTransactionData:
+        value: 0
+      gemTransactionData:
+        value: 0
+      adTransactionData:
+        value: 0
+      blockShopData:
+        unlockedBlocks: 030000000400000005000000060000000d000000
+        lastIndex: 0
+      weaponShopData:
+        inspectIndex: 0
+        equipIndex: 0
+        gunShopDatas:
+        - purchased: 1
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+        - purchased: 0
+          upgradeIndexes: 000000000000000000000000
+      menuNavData:
+        lastMenuType: 0
+        lockedMiniOffer:
+          startAt: 1
+          unlockedAt: 10
+          offerIndex: 0
+          timerRunning: 0
+          offerEnds: 0
+      piggyData:
+        currentMoney:
+          type: 0
+          amount: 0
+        moneyCapacity: 50
+        breakInstance: 0
+        doubleInstance: 0
+        skipInstance: 0
+      airplaneData:
+        cargoTypes: 
+        arrival: -1
+        total: 0
+    adData:
+      removeAds: 0
+      interSkipCount: 0
+      interWatchCount: 0
+    purchaseData:
+      offers: 
   DELETE_AT_START: 0
-  SKIP_ONBOARDING: 1
-  Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
-  AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
-  Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3767,6 +3841,9 @@ MonoBehaviour:
   map: {fileID: 237695652}
   board: {fileID: 1297467599}
   warzone: {fileID: 812741771}
+  Const: {fileID: 11400000, guid: 01b0b61048bd43b4b9257639312dca72, type: 2}
+  AnimConst: {fileID: 11400000, guid: 498ce67adcd55a64faabcc781e2b6fec, type: 2}
+  Onboarding: {fileID: 11400000, guid: 6b3f0ab8986a16740a9cdc408f9a741f, type: 2}
 --- !u!114 &715436864
 MonoBehaviour:
   m_ObjectHideFlags: 0

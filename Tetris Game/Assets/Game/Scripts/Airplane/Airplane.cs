@@ -234,7 +234,7 @@ public class Airplane : MonoBehaviour
     public class Data : ICloneable
     {
         [SerializeField] public List<Cargo.Type> cargoTypes;
-        [SerializeField] public int arrival = -1;
+        [SerializeField] public int arrival = 0;
         [SerializeField] public int total = 0;
         [System.NonSerialized] public List<Cargo> Cargoes = new();
             

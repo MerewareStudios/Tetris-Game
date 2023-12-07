@@ -15,7 +15,7 @@ namespace Game
         [SerializeField] private Transform crossHair;
         [SerializeField] private Transform crossHairScalePivot;
         [SerializeField] public MeshRenderer crossHairMR;
-        [SerializeField] public Material bulletGenericMaterial;
+        // [SerializeField] public Material bulletGenericMaterial;
         [GradientUsage(true)] [SerializeField] private Gradient emissionGradient;
         
         [System.NonSerialized] private Tween _crossColorTween;
@@ -34,10 +34,10 @@ namespace Game
         {
             set => skin.sharedMaterial.SetColor(GameManager.EmisKey, emissionGradient.Evaluate(value));
         }
-        public int BulletColorByMult
-        {
-            set => bulletGenericMaterial.SetColor(GameManager.BaseColor, Const.THIS.bulletColors.At(value - 1));
-        }
+        // public int BulletColorByMult
+        // {
+        //     set => bulletGenericMaterial.SetColor(GameManager.BaseColor, Const.THIS.bulletColors.At(value - 1));
+        // }
 
         public Enemy CurrentEnemy
         {
@@ -299,7 +299,7 @@ namespace Game
 
             Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;
-            BulletColorByMult = 1;
+            // BulletColorByMult = 1;
 
             if (_shouldGetUp)
             {

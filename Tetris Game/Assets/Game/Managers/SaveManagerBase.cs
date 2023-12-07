@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 {
-    [System.NonSerialized] public SaveData saveData;
+    [SerializeField] public SaveData saveData;
     [SerializeField] public bool DELETE_AT_START;
 
     public virtual void Awake()
@@ -17,20 +17,25 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 
     public void Save()
     {
-        var outputString = JsonUtility.ToJson(saveData);
-        // Debug.Log(outputString);
-        // Debug.LogWarning("Saved");
-        if (!string.IsNullOrEmpty(outputString))
+        Save(saveData);
+    }
+
+    public void Save(SaveData data)
+    {
+        Save(JsonUtility.ToJson(data));
+    }
+    public void Save(string str)
+    {
+        if (!string.IsNullOrEmpty(str))
         {
-            PlayerPrefs.SetString(nameof(SaveData), outputString);
+            PlayerPrefs.SetString(nameof(SaveData), str);
         }
     }
 
     private void Load()
     {
         string inputString = PlayerPrefs.GetString(nameof(SaveData), "");
-        saveData = string.IsNullOrEmpty(inputString) ? new SaveData() : JsonUtility.FromJson<SaveData>(inputString);
-        // Debug.Log(inputString);
+        saveData = string.IsNullOrEmpty(inputString) ? null : JsonUtility.FromJson<SaveData>(inputString);
     }
 
 #if UNITY_EDITOR
@@ -50,7 +55,8 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 }
 
 [System.Serializable]
-public partial class SaveData
+public partial class SaveData : System.ICloneable
 {
-    [SerializeField] public string baseInfo = "SAVE END";
+    // [SerializeField] public string baseInfo = "SAVE END";
 }
+

@@ -14,17 +14,15 @@ public class Const : SSingleton<Const>
     [ReadOnly] public int bundleVersionCode;
     [Header("Look Up")]
     public LevelSo[] Levels;
-    public EnemyData[] AutoGenerateEnemyDatas;
-    public EnemyData[] AutoGenerateEnemySpanwerDatas;
-    public PawnPlacement[] AutoGeneratePawnPlacements;
-    [Header("Save Default")]
-    public Player.Data DefaultPlayerData;
-    public User.Data DefaultUserData;
-    public AdManager.Data DefaultAdData;
-    public OfferScreen.Data DefaultPurchaseData;
+    public SaveData DefaultSaveData;
     [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
+    [Header("Auto")]
+    public EnemyData[] AutoGenerateEnemyDatas;
+    public EnemyData[] AutoGenerateEnemySpanwerDatas;
+    public PawnPlacement[] AutoGeneratePawnPlacements;
+
     public Pawn.Usage[] gifts;
     public Pawn.Usage[] powerUps;
     [Header("Colors")] 
@@ -41,8 +39,6 @@ public class Const : SSingleton<Const>
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
     public Color[] metaTextColors;
-    // [Header("Button Textures")] 
-    // public Sprite[] buttonSprites;
     [Header("Currency Visuals")] 
     public Color currenyButtonNormalColor;
     public Color currenyButtonFadedColor;
@@ -65,8 +61,6 @@ public class Const : SSingleton<Const>
     [Header("Ad Break Icons")] 
     public Sprite earnTicketBackgroundImage;
     public Sprite skipAdBackgroundImage;
-    [Header("Bullet")] 
-    public Color[] bulletColors;
 
 
     public LevelSo GetLevelSo(int level)

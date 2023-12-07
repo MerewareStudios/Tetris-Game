@@ -1,6 +1,5 @@
 // #define FORCE_EDITOR_CONCENT
 
-using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
@@ -18,6 +17,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Map map;
     [SerializeField] private Board board;
     [SerializeField] private Warzone warzone;
+    [SerializeField] public Const Const;
+    [SerializeField] public AnimConst AnimConst;
+    [SerializeField] public Onboarding Onboarding;
     
     public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     public static readonly int InsideColor = Shader.PropertyToID("_InsideColor");
@@ -50,6 +52,9 @@ public class GameManager : Singleton<GameManager>
         Map.THIS = map;
         Board.THIS = board;
         Warzone.THIS = warzone;
+        Const.THIS = this.Const;
+        AnimConst.THIS = this.AnimConst;
+        Onboarding.THIS = this.Onboarding;
     }
 
     void Start()

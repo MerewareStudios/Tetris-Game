@@ -8,31 +8,21 @@ using UnityEngine;
 public class SaveManager : SaveManagerBase<SaveManager>
 {
     [SerializeField] public bool SKIP_ONBOARDING = true;
-    [SerializeField] public Const Const;
-    [SerializeField] public AnimConst AnimConst;
-    [SerializeField] public Onboarding Onboarding;
+    
 
     public override void Awake()
     {
         base.Awake();
 
-        Const.THIS = this.Const;
-        AnimConst.THIS = this.AnimConst;
-        Onboarding.THIS = this.Onboarding;
+        GameManager.THIS.Init();
 
-        if (!saveData.saveGenerated)
+        if (saveData == null)
         {
-            saveData.saveGenerated = true;
-
+            saveData = Const.THIS.DefaultSaveData.Clone() as SaveData;
+            saveData.accountData.NewGuid();
+            
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;
             saveData.onboardingList = new bool[onboardingCount].Fill(true);
-
-            // saveData.concentData = Const.THIS.DefaultConcentData.Clone() as Concent.Data;
-            saveData.accountData = new Account.Data();
-            saveData.userData = Const.THIS.DefaultUserData.Clone() as User.Data;
-            saveData.playerData = Const.THIS.DefaultPlayerData.Clone() as Player.Data;
-            saveData.adData = Const.THIS.DefaultAdData.Clone() as AdManager.Data;
-            saveData.purchaseData = Const.THIS.DefaultPurchaseData.Clone() as OfferScreen.Data;
         }
 
         if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
@@ -45,7 +35,6 @@ public class SaveManager : SaveManagerBase<SaveManager>
             ONBOARDING.ALL_BLOCK_STEPS.ClearStep();
         }
         
-        GameManager.THIS.Init();
         
         Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
         Wallet.COIN.Active = ONBOARDING.PASSIVE_META.IsComplete();
@@ -62,7 +51,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         PiggyMenu.THIS.SavedData = saveData.userData.piggyData;
         OfferScreen.THIS._Data = saveData.purchaseData;
 
-        Warzone.THIS.Player._Data = saveData.playerData;
+        Warzone.THIS.Player._Data = saveData.userData.playerData;
         Warzone.THIS.airplane.SavedData = saveData.userData.airplaneData;
         Board.THIS._Data = saveData.userData.boardData;
 
@@ -106,15 +95,27 @@ public static class SaveManagerExtensions
         return ++SaveManager.THIS.saveData.userData.level;
     }
 }
-public partial class SaveData
+public partial class SaveData : ICloneable
 {
-    [SerializeField] public bool saveGenerated = false;
     [SerializeField] public bool[] onboardingList;
     [SerializeField] public Account.Data accountData;
     [SerializeField] public User.Data userData;
-    [SerializeField] public Player.Data playerData;
     [SerializeField] public AdManager.Data adData;
     [SerializeField] public OfferScreen.Data purchaseData;
+    
+    public SaveData(SaveData data)
+    {
+        onboardingList = data.onboardingList.Clone() as bool[];
+        accountData = data.accountData.Clone() as Account.Data;
+        userData = data.userData.Clone() as User.Data;
+        adData = data.adData.Clone() as AdManager.Data;
+        purchaseData = data.purchaseData.Clone() as OfferScreen.Data;
+    }
+    
+    public object Clone()
+    {
+        return new SaveData(this);
+    }
 }
 
 
@@ -132,12 +133,10 @@ public static class Account
             commented = data.commented;
             guid = data.guid;
         }
-        public Data()
+        public void NewGuid()
         {
-            commented = false;
             guid = System.Guid.NewGuid().ToString();
         }
-
         public object Clone()
         {
             return new Account.Data(this);
@@ -170,6 +169,7 @@ namespace User
     public class Data : ICloneable
     {
         [SerializeField] public int level = 1;
+        [SerializeField] public Player.Data playerData;
         [SerializeField] public Powerup.Data pupData;
         [SerializeField] public Board.Data boardData;
         [SerializeField] public TransactionData<int> coinTransactionData = new();
@@ -184,6 +184,7 @@ namespace User
         public Data(Data data)
         {
             level = data.level;
+            playerData = data.playerData.Clone() as Player.Data;
             pupData = data.pupData.Clone() as Powerup.Data;
             boardData = data.boardData.Clone() as Board.Data;
             coinTransactionData = data.coinTransactionData.Clone() as TransactionData<int>;
@@ -228,3 +229,28 @@ public enum ONBOARDING
     PLACE_POWERUP,
     
 }
+
+#if UNITY_EDITOR
+namespace  Game.Editor
+{
+    using UnityEditor;
+
+    [CustomEditor(typeof(SaveManagerBase<SaveManager>), true)]
+    [CanEditMultipleObjects]
+    public class SaveManagerBaseGUI : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            if (Application.isPlaying && GUILayout.Button(new GUIContent("Create Save Point", "Create save point.")))
+            {
+                SaveSO saveSo = ScriptableObject.CreateInstance<SaveSO>();
+                saveSo.saveData = SaveManager.THIS.saveData.Clone() as SaveData;
+                
+                AssetDatabase.CreateAsset(saveSo, "Assets/Game/Managers/Save SO/" + saveSo.saveData.accountData.guid + ".asset");
+                AssetDatabase.SaveAssets();
+            }
+            DrawDefaultInspector();
+        }
+    }
+}
+#endif
