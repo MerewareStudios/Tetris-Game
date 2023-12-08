@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creativeSettings:
     fingerEnabled: 1
-    boardSize: {x: 3, y: 5}
+    boardSize: {x: 7, y: 7}
     shopEnabled: 0
     powerUpEnabled: 1
     coinEnabled: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   mergerMaxColor: {r: 1, g: 0.654902, b: 0.07450981, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
-  ghostNormal: {r: 0.42352942, g: 1, b: 0.5568628, a: 0.3254902}
+  ghostNormal: {r: 0.4235294, g: 0.63937163, b: 1, a: 0.2509804}
   ghostFade: {r: 0.42352942, g: 0.72156864, b: 1, a: 0}
   placeColorsDouble:
   - {r: 0.1764706, g: 0.827451, b: 0.3764706, a: 1}

@@ -25,6 +25,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
 
     public virtual void Awake()
     {
+        GrabFeatureEnabled = false;
 #if CREATIVE
         GameManager.THIS.Init();
         if (Const.THIS.creativeSettings.fingerEnabled)
@@ -33,7 +34,8 @@ public class ApplicationManager : Singleton<ApplicationManager>
             CreativeFinger creativeFinger = MonoBehaviour.Instantiate(AssetDatabase.LoadAssetAtPath<CreativeFinger>(path));
             creativeFinger.SetUp(CameraManager.THIS.uiCamera);
         }
-        
+        Application.targetFrameRate = 60;
+        return;
 #endif
         Input.multiTouchEnabled = multiTouchEnabled;
         
@@ -46,9 +48,6 @@ public class ApplicationManager : Singleton<ApplicationManager>
         _fpsTimestamp = Time.realtimeSinceStartup;
         appLabel.SetActive(true);
 #endif
-        
-        
-        GrabFeatureEnabled = false;
     }
     
 #if FPS
