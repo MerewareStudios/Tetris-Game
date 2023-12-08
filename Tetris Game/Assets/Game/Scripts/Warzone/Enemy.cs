@@ -136,8 +136,11 @@ namespace  Game
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
                         Vector3 pos = Warzone.THIS.RandomPos(so.extraData.RandomForwardRange());
-                        Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);
                         Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos, 1);
+                        if (enemy)
+                        {
+                            Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);
+                        }
                     }
                     Warzone.THIS.AssignClosestEnemy();
                     break;
@@ -149,7 +152,7 @@ namespace  Game
 
         public void Replenish()
         {
-            Health = so.maxHealth;
+            Health = (int)(so.maxHealth * LevelManager.HealthMult);
             animator.SetTrigger(WALK_HASH);
             skin.material.SetColor(GameManager.EmissionKey, Color.black);
         }
@@ -200,6 +203,10 @@ namespace  Game
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
                         Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, transform.position, 1);
+                        if (!enemy)
+                        {
+                            continue;
+                        }
                         Vector3 target = thisTransform.position + new Vector3(Random.Range(-2.0f, 2.0f), 0.0f, Random.Range(-0.5f, 2.0f));
                         target.z = Mathf.Min(Warzone.THIS.StartLine, target.z);
                         enemy.Jump(target);

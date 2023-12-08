@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae16e6aca98b8f4f9a633cbfbdc1819, type: 3}
+  m_Name: Template Level 6
+  m_EditorClassIdentifier: 
+  sortInterval: 6
+  deltaMult: 1
+  boardSize: {x: 7, y: 6}
+  countdown: 3
+  totalCoin: 125
+  enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 5aa7682da6eea724ca3aff06898be258, type: 2}
+    count: 1
+    distance: 2
+    offset: 0
+    delay: 0
+  - enemyData: {fileID: 11400000, guid: e219aadf7ef413a449cb03713225f4f5, type: 2}
+    count: 1
+    distance: 0
+    offset: 0
+    delay: 0
+  victoryReward:
+    type: 0
+    amount: 100
+  failReward:
+    type: 0
+    amount: 25
+  suggestedBlocks: []
+  pawnPlacements:
+  - usage: 7
+    index: {x: 3, y: 0}
+    extra: 0
+  carryData:
+    type: 0
+    delay: -1

@@ -101,8 +101,6 @@ namespace  Game
                 int spawnIndex = 0;
 
                 int totalHealth = 0;
-                Debug.Log(LevelManager.LevelSo.enemySpawnData == null );
-                Debug.Log(LevelManager.LevelSo.name);
                 foreach (var data in LevelManager.LevelSo.enemySpawnData)
                 {
                     totalHealth += data.enemyData.maxHealth * data.count;
@@ -220,6 +218,10 @@ namespace  Game
         }
         public Enemy CustomSpawnEnemy(EnemyData enemyData, Vector3 position, int coinAmount)
         {
+            if (EnemyCount > 30)
+            {
+                return null;
+            }
             Enemy enemy = enemyData.type.Spawn<Enemy>(this.transform);
             enemy.so = enemyData;
             enemy.CoinAmount = coinAmount;

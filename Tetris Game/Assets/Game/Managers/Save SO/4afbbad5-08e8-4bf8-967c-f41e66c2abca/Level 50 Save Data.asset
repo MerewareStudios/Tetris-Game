@@ -31,17 +31,17 @@ MonoBehaviour:
         maxStack: 13
         defaultSupplyLine: 6
       coinTransactionData:
-        value: 96702
+        value: 100
       gemTransactionData:
-        value: 99414
+        value: 100
       adTransactionData:
-        value: 99990
+        value: 10
       blockShopData:
         unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c0000000900000007000000
-        lastIndex: 5
+        lastIndex: 7
       weaponShopData:
-        inspectIndex: 7
-        equipIndex: 7
+        inspectIndex: 9
+        equipIndex: 9
         gunShopDatas:
         - purchased: 1
           upgradeIndexes: 000000000300000000000000
@@ -80,7 +80,7 @@ MonoBehaviour:
         doubleInstance: 2
         skipInstance: 29
       airplaneData:
-        cargoTypes: 03000000
+        cargoTypes: 
         arrival: 70
         total: 13
     adData:

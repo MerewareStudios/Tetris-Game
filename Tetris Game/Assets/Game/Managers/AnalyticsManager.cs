@@ -134,9 +134,9 @@ public static class AnalyticsManager
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void PiggyBreak(int instance)
+    public static void PiggyBreak(int instance, int level)
     {
-        string eventName = "PIGGY_BREAK";
+        string eventName = "PIGGY_BREAK:LEVEL_" + level;
         
         GameAnalytics.NewDesignEvent(eventName, instance);
 #if UNITY_EDITOR
@@ -178,9 +178,9 @@ public static class AnalyticsManager
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void AdData(AdBreakScreen.AdState adState, AdBreakScreen.AdInteraction adInteraction, int instance)
+    public static void AdData(AdBreakScreen.AdType adState, AdBreakScreen.AdInteraction adInteraction, AdBreakScreen.AdReason adReason, int instance)
     {
-        string eventName = "SKIP:" + adState.ToString() + ":" + adInteraction.ToString();
+        string eventName = "AD:" + adState.ToString() + ":" + adInteraction.ToString() + ":" + adReason.ToString();
         
         GameAnalytics.NewDesignEvent(eventName, instance);
 #if UNITY_EDITOR
@@ -203,6 +203,16 @@ public static class AnalyticsManager
     public static void CargoUnpack(int total)
     {
         string eventName = "CARGO:UNPACK";
+        GameAnalytics.NewDesignEvent(eventName, total);
+#if UNITY_EDITOR
+        Log(eventName, total, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void Concede(int level, int total)
+    {
+        string eventName = "CONCEDE:LEVEL_" + level;
         GameAnalytics.NewDesignEvent(eventName, total);
 #if UNITY_EDITOR
         Log(eventName, total, EventType.Design);

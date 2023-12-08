@@ -18,7 +18,7 @@ MonoBehaviour:
   countdown: 3
   totalCoin: 100
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: bb83f730b4e975f459599dc5c4fbf1f7, type: 2}
+  - enemyData: {fileID: 11400000, guid: ab16338246d07e641a075d1aa0d2c0e1, type: 2}
     count: 1
     distance: 0
     offset: 0
@@ -37,7 +37,19 @@ MonoBehaviour:
   suggestedBlocks: []
   pawnPlacements:
   - usage: 12
-    index: {x: 3, y: 0}
+    index: {x: 0, y: 0}
+    extra: 0
+  - usage: 12
+    index: {x: 1, y: 1}
+    extra: 0
+  - usage: 12
+    index: {x: 2, y: 2}
+    extra: 0
+  - usage: 12
+    index: {x: 3, y: 3}
+    extra: 0
+  - usage: 12
+    index: {x: 4, y: 4}
     extra: 0
   carryData:
     type: 2

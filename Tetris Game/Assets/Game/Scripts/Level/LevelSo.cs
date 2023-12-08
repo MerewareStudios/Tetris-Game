@@ -1,5 +1,6 @@
 using System;
 using Febucci.Attributes;
+using Internal.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,63 +31,73 @@ namespace Game
             [SerializeField] public float delay = 0;
         } 
         
-        public static LevelSo AutoGenerate(int seed)
+        public static LevelSo AutoGenerate(int level)
         {
-            Random.InitState(seed);
+            Random.InitState(level);
 
             LevelSo so = ScriptableObject.CreateInstance<LevelSo>();
 
-            // // Delta
-            // so.deltaMult = Random.Range(0.8f, 1.1f);
-            // // Size
-            // int addedSize = Random.Range(0, MaxAutoWidthAdded);
-            // so.boardSize = new Vector2Int(MinAutoWidth + addedSize, Random.Range(5, MinAutoWidth + 1 + addedSize + 1));
-            // // Spawn
-            //
-            // so.EnemySpawnData = new Enemy.SpawnData
-            // {
-            //     spawnDelay = 3,
-            //     spawnInterval = Random.Range(8.0f, 12.0f),
-            //     countDatas = new List<Enemy.CountData>()
-            // };
-            //
-            // // int excess = Mathf.Min(seed, 60) - 50;
-            // // int maxHealth = 250 + excess * 50;
-            // int maxHealth = 250 + (seed - 50) * 25;
-            // int currentHealth = 0;
-            //
-            // int spawnerCount = Random.Range(0, 2);
-            //
-            // void AddEnemy(EnemyData enemyData, int possibleHealth)
-            // {
-            //     currentHealth += possibleHealth;
-            //     so.EnemySpawnData.countDatas.Add(new Enemy.CountData(enemyData, 1));
-            // }
-            //
-            // for (int i = 0; i < spawnerCount; i++)
-            // {
-            //     EnemyData enemyData = Const.THIS.GetRandomSpawnerEnemyData();
-            //     AddEnemy(enemyData, 75);
-            // }
-            //
-            // while (currentHealth < maxHealth)
-            // {
-            //     EnemyData enemyData = Const.THIS.GetRandomEnemyData();
-            //     AddEnemy(enemyData, enemyData.maxHealth);
-            // }
-            // // Reward
-            // so.victoryReward = new Const.Currency(Const.CurrencyType.Coin, 50);
-            // so.failReward = new Const.Currency(Const.CurrencyType.Coin, 5);
-            // // Suggested Block
-            // so.suggestedBlocks = null;
-            // // Pawn Placement
-            // so.pawnPlacements = Const.THIS.GetRandomPawnPlacement(so.boardSize);
-            // // Powerups
-            // // so.powerUps = null;
+            SetSpawnData(so, Const.THIS.GetRandomAutoLevel());
+            SetSizeAndPlacementData(so, Const.THIS.GetRandomAutoLevel());
+            SetTotalCoin(so, Const.THIS.GetRandomAutoLevel());
+            SetTotalCoin(so, Const.THIS.GetRandomAutoLevel());
+            SetRewards(so, Const.THIS.GetRandomAutoLevel());
+            SetCarryData(so, level);
+
+            LevelManager.HealthMult = 1.0f + (level - 50) * 0.05f;
             
             Random.InitState((int)DateTime.Now.Ticks);
 
             return so;
+        }
+
+        private static void SetSpawnData(LevelSo toData, LevelSo fromData)
+        {
+            toData.sortInterval = fromData.sortInterval;
+            toData.deltaMult = fromData.deltaMult;
+            toData.countdown = fromData.countdown;
+            toData.enemySpawnData = fromData.enemySpawnData;
+        }
+        private static void SetSizeAndPlacementData(LevelSo toData, LevelSo fromData)
+        {
+            toData.boardSize = fromData.boardSize;
+            toData.pawnPlacements = fromData.pawnPlacements;
+        }
+        private static void SetTotalCoin(LevelSo toData, LevelSo fromData)
+        {
+            toData.totalCoin = fromData.totalCoin;
+        }
+         
+        private static void SetRewards(LevelSo toData, LevelSo fromData)
+        {
+            toData.victoryReward = fromData.victoryReward;
+            toData.failReward = fromData.failReward;
+        }
+        private static void SetCarryData(LevelSo data, int level)
+        {
+            if (level % 5 == 0)
+            {
+                data.carryData = new Airplane.CarryData(Cargo.Type.MaxStack, Random.Range(0, 5));
+                return;
+            }
+
+            if (Helper.IsPossible(0.1f))
+            {
+                data.carryData = new Airplane.CarryData(Cargo.Type.Health, Random.Range(0, 5));
+                return;
+            }
+            if (Helper.IsPossible(0.1f))
+            {
+                data.carryData = new Airplane.CarryData(Cargo.Type.Chest, Random.Range(0, 5));
+                return;
+            }
+            if (Helper.IsPossible(0.1f))
+            {
+                data.carryData = new Airplane.CarryData(Cargo.Type.Intel, Random.Range(0, 5));
+                return;
+            }
+            
+            data.carryData = new Airplane.CarryData(Cargo.Type.MaxStack, -1);
         }
     }
 }

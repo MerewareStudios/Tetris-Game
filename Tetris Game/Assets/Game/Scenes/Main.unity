@@ -3823,6 +3823,7 @@ MonoBehaviour:
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0
+      rewardWatchCount: 0
     purchaseData:
       offers: 
   DELETE_AT_START: 0

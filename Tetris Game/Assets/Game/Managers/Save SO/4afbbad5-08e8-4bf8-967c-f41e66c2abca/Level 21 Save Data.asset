@@ -23,8 +23,8 @@ MonoBehaviour:
         currentHealth: 83
       pupData:
         available: 0
-        currentUsage: 4
-        purchaseCount: 7
+        currentUsage: 12
+        purchaseCount: 9
         use: 1
       boardData:
         defaultStack: 6
@@ -80,8 +80,8 @@ MonoBehaviour:
         doubleInstance: 0
         skipInstance: 12
       airplaneData:
-        cargoTypes: 
-        arrival: 20
+        cargoTypes: 02000000
+        arrival: 21
         total: 6
     adData:
       removeAds: 0

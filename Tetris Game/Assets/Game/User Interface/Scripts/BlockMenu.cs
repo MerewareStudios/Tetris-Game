@@ -245,7 +245,7 @@ namespace Game.UI
             {
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
-                    AdManager.ShowTicketAd(() =>
+                    AdManager.ShowTicketAd(AdBreakScreen.AdReason.BLOCK_BUY,() =>
                     {
                         Wallet.Transaction(Const.Currency.OneAd);
                         OnClick_Purchase();

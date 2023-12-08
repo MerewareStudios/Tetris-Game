@@ -220,17 +220,18 @@ public class UIManager : Singleton<UIManager>
    public void AdLayerClick_OpenShop()
    {
       shop.OnClick_Open();
-      AdManager.THIS.TryInterstitial();
+      AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
    public void AdLayerClick_OpenPiggyBank()
    {
       PiggyMenu.THIS.Open(0.225f);
-      AdManager.THIS.TryInterstitial();
+      AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
    public void AdLayerClick_Concede()
    {
       LevelManager.THIS.OnClick_Restart();
       AdManager.THIS.PrependInterstitial();
+      AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.CONCEDE);
    }
 #endregion
 #region Offer

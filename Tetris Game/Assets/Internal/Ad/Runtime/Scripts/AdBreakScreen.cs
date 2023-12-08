@@ -21,7 +21,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
     
-    [System.NonSerialized] public AdState CurrentAdState = AdState.NONE;
+    [System.NonSerialized] public AdType CurrentAdState = AdType.NONE;
     [System.NonSerialized] private LoadState _currentLoadState;
     
     [System.NonSerialized] private bool _canInteract = false;
@@ -61,7 +61,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         get => canvas.enabled;
     }
 
-    public enum AdState
+    public enum AdType
     {
         NONE,
         INTERSTITIAL,
@@ -72,9 +72,20 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         SKIP,
         WATCH,
     }
+    public enum AdReason
+    {
+        TIME,
+        CONCEDE,
+        POWERUP,
+        PIGGY,
+        BLOCK_BUY,
+        WEAPON_BUY,
+        WEAPON_UPG,
+        CARGO,
+    }
     
     
-    public AdBreakScreen SetAdState(AdState adState)
+    public AdBreakScreen SetAdState(AdType adState)
     {
         this.CurrentAdState = adState;
         return this;
@@ -191,7 +202,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     {
         Stop();
 
-        SetAdState(AdState.NONE);
+        SetAdState(AdType.NONE);
         _canInteract = false;
         
         canvasGroup.DOKill();
@@ -204,7 +215,7 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     public void CloseImmediate()
     {
         Stop();
-        SetAdState(AdState.NONE);
+        SetAdState(AdType.NONE);
         canvasGroup.DOKill();
         _canInteract = false;
         Visible = false;

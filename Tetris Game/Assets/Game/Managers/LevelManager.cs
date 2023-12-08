@@ -14,12 +14,17 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] public Vector3 menuScale;
     [SerializeField] public Vector3 gameAnchor;
     [SerializeField] public Vector3 menuAnchor;
+    [System.NonSerialized] public int Concede = 0;
     
     public static int CurrentLevel => THIS.CurrentLevel();
     public static LevelSo LevelSo { get; set; }
     public static float DeltaMult = 1.0f;
+    public static float HealthMult = 1.0f;
+    
     public void LoadLevel()
     {
+        Concede = 0;
+        HealthMult = 1.0f;
         LevelSo = Const.THIS.GetLevelSo(CurrentLevel);
         #if UNITY_EDITOR
             SaveManager.CreateSavePoint("Level " + CurrentLevel + " Save Data");
@@ -96,7 +101,8 @@ public class LevelManager : Singleton<LevelManager>
         GameManager.THIS.OnVictory();
         SlashScreen.THIS.Show(SlashScreen.State.Victory, 0.25f, GetVictoryReward(), CurrentLevel);
         this.NextLevel();
-        
+
+        Concede = 0;
         AnalyticsManager.LevelEnd(GAProgressionStatus.Complete);
     }
     
@@ -113,6 +119,7 @@ public class LevelManager : Singleton<LevelManager>
     public void OnClick_Restart()
     {
         Consent.THIS.Close();
+        AnalyticsManager.Concede(LevelManager.CurrentLevel, ++LevelManager.THIS.Concede);
         if (!GameManager.PLAYING)
         {
             return;

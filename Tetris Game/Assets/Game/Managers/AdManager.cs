@@ -36,7 +36,7 @@ namespace IWI
                     FakeAdRewarded.THIS.Initialize();
                     FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
                     {
-                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.REWARDED))
+                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.REWARDED))
                         {
                             return;
                         }
@@ -56,7 +56,7 @@ namespace IWI
                     FakeAdInterstitial.THIS.Initialize();
                     FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
                     {
-                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdState.INTERSTITIAL))
+                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.INTERSTITIAL))
                         {
                             return;
                         }
@@ -73,7 +73,7 @@ namespace IWI
             MaxSdk.ShowMediationDebugger();
         }
         
-        public void TryInterstitial()
+        public void TryInterstitial(AdBreakScreen.AdReason adReason)
         {
             if (_Data.removeAds)
             {
@@ -85,8 +85,7 @@ namespace IWI
             }
             if (Time.time - _Data.LastTimeAdShown > adTimeInterval)
             {
-                Debug.Log("show");
-                ShowAdBreak();
+                ShowAdBreak(adReason);
             }
         }
 
@@ -134,7 +133,7 @@ namespace IWI
             UIManager.OnMenuModeChanged -= ChangeBannerPosition;
         }
 
-        public void ShowAdBreak()
+        public static void ShowAdBreak(AdBreakScreen.AdReason adReason)
         {
             if (!MaxSdk.IsInitialized())
             {
@@ -150,7 +149,7 @@ namespace IWI
                 return;
             }
 
-            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.INTERSTITIAL)
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.INTERSTITIAL)
             .SetLoadState(FakeAdInterstitial.THIS.LoadState)
             .SetInfo(Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText)
             .SetVisualData(Onboarding.THIS.adBreakVisualData)
@@ -162,35 +161,35 @@ namespace IWI
                 () =>
                 {
                     AdBreakScreen.THIS.Close();
-                    _Data.interSkipCount++;
-                    _Data.LastTimeAdShown = (int)Time.time;
-                    AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, _Data.interSkipCount);
+                    AdManager.THIS._Data.interSkipCount++;
+                    AdManager.THIS._Data.LastTimeAdShown = (int)Time.time;
+                    AnalyticsManager.AdData(AdBreakScreen.AdType.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, adReason, AdManager.THIS._Data.interSkipCount);
                 },
                 () => Wallet.Consume(Const.Currency.OneAd))
             .OnTimesUp(() =>
             {
-                _Data.interWatchCount++;
-                _Data.LastTimeAdShown = (int)Time.time;
+                AdManager.THIS._Data.interWatchCount++;
+                AdManager.THIS._Data.LastTimeAdShown = (int)Time.time;
 
-                AnalyticsManager.AdData(AdBreakScreen.AdState.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, _Data.interSkipCount);
+                AnalyticsManager.AdData(AdBreakScreen.AdType.INTERSTITIAL, AdBreakScreen.AdInteraction.WATCH, adReason, AdManager.THIS._Data.interWatchCount);
                 
                 AdBreakScreen.THIS.CloseImmediate();
 
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
-                    if (!_data.removeAds && _data.InterAdInstance % ADBlockSuggestionMod == 0)
+                    if (!AdManager.THIS._Data.removeAds && AdManager.THIS._Data.InterAdInstance % ADBlockSuggestionMod == 0)
                     {
                         UIManager.THIS.ShowOffer_RemoveAds_AfterInterAd();
                     }
-                    _data.InterAdInstance++;
+                    AdManager.THIS._Data.InterAdInstance++;
                     GameManager.UpdateTimeScale();
                 }, null);
             }, 3.5f)
             .Open(0.6f);
         }
 
-        public static void ShowTicketAd(System.Action onReward, System.Action onClick = null)
+        public static void ShowTicketAd(AdBreakScreen.AdReason adReason, System.Action onReward, System.Action onClick = null)
         {
             if (!MaxSdk.IsInitialized())
             {
@@ -210,7 +209,7 @@ namespace IWI
                 AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
             
-            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdState.REWARDED)
+            AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.REWARDED)
             .SetLoadState(FakeAdRewarded.THIS.LoadState)
             .SetInfo(Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText)
             .SetVisualData(Onboarding.THIS.rewardedAdVisualData)
@@ -227,6 +226,9 @@ namespace IWI
                 () => true)
             .OnTimesUp(() =>
             {
+                AdManager.THIS._Data.rewardWatchCount++;
+                AnalyticsManager.AdData(AdBreakScreen.AdType.REWARDED, AdBreakScreen.AdInteraction.WATCH, adReason, AdManager.THIS._Data.rewardWatchCount);
+
                 AdBreakScreen.THIS.CloseImmediate();
                 FakeAdRewarded.THIS.Show(
                     GameManager.UpdateTimeScale, 
@@ -274,6 +276,7 @@ namespace IWI
             [SerializeField] public bool removeAds = false;
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
+            [SerializeField] public int rewardWatchCount;
             [System.NonSerialized] public int LastTimeAdShown;
             [System.NonSerialized] public int InterAdInstance = 1;
             
@@ -286,6 +289,7 @@ namespace IWI
                 removeAds = data.removeAds;
                 interSkipCount = data.interSkipCount;
                 interWatchCount = data.interWatchCount;
+                rewardWatchCount = data.rewardWatchCount;
             }
             public object Clone()
             {

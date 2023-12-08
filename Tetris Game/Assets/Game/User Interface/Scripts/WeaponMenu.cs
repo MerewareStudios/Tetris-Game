@@ -385,7 +385,7 @@ namespace Game.UI
             {
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
-                    AdManager.ShowTicketAd(() =>
+                    AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_UPG,() =>
                     {
                         Wallet.Transaction(Const.Currency.OneAd);
                         OnClick_PurchaseUpgrade(statType);
@@ -427,7 +427,7 @@ namespace Game.UI
             {
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
-                    AdManager.ShowTicketAd(() =>
+                    AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_BUY,() =>
                     {
                         Wallet.Transaction(Const.Currency.OneAd);
                         OnClick_PurchaseWeapon();

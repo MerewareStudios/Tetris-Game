@@ -31,7 +31,7 @@ MonoBehaviour:
         maxStack: 7
         defaultSupplyLine: 6
       coinTransactionData:
-        value: 47
+        value: 57
       gemTransactionData:
         value: 8
       adTransactionData:

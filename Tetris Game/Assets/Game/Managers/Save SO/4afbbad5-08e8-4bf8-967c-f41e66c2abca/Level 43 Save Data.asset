@@ -20,7 +20,7 @@ MonoBehaviour:
     userData:
       level: 43
       playerData:
-        currentHealth: -99
+        currentHealth: 23
       pupData:
         available: 0
         currentUsage: 12
@@ -31,7 +31,7 @@ MonoBehaviour:
         maxStack: 13
         defaultSupplyLine: 6
       coinTransactionData:
-        value: 365
+        value: 463
       gemTransactionData:
         value: 0
       adTransactionData:

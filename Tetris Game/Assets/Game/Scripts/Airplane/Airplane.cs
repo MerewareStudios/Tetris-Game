@@ -94,7 +94,7 @@ public class Airplane : MonoBehaviour
 
         if (!Wallet.Consume(Const.Currency.OneAd))
         {
-            AdManager.ShowTicketAd(() =>
+            AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
             {
                 Wallet.Transaction(Const.Currency.OneAd);
                 OnClick_Get();
@@ -227,6 +227,12 @@ public class Airplane : MonoBehaviour
     {
         [SerializeField] public Cargo.Type type;
         [SerializeField] public int delay = -1;
+
+        public CarryData(Cargo.Type type, int delay)
+        {
+            this.type = type;
+            this.delay = delay;
+        }
     }
 
 

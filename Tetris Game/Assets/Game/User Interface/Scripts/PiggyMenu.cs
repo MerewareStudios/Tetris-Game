@@ -198,7 +198,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             return;
         }
         
-        AdManager.ShowTicketAd(() =>
+        AdManager.ShowTicketAd(AdBreakScreen.AdReason.PIGGY,() =>
         {
             Wallet.Transaction(Const.Currency.OneAd);
             OnClick_RequestMultiply();
@@ -315,7 +315,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             Onboarding.HideFinger();
         }
         
-        AnalyticsManager.PiggyBreak(SavedData.breakInstance + 1);
+        AnalyticsManager.PiggyBreak(SavedData.breakInstance + 1, LevelManager.CurrentLevel);
     }
 
     public void GiveRewards()
@@ -398,7 +398,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         this.Close();
         
         SavedData.skipInstance++;
-        AnalyticsManager.PiggyBreakSkipped(SavedData.skipInstance);
+        // AnalyticsManager.PiggyBreakSkipped(SavedData.skipInstance);
     }
     #endregion
 

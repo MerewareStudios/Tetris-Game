@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442f97bc93e8f3443b9dd18c337cc140, type: 3}
+  m_Name: Level 50 Save Data 1
+  m_EditorClassIdentifier: 
+  saveData:
+    onboardingList: 00000000000000000000000000000000
+    accountData:
+      commented: 1
+      guid: 4afbbad5-08e8-4bf8-967c-f41e66c2abca
+    userData:
+      level: 51
+      playerData:
+        currentHealth: 19
+      pupData:
+        available: 0
+        currentUsage: 3
+        purchaseCount: 21
+        use: 1
+      boardData:
+        defaultStack: 6
+        maxStack: 13
+        defaultSupplyLine: 6
+      coinTransactionData:
+        value: 100
+      gemTransactionData:
+        value: 100
+      adTransactionData:
+        value: 10
+      blockShopData:
+        unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c0000000900000007000000
+        lastIndex: 7
+      weaponShopData:
+        inspectIndex: 9
+        equipIndex: 9
+        gunShopDatas:
+        - purchased: 1
+          upgradeIndexes: 000000000300000000000000
+        - purchased: 1
+          upgradeIndexes: 010000000400000000000000
+        - purchased: 1
+          upgradeIndexes: 000000000300000001000000
+        - purchased: 1
+          upgradeIndexes: 020000000400000002000000
+        - purchased: 1
+          upgradeIndexes: 040000000300000001000000
+        - purchased: 1
+          upgradeIndexes: 010000000300000005000000
+        - purchased: 1
+          upgradeIndexes: 030000000900000003000000
+        - purchased: 1
+          upgradeIndexes: 050000000600000002000000
+        - purchased: 1
+          upgradeIndexes: 030000000700000005000000
+        - purchased: 1
+          upgradeIndexes: 090000000300000009000000
+      menuNavData:
+        lastMenuType: 1
+        lockedMiniOffer:
+          startAt: 50
+          unlockedAt: 58
+          offerIndex: 5
+          timerRunning: 0
+          offerEnds: 638375742565819806
+      piggyData:
+        currentMoney:
+          type: 0
+          amount: 375
+        moneyCapacity: 375
+        breakInstance: 13
+        doubleInstance: 2
+        skipInstance: 29
+      airplaneData:
+        cargoTypes: 
+        arrival: 70
+        total: 13
+    adData:
+      removeAds: 0
+      interSkipCount: 0
+      interWatchCount: 14
+    purchaseData:
+      offers: 

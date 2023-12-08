@@ -14,12 +14,11 @@ public class Const : SSingleton<Const>
     [ReadOnly] public int bundleVersionCode;
     [Header("Look Up")]
     public LevelSo[] Levels;
+    public LevelSo[] AutoLevels;
     public SaveData DefaultSaveData;
     [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
-    [Header("Auto")]
-    public LevelSo[] AutoLevels;
 
     public Pawn.Usage[] gifts;
     [Header("Colors")] 
@@ -60,7 +59,6 @@ public class Const : SSingleton<Const>
     {
         if (level > Levels.Length)
         {
-            Debug.Log(level);
             return LevelSo.AutoGenerate(level);
         }
         return Levels[level - 1];
@@ -105,7 +103,11 @@ public class Const : SSingleton<Const>
 
     public LevelSo GetAutoLevel(int index)
     {
-        return AutoLevels[index % AutoLevels.Length];
+        return AutoLevels[index];
+    }
+    public LevelSo GetRandomAutoLevel()
+    {
+        return AutoLevels.Random();
     }
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)
     {
