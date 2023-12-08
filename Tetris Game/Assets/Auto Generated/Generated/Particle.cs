@@ -9,5 +9,6 @@ public enum Particle
     Bubble = 6,
     Kamikaze = 7,
     Debris = 8,
+    Star = 9,
 
 }

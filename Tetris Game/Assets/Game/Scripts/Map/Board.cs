@@ -734,6 +734,7 @@ namespace Game
                 {
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
+                    Particle.Star.Emit(15, spawnPlace.Position);
                 };
             }
 
@@ -838,6 +839,7 @@ namespace Game
                     if (totalAmmo > 0)
                     {
                         Particle.Debris.Emit(30, spawnPlace.Position);
+                        Particle.Star.Emit(15, spawnPlace.Position);
                     }
                 };
             }
