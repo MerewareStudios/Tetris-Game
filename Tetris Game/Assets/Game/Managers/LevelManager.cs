@@ -31,7 +31,11 @@ public class LevelManager : Singleton<LevelManager>
         // #endif
         AnalyticsManager.LevelStart(CurrentLevel);
 
+#if CREATIVE
+        Board.THIS.Construct(Const.THIS.creativeSettings.boardSize);
+#else
         Board.THIS.Construct(BoardSize());
+#endif
 
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();

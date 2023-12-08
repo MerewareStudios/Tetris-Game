@@ -496,12 +496,26 @@ public static class UIManagerExtensions
       RectTransform rectTransform = image.rectTransform;
       glimmer.Show(image, rectTransform, speed, AnimConst.THIS.glimmerEase);
    }
+   
+   
+#if CREATIVE
+   public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
+   {
+      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, Warzone.THIS.Player.Position);
+      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Enemy_Burst);
+   }
+#else
+
    public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
    }
+#endif
+   
    public static void EmitEnemyGemBurst(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);

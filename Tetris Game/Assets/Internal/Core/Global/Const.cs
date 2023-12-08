@@ -3,7 +3,6 @@ using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
-using IWI;
 using TMPro;
 using UnityEngine;
 
@@ -20,6 +19,7 @@ public class Const : SSingleton<Const>
     public class CreativeSettings
     {
         [SerializeField] public bool fingerEnabled = true;
+        [SerializeField] public Vector2Int boardSize = new Vector2Int(5, 5);
         [SerializeField] public bool shopEnabled = true;
         [SerializeField] public bool powerUpEnabled = true;
         [SerializeField] public bool coinEnabled = true;

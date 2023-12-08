@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
-  m_Name: Game Constants
+  m_Name: Game Constants - Creative
   m_EditorClassIdentifier: 
   creativeSettings:
     fingerEnabled: 1
-    boardSize: {x: 5, y: 5}
+    boardSize: {x: 3, y: 5}
     shopEnabled: 0
     powerUpEnabled: 1
     coinEnabled: 0
@@ -579,8 +579,8 @@ MonoBehaviour:
   - {r: 0.4509804, g: 0.3647059, b: 0.4862745, a: 1}
   - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
-  - {r: 0.5647059, g: 0.27058825, b: 1, a: 1}
-  - {r: 0.5647059, g: 0.27058825, b: 1, a: 1}
+  - {r: 0.4117647, g: 0.33333334, b: 0.44313726, a: 1}
+  - {r: 0.4509804, g: 0.3647059, b: 0.4862745, a: 1}
   placePosDouble:
   - {x: 0, y: 0.24, z: -0.025}
   - {x: 0, y: 0.24, z: 0}

@@ -70,7 +70,8 @@ public class Spawner : Singleton<Spawner>
     public void UpdateFingerDelta(Vector3 pivot)
     {
 #if CREATIVE
-            return;
+        distanceFromDraggingFinger.z = (pivot.z - transform.position.z) * 0.5f;
+        return;
 #endif
         distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
     }
