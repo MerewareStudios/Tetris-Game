@@ -33,6 +33,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
             CreativeFinger creativeFinger = MonoBehaviour.Instantiate(AssetDatabase.LoadAssetAtPath<CreativeFinger>(path));
             creativeFinger.SetUp(CameraManager.THIS.uiCamera);
         }
+        
 #endif
         Input.multiTouchEnabled = multiTouchEnabled;
         
