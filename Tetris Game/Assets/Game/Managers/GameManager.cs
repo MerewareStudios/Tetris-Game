@@ -59,8 +59,6 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        AnalyticsManager.Init();
-
         Distortion.Complete = (go, state) =>
         {
             go.Despawn(Pool.Distortion);
@@ -70,15 +68,19 @@ public class GameManager : Singleton<GameManager>
             }
         };
 
+        LevelManager.THIS.LoadLevel();
+        DOTween.SetTweensCapacity(200, 50);
+        
+        #if CREATIVE
+            return;
+        #endif
+        
+        AnalyticsManager.Init();
+        
         if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             Board.THIS.OnMerge += CheckMergeOnboarding;
         }
-
-        LevelManager.THIS.LoadLevel();
-        
-        DOTween.SetTweensCapacity(200, 50);
-        
         
     #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
         if (!MaxSdk.IsUserConsentSet())

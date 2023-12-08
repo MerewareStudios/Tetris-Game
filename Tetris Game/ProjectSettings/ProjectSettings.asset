@@ -815,7 +815,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: ANALYTICS_ENABLED;gameanalytics_max_enabled
+    Android: ANALYTICS_ENABLED;gameanalytics_max_enabled;CREATIVE
     Standalone: 
     iPhone: gameanalytics_max_enabled
   additionalCompilerArguments: {}

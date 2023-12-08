@@ -61,17 +61,23 @@ public class SaveManager : SaveManagerBase<SaveManager>
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.WEAPON_TAB.IsComplete();
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
-        UIManager.THIS.settingsCanvas.enabled = ONBOARDING.WEAPON_TAB.IsComplete();
+        UIManager.THIS.SettingsEnabled = ONBOARDING.WEAPON_TAB.IsComplete();
     }
 }
 public static class SaveManagerExtensions
 {
     public static bool IsNotComplete(this ONBOARDING onboardingStep)
     {
+#if CREATIVE
+        return false;
+#endif
         return !SaveManager.THIS.SKIP_ONBOARDING && SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
     }
     public static bool IsComplete(this ONBOARDING onboardingStep)
     {
+#if CREATIVE
+        return true;
+#endif
         return SaveManager.THIS.SKIP_ONBOARDING || !SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
     }
     public static void SetComplete(this ONBOARDING onboardingStep)

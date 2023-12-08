@@ -112,6 +112,7 @@ namespace  Game
                 
                 Player.StartSearching();
                 
+#if !CREATIVE
                 if (LevelManager.LevelSo.countdown > 0)
                 {
                     string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
@@ -122,6 +123,9 @@ namespace  Game
                     string startingText = Onboarding.THIS.targetPracticeText;
                     yield return Announcer.THIS.Show(startingText, 0.5f);
                 }
+#else
+                yield return new WaitForSeconds(0.5f);
+#endif
 
 
                 if (LevelManager.CurrentLevel > airplane.SavedData.arrival)

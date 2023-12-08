@@ -11,7 +11,27 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Game Const", menuName = "Game/Const", order = 0)]
 public class Const : SSingleton<Const>
 {
-    [ReadOnly] public int bundleVersionCode;
+    
+#if CREATIVE
+    [Header("Creative Settings")]
+    [SerializeField] public CreativeSettings creativeSettings;
+
+    [Serializable]
+    public class CreativeSettings
+    {
+        [SerializeField] public bool fingerEnabled = true;
+        [SerializeField] public bool shopEnabled = true;
+        [SerializeField] public bool powerUpEnabled = true;
+        [SerializeField] public bool coinEnabled = true;
+        [SerializeField] public bool gemEnabled = true;
+        [SerializeField] public bool ticketEnabled = true;
+        [SerializeField] public bool settingsEnabled = false;
+        [SerializeField] public bool statsEnabled = false;
+        [SerializeField] public bool levelTextEnabled = false;
+        [SerializeField] public bool adsEnabled = false;
+    }
+#endif
+    
     [Header("Look Up")]
     public LevelSo[] Levels;
     public LevelSo[] AutoLevels;

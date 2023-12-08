@@ -26,7 +26,21 @@ public class Powerup : Lazyingleton<Powerup>
     {
         set
         {
+            
+#if CREATIVE
+            if (!Const.THIS.creativeSettings.powerUpEnabled)
+            {
+                canvas.enabled = false;
+                return;
+            }
+#endif
+            
             canvas.enabled = value;
+            
+#if CREATIVE
+    currencyDisplay.gameObject.SetActive(false);
+#endif
+            
         }
         get => canvas.enabled;
     }

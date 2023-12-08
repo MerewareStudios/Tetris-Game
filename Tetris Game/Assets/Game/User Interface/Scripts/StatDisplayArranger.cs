@@ -16,6 +16,12 @@ public class StatDisplayArranger : Lazyingleton<StatDisplayArranger>
 
     public void Show(StatDisplay.Type statType, int value, float timePercent = 1.0f, bool punch = false)
     {
+#if CREATIVE
+        if (!Const.THIS.creativeSettings.statsEnabled)
+        {
+            return;
+        }
+#endif
         _statDisplays[(int)statType].Show(value, timePercent, punch);
     }
     public void UpdatePercent(StatDisplay.Type statType, float percent)

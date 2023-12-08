@@ -38,6 +38,13 @@ public class LevelManager : Singleton<LevelManager>
         Spawner.THIS.OnLevelLoad();
 
         levelText.text = "Level " + CurrentLevel;
+#if CREATIVE
+        if (!Const.THIS.creativeSettings.levelTextEnabled)
+        {
+            levelText.enabled = false;
+        }
+#endif
+        
         DeltaMult = GetDeltaMult();
 
         Warzone.THIS.OnLevelLoad(LevelSo.sortInterval);

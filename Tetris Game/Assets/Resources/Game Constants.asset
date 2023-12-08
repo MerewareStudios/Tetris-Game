@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  bundleVersionCode: 170
+  creativeSettings:
+    fingerEnabled: 1
+    shopEnabled: 0
+    powerUpEnabled: 1
+    coinEnabled: 0
+    gemEnabled: 0
+    ticketEnabled: 0
+    settingsEnabled: 0
+    statsEnabled: 0
+    levelTextEnabled: 0
+    adsEnabled: 0
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -151,6 +161,7 @@ MonoBehaviour:
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0
+      rewardWatchCount: 0
     purchaseData:
       offers: 
   GunUpgradeData:

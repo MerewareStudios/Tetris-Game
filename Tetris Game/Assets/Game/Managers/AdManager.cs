@@ -135,6 +135,12 @@ namespace IWI
 
         public static void ShowAdBreak(AdBreakScreen.AdReason adReason)
         {
+#if CREATIVE
+            if (!Const.THIS.creativeSettings.adsEnabled)
+            {
+                return;
+            }
+#endif
             if (!MaxSdk.IsInitialized())
             {
                 return;
@@ -191,6 +197,12 @@ namespace IWI
 
         public static void ShowTicketAd(AdBreakScreen.AdReason adReason, System.Action onReward, System.Action onClick = null)
         {
+#if CREATIVE
+            if (!Const.THIS.creativeSettings.adsEnabled)
+            {
+                return;
+            }
+#endif
             if (!MaxSdk.IsInitialized())
             {
                 return;

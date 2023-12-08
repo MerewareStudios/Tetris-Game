@@ -212,7 +212,7 @@ namespace IWI.UI
         [SerializeField] public Sprite sprite;
         [SerializeField] public bool raycastTarget = false;
         [SerializeField] public bool maskable = false;
-        [SerializeField] public Image imagePrefab;
+        // [SerializeField] public Image imagePrefab;
         [SerializeField] public UpdateType updateType;
         [SerializeField] public bool timeIndependent = true;
     }

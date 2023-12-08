@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -22,9 +23,41 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
 
     public bool Active
     {
-        set => anchorPivot.gameObject.SetActive(value);
+        set
+        {
+            
+#if CREATIVE
+            switch (currencyType)
+            {
+                case Const.CurrencyType.Coin:
+                    if (!Const.THIS.creativeSettings.coinEnabled)
+                    {
+                        anchorPivot.gameObject.SetActive(false);
+                        return;
+                    }
+                    break;
+                case Const.CurrencyType.Gem:
+                    if (!Const.THIS.creativeSettings.gemEnabled)
+                    {
+                        anchorPivot.gameObject.SetActive(false);
+                        return;
+                    }
+                    break;
+                case Const.CurrencyType.Ticket:
+                    if (!Const.THIS.creativeSettings.ticketEnabled)
+                    {
+                        anchorPivot.gameObject.SetActive(false);
+                        return;
+                    }
+                    break;
+            }
+           
+#endif
+            
+            anchorPivot.gameObject.SetActive(value);
+        }
     }
-    
+
     public int Amount
     {
         get =>  base.TransactionData.value;

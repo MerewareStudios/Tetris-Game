@@ -4,6 +4,8 @@ using DG.Tweening;
 public class CreativeFinger : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
+    [SerializeField] private RectTransform canvasRect;
+    [SerializeField] private RectTransform pivot;
     [SerializeField] private Transform fingerScalePivot;
     [SerializeField] private Transform fingerLocalPivot;
     [SerializeField] private Transform fingerRotationPivot;
@@ -11,10 +13,14 @@ public class CreativeFinger : MonoBehaviour
     [SerializeField] private Transform fingerPSLoc;
     [System.NonSerialized] private bool canEmit = false;
 
+    public void SetUp(Camera cam)
+    {
+        canvas.worldCamera = cam;
+    }
+    
     void LateUpdate()
     {
-        var screenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
-        fingerScalePivot.position = canvas.worldCamera.ScreenToWorldPoint(screenPoint);
+        pivot.anchoredPosition = GetLocal();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -51,5 +57,17 @@ public class CreativeFinger : MonoBehaviour
             fingerPS.Emit(1);
             canEmit = false;
         }
+    }
+    
+    public Vector3 GetLocal()
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,Input.mousePosition, canvas.worldCamera, out Vector2 local);
+        // rectTransform.anchoredPosition=vector;
+        return local;
+        Vector2 localPoint = Input.mousePosition;
+
+        localPoint = canvas.worldCamera.ScreenToWorldPoint(localPoint);
+        // RectTransformUtility.ScreenPointToWorldPointInRectangle(canvasRect, localPoint, canvas.worldCamera, out Vector3 local);
+        return localPoint;
     }
 }

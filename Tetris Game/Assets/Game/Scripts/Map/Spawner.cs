@@ -273,7 +273,11 @@ public class Spawner : Singleton<Spawner>
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 hitPoint = HitPoint(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward));
+// #if CREATIVE
+        // Vector3 targetPosition = hitPoint;
+// #else
         Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
+// #endif
         _finalPosition = targetPosition - _dragOffset;
     }
     public void Input_OnUp()

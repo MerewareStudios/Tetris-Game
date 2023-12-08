@@ -3717,7 +3717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 548236974}
-  uiCamera: {fileID: 548236974}
+  uiCamera: {fileID: 514003530}
   shakePivot: {fileID: 1758418389}
 --- !u!114 &715436861
 MonoBehaviour:

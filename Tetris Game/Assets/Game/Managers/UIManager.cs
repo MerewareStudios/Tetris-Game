@@ -206,6 +206,21 @@ public class UIManager : Singleton<UIManager>
       CurrentMenu = null;
    }
 
+   public bool SettingsEnabled
+   {
+      set
+      {
+#if CREATIVE
+         if (!Const.THIS.creativeSettings.settingsEnabled)
+         {
+            settingsCanvas.enabled = false;
+            return;
+         }
+#endif
+         settingsCanvas.enabled = value;
+      }
+   }
+
    private Image SpawnImageIcon()
    {
       return Pool.Image.Spawn<Image>();

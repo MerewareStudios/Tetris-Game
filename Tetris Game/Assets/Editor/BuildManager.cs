@@ -22,14 +22,14 @@ public class BuildManager : IPreprocessBuildWithReport, IPostprocessBuildWithRep
     public void OnPreprocessBuild(BuildReport report)
     {
         SetAndroidKeystore();
-        Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
-        @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
+        // Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
+        // @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
         Debug.LogWarning("Build Started");
     }
     public void OnPostprocessBuild(BuildReport report)
     {
-        Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
-        @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
+        // Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
+        // @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
         
         
         
@@ -39,13 +39,13 @@ public class BuildManager : IPreprocessBuildWithReport, IPostprocessBuildWithRep
         
         
         
-        string newPath = directory + "/" + Application.productName + " " + Application.version + " (" + @const.bundleVersionCode + ")" + extension; 
+        string newPath = directory + "/" + Application.productName + " " + Application.version + " (" + PlayerSettings.Android.bundleVersionCode + ")" + extension; 
         
         System.IO.File.Copy(oldPath, newPath);
         
         
         
         PlayerSettings.Android.bundleVersionCode++;
-        @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
+        // @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
     }
 }

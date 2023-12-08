@@ -70,6 +70,14 @@ public class Shop : MonoBehaviour
     {
         set
         {
+    #if CREATIVE
+            if (!Const.THIS.creativeSettings.shopEnabled)
+            {
+                buttonTransform.gameObject.SetActive(false);
+                return;
+            }
+    #endif
+            
             buttonTransform.gameObject.SetActive(value);
             if (!value)
             {

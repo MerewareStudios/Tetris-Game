@@ -1,4 +1,5 @@
 using Internal.Core;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -24,6 +25,15 @@ public class ApplicationManager : Singleton<ApplicationManager>
 
     public virtual void Awake()
     {
+#if CREATIVE
+        GameManager.THIS.Init();
+        if (Const.THIS.creativeSettings.fingerEnabled)
+        {
+            const string path = "Assets/Internal/Tutorial/Runtime/Prefabs/Creative Finger.prefab";
+            CreativeFinger creativeFinger = MonoBehaviour.Instantiate(AssetDatabase.LoadAssetAtPath<CreativeFinger>(path));
+            creativeFinger.SetUp(CameraManager.THIS.uiCamera);
+        }
+#endif
         Input.multiTouchEnabled = multiTouchEnabled;
         
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
