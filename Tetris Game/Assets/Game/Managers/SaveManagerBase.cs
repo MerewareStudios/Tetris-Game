@@ -36,7 +36,8 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
             File.WriteAllText(SavePath, content);
         }
     }
-
+    
+#if UNITY_EDITOR
     public static void CreateSavePoint(string prefix)
     {
         SaveSO saveSo = ScriptableObject.CreateInstance<SaveSO>();
@@ -55,6 +56,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         AssetDatabase.CreateAsset(saveSo, Path.Combine(path, saveSo.saveData.accountData.guid, prefix + ".asset"));
         AssetDatabase.SaveAssets();
     }
+#endif
 
     private void Load()
     {
