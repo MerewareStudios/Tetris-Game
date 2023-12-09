@@ -35,8 +35,12 @@ public class Const : SSingleton<Const>
         [SerializeField] public float addedFov;
         [SerializeField] public Vector3 addedCamAngle;
         [SerializeField] public int seed;
+        [SerializeField] public Vector2Int[] poses;
+        [SerializeField] public Pool[] blocks;
         [TextArea] [SerializeField] public string helpText;
         [SerializeField] public float speechDelay = 1.0f;
+        [SerializeField] public float firstBlockSpawnDelay = 5.0f;
+        [SerializeField] public float genericBlockSpawnDelay = 5.0f;
 
         public void Speak()
         {

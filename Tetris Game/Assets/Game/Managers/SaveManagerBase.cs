@@ -18,6 +18,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
             Delete();
         }
 #if CREATIVE
+        GameManager.THIS.Init();
         if (Const.THIS.creativeSettings.clearOnStart)
         {
             Delete();

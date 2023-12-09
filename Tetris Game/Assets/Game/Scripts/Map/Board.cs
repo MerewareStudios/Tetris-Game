@@ -664,11 +664,16 @@ namespace Game
             Particle.Lightning.Play(randomPlace.PlacePosition - CameraManager.THIS.gameCamera.transform.forward);
             SpawnPawn(randomPlace, Pawn.Usage.Bomb, extra, false);
         }
-        
+#if CREATIVE
+        private int posIndex = 0;
+#endif  
         public void DestroyWithProjectile(ParticleSystem ps, Vector3 startPosition)
         {
             ps.Clear();
             Vector2Int pos = new Vector2Int(Random.Range(0, _size.x), Random.Range(0, _size.y));
+#if CREATIVE
+            pos = Const.THIS.creativeSettings.poses[posIndex++];
+#endif
             Vector3 targetPosition = _places[pos.x, pos.y].PlacePosition;
             targetPosition.y += 0.5f;
             
@@ -681,6 +686,7 @@ namespace Game
                 Particle.Missile_Explosion.Play(targetPosition);
                 ExplodePawnsCircular(pos, Board.BombRadius);
                 MarkDropPointsMover();
+                CameraManager.THIS.Shake(Random.Range(0.4f, 0.45f), 0.5f);
             };
         }
 

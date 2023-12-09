@@ -120,6 +120,6 @@ MonoBehaviour:
   castType: 2
   deathAction: 0
   spawnerCount: 1
-  spawnerDuration: 3.5
+  spawnerDuration: 5
   spawnerExtra: 0
   extraData: {fileID: 0}

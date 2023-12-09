@@ -38,10 +38,6 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
     [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
     
-#if CREATIVE
-    [System.NonSerialized] private readonly List<Pool> _preRandomBlocks = new();
-    private int _preRandomIndex = 0;
-#endif
 
     public void SetNextBlockVisibility(bool visible)
     {
@@ -107,6 +103,16 @@ public class Spawner : Singleton<Spawner>
     }
     public void DelayedSpawn(float delay)
     {
+#if CREATIVE
+        if (_spawnIndex == 0)
+        {
+            delay = Const.THIS.creativeSettings.firstBlockSpawnDelay;
+        }
+        else
+        {
+            delay = Const.THIS.creativeSettings.genericBlockSpawnDelay;
+        }
+#endif
         if (_delayedTween != null && _delayedTween.IsPlaying())
         {
             return;
@@ -149,7 +155,7 @@ public class Spawner : Singleton<Spawner>
     public void OnLevelLoad()
     {
         _spawnIndex = 0;
-        _nextBlock = GetNexRandomBlock();
+        // _nextBlock = GetNexRandomBlock();
     }
     private void StopAllRunningTasksOnBlock()
     {
@@ -163,16 +169,7 @@ public class Spawner : Singleton<Spawner>
     private Pool GetNexRandomBlock()
     {
 #if CREATIVE
-        if (_preRandomBlocks.Count == 0)
-        {
-            Random.InitState(Const.THIS.creativeSettings.seed);
-
-            for (int i = 0; i < 250; i++)
-            {
-                _preRandomBlocks.Add(BlockMenu.THIS.SavedData.unlockedBlocks.Random());
-            }
-        }
-        return _preRandomBlocks[_preRandomIndex++];
+        return Const.THIS.creativeSettings.blocks[_spawnIndex];
 #endif
         return this.RandomBlock();
     }
@@ -424,9 +421,9 @@ public class Spawner : Singleton<Spawner>
         {
             _smoothFactorLerp = 10.0f;
             
+            _nextBlock = GetNexRandomBlock();
             pool = _nextBlock;
             
-            _nextBlock = GetNexRandomBlock();
             if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block)) && Helper.IsPossible(0.5f))
             {
                 _nextBlock = GetNexRandomBlock();

@@ -51,7 +51,6 @@ namespace Game
         public void Construct(Pool pool, Pawn.Usage usage)
         {
             Block mimicBlock = pool.Prefab<Block>();
-            
             this.blockData = mimicBlock.blockData;
             this.segmentTransforms = mimicBlock.segmentTransforms;    
             

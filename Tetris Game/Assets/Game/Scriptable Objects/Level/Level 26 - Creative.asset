@@ -31,18 +31,18 @@ MonoBehaviour:
     amount: 5
   suggestedBlocks: []
   pawnPlacements:
-  - usage: 13
+  - usage: 1
     index: {x: 0, y: 0}
-    extra: 0
+    extra: 6
   - usage: 7
     index: {x: 1, y: 0}
     extra: 0
   - usage: 7
     index: {x: 5, y: 0}
     extra: 0
-  - usage: 13
+  - usage: 1
     index: {x: 6, y: 0}
-    extra: 0
+    extra: 6
   carryData:
     type: 0
     delay: -1
