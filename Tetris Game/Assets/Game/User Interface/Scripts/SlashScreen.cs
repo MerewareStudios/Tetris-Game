@@ -242,6 +242,13 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         Tween expand = centerImage.rectTransform.DOSizeDelta(new Vector2(distance, centerMaxHeight), animationSettings.expandShowDur).SetEase(animationSettings.expandShowEase).SetDelay(animationSettings.expandDelay);
         expand.OnStart(() =>
         {
+#if CREATIVE
+            if (!Const.THIS.creativeSettings.showTip)
+            {
+                tipParent.SetActive(false);
+                return;
+            }
+#endif
             tipParent.SetActive(true);
             tipParent.transform.localScale = Vector3.zero;
             tipParent.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);

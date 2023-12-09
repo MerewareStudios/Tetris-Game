@@ -133,7 +133,10 @@ public class Powerup : Lazyingleton<Powerup>
         pivot.localScale = Vector3.one;
         pivot.DOPunchScale(Vector3.one * amount, 0.3f, 1).SetUpdate(true);
 
-        ps.Emit(1);
+        if (Enabled)
+        {
+            ps.Emit(1);
+        }
     }
     private void PunchCost(float amount = 35.0f)
     {

@@ -11,9 +11,17 @@ public class CameraManager : Singleton<CameraManager>
 
     public float OrtoSize
     {
-        set => gameCamera.orthographicSize = value;
+        set
+        {
+            gameCamera.orthographicSize = value;
+#if CREATIVE
+            gameCamera.orthographicSize += Const.THIS.creativeSettings.addedFov;
+            gameCamera.transform.localEulerAngles = Const.THIS.creativeSettings.addedCamAngle;
+#endif
+        }
         get => gameCamera.orthographicSize;
     }
+
     public void Shake(float amplitude = 1.0f, float duration = 0.35f)
     {
         shakePivot.DOKill();

@@ -3,6 +3,7 @@ using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using Game.UI;
 using IWI.Tutorial;
 using UnityEngine;
 
@@ -36,6 +37,11 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private int _spawnIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
     [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
+    
+#if CREATIVE
+    [System.NonSerialized] private readonly List<Pool> _preRandomBlocks = new();
+    private int _preRandomIndex = 0;
+#endif
 
     public void SetNextBlockVisibility(bool visible)
     {
@@ -58,6 +64,7 @@ public class Spawner : Singleton<Spawner>
     private void Awake()
     {
         _plane = new Plane(Vector3.up, Vector3.zero);
+
     }
 
     public Vector3 MountPosition => spawnedBlockLocation.position + CurrentBlock.blockData.spawnerOffset;
@@ -66,6 +73,9 @@ public class Spawner : Singleton<Spawner>
     public void UpdatePosition(Vector3 pivot)
     {
         transform.position = HitPoint(new Ray(pivot, CameraManager.THIS.gameCamera.transform.forward));
+#if CREATIVE
+        transform.position += Vector3.forward * Const.THIS.creativeSettings.bottomOffset;
+#endif
     }
     public void UpdateFingerDelta(Vector3 pivot)
     {
@@ -139,7 +149,7 @@ public class Spawner : Singleton<Spawner>
     public void OnLevelLoad()
     {
         _spawnIndex = 0;
-        _nextBlock = this.RandomBlock();
+        _nextBlock = GetNexRandomBlock();
     }
     private void StopAllRunningTasksOnBlock()
     {
@@ -148,6 +158,23 @@ public class Spawner : Singleton<Spawner>
         StopMovement();
 
         CurrentBlock = null;
+    }
+
+    private Pool GetNexRandomBlock()
+    {
+#if CREATIVE
+        if (_preRandomBlocks.Count == 0)
+        {
+            Random.InitState(Const.THIS.creativeSettings.seed);
+
+            for (int i = 0; i < 250; i++)
+            {
+                _preRandomBlocks.Add(BlockMenu.THIS.SavedData.unlockedBlocks.Random());
+            }
+        }
+        return _preRandomBlocks[_preRandomIndex++];
+#endif
+        return this.RandomBlock();
     }
     
 
@@ -399,10 +426,10 @@ public class Spawner : Singleton<Spawner>
             
             pool = _nextBlock;
             
-            _nextBlock = this.RandomBlock();
+            _nextBlock = GetNexRandomBlock();
             if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block)) && Helper.IsPossible(0.5f))
             {
-                _nextBlock = this.RandomBlock();
+                _nextBlock = GetNexRandomBlock();
             }
 
             if (NextBlockVisible)

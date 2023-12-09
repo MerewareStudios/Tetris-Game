@@ -17,6 +17,12 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         {
             Delete();
         }
+#if CREATIVE
+        if (Const.THIS.creativeSettings.clearOnStart)
+        {
+            Delete();
+        }
+#endif
         Load();
     }
 

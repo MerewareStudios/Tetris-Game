@@ -14,16 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creativeSettings:
     fingerEnabled: 1
-    boardSize: {x: 7, y: 7}
+    boardSize: {x: 7, y: 5}
     shopEnabled: 0
-    powerUpEnabled: 1
+    powerUpEnabled: 0
     coinEnabled: 0
     gemEnabled: 0
     ticketEnabled: 0
     settingsEnabled: 0
     statsEnabled: 0
     levelTextEnabled: 0
+    showTip: 0
     adsEnabled: 0
+    clearOnStart: 1
+    bottomOffset: 3
+    addedFov: 0.4
+    addedCamAngle: {x: 1.5, y: 0, z: 0}
+    seed: 2
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -50,7 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1e54b57f812073f459689425fd7a85b0, type: 2}
   - {fileID: 11400000, guid: d8f3ac5092be4c94f99c387ec444876b, type: 2}
   - {fileID: 11400000, guid: 8d0513d2f98dc1c49a9800b9c100d237, type: 2}
-  - {fileID: 11400000, guid: 8a49e515ae12e3c419358e59795b53dd, type: 2}
+  - {fileID: 11400000, guid: 2f81c7a6e9d0e114da54cfd4d28a8d8b, type: 2}
   - {fileID: 11400000, guid: dfbd7bf76bee1374a8571e643178e8b1, type: 2}
   - {fileID: 11400000, guid: 8be596d262ae5604eb589cc5a043ab12, type: 2}
   - {fileID: 11400000, guid: 06ee065380bf48f41a11f91fa609bfd9, type: 2}
@@ -93,7 +99,7 @@ MonoBehaviour:
       commented: 0
       guid: 
     userData:
-      level: 1
+      level: 26
       playerData:
         currentHealth: 1
       pupData:
@@ -112,11 +118,11 @@ MonoBehaviour:
       adTransactionData:
         value: 0
       blockShopData:
-        unlockedBlocks: 030000000400000005000000060000000d000000
+        unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c0000000700000008000000
         lastIndex: 0
       weaponShopData:
         inspectIndex: 0
-        equipIndex: 0
+        equipIndex: 7
         gunShopDatas:
         - purchased: 1
           upgradeIndexes: 000000000000000000000000

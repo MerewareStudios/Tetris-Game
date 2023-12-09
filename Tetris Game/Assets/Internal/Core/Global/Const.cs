@@ -28,7 +28,13 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool settingsEnabled = false;
         [SerializeField] public bool statsEnabled = false;
         [SerializeField] public bool levelTextEnabled = false;
+        [SerializeField] public bool showTip = false;
         [SerializeField] public bool adsEnabled = false;
+        [SerializeField] public bool clearOnStart = true;
+        [SerializeField] public float bottomOffset;
+        [SerializeField] public float addedFov;
+        [SerializeField] public Vector3 addedCamAngle;
+        [SerializeField] public int seed;
     }
 #endif
     
