@@ -35,6 +35,16 @@ public class Const : SSingleton<Const>
         [SerializeField] public float addedFov;
         [SerializeField] public Vector3 addedCamAngle;
         [SerializeField] public int seed;
+        [TextArea] [SerializeField] public string helpText;
+        [SerializeField] public float speechDelay = 1.0f;
+
+        public void Speak()
+        {
+            DOVirtual.DelayedCall(speechDelay, () =>
+            {
+                UIManager.THIS.speechBubble.Speak(helpText, 0.0f, 0.75f);
+            });
+        }
     }
 #endif
     

@@ -26,10 +26,12 @@ MonoBehaviour:
     showTip: 0
     adsEnabled: 0
     clearOnStart: 1
-    bottomOffset: 3
+    bottomOffset: 1.5
     addedFov: 0.4
     addedCamAngle: {x: 1.5, y: 0, z: 0}
     seed: 2
+    helpText: HELP!
+    speechDelay: 1.1
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}

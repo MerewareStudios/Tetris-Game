@@ -72,6 +72,7 @@ public class GameManager : Singleton<GameManager>
         DOTween.SetTweensCapacity(200, 50);
         
         #if CREATIVE
+        Const.THIS.creativeSettings.Speak();
             return;
         #endif
         

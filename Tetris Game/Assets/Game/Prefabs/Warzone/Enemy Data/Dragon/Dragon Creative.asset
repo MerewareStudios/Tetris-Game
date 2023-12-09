@@ -111,7 +111,7 @@ MonoBehaviour:
   enemyRewards: []
   maxHealth: 50
   speed: 0.125
-  forwardRange: {x: 0.75, y: 0.75}
+  forwardRange: {x: 0.65, y: 0.65}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
