@@ -35,10 +35,13 @@ MonoBehaviour:
     - {x: 2, y: 2}
     - {x: 2, y: 0}
     - {x: 0, y: 0}
-    - {x: 0, y: 0}
+    - {x: 4, y: 3}
     - {x: 5, y: 0}
+    blocks: 0a000000050000000c000000030000000a0000000d00000005000000090000000c0000000c0000000c000000
     helpText: HELP!
     speechDelay: 1.1
+    firstBlockSpawnDelay: 3.25
+    genericBlockSpawnDelay: 1.25
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}

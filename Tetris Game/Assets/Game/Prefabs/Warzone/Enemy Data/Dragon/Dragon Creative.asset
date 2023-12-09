@@ -109,8 +109,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 50
-  speed: 0.125
+  maxHealth: 20
+  speed: 0.105
   forwardRange: {x: 0.65, y: 0.65}
   radius: 0.6
   emitCount: 10
@@ -120,6 +120,6 @@ MonoBehaviour:
   castType: 2
   deathAction: 0
   spawnerCount: 1
-  spawnerDuration: 5
+  spawnerDuration: 6
   spawnerExtra: 0
   extraData: {fileID: 0}
