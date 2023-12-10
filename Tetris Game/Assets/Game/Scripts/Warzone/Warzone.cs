@@ -245,8 +245,18 @@ namespace  Game
 
         public void AssignClosestEnemy()
         {
+
+            
             //Sort enemies by distance
             _enemies = _enemies.OrderBy(enemy => enemy.PositionZ - EndLine).ToList();
+            
+#if CREATIVE
+            if (Const.THIS.creativeSettings.assignFurthest)
+            {
+                _enemies.Reverse();
+            }
+#endif
+            
             //Assign first enemy as current target
             Player.CurrentEnemy = _enemies.FirstOrDefault();
         }

@@ -148,7 +148,12 @@ namespace Game
         public void Shoot(int bulletCount)
         {
             int shootCount = Mathf.Min(bulletCount, Warzone.THIS.EnemyCount);
-
+#if CREATIVE
+            if (!Const.THIS.creativeSettings.playerBubble && shootCount == 0)
+            {
+                return;
+            }
+#endif
             if (shootCount == 0)
             {
                 animator.SetTrigger(SHOOT_HASH);

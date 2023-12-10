@@ -169,7 +169,10 @@ public class Spawner : Singleton<Spawner>
     private Pool GetNexRandomBlock()
     {
 #if CREATIVE
-        return Const.THIS.creativeSettings.blocks[_spawnIndex];
+        if (!Const.THIS.creativeSettings.randomBlock)
+        {
+            return Const.THIS.creativeSettings.blocks[_spawnIndex];
+        }
 #endif
         return this.RandomBlock();
     }

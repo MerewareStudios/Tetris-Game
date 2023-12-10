@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creativeSettings:
     fingerEnabled: 1
-    boardSize: {x: 7, y: 5}
+    boardSize: {x: 8, y: 4}
+    assignFurthest: 1
     shopEnabled: 0
     powerUpEnabled: 0
     coinEnabled: 0
@@ -26,8 +27,8 @@ MonoBehaviour:
     showTip: 0
     adsEnabled: 0
     clearOnStart: 1
-    bottomOffset: 1.5
-    addedFov: 0.4
+    bottomOffset: 3
+    addedFov: 0.5
     addedCamAngle: {x: 1.5, y: 0, z: 0}
     seed: 2
     poses:
@@ -37,11 +38,13 @@ MonoBehaviour:
     - {x: 0, y: 0}
     - {x: 4, y: 3}
     - {x: 5, y: 0}
-    blocks: 0a000000050000000c000000030000000a0000000d00000005000000090000000c0000000c0000000c000000
+    randomBlock: 0
+    playerBubble: 0
+    blocks: 050000000400000004000000050000000a0000000d000000050000000d0000000a0000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000
     helpText: HELP!
-    speechDelay: 1.1
-    firstBlockSpawnDelay: 3.25
-    genericBlockSpawnDelay: 1.25
+    speechDelay: 0
+    firstBlockSpawnDelay: 1.25
+    genericBlockSpawnDelay: 0
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -69,7 +72,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d8f3ac5092be4c94f99c387ec444876b, type: 2}
   - {fileID: 11400000, guid: 8d0513d2f98dc1c49a9800b9c100d237, type: 2}
   - {fileID: 11400000, guid: 2f81c7a6e9d0e114da54cfd4d28a8d8b, type: 2}
-  - {fileID: 11400000, guid: dfbd7bf76bee1374a8571e643178e8b1, type: 2}
+  - {fileID: 11400000, guid: ebe1c0028d4238e4ead0cb6863892572, type: 2}
   - {fileID: 11400000, guid: 8be596d262ae5604eb589cc5a043ab12, type: 2}
   - {fileID: 11400000, guid: 06ee065380bf48f41a11f91fa609bfd9, type: 2}
   - {fileID: 11400000, guid: 2e4fa7e35e398804dbeeacd315a75128, type: 2}
@@ -111,7 +114,7 @@ MonoBehaviour:
       commented: 0
       guid: 
     userData:
-      level: 26
+      level: 27
       playerData:
         currentHealth: 1
       pupData:
@@ -120,9 +123,9 @@ MonoBehaviour:
         purchaseCount: 0
         use: 1
       boardData:
-        defaultStack: 6
-        maxStack: 6
-        defaultSupplyLine: 6
+        defaultStack: 150
+        maxStack: 150
+        defaultSupplyLine: 150
       coinTransactionData:
         value: 0
       gemTransactionData:
@@ -130,11 +133,11 @@ MonoBehaviour:
       adTransactionData:
         value: 0
       blockShopData:
-        unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c0000000700000008000000
+        unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c000000
         lastIndex: 0
       weaponShopData:
         inspectIndex: 0
-        equipIndex: 7
+        equipIndex: 9
         gunShopDatas:
         - purchased: 1
           upgradeIndexes: 000000000000000000000000
@@ -155,7 +158,7 @@ MonoBehaviour:
         - purchased: 0
           upgradeIndexes: 000000000000000000000000
         - purchased: 0
-          upgradeIndexes: 000000000000000000000000
+          upgradeIndexes: 000000000900000006000000
       menuNavData:
         lastMenuType: 0
         lockedMiniOffer:
@@ -464,6 +467,18 @@ MonoBehaviour:
       amount: 100
     - type: 0
       amount: 100
+    - type: 2
+      amount: 1
+    - type: 2
+      amount: 1
+    - type: 2
+      amount: 1
+    - type: 2
+      amount: 1
+    - type: 2
+      amount: 1
+    - type: 2
+      amount: 1
     - type: 2
       amount: 1
     splitShotPrice:

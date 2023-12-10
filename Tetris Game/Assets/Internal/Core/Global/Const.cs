@@ -20,6 +20,7 @@ public class Const : SSingleton<Const>
     {
         [SerializeField] public bool fingerEnabled = true;
         [SerializeField] public Vector2Int boardSize = new Vector2Int(5, 5);
+        [SerializeField] public bool assignFurthest = true;
         [SerializeField] public bool shopEnabled = true;
         [SerializeField] public bool powerUpEnabled = true;
         [SerializeField] public bool coinEnabled = true;
@@ -36,6 +37,8 @@ public class Const : SSingleton<Const>
         [SerializeField] public Vector3 addedCamAngle;
         [SerializeField] public int seed;
         [SerializeField] public Vector2Int[] poses;
+        [SerializeField] public bool randomBlock = true;
+        [SerializeField] public bool playerBubble = true;
         [SerializeField] public Pool[] blocks;
         [TextArea] [SerializeField] public string helpText;
         [SerializeField] public float speechDelay = 1.0f;
@@ -44,9 +47,13 @@ public class Const : SSingleton<Const>
 
         public void Speak()
         {
+            if (speechDelay <= 0.0f)
+            {
+                return;
+            }
             DOVirtual.DelayedCall(speechDelay, () =>
             {
-                UIManager.THIS.speechBubble.Speak(helpText, 0.0f, 0.75f);
+                UIManager.THIS.speechBubble.Speak(helpText, 0.0f, 1.1f);
             });
         }
     }
