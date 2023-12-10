@@ -241,7 +241,14 @@ namespace Game
                         if ((_Data.Time - Gun._Data.PrevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
+#if CREATIVE
+                            if (Input.GetKey(KeyCode.Space))
+                            {
+                                Shoot(givenBulletCount);
+                            }
+#else
                             Shoot(givenBulletCount);
+#endif
                             Gun._Data.PrevShoot = _Data.Time;
                         }
 

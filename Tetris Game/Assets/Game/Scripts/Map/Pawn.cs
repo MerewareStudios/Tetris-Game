@@ -169,7 +169,11 @@ namespace Game
                     SubModel.Lose();
                     SubModel.OnAnimate(() =>
                     {
+#if CREATIVE
+                        Pawn.Usage usg = Const.THIS.gifts[Const.THIS.creativeSettings.giftIndex++];
+#else
                         Pawn.Usage usg = Const.THIS.gifts.Random();
+#endif
                         SetUsageType(usg, usg.ExtraValue());
                     });
                     SubModel = null;

@@ -73,6 +73,7 @@ public class GameManager : Singleton<GameManager>
         
         #if CREATIVE
         Const.THIS.creativeSettings.Speak();
+        Const.THIS.creativeSettings.giftIndex = 0;
             return;
         #endif
         

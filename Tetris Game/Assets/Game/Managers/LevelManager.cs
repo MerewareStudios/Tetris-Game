@@ -32,7 +32,14 @@ public class LevelManager : Singleton<LevelManager>
         AnalyticsManager.LevelStart(CurrentLevel);
 
 #if CREATIVE
-        Board.THIS.Construct(Const.THIS.creativeSettings.boardSize);
+        if (Const.THIS.creativeSettings.customSize)
+        {
+            Board.THIS.Construct(Const.THIS.creativeSettings.boardSize);
+        }
+        else
+        {
+            Board.THIS.Construct(BoardSize());
+        }
 #else
         Board.THIS.Construct(BoardSize());
 #endif

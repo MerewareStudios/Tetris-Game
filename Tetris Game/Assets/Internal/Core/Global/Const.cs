@@ -3,6 +3,7 @@ using DG.Tweening;
 using Game;
 using Game.UI;
 using Internal.Core;
+using RootMotion;
 using TMPro;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class Const : SSingleton<Const>
     public class CreativeSettings
     {
         [SerializeField] public bool fingerEnabled = true;
+        [SerializeField] public bool customSize = false;
+        [ShowIf("customSize", true)]
         [SerializeField] public Vector2Int boardSize = new Vector2Int(5, 5);
         [SerializeField] public bool assignFurthest = true;
         [SerializeField] public bool shopEnabled = true;
@@ -36,6 +39,7 @@ public class Const : SSingleton<Const>
         [SerializeField] public float addedFov;
         [SerializeField] public Vector3 addedCamAngle;
         [SerializeField] public int seed;
+        [SerializeField] public int giftIndex;
         [SerializeField] public Vector2Int[] poses;
         [SerializeField] public bool randomBlock = true;
         [SerializeField] public bool playerBubble = true;
