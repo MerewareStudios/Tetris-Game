@@ -136,7 +136,7 @@ namespace  Game
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
                         Vector3 pos = Warzone.THIS.RandomPos(so.extraData.RandomForwardRange());
-                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos, 1);
+                        Enemy enemy = Warzone.THIS.CustomSpawnEnemy(so.extraData, pos, 10);
                         if (enemy)
                         {
                             Particle.Lightning.Play(pos - CameraManager.THIS.gameCamera.transform.forward);

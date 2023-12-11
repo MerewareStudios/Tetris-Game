@@ -30,8 +30,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 200
-      m_ConstantMax: 350
+      m_ConstantMin: 300
+      m_ConstantMax: 500
     minDistance:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -134,7 +134,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   generalSettings:
-    playAtStart: 0
     startCount:
       m_Mode: 3
       m_CurveMultiplier: 0

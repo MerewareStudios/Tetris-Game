@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Mage (520) Bomb
+  m_Name: Mage (200) Slime (4) Creative 1
   m_EditorClassIdentifier: 
   type: 66
   scale: {x: 1, y: 1, z: 1}
@@ -109,9 +109,9 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 520
+  maxHealth: 100
   speed: 0.075
-  forwardRange: {x: 1, y: 1}
+  forwardRange: {x: 0.8, y: 0.8}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
@@ -119,7 +119,7 @@ MonoBehaviour:
   crossSize: 2
   castType: 0
   deathAction: 0
-  spawnerCount: 1
-  spawnerDuration: 5
-  spawnerExtra: 50
-  extraData: {fileID: 0}
+  spawnerCount: 6
+  spawnerDuration: 4
+  spawnerExtra: 1
+  extraData: {fileID: 11400000, guid: 108334ab88aa9d540a5d2b6ccd056ee5, type: 2}

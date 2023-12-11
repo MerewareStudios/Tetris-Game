@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mage (100) Creative
   m_EditorClassIdentifier: 
   type: 66
-  scale: {x: 2, y: 2, z: 2}
+  scale: {x: 1.2, y: 1.2, z: 1.2}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -117,7 +117,7 @@ MonoBehaviour:
   deathEmitCount: 35
   wipeDelay: 1.1
   crossSize: 2
-  castType: 1
+  castType: 0
   deathAction: 0
   spawnerCount: 1
   spawnerDuration: 22

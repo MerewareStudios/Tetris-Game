@@ -15,11 +15,11 @@ MonoBehaviour:
   creativeSettings:
     fingerEnabled: 1
     customSize: 1
-    boardSize: {x: 6, y: 6}
-    assignFurthest: 1
-    shopEnabled: 0
+    boardSize: {x: 5, y: 3}
+    assignFurthest: 0
+    shopEnabled: 1
     powerUpEnabled: 0
-    coinEnabled: 0
+    coinEnabled: 1
     gemEnabled: 0
     ticketEnabled: 0
     settingsEnabled: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     addedFov: 0
     addedCamAngle: {x: 0, y: 0, z: 0}
     seed: 2
-    giftIndex: 2
+    giftIndex: 0
     poses:
     - {x: 0, y: 0}
     - {x: 2, y: 2}
@@ -41,15 +41,15 @@ MonoBehaviour:
     - {x: 4, y: 3}
     - {x: 5, y: 0}
     randomBlock: 0
-    playerBubble: 0
-    blocks: 0a0000000600000003000000080000000b00000005000000050000000b000000030000000a0000000d000000090000000700000005000000050000000500000005000000050000000500000005000000
+    playerBubble: 1
+    blocks: 0500000005000000030000000a00000008000000
     helpText: HELP!
-    speechDelay: 0
-    firstBlockSpawnDelay: 0.75
+    speechDelay: 3
+    firstBlockSpawnDelay: 3.25
     genericBlockSpawnDelay: 0
   Levels:
   - {fileID: 11400000, guid: f96af85ec9181104c939eb70a10ef572, type: 2}
-  - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
+  - {fileID: 11400000, guid: eee0473932073964a8ce230500e62c8e, type: 2}
   - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
   - {fileID: 11400000, guid: 9f886e85a01374c4683978ed17c3c115, type: 2}
   - {fileID: 11400000, guid: 56b41a19d057a41409b19e2ec6a2c3a2, type: 2}
@@ -116,7 +116,7 @@ MonoBehaviour:
       commented: 0
       guid: 
     userData:
-      level: 1
+      level: 2
       playerData:
         currentHealth: 1
       pupData:
@@ -125,8 +125,8 @@ MonoBehaviour:
         purchaseCount: 0
         use: 1
       boardData:
-        defaultStack: 9
-        maxStack: 9
+        defaultStack: 7
+        maxStack: 7
       coinTransactionData:
         value: 0
       gemTransactionData:
@@ -134,14 +134,14 @@ MonoBehaviour:
       adTransactionData:
         value: 0
       blockShopData:
-        unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c000000
+        unlockedBlocks: 030000000400000005000000060000000d000000
         lastIndex: 0
       weaponShopData:
         inspectIndex: 0
         equipIndex: 0
         gunShopDatas:
         - purchased: 1
-          upgradeIndexes: 000000000400000000000000
+          upgradeIndexes: 000000000900000000000000
         - purchased: 0
           upgradeIndexes: 000000000000000000000000
         - purchased: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
         - purchased: 0
           upgradeIndexes: 000000000900000006000000
       menuNavData:
-        lastMenuType: 0
+        lastMenuType: 1
         lockedMiniOffer:
           startAt: 1
           unlockedAt: 10
@@ -194,15 +194,63 @@ MonoBehaviour:
     gunType: 24
     sprite: {fileID: 21300000, guid: 884504ef77e9b214e8b37b52768e6eb1, type: 3}
     defaultValues: 010000000100000001000000
-    damagePrice: []
+    damagePrice:
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
     fireRatePrice:
     - type: 0
-      amount: 25
+      amount: 1
     - type: 0
-      amount: 50
+      amount: 1
     - type: 0
-      amount: 75
-    splitShotPrice: []
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    splitShotPrice:
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
+    - type: 0
+      amount: 1
     unlockedAt: 1
   - currency:
       type: 1
@@ -457,12 +505,6 @@ MonoBehaviour:
       amount: 25
     - type: 1
       amount: 25
-    - type: 1
-      amount: 25
-    - type: 1
-      amount: 25
-    - type: 2
-      amount: 1
     fireRatePrice:
     - type: 0
       amount: 100
@@ -602,19 +644,19 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   mergerMaxColor: {r: 1, g: 0.654902, b: 0.07450981, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
-  ghostNormal: {r: 0.4235294, g: 0.63937163, b: 1, a: 0.2509804}
+  ghostNormal: {r: 0.4235294, g: 0.63937163, b: 1, a: 0}
   ghostFade: {r: 0.42352942, g: 0.72156864, b: 1, a: 0}
   placeColorsDouble:
-  - {r: 0.1764706, g: 0.827451, b: 0.3764706, a: 1}
-  - {r: 0.8862745, g: 0.1882353, b: 0.20784314, a: 1}
   - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
   - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
   - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
   - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
-  - {r: 0.4117647, g: 0.33333334, b: 0.44313726, a: 1}
-  - {r: 0.4509804, g: 0.3647059, b: 0.4862745, a: 1}
+  - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
+  - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
+  - {r: 0.6784314, g: 0.24705882, b: 0.8666667, a: 1}
+  - {r: 0.69803923, g: 0.30980393, b: 0.8666667, a: 1}
   placePosDouble:
   - {x: 0, y: 0.24, z: 0}
   - {x: 0, y: 0.24, z: 0}

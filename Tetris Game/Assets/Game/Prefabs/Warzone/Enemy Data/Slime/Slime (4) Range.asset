@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
   m_Name: Slime (4) Range
   m_EditorClassIdentifier: 
-  type: 19
+  type: 0
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4

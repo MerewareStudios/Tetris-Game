@@ -498,15 +498,15 @@ public static class UIManagerExtensions
    }
    
    
-#if CREATIVE
-   public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
-   {
-      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
-      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, Warzone.THIS.Player.Position);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Enemy_Burst);
-   }
-#else
+// #if CREATIVE
+//    public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
+//    {
+//       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+//       TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, Warzone.THIS.Player.Position);
+//       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+//       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_Enemy_Burst);
+//    }
+// #else
 
    public static void EmitEnemyCoinBurst(Vector3 worldPosition, int count, int totalValue)
    {
@@ -514,7 +514,7 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_Enemy_Burst);
    }
-#endif
+// #endif
    
    public static void EmitEnemyGemBurst(Vector3 worldPosition, int count, int totalValue)
    {
@@ -558,7 +558,7 @@ public static class UIManagerExtensions
             emitter = UIManager.THIS.ticketEmitter;
             break;
       }
-      emitter.Emit(Mathf.Min(currency.amount, 15), valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
+      emitter.Emit(100, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_LevelReward, null, OnAllArrive);
    }
    public static void EmitPiggyRewardCoin(Vector3 canvasWorldPosition, int count, int totalValue, System.Action OnAllArrive)
    {
@@ -599,15 +599,15 @@ public static class UIManagerExtensions
    }
    
    
-#if CREATIVE
-   public static void BoardCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
-   {
-      TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
-      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, Warzone.THIS.Player.Position);
-      ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_BoardBurst);
-   }
-#else
+// #if CREATIVE
+//    public static void BoardCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
+//    {
+//       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+//       TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, Warzone.THIS.Player.Position);
+//       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
+//       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_BoardBurst);
+//    }
+// #else
 
    public static void BoardCoinToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
@@ -615,7 +615,7 @@ public static class UIManagerExtensions
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
       UIManager.THIS.coinEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
    }
-#endif
+// #endif
    public static void BoardHeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
