@@ -154,6 +154,10 @@ namespace IWI
             {
                 return;
             }
+            
+            #if NOADS
+                return;
+            #endif
 
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.INTERSTITIAL)
             .SetLoadState(FakeAdInterstitial.THIS.LoadState)
@@ -221,6 +225,11 @@ namespace IWI
                 AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
             
+#if NOADS
+            onReward?.Invoke();
+            return;
+#endif
+            
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.REWARDED)
             .SetLoadState(FakeAdRewarded.THIS.LoadState)
             .SetInfo(Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText)
@@ -242,6 +251,11 @@ namespace IWI
                 AnalyticsManager.AdData(AdBreakScreen.AdType.REWARDED, AdBreakScreen.AdInteraction.WATCH, adReason, AdManager.THIS._Data.rewardWatchCount);
 
                 AdBreakScreen.THIS.CloseImmediate();
+                
+// #if NOADS
+//                 onReward?.Invoke();
+//                 return;
+// #endif
                 FakeAdRewarded.THIS.Show(
                     GameManager.UpdateTimeScale, 
                     onReward,

@@ -16,7 +16,6 @@ public class CameraManager : Singleton<CameraManager>
         {
             float safeRatio = Screen.height / Screen.safeArea.height;
             gameCamera.orthographicSize = value * (safeRatio * safeRatioMult);
-            Debug.Log(safeRatio);
             
 #if CREATIVE
             gameCamera.orthographicSize += Const.THIS.creativeSettings.addedFov;

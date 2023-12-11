@@ -87,7 +87,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
             return;
         }
         File.Delete(SavePath);
-        Debug.LogWarning("Save file deleted.");
+        // Debug.LogWarning("Save file deleted.");
     }
 
 #if UNITY_EDITOR
