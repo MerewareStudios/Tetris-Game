@@ -68,8 +68,10 @@ public class GameManager : Singleton<GameManager>
             }
         };
 
-        LevelManager.THIS.LoadLevel();
         DOTween.SetTweensCapacity(200, 50);
+        
+        AnalyticsManager.Init();
+        LevelManager.THIS.LoadLevel();
         
         #if CREATIVE
         Const.THIS.creativeSettings.Speak();
@@ -77,7 +79,6 @@ public class GameManager : Singleton<GameManager>
             return;
         #endif
         
-        AnalyticsManager.Init();
         
         if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {

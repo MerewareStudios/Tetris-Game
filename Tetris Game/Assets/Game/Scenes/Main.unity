@@ -3766,7 +3766,6 @@ MonoBehaviour:
       boardData:
         defaultStack: 6
         maxStack: 6
-        defaultSupplyLine: 6
       coinTransactionData:
         value: 0
       gemTransactionData:
@@ -3827,8 +3826,8 @@ MonoBehaviour:
       rewardWatchCount: 0
     purchaseData:
       offers: 
-  DELETE_AT_START: 0
-  SKIP_ONBOARDING: 0
+  DELETE_AT_START: 1
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0

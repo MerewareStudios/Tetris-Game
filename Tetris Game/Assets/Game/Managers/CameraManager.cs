@@ -8,12 +8,16 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] public Camera gameCamera;
     [SerializeField] public Camera uiCamera;
     [SerializeField] private Transform shakePivot;
+    [SerializeField] private float safeRatioMult = 1.0f;
 
     public float OrtoSize
     {
         set
         {
-            gameCamera.orthographicSize = value;
+            float safeRatio = Screen.height / Screen.safeArea.height;
+            gameCamera.orthographicSize = value * (safeRatio * safeRatioMult);
+            Debug.Log(safeRatio);
+            
 #if CREATIVE
             gameCamera.orthographicSize += Const.THIS.creativeSettings.addedFov;
             gameCamera.transform.localEulerAngles = Const.THIS.creativeSettings.addedCamAngle;

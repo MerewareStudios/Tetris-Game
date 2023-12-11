@@ -12,23 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  creativeSettings:
-    fingerEnabled: 1
-    boardSize: {x: 5, y: 5}
-    shopEnabled: 1
-    powerUpEnabled: 1
-    coinEnabled: 1
-    gemEnabled: 1
-    ticketEnabled: 1
-    settingsEnabled: 0
-    statsEnabled: 0
-    levelTextEnabled: 0
-    adsEnabled: 0
-    clearOnStart: 1
-    bottomOffset: 0
-    addedFov: 0
-    addedCamAngle: {x: 0, y: 0, z: 0}
-    seed: 0
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -98,7 +81,7 @@ MonoBehaviour:
       commented: 0
       guid: 
     userData:
-      level: 1
+      level: 2
       playerData:
         currentHealth: 1
       pupData:
@@ -109,7 +92,6 @@ MonoBehaviour:
       boardData:
         defaultStack: 6
         maxStack: 6
-        defaultSupplyLine: 6
       coinTransactionData:
         value: 0
       gemTransactionData:

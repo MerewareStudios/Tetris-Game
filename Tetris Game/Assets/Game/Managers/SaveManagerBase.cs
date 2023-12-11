@@ -55,7 +55,6 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 
         if (!AssetDatabase.IsValidFolder(subPath))
         {
-            Debug.Log("create folder");
             AssetDatabase.CreateFolder(path, saveSo.saveData.accountData.guid);
             AssetDatabase.SaveAssets();
         }

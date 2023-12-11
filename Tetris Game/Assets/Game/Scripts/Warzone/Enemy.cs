@@ -280,7 +280,7 @@ namespace  Game
             model.DOKill();
             Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
-            // this.Deconstruct();
+            this.Deconstruct();
         }
 
         public void Kill()

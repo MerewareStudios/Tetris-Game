@@ -12,41 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants - Creative
   m_EditorClassIdentifier: 
-  creativeSettings:
-    fingerEnabled: 1
-    customSize: 1
-    boardSize: {x: 6, y: 6}
-    assignFurthest: 1
-    shopEnabled: 0
-    powerUpEnabled: 0
-    coinEnabled: 0
-    gemEnabled: 0
-    ticketEnabled: 0
-    settingsEnabled: 0
-    statsEnabled: 0
-    levelTextEnabled: 0
-    showTip: 0
-    adsEnabled: 0
-    clearOnStart: 1
-    bottomOffset: 1.5
-    addedFov: 0
-    addedCamAngle: {x: 0, y: 0, z: 0}
-    seed: 2
-    giftIndex: 2
-    poses:
-    - {x: 0, y: 0}
-    - {x: 2, y: 2}
-    - {x: 2, y: 0}
-    - {x: 0, y: 0}
-    - {x: 4, y: 3}
-    - {x: 5, y: 0}
-    randomBlock: 0
-    playerBubble: 0
-    blocks: 0a0000000600000003000000080000000b00000005000000050000000b000000030000000a0000000d000000090000000700000005000000050000000500000005000000050000000500000005000000
-    helpText: HELP!
-    speechDelay: 0
-    firstBlockSpawnDelay: 0.75
-    genericBlockSpawnDelay: 0
   Levels:
   - {fileID: 11400000, guid: f96af85ec9181104c939eb70a10ef572, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -125,8 +90,8 @@ MonoBehaviour:
         purchaseCount: 0
         use: 1
       boardData:
-        defaultStack: 9
-        maxStack: 9
+        defaultStack: 6
+        maxStack: 6
       coinTransactionData:
         value: 0
       gemTransactionData:
