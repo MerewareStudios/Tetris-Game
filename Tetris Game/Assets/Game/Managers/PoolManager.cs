@@ -68,27 +68,7 @@ public class PoolManager : Singleton<PoolManager>
 
         private void Instantiate()
         {
-            GameObject go = new GameObject(gameObject.name + " Pool");
-            go.hideFlags = HideFlags.HideInHierarchy;
-            go.transform.SetParent(PoolManager.THIS.transform);
-            _pool = go.AddComponent<LeanGameObjectPool>();
-            _pool.Prefab = gameObject;
-#if UNITY_EDITOR
-            _pool.Warnings = true;
-#else
-            _pool.Warnings = false;
-#endif
-            
-#if UNITY_EDITOR
-            go.hideFlags = PoolManager.THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
-#endif
-    
-            _pool.Notification = LeanGameObjectPool.NotificationType.None;
-            _pool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
-            _pool.Preload = preload;
-            _pool.Capacity = capacity;
-            _pool.Recycle = false;
-            _pool.Persist = false;
+             
         }
     }
 }
