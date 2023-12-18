@@ -14,7 +14,26 @@ public class HealthCanvas : MonoBehaviour
     
     public int Health
     {
-        set => healthText.text = value <= 0 ? "" : value.ToString();
+        set
+        {
+            healthText.text = value.ToString();
+            
+            healthRT.DOKill();
+            healthRT.localScale = Vector3.one;
+            // if (value == 0)
+            // {
+            //     healthRT.DOScale(Vector3.zero, 0.175f).SetEase(Ease.InBack);
+            // }
+            // else
+            // {
+                healthRT.DOPunchScale(Vector3.one * 0.85f, 0.2f);
+            // }
+        }
+    }
+
+    public void Hide()
+    {
+        healthRT.DOScale(Vector3.zero, 0.1f).SetEase(Ease.Linear).SetDelay(0.2f);
     }
 
     public void DisplayDamage(int value, float scale = 1.0f)
@@ -29,6 +48,8 @@ public class HealthCanvas : MonoBehaviour
         damageText.rectTransform.DOKill();
         damageText.rectTransform.localScale = Vector3.one * scale;
         damageText.rectTransform.DOScale(Vector3.one * 0.4f, 0.25f).SetEase(Ease.Linear);
+        
+      
 
         damageText.color = Color.white;
         damageText.DOKill();

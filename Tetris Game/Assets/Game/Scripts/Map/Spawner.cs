@@ -342,6 +342,7 @@ public class Spawner : Singleton<Spawner>
 
         if (Board.THIS.CanPlace(CurrentBlock))
         {
+            HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
             Board.THIS.Place(CurrentBlock);
 
             CurrentBlock = null;

@@ -291,6 +291,7 @@ namespace  Game
             Warzone.THIS.RemoveEnemy(this);
             
             animator.SetTrigger(DEATH_HASH);
+            healthCanvas.Hide();
 
             _wipeTween?.Kill();
 

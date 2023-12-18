@@ -1,4 +1,5 @@
 using Internal.Core;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,6 +83,8 @@ public class Consent : Lazyingleton<Consent>
     
     public void Done()
     {
+        HapticManager.OnClickVibrate();
+
         MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
         MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
         _onDone?.Invoke();

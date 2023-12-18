@@ -1043,10 +1043,7 @@ namespace Game
                     place.Current.Check(place);
                     Map.THIS.MapWaitForCycle = true;
 
-                    if (pawn == temporary.Last())
-                    {
-                        HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
-                    }
+                   
                 });
             }
         }
