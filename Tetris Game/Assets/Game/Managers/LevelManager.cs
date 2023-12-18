@@ -133,16 +133,26 @@ public class LevelManager : Singleton<LevelManager>
         
         AnalyticsManager.LevelEnd(GAProgressionStatus.Fail);
     }
+    
+    public void OnConcede()
+    {
+        GameManager.PLAYING = false;
+        
+        GameManager.THIS.OnFail();
+        SlashScreen.THIS.Show(SlashScreen.State.Concede, 0.1f, GetFailReward(), CurrentLevel);
+        
+        AnalyticsManager.LevelEnd(GAProgressionStatus.Fail);
+    }
 
     public void OnClick_Restart()
     {
-        Consent.THIS.Close();
-        AnalyticsManager.Concede(LevelManager.CurrentLevel, ++LevelManager.THIS.Concede);
         if (!GameManager.PLAYING)
         {
             return;
         }
-        OnFail();
+        AnalyticsManager.Concede(LevelManager.CurrentLevel, ++LevelManager.THIS.Concede);
+        
+        OnConcede();
     }
     public static LevelSo.EnemySpawnDatum[] GetEnemySpawnData()
     {

@@ -1042,13 +1042,13 @@ namespace Game
                 {
                     place.Current.Check(place);
                     Map.THIS.MapWaitForCycle = true;
+
+                    if (pawn == temporary.Last())
+                    {
+                        HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
+                    }
                 });
             }
-
-            DOVirtual.DelayedCall(0.1f, () =>
-            {
-                HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
-            });
         }
         private Place GetPlace(Pawn pawn)
         {

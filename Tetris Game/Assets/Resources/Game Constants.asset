@@ -80,6 +80,9 @@ MonoBehaviour:
     accountData:
       commented: 0
       guid: 
+    hapticData:
+      canVibrate: 1
+      canPlayAudio: 1
     userData:
       level: 1
       playerData:

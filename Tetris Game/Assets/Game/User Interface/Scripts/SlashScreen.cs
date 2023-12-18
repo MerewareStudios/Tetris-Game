@@ -34,6 +34,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private Button actionButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
     [SerializeField] private TextMeshProUGUI tipText;
+    [SerializeField] private TextMeshProUGUI failText;
     [System.NonSerialized] private Sequence _sequence;
     [System.NonSerialized] private List<int> _randomTipsIndexes = new();
 
@@ -66,6 +67,11 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 slashAnimationSettings = animationSettingsVictory;
                 break;
             case State.Fail:
+                failText.text = "FAIL";
+                slashAnimationSettings = animationSettingsFail;
+                break;
+            case State.Concede:
+                failText.text = "CONCEDE";
                 slashAnimationSettings = animationSettingsFail;
                 break;
         }
@@ -306,6 +312,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     public enum State
     {
         Victory,
-        Fail
+        Fail,
+        Concede
     }
 }

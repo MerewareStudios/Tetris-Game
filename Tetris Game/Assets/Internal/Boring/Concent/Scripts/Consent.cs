@@ -11,11 +11,9 @@ public class Consent : Lazyingleton<Consent>
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private GameObject subFrame;
     [SerializeField] private Button doneButton;
-    [SerializeField] private Button restartButton;
     [System.NonSerialized] public int TimeScale = 1;
 
     public delegate bool GetActiveState();
-    public static GetActiveState GetRestartButtonState;
 
     
     public bool Loading
@@ -52,8 +50,6 @@ public class Consent : Lazyingleton<Consent>
         Visible = true;
 
         Loading = false;
-        
-        restartButton.gameObject.SetActive(GetRestartButtonState.Invoke());
         
         bool privacyState;
         bool ageState;

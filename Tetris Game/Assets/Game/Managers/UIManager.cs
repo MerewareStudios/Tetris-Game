@@ -106,9 +106,6 @@ public class UIManager : Singleton<UIManager>
       
       AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
 
-      Consent.GetRestartButtonState = () => GameManager.PLAYING
-                                            && MaxSdk.IsUserConsentSet();  
-      
       OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
@@ -250,7 +247,10 @@ public class UIManager : Singleton<UIManager>
    public void AdLayerClick_Concede()
    {
       HapticManager.OnClickVibrate();
-
+      if (!GameManager.PLAYING)
+      {
+         return;
+      }
       LevelManager.THIS.OnClick_Restart();
       AdManager.THIS.PrependInterstitial();
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.CONCEDE);

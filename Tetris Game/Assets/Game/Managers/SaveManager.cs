@@ -64,6 +64,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         UIManager.THIS.SettingsEnabled = ONBOARDING.WEAPON_TAB.IsComplete();
 
         HapticManager.THIS.SavedData = saveData.hapticData;
+        SettingsManager.THIS.Set();
     }
 }
 public static class SaveManagerExtensions

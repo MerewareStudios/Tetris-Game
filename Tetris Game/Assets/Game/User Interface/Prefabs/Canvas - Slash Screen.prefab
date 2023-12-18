@@ -721,6 +721,7 @@ MonoBehaviour:
   actionButton: {fileID: 5166660608202542790}
   actionButtonText: {fileID: 6518811560831241496}
   tipText: {fileID: 6951614696628470243}
+  failText: {fileID: 3318001760928258755}
 --- !u!223 &3680631963217843338
 Canvas:
   m_ObjectHideFlags: 0
