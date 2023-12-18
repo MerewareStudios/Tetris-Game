@@ -170,12 +170,17 @@ namespace IWI
             .OnClick(
                 () =>
                 {
+                    HapticManager.OnClickVibrate();
                     AdBreakScreen.THIS.Close();
                     AdManager.THIS._Data.interSkipCount++;
                     AdManager.THIS._Data.LastTimeAdShown = (int)Time.time;
                     AnalyticsManager.AdData(AdBreakScreen.AdType.INTERSTITIAL, AdBreakScreen.AdInteraction.SKIP, adReason, AdManager.THIS._Data.interSkipCount);
                 },
-                () => Wallet.Consume(Const.Currency.OneAd))
+                () =>
+                {
+                    HapticManager.OnClickVibrate();
+                    return Wallet.Consume(Const.Currency.OneAd);
+                })
             .OnTimesUp(() =>
             {
                 AdManager.THIS._Data.interWatchCount++;
@@ -241,10 +246,15 @@ namespace IWI
             .OnClick(
                 () =>
                 {
+                    HapticManager.OnClickVibrate();
                     AdBreakScreen.THIS.Close();
                     onClick?.Invoke();
                 },
-                () => true)
+                () =>
+                {
+                    HapticManager.OnClickVibrate();
+                    return true;
+                })
             .OnTimesUp(() =>
             {
                 AdManager.THIS._Data.rewardWatchCount++;

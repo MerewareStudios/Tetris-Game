@@ -27,7 +27,7 @@ public class LevelManager : Singleton<LevelManager>
         HealthMult = 1.0f;
         LevelSo = Const.THIS.GetLevelSo(CurrentLevel);
         #if UNITY_EDITOR
-            SaveManager.CreateSavePoint("Level " + CurrentLevel + " Save Data");
+            // SaveManager.CreateSavePoint("Level " + CurrentLevel + " Save Data");
         #endif
         AnalyticsManager.LevelStart(CurrentLevel);
 

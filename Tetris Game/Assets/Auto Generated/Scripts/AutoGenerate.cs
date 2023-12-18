@@ -300,25 +300,7 @@ namespace Internal.Core
                 Debug.Log("Not in assets folder");
             }
         }
-        [MenuItem("PROTOTYPE/Joystick/Ping")]
-        private static void PingJoystick()
-        {
-            EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath("Assets/Game/Prefabs/Joystick.prefab", typeof(GameObject)));
-        }
-
-        [UnityEditor.MenuItem("PROTOTYPE/Joystick/Add")]
-        [UnityEditor.MenuItem("GameObject/Prototype/Variable Joystick", false, 1)]
-        private static void AddJoystick()
-        {
-            Object joystick = AssetDatabase.LoadAssetAtPath("Assets/Game/Prefabs/Joystick.prefab", typeof(Object));
-            GameObject instance = PrefabUtility.InstantiatePrefab(joystick) as GameObject;
-            instance.transform.SetParent(UnityEditor.Selection.activeGameObject == null ? null : UnityEditor.Selection.activeGameObject.transform);
-            instance.transform.SetAsLastSibling();
-
-            UnityEditor.Undo.RegisterCreatedObjectUndo(instance, "Create Variable Joystick");
-
-            UnityEditor.Selection.activeGameObject = instance;
-        }
+      
 
         private const string RELOAD_DOMAIN_AND_SCENE = "EDITOR/Reload Domain-Scene";
         [MenuItem(RELOAD_DOMAIN_AND_SCENE)]

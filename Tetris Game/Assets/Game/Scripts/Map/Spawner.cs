@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.UI;
 using IWI.Tutorial;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 
 public class Spawner : Singleton<Spawner>
@@ -257,6 +258,9 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
+        
+        HapticManager.Vibrate(HapticPatterns.PresetType.Selection);
+
         
         AnimateTap();
         CurrentBlock.Rotate();

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
+using Lofelt.NiceVibrations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -271,6 +272,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             Hide(animationSettingsHide, () => 
             {
+                HapticManager.Vibrate(HapticPatterns.PresetType.RigidImpact);
+
                 UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {
                     Close();

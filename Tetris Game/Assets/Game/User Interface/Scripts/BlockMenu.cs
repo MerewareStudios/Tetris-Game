@@ -4,6 +4,7 @@ using DG.Tweening;
 using Internal.Core;
 using IWI;
 using IWI.Tutorial;
+using Lofelt.NiceVibrations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -145,6 +146,8 @@ namespace Game.UI
 
         public void OnClick_ShowNext()
         {
+            HapticManager.OnClickVibrate();
+
             SavedData.lastIndex++;
             if (SavedData.lastIndex >= Const.THIS.DefaultBlockData.Length)
             {
@@ -154,6 +157,8 @@ namespace Game.UI
         }
         public void OnClick_ShowPrevious()
         {
+            HapticManager.OnClickVibrate();
+
             SavedData.lastIndex--;
             if (SavedData.lastIndex < 0)
             {
@@ -211,6 +216,8 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
+            HapticManager.OnClickVibrate();
+
             bool haveBlock = SavedData.HaveBlock(_selectedBlockData.blockType);
             if (haveBlock)
             {

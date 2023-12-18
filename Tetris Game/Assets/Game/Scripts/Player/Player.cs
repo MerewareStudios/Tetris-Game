@@ -217,7 +217,7 @@ namespace Game
 
                 _Data.Time = 0.0f;
                 Gun._Data.PrevShoot = 0.0f;
-                
+
                 while (true)
                 {
                     if (CurrentEnemy)
@@ -285,7 +285,7 @@ namespace Game
             this.AutoEnemySortInterval = sortInterval;
             
             crossHair.gameObject.SetActive(false);
-            crossHair.position = new Vector3(0.0f, 0.0f, 30.0f);
+            crossHair.position = Position + new Vector3(0.0f, 0.0f, -2.0f);
 
             Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;

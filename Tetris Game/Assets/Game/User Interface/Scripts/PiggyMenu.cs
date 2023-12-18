@@ -4,6 +4,7 @@ using Game.UI;
 using IWI;
 using IWI.Tutorial;
 using IWI.UI;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
 using Helper = Internal.Core.Helper;
@@ -189,6 +190,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void OnClick_RequestMultiply()
     {
+        HapticManager.OnClickVibrate();
+
         multiplyButton.targetGraphic.raycastTarget = false;
         Pause();
 
@@ -246,6 +249,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     #region Break
     public void OnClick_BreakPiggyBank()
     {
+        HapticManager.OnClickVibrate();
+
         _multiplier = 1;
         
         breakButton.gameObject.SetActive(false);
@@ -356,6 +361,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_InvestPiggyBank()
     {
+        HapticManager.OnClickVibrate();
+
         int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
         amount = Mathf.Clamp(amount, 0, SavedData.Remaining);
         if (amount == 0)
@@ -389,6 +396,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_ContinuePiggyBank()
     {
+        HapticManager.OnClickVibrate();
+
         closeButton.targetGraphic.raycastTarget = false;
         if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
         {
@@ -509,6 +518,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             },
         () =>
             {
+                HapticManager.OnClickVibrate();
+
                 AddMoney(currency.amount, 0.0f);
             });
 

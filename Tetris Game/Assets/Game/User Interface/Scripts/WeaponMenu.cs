@@ -344,6 +344,8 @@ namespace Game.UI
         
         public void OnClick_PurchaseUpgrade(int statType)
         {
+            HapticManager.OnClickVibrate();
+
             Gun.StatType type = (Gun.StatType)statType;
 
             Const.Currency cost = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(SavedData.inspectIndex, type));
@@ -396,6 +398,8 @@ namespace Game.UI
         
         public void OnClick_PurchaseWeapon()
         {
+            HapticManager.OnClickVibrate();
+
             if (SavedData.Purchased)
             {
                 return;
@@ -438,6 +442,8 @@ namespace Game.UI
         
         public void OnClick_Equip()
         {
+            HapticManager.OnClickVibrate();
+
             SavedData.Equip();
             GunDataChanged?.Invoke(EquippedGunData);
             CustomShow(0.3f, true);
@@ -446,6 +452,8 @@ namespace Game.UI
         
         public void OnClick_ShowNext()
         {
+            HapticManager.OnClickVibrate();
+
             SavedData.inspectIndex++;
             if (SavedData.inspectIndex >= Const.THIS.GunUpgradeData.Length)
             {
@@ -455,6 +463,8 @@ namespace Game.UI
         }
         public void OnClick_ShowPrevious()
         {
+            HapticManager.OnClickVibrate();
+
             SavedData.inspectIndex--;
             if (SavedData.inspectIndex < 0)
             {

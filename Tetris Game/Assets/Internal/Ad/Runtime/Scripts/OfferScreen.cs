@@ -54,6 +54,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public static UNPACK OnReward;
     public CONDITIONAL SkipCondition;
     public static ANALYTICS AnalyticsCall;
+    public static System.Action OnVibrate;
 
     
     public Data _Data
@@ -238,15 +239,18 @@ public class OfferScreen : Lazyingleton<OfferScreen>
 #region OnClick
     public void OnClick_Close()
     {
+        OnVibrate?.Invoke();
         Close();
     }
     public void OnClick_Buy()
     {
+        OnVibrate?.Invoke();
         _onBuy?.Invoke();
         PurchaseStarted();
     }
     public void OnClick_Unpack()
     {
+        OnVibrate?.Invoke();
         UnpackReward(_currentOfferData.offerType);
     }
 #endregion

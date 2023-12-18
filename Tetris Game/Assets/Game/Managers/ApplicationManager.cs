@@ -1,4 +1,5 @@
 using Internal.Core;
+using Lofelt.NiceVibrations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -9,7 +10,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     [SerializeField] public bool useNativeFrameRate = true;
     [SerializeField] public int targetFrameRate = 60;
     [SerializeField] private ScriptableRendererFeature grabTextureFeature;
-    
+
 #if FPS
     [System.NonSerialized] private int _fps;
     [System.NonSerialized] private float _fpsTimestamp;

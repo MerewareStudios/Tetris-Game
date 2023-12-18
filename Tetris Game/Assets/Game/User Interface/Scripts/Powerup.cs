@@ -150,6 +150,9 @@ public class Powerup : Lazyingleton<Powerup>
         {
             return;
         }
+        
+        HapticManager.OnClickVibrate();
+
 
         if (Available)
         {

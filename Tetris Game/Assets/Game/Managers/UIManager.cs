@@ -113,6 +113,7 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
       OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
+      OfferScreen.OnVibrate = () => HapticManager.OnClickVibrate();
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
          FakeAdBanner.THIS.HideAd(visible);
@@ -234,16 +235,22 @@ public class UIManager : Singleton<UIManager>
 #region Ad Layer Clicks
    public void AdLayerClick_OpenShop()
    {
+      HapticManager.OnClickVibrate();
+
       shop.OnClick_Open();
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
    public void AdLayerClick_OpenPiggyBank()
    {
+      HapticManager.OnClickVibrate();
+
       PiggyMenu.THIS.Open(0.225f);
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
    public void AdLayerClick_Concede()
    {
+      HapticManager.OnClickVibrate();
+
       LevelManager.THIS.OnClick_Restart();
       AdManager.THIS.PrependInterstitial();
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.CONCEDE);
@@ -256,30 +263,44 @@ public class UIManager : Singleton<UIManager>
    }
    public void ShowOffer_RemoveAds_Banner()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.AdPlacement.BANNER);
    }
    public void ShowOffer_RemoveAds_AdBreakByPass()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.AdPlacement.ADBREAKBYPASS);
    }
    public void ShowOffer_TicketPlus_AdBreakByPass()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.AdPlacement.ADBREAKBYPASS);
    }
    public void ShowOffer_CoinPlus()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK, CurrentAdPlacement);
    }
    public void ShowOffer_PiggyCoinPlus()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK, CurrentAdPlacement);
    }
    public void ShowOffer_TicketPlus()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, CurrentAdPlacement);
    }
    public void ShowOffer_HeartPlus()
    {
+      HapticManager.OnClickVibrate();
+
       OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, CurrentAdPlacement);
    }
 

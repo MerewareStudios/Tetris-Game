@@ -34,6 +34,8 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
 
     public void ToggleStash(bool state)
     {
+        HapticManager.OnClickVibrate();
+
         Powerup.THIS._Data.use = state;
         stashText.text = state ? "USE" : "STASH";
     }
@@ -85,6 +87,8 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
 
     private void Select(int index)
     {
+        HapticManager.OnClickVibrate();
+
         int currentLevel = LevelManager.CurrentLevel;
         bool unlocked = currentLevel >= unlockIndexes[index];
         if (!unlocked)

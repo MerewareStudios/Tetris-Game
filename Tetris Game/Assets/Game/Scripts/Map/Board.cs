@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DG.Tweening;
+using Lofelt.NiceVibrations;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -87,7 +88,7 @@ namespace Game
                 DropPositions = new int[size.x];
                 ClearDropPositions();
                 
-                CameraManager.THIS.OrtoSize = Mathf.Max(7.63f, _size.x + 1.82f);
+                CameraManager.THIS.OrthoSize = Mathf.Max(7.63f, _size.x + 1.82f);
 
                 if (_places != null)
                 {
@@ -126,7 +127,7 @@ namespace Game
                 visualFrame.sizeDelta = new Vector2(_size.x * 100.0f + 42.7f, _size.y * 100.0f + 42.7f);
                 _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
 
-                float groundScale = (25.0f + (_size.x - 6) * 2.5f);
+                float groundScale = (25.0f + (_size.x - 6) * 2.5f) * CameraManager.SafeRatio;
                 ground.localScale = Vector3.one * Mathf.Max(groundScale, 25.0f);
 
                 
@@ -738,6 +739,7 @@ namespace Game
             {
                 lastTween.onComplete += () =>
                 {
+                    HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
                     Particle.Star.Emit(15, spawnPlace.Position);
@@ -768,7 +770,6 @@ namespace Game
                     ammo = 0;
                     break;
             }
-            
             
             SpawnPawn(spawnPlace, type, ammo, true).MakeAvailable();
         }
@@ -1043,6 +1044,11 @@ namespace Game
                     Map.THIS.MapWaitForCycle = true;
                 });
             }
+
+            DOVirtual.DelayedCall(0.1f, () =>
+            {
+                HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
+            });
         }
         private Place GetPlace(Pawn pawn)
         {

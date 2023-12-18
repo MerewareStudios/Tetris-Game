@@ -1,6 +1,7 @@
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using Lofelt.NiceVibrations;
 using UnityEngine;
 
 namespace Game
@@ -56,8 +57,11 @@ namespace Game
                     
                     if (tetrisLines.Count > 0)
                     {
+                        HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
+
                         if (tetrisLines.Count > 1)
                         {
+                            
                             float totalDuration = UIManager.THIS.comboText.Show(tetrisLines.Count);
                             yield return new WaitForSeconds(totalDuration * 0.5f);
 

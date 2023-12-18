@@ -10,12 +10,12 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] private Transform shakePivot;
     [SerializeField] private float safeRatioMult = 1.0f;
 
-    public float OrtoSize
+    public static float SafeRatio => Screen.height / Screen.safeArea.height;
+    public float OrthoSize
     {
         set
         {
-            float safeRatio = Screen.height / Screen.safeArea.height;
-            gameCamera.orthographicSize = value * (safeRatio * safeRatioMult);
+            gameCamera.orthographicSize = value * (SafeRatio * safeRatioMult);
             
 #if CREATIVE
             gameCamera.orthographicSize += Const.THIS.creativeSettings.addedFov;

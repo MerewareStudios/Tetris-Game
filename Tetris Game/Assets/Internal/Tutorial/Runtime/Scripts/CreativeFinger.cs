@@ -62,12 +62,6 @@ public class CreativeFinger : MonoBehaviour
     public Vector3 GetLocal()
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,Input.mousePosition, canvas.worldCamera, out Vector2 local);
-        // rectTransform.anchoredPosition=vector;
         return local;
-        Vector2 localPoint = Input.mousePosition;
-
-        localPoint = canvas.worldCamera.ScreenToWorldPoint(localPoint);
-        // RectTransformUtility.ScreenPointToWorldPointInRectangle(canvasRect, localPoint, canvas.worldCamera, out Vector3 local);
-        return localPoint;
     }
 }

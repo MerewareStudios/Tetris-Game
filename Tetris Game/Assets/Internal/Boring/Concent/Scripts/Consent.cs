@@ -1,6 +1,5 @@
 using Internal.Core;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Consent : Lazyingleton<Consent>
@@ -76,13 +75,12 @@ public class Consent : Lazyingleton<Consent>
     
     public void OpenOnClick()
     {
+        HapticManager.OnClickVibrate();
         this.Open(Close);
     }
 
     public void Close()
     {
-        // TimeScale = 1.0f;
-        // GameManager.UpdateTimeScale();
         Visible = false;
     }
     
@@ -90,38 +88,19 @@ public class Consent : Lazyingleton<Consent>
     {
         MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
         MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
-        // Close();
         _onDone?.Invoke();
     }
     
     public void AcceptPrivacy(bool state)
     {
-        // MaxSdk.SetHasUserConsent(state);
     }
     
     public void AcceptAge(bool state)
     {
-        // MaxSdk.SetIsAgeRestrictedUser(!state);
     }
 
     public void OnClickPrivacyLink()
     {
         Application.OpenURL(privacyLink);
     }
-    
-    // [System.Serializable]
-    // public class Data : ICloneable
-    // {
-    //     [SerializeField] public bool firstConcentTaken;
-    //         
-    //     public Data(Data data)
-    //     {
-    //         firstConcentTaken = data.firstConcentTaken;
-    //     }
-    //
-    //     public object Clone()
-    //     {
-    //         return new Data(this);
-    //     }
-    // } 
 }

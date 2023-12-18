@@ -48,6 +48,8 @@ namespace Game.UI
             {
                 return true;
             }
+            HapticManager.OnClickVibrate();
+
             Visible = false;
             
             _showTween?.Kill();

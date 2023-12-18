@@ -62,6 +62,8 @@ public class SaveManager : SaveManagerBase<SaveManager>
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
         UIManager.THIS.SettingsEnabled = ONBOARDING.WEAPON_TAB.IsComplete();
+
+        HapticManager.THIS.SavedData = saveData.hapticData;
     }
 }
 public static class SaveManagerExtensions
@@ -106,6 +108,7 @@ public partial class SaveData : ICloneable
 {
     [SerializeField] public bool[] onboardingList;
     [SerializeField] public Account.Data accountData;
+    [SerializeField] public HapticManager.Data hapticData;
     [SerializeField] public User.Data userData;
     [SerializeField] public AdManager.Data adData;
     [SerializeField] public OfferScreen.Data purchaseData;
@@ -114,6 +117,7 @@ public partial class SaveData : ICloneable
     {
         onboardingList = data.onboardingList.Clone() as bool[];
         accountData = data.accountData.Clone() as Account.Data;
+        hapticData = data.hapticData.Clone() as HapticManager.Data;
         userData = data.userData.Clone() as User.Data;
         adData = data.adData.Clone() as AdManager.Data;
         purchaseData = data.purchaseData.Clone() as OfferScreen.Data;
