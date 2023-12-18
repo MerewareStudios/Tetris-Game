@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -18,10 +17,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     [SerializeField] private Button closeButton;
 
     [System.NonSerialized] private bool _overlayVisible = true;
-    // [System.NonSerialized] public System.Action OnOfferAccepted;
-    // [System.NonSerialized] public System.Action<bool> VisibilityChanged;
-    // [System.NonSerialized] private MaxSdkBase.BannerPosition _lastBannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
-    // [System.NonSerialized] private bool _visible = false;
     
     [System.NonSerialized] private MaxSdk.BannerPosition _currentPosition = MaxSdkBase.BannerPosition.BottomCenter;
     public MaxSdk.BannerPosition Position
@@ -33,21 +28,22 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
             switch (_currentPosition)
             {
                 case MaxSdkBase.BannerPosition.TopCenter:
-                    offerFrame.position = topPivot.position;
+                    offerFrame.parent = topPivot;
                     offerFrame.rotation = topPivot.rotation;
                     closeButton.gameObject.SetActive(true);
                     break;
                 case MaxSdkBase.BannerPosition.BottomCenter:
-                    offerFrame.position = bottomPivot.position;
+                    offerFrame.parent = bottomPivot;
                     offerFrame.rotation = bottomPivot.rotation;
                     closeButton.gameObject.SetActive(false);
                     break;
                 
             }
+            offerFrame.localPosition = Vector3.zero;
+            offerFrame.localScale = Vector3.one;
         }
     }
     
-    // public Vector3 ActionPosition => offerFrame.position;
     private const float OfferDistance = -300.0f;
     
     public bool Ready => _loadState.Equals(LoadState.Success);
@@ -88,18 +84,8 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         SetOfferState(true);
         animPivot.DOKill();
         animPivot.anchoredPosition = new Vector2(0.0f, OfferDistance);
-        animPivot.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.5f);
+        animPivot.DOAnchorPosY(0.0f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.15f);
     }
-
-    // public void HideOffer()
-    // {
-    //     offerFrame.DOKill();
-    //
-    //     offerFrame.DOAnchorPosY(OfferDistance, 0.25f).SetUpdate(true).SetEase(Ease.InSine).onComplete = () =>
-    //     {
-    //         SetOfferState(false);
-    //     };
-    // }
 
     public void SetOfferState(bool value)
     {
@@ -107,13 +93,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         this.gameObject.SetActive(value);
     }
 
-    // public void OnClick_AcceptOffer()
-    // {
-    //     HideOffer();
-    //     OnOfferAccepted?.Invoke();
-    // }
-
-    
     public void ShowAd()
     {
         if (!Ready)
@@ -125,7 +104,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
             return;
         }
         MaxSdk.ShowBanner(BannerAdUnitId);
-        Position = _currentPosition;
+        // Position = _currentPosition;
     }
     
     public void HideAd(bool hide)
@@ -141,16 +120,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
             ShowAd();
         }
     }
-
-    // public void SetBannerPosition(MaxSdk.BannerPosition bannerPosition)
-    // {
-    //     if (!_visible)
-    //     {
-    //         return;
-    //     }
-    //     _lastBannerPosition = bannerPosition;
-    //     MaxSdk.UpdateBannerPosition(BannerAdUnitId, bannerPosition);
-    // }
     
     public void Initialize()
     {
@@ -170,13 +139,12 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     public void LoadAd()
     {
         CurrentLoadState = LoadState.Loading;
-        Position = MaxSdkBase.BannerPosition.BottomCenter;
+        // Position = _currentPosition;
         MaxSdk.CreateBanner(BannerAdUnitId, _currentPosition);
     }
 
     public void DestroyBanner()
     {
-        // _visible = false;
         MaxSdk.DestroyBanner(BannerAdUnitId);
         CurrentLoadState = LoadState.Destroyed;
     }

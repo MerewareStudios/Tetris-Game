@@ -100,7 +100,7 @@ public class GameManager : Singleton<GameManager>
             return;
         }
     #endif
-        
+
         AdManager.THIS.InitAdSDK();
         OfferScreen.THIS.CheckForUnpack(2.5f);
         

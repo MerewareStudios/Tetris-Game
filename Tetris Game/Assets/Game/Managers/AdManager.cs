@@ -32,7 +32,6 @@ namespace IWI
             MaxSdk.InitializeSdk();
             MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
                 {
-                    
                     FakeAdRewarded.THIS.Initialize();
                     FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
                     {
@@ -111,26 +110,29 @@ namespace IWI
             }
             if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))
             {
+                AdjustBannerPosition();
                 FakeAdBanner.THIS.LoadAd();
             }
             FakeAdBanner.THIS.ShowFrame();
-        }
-
-        private void ChangeBannerPosition(bool top)
-        {
-            FakeAdBanner.THIS.Position = top ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter;
         }
 
 
         private void InitBanner()
         {
             FakeAdBanner.THIS.Initialize();
-            UIManager.OnMenuModeChanged = ChangeBannerPosition;
         }
         private void DestroyBanner()
         {
             FakeAdBanner.THIS.DestroyBanner();
-            UIManager.OnMenuModeChanged -= ChangeBannerPosition;
+        }
+
+        public void AdjustBannerPosition()
+        {
+            if (_Data.removeAds)
+            {
+                return;
+            }
+            FakeAdBanner.THIS.Position = UIManager.MenuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter;
         }
 
         public static void ShowAdBreak(AdBreakScreen.AdReason adReason)

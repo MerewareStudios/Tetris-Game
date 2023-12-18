@@ -47,7 +47,6 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] public CurrencyTransactor coin;
    [SerializeField] public CurrencyTransactor gem;
    [SerializeField] public CurrencyTransactor ticket;
-   [System.NonSerialized] public static System.Action<bool> OnMenuModeChanged;
    [Header("Tutorial")]
    [SerializeField] public SpeechBubble speechBubble;
    [SerializeField] public ComboText comboText;
@@ -64,6 +63,8 @@ public class UIManager : Singleton<UIManager>
 
    void Awake()
    {
+      MenuVisible = false;
+      
       Consent.THIS = consent;
       BlockMenu.THIS = blockMenu;
       WeaponMenu.THIS = weaponMenu;
@@ -439,7 +440,7 @@ public class UIManager : Singleton<UIManager>
       
       LevelManager.THIS.ScaleLevelText(value);
       
-      OnMenuModeChanged?.Invoke(value);
+      AdManager.THIS.AdjustBannerPosition();
    }
 
    public bool PlusButtonsState
