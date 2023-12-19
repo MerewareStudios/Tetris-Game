@@ -2531,6 +2531,7 @@ GameObject:
   - component: {fileID: 548236971}
   - component: {fileID: 548236974}
   - component: {fileID: 548236972}
+  - component: {fileID: 548236975}
   m_Layer: 0
   m_Name: Game Camera
   m_TagString: Untagged
@@ -2648,6 +2649,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &548236975
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548236970}
+  m_Enabled: 1
 --- !u!224 &558060384 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5736246427470981809, guid: e3d377368904d064d91d5764ac306155,
@@ -3593,6 +3602,7 @@ GameObject:
   - component: {fileID: 715436862}
   - component: {fileID: 715436861}
   - component: {fileID: 715436860}
+  - component: {fileID: 715436869}
   - component: {fileID: 715436866}
   - component: {fileID: 715436859}
   - component: {fileID: 715436858}
@@ -4365,6 +4375,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f0883c88fc0774d812ec681eaa1851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &715436869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715436856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76430618fbbce2c499f06c9e460bfba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 1
+  audioSourceDatas:
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 22438ebfed5ec3a47ae6fdb27e862158,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 9b5e23bb55e17f749a2a9aaac6ce1e3c,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 86f37c701da37af4b951bb2e0860de2f,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 5b815c6af21284b428cd12ab69966a70,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: a97d5933b35f1b4449278d4556d0635d,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 7c36ec7d03cd068419ce4c414f7b2389,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 5a13bd4de7c2234438488fb13707c322,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 447aa194f6798d040a170be8a3227d00,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 1f8e6a55c880e2047b92ad8f4d834956,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6fee31a637f987049a0888fb924b1572,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 043f30e8012598d4ab2fe7de34b0a997,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 4a1b3cc611509b24f9fe50706acd2379,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 0f666d0335528ca489305bf54baf4a5a,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 8d068360d2d4efa4bac7ae3c67563353,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: dee56673117f87d46a9ed4c406290cf0,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 61903f7964549b94dbc50ce07230e5d5,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6e5e4389dbc045541a6a39e5717e4e49,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: eff1e863d809383498c0bce834d9dac4,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 75f9d32fffe5e904e89dd29ff24856a4,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 3de0c4aa59b9cf2468d2f0cf6a138eac,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: ea4ffe8a76404074d8028cebbf73017d,
+      type: 3}
 --- !u!1 &715818425
 GameObject:
   m_ObjectHideFlags: 0
@@ -17980,7 +18046,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.9997
+      value: -511.99976
       objectReference: {fileID: 0}
     - target: {fileID: 2559703356478064583, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}

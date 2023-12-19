@@ -234,7 +234,6 @@ public class UIManager : Singleton<UIManager>
    public void AdLayerClick_OpenShop()
    {
       HapticManager.OnClickVibrate();
-
       shop.OnClick_Open();
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }

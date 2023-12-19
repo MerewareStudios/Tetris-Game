@@ -25,9 +25,6 @@ public class Shop : MonoBehaviour
         {
             return;
         }
-        
-        HapticManager.OnClickVibrate();
-        
 
         background.enabled = false;
 

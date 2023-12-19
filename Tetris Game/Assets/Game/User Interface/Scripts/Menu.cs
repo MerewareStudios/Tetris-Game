@@ -48,7 +48,6 @@ namespace Game.UI
             {
                 return true;
             }
-            HapticManager.OnClickVibrate();
 
             Visible = false;
             

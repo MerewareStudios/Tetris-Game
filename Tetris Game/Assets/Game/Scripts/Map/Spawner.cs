@@ -228,6 +228,8 @@ public class Spawner : Singleton<Spawner>
                     }
                 }
 
+                Audio.Lift.PlayOneShot();
+                
                 float smoothFactor = 0.0f;
                 while (true)
                 {
@@ -264,6 +266,7 @@ public class Spawner : Singleton<Spawner>
         
         AnimateTap();
         CurrentBlock.Rotate();
+        
             
         if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
@@ -344,6 +347,7 @@ public class Spawner : Singleton<Spawner>
         {
             HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
             Board.THIS.Place(CurrentBlock);
+            Audio.Place.PlayOneShot();
 
             CurrentBlock = null;
             

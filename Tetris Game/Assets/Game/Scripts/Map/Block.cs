@@ -145,6 +145,9 @@ namespace Game
             {
                 return;
             }
+            Audio.Rotate_Woosh.PlayOneShot();
+
+            
             Busy = true;
             
             shakePivot.DOKill();

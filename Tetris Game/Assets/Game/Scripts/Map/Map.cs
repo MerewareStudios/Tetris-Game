@@ -59,6 +59,8 @@ namespace Game
                     {
                         HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
 
+                        Audio.Pre_Merge_Cheer.PlayOneShot();
+
                         if (tetrisLines.Count > 1)
                         {
                             
@@ -66,6 +68,8 @@ namespace Game
                             yield return new WaitForSeconds(totalDuration * 0.5f);
 
                         }
+                        Audio.Pre_Merge.PlayOneShot();
+
                         Board.THIS.MergeLines(tetrisLines);
                     
                         Board.THIS.MarkMoverByTetris(tetrisLines);

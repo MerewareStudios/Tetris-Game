@@ -20,6 +20,7 @@ namespace Internal.Core
             GenerateLayers();
             GeneratePool();
             GenerateParticles();
+            GenerateAudioSources();
         }
         [MenuItem("AUTO GENERATE/Layers")]
         private static void GenerateLayers()
@@ -55,6 +56,18 @@ namespace Internal.Core
                 declerations += poolDecleration + "\n";
             }
             GenerateEnum("Particle", declerations);
+        }
+        [MenuItem("AUTO GENERATE/Audio Sources")]
+        public static void GenerateAudioSources()
+        {
+            string declerations = "";
+            for (int i = 0; i < AudioManager.THIS.audioSourceDatas.Count; i++)
+            {
+                AudioManager.AudioSourceData asd = AudioManager.THIS.audioSourceDatas[i];
+                string poolDecleration = GetDecleration(AccessibilityLevel.NONE, StaticModifier.NONSTATIC, ReadModifier.NONE, VariableType.NONE, asd.audioSourcePrefab.name.Replace(" ", "_"), i.ToString(), LineEnding.COMMA);
+                declerations += poolDecleration + "\n";
+            }
+            GenerateEnum("Audio", declerations);
         }
         [MenuItem("MANAGERS/Application Manager/Ping")]
         private static void PingApplicationManager()

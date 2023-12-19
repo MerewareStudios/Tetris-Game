@@ -231,18 +231,22 @@ public class GameManager : Singleton<GameManager>
     
     public static void AddCoin(int value)
     {
-       Wallet.COIN.Add(value);
+        Audio.Coin.PlayOneShot();
+        Wallet.COIN.Add(value);
     }
     public static void AddPiggyCoin(int value)
     {
+        Audio.Gem.PlayOneShot();
         Wallet.PIGGY.Add(value);
     }
     public static void AddTicket(int value)
     {
+        Audio.Ticket.PlayOneShot();
         Wallet.TICKET.Add(value);
     }
     public static void AddHeart(int value)
     {
+        Audio.Heart.PlayOneShot();
         Warzone.THIS.Player._CurrentHealth += value;
     }
     

@@ -156,6 +156,8 @@ namespace Game
 #endif
             if (shootCount == 0)
             {
+                Audio.Gun_Shot_Bubble.PlayOneShot();
+
                 animator.SetTrigger(SHOOT_HASH);
 
                 Gun.Bubble();

@@ -364,6 +364,8 @@ namespace Game.UI
                     ONBOARDING.PURCHASE_UPGRADE.SetComplete();
                 }
                 
+                Audio.Upgrade.Play();
+                
                 CustomShow(0.2f, true);
                 UIManager.UpdateNotifications();
 
@@ -422,6 +424,8 @@ namespace Game.UI
                 }
                 
                 SavedData.Purchase();
+                
+                Audio.Purchase.Play();
 
                 OnClick_Equip();
                 

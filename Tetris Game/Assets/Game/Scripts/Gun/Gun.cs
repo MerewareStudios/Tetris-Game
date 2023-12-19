@@ -82,12 +82,15 @@ public class Gun : MonoBehaviour
         Tween bulletTween = bullet.DOJump(target, GunSo.jumpPower * distance * 0.2f, 1, distance / GunSo.travelDuration).SetEase(GunSo.ease);
         bulletTween.onComplete = () =>
         {
+            Audio.Hit_1.PlayOneShot();
             if (enemyID == enemy.ID)
             {
                 enemy.TakeDamage(_Data.DamageAmount, 1.0f);
             }
             bullet.Despawn(Pool.Bullet);
         };
+        
+        Audio.Gun_Shot_1.PlayOneShot();
     }
 
     public void ResetSelf()

@@ -167,6 +167,8 @@ public class Powerup : Lazyingleton<Powerup>
                 return;
             }
             
+            Audio.Powerup_Open.Play();
+            
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
             

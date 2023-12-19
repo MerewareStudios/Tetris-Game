@@ -175,3 +175,25 @@ public static class ParticleManagerExtensions
         particleUnit.EmitAtPosition(position, amount);
     }
 }
+
+#if UNITY_EDITOR
+namespace  Game.Editor
+{
+    using UnityEditor;
+    using Internal.Core;
+
+    [CustomEditor(typeof(ParticleManager))]
+    [CanEditMultipleObjects]
+    public class ParticleManagerGUI : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")))
+            {
+                AutoGenerate.GenerateParticles();
+            }
+            DrawDefaultInspector();
+        }
+    }
+}
+#endif

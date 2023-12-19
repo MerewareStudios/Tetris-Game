@@ -280,6 +280,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             {
                 HapticManager.Vibrate(HapticPatterns.PresetType.RigidImpact);
 
+                Audio.Level_Reward.PlayOneShot();
                 UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {
                     Close();

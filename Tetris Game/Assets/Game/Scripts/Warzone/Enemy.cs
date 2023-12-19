@@ -162,6 +162,10 @@ namespace  Game
             {
                 return;
             }
+            
+            Audio.Slime.PlayOneShot();
+
+            
             ColorPunch();
             Warzone.THIS.Emit(so.emitCount, hitTarget.position, so.colorGrad, so.radius);
             healthCanvas.DisplayDamage(-value, scale);
@@ -297,6 +301,7 @@ namespace  Game
 
             _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
+                Audio.Slime_2.PlayOneShot();
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
                 this.Deconstruct();

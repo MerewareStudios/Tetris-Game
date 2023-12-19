@@ -242,6 +242,9 @@ namespace Game.UI
                     ONBOARDING.PURCHASE_BLOCK.SetComplete();
                     Onboarding.HideFinger();
                 }
+                
+                Audio.Purchase.Play();
+                
                 Show();
 
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);

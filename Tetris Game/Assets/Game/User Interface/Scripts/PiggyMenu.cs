@@ -311,6 +311,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             _shakeTween?.Kill();
             _shakeTween = null;
             
+            Audio.Piggy_Break.Play();
+            
             base.CloseImmediate();
         };
         
@@ -515,6 +517,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         (value) =>
             {
                 PunchPiggyIcon(0.2f);
+                Audio.Piggy_Fill.PlayOneShot();
             },
         () =>
             {

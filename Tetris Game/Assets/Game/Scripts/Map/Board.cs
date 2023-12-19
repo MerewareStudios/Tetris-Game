@@ -739,6 +739,7 @@ namespace Game
             {
                 lastTween.onComplete += () =>
                 {
+                    Audio.Pos_Merge.PlayOneShot();
                     HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
@@ -781,6 +782,8 @@ namespace Game
             Place spawnPlace = _places[horizontal, vertical];
             int totalAmmo = 0;
             Tween lastTween = null;
+            
+            Audio.Magnet.Play();
             
             for (int i = 0; i < _size.x; i++)
             {
@@ -845,6 +848,11 @@ namespace Game
 
                     if (totalAmmo > 0)
                     {
+                        Audio.Pos_Merge.PlayOneShot();
+                        
+                        HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
+                        CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f), 0.5f);
+                        
                         Particle.Debris.Emit(30, spawnPlace.Position);
                         Particle.Star.Emit(15, spawnPlace.Position);
                     }
@@ -1043,7 +1051,10 @@ namespace Game
                     place.Current.Check(place);
                     Map.THIS.MapWaitForCycle = true;
 
-                   
+                    // if (currentPawn == temporary.Last())
+                    // {
+                        // Audio.Place.PlayOneShot();
+                    // }
                 });
             }
         }

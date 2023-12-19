@@ -92,6 +92,7 @@ namespace  Game
             
             
             this.enabled = true;
+            return;
 
 
             IEnumerator SpawnRoutine()
@@ -111,6 +112,8 @@ namespace  Game
 
                 
                 Player.StartSearching();
+                
+                Audio.Level_Begin.Play();
                 
 #if !CREATIVE
                 if (LevelManager.LevelSo.countdown > 0)
@@ -387,12 +390,15 @@ namespace  Game
 
         public void OnVictory()
         {
+            Audio.Victory.Play();
             StopSpawning();
             Player.OnVictory();
         }
 
         public void OnFail()
         {
+            Audio.Fail.Play();
+
             Announcer.THIS.Stop();
             StopSpawning();
             Player.OnFail();
