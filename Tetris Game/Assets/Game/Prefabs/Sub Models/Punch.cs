@@ -53,6 +53,7 @@ public class Punch : SubModel
             
             CameraManager.THIS.Shake(0.75f, 0.75f);
             Particle.Pow.Play(hitTarget);
+            Audio.Punch.PlayOneShot();
             
             OnDeconstruct();
         };

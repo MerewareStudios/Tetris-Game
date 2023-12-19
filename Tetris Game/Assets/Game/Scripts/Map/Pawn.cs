@@ -389,15 +389,15 @@ namespace Game
         
 
 
-        public void MoveForward(Place checkerPlace, int tick, float moveDuration)
+        public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
         {
             if (Busy)
             {
-                return;
+                return false;
             }
             if (!Mover)
             {
-                return;
+                return false;
             }
             
             Tick = tick;
@@ -405,10 +405,14 @@ namespace Game
             checkerPlace.Current = null;
             
             Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-            if (forwardPlace)
+            if (!forwardPlace)
             {
-                forwardPlace.Accept(this, moveDuration);
+                return false;
             }
+            
+            forwardPlace.Accept(this, moveDuration);
+
+            return true;
         }
 
         public void Check(Place checkerPlace)

@@ -35,5 +35,7 @@ public enum Audio
     Button_Click_Close = 32,
     Forbidden = 33,
     Bomb_Explode = 34,
+    Punch = 35,
+    Block_Drag = 36,
 
 }

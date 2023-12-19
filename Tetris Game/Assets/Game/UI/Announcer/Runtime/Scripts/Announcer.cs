@@ -17,13 +17,14 @@ namespace  Game.UI
         [System.NonSerialized] private Sequence _sequence;
         public TypewriterByCharacter animatedText;
 
-        public Coroutine Show(string str, float stayDuration)
+        public Coroutine Show(string str, float stayDuration, System.Action onCountDown)
         {
             canvas.enabled = true;
             countdownRoutine = StartCoroutine(CountRoutine());
                 
             IEnumerator CountRoutine()
             {
+                onCountDown?.Invoke();
                 float dur = ShowText(str, stayDuration);
                 yield return new WaitForSeconds(dur);
                 Stop();
@@ -32,7 +33,7 @@ namespace  Game.UI
             return countdownRoutine;
         }
 
-        public Coroutine Count(string startingText, int seconds)
+        public Coroutine Count(string startingText, int seconds, System.Action<int> onCountDown)
         {
             canvas.enabled = true;
             countdownRoutine = StartCoroutine(CountRoutine());
@@ -43,8 +44,9 @@ namespace  Game.UI
                 // yield return new WaitForSeconds(1.4f);
                 for (int i = 0; i < seconds; i++)
                 {
+                    onCountDown?.Invoke(i);
                     ShowText((seconds - i).ToString());
-                    yield return new WaitForSeconds(0.725f);
+                    yield return new WaitForSeconds(0.85f);
                 }
             }
 

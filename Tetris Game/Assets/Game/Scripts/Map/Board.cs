@@ -327,6 +327,7 @@ namespace Game
         {
             _tick++;
 
+            // bool moved = false;
             foreach (var place in _places)
             {
                 if (!place.Current)
@@ -334,7 +335,17 @@ namespace Game
                     continue;
                 }
                 place.Current.MoveForward(place, _tick, moveDuration);
+                // bool movedThis = place.Current.MoveForward(place, _tick, moveDuration);
+                // if (!moved && movedThis && place.Current && place.Current.Connected)
+                // {
+                //     moved = true;
+                // }
             }
+
+            // if (moved)
+            // {
+            //     Audio.Block_Drag.PlayOneShot();
+            // }
         }
         public void CheckAll()
         {
