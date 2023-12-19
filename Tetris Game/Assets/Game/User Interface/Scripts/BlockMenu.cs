@@ -216,7 +216,6 @@ namespace Game.UI
 
         public void OnClick_Purchase()
         {
-            HapticManager.OnClickVibrate();
 
             bool haveBlock = SavedData.HaveBlock(_selectedBlockData.blockType);
             if (haveBlock)
@@ -226,6 +225,7 @@ namespace Game.UI
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
             if (!availableByLevel)
             {
+                HapticManager.OnClickVibrate(Audio.Locked);
                 PunchPurchasedText(0.25f);
                 return;
             }
@@ -243,8 +243,8 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
                 
-                Audio.Purchase.Play();
-                
+                HapticManager.OnClickVibrate(Audio.Purchase);
+
                 Show();
 
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
@@ -253,6 +253,8 @@ namespace Game.UI
             }
             else
             {
+                HapticManager.OnClickVibrate(Audio.Forbidden);
+
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(AdBreakScreen.AdReason.BLOCK_BUY,() =>

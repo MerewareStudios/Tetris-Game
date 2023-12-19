@@ -398,7 +398,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_ContinuePiggyBank()
     {
-        HapticManager.OnClickVibrate();
+        HapticManager.OnClickVibrate(Audio.Button_Click_Close);
 
         closeButton.targetGraphic.raycastTarget = false;
         if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())

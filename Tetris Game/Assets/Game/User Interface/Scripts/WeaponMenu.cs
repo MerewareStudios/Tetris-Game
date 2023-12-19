@@ -344,8 +344,6 @@ namespace Game.UI
         
         public void OnClick_PurchaseUpgrade(int statType)
         {
-            HapticManager.OnClickVibrate();
-
             Gun.StatType type = (Gun.StatType)statType;
 
             Const.Currency cost = _gunUpgradeData.UpgradePrice(type, SavedData.CurrentIndex(SavedData.inspectIndex, type));
@@ -364,7 +362,7 @@ namespace Game.UI
                     ONBOARDING.PURCHASE_UPGRADE.SetComplete();
                 }
                 
-                Audio.Upgrade.Play();
+                HapticManager.OnClickVibrate(Audio.Upgrade);
                 
                 CustomShow(0.2f, true);
                 UIManager.UpdateNotifications();
@@ -387,6 +385,8 @@ namespace Game.UI
             } 
             else
             {
+                HapticManager.OnClickVibrate(Audio.Forbidden);
+
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_UPG,() =>
@@ -400,8 +400,6 @@ namespace Game.UI
         
         public void OnClick_PurchaseWeapon()
         {
-            HapticManager.OnClickVibrate();
-
             if (SavedData.Purchased)
             {
                 return;
@@ -410,6 +408,7 @@ namespace Game.UI
             bool availableByLevel = LevelManager.CurrentLevel >= _gunUpgradeData.unlockedAt;
             if (!availableByLevel)
             {
+                HapticManager.OnClickVibrate(Audio.Locked);
                 PunchPurchasedText(0.25f);
                 return;
             }
@@ -425,7 +424,7 @@ namespace Game.UI
                 
                 SavedData.Purchase();
                 
-                Audio.Purchase.Play();
+                HapticManager.OnClickVibrate(Audio.Purchase);
 
                 OnClick_Equip();
                 
@@ -433,6 +432,8 @@ namespace Game.UI
             }
             else
             {
+                HapticManager.OnClickVibrate(Audio.Forbidden);
+
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
                     AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_BUY,() =>
@@ -446,7 +447,7 @@ namespace Game.UI
         
         public void OnClick_Equip()
         {
-            HapticManager.OnClickVibrate();
+            HapticManager.OnClickVibrate(Audio.Purchase);
 
             SavedData.Equip();
             GunDataChanged?.Invoke(EquippedGunData);

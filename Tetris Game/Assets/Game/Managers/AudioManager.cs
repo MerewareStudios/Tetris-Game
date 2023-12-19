@@ -28,6 +28,7 @@ public class AudioManager : Singleton<AudioManager>
     public class AudioSourceData
     {
         [SerializeField] public AudioSource audioSourcePrefab;
+        [SerializeField] public bool muted = false;
         [System.NonSerialized] private AudioSource _audioSourceInstance;
 
         public AudioSource Instance

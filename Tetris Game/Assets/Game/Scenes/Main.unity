@@ -4417,8 +4417,6 @@ MonoBehaviour:
       type: 3}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 8d068360d2d4efa4bac7ae3c67563353,
       type: 3}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: dee56673117f87d46a9ed4c406290cf0,
-      type: 3}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 61903f7964549b94dbc50ce07230e5d5,
       type: 3}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 6e5e4389dbc045541a6a39e5717e4e49,
@@ -4430,6 +4428,36 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 3de0c4aa59b9cf2468d2f0cf6a138eac,
       type: 3}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: ea4ffe8a76404074d8028cebbf73017d,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: ffd1e4704507e4242937f097f39b6642,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 9368ea46fda27df4bb8cc53b5ec887e8,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: eca49ad0bde78ec43bcd90af1bf7214d,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 1b05b9e9eea404d45b77e35146a97aa8,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6f774950dba8afe4fb8c53cbd4e6730b,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: d85e7b4824a44f740aa528d70a2f0836,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: eea13c361de16494bae7f9d113d74233,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: b7b7e6172599c834b88ccb4e5643f6ec,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: e20ddad055f267d4f8891afef071b1df,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: dee56673117f87d46a9ed4c406290cf0,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 573dc6102a4c9014c906aa767999155c,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 24e7e164fe1aa364da5b1694125d1f5e,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: d8de8d29a71d23941a81e324387fbd10,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 9b5e7f824b80c91489c0d0cc93b5e033,
+      type: 3}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: df083be7fc1e4d24aa4205a088faeafd,
       type: 3}
 --- !u!1 &715818425
 GameObject:

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4637482863437561053}
   - component: {fileID: 74253015700367299}
   m_Layer: 0
-  m_Name: Fail
+  m_Name: Forbidden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a0431b64ce6c2ec4082904828bcb8ab9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 35c6da9e7ee2fdf4092455ef1894dac1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

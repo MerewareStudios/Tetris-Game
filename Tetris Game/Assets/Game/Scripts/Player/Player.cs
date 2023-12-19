@@ -287,7 +287,7 @@ namespace Game
             this.AutoEnemySortInterval = sortInterval;
             
             crossHair.gameObject.SetActive(false);
-            crossHair.position = Position + new Vector3(0.0f, 0.0f, -2.0f);
+            crossHair.position = Position + new Vector3(0.0f, 0.0f, -4.0f);
 
             Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;

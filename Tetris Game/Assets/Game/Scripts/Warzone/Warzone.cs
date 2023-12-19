@@ -344,6 +344,8 @@ namespace  Game
             _landMines.Remove(subModel);
             Vector3 pos = subModel.Position;
             Particle.Missile_Explosion.Play(pos);
+            Audio.Bomb_Explode.PlayOneShot();
+
             enemy.TakeDamage(20);
         }
         

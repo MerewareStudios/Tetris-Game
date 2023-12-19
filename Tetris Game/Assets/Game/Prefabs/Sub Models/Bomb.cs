@@ -48,6 +48,7 @@ public class Bomb : SubModel
             Warzone.THIS.AEODamage(hitTarget, 15, 2.0f);
             
             Particle.Missile_Explosion.Play(hitTarget);
+            Audio.Bomb_Explode.PlayOneShot();
             CameraManager.THIS.Shake(0.25f, 0.5f);
             UIManagerExtensions.QuickDistort(Position);
             
@@ -68,6 +69,8 @@ public class Bomb : SubModel
         base.OnExplode();
         
         Particle.Missile_Explosion.Play(base.Position);
+        Audio.Bomb_Explode.PlayOneShot();
+
         UIManagerExtensions.Distort(Position, 9.0f, 0.05f, 1.1f, Ease.OutSine);
 
         OnDeconstruct();

@@ -111,7 +111,9 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
       OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
-      OfferScreen.OnVibrate = () => HapticManager.OnClickVibrate();
+      OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Close);
+      OfferScreen.OnFeedbackBuy = () => HapticManager.OnClickVibrate();
+      OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
          FakeAdBanner.THIS.HideAd(visible);

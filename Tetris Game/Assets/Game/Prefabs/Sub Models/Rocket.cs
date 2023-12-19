@@ -42,6 +42,8 @@ public class Rocket : SubModel
             }
 
             Particle.Missile_Explosion.Play(hitTarget);
+            Audio.Bomb_Explode.PlayOneShot();
+
             CameraManager.THIS.Shake(0.5f, 0.75f);
             UIManagerExtensions.QuickDistort(Position);
             

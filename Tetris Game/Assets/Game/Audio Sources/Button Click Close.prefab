@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4637482863437561053}
   - component: {fileID: 74253015700367299}
   m_Layer: 0
-  m_Name: Button Click
+  m_Name: Button Click Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 51d1ef7a12457bf4cbd534c22063c771, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0fd26ee7c8e46d54f82420f4ab1c5147, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

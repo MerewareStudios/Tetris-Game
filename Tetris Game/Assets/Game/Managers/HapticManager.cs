@@ -19,11 +19,12 @@ public class HapticManager : Singleton<HapticManager>
     }
     
     [System.Diagnostics.Conditional(HapticsEnabled)]
-    public static void OnClickVibrate()
+    public static void OnClickVibrate(Audio audio = Audio.Button_Click_Navigation)
     {
-        Audio.Button_Click.Play();
+        audio.Play();
         HapticManager.Vibrate(HapticPatterns.PresetType.Warning);
     }
+    
     
     [System.Serializable]
     public class Data : System.ICloneable

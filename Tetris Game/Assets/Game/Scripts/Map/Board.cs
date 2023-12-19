@@ -685,6 +685,8 @@ namespace Game
             {
                 ps.Stop();
                 Particle.Missile_Explosion.Play(targetPosition);
+                Audio.Bomb_Explode.PlayOneShot();
+
                 ExplodePawnsCircular(pos, Board.BombRadius);
                 MarkDropPointsMover();
                 CameraManager.THIS.Shake(Random.Range(0.4f, 0.45f), 0.5f);
