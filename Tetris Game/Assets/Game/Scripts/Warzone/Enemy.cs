@@ -82,6 +82,8 @@ namespace  Game
                     }
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
+                    
+                    Audio.Magic_Charge.PlayOneShot();
                     break;
                 case CastTypes.DestoryPawn:
                     if (castPs)
@@ -91,6 +93,7 @@ namespace  Game
                     }
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
+                    Audio.Magic_Charge.PlayOneShot();
                     break;
                 case CastTypes.SpawnEnemy:
                     if (castPs)
@@ -99,6 +102,7 @@ namespace  Game
                     }
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
+                    Audio.Magic_Charge.PlayOneShot();
                     break;
             }
 
@@ -124,6 +128,7 @@ namespace  Game
                     {
                         Board.THIS.SpawnTrapBomb(so.spawnerExtra);
                     }
+                    Audio.Magic_End.PlayOneShot();
                     break;
                 case CastTypes.DestoryPawn:
                     for (int i = 0; i < so.spawnerCount; i++)
@@ -131,6 +136,7 @@ namespace  Game
                         castPs.Play();
                         Board.THIS.DestroyWithProjectile(castPs, castParent.position);
                     }
+                    Audio.Magic_End.PlayOneShot();
                     break;
                 case CastTypes.SpawnEnemy:
                     for (int i = 0; i < so.spawnerCount; i++)
@@ -143,6 +149,8 @@ namespace  Game
                         }
                     }
                     Warzone.THIS.AssignClosestEnemy();
+                    Audio.Magic_End.PlayOneShot();
+                    Audio.Magic_Spawn.PlayOneShot();
                     break;
             }
         }
@@ -282,6 +290,7 @@ namespace  Game
         {
             _castTweenLoop?.Kill();
             model.DOKill();
+            Audio.Kamikaze.PlayOneShot();
             Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();

@@ -73,7 +73,7 @@ public class Cargo : MonoBehaviour
             this.Despawn(pool);
         };
 
-        
+        Audio.Chest.Play();
     }
     
     [SerializeField]

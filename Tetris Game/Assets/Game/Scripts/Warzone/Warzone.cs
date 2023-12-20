@@ -233,6 +233,8 @@ namespace  Game
             enemy.CoinAmount = coinAmount;
             enemy.OnSpawn(position, GetNewEnemyID());
             enemy.Replenish();
+            
+            Warzone.THIS.Emit(10, enemy.Position, enemy.so.colorGrad, 1.0f);
 
             _enemies.Add(enemy);
             

@@ -199,6 +199,7 @@ namespace Game
         }
         public void OnFail()
         {
+            Audio.Scream.Play();
             StopSearching();
             animator.SetTrigger(DEATH_HASH);
             _shouldGetUp = true;

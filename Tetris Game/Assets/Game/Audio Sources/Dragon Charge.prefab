@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4637482863437561053}
   - component: {fileID: 74253015700367299}
   m_Layer: 0
-  m_Name: Kamikaze
+  m_Name: Dragon Charge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,9 +43,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 7e984f512e89b60468e829489e8883e3,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: a87af5e6f0cdf86428e604bb929b5ce8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: add9ae6ce864aca49ae075a11ebfc2d5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.635
   m_Pitch: 1
   Loop: 0
   Mute: 0

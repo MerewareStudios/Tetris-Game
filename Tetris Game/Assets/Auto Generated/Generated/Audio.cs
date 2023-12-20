@@ -37,5 +37,13 @@ public enum Audio
     Bomb_Explode = 34,
     Punch = 35,
     Block_Drag = 36,
+    Kamikaze = 37,
+    Chest = 38,
+    Scream = 39,
+    Magic_Charge = 40,
+    Magic_End = 41,
+    Magic_Spawn = 42,
+    Dragon_Charge = 43,
+    Dragon_End = 44,
 
 }

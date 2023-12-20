@@ -26,9 +26,14 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         {
             return;
         }
+        if (audioSourceData.muted)
+        {
+            return;
+        }
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = audioSourceData.RandomPitch;
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
+        // Debug.LogWarning("Play One Shot Random Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
     }
     public static void PlayOneShotPitch(int key, float volumeScale = 1.0f, float pitch = 1.0f)
@@ -44,9 +49,14 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         {
             return;
         }
+        if (audioSourceData.muted)
+        {
+            return;
+        }
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
+        // Debug.LogWarning("Play One Shot Set Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
     }
     public static void Play(int key)
@@ -58,6 +68,10 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         }
 #endif
         AudioSourceData audioSourceData = AudioManager.THIS.audioSourceDatas[key];
+        if (audioSourceData.muted)
+        {
+            return;
+        }
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.Play();
     }
