@@ -256,7 +256,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 return;
             }
 #endif
-            Audio.Reward_Unlock.PlayOneShot();
+            Audio.Level_Reward.PlayOneShot();
 
             tipParent.SetActive(true);
             tipParent.transform.localScale = Vector3.zero;
@@ -282,7 +282,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             {
                 HapticManager.Vibrate(HapticPatterns.PresetType.RigidImpact);
 
-                Audio.Level_Reward.PlayOneShot();
+                Audio.Reward_Unlock.PlayOneShot();
                 UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {
                     Close();
