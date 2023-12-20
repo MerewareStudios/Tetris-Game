@@ -59,6 +59,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         // Debug.LogWarning("Play One Shot Set Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
     }
+    
     public static void Play(int key)
     {
 #if UNITY_EDITOR
@@ -74,6 +75,43 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         }
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.Play();
+    }
+    
+    public static void Play(int key, float pitch)
+    {
+#if UNITY_EDITOR
+        if (AudioManager.THIS.onlyPlayDebugSound && !AudioManager.THIS.debugSounds.Contains((Audio)key))
+        {
+            return;
+        }
+#endif
+        AudioSourceData audioSourceData = AudioManager.THIS.audioSourceDatas[key];
+        if (audioSourceData.muted)
+        {
+            return;
+        }
+        AudioSource audioSource = audioSourceData.Instance;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+    }
+    
+    public static void Stop(int key)
+    {
+        AudioSourceData audioSourceData = AudioManager.THIS.audioSourceDatas[key];
+        AudioSource audioSource = audioSourceData.Instance;
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
+    public static void Pause(int key)
+    {
+        AudioSourceData audioSourceData = AudioManager.THIS.audioSourceDatas[key];
+        AudioSource audioSource = audioSourceData.Instance;
+        if (audioSource.isPlaying)
+        {
+            audioSource.Pause();
+        }
     }
 
     [System.Serializable]
@@ -120,6 +158,22 @@ public static class AudioManagerExtensions
             return;
         }
         AudioManager.Play((int)audio);
+    }
+    public static void Stop(this Audio audio)
+    {
+        AudioManager.Stop((int)audio);
+    }
+    public static void Pause(this Audio audio)
+    {
+        AudioManager.Pause((int)audio);
+    }
+    public static void Play(this Audio audio, float pitch)
+    {
+        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        {
+            return;
+        }
+        AudioManager.Play((int)audio, pitch);
     }
     public static void PlayOneShot(this Audio audio, float volume = 1.0f)
     {

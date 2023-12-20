@@ -16,13 +16,16 @@ MonoBehaviour:
     </bounce></size>!
   stackText: <size=125%>Wait for <color=#FFD919><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
-  greatCheerText: <wiggle a=0.8 f=3><size=120%>Great!</size>
+  greatCheerText: <wiggle a=0.8 f=3><size=120%>Good job!</size>
   niceOneText: <wiggle a=1.3 f=3><size=150%>Nice one!</size>
-  needMoreAmmoText: Need more <size=110%><bounce a=1 f=2 w=0.5><color=#6DDFFF>bullets</color>
+  needMoreAmmoText: <size=120%>Need more <bounce a=1 f=2 w=0.5><color=#6DDFFF>bullets</color>
     </bounce></size>!
-  targetPracticeText: 'Target
+  targetPracticeText: '<wiggle a=1 f=3>Target
 
-    Practice'
+    Practice</>'
+  enemiesComingText: '<wiggle a=1 f=3>Enemies
+
+    Coming</>'
   ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
   freePlacementText: Place it anywhere!
   maxStackDropCheer: EXTRA<color=#FFD919><bounce a=1 f=2 w=0.5> STACK</bounce></color>

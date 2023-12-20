@@ -205,6 +205,11 @@ public class UIManager : Singleton<UIManager>
         
 
       CurrentMenu = null;
+
+      // UIManager.THIS.speechBubble.audioStart = () => Audio.Speak_1.Play();
+      // UIManager.THIS.speechBubble.textAnimatorPlayer.onTextShowed.AddListener(() => Audio.Speak_1.Pause());
+      UIManager.THIS.speechBubble.textAnimatorPlayer.onTypewriterStart.AddListener(() => Audio.Speak_1.Play());
+
    }
 
    public bool SettingsEnabled
@@ -239,9 +244,9 @@ public class UIManager : Singleton<UIManager>
       shop.OnClick_Open();
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
-   public void AdLayerClick_OpenPiggyBank()
+   public void AdLayer_OpenPiggyBank()
    {
-      HapticManager.OnClickVibrate();
+      // HapticManager.OnClickVibrate();
 
       PiggyMenu.THIS.Open(0.225f);
       AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);

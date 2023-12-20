@@ -363,7 +363,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_InvestPiggyBank()
     {
-        HapticManager.OnClickVibrate();
+        HapticManager.OnClickVibrate(Audio.Piggy_Fill);
 
         int amount = Mathf.CeilToInt(Wallet.COIN.Currency.amount * 0.2f);
         amount = Mathf.Clamp(amount, 0, SavedData.Remaining);

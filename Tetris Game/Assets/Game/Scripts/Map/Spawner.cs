@@ -25,6 +25,9 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private int leftOverCount = 0;
     private const int MaxLeftOverCount = 25;
     [SerializeField] private float spawnDelay = 0.45f;
+    [SerializeField] private float liftPitch = 1.0f;
+    [SerializeField] private float mountPitch = 1.0f;
+    [SerializeField] private float placePitch = 1.0f;
    
     [System.NonSerialized] public Block CurrentBlock;
     [System.NonSerialized] private Pool _nextBlock;
@@ -228,7 +231,8 @@ public class Spawner : Singleton<Spawner>
                     }
                 }
 
-                Audio.Lift.PlayOneShot();
+                Audio.Lift.PlayOneShotPitch(0.5f, liftPitch);
+
                 
                 float smoothFactor = 0.0f;
                 while (true)
@@ -347,7 +351,8 @@ public class Spawner : Singleton<Spawner>
         {
             HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
             Board.THIS.Place(CurrentBlock);
-            Audio.Place.PlayOneShot();
+            // Audio.Place.Play();
+            Audio.Lift.PlayOneShotPitch(0.6f, placePitch);
 
             CurrentBlock = null;
             
@@ -365,6 +370,8 @@ public class Spawner : Singleton<Spawner>
             {
                 ONBOARDING.DRAG_AND_DROP.SetComplete();
                 Onboarding.SpawnSecondBlockAndTeachRotation();
+                Audio.Hint_2.Play();
+
                 return;
             }
             
@@ -372,6 +379,8 @@ public class Spawner : Singleton<Spawner>
             {
                 Onboarding.TalkAboutMerge();
                 ONBOARDING.SPEECH_MERGE.SetComplete();
+                // Audio.Hint_2.Play();
+
                 return;
             }
             
@@ -398,6 +407,9 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
+        // Audio.Rotate_Click.PlayOneShot();
+        Audio.Lift.PlayOneShotPitch(1.0f, mountPitch);
+
         CurrentBlock.Move(MountPosition, 25.0f, Ease.OutQuad, true);
     }
 

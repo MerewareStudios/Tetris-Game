@@ -2482,7 +2482,7 @@ MonoBehaviour:
     m_Bits: 64
   modelPivot: {fileID: 1847584227}
   spawnedBlockLocation: {fileID: 860089792}
-  distanceFromDraggingFinger: {x: 0, y: 1, z: 0}
+  distanceFromDraggingFinger: {x: 0, y: 1, z: 1.0999999}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.45}
   tutorialLift: {x: 0.5, y: 1, z: 0.5}
   nextBlockPawns:
@@ -2502,6 +2502,9 @@ MonoBehaviour:
   seeLeftover: {fileID: 350361115}
   leftOverCount: 0
   spawnDelay: 0.1
+  liftPitch: 1
+  mountPitch: 1.5
+  placePitch: 2.5
 --- !u!4 &531239258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4750690996591348408, guid: 212a78ffa87d481429d95007fb5e645d,
@@ -4457,7 +4460,7 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 61903f7964549b94dbc50ce07230e5d5,
       type: 3}
     muted: 0
-    pitchRange: {x: 1, y: 1}
+    pitchRange: {x: 1, y: 1.2}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 6e5e4389dbc045541a6a39e5717e4e49,
       type: 3}
     muted: 0
@@ -4570,6 +4573,42 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 0.9, y: 1.1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 2f26004ca949e8342accf9d31b4eba9a,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.8, y: 0.8}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 675ccca18ed68ed4e8b91307dd128c4b,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1.2, y: 1.2}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 9bed219c80a183749a88a14e0411e3b7,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 89a2cf8f575b35e478ce8e1f37df847f,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 95b7432626a174f4a97a62b124e797da,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 7278c7379a57a3a458c378592bb397f9,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 8fc49600f9e1646478864bfe5ddcf265,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 2ea29375e226c1043bf69e0c97395623,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: fe69aefee443799449c1d204aff86b47,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
 --- !u!1 &715818425
 GameObject:
   m_ObjectHideFlags: 0
@@ -17035,6 +17074,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas - Announcer
       objectReference: {fileID: 0}
+    - target: {fileID: 3160068667204410097, guid: ec8a6bc1406600f48a8de782d017fc74,
+        type: 3}
+      propertyPath: waitLong
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160068667204410097, guid: ec8a6bc1406600f48a8de782d017fc74,
+        type: 3}
+      propertyPath: waitMiddle
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160068667204410097, guid: ec8a6bc1406600f48a8de782d017fc74,
+        type: 3}
+      propertyPath: waitForNewLines
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160068667204410097, guid: ec8a6bc1406600f48a8de782d017fc74,
+        type: 3}
+      propertyPath: waitForNormalChars
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160068667204410097, guid: ec8a6bc1406600f48a8de782d017fc74,
+        type: 3}
+      propertyPath: waitForLastCharacter
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3273968967863860177, guid: ec8a6bc1406600f48a8de782d017fc74,
         type: 3}
       propertyPath: m_Pivot.x
@@ -17494,6 +17558,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: waitLong
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: waitMiddle
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: waitForNormalChars
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 4854667067426975871, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}

@@ -327,25 +327,26 @@ namespace Game
         {
             _tick++;
 
-            // bool moved = false;
+            bool moved = false;
             foreach (var place in _places)
             {
                 if (!place.Current)
                 {
                     continue;
                 }
-                place.Current.MoveForward(place, _tick, moveDuration);
-                // bool movedThis = place.Current.MoveForward(place, _tick, moveDuration);
-                // if (!moved && movedThis && place.Current && place.Current.Connected)
-                // {
-                //     moved = true;
-                // }
+                // place.Current.MoveForward(place, _tick, moveDuration);
+                bool movedThis = place.Current.MoveForward(place, _tick, moveDuration);
+                if (!moved && movedThis)
+                {
+                    moved = true;
+                }
             }
 
-            // if (moved)
-            // {
-            //     Audio.Block_Drag.PlayOneShot();
-            // }
+            if (!moved)
+            {
+                // Audio.Block_Drag.PlayOneShot();
+                Map.ResetMergeAudioIndex();
+            }
         }
         public void CheckAll()
         {
@@ -1059,7 +1060,7 @@ namespace Game
                 currentPawn.Busy = true;
                 currentPawn.Tick = _tick;
                 
-                place.Accept(currentPawn, 0.1f, () =>
+                place.Accept(currentPawn, 0.05f, () =>
                 {
                     place.Current.Check(place);
                     Map.THIS.MapWaitForCycle = true;

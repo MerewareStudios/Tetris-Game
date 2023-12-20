@@ -93,7 +93,7 @@ namespace  Game
                     }
                     animator.SetBool(CASTING_BOOL_HASH, true);
                     animator.SetTrigger(CAST_HASH);
-                    Audio.Magic_Charge.PlayOneShot();
+                    Audio.Dragon_Charge.PlayOneShot();
                     break;
                 case CastTypes.SpawnEnemy:
                     if (castPs)
@@ -136,7 +136,7 @@ namespace  Game
                         castPs.Play();
                         Board.THIS.DestroyWithProjectile(castPs, castParent.position);
                     }
-                    Audio.Magic_End.PlayOneShot();
+                    Audio.Dragon_End.PlayOneShot();
                     break;
                 case CastTypes.SpawnEnemy:
                     for (int i = 0; i < so.spawnerCount; i++)
@@ -310,6 +310,7 @@ namespace  Game
 
             _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
+                Audio.Slime.PlayOneShot();
                 Audio.Slime_2.PlayOneShot();
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);

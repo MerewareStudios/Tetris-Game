@@ -130,10 +130,12 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     
     public void OnTab_BlockMenu()
     {
+        HapticManager.OnClickVibrate();
         OpenTabMenu(MenuType.Block);
     }
     public void OnTab_WeaponMenu()
     {
+        HapticManager.OnClickVibrate();
         OpenTabMenu(MenuType.Weapon);
     }
 

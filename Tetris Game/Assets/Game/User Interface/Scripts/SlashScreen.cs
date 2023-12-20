@@ -256,6 +256,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 return;
             }
 #endif
+            Audio.Reward_Unlock.PlayOneShot();
+
             tipParent.SetActive(true);
             tipParent.transform.localScale = Vector3.zero;
             tipParent.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);
@@ -285,7 +287,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 {
                     Close();
                     GameManager.THIS.Deconstruct();
-                    UIManager.THIS.AdLayerClick_OpenPiggyBank();
+                    UIManager.THIS.AdLayer_OpenPiggyBank();
                 });
             });
         };

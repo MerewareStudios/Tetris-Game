@@ -113,22 +113,25 @@ namespace  Game
                 
                 Player.StartSearching();
                 
+                Audio.Level_Begin.Play();
                 
 #if !CREATIVE
                 if (LevelManager.LevelSo.countdown > 0)
                 {
-                    string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
-                    yield return Announcer.THIS.Count(startingText, LevelManager.LevelSo.countdown, (i) => Audio.Level_Begin.PlayOneShotPitch(1.0f, 1.0f + i * 0.1f));
+                    // string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
+                    string startingText = Onboarding.THIS.enemiesComingText;
+
+                    // yield return Announcer.THIS.Count(startingText, LevelManager.LevelSo.countdown);
+                    yield return Announcer.THIS.Show(startingText, 0.4f);
                 }
                 else
                 {
                     string startingText = Onboarding.THIS.targetPracticeText;
-                    yield return Announcer.THIS.Show(startingText, 0.5f, () => Audio.Level_Begin.Play());
+                    yield return Announcer.THIS.Show(startingText, 0.4f);
                 }
 #else
                 yield return new WaitForSeconds(0.5f);
 #endif
-                Audio.Level_Begin.PlayOneShotPitch(1.0f, 1.0f + 0.3f);
 
                 if (LevelManager.CurrentLevel > airplane.SavedData.arrival)
                 {

@@ -14,6 +14,8 @@ public class SpeechBubble : MonoBehaviour
     [System.NonSerialized] private Tween _tween;
     [System.NonSerialized] private Tween _delayTween;
     public TypewriterByCharacter textAnimatorPlayer;
+    // public System.Action audioStart;
+    // public System.Action audioEnd;
 
     public void Speak(string txt, float delay = 0.0f, float? autoCloseDelay = null)
     {
@@ -27,8 +29,10 @@ public class SpeechBubble : MonoBehaviour
         _tween?.Kill();
         _tween = canvasGroup.DOFade(1.0f, 0.2f).SetEase(Ease.InOutSine).SetDelay(delay);
 
+        
         _tween.OnStart(() =>
         {
+            // audioStart?.Invoke();
             textAnimatorPlayer.ShowText(txt);
         });
 
@@ -46,6 +50,7 @@ public class SpeechBubble : MonoBehaviour
         {
             return;
         }
+        // audioEnd?.Invoke();
         _delayTween?.Kill();
 
         _tween?.Kill();

@@ -145,7 +145,7 @@ namespace Game
             {
                 return;
             }
-            Audio.Rotate_Woosh.PlayOneShot();
+            Audio.Rotate_Click.PlayOneShot();
 
             
             Busy = true;

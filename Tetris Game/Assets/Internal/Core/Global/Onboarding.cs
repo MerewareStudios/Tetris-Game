@@ -12,6 +12,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string niceOneText;
     [TextArea] [SerializeField] public string needMoreAmmoText;
     [TextArea] [SerializeField] public string targetPracticeText;
+    [TextArea] [SerializeField] public string enemiesComingText;
     [TextArea] [SerializeField] public string ticketMergeText;
     [TextArea] [SerializeField] public string freePlacementText;
     [Header("Air Drop")]
@@ -79,12 +80,13 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needAmmoText, 0.35f);
             Warzone.THIS.Player.animator.SetTrigger(Player.WAVE_HASH);
             
-            yield return new WaitForSeconds(2.25f);
+            yield return new WaitForSeconds(2.0f);
             
             UIManager.THIS.speechBubble.Hide();
 
             Spawner.THIS.Spawn();
-            
+            Audio.Hint_1.Play();
+
             yield return new WaitForSeconds(0.1f);
 
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
@@ -100,18 +102,23 @@ public class Onboarding : SSingleton<Onboarding>
         {
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.greatCheerText, 0.15f);
             Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
+            // Audio.Hint_2.Play();
 
-            yield return new WaitForSeconds(1.75f);
+            // Audio.Speak_2.Play();
+            // Audio.Reward.Play();
+
+            yield return new WaitForSeconds(1.5f);
             
             UIManager.THIS.speechBubble.Hide();
 
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.55f);
             
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
 
             ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true, timeIndependent:false);
 
             Spawner.THIS.Spawn();
+            Audio.Hint_1.Play();
         }
     }
 
@@ -142,8 +149,9 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.1f);
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, 0.2f);
-            
+
             Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
+            // Audio.Speak_3.Play();
         }
     }
     public static void TalkAboutFreePlacement()
@@ -181,6 +189,9 @@ public class Onboarding : SSingleton<Onboarding>
             Warzone.THIS.Player.Replenish(6);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.niceOneText, 0.15f);
             Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
+            // Audio.Speak_2.Play();
+            // Audio.Reward.Play();
+            // Audio.Hint_2.Play();
 
             yield return new WaitForSeconds(1.25f);
             UIManager.THIS.speechBubble.Hide();
