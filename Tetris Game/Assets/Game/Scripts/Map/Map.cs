@@ -74,7 +74,7 @@ namespace Game
                         }
                         else
                         {
-                            Audio.Board_Merge_Single_Cheer.PlayOneShotPitch(1.0f, 0.9f + _mergeAudioIndex * 0.05f);
+                            Audio.Board_Merge_Single_Cheer.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.05f);
 
                             _mergeAudioIndex += 1;
                         }
