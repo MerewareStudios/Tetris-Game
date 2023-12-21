@@ -231,7 +231,7 @@ public class Spawner : Singleton<Spawner>
                     }
                 }
 
-                Audio.Lift.PlayOneShotPitch(0.5f, liftPitch);
+                Audio.Spawner_User_Interaction.PlayOneShotPitch(0.5f, liftPitch);
 
                 
                 float smoothFactor = 0.0f;
@@ -269,7 +269,11 @@ public class Spawner : Singleton<Spawner>
 
         
         AnimateTap();
-        CurrentBlock.Rotate();
+        if (CurrentBlock.CanRotate)
+        {
+            Audio.Rotate_Click.PlayOneShot();
+            CurrentBlock.Rotate();
+        }
         
             
         if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.BLOCK_ROTATION.IsNotComplete())
@@ -351,8 +355,7 @@ public class Spawner : Singleton<Spawner>
         {
             HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
             Board.THIS.Place(CurrentBlock);
-            // Audio.Place.Play();
-            Audio.Lift.PlayOneShotPitch(0.6f, placePitch);
+            Audio.Spawner_User_Interaction.PlayOneShotPitch(0.6f, placePitch);
 
             CurrentBlock = null;
             
@@ -379,7 +382,6 @@ public class Spawner : Singleton<Spawner>
             {
                 Onboarding.TalkAboutMerge();
                 ONBOARDING.SPEECH_MERGE.SetComplete();
-                // Audio.Hint_2.Play();
 
                 return;
             }
@@ -407,8 +409,7 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        // Audio.Rotate_Click.PlayOneShot();
-        Audio.Lift.PlayOneShotPitch(1.0f, mountPitch);
+        Audio.Spawner_User_Interaction.PlayOneShotPitch(1.0f, mountPitch);
 
         CurrentBlock.Move(MountPosition, 25.0f, Ease.OutQuad, true);
     }

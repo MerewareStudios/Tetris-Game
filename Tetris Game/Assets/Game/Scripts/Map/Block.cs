@@ -141,13 +141,6 @@ namespace Game
         }
         public void Rotate()
         {
-            if (!CanRotate)
-            {
-                return;
-            }
-            Audio.Rotate_Click.PlayOneShot();
-
-            
             Busy = true;
             
             shakePivot.DOKill();

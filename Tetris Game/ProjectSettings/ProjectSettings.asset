@@ -815,7 +815,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: ANALYTICS_ENABLED;gameanalytics_max_enabled;NOADS1;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;HAPTICS_ENABLED
+    Android: ANALYTICS_ENABLED;gameanalytics_max_enabled;NOADS;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;HAPTICS_ENABLED
     Standalone: MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
     iPhone: gameanalytics_max_enabled
   additionalCompilerArguments: {}

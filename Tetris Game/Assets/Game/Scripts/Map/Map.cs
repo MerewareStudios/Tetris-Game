@@ -11,7 +11,7 @@ namespace Game
         [System.NonSerialized] private Coroutine _mainRoutine = null;
         [System.NonSerialized] public bool MapWaitForCycle = false;
         [System.NonSerialized] private int _mergeAudioIndex = 0;
-
+// impact metal, quick shing, horror positive level up, rising 1, open plain, 
         public void StartMainLoop()
         {
             StopLoop();
@@ -60,14 +60,13 @@ namespace Game
                     {
                         HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
 
-                        Audio.Merge_Cock.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.2f);
+                        Audio.Board_Merge_Cock.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.2f);
 
                         
 
                         if (tetrisLines.Count > 1)
                         {
-                            // comboList[tetrisLines.Count - 2].PlayOneShot();
-                            Audio.Merge_Final.PlayOneShotPitch(1.0f, 0.6f + tetrisLines.Count * 0.2f);
+                            Audio.Board_Merge_Combo.PlayOneShotPitch(1.0f, 0.6f + tetrisLines.Count * 0.2f);
 
                             float totalDuration = UIManager.THIS.comboText.Show(tetrisLines.Count);
                             yield return new WaitForSeconds(totalDuration * 0.5f);
@@ -75,12 +74,11 @@ namespace Game
                         }
                         else
                         {
-                            Audio.Merge_1.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.2f);
+                            Audio.Board_Merge_Single_Cheer.PlayOneShotPitch(1.0f, 0.9f + _mergeAudioIndex * 0.05f);
 
-                            // mergeList[_mergeAudioIndex].PlayOneShot();
                             _mergeAudioIndex += 1;
                         }
-                        Audio.Pre_Merge.PlayOneShotPitch(1.0f, 1.0f + _mergeAudioIndex * 0.1f);
+                        Audio.Board_Pre_Merge.PlayOneShotPitch(1.0f, 1.0f + _mergeAudioIndex * 0.1f);
 
                         Board.THIS.MergeLines(tetrisLines);
                     

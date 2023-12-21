@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AudioManager : Internal.Core.Singleton<AudioManager>
@@ -200,6 +201,7 @@ namespace  Game.Editor
 {
     using UnityEditor;
     using Internal.Core;
+    using System.Collections.Generic;
 
     [CustomEditor(typeof(AudioManager))]
     [CanEditMultipleObjects]
@@ -209,6 +211,12 @@ namespace  Game.Editor
         {
             if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")))
             {
+                AutoGenerate.GenerateAudioSources();
+            }
+            if (GUILayout.Button(new GUIContent("SORT", "Alphabetic sorting.")))
+            {
+                AudioManager.THIS.audioSourceDatas = AudioManager.THIS.audioSourceDatas.OrderBy(o => o.audioSourcePrefab.name).ToList();
+
                 AutoGenerate.GenerateAudioSources();
             }
             DrawDefaultInspector();

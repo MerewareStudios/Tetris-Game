@@ -753,7 +753,7 @@ namespace Game
             {
                 lastTween.onComplete += () =>
                 {
-                    Audio.Pos_Merge.PlayOneShot();
+                    Audio.Board_Post_Merge.PlayOneShot();
                     HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
@@ -862,7 +862,7 @@ namespace Game
 
                     if (totalAmmo > 0)
                     {
-                        Audio.Pos_Merge.PlayOneShot();
+                        Audio.Board_Post_Merge.PlayOneShot();
                         
                         HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                         CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f), 0.5f);
