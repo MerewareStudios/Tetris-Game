@@ -58,9 +58,9 @@ public class Gun : MonoBehaviour
         };
     }
 
-    public void Bubble()
+    public void Bubble(int count)
     {
-        Particle.Bubble.Emit(1, muzzle.position, muzzle.forward);
+        Particle.Bubble.Emit(count, muzzle.position, muzzle.forward);
     }
     
     public void Shoot(Enemy enemy)
