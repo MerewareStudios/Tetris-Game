@@ -184,6 +184,7 @@ namespace Game
             {
                Gun.Shoot(Warzone.THIS.GetEnemy(i));
             }
+            Gun.PlaySound();
         }
 
         public void Deconstruct()

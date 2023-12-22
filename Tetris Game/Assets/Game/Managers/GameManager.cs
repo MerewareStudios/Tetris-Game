@@ -227,7 +227,11 @@ public class GameManager : Singleton<GameManager>
             onFinish?.Invoke(true);
         }
     }
-    
+
+    public void PlayCoinAudio()
+    {
+        // Audio.Coin.PlayOneShot();
+    }
     
     public static void AddCoin(int value)
     {
@@ -236,12 +240,12 @@ public class GameManager : Singleton<GameManager>
     }
     public static void AddPiggyCoin(int value)
     {
-        Audio.Gem.PlayOneShot();
+        // Audio.Gem.PlayOneShot();
         Wallet.PIGGY.Add(value);
     }
     public static void AddTicket(int value)
     {
-        Audio.Ticket.PlayOneShot();
+        // Audio.Ticket.PlayOneShot();
         Wallet.TICKET.Add(value);
     }
     public static void AddHeart(int value)

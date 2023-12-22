@@ -12,7 +12,7 @@ namespace Game
         [SerializeField] public float jumpPower = 2.25f;
         [SerializeField] public float travelDuration = 0.45f;
         [SerializeField] public Ease ease = Ease.Linear;
-        [SerializeField] public Audio audio;
+        [SerializeField] public AudioClip audioClip;
     }
 
     [Serializable]
@@ -22,6 +22,8 @@ namespace Game
         public Vector3 localEulerAngles;
         public Vector3 localScale;
     }
+    
+    
 }
 
 public static class GunSoExtension

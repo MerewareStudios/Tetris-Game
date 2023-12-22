@@ -70,7 +70,7 @@ namespace Game
                             Audio.Board_Merge_Riff.PlayOneShotPitch(1.0f, 0.75f + tetrisLines.Count * 0.1f);
 
                             float totalDuration = UIManager.THIS.comboText.Show(tetrisLines.Count);
-                            yield return new WaitForSeconds(totalDuration * 0.5f);
+                            yield return new WaitForSeconds(totalDuration * 0.65f);
 
                         }
                         

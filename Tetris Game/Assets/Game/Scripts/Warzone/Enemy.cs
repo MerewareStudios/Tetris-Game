@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Internal.Core;
@@ -171,7 +172,7 @@ namespace  Game
                 return;
             }
             
-            Audio.Slime.PlayOneShot();
+            Audio.Enemy_Impact.PlayOneShot();
 
             
             ColorPunch();
@@ -290,7 +291,7 @@ namespace  Game
         {
             _castTweenLoop?.Kill();
             model.DOKill();
-            Audio.Kamikaze.PlayOneShot();
+            Audio.Enemy_Kamikaze.PlayOneShot();
             Warzone.THIS.RemoveEnemy(this);
             Particle.Kamikaze.Play(thisTransform.position);
             this.Deconstruct();
@@ -310,8 +311,19 @@ namespace  Game
 
             _wipeTween = DOVirtual.DelayedCall(so.wipeDelay, () =>
             {
-                Audio.Slime.PlayOneShot();
-                Audio.Slime_2.PlayOneShot();
+                switch (so.implosionAudio)
+                {
+                    case EnemyData.ImplosionType.Splash:
+                        Audio.Enemy_Implosion_Splash.PlayOneShot();
+                        break;
+                    case EnemyData.ImplosionType.Break:
+                        Audio.Enemy_Implosion_Break.PlayOneShot();
+                        break;
+                }
+                Audio.Enemy_Implosion_Coin.PlayOneShot();
+
+                // Audio.Enemy_Implosion.PlayOneShot();
+                // Audio.Enemy_Implosion_2.PlayOneShot();
                 GiveRewards();
                 Warzone.THIS.Emit(so.deathEmitCount, thisTransform.position, so.colorGrad, so.radius);
                 this.Deconstruct();

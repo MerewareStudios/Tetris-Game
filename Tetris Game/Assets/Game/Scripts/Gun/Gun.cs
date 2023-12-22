@@ -3,6 +3,7 @@ using System.Text;
 using DG.Tweening;
 using Game;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Gun : MonoBehaviour
 {
@@ -82,15 +83,18 @@ public class Gun : MonoBehaviour
         Tween bulletTween = bullet.DOJump(target, GunSo.jumpPower * distance * 0.2f, 1, distance / GunSo.travelDuration).SetEase(GunSo.ease);
         bulletTween.onComplete = () =>
         {
-            Audio.Hit_1.PlayOneShot();
+            Audio.Bullet_Arrive.PlayOneShot();
             if (enemyID == enemy.ID)
             {
                 enemy.TakeDamage(_Data.DamageAmount, 1.0f);
             }
             bullet.Despawn(Pool.Bullet);
         };
-        
-        GunSo.audio.PlayOneShot();
+    }
+
+    public void PlaySound()
+    {
+        GunSo.audioClip.PlayOneShot(0.6f, Random.Range(0.85f, 1.25f));
     }
 
     public void ResetSelf()

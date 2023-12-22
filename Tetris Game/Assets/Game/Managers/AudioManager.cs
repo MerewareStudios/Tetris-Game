@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,11 +11,31 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [SerializeField] private bool debug = true;
     [SerializeField] private bool onlyPlayDebugSound;
     [SerializeField] public List<Audio> debugSounds;
+    [System.NonSerialized] private AudioSource _emptySource;
 #endif
     [SerializeField] public float overlapProtectionTime = 0.1f;
     [SerializeField] public List<AudioSourceData> audioSourceDatas;
 
+    void Awake()
+    {
+        _emptySource = this.gameObject.AddComponent<AudioSource>();
+        _emptySource.hideFlags = HideFlags.HideInInspector;
+    }
 
+    public static void PlayOneShot(AudioClip audioClip, float volume, float pitch)
+    {
+// #if UNITY_EDITOR
+//         if (AudioManager.THIS.onlyPlayDebugSound && !AudioManager.THIS.debugSounds.Contains((Audio)key))
+//         {
+//             return;
+//         }
+// #endif
+        AudioSource audioSource = AudioManager.THIS._emptySource;
+        audioSource.volume     = volume;
+        audioSource.pitch = pitch;
+        audioSource.PlayOneShot(audioClip, volume);
+    }
+        
     public static void PlayOneShot(int key, float volumeScale = 1.0f)
     {
 #if UNITY_EDITOR
@@ -194,6 +214,15 @@ public static class AudioManagerExtensions
         }
         AudioManager.PlayOneShotPitch((int)audio, volume, pitch);
     }
+    
+    public static void PlayOneShot(this AudioClip audioClip, float volume = 1.0f, float pitch = 1.0f)
+    {
+        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        {
+            return;
+        }
+        AudioManager.PlayOneShot(audioClip, volume, pitch);
+    }
 }
 
 
@@ -204,9 +233,7 @@ namespace  Game.Editor
     using UnityEditor;
     using Internal.Core;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    
+
     [CustomEditor(typeof(AudioManager))]
     [CanEditMultipleObjects]
     public class AudioManagerGUI : Editor
@@ -221,7 +248,7 @@ namespace  Game.Editor
             }
             if (GUILayout.Button(new GUIContent("SORT", "Alphabetic sorting.")))
             {
-                AudioManager.THIS.audioSourceDatas = AudioManager.THIS.audioSourceDatas.OrderBy(x => x.audioSourcePrefab.name, new MixedComparer()).ToList();
+                AudioManager.THIS.audioSourceDatas.Sort((a, b) => String.Compare(a.audioSourcePrefab.name, b.audioSourcePrefab.name));
 
                 AutoGenerate.GenerateAudioSources();
                 
@@ -238,41 +265,8 @@ namespace  Game.Editor
                     }
                 }
             }
-
-           
             
             DrawDefaultInspector();
-        }
-    }
-    
-    class MixedComparer : IComparer<object>
-    {
-        public int Compare(object x, object y)
-        {
-            if (x is int && y is int)
-            {
-                return Comparer<int>.Default.Compare((int)x, (int)y);
-            }
-            else if (x is string && y is string)
-            {
-                return StringComparer.CurrentCultureIgnoreCase.Compare((string)x, (string)y);
-            }
-            else
-            {
-                // Handle other types, consider numbers greater than strings
-                if (x is int)
-                {
-                    return 1; // x (number) is greater than y (string)
-                }
-                else if (y is int)
-                {
-                    return -1; // x (string) is less than y (number)
-                }
-                else
-                {
-                    return 0; // No comparison for other types
-                }
-            }
         }
     }
 }

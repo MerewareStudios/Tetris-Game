@@ -19,4 +19,4 @@ MonoBehaviour:
   jumpPower: 0.75
   travelDuration: 30
   ease: 1
-  audio: 27
+  audioClip: {fileID: 8300000, guid: c6d45d69015ca934fbd95932874c5b59, type: 3}

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Game;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "Enemy Data", menuName = "Game/Enemy Data", order = 0)]
 public class EnemyData : ScriptableObject
@@ -27,6 +29,7 @@ public class EnemyData : ScriptableObject
     public EnemyData extraData;
 
     public float RandomForwardRange() => Random.Range(forwardRange.x, forwardRange.y);
+    [SerializeField] public ImplosionType implosionAudio = ImplosionType.Splash;
 
     [System.Serializable]
     public class EnemyReward
@@ -34,5 +37,12 @@ public class EnemyData : ScriptableObject
         public Enemy.EnemyReward type;
         public int amount;
         [Range(0.0f, 1.0f)] public float probability;
+    }
+    
+    [Serializable]
+    public enum ImplosionType
+    {
+        Splash,
+        Break,
     }
 }

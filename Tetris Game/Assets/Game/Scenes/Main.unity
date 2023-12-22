@@ -4398,7 +4398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   onlyPlayDebugSound: 1
-  debugSounds: 370000003300000005000000020000000400000003000000010000000600000014000000160000001700000018000000190000001a0000001b0000001c0000001d00000015000000
+  debugSounds: 2f0000002d0000000500000002000000040000000300000001000000060000000700000012000000130000001400000015000000160000000f000000
   overlapProtectionTime: 0.05
   audioSourceDatas:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 9368ea46fda27df4bb8cc53b5ec887e8,
@@ -4429,6 +4429,10 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 0.9, y: 1.25}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 86f37c701da37af4b951bb2e0860de2f,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1.5}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: d8de8d29a71d23941a81e324387fbd10,
       type: 3}
     muted: 0
@@ -4469,6 +4473,26 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 1.2, y: 1.2}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 7c36ec7d03cd068419ce4c414f7b2389,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1.2}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 23d1e72d458bbac41a38c4f94e5379d1,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.85, y: 1.25}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: b725cc6bfbdce5245bfe6b6781c3c276,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.2}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 5a13bd4de7c2234438488fb13707c322,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.2}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: c2e06fe0843aa3d4d8d4b4281b3ae42d,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 4a1b3cc611509b24f9fe50706acd2379,
       type: 3}
     muted: 0
@@ -4481,46 +4505,6 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 0.95, y: 1.1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 22438ebfed5ec3a47ae6fdb27e862158,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 0.95, y: 1.25}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 298f9a20b7261b64ebdb276a4659b159,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 279aeaf4d983440478b437841a0abb43,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 7f0f1001c4d9cea4a91818fc6f26317a,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 4a8a2af14f6e6d544afb0271780881ab,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6dc7f24998f605942a2d1cc778db1547,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6260064fca5cffc4a98cc2bb3c00c0d8,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 4e3e99ab25d8dc2429e96831915c9f7b,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 212e7c51b611d9d4c8e15f212531c587,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6f1b153c6b9e1874b9df4a65a22d6b42,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: ea4ffe8a76404074d8028cebbf73017d,
       type: 3}
     muted: 0
@@ -4530,14 +4514,6 @@ MonoBehaviour:
     muted: 0
     pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 2ea29375e226c1043bf69e0c97395623,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 86f37c701da37af4b951bb2e0860de2f,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1.5}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: c2e06fe0843aa3d4d8d4b4281b3ae42d,
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
@@ -4610,14 +4586,6 @@ MonoBehaviour:
     muted: 0
     pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: e7f182dac8bda5342b6c1ef748006c00,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 7c36ec7d03cd068419ce4c414f7b2389,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 5a13bd4de7c2234438488fb13707c322,
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
