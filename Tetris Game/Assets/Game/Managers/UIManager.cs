@@ -313,11 +313,14 @@ public class UIManager : Singleton<UIManager>
 
 #endregion
 #if UNITY_EDITOR
+   private float added = 0.0f;
    private void Update()
    {
       if (Input.GetKeyDown(KeyCode.Q))
       {
-         UIManager.THIS.comboText.Show(2);
+         Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.7f + added);
+         added += 0.05f;
+         // UIManager.THIS.comboText.Show(2);
       }
       if (Input.GetKeyDown(KeyCode.P))
       {

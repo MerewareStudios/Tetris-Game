@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 41
   scale: {x: 1, y: 1, z: 1}
-  extraWait: 0.5
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -110,7 +109,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 3
+  maxHealth: 333
   speed: 0
   forwardRange: {x: 0.5, y: 0.8}
   radius: 0.5

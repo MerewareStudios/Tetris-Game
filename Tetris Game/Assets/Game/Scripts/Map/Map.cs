@@ -12,6 +12,7 @@ namespace Game
         [System.NonSerialized] public bool MapWaitForCycle = false;
         [System.NonSerialized] private int _mergeAudioIndex = 0;
 // impact metal, quick shing, horror positive level up, rising 1, open plain, 
+//explosion bubble, 
         public void StartMainLoop()
         {
             StopLoop();
@@ -66,20 +67,19 @@ namespace Game
 
                         if (tetrisLines.Count > 1)
                         {
-                            Audio.Board_Merge_Combo.PlayOneShotPitch(1.0f, 0.6f + tetrisLines.Count * 0.2f);
+                            Audio.Board_Merge_Riff.PlayOneShotPitch(1.0f, 0.75f + tetrisLines.Count * 0.1f);
 
                             float totalDuration = UIManager.THIS.comboText.Show(tetrisLines.Count);
                             yield return new WaitForSeconds(totalDuration * 0.5f);
 
                         }
-                        else
-                        {
-                            Audio.Board_Merge_Single_Cheer.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.05f);
+                        
+                        _mergeAudioIndex += tetrisLines.Count;
+                        Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.65f + _mergeAudioIndex * 0.05f);
+                        Audio.Board_Pre_Merge.PlayOneShotPitch(1.0f, 0.9f + _mergeAudioIndex * 0.1f);
+                        
 
-                            _mergeAudioIndex += 1;
-                        }
-                        Audio.Board_Pre_Merge.PlayOneShotPitch(1.0f, 1.0f + _mergeAudioIndex * 0.1f);
-
+                        
                         Board.THIS.MergeLines(tetrisLines);
                     
                         Board.THIS.MarkMoverByTetris(tetrisLines);

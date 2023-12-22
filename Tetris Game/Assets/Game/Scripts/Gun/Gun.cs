@@ -90,7 +90,7 @@ public class Gun : MonoBehaviour
             bullet.Despawn(Pool.Bullet);
         };
         
-        Audio.Gun_Shot_1.PlayOneShot();
+        GunSo.audio.PlayOneShot();
     }
 
     public void ResetSelf()

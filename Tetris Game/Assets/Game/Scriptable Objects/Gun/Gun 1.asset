@@ -19,3 +19,4 @@ MonoBehaviour:
   jumpPower: 5
   travelDuration: 4
   ease: 1
+  audio: 20

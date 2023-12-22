@@ -749,15 +749,21 @@ namespace Game
                 place.Current = null;
             }
 
+            Audio spawnAudio = Audio.Board_Spawn_Ammo;
+
             if (lastTween != null)
             {
                 lastTween.onComplete += () =>
                 {
-                    Audio.Board_Post_Merge.PlayOneShot();
+                    // Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.7f + Map.THIS.MergeAudioIndex * 0.05f);
+
                     HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
                     Particle.Debris.Emit(30, spawnPlace.Position);
                     Particle.Star.Emit(15, spawnPlace.Position);
+                    
+                    // ReSharper disable once AccessToModifiedClosure
+                    spawnAudio.PlayOneShot();
                 };
             }
 
@@ -775,6 +781,7 @@ namespace Game
                 case 0:
                     type = Pawn.Usage.Ammo;
                     ammo = totalAmmo;
+                    spawnAudio = Audio.Board_Spawn_Ammo;
                     break;
                 case 1:
                     type = Pawn.Usage.Energy;
@@ -862,7 +869,7 @@ namespace Game
 
                     if (totalAmmo > 0)
                     {
-                        Audio.Board_Post_Merge.PlayOneShot();
+                        // Audio.Board_Post_Merge.PlayOneShot();
                         
                         HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                         CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f), 0.5f);

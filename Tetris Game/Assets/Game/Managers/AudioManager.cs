@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AudioManager : Internal.Core.Singleton<AudioManager>
 {
@@ -8,7 +10,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
 #if UNITY_EDITOR
     [SerializeField] private bool debug = true;
     [SerializeField] private bool onlyPlayDebugSound;
-    [SerializeField] private List<Audio> debugSounds;
+    [SerializeField] public List<Audio> debugSounds;
 #endif
     [SerializeField] public float overlapProtectionTime = 0.1f;
     [SerializeField] public List<AudioSourceData> audioSourceDatas;
@@ -202,24 +204,75 @@ namespace  Game.Editor
     using UnityEditor;
     using Internal.Core;
     using System.Collections.Generic;
-
+    using System.Globalization;
+    using System.Linq;
+    
     [CustomEditor(typeof(AudioManager))]
     [CanEditMultipleObjects]
     public class AudioManagerGUI : Editor
     {
         public override void OnInspectorGUI()
         {
+            List<string> debugSoundNames = AudioManager.THIS.debugSounds.Select(item => item.ToString()).ToList();
+            
             if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")))
             {
                 AutoGenerate.GenerateAudioSources();
             }
             if (GUILayout.Button(new GUIContent("SORT", "Alphabetic sorting.")))
             {
-                AudioManager.THIS.audioSourceDatas = AudioManager.THIS.audioSourceDatas.OrderBy(o => o.audioSourcePrefab.name).ToList();
+                AudioManager.THIS.audioSourceDatas = AudioManager.THIS.audioSourceDatas.OrderBy(x => x.audioSourcePrefab.name, new MixedComparer()).ToList();
 
                 AutoGenerate.GenerateAudioSources();
+                
+                AudioManager.THIS.debugSounds.Clear();
+                foreach (var debugSoundName in debugSoundNames)
+                {
+                    if (Enum.TryParse(debugSoundName, true, out Audio audio))
+                    {
+                        AudioManager.THIS.debugSounds.Add(audio);
+                    }
+                    else
+                    {
+                        AudioManager.THIS.debugSounds.Add((Audio)0);
+                    }
+                }
             }
+
+           
+            
             DrawDefaultInspector();
+        }
+    }
+    
+    class MixedComparer : IComparer<object>
+    {
+        public int Compare(object x, object y)
+        {
+            if (x is int && y is int)
+            {
+                return Comparer<int>.Default.Compare((int)x, (int)y);
+            }
+            else if (x is string && y is string)
+            {
+                return StringComparer.CurrentCultureIgnoreCase.Compare((string)x, (string)y);
+            }
+            else
+            {
+                // Handle other types, consider numbers greater than strings
+                if (x is int)
+                {
+                    return 1; // x (number) is greater than y (string)
+                }
+                else if (y is int)
+                {
+                    return -1; // x (string) is less than y (number)
+                }
+                else
+                {
+                    return 0; // No comparison for other types
+                }
+            }
         }
     }
 }

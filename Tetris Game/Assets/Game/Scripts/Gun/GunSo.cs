@@ -12,6 +12,7 @@ namespace Game
         [SerializeField] public float jumpPower = 2.25f;
         [SerializeField] public float travelDuration = 0.45f;
         [SerializeField] public Ease ease = Ease.Linear;
+        [SerializeField] public Audio audio;
     }
 
     [Serializable]

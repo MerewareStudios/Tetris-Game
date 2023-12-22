@@ -55,7 +55,6 @@ public class SubModel : MonoBehaviour
             ThisTransform.DOPunchScale(Vector3.one * AnimConst.THIS.mergedScalePunch, AnimConst.THIS.mergedScaleDuration, 1).onComplete = () =>
             {
                 MarkAvailable(true);
-                // Warzone.THIS.Player.AdvanceShoot();
             };
         }, false);
     }
