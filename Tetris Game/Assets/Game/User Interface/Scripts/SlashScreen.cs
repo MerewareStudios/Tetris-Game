@@ -19,6 +19,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
     [SerializeField] private GameObject victoryImage;
     [SerializeField] private GameObject failImage;
     [SerializeField] private float rewardBackTime = 0.35f;
+    [SerializeField] private float closeAppend = 0.75f;
     [SerializeField] private float distance = 3000.0f;
     [SerializeField] private float centerMinHeight = -25.0f;
     [SerializeField] private float centerMaxHeight = 256.0f;
@@ -102,7 +103,6 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         
         actionButtonParent.gameObject.SetActive(false);
         buttonPanel.gameObject.SetActive(false);
-        float appendInterval = 1.25f;
 
         string tipString = "";
         bool panelVisible = false;
@@ -228,7 +228,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             buttonPanel.SetActive(true);
             actionButtonParent.gameObject.SetActive(true);
-            appendInterval += 1.25f;
+            closeAppend += 1.25f;
         }
         
         tipText.text = tipString;
@@ -256,11 +256,13 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 return;
             }
 #endif
-            Audio.Level_Reward.PlayOneShot();
+            Audio.Slash_Screen_Open.Play(pitch:0.9f);
 
             tipParent.SetActive(true);
             tipParent.transform.localScale = Vector3.zero;
-            tipParent.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);
+
+            float tipDuration = state.Equals(State.Victory) ? 0.75f : 1.25f;
+            tipParent.transform.DOScale(Vector3.one, tipDuration).SetEase(Ease.OutExpo).SetDelay(0.25f);
         });
        
         
@@ -274,7 +276,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
 
         _sequence.SetDelay(delay);
         _sequence.Append(topSlash).Append(expand).Join(gradientTop);
-        _sequence.AppendInterval(appendInterval);
+        _sequence.AppendInterval(closeAppend);
 
         _sequence.onComplete += () =>
         {
@@ -282,7 +284,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             {
                 HapticManager.Vibrate(HapticPatterns.PresetType.RigidImpact);
 
-                Audio.Reward_Unlock.PlayOneShot();
+                Audio.Slash_Screen_Open.Play(pitch:1.25f);
                 UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {
                     Close();

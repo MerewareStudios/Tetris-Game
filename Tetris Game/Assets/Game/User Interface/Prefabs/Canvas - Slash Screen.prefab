@@ -580,6 +580,7 @@ MonoBehaviour:
   victoryImage: {fileID: 3233418964760137358}
   failImage: {fileID: 3351723916932617608}
   rewardBackTime: 0.3
+  closeAppend: 1
   distance: 3000
   centerMinHeight: -30
   centerMaxHeight: 350
@@ -590,7 +591,7 @@ MonoBehaviour:
     slashShowDur: 0.25
     expandShowEase: 27
     expandShowDur: 0.2
-    expandDelay: 0.4
+    expandDelay: 0.15
     colorShowDuration: 0.05
     bannerGradient:
       serializedVersion: 2
@@ -630,7 +631,7 @@ MonoBehaviour:
     slashShowEase: 24
     slashShowOvershoot: 0.25
     slashShowPeriod: 0.4
-    slashShowDur: 0.7
+    slashShowDur: 0.6
     expandShowEase: 27
     expandShowDur: 0.3
     expandDelay: 0

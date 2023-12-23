@@ -320,7 +320,6 @@ namespace  Game
                         Audio.Enemy_Implosion_Break.PlayOneShot();
                         break;
                 }
-                Audio.Enemy_Implosion_Coin.PlayOneShot();
 
                 // Audio.Enemy_Implosion.PlayOneShot();
                 // Audio.Enemy_Implosion_2.PlayOneShot();
@@ -334,6 +333,8 @@ namespace  Game
         public void GiveRewards()
         {
             UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(CoinAmount, 0, 15), CoinAmount);
+            Audio.Enemy_Implosion_Coin.PlayOneShot();
+            Audio.Enemy_Implosion_Splash.PlayOneShot();
 
             foreach (var reward in so.enemyRewards)
             {

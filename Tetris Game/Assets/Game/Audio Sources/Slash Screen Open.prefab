@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4637482863437561053}
   - component: {fileID: 74253015700367299}
   m_Layer: 0
-  m_Name: Reward Unlock
+  m_Name: Slash Screen Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 7e984f512e89b60468e829489e8883e3,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 94ce89067f334db4d8991d0a143ec43d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8153703620b2b90418d3b0749283166a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -11,6 +11,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [SerializeField] private bool debug = true;
     [SerializeField] private bool onlyPlayDebugSound;
     [SerializeField] public List<Audio> debugSounds;
+    [SerializeField] public List<String> debugNames;
     [System.NonSerialized] private AudioSource _emptySource;
 #endif
     [SerializeField] public float overlapProtectionTime = 0.1f;
@@ -240,7 +241,7 @@ namespace  Game.Editor
     {
         public override void OnInspectorGUI()
         {
-            List<string> debugSoundNames = AudioManager.THIS.debugSounds.Select(item => item.ToString()).ToList();
+            AudioManager.THIS.debugNames = AudioManager.THIS.debugSounds.Select(item => item.ToString()).ToList();
             
             if (GUILayout.Button(new GUIContent("REFRESH", "Convert to hard coded indexes.")))
             {
@@ -252,8 +253,12 @@ namespace  Game.Editor
 
                 AutoGenerate.GenerateAudioSources();
                 
+               
+            }
+            if (GUILayout.Button(new GUIContent("RESTORE DEBUG LIST", "Restore.")))
+            {
                 AudioManager.THIS.debugSounds.Clear();
-                foreach (var debugSoundName in debugSoundNames)
+                foreach (var debugSoundName in AudioManager.THIS.debugNames)
                 {
                     if (Enum.TryParse(debugSoundName, true, out Audio audio))
                     {
@@ -265,7 +270,6 @@ namespace  Game.Editor
                     }
                 }
             }
-            
             DrawDefaultInspector();
         }
     }
