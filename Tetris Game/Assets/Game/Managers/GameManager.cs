@@ -248,6 +248,14 @@ public class GameManager : Singleton<GameManager>
         Audio.Meta_Ticket.PlayOneShot();
         Wallet.TICKET.Add(value);
     }
+    // public static void AddTicketEnd()
+    // {
+    //     Audio.Meta_Ticket_End.PlayOneShot();
+    // }
+    // public static void AddGemEnd()
+    // {
+    //     Audio.Meta_Gem_End.PlayOneShot();
+    // }
     public static void AddHeart(int value)
     {
         Audio.Heart.PlayOneShot();

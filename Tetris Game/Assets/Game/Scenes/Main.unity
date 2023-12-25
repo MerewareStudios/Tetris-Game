@@ -328,7 +328,7 @@ PrefabInstance:
     - target: {fileID: 7119664348791281926, guid: 0eb54898797fb0a44950924a9f420907,
         type: 3}
       propertyPath: m_RaycastPadding.z
-      value: -157.41
+      value: -239.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4398,7 +4398,7 @@ MonoBehaviour:
   onlyPlayDebugSound: 0
   debugSounds: 
   debugNames: []
-  overlapProtectionTime: 0.06
+  overlapProtectionTime: 0.05
   audioSourceDatas:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 9368ea46fda27df4bb8cc53b5ec887e8,
       type: 3}
@@ -4539,7 +4539,7 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 3de0c4aa59b9cf2468d2f0cf6a138eac,
       type: 3}
     muted: 0
-    pitchRange: {x: 0.95, y: 1.05}
+    pitchRange: {x: 0.975, y: 1.025}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 5f0c63819d7071f49801ccaae4344293,
       type: 3}
     muted: 0
@@ -5847,7 +5847,7 @@ PrefabInstance:
     - target: {fileID: 7119664348791281926, guid: 0eb54898797fb0a44950924a9f420907,
         type: 3}
       propertyPath: m_RaycastPadding.z
-      value: -157.41
+      value: -239.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7588,6 +7588,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 715436858}
@@ -7596,6 +7601,11 @@ PrefabInstance:
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 715436858}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 715436863}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: callbackSettings.OnArrive.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -7613,6 +7623,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ForceUpdateAvailableMenu
       objectReference: {fileID: 0}
@@ -7620,6 +7635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: UpdateNotifications
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: AddTicketEnd
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
@@ -7633,12 +7653,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8604119203136572944, guid: af5c712685b655f4cb120ec5b1cf5291,
@@ -8389,7 +8419,7 @@ PrefabInstance:
     - target: {fileID: 7119664348791281926, guid: 0eb54898797fb0a44950924a9f420907,
         type: 3}
       propertyPath: m_RaycastPadding.z
-      value: -157.41
+      value: -239.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14639,6 +14669,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 715436858}
@@ -14647,6 +14682,11 @@ PrefabInstance:
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 715436858}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 715436863}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: callbackSettings.OnArrive.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -14664,6 +14704,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ForceUpdateAvailableMenu
       objectReference: {fileID: 0}
@@ -14671,6 +14716,11 @@ PrefabInstance:
         type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: UpdateNotifications
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: AddGemEnd
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
@@ -14684,12 +14734,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
+        type: 3}
+      propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8604119203136572944, guid: af5c712685b655f4cb120ec5b1cf5291,
@@ -18633,7 +18693,7 @@ PrefabInstance:
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}
       propertyPath: callbackSettings.OnComplete.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7481102658197481309, guid: af5c712685b655f4cb120ec5b1cf5291,
         type: 3}

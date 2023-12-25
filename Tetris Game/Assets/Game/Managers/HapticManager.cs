@@ -17,7 +17,11 @@ public class HapticManager : Singleton<HapticManager>
         }
         HapticPatterns.PlayPreset(presetType);
     }
-    
+    [System.Diagnostics.Conditional(HapticsEnabled)]
+    public static void OnClickVibrateOnly()
+    {
+        HapticManager.Vibrate(HapticPatterns.PresetType.Warning);
+    }
     [System.Diagnostics.Conditional(HapticsEnabled)]
     public static void OnClickVibrate(Audio audio = Audio.Button_Click_Enter)
     {
