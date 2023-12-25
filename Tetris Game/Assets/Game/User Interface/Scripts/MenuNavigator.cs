@@ -111,7 +111,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     
     public void OnClick_Close()
     {
-        HapticManager.OnClickVibrate(Audio.Button_Click_Close);
+        HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
         this.Close();
     }
 

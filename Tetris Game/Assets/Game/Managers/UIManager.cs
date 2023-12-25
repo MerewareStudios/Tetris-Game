@@ -111,7 +111,7 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
       OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
-      OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Close);
+      OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
       OfferScreen.OnFeedbackBuy = () => HapticManager.OnClickVibrate();
       OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
@@ -155,6 +155,10 @@ public class UIManager : Singleton<UIManager>
          }
          GameManager.UpdateTimeScale();
       };
+      OfferScreen.OnUnpackShow = () =>
+      {
+         Audio.Offer_Unpack_Show.Play();
+      };
       OfferScreen.OnReward = (rewards, onFinish) =>
       {
          onFinish += SaveManager.THIS.Save;
@@ -189,6 +193,8 @@ public class UIManager : Singleton<UIManager>
              }
              float duration = UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
              closeDelay = Mathf.Max(closeDelay, duration);
+             
+             Audio.Offer_Unpacked.Play();
          }
 
          if (forceUpdateMenu)

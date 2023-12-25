@@ -57,6 +57,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public static System.Action OnFeedbackBuy;
     public static System.Action OnFeedbackUnpack;
     public static System.Action OnFeedbackExit;
+    public static System.Action OnUnpackShow;
 
     
     public Data _Data
@@ -214,6 +215,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
                 CurrentProcessState = ProcessState.NONE;
                 break;
             case Mode.UNPACK:
+                OnUnpackShow?.Invoke();
                 infoPanel.SetActive(false);
                 
                 CurrentProcessState = ProcessState.SUCCESS;

@@ -225,7 +225,7 @@ namespace Game.UI
             bool availableByLevel = LevelManager.CurrentLevel >= _selectedBlockData.unlockedAt;
             if (!availableByLevel)
             {
-                HapticManager.OnClickVibrate(Audio.Locked);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Locked);
                 PunchPurchasedText(0.25f);
                 return;
             }
@@ -243,7 +243,7 @@ namespace Game.UI
                     Onboarding.HideFinger();
                 }
                 
-                HapticManager.OnClickVibrate(Audio.Purchase);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Purchase);
 
                 Show();
 
@@ -253,7 +253,7 @@ namespace Game.UI
             }
             else
             {
-                HapticManager.OnClickVibrate(Audio.Forbidden);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
 
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {

@@ -235,17 +235,17 @@ public class GameManager : Singleton<GameManager>
     
     public static void AddCoin(int value)
     {
-        Audio.Coin.PlayOneShot();
+        Audio.Meta_Coin.PlayOneShot();
         Wallet.COIN.Add(value);
     }
     public static void AddPiggyCoin(int value)
     {
-        // Audio.Gem.PlayOneShot();
+        Audio.Meta_Gem.PlayOneShot();
         Wallet.PIGGY.Add(value);
     }
     public static void AddTicket(int value)
     {
-        // Audio.Ticket.PlayOneShot();
+        Audio.Meta_Ticket.PlayOneShot();
         Wallet.TICKET.Add(value);
     }
     public static void AddHeart(int value)

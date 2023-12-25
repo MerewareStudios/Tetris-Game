@@ -172,7 +172,7 @@ namespace IWI
             .OnClick(
                 () =>
                 {
-                    HapticManager.OnClickVibrate(Audio.Button_Click_Close);
+                    HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
                     AdBreakScreen.THIS.Close();
                     AdManager.THIS._Data.interSkipCount++;
                     AdManager.THIS._Data.LastTimeAdShown = (int)Time.time;
@@ -248,7 +248,7 @@ namespace IWI
             .OnClick(
                 () =>
                 {
-                    HapticManager.OnClickVibrate(Audio.Button_Click_Close);
+                    HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
                     AdBreakScreen.THIS.Close();
                     onClick?.Invoke();
                 },

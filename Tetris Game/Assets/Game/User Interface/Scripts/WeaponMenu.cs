@@ -350,7 +350,8 @@ namespace Game.UI
 
             if (Wallet.Consume(cost))
             {
-                SavedData.Upgrade(type, 1);
+                int current = SavedData.Upgrade(type, 1);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Upgrade, 0.9f + current * 0.025f);
 
                 if (SavedData.Equipped)
                 {
@@ -362,8 +363,7 @@ namespace Game.UI
                     ONBOARDING.PURCHASE_UPGRADE.SetComplete();
                 }
                 
-                HapticManager.OnClickVibrate(Audio.Upgrade);
-                
+
                 CustomShow(0.2f, true);
                 UIManager.UpdateNotifications();
 
@@ -385,7 +385,7 @@ namespace Game.UI
             } 
             else
             {
-                HapticManager.OnClickVibrate(Audio.Forbidden);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
 
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
@@ -408,7 +408,7 @@ namespace Game.UI
             bool availableByLevel = LevelManager.CurrentLevel >= _gunUpgradeData.unlockedAt;
             if (!availableByLevel)
             {
-                HapticManager.OnClickVibrate(Audio.Locked);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Locked);
                 PunchPurchasedText(0.25f);
                 return;
             }
@@ -424,7 +424,7 @@ namespace Game.UI
                 
                 SavedData.Purchase();
                 
-                HapticManager.OnClickVibrate(Audio.Purchase);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Purchase);
 
                 OnClick_Equip();
                 
@@ -432,7 +432,7 @@ namespace Game.UI
             }
             else
             {
-                HapticManager.OnClickVibrate(Audio.Forbidden);
+                HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
 
                 if (cost.type.Equals(Const.CurrencyType.Ticket))
                 {
@@ -447,7 +447,7 @@ namespace Game.UI
         
         public void OnClick_Equip()
         {
-            HapticManager.OnClickVibrate(Audio.Purchase);
+            HapticManager.OnClickVibrate(Audio.Button_Click_Equip);
 
             SavedData.Equip();
             GunDataChanged?.Invoke(EquippedGunData);
@@ -504,9 +504,10 @@ namespace Game.UI
             {
                 return gunShopDatas[gunIndex].upgradeIndexes[(int)statType];
             }
-            public void Upgrade(Gun.StatType statType, int amount)
+            public int Upgrade(Gun.StatType statType, int amount)
             {
                 gunShopDatas[inspectIndex].upgradeIndexes[(int)statType] += amount;
+                return gunShopDatas[inspectIndex].upgradeIndexes[(int)statType];
             }
             public void Purchase()
             {

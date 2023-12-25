@@ -86,7 +86,7 @@ MonoBehaviour:
     userData:
       level: 2
       playerData:
-        currentHealth: 111
+        currentHealth: 1
       pupData:
         available: 1
         currentUsage: 4
