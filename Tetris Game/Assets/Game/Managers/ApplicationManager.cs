@@ -1,21 +1,19 @@
+using System;
 using Internal.Core;
-using Lofelt.NiceVibrations;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class ApplicationManager : Singleton<ApplicationManager>
 {
     [SerializeField] public bool multiTouchEnabled = false;
-    [SerializeField] public bool useNativeFrameRate = true;
-    [SerializeField] public int targetFrameRate = 60;
+    // [SerializeField] public bool useNativeFrameRate = true;
+    // [SerializeField] public int targetFrameRate = 60;
     [SerializeField] private ScriptableRendererFeature grabTextureFeature;
 
 #if FPS
     [System.NonSerialized] private int _fps;
     [System.NonSerialized] private float _fpsTimestamp;
-    [SerializeField] public TextMeshProUGUI fpsText;
-    [SerializeField] public GameObject appLabel;
+    [System.NonSerialized] private string fps;
 #endif
 
     public bool GrabFeatureEnabled
@@ -43,15 +41,27 @@ public class ApplicationManager : Singleton<ApplicationManager>
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
      Debug.unityLogger.logEnabled = false; 
 #endif
-        Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.value : targetFrameRate;
+        // Application.targetFrameRate = useNativeFrameRate ? (int)Screen.currentResolution.refreshRateRatio.value : targetFrameRate;
+        // Application.targetFrameRate = targetFrameRate;
+        // Application.targetFrameRate = 30;
         
 #if FPS
         _fpsTimestamp = Time.realtimeSinceStartup;
-        appLabel.SetActive(true);
 #endif
     }
-    
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+
+    }
+
 #if FPS
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(20, 20, 100, 40), fps);
+    }
+
     void LateUpdate()
     {
         _fps++;
@@ -65,8 +75,10 @@ public class ApplicationManager : Singleton<ApplicationManager>
                 t.Seconds
                 );
             
-            
-            fpsText.text = _fps.ToString() + " | " + stamp + " | (" + Application.version + " " + Const.THIS.bundleVersionCode + ")";
+            // Application.targetFrameRate = targetFrameRate;
+
+            fps = _fps.ToString() + " | " + stamp + " | (" + Application.version + ")";
+
             _fps = 0;
             _fpsTimestamp = Time.realtimeSinceStartup;
         }

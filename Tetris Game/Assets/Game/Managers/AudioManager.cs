@@ -12,8 +12,8 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [SerializeField] private bool onlyPlayDebugSound;
     [SerializeField] public List<Audio> debugSounds;
     [SerializeField] public List<String> debugNames;
-    [System.NonSerialized] private AudioSource _emptySource;
 #endif
+    [System.NonSerialized] private AudioSource _emptySource = null;
     [SerializeField] public float overlapProtectionTime = 0.1f;
     [SerializeField] public List<AudioSourceData> audioSourceDatas;
 
