@@ -4564,7 +4564,7 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: db347bca70c5e5a45bbdec1935b3cd0e,
       type: 3}
     muted: 0
-    pitchRange: {x: 0.95, y: 1.05}
+    pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: c011bebc9c9d4b844a243cdbe25e15d9,
       type: 3}
     muted: 0

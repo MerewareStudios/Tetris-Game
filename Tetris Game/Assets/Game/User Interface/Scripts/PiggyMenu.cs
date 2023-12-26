@@ -21,7 +21,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Button closeButton;
     [SerializeField] private RectTransform closeButtonParent;
     [SerializeField] private Button investButton;
-    [SerializeField] private Button breakButton;
+    [SerializeField] private Button breakActionButton;
     [SerializeField] private Transform frame;
     [SerializeField] private Button multiplyButton;
     [Header("Reward")]
@@ -114,7 +114,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 ShowBreakFinger();
             }
-            breakButton.gameObject.SetActive(SavedData.IsFull);
+            breakActionButton.targetGraphic.raycastTarget = SavedData.IsFull;
         };
 
         investButton.gameObject.SetActive(false);
@@ -179,7 +179,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
         }
 
-        breakButton.gameObject.SetActive(false);
+        breakActionButton.targetGraphic.raycastTarget = false;
         
         multiplyButton.gameObject.SetActive(false);
         
@@ -228,6 +228,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         void Mult()
         {
+            UIManager.THIS.comboText.Show(2, 6.0f);
+            
             Transform mulTransform = multiplyButton.transform;
             mulTransform.DOKill();
             mulTransform.DOPunchScale(Vector3.one * 0.35f, 0.25f).SetUpdate(true);
@@ -266,7 +268,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         _multiplier = 1;
         
-        breakButton.gameObject.SetActive(false);
+        breakActionButton.targetGraphic.raycastTarget = false;
 
 
         ticketImage.enabled = true;
@@ -465,12 +467,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     {
                         Audio.Piggy_Full.Play();
 
-                        
-                        breakButton.targetGraphic.raycastTarget = false;
-                        breakButton.gameObject.SetActive(true);
-                        breakButton.transform.DOKill();
-                        breakButton.transform.localScale = Vector3.zero;
-                        breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
+                        breakActionButton.targetGraphic.raycastTarget = false;
+
+                        // breakButton.targetGraphic.raycastTarget = false;
+                        // breakButton.gameObject.SetActive(true);
+                        // breakButton.transform.DOKill();
+                        // breakButton.transform.localScale = Vector3.zero;
+                        // breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
                        
                         
                         _markedProgressPiggy.gameObject.SetActive(false);
@@ -487,7 +490,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         rewardedPiggy.DOLocalMove(Vector3.zero, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true).onComplete =
                             () =>
                             {
-                                breakButton.targetGraphic.raycastTarget = true;
+                                // breakButton.targetGraphic.raycastTarget = true;
+                                breakActionButton.targetGraphic.raycastTarget = true;
 
                                 ShowBreakFinger();
                             };

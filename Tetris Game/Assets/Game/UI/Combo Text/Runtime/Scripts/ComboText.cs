@@ -19,7 +19,7 @@ namespace  Game.UI
         [SerializeField] private float firstPrepend;
         [SerializeField] private float secondPrepend;
         
-        public float Show(int combo)
+        public float Show(int combo, float extraWait = 1.0f)
         {
             _comboSequence?.Kill();
             multTransform.DOKill();
@@ -55,7 +55,7 @@ namespace  Game.UI
             _comboSequence.Join(multScaleDownTween);
             _comboSequence.Join(countAlphaTween);
             _comboSequence.Join(countScaleDownTween);
-            _comboSequence.AppendInterval(secondPrepend);
+            _comboSequence.AppendInterval(secondPrepend * extraWait);
             _comboSequence.Append(multFadeOut);
             _comboSequence.Join(countFadeOut);
             _comboSequence.Join(multScaleUpTween);

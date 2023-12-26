@@ -139,7 +139,7 @@ MonoBehaviour:
       piggyData:
         currentMoney:
           type: 0
-          amount: 50
+          amount: 44
         moneyCapacity: 50
         breakInstance: 0
         doubleInstance: 0
