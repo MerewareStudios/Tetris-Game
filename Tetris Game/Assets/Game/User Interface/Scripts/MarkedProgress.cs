@@ -31,8 +31,9 @@ public class MarkedProgress : MonoBehaviour
         get => progress;
     }
     
-    public void ProgressAnimated(float value, float duration = 0.35f, float delay = 0.0f, Ease ease = Ease.Linear, System.Action<float> OnUpdate = null, System.Action OnEnd = null)
+    public void ProgressAnimated(float value, float delay = 0.0f, Ease ease = Ease.Linear, System.Action<float> OnUpdate = null, System.Action OnEnd = null)
     {
+        float duration = (value - _Progress) * 0.75f;
         float current = 0.0f;
         _animationTween?.Kill();
         _animationTween = DOTween.To((x) => current = x, _Progress, value, duration).SetEase(ease).SetDelay(delay).SetUpdate(true);

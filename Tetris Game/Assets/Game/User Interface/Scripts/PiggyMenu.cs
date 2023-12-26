@@ -420,8 +420,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     }
     public void OnClick_ContinuePiggyBank()
     {
-        // HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
-        HapticManager.OnClickVibrateOnly();
+        HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
+        // HapticManager.OnClickVibrateOnly();
 
         closeButton.targetGraphic.raycastTarget = false;
         if (ONBOARDING.PIGGY_CONTINUE.IsNotComplete())
@@ -455,7 +455,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         SavedData.currentMoney.amount += count;
         SavedData.currentMoney.amount = Mathf.Clamp(SavedData.currentMoney.amount, 0, SavedData.moneyCapacity);
         
-        _markedProgressPiggy.ProgressAnimated(SavedData.PiggyPercent, 0.5f, delay, Ease.OutQuad, 
+        _markedProgressPiggy.ProgressAnimated(SavedData.PiggyPercent, delay, Ease.OutQuad, 
             
             (value) => piggyCurrencyDisplay.Display(SavedData.Percent2Money(value), SavedData.moneyCapacity), 
             
@@ -503,7 +503,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                 }
                 else
                 {
-                    ShowContinueButton();
+                    DOVirtual.DelayedCall(0.5f, () =>
+                    {
+                        OnClick_ContinuePiggyBank();
+                    });
+                    // ShowContinueButton();
                 }
             });
     }
@@ -548,13 +552,13 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         (value) =>
             {
                 PunchPiggyIcon(0.2f);
-                HapticManager.OnClickVibrateOnly();
+                // HapticManager.OnClickVibrateOnly();
 
                 Audio.Piggy_Fill.PlayOneShot();
             },
         () =>
             {
-                HapticManager.OnClickVibrate();
+                HapticManager.OnClickVibrateOnly();
 
                 AddMoney(currency.amount, 0.0f);
             });

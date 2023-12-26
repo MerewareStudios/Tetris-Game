@@ -4573,10 +4573,14 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 6fee31a637f987049a0888fb924b1572,
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 57b6927798fbf3b4abdaf64ba5bf002d,
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 8a009463bb6e9eb43a0a9646e18c6297,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.9, y: 1.1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 6f774950dba8afe4fb8c53cbd4e6730b,
       type: 3}
     muted: 0
@@ -4585,19 +4589,11 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: 7278c7379a57a3a458c378592bb397f9,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 447aa194f6798d040a170be8a3227d00,
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: e7f182dac8bda5342b6c1ef748006c00,
-      type: 3}
-    muted: 0
-    pitchRange: {x: 1, y: 1}
-  - audioSourcePrefab: {fileID: 74253015700367299, guid: fe69aefee443799449c1d204aff86b47,
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
@@ -4617,6 +4613,7 @@ MonoBehaviour:
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
+  audioMixerSfx: {fileID: 24300002, guid: 3173b7aa7c9cdff4498592a31af26694, type: 2}
 --- !u!1 &715818425
 GameObject:
   m_ObjectHideFlags: 0

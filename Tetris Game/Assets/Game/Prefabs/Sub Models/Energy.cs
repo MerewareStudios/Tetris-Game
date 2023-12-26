@@ -17,6 +17,8 @@ public class Energy : SubModel
 
         Sequence.Join(rotTween);
         Sequence.Join(jumpTween);
+        
+        Audio.Powerup_Energy.PlayOneShot();
 
         Sequence.onComplete = () =>
         {

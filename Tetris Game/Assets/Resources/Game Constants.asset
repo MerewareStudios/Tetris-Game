@@ -96,11 +96,11 @@ MonoBehaviour:
         defaultStack: 6
         maxStack: 6
       coinTransactionData:
-        value: 999
+        value: 0
       gemTransactionData:
         value: 0
       adTransactionData:
-        value: 0
+        value: 11
       blockShopData:
         unlockedBlocks: 030000000400000005000000060000000d000000
         lastIndex: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
       piggyData:
         currentMoney:
           type: 0
-          amount: 44
+          amount: 0
         moneyCapacity: 50
         breakInstance: 0
         doubleInstance: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class AudioManager : Internal.Core.Singleton<AudioManager>
@@ -16,10 +17,13 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [System.NonSerialized] private AudioSource _emptySource = null;
     [SerializeField] public float overlapProtectionTime = 0.1f;
     [SerializeField] public List<AudioSourceData> audioSourceDatas;
+    [SerializeField] public AudioMixerGroup audioMixerSfx;
 
     void Awake()
     {
         _emptySource = this.gameObject.AddComponent<AudioSource>();
+        _emptySource.loop = false;
+        _emptySource.outputAudioMixerGroup = audioMixerSfx;
         _emptySource.hideFlags = HideFlags.HideInInspector;
     }
 

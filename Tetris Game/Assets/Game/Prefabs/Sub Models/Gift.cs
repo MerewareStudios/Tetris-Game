@@ -22,8 +22,11 @@ public class Gift : SubModel
         Sequence.Join(scaleTween);
         Sequence.Join(rotateTween);
 
+        
         Sequence.onComplete = () =>
         {
+            Audio.Powerup_Gift.PlayOneShot();
+
             Particle.Confetti.Play(ThisTransform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), new Vector3(3.3f, 3.3f, 3.3f));
             onComplete?.Invoke();
             OnDeconstruct();
