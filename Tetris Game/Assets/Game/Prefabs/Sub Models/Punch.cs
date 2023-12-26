@@ -43,6 +43,8 @@ public class Punch : SubModel
 
         enemy.DragTarget = true;
         
+        Audio.Powerup_Throw.PlayOneShot();
+        
         Sequence.onComplete = () =>
         {
             if (enemyID == enemy.ID)

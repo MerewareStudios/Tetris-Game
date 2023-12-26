@@ -17,9 +17,14 @@ public class Nugget : SubModel
 
         Sequence.Join(rotTween);
         Sequence.Join(jumpTween);
+        
+        Audio.Powerup_Throw.PlayOneShot();
+
 
         Sequence.onComplete = () =>
         {
+            Audio.Powerup_Gold.PlayOneShot();
+
             UIManagerExtensions.BoardCoinToPlayer(Position,  10, 10);
             OnDeconstruct();
         };

@@ -42,6 +42,8 @@ public class Bomb : SubModel
 
         Sequence.Join(jumpTween);
         Sequence.Join(rotateTween);
+        
+        Audio.Powerup_Throw.PlayOneShot();
 
         Sequence.onComplete = () =>
         {

@@ -30,6 +30,9 @@ public class Screw : SubModel
 
         Sequence.Append(moveTween);
         Sequence.Join(scaleTween);
+        
+        Audio.Powerup_Throw.PlayOneShot();
+
 
         Sequence.onComplete = () =>
         {
@@ -52,5 +55,7 @@ public class Screw : SubModel
 
         Sequence.Join(moveTween);
         Sequence.Join(rotateTween);
+        
+        Audio.Powerup_Screw.PlayOneShot();
     }
 }

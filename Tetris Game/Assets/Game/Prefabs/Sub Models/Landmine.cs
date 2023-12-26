@@ -11,7 +11,7 @@ public class Landmine : SubModel
 
         ThisTransform.localRotation = Quaternion.identity;
         
-        float duration = Random.Range(0.25f, 1.0f);
+        float duration = Random.Range(0.45f, 0.65f);
         
         Tween moveTween = ThisTransform.DOMove(target, duration).SetEase(Ease.InOutSine);
         Tween rotTween = ThisTransform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), duration, RotateMode.WorldAxisAdd).SetEase(Ease.Linear);
@@ -20,6 +20,8 @@ public class Landmine : SubModel
         Sequence.Join(moveTween);
         Sequence.Join(rotTween);
         Sequence.Join(scaleTween);
+        
+        Audio.Powerup_Throw.PlayOneShot();
 
         Sequence.onComplete = () =>
         {

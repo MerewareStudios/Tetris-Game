@@ -64,7 +64,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
         // Debug.LogWarning("Play One Shot Random Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
-        // Debug.Log(audioSource.clip.name);
+        // Debug.Log(audioSource.clip.name + " " + volumeScale);
     }
     public static void PlayOneShotPitch(int key, float volumeScale = 1.0f, float pitch = 1.0f)
     {

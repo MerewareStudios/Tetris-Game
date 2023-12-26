@@ -4576,19 +4576,35 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 57b6927798fbf3b4abdaf64ba5bf002d,
       type: 3}
     muted: 0
-    pitchRange: {x: 1, y: 1}
+    pitchRange: {x: 0.95, y: 1.05}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 8a009463bb6e9eb43a0a9646e18c6297,
       type: 3}
     muted: 0
     pitchRange: {x: 0.9, y: 1.1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: f67dd1a907d75464cbe8cb3c009591bf,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 6f774950dba8afe4fb8c53cbd4e6730b,
       type: 3}
     muted: 0
     pitchRange: {x: 1, y: 1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 5af9f31f6197fab4eacbac08f22d22c4,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.05}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: df7fb277f4a130b4780ab7cefe8b66c0,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.05}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: c5767b7a988d8de45a787611f873e2d8,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.05}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 11bdd9e8d070464458872421521ebbc9,
       type: 3}
     muted: 0
-    pitchRange: {x: 1, y: 1}
+    pitchRange: {x: 0.95, y: 1.05}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 447aa194f6798d040a170be8a3227d00,
       type: 3}
     muted: 0

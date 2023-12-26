@@ -34,6 +34,11 @@ public class Rocket : SubModel
             lastPos = current;
         };
         
+        
+        Audio.Powerup_Throw.PlayOneShot();
+        Audio.Powerup_Rocket_Start.PlayOneShot();
+
+        
         Sequence.onComplete = () =>
         {
             if (enemyID == enemy.ID)

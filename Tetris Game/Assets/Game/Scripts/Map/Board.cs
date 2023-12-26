@@ -804,7 +804,6 @@ namespace Game
             int totalAmmo = 0;
             Tween lastTween = null;
             
-            Audio.Magnet.Play();
             
             for (int i = 0; i < _size.x; i++)
             {
@@ -860,7 +859,7 @@ namespace Game
                     place.Current = null;
                 }
             }
-            
+
             if (lastTween != null)
             {
                 lastTween.onComplete += () =>
@@ -869,6 +868,7 @@ namespace Game
 
                     if (totalAmmo > 0)
                     {
+                        Audio.Board_Spawn_Ammo.PlayOneShot();
                         // Audio.Board_Post_Merge.PlayOneShot();
                         
                         HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
@@ -885,6 +885,11 @@ namespace Game
             {
                 return;
             }
+            // Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 1);
+            Audio.Board_Pre_Merge.PlayOneShotPitch(1.0f, 1);
+
+            // Audio.Board_Merge_Cock.PlayOneShot();
+
             SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo, true).MakeAvailable();
         }
 

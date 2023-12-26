@@ -16,9 +16,14 @@ public class Medic : SubModel
 
         Sequence.Join(scaleTween);
         Sequence.Join(jumpTween);
+        
+        Audio.Powerup_Throw.PlayOneShot();
+
 
         Sequence.onComplete = () =>
         {
+            Audio.Heart.PlayOneShot();
+
             UIManagerExtensions.BoardHeartToPlayer(Position,  5, 5);
             OnDeconstruct();
         };
