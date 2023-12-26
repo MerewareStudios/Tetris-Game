@@ -84,7 +84,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 2
+      level: 1
       playerData:
         currentHealth: 1
       pupData:
@@ -96,7 +96,7 @@ MonoBehaviour:
         defaultStack: 6
         maxStack: 6
       coinTransactionData:
-        value: 0
+        value: 999
       gemTransactionData:
         value: 0
       adTransactionData:
@@ -139,7 +139,7 @@ MonoBehaviour:
       piggyData:
         currentMoney:
           type: 0
-          amount: 0
+          amount: 50
         moneyCapacity: 50
         breakInstance: 0
         doubleInstance: 0

@@ -38,6 +38,7 @@ public class GameManager : Singleton<GameManager>
                          Consent.THIS.TimeScale *
                          MenuNavigator.THIS.TimeScale *
                          PiggyMenu.THIS.TimeScale *
+                         SettingsManager.THIS.TimeScale *
                          OfferScreen.THIS.TimeScale;
     }
     

@@ -35,6 +35,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         audioSource.volume     = volume;
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(audioClip, volume);
+        // Debug.Log(audioClip.name);
     }
         
     public static void PlayOneShot(int key, float volumeScale = 1.0f)
@@ -59,6 +60,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
         // Debug.LogWarning("Play One Shot Random Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
+        // Debug.Log(audioSource.clip.name);
     }
     public static void PlayOneShotPitch(int key, float volumeScale = 1.0f, float pitch = 1.0f)
     {
@@ -82,6 +84,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
         // Debug.LogWarning("Play One Shot Set Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
+        // Debug.Log(audioSource.clip.name);
     }
     
     public static void Play(int key)
@@ -98,7 +101,9 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
             return;
         }
         AudioSource audioSource = audioSourceData.Instance;
+        audioSource.pitch = audioSourceData.RandomPitch;
         audioSource.Play();
+        // Debug.Log(audioSource.clip.name);
     }
     
     public static void Play(int key, float pitch)
@@ -117,6 +122,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = pitch;
         audioSource.Play();
+        // Debug.Log(audioSource.clip.name);
     }
     
     public static void Stop(int key)
@@ -177,7 +183,7 @@ public static class AudioManagerExtensions
 {
     public static void Play(this Audio audio)
     {
-        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        if (!HapticManager.THIS.CanPlayAudio)
         {
             return;
         }
@@ -193,7 +199,7 @@ public static class AudioManagerExtensions
     }
     public static void Play(this Audio audio, float pitch)
     {
-        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        if (!HapticManager.THIS.CanPlayAudio)
         {
             return;
         }
@@ -201,7 +207,7 @@ public static class AudioManagerExtensions
     }
     public static void PlayOneShot(this Audio audio, float volume = 1.0f)
     {
-        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        if (!HapticManager.THIS.CanPlayAudio)
         {
             return;
         }
@@ -209,7 +215,7 @@ public static class AudioManagerExtensions
     }
     public static void PlayOneShotPitch(this Audio audio, float volume = 1.0f, float pitch = 1.0f)
     {
-        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        if (!HapticManager.THIS.CanPlayAudio)
         {
             return;
         }
@@ -218,7 +224,7 @@ public static class AudioManagerExtensions
     
     public static void PlayOneShot(this AudioClip audioClip, float volume = 1.0f, float pitch = 1.0f)
     {
-        if (!HapticManager.THIS.SavedData.canPlayAudio)
+        if (!HapticManager.THIS.CanPlayAudio)
         {
             return;
         }

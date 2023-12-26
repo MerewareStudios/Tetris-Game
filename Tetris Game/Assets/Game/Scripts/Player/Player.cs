@@ -27,7 +27,7 @@ namespace Game
         [System.NonSerialized] private Enemy _currentEnemy = null;
         
         [System.NonSerialized] public float AutoEnemySortInterval = 1.0f;
-        // [System.NonSerialized] private int _canShootBubble = 4;
+        [System.NonSerialized] private bool _playBubbleSound = true;
 
         public float Emission
         {
@@ -157,13 +157,12 @@ namespace Game
 #endif
             if (shootCount == 0)
             {
-                // if (_canShootBubble > 0)
+                if (_playBubbleSound)
                 {
-                    // _canShootBubble--;
-                    // _canShootBubble = Mathf.Max(_canShootBubble, 1);
+                    _playBubbleSound = false;
                     Audio.Bubble.PlayOneShot();
-                    Gun.Bubble(4);
                 }
+                Gun.Bubble(4);
 
                 animator.SetTrigger(SHOOT_HASH);
 
@@ -177,6 +176,7 @@ namespace Game
                 return;
             }
 
+            _playBubbleSound = true;
             // _canShootBubble = 4;
             
             animator.SetTrigger(SHOOT_HASH);

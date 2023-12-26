@@ -4,7 +4,6 @@ using Game.UI;
 using IWI;
 using IWI.Tutorial;
 using IWI.UI;
-using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
 using Helper = Internal.Core.Helper;
@@ -108,7 +107,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         frame.DOKill();
         frame.localPosition = Vector3.down * 2000.0f;
-        frame.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
+        frame.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutBack).SetUpdate(true)
+            .onComplete = () =>
+        {
+            if (SavedData.IsFull)
+            {
+                ShowBreakFinger();
+            }
+            breakButton.gameObject.SetActive(SavedData.IsFull);
+        };
 
         investButton.gameObject.SetActive(false);
         investButton.targetGraphic.raycastTarget = false;
@@ -145,16 +152,19 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         closeButtonParent.localScale = Vector3.zero;
         if (ONBOARDING.PIGGY_INVEST.IsComplete())
         {
-            closeButtonParent.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true)
-                .OnStart(
-                    () =>
-                    {
-                        closeButtonParent.gameObject.SetActive(true);
-                    })
-                .onComplete = () =>
-                    {
-                        closeButton.targetGraphic.raycastTarget = true;
-                    };
+            if (!SavedData.IsFull)
+            {
+                closeButtonParent.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(1.0f).SetUpdate(true)
+                    .OnStart(
+                        () =>
+                        {
+                            closeButtonParent.gameObject.SetActive(true);
+                        })
+                    .onComplete = () =>
+                        {
+                            closeButton.targetGraphic.raycastTarget = true;
+                        };
+            }
         }
         
         piggyCurrencyDisplay.gameObject.SetActive(!SavedData.IsFull);
@@ -169,7 +179,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
         }
 
-        breakButton.gameObject.SetActive(SavedData.IsFull);
+        breakButton.gameObject.SetActive(false);
         
         multiplyButton.gameObject.SetActive(false);
         
@@ -181,11 +191,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     public void Pause()
     {
         _shakeTween?.Pause();
+        Audio.Piggy_Shake.Pause();
+
     }
     
     public void Restart()
     {
         _shakeTween?.Restart();
+        Audio.Piggy_Shake.Play();
     }
 
     public void OnClick_RequestMultiply()
@@ -277,7 +290,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         piggyGlowMat.DOColor(glowColorEnd, GameManager.InsideColor, 1.5f).SetUpdate(true);
 
 
-        const float shakeDur = 2.0f;
+        const float shakeDur = 1.65f;
         Vector3 vector = Vector3.zero;
         
         
@@ -287,12 +300,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             .SetUpdate(true);
 
 
+        Audio.Piggy_Shake.Play();
+
+        
         _shakeTween.onUpdate = () =>
         {
             float elapsed = _shakeTween.ElapsedPercentage() * 1.05f;
             multProgress.localScale = Vector3.Lerp(multProgress.localScale, new Vector3(1.0f - elapsed, 1.0f, 1.0f), Time.unscaledDeltaTime * 8.0f);
 
-            float targetScale = 0.75f + elapsed * 0.25f * _multiplier;
+            float targetScale = 0.75f + elapsed * 0.3f * _multiplier;
             rewardedPiggyShakePivot.localScale = Vector3.Lerp(rewardedPiggyShakePivot.localScale, new Vector3(targetScale, targetScale, targetScale), Time.unscaledDeltaTime * 14.0f);
             rewardedPiggyShakePivot.localEulerAngles = new Vector3(0.0f, 0.0f, vector.x *  _shakeTween.ElapsedPercentage());
         };
@@ -311,7 +327,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             _shakeTween?.Kill();
             _shakeTween = null;
             
-            // Audio.Piggy_Break.Play();
+            Audio.Piggy_Break.Play();
+            Audio.Piggy_Break_2.Play();
+            
+            // Audio.Piggy_Shake.Stop();
+
             
             base.CloseImmediate();
         };
@@ -319,8 +339,8 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
         {
             ONBOARDING.PIGGY_BREAK.SetComplete();
-            Onboarding.HideFinger();
         }
+            Onboarding.HideFinger();
         
         AnalyticsManager.PiggyBreak(SavedData.breakInstance + 1, LevelManager.CurrentLevel);
     }
@@ -441,8 +461,11 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             {
                 if (SavedData.IsFull)
                 {
-                    DOVirtual.DelayedCall(0.2f, () =>
+                    DOVirtual.DelayedCall(0.1f, () =>
                     {
+                        Audio.Piggy_Full.Play();
+
+                        
                         breakButton.targetGraphic.raycastTarget = false;
                         breakButton.gameObject.SetActive(true);
                         breakButton.transform.DOKill();
@@ -466,15 +489,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                             {
                                 breakButton.targetGraphic.raycastTarget = true;
 
-                                if (ONBOARDING.PIGGY_BREAK.IsNotComplete())
-                                {
-                                    Onboarding.ClickOn(clickLocation_Break.position, Finger.Cam.UI, () =>
-                                    {
-                                        rewardedPiggy.DOKill();
-                                        rewardedPiggy.localScale = Vector3.one * 1.5f;
-                                        rewardedPiggy.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
-                                    });
-                                }
+                                ShowBreakFinger();
                             };
                         
                         rewardPiggyGlow.color = glowColorStart;
@@ -487,6 +502,16 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     ShowContinueButton();
                 }
             });
+    }
+
+    private void ShowBreakFinger()
+    {
+        Onboarding.ClickOn(clickLocation_Break.position, Finger.Cam.UI, () =>
+        {
+            rewardedPiggy.DOKill();
+            rewardedPiggy.localScale = Vector3.one * 1.5f;
+            rewardedPiggy.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1).SetUpdate(true);
+        });
     }
 
     private void ShowContinueButton()
@@ -514,13 +539,14 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     private void InvestAnimated(Const.Currency currency)
     {
         Wallet.Consume(currency);
+        Audio.Piggy_Invest.Play();
         UIManagerExtensions.RequestCoinFromWallet(_coinTarget.position, Mathf.Clamp(currency.amount, 1, 15), currency.amount,
         (value) =>
             {
                 PunchPiggyIcon(0.2f);
                 HapticManager.OnClickVibrateOnly();
 
-                // Audio.Piggy_Fill.PlayOneShot();
+                Audio.Piggy_Fill.PlayOneShot();
             },
         () =>
             {

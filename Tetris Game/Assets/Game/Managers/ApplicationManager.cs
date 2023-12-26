@@ -9,6 +9,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     // [SerializeField] public bool useNativeFrameRate = true;
     // [SerializeField] public int targetFrameRate = 60;
     [SerializeField] private ScriptableRendererFeature grabTextureFeature;
+    [SerializeField] public AudioListener audioListener;
 
 #if FPS
     [System.NonSerialized] private int _fps;
@@ -52,6 +53,9 @@ public class ApplicationManager : Singleton<ApplicationManager>
 
     private void Start()
     {
+        // var audioConfiguration = AudioSettings.GetConfiguration();
+        // audioConfiguration.dspBufferSize = 64;
+        // AudioSettings.Reset(audioConfiguration);
         Application.targetFrameRate = 60;
 
     }

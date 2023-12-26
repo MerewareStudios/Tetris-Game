@@ -4286,6 +4286,7 @@ MonoBehaviour:
   multiTouchEnabled: 0
   grabTextureFeature: {fileID: -6338918253107934900, guid: cd7807286d305c844a460fda197da952,
     type: 2}
+  audioListener: {fileID: 548236975}
 --- !u!114 &715436866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4551,11 +4552,23 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 6e5e4389dbc045541a6a39e5717e4e49,
       type: 3}
     muted: 0
-    pitchRange: {x: 1, y: 1}
+    pitchRange: {x: 0.75, y: 0.75}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: 161f782a2459049458784562fa0dc80a,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1.5, y: 1.5}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 61903f7964549b94dbc50ce07230e5d5,
       type: 3}
     muted: 0
-    pitchRange: {x: 1, y: 1.2}
+    pitchRange: {x: 0.9, y: 1.1}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: db347bca70c5e5a45bbdec1935b3cd0e,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 0.95, y: 1.05}
+  - audioSourcePrefab: {fileID: 74253015700367299, guid: c011bebc9c9d4b844a243cdbe25e15d9,
+      type: 3}
+    muted: 0
+    pitchRange: {x: 1, y: 1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: eff1e863d809383498c0bce834d9dac4,
       type: 3}
     muted: 0

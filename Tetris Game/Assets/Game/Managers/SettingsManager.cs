@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
+    [System.NonSerialized] public float TimeScale = 1.0f;
     [SerializeField] private GameObject buttonsParent;
     [SerializeField] private Image vibrateIcon;
     [SerializeField] private Image soundIcon;
@@ -12,11 +13,22 @@ public class SettingsManager : Singleton<SettingsManager>
     [SerializeField] private Color enabledColor;
     [SerializeField] private Color disabledColor;
 
+    private bool Visible
+    {
+        set
+        {
+            buttonsParent.SetActive(value);
+            TimeScale = value ? 0.0f : 1.0f;
+            GameManager.UpdateTimeScale();
+        }
+        get => buttonsParent.activeSelf;
+    }
+
     public void Set()
     {
         SetState(vibrateIcon, HapticManager.THIS.SavedData.canVibrate);
-        SetState(soundIcon, HapticManager.THIS.SavedData.canPlayAudio);
-        buttonsParent.SetActive(false);
+        SetState(soundIcon, HapticManager.THIS.CanPlayAudio);
+        Visible = false;
     }
 
     private void SetState(Image image, bool state)
@@ -28,25 +40,24 @@ public class SettingsManager : Singleton<SettingsManager>
     
     public void OnClick_Settings()
     {
-        bool nextState = !buttonsParent.activeSelf;
+        bool nextState = !Visible;
         if (nextState)
         {
             concedeButton.SetActive(GameManager.PLAYING);
         }
-        buttonsParent.gameObject.SetActive(nextState);
+        Visible = nextState;
         HapticManager.OnClickVibrate();
     }
     public void OnClick_Vibrate()
     {
         HapticManager.THIS.SavedData.canVibrate = !HapticManager.THIS.SavedData.canVibrate;
-        Debug.Log(HapticManager.THIS.SavedData.canVibrate);
         SetState(vibrateIcon, HapticManager.THIS.SavedData.canVibrate);
         HapticManager.OnClickVibrate();
     }
     public void OnClick_Sound()
     {
-        HapticManager.THIS.SavedData.canPlayAudio = !HapticManager.THIS.SavedData.canPlayAudio;
-        SetState(soundIcon, HapticManager.THIS.SavedData.canPlayAudio);
+        HapticManager.THIS.CanPlayAudio = !HapticManager.THIS.CanPlayAudio;
+        SetState(soundIcon, HapticManager.THIS.CanPlayAudio);
         HapticManager.OnClickVibrate();
     }
     public void OnClick_Privacy()

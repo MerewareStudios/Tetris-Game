@@ -7,6 +7,17 @@ public class HapticManager : Singleton<HapticManager>
     private const string HapticsEnabled = "HAPTICS_ENABLED";
 
     [System.NonSerialized] public HapticManager.Data SavedData;
+
+    public bool CanPlayAudio
+    {
+        set
+        {
+            SavedData.canPlayAudio = value;
+            AudioListener.volume = value ? 1 : 0;
+            AudioListener.pause = !value;
+        }
+        get => SavedData.canPlayAudio;
+    }
     
     [System.Diagnostics.Conditional(HapticsEnabled)]
     public static void Vibrate(HapticPatterns.PresetType presetType)
