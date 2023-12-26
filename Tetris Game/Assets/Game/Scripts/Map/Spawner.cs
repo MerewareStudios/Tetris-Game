@@ -3,7 +3,6 @@ using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
-using Game.UI;
 using IWI.Tutorial;
 using Lofelt.NiceVibrations;
 using UnityEngine;
@@ -324,7 +323,10 @@ public class Spawner : Singleton<Spawner>
 // #else
         Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
 // #endif
+
+        // _dragOffset.x *= 1.25f;
         _finalPosition = targetPosition - _dragOffset;
+        _finalPosition *= 1.4f;
     }
     public void Input_OnUp()
     {

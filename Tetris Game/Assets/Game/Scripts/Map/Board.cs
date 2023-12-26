@@ -227,28 +227,56 @@ namespace Game
                 
                 if (block && grabbed)
                 {
-                    List<Vector2Int> projectedPlaces = new();
+                    // List<Vector2Int> projectedPlacePositions = new();
+                    List<(Place, bool)> projectedPlaces = new();
                     bool canProjectFuture = !block.Free2Place;
+
+                    bool allProjects = true;
+                    // bool canPlaceAll = false;
+                    
                     foreach (var pawn in block.Pawns)
                     {
                         (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
                         if (!place)
                         {
-                            continue;
+                            allProjects = false;
+                            projectedPlaces.Clear();
+                            break;
+                            // projectedPlaces.Clear();
+                            // break;
+                            // continue;
                         }
-                        
-                        place.SetTargetColorType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
+                        projectedPlaces.Add((place, canPlace));
+                        // place.SetTargetColorType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
 
-                        if (canProjectFuture)
+                        // if (canProjectFuture)
+                        // {
+                        //     if (canPlace && place)
+                        //     {
+                        //         projectedPlaces.Add(place.Index);
+                        //     }
+                        //     else
+                        //     {
+                        //         canProjectFuture = false;
+                        //     }
+                        // }
+                    }
+
+                    if (allProjects)
+                    {
+                        foreach (var projectedPlace in projectedPlaces)
                         {
-                            if (canPlace && place)
+                            projectedPlace.Item1.SetTargetColorType(projectedPlace.Item2 ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
+                            
+                            
+                            if (canProjectFuture)
                             {
-                                projectedPlaces.Add(place.Index);
+                                if (!projectedPlace.Item2)
+                                {
+                                    canProjectFuture = false;
+                                }
                             }
-                            else
-                            {
-                                canProjectFuture = false;
-                            }
+                            
                         }
                     }
 
@@ -258,7 +286,7 @@ namespace Game
                         
                         for (int i = 0; i < projectedPlaces.Count; i++)
                         {
-                            Vector2Int currentIndex = projectedPlaces[i];
+                            Vector2Int currentIndex = projectedPlaces[i].Item1.Index;
                             int currentShift = 0;
                             for (int v = currentIndex.y; v >= 0; v--)
                             {
@@ -278,7 +306,7 @@ namespace Game
                         {
                             for (int i = 0; i < projectedPlaces.Count; i++)
                             {
-                                Vector2Int shiftedIndex = projectedPlaces[i] - new Vector2Int(0, minShift);
+                                Vector2Int shiftedIndex = projectedPlaces[i].Item1.Index - new Vector2Int(0, minShift);
                                 Game.Place.PlaceColorType type = _places[shiftedIndex.x, shiftedIndex.y].TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)
                                         ? Game.Place.PlaceColorType.GREEN
                                         : _places[shiftedIndex.x, shiftedIndex.y].RayDarkLight;
