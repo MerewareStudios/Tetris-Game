@@ -28,12 +28,12 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
             switch (_currentPosition)
             {
                 case MaxSdkBase.BannerPosition.TopCenter:
-                    offerFrame.parent = topPivot;
+                    offerFrame.SetParent(topPivot);
                     offerFrame.rotation = topPivot.rotation;
                     closeButton.gameObject.SetActive(true);
                     break;
                 case MaxSdkBase.BannerPosition.BottomCenter:
-                    offerFrame.parent = bottomPivot;
+                    offerFrame.SetParent(bottomPivot);
                     offerFrame.rotation = bottomPivot.rotation;
                     closeButton.gameObject.SetActive(false);
                     break;
