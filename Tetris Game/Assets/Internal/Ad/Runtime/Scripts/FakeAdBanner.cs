@@ -5,7 +5,134 @@ using UnityEngine.UI;
 
 public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 {
-    private const string BannerAdUnitId = "85fc6bf5a70ecf37";
+#region Mediation Variables
+
+#if ADMOB_MEDIATION
+            
+    // TODO
+#else
+    private const string MaxAdUnitId = "85fc6bf5a70ecf37";
+
+#endif
+    
+    private void InitializeMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+#else
+        MaxSdk.SetBannerExtraParameter(MaxAdUnitId, "adaptive_banner", "true");
+        MaxSdk.SetBannerBackgroundColor(MaxAdUnitId, backgroundColor);
+        
+        MaxSdkCallbacks.Banner.OnAdLoadedEvent      += OnBannerAdLoadedEvent;
+        MaxSdkCallbacks.Banner.OnAdLoadFailedEvent  += OnBannerAdLoadFailedEvent;
+        MaxSdkCallbacks.Banner.OnAdClickedEvent     += OnBannerAdClickedEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdExpandedEvent    += OnBannerAdExpandedEvent;
+        MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
+#endif
+    }
+    
+    private void LoadMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+#else
+        MaxSdk.CreateBanner(MaxAdUnitId, ToMediationBannerPosition(_currentPosition));
+#endif
+    }
+    
+    private void DestroyMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+#else
+        MaxSdk.DestroyBanner(MaxAdUnitId);
+#endif
+    }
+    
+    private void SetMediationPosition(BannerPosition bannerPosition)
+    {
+#if ADMOB_MEDIATION
+        // TODO
+#else
+        MaxSdk.UpdateBannerPosition(MaxAdUnitId, ToMediationBannerPosition(bannerPosition));
+#endif
+    }
+    
+    private void ShowMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+#else
+        MaxSdk.ShowBanner(MaxAdUnitId);
+#endif
+    }
+    
+    private void HideMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+#else
+        MaxSdk.HideBanner(MaxAdUnitId);
+#endif
+    }
+    
+    
+#if ADMOB_MEDIATION
+    // TODO
+#else
+    private static MaxSdkBase.BannerPosition ToMediationBannerPosition(BannerPosition bannerPosition)
+    {
+        switch (bannerPosition)
+        {
+            case BannerPosition.TopCenter:
+                return MaxSdkBase.BannerPosition.TopCenter;
+            case BannerPosition.BottomCenter:
+                return MaxSdkBase.BannerPosition.BottomCenter;
+        }
+        return MaxSdkBase.BannerPosition.TopCenter;
+    }
+#endif
+    
+    
+    
+#if ADMOB_MEDIATION
+    // TODO
+#else
+    private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        CurrentLoadState = LoadState.Success;
+    }
+
+    private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
+    {
+        CurrentLoadState = LoadState.Fail;
+    }
+
+    private void OnBannerAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+    }
+
+    private void OnBannerAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+    }
+
+    private void OnBannerAdExpandedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+    }
+
+    private void OnBannerAdCollapsedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        
+    }
+#endif
+    
+#endregion
+
+    
+
+    
+    
     
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform offerFrame;
@@ -18,21 +145,33 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 
     [System.NonSerialized] private bool _overlayVisible = true;
     
-    [System.NonSerialized] private MaxSdk.BannerPosition _currentPosition = MaxSdkBase.BannerPosition.BottomCenter;
-    public MaxSdk.BannerPosition Position
+    [System.NonSerialized] private BannerPosition _currentPosition = BannerPosition.BottomCenter;
+
+
+    public enum BannerPosition
+    {
+        TopCenter,
+        BottomCenter,
+    }
+
+  
+    
+    public BannerPosition Position
     {
         set
         {
             _currentPosition = value;
-            MaxSdk.UpdateBannerPosition(BannerAdUnitId, value);
+
+            SetMediationPosition(value);
+            
             switch (_currentPosition)
             {
-                case MaxSdkBase.BannerPosition.TopCenter:
+                case BannerPosition.TopCenter:
                     offerFrame.SetParent(topPivot);
                     offerFrame.rotation = topPivot.rotation;
                     closeButton.gameObject.SetActive(true);
                     break;
-                case MaxSdkBase.BannerPosition.BottomCenter:
+                case BannerPosition.BottomCenter:
                     offerFrame.SetParent(bottomPivot);
                     offerFrame.rotation = bottomPivot.rotation;
                     closeButton.gameObject.SetActive(false);
@@ -103,8 +242,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         {
             return;
         }
-        MaxSdk.ShowBanner(BannerAdUnitId);
-        // Position = _currentPosition;
+        ShowMediation();
     }
     
     public void HideAd(bool hide)
@@ -113,7 +251,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 
         if (hide)
         {
-            MaxSdk.HideBanner(BannerAdUnitId);
+            HideMediation();
         }
         else
         {
@@ -123,55 +261,21 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
     public void Initialize()
     {
-        MaxSdk.SetBannerExtraParameter(BannerAdUnitId, "adaptive_banner", "true");
-        MaxSdk.SetBannerBackgroundColor(BannerAdUnitId, backgroundColor);
-        
-        MaxSdkCallbacks.Banner.OnAdLoadedEvent      += OnBannerAdLoadedEvent;
-        MaxSdkCallbacks.Banner.OnAdLoadFailedEvent  += OnBannerAdLoadFailedEvent;
-        MaxSdkCallbacks.Banner.OnAdClickedEvent     += OnBannerAdClickedEvent;
-        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
-        MaxSdkCallbacks.Banner.OnAdExpandedEvent    += OnBannerAdExpandedEvent;
-        MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
-        
+        InitializeMediation();
         CurrentLoadState = LoadState.None;
     }
     
     public void LoadAd()
     {
         CurrentLoadState = LoadState.Loading;
-        // Position = _currentPosition;
-        MaxSdk.CreateBanner(BannerAdUnitId, _currentPosition);
+        LoadMediation();
     }
 
     public void DestroyBanner()
     {
-        MaxSdk.DestroyBanner(BannerAdUnitId);
+        DestroyMediation();
         CurrentLoadState = LoadState.Destroyed;
     }
 
-    private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-    {
-        CurrentLoadState = LoadState.Success;
-    }
-
-    private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
-    {
-        CurrentLoadState = LoadState.Fail;
-    }
-
-    private void OnBannerAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-    {
-    }
-
-    private void OnBannerAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-    {
-    }
-
-    private void OnBannerAdExpandedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-    {
-    }
-
-    private void OnBannerAdCollapsedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-    {
-    }
+  
 }

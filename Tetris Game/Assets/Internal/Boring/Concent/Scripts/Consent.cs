@@ -1,5 +1,5 @@
 using Internal.Core;
-using Lofelt.NiceVibrations;
+using IWI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,10 +55,10 @@ public class Consent : Lazyingleton<Consent>
         bool privacyState;
         bool ageState;
         
-        if (MaxSdk.IsUserConsentSet())
+        if (AdManager.IsMediationConsentSet())
         {
-            privacyState = MaxSdk.HasUserConsent();
-            ageState = !MaxSdk.IsAgeRestrictedUser();
+            privacyState = AdManager.HasMediationUserConsent();
+            ageState = !AdManager.IsMediationAgeRestricted();
         }
         else
         {
@@ -85,8 +85,8 @@ public class Consent : Lazyingleton<Consent>
     {
         HapticManager.OnClickVibrate();
 
-        MaxSdk.SetHasUserConsent(toggleButtonPrivacy.isOn);
-        MaxSdk.SetIsAgeRestrictedUser(!toggleButtonAge.isOn);
+        AdManager.SetMediationHasUserConsent(toggleButtonPrivacy.isOn);
+        AdManager.SetMediationAgeRestricted(!toggleButtonAge.isOn);
         _onDone?.Invoke();
     }
     
