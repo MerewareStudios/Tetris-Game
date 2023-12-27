@@ -138,11 +138,8 @@ public class Airplane : MonoBehaviour
         thisTransform.DOScale(Vector3.one, 0.25f).SetDelay(carryData.delay);
         
 
-        Tween carryTween = Travel(targetPosition, 5.0f, Ease.OutSine).SetDelay(carryData.delay);
-        // carryTween.OnStart(() =>
-        // {
-        // });
-        carryTween.onComplete = () => 
+        Travel(targetPosition, 5.0f, Ease.OutSine).SetDelay(carryData.delay)
+        .onComplete = () => 
         {
             Audio.Airplane.PlayOneShot();
 
