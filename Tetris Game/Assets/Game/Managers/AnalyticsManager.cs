@@ -22,7 +22,11 @@ public static class AnalyticsManager
         _shopOpenedCount = 0;
         GameAnalytics.SetCustomId(Account.Current.guid);
         GameAnalytics.Initialize();
+#if ADMOB_MEDIATION
+        // TODO
+#else
         GameAnalyticsILRD.SubscribeMaxImpressions();
+#endif
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]

@@ -21,54 +21,145 @@ namespace IWI
             FakeAdRewarded.THIS = fakeAdRewarded;
         }
 
+
+        #region Per Mediator
+
+        public static bool IsMediationConsentSet()
+        {
+#if ADMOB_MEDIATION
+            // TODO
+            return false;
+#else
+            return MaxSdk.IsUserConsentSet();
+#endif
+        }
+        
+        public static bool HasMediationUserConsent()
+        {
+#if ADMOB_MEDIATION
+            // TODO
+            return false;
+#else
+            return MaxSdk.HasUserConsent();
+#endif
+        }
+        
+        public static bool IsMediationAgeRestricted()
+        {
+#if ADMOB_MEDIATION
+            // TODO
+            return false;
+#else
+            return MaxSdk.IsAgeRestrictedUser();
+#endif
+        }
+        
+        public static void SetMediationHasUserConsent(bool state)
+        {
+#if ADMOB_MEDIATION
+            // TODO
+#else
+            MaxSdk.SetHasUserConsent(state);
+#endif
+        }
+        
+        public static void SetMediationAgeRestricted(bool state)
+        {
+#if ADMOB_MEDIATION
+            // TODO
+#else
+            MaxSdk.SetIsAgeRestrictedUser(state);
+#endif
+        }
+        
+        private void InitializeMediation()
+        {
+#if ADMOB_MEDIATION
+            
+            // TODO
+#else
+            MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
+            MaxSdk.SetUserId(Account.Current.guid);
+            MaxSdk.InitializeSdk();
+            MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) =>
+            {
+                OnMediationInitialized();
+            };
+#endif
+        }
+        
+        private static bool IsMediationInitialized()
+        {
+#if ADMOB_MEDIATION
+             // TODO
+             return false;
+#else
+            return MaxSdk.IsInitialized();
+#endif
+        }
+        
+        public static void OpenMediationDebugger()
+        {
+#if ADMOB_MEDIATION
+            // TODO
+#else
+            MaxSdk.ShowMediationDebugger();
+#endif
+        }
+        public static void SetBannerPositionByMenuState()
+        {
+            FakeAdBanner.THIS.Position = UIManager.MenuVisible ? FakeAdBanner.BannerPosition.TopCenter : FakeAdBanner.BannerPosition.BottomCenter;
+// #if ADMOB_MEDIATION
+//             // TODO
+// #else
+//             FakeAdBanner.THIS.Position = UIManager.MenuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter;
+// #endif
+        }
+        #endregion
+
         public void InitAdSDK(System.Action onInit = null)
         {
             _maxSDKInitComplete += onInit;
             _Data.LastTimeAdShown = (int)Time.time;
 
-            MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
-            MaxSdk.SetUserId(Account.Current.guid);
-            MaxSdk.InitializeSdk();
-            MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => 
-                {
-                    FakeAdRewarded.THIS.Initialize();
-                    FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
-                    {
-                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.REWARDED))
-                        {
-                            return;
-                        }
-                        AdBreakScreen.THIS.SetLoadState(state);
-                    };
-                    
-                    if (_Data.removeAds)
-                    {
-                        _maxSDKInitComplete?.Invoke();
-                        _maxSDKInitComplete = null;
-                        return;
-                    }
-                    
-                    
-                    InitBanner();
-                    
-                    FakeAdInterstitial.THIS.Initialize();
-                    FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
-                    {
-                        if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.INTERSTITIAL))
-                        {
-                            return;
-                        }
-                        AdBreakScreen.THIS.SetLoadState(state);
-                    };
-                    
-                    _maxSDKInitComplete?.Invoke();
-                    _maxSDKInitComplete = null;
-                };
+            InitializeMediation();
         }
 
-        public void OpenMediationDebugger()
+
+        private void OnMediationInitialized()
         {
-            MaxSdk.ShowMediationDebugger();
+            FakeAdRewarded.THIS.Initialize();
+            FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
+            {
+                if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.REWARDED))
+                {
+                    return;
+                }
+                AdBreakScreen.THIS.SetLoadState(state);
+            };
+                    
+            if (_Data.removeAds)
+            {
+                _maxSDKInitComplete?.Invoke();
+                _maxSDKInitComplete = null;
+                return;
+            }
+                    
+                    
+            InitBanner();
+                    
+            FakeAdInterstitial.THIS.Initialize();
+            FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
+            {
+                if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.INTERSTITIAL))
+                {
+                    return;
+                }
+                AdBreakScreen.THIS.SetLoadState(state);
+            };
+                    
+            _maxSDKInitComplete?.Invoke();
+            _maxSDKInitComplete = null;
         }
         
         public void TryInterstitial(AdBreakScreen.AdReason adReason)
@@ -102,7 +193,7 @@ namespace IWI
             {
                 return;
             }
-            if (!MaxSdk.IsInitialized())
+            if (!IsMediationInitialized())
             {
                 _maxSDKInitComplete += ShowBannerFrame;
                 return;
@@ -131,7 +222,7 @@ namespace IWI
             {
                 return;
             }
-            FakeAdBanner.THIS.Position = UIManager.MenuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter;
+            SetBannerPositionByMenuState();
         }
 
         public static void ShowAdBreak(AdBreakScreen.AdReason adReason)
@@ -142,7 +233,7 @@ namespace IWI
                 return;
             }
 #endif
-            if (!MaxSdk.IsInitialized())
+            if (!IsMediationInitialized())
             {
                 return;
             }
@@ -213,7 +304,7 @@ namespace IWI
                 return;
             }
 #endif
-            if (!MaxSdk.IsInitialized())
+            if (IsMediationInitialized())
             {
                 return;
             }
