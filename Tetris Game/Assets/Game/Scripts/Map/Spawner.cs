@@ -67,6 +67,7 @@ public class Spawner : Singleton<Spawner>
     }
 
     public Vector3 MountPosition => spawnedBlockLocation.position + CurrentBlock.blockData.spawnerOffset;
+    public Vector3 BlockSpawnerOffset => CurrentBlock.blockData.spawnerOffset;
     public Vector3 HitPoint(Ray ray) => _plane.Raycast(ray, out float enter) ? ray.GetPoint(enter) : Vector3.zero;
     
     public void UpdatePosition(Vector3 pivot)
@@ -324,9 +325,10 @@ public class Spawner : Singleton<Spawner>
         Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
 // #endif
 
-        // _dragOffset.x *= 1.25f;
         _finalPosition = targetPosition - _dragOffset;
-        _finalPosition *= 1.4f;
+
+        Vector3 drag = _dragOffset + MountPosition - hitPoint;
+        _finalPosition -= drag * 0.5f;
     }
     public void Input_OnUp()
     {

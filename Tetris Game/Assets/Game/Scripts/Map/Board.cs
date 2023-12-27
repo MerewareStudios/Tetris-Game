@@ -227,57 +227,39 @@ namespace Game
                 
                 if (block && grabbed)
                 {
-                    // List<Vector2Int> projectedPlacePositions = new();
                     List<(Place, bool)> projectedPlaces = new();
                     bool canProjectFuture = !block.Free2Place;
 
-                    bool allProjects = true;
-                    // bool canPlaceAll = false;
+                    bool canPlaceAll = false;
                     
                     foreach (var pawn in block.Pawns)
                     {
                         (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
                         if (!place)
                         {
-                            allProjects = false;
                             projectedPlaces.Clear();
                             break;
-                            // projectedPlaces.Clear();
-                            // break;
-                            // continue;
                         }
                         projectedPlaces.Add((place, canPlace));
-                        // place.SetTargetColorType(canPlace ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
-
-                        // if (canProjectFuture)
-                        // {
-                        //     if (canPlace && place)
-                        //     {
-                        //         projectedPlaces.Add(place.Index);
-                        //     }
-                        //     else
-                        //     {
-                        //         canProjectFuture = false;
-                        //     }
-                        // }
                     }
-
-                    if (allProjects)
+                    
+                    if (projectedPlaces.Count == block.Pawns.Count)
                     {
+                        canPlaceAll = true;
                         foreach (var projectedPlace in projectedPlaces)
                         {
                             projectedPlace.Item1.SetTargetColorType(projectedPlace.Item2 ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
-                            
-                            
-                            if (canProjectFuture)
+
+                            if (canPlaceAll)
                             {
-                                if (!projectedPlace.Item2)
-                                {
-                                    canProjectFuture = false;
-                                }
+                                canPlaceAll = projectedPlace.Item2;
                             }
-                            
                         }
+                    }
+
+                    if (canProjectFuture)
+                    {
+                        canProjectFuture = canPlaceAll;
                     }
 
                     if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
@@ -1139,6 +1121,14 @@ namespace Game
         private Vector2Int Pos2UnsafeIndex(Vector3 position)
         {
             Vector3 posDif = (position + Spawner.THIS.distanceOfBlockCast) - _thisPosition + indexOffset;
+            if (posDif.x < 0.0f)
+            {
+                posDif.x = -4;
+            }
+            if (-posDif.z < 0.0f)
+            {
+                posDif.z = 4;
+            }
             return new Vector2Int((int)posDif.x, -(int)(posDif.z));
         }
         private Vector2Int? Unsafe2SafeIndex(Vector2Int index)

@@ -78,7 +78,12 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         GameManager.UpdateTimeScale();
         return false;
     }
-
+    public void OnClick_Close()
+    {
+        HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
+        Close();
+    }
+    
     public void Peak(bool state)
     {
         canvasGroup.DOKill();

@@ -25,8 +25,8 @@ namespace Game
         [System.NonSerialized] public bool CanRotate;
         
         [System.NonSerialized] public bool Free2Place = false;
-        
-        public Pawn PivotPawn => Pawns[0];
+
+        private Pawn PivotPawn => Pawns[0];
         [System.NonSerialized] public Vector2Int UnsafePivotIndex;
         public bool IsPivotPawn(Pawn pawn) => pawn.Equals(PivotPawn);
 
