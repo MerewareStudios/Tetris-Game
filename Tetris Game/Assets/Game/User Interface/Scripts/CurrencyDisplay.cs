@@ -27,6 +27,11 @@ public class CurrencyDisplay : MonoBehaviour
         text.text = overridenCurrency.type.ToTMProKey() + " " + overridenCurrency.amount + "/" + max;
         UpdateVisual(overridenCurrency.type);
     }
+    public void Display(int current, int max)
+    {
+        text.text = currencyType.ToTMProKey() + " " + current + "/" + max;
+        UpdateVisual(currencyType);
+    }
     public void DisplayRealMoneyWithFraction(Const.Currency overridenCurrency)
     {
         float amount = overridenCurrency.amount;

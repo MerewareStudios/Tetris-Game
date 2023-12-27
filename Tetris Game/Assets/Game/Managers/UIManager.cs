@@ -89,10 +89,10 @@ public class UIManager : Singleton<UIManager>
 
       AdBreakScreen.onVisibilityChanged = (visible) =>
       {
-         if (PiggyMenu.THIS.Visible)
-         {
-            PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
-         }
+         // if (PiggyMenu.THIS.Visible)
+         // {
+         //    PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
+         // }
          
          if (MenuVisible)
          {
@@ -149,10 +149,10 @@ public class UIManager : Singleton<UIManager>
          }
 
 
-         if (PiggyMenu.THIS.Visible)
-         {
-            PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
-         }
+         // if (PiggyMenu.THIS.Visible)
+         // {
+         //    PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
+         // }
          GameManager.UpdateTimeScale();
       };
       OfferScreen.OnUnpackShow = () =>

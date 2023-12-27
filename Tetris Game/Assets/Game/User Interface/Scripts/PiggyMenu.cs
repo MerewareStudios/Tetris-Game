@@ -10,19 +10,22 @@ using Helper = Internal.Core.Helper;
 
 public class PiggyMenu : Menu<PiggyMenu>, IMenu
 {
+    [SerializeField] private Transform frame;
+    // [SerializeField] private Canvas piggyBankCanvas;
+    [SerializeField] private GameObject fillPiggyParent;
+
     [Header("Bars")]
-    [SerializeField] private MarkedProgress _markedProgressPiggy;
+    [SerializeField] private Image piggyFill;
+    [SerializeField] private RectTransform piggyPunchPivot;
     [Header("Currency Displays")]
     [SerializeField] private CurrencyDisplay piggyCurrencyDisplay;
     [Header("Pivots")]
-    [SerializeField] private RectTransform _rectTransformPiggyIcon;
     [SerializeField] private RectTransform _coinTarget;
+    [SerializeField] private RectTransform closeButtonParent;
     [Header("Buttons")]
     [SerializeField] private Button closeButton;
-    [SerializeField] private RectTransform closeButtonParent;
     [SerializeField] private Button investButton;
     [SerializeField] private Button breakActionButton;
-    [SerializeField] private Transform frame;
     [SerializeField] private Button multiplyButton;
     [Header("Reward")]
     [SerializeField] private RectTransform normalPiggy;
@@ -38,11 +41,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     [SerializeField] private Transform clickLocation_Break;
     [Header("Frame")]
     [SerializeField] private Image ticketImage;
-    [SerializeField] private Image frameImage;
-    [SerializeField] private Color singleColor;
-    [SerializeField] private Color doubleColor;
     [SerializeField] private Transform multProgress;
-    [SerializeField] private Canvas piggyBankCanvas;
    
     public const int PiggyCapIncrease = 25;
     public const int PiggyCapDiv = 10;
@@ -60,10 +59,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         Shader.SetGlobalFloat(Helper.UnscaledTime, Time.unscaledTime);
     }
 
-    public void SetMiddleSortingLayer(int order)
-    {
-        piggyBankCanvas.sortingOrder = order;
-    }
+    // public void SetMiddleSortingLayer(int order)
+    // {
+    //     piggyBankCanvas.sortingOrder = order;
+    // }
     
     #region Menu
     public new bool Open(float duration = 0.5f)
@@ -73,7 +72,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             return true;
         }
 
-        SetMiddleSortingLayer(9);
+        // SetMiddleSortingLayer(9);
 
         TimeScale = 0;
         GameManager.UpdateTimeScale();
@@ -103,7 +102,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         SavedData = SavedData;
         
         piggyCurrencyDisplay.Display(SavedData.currentMoney, SavedData.moneyCapacity);
-        _markedProgressPiggy._Progress = SavedData.PiggyPercent;
+        piggyFill.fillAmount = SavedData.PiggyPercent;
 
         frame.DOKill();
         frame.localPosition = Vector3.down * 2000.0f;
@@ -169,7 +168,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         
         piggyCurrencyDisplay.gameObject.SetActive(!SavedData.IsFull);
         
-        _markedProgressPiggy.gameObject.SetActive(!SavedData.IsFull);
+        fillPiggyParent.SetActive(!SavedData.IsFull);
         rewardedPiggy.gameObject.SetActive(SavedData.IsFull);
         if (SavedData.IsFull)
         {
@@ -182,9 +181,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         breakActionButton.targetGraphic.raycastTarget = false;
         
         multiplyButton.gameObject.SetActive(false);
-        
-        frameImage.DOKill();
-        frameImage.color = singleColor;
     }
     #endregion
 
@@ -249,10 +245,6 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                     mulTransform.DOKill();
                     mulTransform.DOPunchScale(Vector3.one * 0.25f, 0.25f).SetUpdate(true);
 
-                    frameImage.DOKill();
-                    frameImage.DOColor(doubleColor, 0.15f).SetEase(Ease.OutQuad).SetUpdate(true);
-
-                    
                     _shakeTween?.Play();
                 }, UIEmitter.Cam.UI);
 
@@ -342,7 +334,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             ONBOARDING.PIGGY_BREAK.SetComplete();
         }
-            Onboarding.HideFinger();
+        Onboarding.HideFinger();
         
         AnalyticsManager.PiggyBreak(SavedData.breakInstance + 1, LevelManager.CurrentLevel);
     }
@@ -437,48 +429,45 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
     #endregion
 
 
-    #region Fields
-    
-   
-    #endregion
     #region Animations
     private void PunchPiggyIcon(float amount = 0.25f)
     {
-        _rectTransformPiggyIcon.DOKill();
-        _rectTransformPiggyIcon.localScale = Vector3.one;
-        _rectTransformPiggyIcon.DOPunchScale(Vector3.one * amount, 0.75f, 1).SetUpdate(true);
+        piggyPunchPivot.DOKill();
+        piggyPunchPivot.localScale = Vector3.one;
+        piggyPunchPivot.DOPunchScale(Vector3.one * amount, 0.75f, 1).SetUpdate(true);
     }
     #endregion
+    
+    
     #region Invest
     private void AddMoney(int count, float delay = 0.0f)
     {
+        int start = SavedData.currentMoney.amount;
         SavedData.currentMoney.amount += count;
         SavedData.currentMoney.amount = Mathf.Clamp(SavedData.currentMoney.amount, 0, SavedData.moneyCapacity);
-        
-        _markedProgressPiggy.ProgressAnimated(SavedData.PiggyPercent, delay, Ease.OutQuad, 
-            
-            (value) => piggyCurrencyDisplay.Display(SavedData.Percent2Money(value), SavedData.moneyCapacity), 
-            
-            () =>
+        int end = SavedData.currentMoney.amount;
+
+
+        float duration = Mathf.Max((piggyFill.fillAmount - SavedData.PiggyPercent) * 1.0f, 0.35f);
+        Tween fillTween = piggyFill.DOFillAmount(SavedData.PiggyPercent, duration).SetDelay(delay).SetEase(Ease.OutQuad).SetUpdate(true);
+        fillTween.onUpdate = () =>
+        {
+            int current =  (int)Mathf.Lerp(start, end, fillTween.ElapsedPercentage());
+            piggyCurrencyDisplay.Display(current, SavedData.moneyCapacity);
+        };
+        fillTween.onComplete = () =>
+        {
+            if (SavedData.IsFull)
             {
-                if (SavedData.IsFull)
-                {
                     DOVirtual.DelayedCall(0.1f, () =>
                     {
                         Audio.Piggy_Full.Play();
 
                         breakActionButton.targetGraphic.raycastTarget = false;
 
-                        // breakButton.targetGraphic.raycastTarget = false;
-                        // breakButton.gameObject.SetActive(true);
-                        // breakButton.transform.DOKill();
-                        // breakButton.transform.localScale = Vector3.zero;
-                        // breakButton.transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack).SetUpdate(true);
-                       
-                        
-                        _markedProgressPiggy.gameObject.SetActive(false);
                         piggyCurrencyDisplay.gameObject.SetActive(false);
-                        
+                        fillPiggyParent.SetActive(false);
+
                         rewardedPiggyShakePivot.localScale = Vector3.one;
                         rewardedPiggyShakePivot.localEulerAngles = Vector3.zero;
                         
@@ -487,10 +476,9 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         rewardedPiggy.localScale = Vector3.one;
                         rewardedPiggy.DOKill();
                         rewardedPiggy.DOScale(Vector3.one * 1.5f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
-                        rewardedPiggy.DOLocalMove(Vector3.zero, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true).onComplete =
+                        rewardedPiggy.DOLocalMove(new Vector3(0.0f, 150.0f, 0.0f), 0.4f).SetEase(Ease.OutQuad).SetUpdate(true).onComplete =
                             () =>
                             {
-                                // breakButton.targetGraphic.raycastTarget = true;
                                 breakActionButton.targetGraphic.raycastTarget = true;
 
                                 ShowBreakFinger();
@@ -500,16 +488,15 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
                         piggyGlowMat.SetColor(GameManager.InsideColor, glowColorStart);
                     });
 
-                }
-                else
+            }
+            else
+            {
+                DOVirtual.DelayedCall(0.5f, () =>
                 {
-                    DOVirtual.DelayedCall(0.5f, () =>
-                    {
-                        OnClick_ContinuePiggyBank();
-                    });
-                    // ShowContinueButton();
-                }
-            });
+                    OnClick_ContinuePiggyBank();
+                });
+            }
+        };
     }
 
     private void ShowBreakFinger()
