@@ -4223,6 +4223,9 @@ MonoBehaviour:
         arrival: -1
         total: 0
     adData:
+      hasConsentTaken: 0
+      hasPrivacyConsent: 0
+      isAgeRestrictedUser: 0
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0

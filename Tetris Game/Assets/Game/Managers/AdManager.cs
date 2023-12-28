@@ -1,6 +1,7 @@
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
     using System.Collections.Generic;
+    using GoogleMobileAds.Mediation.UnityAds.Api;
 #else
 
 #endif
@@ -30,21 +31,31 @@ namespace IWI
 
         #region Per Mediator
 
-        public static bool IsMediationConsentSet()
+        public static bool HasTakenAnyConsent()
         {
 #if ADMOB_MEDIATION
             // TODO
-            return false;
+            return AdManager.THIS._Data.hasConsentTaken;
 #else
             return MaxSdk.IsUserConsentSet();
 #endif
         }
         
-        public static bool HasMediationUserConsent()
+        public static bool SetMediationConsentTaken(bool state)
         {
 #if ADMOB_MEDIATION
             // TODO
-            return false;
+            return AdManager.THIS._Data.hasConsentTaken = state;
+#else
+            return MaxSdk.IsUserConsentSet();
+#endif
+        }
+        
+        public static bool HasMediationPrivacyConsent()
+        {
+#if ADMOB_MEDIATION
+            // TODO
+            return AdManager.THIS._Data.hasPrivacyConsent;
 #else
             return MaxSdk.HasUserConsent();
 #endif
@@ -54,16 +65,18 @@ namespace IWI
         {
 #if ADMOB_MEDIATION
             // TODO
-            return false;
+            return AdManager.THIS._Data.isAgeRestrictedUser;
 #else
             return MaxSdk.IsAgeRestrictedUser();
 #endif
         }
         
-        public static void SetMediationHasUserConsent(bool state)
+        public static void SetMediationPrivacyConsent(bool state)
         {
 #if ADMOB_MEDIATION
             // TODO
+            UnityAds.SetConsentMetaData("privacy.consent", state);
+            AdManager.THIS._Data.hasPrivacyConsent = state;
 #else
             MaxSdk.SetHasUserConsent(state);
 #endif
@@ -73,6 +86,8 @@ namespace IWI
         {
 #if ADMOB_MEDIATION
             // TODO
+            UnityAds.SetConsentMetaData("gdpr.consent", state);
+            AdManager.THIS._Data.isAgeRestrictedUser = state;
 #else
             MaxSdk.SetIsAgeRestrictedUser(state);
 #endif
@@ -81,6 +96,9 @@ namespace IWI
         private void InitializeMediation()
         {
 #if ADMOB_MEDIATION
+            // TODO
+            _data.MediationInitialized = false;
+
             MobileAds.Initialize(initStatus =>
             {
                 Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
@@ -103,7 +121,6 @@ namespace IWI
                 
                 OnMediationInitialized();
             });
-            // TODO
 #else
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
             MaxSdk.SetUserId(Account.Current.guid);
@@ -119,7 +136,7 @@ namespace IWI
         {
 #if ADMOB_MEDIATION
              // TODO
-             return false;
+             return AdManager.THIS._Data.MediationInitialized;
 #else
             return MaxSdk.IsInitialized();
 #endif
@@ -136,11 +153,6 @@ namespace IWI
         public static void SetBannerPositionByMenuState()
         {
             FakeAdBanner.THIS.Position = UIManager.MenuVisible ? FakeAdBanner.BannerPosition.TopCenter : FakeAdBanner.BannerPosition.BottomCenter;
-// #if ADMOB_MEDIATION
-//             // TODO
-// #else
-//             FakeAdBanner.THIS.Position = UIManager.MenuVisible ? MaxSdkBase.BannerPosition.TopCenter : MaxSdkBase.BannerPosition.BottomCenter;
-// #endif
         }
         #endregion
 
@@ -155,6 +167,8 @@ namespace IWI
 
         private void OnMediationInitialized()
         {
+            _data.MediationInitialized = true;
+            
             FakeAdRewarded.THIS.Initialize();
             FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
             {
@@ -428,6 +442,10 @@ namespace IWI
         [System.Serializable]
         public class Data : ICloneable
         {
+            [System.NonSerialized] public bool MediationInitialized = false;
+            [SerializeField] public bool hasConsentTaken = false;
+            [SerializeField] public bool hasPrivacyConsent = false;
+            [SerializeField] public bool isAgeRestrictedUser = false;
             [SerializeField] public bool removeAds = false;
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
@@ -441,6 +459,9 @@ namespace IWI
             }
             public Data(Data data)
             {
+                hasConsentTaken = data.hasConsentTaken;
+                hasPrivacyConsent = data.hasPrivacyConsent;
+                isAgeRestrictedUser = data.isAgeRestrictedUser;
                 removeAds = data.removeAds;
                 interSkipCount = data.interSkipCount;
                 interWatchCount = data.interWatchCount;

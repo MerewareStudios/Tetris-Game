@@ -55,9 +55,9 @@ public class Consent : Lazyingleton<Consent>
         bool privacyState;
         bool ageState;
         
-        if (AdManager.IsMediationConsentSet())
+        if (AdManager.HasTakenAnyConsent())
         {
-            privacyState = AdManager.HasMediationUserConsent();
+            privacyState = AdManager.HasMediationPrivacyConsent();
             ageState = !AdManager.IsMediationAgeRestricted();
         }
         else
@@ -85,7 +85,8 @@ public class Consent : Lazyingleton<Consent>
     {
         HapticManager.OnClickVibrate();
 
-        AdManager.SetMediationHasUserConsent(toggleButtonPrivacy.isOn);
+        AdManager.SetMediationConsentTaken(true);
+        AdManager.SetMediationPrivacyConsent(toggleButtonPrivacy.isOn);
         AdManager.SetMediationAgeRestricted(!toggleButtonAge.isOn);
         _onDone?.Invoke();
     }

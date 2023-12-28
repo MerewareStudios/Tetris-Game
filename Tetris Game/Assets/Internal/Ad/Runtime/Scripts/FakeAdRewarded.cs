@@ -1,3 +1,6 @@
+#if ADMOB_MEDIATION
+    using GoogleMobileAds.Api;
+#endif
 using System;
 using Internal.Core;
 using UnityEngine;
@@ -8,8 +11,18 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 #region Mediation Variables
 
 #if ADMOB_MEDIATION
-            
+    
     // TODO
+#if UNITY_ANDROID
+    private string _adUnitId = "ca-app-pub-9794688140048159/7403655756";
+#elif UNITY_IPHONE
+    private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
+#else
+    private string _adUnitId = "unused";
+#endif
+    
+    private RewardedAd _rewardedAd;
+    
 #else
     private const string MaxAdUnitId = "3a4b26d73c5511e1";
 
@@ -35,6 +48,8 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
     {
 #if ADMOB_MEDIATION
         // TODO
+        DestroyMediation();
+        RewardedAd.Load(_adUnitId, new AdRequest(), OnRewardedAdLoadCallback);
 #else
         MaxSdk.LoadRewardedAd(MaxAdUnitId);
 #endif
@@ -44,7 +59,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
     {
 #if ADMOB_MEDIATION
         // TODO
-        return false;
+        return _rewardedAd != null && _rewardedAd.CanShowAd();
 #else
         return MaxSdk.IsRewardedAdReady(MaxAdUnitId);
 #endif
@@ -54,13 +69,103 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
     {
 #if ADMOB_MEDIATION
         // TODO
+        _rewardedAd.Show(OnRewardedAdReceivedRewardEvent);
 #else
         MaxSdk.ShowRewardedAd(MaxAdUnitId);
 #endif
     }
     
+    private void DestroyMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+        if (_rewardedAd != null)
+        {
+            _rewardedAd.Destroy();
+            _rewardedAd = null;
+        }
+#else
+
+#endif
+    }
+    
 #if ADMOB_MEDIATION
     // TODO
+
+    private void OnRewardedAdLoadCallback(RewardedAd ad, LoadAdError error)
+    {
+        if (error != null || ad == null)
+        {
+            OnRewardedAdLoadFailedEvent(error);
+            return;
+        }
+
+        _rewardedAd = ad;
+        
+        ad.OnAdPaid += OnRewardedAdRevenuePaidEvent;
+        ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
+        ad.OnAdClicked += OnRewardedAdClickedEvent;
+        ad.OnAdFullScreenContentOpened += OnRewardedAdFullScreenContentOpened;
+        ad.OnAdFullScreenContentClosed += OnRewardedAdFullScreenContentClosed;
+        ad.OnAdFullScreenContentFailed += OnRewardedAdFullScreenContentFailed;
+        
+        
+        LoadState = LoadState.Success;
+        OnLoadedStateChanged?.Invoke(LoadState);
+        
+        _retryAttempt = 0;
+    }
+
+    private void OnRewardedAdLoadFailedEvent(LoadAdError error)
+    {
+        Debug.LogError("Rewarded ad failed to load an ad with error : " + error);
+
+        LoadState = LoadState.Fail;
+        OnLoadedStateChanged?.Invoke(LoadState);
+        
+        _retryAttempt++;
+        InvokeForLoad();
+    }
+
+    private void OnRewardedAdFullScreenContentOpened()
+    {
+#if UNITY_EDITOR
+        Time.timeScale = 0.0f;
+#endif
+    }
+
+    private void OnRewardedAdFullScreenContentFailed(AdError error)
+    {
+        this.OnFailedDisplay?.Invoke();
+        LoadAd();
+    }
+
+    private void OnRewardedAdClickedEvent()
+    {
+        
+    }
+
+    private void OnRewardedAdFullScreenContentClosed()
+    {
+        this.OnHidden?.Invoke();
+        LoadAd();
+    }
+
+    private void OnRewardedAdReceivedRewardEvent(Reward reward)
+    {
+        OnReward?.Invoke();
+    }
+
+    private void OnRewardedAdRevenuePaidEvent(AdValue adValue)
+    {
+        
+    }
+    
+    private void OnAdImpressionRecorded()
+    {
+        
+    }
+    
 #else
     private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {

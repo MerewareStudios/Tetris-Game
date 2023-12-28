@@ -24,6 +24,7 @@ public static class AnalyticsManager
         GameAnalytics.Initialize();
 #if ADMOB_MEDIATION
         // TODO
+        // GameAnalyticsILRD.SubscribeAdMobImpressions();
 #else
         GameAnalyticsILRD.SubscribeMaxImpressions();
 #endif

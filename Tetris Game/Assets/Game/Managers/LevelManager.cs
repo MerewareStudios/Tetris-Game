@@ -63,7 +63,7 @@ public class LevelManager : Singleton<LevelManager>
         UIManager.UpdateNotifications();
        
 #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
-        if (MaxSdk.IsUserConsentSet())
+        if (AdManager.HasTakenAnyConsent())
 #endif
         {
             BeginLevel();

@@ -87,7 +87,7 @@ public class GameManager : Singleton<GameManager>
         }
         
     #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
-        if (!MaxSdk.IsUserConsentSet())
+        if (!AdManager.HasTakenAnyConsent())
         {
             Consent.THIS.Open(() =>
             {

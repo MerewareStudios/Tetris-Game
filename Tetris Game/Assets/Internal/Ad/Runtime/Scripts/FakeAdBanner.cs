@@ -1,3 +1,6 @@
+#if ADMOB_MEDIATION
+    using GoogleMobileAds.Api;
+#endif
 using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
@@ -8,7 +11,16 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
 #region Mediation Variables
 
 #if ADMOB_MEDIATION
-            
+    BannerView _bannerView;
+
+#if UNITY_ANDROID
+    private string _adUnitId = "ca-app-pub-9794688140048159/4924832074";
+#elif UNITY_IPHONE
+    private string _adUnitId = "ca-app-pub-3940256099942544/2934735716";
+#else
+    private string _adUnitId = "unused";
+    
+#endif
     // TODO
 #else
     private const string MaxAdUnitId = "85fc6bf5a70ecf37";
@@ -19,16 +31,17 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+        
 #else
         MaxSdk.SetBannerExtraParameter(MaxAdUnitId, "adaptive_banner", "true");
         MaxSdk.SetBannerBackgroundColor(MaxAdUnitId, backgroundColor);
         
-        MaxSdkCallbacks.Banner.OnAdLoadedEvent      += OnBannerAdLoadedEvent;
-        MaxSdkCallbacks.Banner.OnAdLoadFailedEvent  += OnBannerAdLoadFailedEvent;
-        MaxSdkCallbacks.Banner.OnAdClickedEvent     += OnBannerAdClickedEvent;
+        MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnBannerAdLoadedEvent;
+        MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
+        MaxSdkCallbacks.Banner.OnAdClickedEvent += OnBannerAdClickedEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
-        MaxSdkCallbacks.Banner.OnAdExpandedEvent    += OnBannerAdExpandedEvent;
-        MaxSdkCallbacks.Banner.OnAdCollapsedEvent   += OnBannerAdCollapsedEvent;
+        MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnBannerAdExpandedEvent;
+        MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnBannerAdCollapsedEvent;
 #endif
     }
     
@@ -36,6 +49,34 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+        Debug.Log("Creating banner view");
+
+        // If we already have a banner, destroy the old one.
+        DestroyMediation();
+        
+        // Create a 320x50 banner at top of the screen
+        _bannerView = new BannerView(_adUnitId, AdSize.Banner, ToMediationBannerPosition(_currentPosition));
+        
+        _bannerView.OnBannerAdLoaded += OnBannerAdLoaded;
+        _bannerView.OnBannerAdLoadFailed += OnBannerAdLoadFailed;
+        _bannerView.OnAdPaid += OnAdPaid;
+        _bannerView.OnAdImpressionRecorded += OnAdImpressionRecorded;
+        _bannerView.OnAdClicked += OnAdClicked;
+        _bannerView.OnAdFullScreenContentOpened += OnAdFullScreenContentOpened;
+        _bannerView.OnAdFullScreenContentClosed += OnAdFullScreenContentClosed;
+        
+        // // create an instance of a banner view first.
+        // if(_bannerView == null)
+        // {
+        //     CreateBannerView();
+        // }
+
+        // create our request used to load the ad.
+        var adRequest = new AdRequest();
+
+        // send the request to load the ad.
+        Debug.Log("Loading banner ad.");
+        _bannerView.LoadAd(adRequest);
 #else
         MaxSdk.CreateBanner(MaxAdUnitId, ToMediationBannerPosition(_currentPosition));
 #endif
@@ -45,6 +86,12 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+        if (_bannerView != null)
+        {
+            Debug.Log("Destroying banner view.");
+            _bannerView.Destroy();
+            _bannerView = null;
+        }
 #else
         MaxSdk.DestroyBanner(MaxAdUnitId);
 #endif
@@ -63,6 +110,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+        _bannerView.Show();
 #else
         MaxSdk.ShowBanner(MaxAdUnitId);
 #endif
@@ -72,6 +120,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+        _bannerView.Hide();
 #else
         MaxSdk.HideBanner(MaxAdUnitId);
 #endif
@@ -80,6 +129,17 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
 #if ADMOB_MEDIATION
     // TODO
+    private static AdPosition ToMediationBannerPosition(BannerPosition bannerPosition)
+    {
+        switch (bannerPosition)
+        {
+            case BannerPosition.TopCenter:
+                return AdPosition.Top;
+            case BannerPosition.BottomCenter:
+                return AdPosition.Bottom;
+        }
+        return AdPosition.Top;
+    }
 #else
     private static MaxSdkBase.BannerPosition ToMediationBannerPosition(BannerPosition bannerPosition)
     {
@@ -98,6 +158,29 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
 #if ADMOB_MEDIATION
     // TODO
+    private void OnBannerAdLoaded()
+    {
+        CurrentLoadState = LoadState.Success;
+    }
+    private void OnBannerAdLoadFailed(LoadAdError error)
+    {
+        CurrentLoadState = LoadState.Fail;
+    }
+    private void OnAdPaid(AdValue adValue)
+    {
+    }
+    private void OnAdImpressionRecorded()
+    {
+    }
+    private void OnAdClicked()
+    {
+    }
+    private void OnAdFullScreenContentOpened()
+    {
+    }
+    private void OnAdFullScreenContentClosed()
+    {
+    }
 #else
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
