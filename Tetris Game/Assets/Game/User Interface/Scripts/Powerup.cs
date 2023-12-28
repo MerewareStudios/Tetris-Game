@@ -192,6 +192,7 @@ public class Powerup : Lazyingleton<Powerup>
             }
             
             PunchCost();
+
             AdManager.ShowTicketAd(AdBreakScreen.AdReason.POWERUP,() =>
             {
                 Wallet.Transaction(Const.Currency.OneAd);

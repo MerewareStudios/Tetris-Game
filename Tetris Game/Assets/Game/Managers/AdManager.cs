@@ -1,3 +1,4 @@
+#define LOG
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
     using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace IWI
 {
     public class AdManager : Singleton<AdManager>
     {
+        [System.Diagnostics.Conditional("LOG")]
+        private void LogInterstitial(object o)
+        {
+            Debug.Log(o.ToString());
+        }
+        
         [SerializeField] public FakeAdBanner fakeAdBanner;
         [SerializeField] public FakeAdInterstitial fakeAdInterstitial;
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
@@ -205,18 +212,47 @@ namespace IWI
         
         public void TryInterstitial(AdBreakScreen.AdReason adReason)
         {
+            LogInterstitial("Try Interstitial");
             if (_Data.removeAds)
             {
+                LogInterstitial("Try Interstitial Failed : Removed Ads");
                 return;
             }
             if (ONBOARDING.WEAPON_TAB.IsNotComplete())
             {
+                LogInterstitial("Try Interstitial Failed : Weapon Onboarding Not Complete");
                 return;
             }
-            if (Time.time - _Data.LastTimeAdShown > adTimeInterval)
+            if (Time.time - _Data.LastTimeAdShown < adTimeInterval)
             {
-                ShowAdBreak(adReason);
+                LogInterstitial("Try Interstitial Failed : Not Time Yet");
             }
+            
+#if CREATIVE
+            if (!Const.THIS.creativeSettings.adsEnabled)
+            {
+                LogInterstitial("Try Interstitial Failed : Creatives Disabled Ads");
+                return;
+            }
+#endif
+            if (!IsMediationInitialized())
+            {
+                LogInterstitial("Try Interstitial Failed : Mediation Not Initialized");
+                return;
+            }
+            if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
+            {
+                LogInterstitial("Try Interstitial Failed : Interstitial Not Loaded");
+                FakeAdInterstitial.THIS.LoadAd();
+                return;
+            }
+            if (!FakeAdInterstitial.THIS.Ready)
+            {
+                LogInterstitial("Try Interstitial Failed : Interstitial Not Ready");
+                return;
+            }
+            
+            ShowAdBreak(adReason);
         }
 
         public void PrependInterstitial()
@@ -266,32 +302,8 @@ namespace IWI
             SetBannerPositionByMenuState();
         }
 
-        public static void ShowAdBreak(AdBreakScreen.AdReason adReason)
+        private static void ShowAdBreak(AdBreakScreen.AdReason adReason)
         {
-#if CREATIVE
-            if (!Const.THIS.creativeSettings.adsEnabled)
-            {
-                return;
-            }
-#endif
-            if (!IsMediationInitialized())
-            {
-                return;
-            }
-            if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
-            {
-                FakeAdInterstitial.THIS.LoadAd();
-                return;
-            }
-            if (!FakeAdInterstitial.THIS.Ready)
-            {
-                return;
-            }
-            
-            #if NOADS
-                return;
-            #endif
-
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.INTERSTITIAL)
             .SetLoadState(FakeAdInterstitial.THIS.LoadState)
             .SetInfo(Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText)
@@ -345,7 +357,7 @@ namespace IWI
                 return;
             }
 #endif
-            if (IsMediationInitialized())
+            if (!IsMediationInitialized())
             {
                 return;
             }
@@ -362,11 +374,6 @@ namespace IWI
                 timeUntilAd = Mathf.Max(timeUntilAd, 40);
                 AdManager.THIS._Data.LastTimeAdShown = now - AdManager.THIS.adTimeInterval + timeUntilAd;
             };
-            
-#if NOADS
-            onReward?.Invoke();
-            return;
-#endif
             
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.REWARDED)
             .SetLoadState(FakeAdRewarded.THIS.LoadState)
@@ -395,10 +402,6 @@ namespace IWI
 
                 AdBreakScreen.THIS.CloseImmediate();
                 
-// #if NOADS
-//                 onReward?.Invoke();
-//                 return;
-// #endif
                 FakeAdRewarded.THIS.Show(
                     GameManager.UpdateTimeScale, 
                     onReward,

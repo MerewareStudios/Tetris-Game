@@ -11,7 +11,6 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 #region Mediation Variables
 
 #if ADMOB_MEDIATION
-    
     // TODO
 #if UNITY_ANDROID
     private string _adUnitId = "ca-app-pub-9794688140048159/7403655756";
@@ -158,12 +157,10 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 
     private void OnRewardedAdRevenuePaidEvent(AdValue adValue)
     {
-        
     }
     
     private void OnAdImpressionRecorded()
     {
-        
     }
     
 #else

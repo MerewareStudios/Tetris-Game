@@ -49,12 +49,8 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
-        Debug.Log("Creating banner view");
-
-        // If we already have a banner, destroy the old one.
         DestroyMediation();
         
-        // Create a 320x50 banner at top of the screen
         _bannerView = new BannerView(_adUnitId, AdSize.Banner, ToMediationBannerPosition(_currentPosition));
         
         _bannerView.OnBannerAdLoaded += OnBannerAdLoaded;
@@ -65,33 +61,24 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         _bannerView.OnAdFullScreenContentOpened += OnAdFullScreenContentOpened;
         _bannerView.OnAdFullScreenContentClosed += OnAdFullScreenContentClosed;
         
-        // // create an instance of a banner view first.
-        // if(_bannerView == null)
-        // {
-        //     CreateBannerView();
-        // }
-
-        // create our request used to load the ad.
-        var adRequest = new AdRequest();
-
-        // send the request to load the ad.
-        Debug.Log("Loading banner ad.");
-        _bannerView.LoadAd(adRequest);
+        Debug.Log("Create Banner");
+        _bannerView.LoadAd(new AdRequest());
 #else
         MaxSdk.CreateBanner(MaxAdUnitId, ToMediationBannerPosition(_currentPosition));
 #endif
     }
-    
+   
     private void DestroyMediation()
     {
 #if ADMOB_MEDIATION
         // TODO
-        if (_bannerView != null)
+        if (_bannerView == null)
         {
-            Debug.Log("Destroying banner view.");
-            _bannerView.Destroy();
-            _bannerView = null;
+            return;
         }
+        Debug.Log("Destroying banner view.");
+        _bannerView.Destroy();
+        _bannerView = null;
 #else
         MaxSdk.DestroyBanner(MaxAdUnitId);
 #endif
@@ -101,6 +88,7 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+        _bannerView?.SetPosition(ToMediationBannerPosition(bannerPosition));
 #else
         MaxSdk.UpdateBannerPosition(MaxAdUnitId, ToMediationBannerPosition(bannerPosition));
 #endif
@@ -212,11 +200,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     
 #endregion
 
-    
-
-    
-    
-    
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform offerFrame;
     [SerializeField] private RectTransform animPivot;

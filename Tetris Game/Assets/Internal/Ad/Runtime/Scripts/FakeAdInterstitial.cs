@@ -1,3 +1,6 @@
+#if ADMOB_MEDIATION
+    using GoogleMobileAds.Api;
+#endif
 using System;
 using Internal.Core;
 using UnityEngine;
@@ -8,8 +11,19 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 #region Mediation Variables
 
 #if ADMOB_MEDIATION
-            
     // TODO
+    
+#if UNITY_ANDROID
+    private string _adUnitId = "ca-app-pub-9794688140048159/9730436196";
+#elif UNITY_IPHONE
+    private string _adUnitId = "ca-app-pub-3940256099942544/4411468910";
+#else
+    private string _adUnitId = "unused";
+#endif
+    
+    private InterstitialAd _interstitialAd;
+
+    
 #else
     private const string MaxAdUnitId = "c447e9a9232d8a7e";
 
@@ -33,6 +47,8 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     {
 #if ADMOB_MEDIATION
         // TODO
+        DestoryMediation();
+        InterstitialAd.Load(_adUnitId, new AdRequest(), OnInterstitialAdLoadCallback);
 #else
         MaxSdk.LoadInterstitial(MaxAdUnitId);
 #endif
@@ -42,7 +58,7 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     {
 #if ADMOB_MEDIATION
         // TODO
-        return false;
+        return _interstitialAd != null && _interstitialAd.CanShowAd();
 #else
         return MaxSdk.IsInterstitialReady(MaxAdUnitId);
 #endif
@@ -52,13 +68,88 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     {
 #if ADMOB_MEDIATION
         // TODO
+        _interstitialAd.Show();
 #else
         MaxSdk.ShowInterstitial(MaxAdUnitId);
 #endif
     }
     
+    private void DestoryMediation()
+    {
+#if ADMOB_MEDIATION
+        // TODO
+        if (_interstitialAd != null)
+        {
+            _interstitialAd.Destroy();
+            _interstitialAd = null;
+        }
+#else
+
+#endif
+    }
+    
 #if ADMOB_MEDIATION
     // TODO
+    
+    private void OnInterstitialAdLoadCallback(InterstitialAd ad, LoadAdError error)
+    {
+        if (error != null || ad == null)
+        {
+            OnInterstitialAdLoadFailedEvent(error);
+            return;
+        }
+
+        _interstitialAd = ad;
+        
+        ad.OnAdPaid += OnAdPaid;
+        ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
+        ad.OnAdClicked += OnAdClicked;
+        ad.OnAdFullScreenContentOpened += OnInterstitialAdFullScreenContentOpened;
+        ad.OnAdFullScreenContentClosed += OnInterstitialAdFullScreenContentClosed;
+        ad.OnAdFullScreenContentFailed += OnInterstitialAdFullScreenContentFailed;
+        
+        
+        LoadState = LoadState.Success;
+        OnLoadedStateChanged?.Invoke(LoadState);
+        
+        _retryAttempt = 0;
+    }
+    
+    private void OnInterstitialAdLoadFailedEvent(LoadAdError error)
+    {
+        Debug.LogError("Rewarded ad failed to load an ad with error : " + error);
+
+        LoadState = LoadState.Fail;
+        OnLoadedStateChanged?.Invoke(LoadState);
+        
+        _retryAttempt++;
+        InvokeForLoad();
+    }
+    private void OnInterstitialAdFullScreenContentOpened()
+    {
+#if UNITY_EDITOR
+        Time.timeScale = 0.0f;
+#endif
+    }
+    private void OnInterstitialAdFullScreenContentFailed(AdError error)
+    {
+        this.OnFailedDisplay?.Invoke();
+        LoadAd();
+    }
+    private void OnInterstitialAdFullScreenContentClosed()
+    {
+        this.OnHidden?.Invoke();
+        LoadAd();
+    }
+    private void OnAdClicked()
+    {
+    }
+    private void OnAdPaid(AdValue adValue)
+    {
+    }
+    private void OnAdImpressionRecorded()
+    {
+    }
 #else
     private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
@@ -148,11 +239,6 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     {
         InitializeMediation();
         LoadState = LoadState.None;
-    }
-
-    public void DestroyInterstitial()
-    {
-        
     }
 
     public void LoadAd()
