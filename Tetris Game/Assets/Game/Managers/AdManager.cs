@@ -1,3 +1,9 @@
+#if ADMOB_MEDIATION
+    using GoogleMobileAds.Api;
+    using System.Collections.Generic;
+#else
+
+#endif
 using System;
 using Internal.Core;
 using UnityEngine;
@@ -75,7 +81,28 @@ namespace IWI
         private void InitializeMediation()
         {
 #if ADMOB_MEDIATION
-            
+            MobileAds.Initialize(initStatus =>
+            {
+                Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
+                foreach (KeyValuePair<string, AdapterStatus> keyValuePair in map)
+                {
+                    string className = keyValuePair.Key;
+                    AdapterStatus status = keyValuePair.Value;
+                    switch (status.InitializationState)
+                    {
+                        case AdapterState.NotReady:
+                            // The adapter initialization did not complete.
+                            Debug.Log("Adapter: " + className + " not ready.");
+                            break;
+                        case AdapterState.Ready:
+                            // The adapter was successfully initialized.
+                            Debug.Log("Adapter: " + className + " is initialized.");
+                            break;
+                    }
+                }
+                
+                OnMediationInitialized();
+            });
             // TODO
 #else
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
