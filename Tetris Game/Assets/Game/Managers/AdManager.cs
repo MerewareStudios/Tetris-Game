@@ -16,9 +16,14 @@ namespace IWI
     public class AdManager : Singleton<AdManager>
     {
         [System.Diagnostics.Conditional("LOG")]
-        private void LogInterstitial(object o)
+        private void Log(object o)
         {
             Debug.Log(o.ToString());
+        }
+        [System.Diagnostics.Conditional("LOG")]
+        private void LogError(object o)
+        {
+            Debug.LogError(o.ToString());
         }
         
         [SerializeField] public FakeAdBanner fakeAdBanner;
@@ -159,6 +164,10 @@ namespace IWI
         {
 #if ADMOB_MEDIATION
             // TODO
+            MobileAds.OpenAdInspector(error =>
+            {
+                Debug.LogError(error);
+            });
 #else
             MaxSdk.ShowMediationDebugger();
 #endif
@@ -168,6 +177,16 @@ namespace IWI
             FakeAdBanner.THIS.Position = UIManager.MenuVisible ? FakeAdBanner.BannerPosition.TopCenter : FakeAdBanner.BannerPosition.BottomCenter;
         }
         #endregion
+
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        void OnGUI()
+        {
+            if (GUI.Button(new Rect(50, 450, 150, 50), "Mediation Debug"))
+            {
+                OpenMediationDebugger();
+            }
+        }
+#endif
 
         public void InitAdSDK(System.Action onComplete = null)
         {
@@ -211,17 +230,17 @@ namespace IWI
         {
             if (_Data.removeAds)
             {
-                LogInterstitial("Try Interstitial Failed : Removed Ads");
+                Log("Try Interstitial Failed : Removed Ads");
                 return;
             }
             if (ONBOARDING.WEAPON_TAB.IsNotComplete())
             {
-                LogInterstitial("Try Interstitial Failed : Weapon Onboarding Not Complete");
+                Log("Try Interstitial Failed : Weapon Onboarding Not Complete");
                 return;
             }
             if (Time.time - _Data.LastTimeAdShown < adTimeInterval)
             {
-                LogInterstitial("Try Interstitial Failed : Not Time Yet");
+                Log("Try Interstitial Failed : Not Time Yet");
             }
             
 #if CREATIVE
@@ -233,18 +252,18 @@ namespace IWI
 #endif
             if (!IsMediationInitialized())
             {
-                LogInterstitial("Try Interstitial Failed : Mediation Not Initialized");
+                Log("Try Interstitial Failed : Mediation Not Initialized");
                 return;
             }
             if (FakeAdInterstitial.THIS.LoadState.Equals(LoadState.None))
             {
-                LogInterstitial("Try Interstitial Failed : Interstitial Not Loaded");
+                Log("Try Interstitial Failed : Interstitial Not Loaded");
                 FakeAdInterstitial.THIS.LoadAd();
                 return;
             }
             if (!FakeAdInterstitial.THIS.Ready)
             {
-                LogInterstitial("Try Interstitial Failed : Interstitial Not Ready");
+                Log("Try Interstitial Failed : Interstitial Not Ready");
                 return;
             }
             
