@@ -1,6 +1,7 @@
 #define LOG
 #if ADMOB_MEDIATION
-    using GoogleMobileAds.Api;
+using System.Collections;
+using GoogleMobileAds.Api;
     using System.Collections.Generic;
     using GoogleMobileAds.Mediation.UnityAds.Api;
 #else
@@ -25,7 +26,6 @@ namespace IWI
         [SerializeField] public FakeAdRewarded fakeAdRewarded;
         [SerializeField] public int adTimeInterval = 180;
         [System.NonSerialized] private Data _data;
-        [System.NonSerialized] private System.Action _maxSDKInitComplete;
         [System.NonSerialized] private const int ADBlockSuggestionMod = 5;
         
         void Awake()
@@ -100,7 +100,7 @@ namespace IWI
 #endif
         }
         
-        private void InitializeMediation()
+        private void InitializeMediation(System.Action onComplete)
         {
 #if ADMOB_MEDIATION
             // TODO
@@ -117,16 +117,22 @@ namespace IWI
                     {
                         case AdapterState.NotReady:
                             // The adapter initialization did not complete.
-                            Debug.Log("Adapter: " + className + " not ready.");
+                            Debug.Log("Adapter Status: " + className + " not ready.");
                             break;
                         case AdapterState.Ready:
                             // The adapter was successfully initialized.
-                            Debug.Log("Adapter: " + className + " is initialized.");
+                            Debug.Log("Adapter Status: " + className + " is initialized.");
                             break;
                     }
                 }
                 
-                OnMediationInitialized();
+                _data.MediationInitialized = true;
+                
+                WorkerThread.Current.AddJob(() =>
+                {
+                    OnMediationInitialized();
+                    onComplete?.Invoke();
+                });
             });
 #else
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
@@ -163,19 +169,16 @@ namespace IWI
         }
         #endregion
 
-        public void InitAdSDK(System.Action onInit = null)
+        public void InitAdSDK(System.Action onComplete = null)
         {
-            _maxSDKInitComplete += onInit;
             _Data.LastTimeAdShown = (int)Time.time;
 
-            InitializeMediation();
+            InitializeMediation(onComplete);
         }
 
 
         private void OnMediationInitialized()
         {
-            _data.MediationInitialized = true;
-            
             FakeAdRewarded.THIS.Initialize();
             FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
             {
@@ -188,11 +191,8 @@ namespace IWI
                     
             if (_Data.removeAds)
             {
-                _maxSDKInitComplete?.Invoke();
-                _maxSDKInitComplete = null;
                 return;
             }
-                    
                     
             InitBanner();
                     
@@ -205,14 +205,10 @@ namespace IWI
                 }
                 AdBreakScreen.THIS.SetLoadState(state);
             };
-                    
-            _maxSDKInitComplete?.Invoke();
-            _maxSDKInitComplete = null;
         }
         
         public void TryInterstitial(AdBreakScreen.AdReason adReason)
         {
-            LogInterstitial("Try Interstitial");
             if (_Data.removeAds)
             {
                 LogInterstitial("Try Interstitial Failed : Removed Ads");
@@ -272,7 +268,7 @@ namespace IWI
             }
             if (!IsMediationInitialized())
             {
-                _maxSDKInitComplete += ShowBannerFrame;
+                // _maxSDKInitComplete += ShowBannerFrame;
                 return;
             }
             if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))
@@ -287,6 +283,7 @@ namespace IWI
         private void InitBanner()
         {
             FakeAdBanner.THIS.Initialize();
+            ShowBannerFrame();
         }
         private void DestroyBanner()
         {

@@ -1,3 +1,5 @@
+#define LOG
+
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
@@ -48,7 +50,13 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 #if ADMOB_MEDIATION
         // TODO
         DestroyMediation();
-        RewardedAd.Load(_adUnitId, new AdRequest(), OnRewardedAdLoadCallback);
+        RewardedAd.Load(_adUnitId, new AdRequest(), (ad, error) =>
+        {
+            WorkerThread.Current.AddJob(() =>
+            {
+                OnRewardedAdLoadCallback(ad, error);
+            });
+        });
 #else
         MaxSdk.LoadRewardedAd(MaxAdUnitId);
 #endif
@@ -99,6 +107,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
             return;
         }
 
+        Log("OnRewardedAdLoaded");
         _rewardedAd = ad;
         
         ad.OnAdPaid += OnRewardedAdRevenuePaidEvent;
@@ -117,7 +126,7 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 
     private void OnRewardedAdLoadFailedEvent(LoadAdError error)
     {
-        Debug.LogError("Rewarded ad failed to load an ad with error : " + error);
+        LogError("Rewarded ad failed to load an ad with error : " + error);
 
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
@@ -128,31 +137,42 @@ public class FakeAdRewarded : Lazyingleton<FakeAdRewarded>
 
     private void OnRewardedAdFullScreenContentOpened()
     {
-#if UNITY_EDITOR
-        Time.timeScale = 0.0f;
-#endif
+// #if UNITY_EDITOR
+//         Time.timeScale = 0.0f;
+// #endif
     }
 
     private void OnRewardedAdFullScreenContentFailed(AdError error)
     {
-        this.OnFailedDisplay?.Invoke();
-        LoadAd();
+        WorkerThread.Current.AddJob(() =>
+        {
+            LogError("OnRewardedAdFullScreenContentFailed " + error.ToString());
+            this.OnFailedDisplay?.Invoke();
+            LoadAd();
+        });
     }
 
     private void OnRewardedAdClickedEvent()
     {
-        
     }
 
     private void OnRewardedAdFullScreenContentClosed()
     {
-        this.OnHidden?.Invoke();
-        LoadAd();
+        WorkerThread.Current.AddJob(() =>
+        {
+            Log("OnRewardedAdFullScreenContentClosed");
+            this.OnHidden?.Invoke();
+            LoadAd();
+        });
     }
 
     private void OnRewardedAdReceivedRewardEvent(Reward reward)
     {
-        OnReward?.Invoke();
+        WorkerThread.Current.AddJob(() =>
+        {
+            Log("OnRewardedAdReceivedRewardEvent");
+            OnReward?.Invoke();
+        });
     }
 
     private void OnRewardedAdRevenuePaidEvent(AdValue adValue)

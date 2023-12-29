@@ -1,3 +1,5 @@
+#define LOG
+
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
@@ -48,7 +50,16 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
 #if ADMOB_MEDIATION
         // TODO
         DestoryMediation();
-        InterstitialAd.Load(_adUnitId, new AdRequest(), OnInterstitialAdLoadCallback);
+        
+        Log("OnInterstitialAd Load Request");
+        
+        InterstitialAd.Load(_adUnitId, new AdRequest(), (ad, error) =>
+        {
+            WorkerThread.Current.AddJob(() =>
+            {
+                OnInterstitialAdLoadCallback(ad, error);
+            });
+        });
 #else
         MaxSdk.LoadInterstitial(MaxAdUnitId);
 #endif
@@ -78,11 +89,12 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     {
 #if ADMOB_MEDIATION
         // TODO
-        if (_interstitialAd != null)
+        if (_interstitialAd == null)
         {
-            _interstitialAd.Destroy();
-            _interstitialAd = null;
+            return;
         }
+        _interstitialAd.Destroy();
+        _interstitialAd = null;
 #else
 
 #endif
@@ -99,6 +111,8 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
             return;
         }
 
+        Log("OnInterstitialAdLoaded");
+        
         _interstitialAd = ad;
         
         ad.OnAdPaid += OnAdPaid;
@@ -117,7 +131,7 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     
     private void OnInterstitialAdLoadFailedEvent(LoadAdError error)
     {
-        Debug.LogError("Rewarded ad failed to load an ad with error : " + error);
+        LogError("Rewarded ad failed to load an ad with error : " + error);
 
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
@@ -127,19 +141,27 @@ public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
     }
     private void OnInterstitialAdFullScreenContentOpened()
     {
-#if UNITY_EDITOR
-        Time.timeScale = 0.0f;
-#endif
+// #if UNITY_EDITOR
+//         Time.timeScale = 0.0f;
+// #endif
     }
     private void OnInterstitialAdFullScreenContentFailed(AdError error)
     {
-        this.OnFailedDisplay?.Invoke();
-        LoadAd();
+        WorkerThread.Current.AddJob(() =>
+        {
+            LogError(error.ToString());
+            this.OnFailedDisplay?.Invoke();
+            LoadAd();
+        });
     }
     private void OnInterstitialAdFullScreenContentClosed()
     {
-        this.OnHidden?.Invoke();
-        LoadAd();
+        WorkerThread.Current.AddJob(() =>
+        {
+            Log("OnInterstitialAdFullScreenContentClosed");
+            this.OnHidden?.Invoke();
+            LoadAd();
+        });
     }
     private void OnAdClicked()
     {

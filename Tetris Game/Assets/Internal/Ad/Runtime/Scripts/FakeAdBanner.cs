@@ -1,3 +1,5 @@
+#define LOG
+
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
@@ -61,7 +63,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         _bannerView.OnAdFullScreenContentOpened += OnAdFullScreenContentOpened;
         _bannerView.OnAdFullScreenContentClosed += OnAdFullScreenContentClosed;
         
-        Debug.Log("Create Banner");
         _bannerView.LoadAd(new AdRequest());
 #else
         MaxSdk.CreateBanner(MaxAdUnitId, ToMediationBannerPosition(_currentPosition));
@@ -76,7 +77,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         {
             return;
         }
-        Debug.Log("Destroying banner view.");
         _bannerView.Destroy();
         _bannerView = null;
 #else
@@ -148,11 +148,19 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
     // TODO
     private void OnBannerAdLoaded()
     {
-        CurrentLoadState = LoadState.Success;
+        WorkerThread.Current.AddJob(() =>
+        {
+            Log("OnBannerAdLoaded");
+            CurrentLoadState = LoadState.Success;
+        });
     }
     private void OnBannerAdLoadFailed(LoadAdError error)
     {
-        CurrentLoadState = LoadState.Fail;
+        WorkerThread.Current.AddJob(() =>
+        {
+            LogError("OnBannerAdLoadFailed " + error.ToString());
+            CurrentLoadState = LoadState.Fail;
+        });
     }
     private void OnAdPaid(AdValue adValue)
     {
@@ -220,8 +228,6 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         BottomCenter,
     }
 
-  
-    
     public BannerPosition Position
     {
         set
@@ -342,6 +348,4 @@ public class FakeAdBanner : Lazyingleton<FakeAdBanner>
         DestroyMediation();
         CurrentLoadState = LoadState.Destroyed;
     }
-
-  
 }

@@ -4233,7 +4233,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4267,7 +4267,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  adTimeInterval: 0
+  adTimeInterval: 150
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16320,6 +16320,7 @@ GameObject:
   - component: {fileID: 2017990421}
   - component: {fileID: 2017990422}
   - component: {fileID: 2017990423}
+  - component: {fileID: 2017990424}
   m_Layer: 0
   m_Name: '& AD'
   m_TagString: Untagged
@@ -16368,6 +16369,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c8d5eba0fa2b804eabd785ba335eb98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2017990424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017990420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5c3b093c09c5049874320639926220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2023912878
