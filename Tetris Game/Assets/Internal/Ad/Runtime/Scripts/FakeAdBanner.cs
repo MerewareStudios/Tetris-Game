@@ -1,4 +1,4 @@
-#define LOG
+// #define LOG
 
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
@@ -257,17 +257,15 @@ public class FakeAdBanner : AdBase<FakeAdBanner>
     
     private const float OfferDistance = -300.0f;
     
-    public bool Ready => _loadState.Equals(LoadState.Success);
+    public bool Ready => LoadState.Equals(LoadState.Success);
     public bool Visible => canvas.enabled;
-
-    [System.NonSerialized] private LoadState _loadState = LoadState.None;
 
     public LoadState CurrentLoadState
     {
-        get => _loadState;
+        get => LoadState;
         private set
         {
-            _loadState = value;
+            LoadState = value;
 
             switch (value)
             {
@@ -318,18 +316,16 @@ public class FakeAdBanner : AdBase<FakeAdBanner>
         ShowMediation();
     }
     
-    public void HideAd(bool hide)
+    public void HideAdWithFrame()
     {
-        _overlayVisible = !hide;
-
-        if (hide)
-        {
-            HideMediation();
-        }
-        else
-        {
-            ShowAd();
-        }
+        _overlayVisible = false;
+        HideMediation();
+    }
+    
+    public void ShowAdWithFrame()
+    {
+        _overlayVisible = true;
+        ShowAd();
     }
     
     public void Initialize()
@@ -338,11 +334,15 @@ public class FakeAdBanner : AdBase<FakeAdBanner>
         CurrentLoadState = LoadState.None;
     }
     
-    public override void LoadAd()
+    public override bool LoadAd()
     {
-        base.LoadAd();
+        if (base.LoadAd())
+        {
+            return true;
+        }
         CurrentLoadState = LoadState.Loading;
         LoadMediation();
+        return true;
     }
 
     public void DestroyBanner()

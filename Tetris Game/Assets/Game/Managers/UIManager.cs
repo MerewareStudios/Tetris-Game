@@ -116,7 +116,17 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
-         FakeAdBanner.THIS.HideAd(visible);
+         if (!AdManager.THIS._Data.removeAds)
+         {
+            if(visible)
+            {
+               FakeAdBanner.THIS.HideAdWithFrame();
+            }
+            else
+            {
+               FakeAdBanner.THIS.ShowAdWithFrame();
+            }
+         }
          
          if (PiggyMenu.THIS.Visible && !AdBreakScreen.THIS.Visible)
          {

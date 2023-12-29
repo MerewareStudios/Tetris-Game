@@ -242,7 +242,6 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
     [System.NonSerialized] public System.Action OnReward;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
-    [System.NonSerialized] public LoadState LoadState = LoadState.None;
 
     public bool Ready
     {
@@ -275,12 +274,16 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
         LoadState = LoadState.None;
     }
 
-    public override void LoadAd()
+    public override bool LoadAd()
     {
-        base.LoadAd();
+        if (base.LoadAd())
+        {
+            return true;
+        }
         LoadState = LoadState.Loading;
         OnLoadedStateChanged?.Invoke(LoadState);
         LoadMediation();
+        return true;
     }
 
 

@@ -3,7 +3,8 @@
 using System.Collections;
 using GoogleMobileAds.Api;
     using System.Collections.Generic;
-    using GoogleMobileAds.Mediation.UnityAds.Api;
+using DG.Tweening;
+using GoogleMobileAds.Mediation.UnityAds.Api;
 #else
 
 #endif
@@ -109,6 +110,13 @@ namespace IWI
         {
 #if ADMOB_MEDIATION
             // TODO
+
+            Tween delayedSkip = DOVirtual.DelayedCall(5.0f, () =>
+            {
+                onComplete?.Invoke();
+                onComplete = null;
+            });
+            
             _data.MediationInitialized = false;
 
             MobileAds.Initialize(initStatus =>
@@ -135,6 +143,7 @@ namespace IWI
                 
                 WorkerThread.Current.AddJob(() =>
                 {
+                    delayedSkip?.Kill();
                     OnMediationInitialized();
                     onComplete?.Invoke();
                 });

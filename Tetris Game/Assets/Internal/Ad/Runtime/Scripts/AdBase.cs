@@ -4,12 +4,19 @@ using UnityEngine;
 
 public abstract class AdBase<T> : Lazyingleton<T> where T : MonoBehaviour
 {
+    [System.NonSerialized] public LoadState LoadState = LoadState.None;
+
     [System.NonSerialized] private bool _invokingForLoad = false;
     [System.NonSerialized] private int _retryAttempt;
 
-    public virtual void LoadAd()
+    public virtual bool LoadAd()
     {
-        _invokingForLoad = true;
+        if (_invokingForLoad)
+        {
+            CancelInvoke(nameof(LoadAd));
+        }
+        _invokingForLoad = false;
+        return LoadState.Equals(LoadState.Loading);
     }
     
     protected void ForwardInvoke()

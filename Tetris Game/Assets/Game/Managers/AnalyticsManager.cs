@@ -26,6 +26,8 @@ public static class AnalyticsManager
         if (FB.IsInitialized) 
         {
             FB.ActivateApp();
+            
+            // FB.LogAppEvent("start");
             return;
         }
         FB.Init(InitCallback, OnHideUnity);
@@ -37,6 +39,8 @@ public static class AnalyticsManager
         {
             Debug.Log("Facebook SDK Initialized");
             FB.ActivateApp();
+            
+            // FB.LogAppEvent("start");
             return;
         }
         
