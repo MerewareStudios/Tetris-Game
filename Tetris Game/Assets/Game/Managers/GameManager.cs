@@ -1,5 +1,6 @@
 #define FORCE_EDITOR_CONCENT
 
+using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
@@ -56,6 +57,11 @@ public class GameManager : Singleton<GameManager>
         Const.THIS = this.Const;
         AnimConst.THIS = this.AnimConst;
         Onboarding.THIS = this.Onboarding;
+    }
+
+    void Awake()
+    {
+        AnalyticsManager.FacebookInit();    
     }
 
     void Start()

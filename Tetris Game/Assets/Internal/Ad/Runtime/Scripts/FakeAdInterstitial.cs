@@ -7,7 +7,7 @@ using System;
 using Internal.Core;
 using UnityEngine;
 
-public class FakeAdInterstitial : Lazyingleton<FakeAdInterstitial>
+public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
 {
     
 #region Mediation Variables

@@ -1,12 +1,8 @@
 #if UNITY_EDITOR
-using Lean.Pool;
-using System.Globalization;
 using System.IO;
 using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 namespace Internal.Core
@@ -321,7 +317,7 @@ namespace Internal.Core
         {
             bool state = !EditorPrefs.GetBool(RELOAD_DOMAIN_AND_SCENE);
             EditorPrefs.SetBool(RELOAD_DOMAIN_AND_SCENE, state);
-            Menu.SetChecked(RELOAD_DOMAIN_AND_SCENE, state);
+            UnityEditor.Menu.SetChecked(RELOAD_DOMAIN_AND_SCENE, state);
             EditorSettings.enterPlayModeOptionsEnabled = true;
             EditorSettings.enterPlayModeOptions = state ? EnterPlayModeOptions.None : (EnterPlayModeOptions.DisableSceneReload | EnterPlayModeOptions.DisableDomainReload);
         }
@@ -330,14 +326,14 @@ namespace Internal.Core
         private static void ClearSaveOnStart()
         {
             SaveManager.THIS.DELETE_AT_START = !SaveManager.THIS.DELETE_AT_START;
-            Menu.SetChecked(CLEAR_SAVE_ON_AWAKE, SaveManager.THIS.DELETE_AT_START);
+            UnityEditor.Menu.SetChecked(CLEAR_SAVE_ON_AWAKE, SaveManager.THIS.DELETE_AT_START);
         }
         public const string SKIP_ONBOARDING = "EDITOR/Skip Onboarding";
         [MenuItem(SKIP_ONBOARDING)]
         private static void SkipOnboarding()
         {
             SaveManager.THIS.SKIP_ONBOARDING = !SaveManager.THIS.SKIP_ONBOARDING;
-            Menu.SetChecked(SKIP_ONBOARDING, SaveManager.THIS.SKIP_ONBOARDING);
+            UnityEditor.Menu.SetChecked(SKIP_ONBOARDING, SaveManager.THIS.SKIP_ONBOARDING);
         }
 
         #endregion

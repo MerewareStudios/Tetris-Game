@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using GameAnalyticsSDK;
 using UnityEngine;
+using Facebook.Unity;
 
 public static class AnalyticsManager
 {
@@ -16,6 +17,44 @@ public static class AnalyticsManager
     private static int _currentTrackedStartTime;
     
     private static int _shopOpenedCount = 0;
+
+#region Facebook
+    public static void FacebookInit()
+    {
+        Debug.LogWarning("Initializing Facebook");
+        
+        if (FB.IsInitialized) 
+        {
+            FB.ActivateApp();
+            return;
+        }
+        FB.Init(InitCallback, OnHideUnity);
+    }
+    
+    private static void InitCallback ()
+    {
+        if (FB.IsInitialized)
+        {
+            Debug.Log("Facebook SDK Initialized");
+            FB.ActivateApp();
+            return;
+        }
+        
+        Debug.LogError("Failed to Initialize the Facebook SDK");
+    }
+
+    private static void OnHideUnity (bool isGameShown)
+    {
+        if (!isGameShown) {
+            // Pause the game - we will need to hide
+            Time.timeScale = 0;
+        } else {
+            // Resume the game - we're getting focus again
+            Time.timeScale = 1;
+        }
+    }
+#endregion
+    
     
     public static void Init()
     {
