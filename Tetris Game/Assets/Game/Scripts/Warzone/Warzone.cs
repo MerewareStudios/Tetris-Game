@@ -13,6 +13,7 @@ namespace  Game
         [Header("Zones")] [SerializeField] public ParticleSystem bloodPS;
         [SerializeField] public Vector3 goreOffset;
         [SerializeField] public Airplane airplane;
+        [SerializeField] public Progressbar enemyProgressbar;
         [System.NonSerialized] public ParticleSystem.MainModule psMain;
         [System.NonSerialized] public ParticleSystem.ShapeModule psShape;
         [System.NonSerialized] public Transform psTransform;
@@ -25,14 +26,16 @@ namespace  Game
         [System.NonSerialized] private int _enemyID = 0;
 
         [System.NonSerialized] private readonly List<SubModel> _landMines = new();
-        
 
-        public bool Spawning { get; set; }
-        public bool HasEnemy => _enemies.Count > 0;
+        private bool Spawning { get; set; }
+        private bool HasEnemy => _enemies.Count > 0;
         public bool IsCleared => !Spawning && !HasEnemy;
         public int EnemyCount => _enemies.Count;
         public Enemy GetEnemy(int index) => _enemies[index];
-        public int GetNewEnemyID() => ++_enemyID;
+        private int GetNewEnemyID() => ++_enemyID;
+
+        private float _maxEnemyCount = 0;
+        private int _totalEnemyCount = 0;
 
         #region Warzone
 
@@ -99,13 +102,19 @@ namespace  Game
             {
                 Spawning = true;
 
+                _totalEnemyCount = 0;
+
                 int spawnIndex = 0;
 
                 int totalHealth = 0;
                 foreach (var data in LevelManager.LevelSo.enemySpawnData)
                 {
                     totalHealth += data.enemyData.maxHealth * data.count;
+                    _totalEnemyCount += data.count;
                 }
+
+                _maxEnemyCount = _totalEnemyCount;
+                UpdateEnemyProgress();
 
                 int totalCoinLeft = LevelManager.LevelSo.totalCoin;
                 float coinPerHealth = totalCoinLeft / (float)totalHealth;
@@ -115,7 +124,9 @@ namespace  Game
                 
                 Audio.Level_Begin.Play();
                 
-#if !CREATIVE
+#if CREATIVE
+                yield return new WaitForSeconds(0.5f);
+#else
                 if (LevelManager.LevelSo.countdown > 0)
                 {
                     // string startingText = string.Format(Onboarding.THIS.waveText, LevelManager.CurrentLevel);
@@ -129,8 +140,6 @@ namespace  Game
                     string startingText = Onboarding.THIS.targetPracticeText;
                     yield return Announcer.THIS.Show(startingText, 0.4f);
                 }
-#else
-                yield return new WaitForSeconds(0.5f);
 #endif
 
                 if (LevelManager.CurrentLevel > airplane.SavedData.arrival)
@@ -196,6 +205,11 @@ namespace  Game
             }
         }
 
+        private void UpdateEnemyProgress()
+        {
+            enemyProgressbar.Fill = _totalEnemyCount / _maxEnemyCount;
+        }
+
         public void OnLevelLoad(float sortInterval)
         {
             Player.Replenish(sortInterval);
@@ -222,6 +236,9 @@ namespace  Game
 
             enemy.OnSpawn(pos, GetNewEnemyID());
             enemy.Replenish();
+
+            _totalEnemyCount--;
+            UpdateEnemyProgress();
 
             return enemy;
         }
