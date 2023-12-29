@@ -328,7 +328,7 @@ public class Spawner : Singleton<Spawner>
         _finalPosition = targetPosition - _dragOffset;
 
         Vector3 drag = _dragOffset + MountPosition - hitPoint;
-        _finalPosition -= drag * 0.35f;
+        _finalPosition -= drag * 0.3f;
     }
     public void Input_OnUp()
     {

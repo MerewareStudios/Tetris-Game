@@ -1,4 +1,4 @@
-#define LOG
+// #define LOG
 
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;

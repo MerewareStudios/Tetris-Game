@@ -94,16 +94,8 @@ public class GameManager : Singleton<GameManager>
                 Consent.THIS.Loading = true;
                 AdManager.THIS.InitAdSDK(() =>
                 {
-                    
-
-                // StartCoroutine(WaitLoop());
-                
-                // IEnumerator WaitLoop()
-                // {
-                    // yield return new WaitUntil(() => AdManager.THIS._Data.MediationInitialized);
                     Consent.THIS.Close();
                     LevelManager.THIS.BeginLevel();
-                // }
                 });
             });
             return;

@@ -1,4 +1,4 @@
-#define LOG
+// #define LOG
 #if ADMOB_MEDIATION
 using System.Collections;
 using GoogleMobileAds.Api;
@@ -160,6 +160,13 @@ namespace IWI
 #endif
         }
         
+        public static void SetBannerPositionByMenuState()
+        {
+            FakeAdBanner.THIS.Position = UIManager.MenuVisible ? FakeAdBanner.BannerPosition.TopCenter : FakeAdBanner.BannerPosition.BottomCenter;
+        }
+        #endregion
+
+#if DEVELOPMENT_BUILD
         public static void OpenMediationDebugger()
         {
 #if ADMOB_MEDIATION
@@ -172,13 +179,6 @@ namespace IWI
             MaxSdk.ShowMediationDebugger();
 #endif
         }
-        public static void SetBannerPositionByMenuState()
-        {
-            FakeAdBanner.THIS.Position = UIManager.MenuVisible ? FakeAdBanner.BannerPosition.TopCenter : FakeAdBanner.BannerPosition.BottomCenter;
-        }
-        #endregion
-
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
         void OnGUI()
         {
             if (GUI.Button(new Rect(50, 450, 150, 50), "Mediation Debug"))
@@ -187,7 +187,7 @@ namespace IWI
             }
         }
 #endif
-
+        
         public void InitAdSDK(System.Action onComplete = null)
         {
             _Data.LastTimeAdShown = (int)Time.time;
@@ -241,6 +241,7 @@ namespace IWI
             if (Time.time - _Data.LastTimeAdShown < adTimeInterval)
             {
                 Log("Try Interstitial Failed : Not Time Yet");
+                return;
             }
             
 #if CREATIVE
@@ -278,6 +279,10 @@ namespace IWI
         public void ShowBannerFrame()
         {
             if (_Data.removeAds)
+            {
+                return;
+            }
+            if (ONBOARDING.WEAPON_TAB.IsNotComplete())
             {
                 return;
             }

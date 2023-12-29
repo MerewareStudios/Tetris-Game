@@ -1,3 +1,5 @@
+#define FORCE_EDITOR_CONCENT
+
 using DG.Tweening;
 using Game;
 using GameAnalyticsSDK;
@@ -69,10 +71,8 @@ public class LevelManager : Singleton<LevelManager>
             BeginLevel();
         }
 
-        if (ONBOARDING.WEAPON_TAB.IsComplete())
-        {
-            AdManager.THIS.ShowBannerFrame();
-        }
+        
+        AdManager.THIS.ShowBannerFrame();
     }
     
     public void ScaleLevelText(bool menuMode)
