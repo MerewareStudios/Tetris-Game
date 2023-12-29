@@ -126,7 +126,7 @@ public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
         LoadState = LoadState.Success;
         OnLoadedStateChanged?.Invoke(LoadState);
         
-        _retryAttempt = 0;
+        ResetAttempts();
     }
     
     private void OnInterstitialAdLoadFailedEvent(LoadAdError error)
@@ -136,7 +136,6 @@ public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
         
-        _retryAttempt++;
         InvokeForLoad();
     }
     private void OnInterstitialAdFullScreenContentOpened()
@@ -217,11 +216,9 @@ public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
 #endregion
 
 
-    private int _retryAttempt;
     [System.NonSerialized] public System.Action OnHidden;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
-    [System.NonSerialized] private bool _invoking = false;
     [System.NonSerialized] public LoadState LoadState = LoadState.None;
 
     public bool Ready
@@ -248,14 +245,6 @@ public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
         }
     }
 
-    public void ForwardInvoke()
-    {
-        if (_invoking)
-        {
-            CancelInvoke(nameof(LoadAd));
-            LoadAd();
-        }
-    }
     
     public void Initialize()
     {
@@ -263,17 +252,12 @@ public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
         LoadState = LoadState.None;
     }
 
-    public void LoadAd()
+    public override void LoadAd()
     {
-        _invoking = false;
+        base.LoadAd();
         LoadState = LoadState.Loading;
         OnLoadedStateChanged?.Invoke(LoadState);
         LoadMediation();
     }
     
-    private void InvokeForLoad()
-    {
-        Invoke(nameof(LoadAd), Mathf.Pow(2, Math.Min(6, _retryAttempt)));
-        _invoking = true;
-    }
 }

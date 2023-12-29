@@ -121,7 +121,7 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
         LoadState = LoadState.Success;
         OnLoadedStateChanged?.Invoke(LoadState);
         
-        _retryAttempt = 0;
+        ResetAttempts();
     }
 
     private void OnRewardedAdLoadFailedEvent(LoadAdError error)
@@ -130,8 +130,7 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
 
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
-        
-        _retryAttempt++;
+
         InvokeForLoad();
     }
 
@@ -197,7 +196,6 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
         
-        _retryAttempt++;
         InvokeForLoad();
     }
 
@@ -240,13 +238,11 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
     
     
     
-    private int _retryAttempt;
     [System.NonSerialized] public System.Action OnHidden;
     [System.NonSerialized] public System.Action OnReward;
     [System.NonSerialized] public System.Action OnFailedDisplay;
     [System.NonSerialized] public System.Action<LoadState> OnLoadedStateChanged;
     [System.NonSerialized] public LoadState LoadState = LoadState.None;
-    [System.NonSerialized] private bool _invoking = false;
 
     public bool Ready
     {
@@ -273,33 +269,19 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
         }
     }
     
-    public void ForwardInvoke()
-    {
-        if (_invoking)
-        {
-            CancelInvoke(nameof(LoadAd));
-            LoadAd();
-        }
-    }
-    
     public void Initialize()
     {
         InitializeMediation();
-        
         LoadState = LoadState.None;
     }
 
-    public void LoadAd()
+    public override void LoadAd()
     {
-        _invoking = false;
+        base.LoadAd();
         LoadState = LoadState.Loading;
         OnLoadedStateChanged?.Invoke(LoadState);
         LoadMediation();
     }
 
-    private void InvokeForLoad()
-    {
-        Invoke(nameof(LoadAd), Mathf.Pow(2, Math.Min(6, _retryAttempt)));
-        _invoking = true;
-    }
+
 }
