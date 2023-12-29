@@ -153,7 +153,6 @@ public class Powerup : Lazyingleton<Powerup>
         
         HapticManager.OnClickVibrate();
 
-
         if (Available)
         {
             if (!_canUse)
@@ -190,6 +189,7 @@ public class Powerup : Lazyingleton<Powerup>
             {
                 return;
             }
+            
             
             PunchCost();
 

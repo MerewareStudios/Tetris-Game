@@ -1,3 +1,4 @@
+using System;
 using Internal.Core;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,7 +89,7 @@ namespace Game
                 DropPositions = new int[size.x];
                 ClearDropPositions();
                 
-                CameraManager.THIS.OrthoSize = Mathf.Max(7.63f, _size.x + 1.82f);
+                CameraManager.THIS.OrthoSize = Mathf.Max(7.8f, _size.x + 2.0f);
 
                 if (_places != null)
                 {
@@ -127,8 +128,7 @@ namespace Game
                 visualFrame.sizeDelta = new Vector2(_size.x * 100.0f + 42.7f, _size.y * 100.0f + 42.7f);
                 _thisTransform.localPosition = new Vector3(-_size.x * 0.5f + 0.5f, 0.0f, _size.y * 0.5f + 1.75f);
 
-                float groundScale = (25.0f + (_size.x - 6) * 2.5f) * CameraManager.SafeRatio;
-                ground.localScale = Vector3.one * Mathf.Max(groundScale, 25.0f);
+                ground.localScale = Vector3.one * CameraManager.THIS.OrthoSize * 3.2f;
 
                 
                 this.enabled = true;

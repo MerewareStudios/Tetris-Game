@@ -4268,7 +4268,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  adTimeInterval: 150
+  adTimeInterval: 0
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4430,7 +4430,7 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 9b5e23bb55e17f749a2a9aaac6ce1e3c,
       type: 3}
     muted: 0
-    pitchRange: {x: 0.9, y: 1.25}
+    pitchRange: {x: 1, y: 1.1}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 86f37c701da37af4b951bb2e0860de2f,
       type: 3}
     muted: 0
@@ -5185,6 +5185,11 @@ PrefabInstance:
         type: 3}
       propertyPath: currencyType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
+      propertyPath: audioOnConsume
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
@@ -16721,6 +16726,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
+      propertyPath: audioOnConsume
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
       propertyPath: scaledAnchor.x
       value: 45
       objectReference: {fileID: 0}
@@ -18867,6 +18877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
+        type: 3}
+      propertyPath: audioOnConsume
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 6354051493353788696, guid: bffcc5d1e1798bc49b8855d0a99cd3ba,
         type: 3}
@@ -26655,7 +26670,7 @@ PrefabInstance:
     - target: {fileID: 9142542980137333183, guid: de445e5d5dc8d064987cd85cb0ace694,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -29.699951
+      value: -29.700195
       objectReference: {fileID: 0}
     - target: {fileID: 9142542980137333183, guid: de445e5d5dc8d064987cd85cb0ace694,
         type: 3}

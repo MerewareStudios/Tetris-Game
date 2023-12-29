@@ -20,6 +20,7 @@ public class ToggleButton : Toggle
     public override void OnPointerClick(PointerEventData eventData)
     {
         base.OnPointerClick(eventData);
+        HapticManager.OnClickVibrate();
         toggleAnimator.SetTrigger(isOn ? "Selected" : "Disabled");
     }
 }

@@ -27,7 +27,8 @@ namespace Game
         [System.NonSerialized] private Enemy _currentEnemy = null;
         
         [System.NonSerialized] public float AutoEnemySortInterval = 1.0f;
-        [System.NonSerialized] private bool _playBubbleSound = true;
+        // [System.NonSerialized] private bool _playBubbleSound = true;
+        [System.NonSerialized] private int _shootBubbleCount = 0;
 
         public float Emission
         {
@@ -157,14 +158,14 @@ namespace Game
 #endif
             if (shootCount == 0)
             {
-                if (_playBubbleSound)
+                if (_shootBubbleCount > 0)
                 {
-                    _playBubbleSound = false;
                     Audio.Bubble.PlayOneShot();
+                    Gun.Bubble(4);
+                    animator.SetTrigger(SHOOT_HASH);
+                    _shootBubbleCount--;
                 }
-                Gun.Bubble(4);
-
-                animator.SetTrigger(SHOOT_HASH);
+               
 
 
                 if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
@@ -176,7 +177,9 @@ namespace Game
                 return;
             }
 
-            _playBubbleSound = true;
+            _shootBubbleCount = 1;
+            // _volume = 1.0f;
+            // _playBubbleSound = true;
             // _canShootBubble = 4;
             
             animator.SetTrigger(SHOOT_HASH);
@@ -293,6 +296,8 @@ namespace Game
         public void Replenish(float sortInterval)
         {
             ReplenishHealth();
+
+            _shootBubbleCount = 1;
 
             this.AutoEnemySortInterval = sortInterval;
             

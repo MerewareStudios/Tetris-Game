@@ -199,10 +199,10 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void OnClick_RequestMultiply()
     {
-        HapticManager.OnClickVibrate();
-
         multiplyButton.targetGraphic.raycastTarget = false;
         Pause();
+        
+        HapticManager.OnClickVibrate();
 
         if (Wallet.Consume(Const.Currency.OneAd))
         {
@@ -224,6 +224,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
         void Mult()
         {
+
             UIManager.THIS.comboText.Show(2, 6.0f);
             
             Transform mulTransform = multiplyButton.transform;

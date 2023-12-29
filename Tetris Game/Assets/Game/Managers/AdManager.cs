@@ -345,7 +345,7 @@ namespace IWI
             .OnClick(
                 () =>
                 {
-                    HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
+                    // HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
                     AdBreakScreen.THIS.Close();
                     AdManager.THIS._Data.interSkipCount++;
                     AdManager.THIS._Data.LastTimeAdShown = (int)Time.time;
@@ -353,8 +353,9 @@ namespace IWI
                 },
                 () =>
                 {
-                    HapticManager.OnClickVibrate();
-                    return Wallet.Consume(Const.Currency.OneAd);
+                    bool canSkip = Wallet.Consume(Const.Currency.OneAd);
+                    HapticManager.OnClickVibrate(canSkip ? Audio.Button_Click_Exit : Audio.Button_Click_Forbidden);
+                    return canSkip;
                 })
             .OnTimesUp(() =>
             {

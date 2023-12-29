@@ -89,9 +89,12 @@ public class Airplane : MonoBehaviour
         {
             return;
         }
+        
+        HapticManager.OnClickVibrate();
 
         if (!Wallet.Consume(Const.Currency.OneAd))
         {
+            
             AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
             {
                 Wallet.Transaction(Const.Currency.OneAd);
@@ -99,7 +102,6 @@ public class Airplane : MonoBehaviour
             });
             return;
         }
-        
 
         SavedData.UnpackCargo(SavedData.Count - 1);
         

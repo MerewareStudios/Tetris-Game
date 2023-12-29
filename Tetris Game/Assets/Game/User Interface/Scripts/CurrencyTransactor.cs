@@ -12,6 +12,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
     [SerializeField] private Vector3 defaultAnchor;
     [SerializeField] private Vector3 scaledAnchor;
     [SerializeField] private UnityEvent onConsume;
+    [SerializeField] private Audio audioOnConsume;
     [System.NonSerialized] private float _targetScale = 1.0f;
 
     public override void Set(ref User.TransactionData<int> transactionData)
@@ -83,6 +84,7 @@ public class CurrencyTransactor : Transactor<CurrencyTransactor, int>
             Punch(-0.15f);
             return false;
         }
+        audioOnConsume.PlayOneShot();
         Punch(0.15f * Mathf.Sign(amount));
         Amount -= amount;
         onConsume?.Invoke();
