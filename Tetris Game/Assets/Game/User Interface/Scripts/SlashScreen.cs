@@ -223,12 +223,13 @@ public class SlashScreen : Lazyingleton<SlashScreen>
         {
             ShowTip();
         }
-            
+
+        float extraAppendWait = 0.0f;
         if (panelVisible)
         {
             buttonPanel.SetActive(true);
             actionButtonParent.gameObject.SetActive(true);
-            closeAppend += 1.25f;
+            extraAppendWait += 1.25f;
         }
         
         tipText.text = tipString;
@@ -276,7 +277,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
 
         _sequence.SetDelay(delay);
         _sequence.Append(topSlash).Append(expand).Join(gradientTop);
-        _sequence.AppendInterval(closeAppend);
+        _sequence.AppendInterval(closeAppend + extraAppendWait);
 
         _sequence.onComplete += () =>
         {

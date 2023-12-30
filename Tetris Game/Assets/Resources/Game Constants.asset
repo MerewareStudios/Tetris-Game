@@ -96,7 +96,7 @@ MonoBehaviour:
         defaultStack: 6
         maxStack: 6
       coinTransactionData:
-        value: 0
+        value: 11111
       gemTransactionData:
         value: 0
       adTransactionData:
