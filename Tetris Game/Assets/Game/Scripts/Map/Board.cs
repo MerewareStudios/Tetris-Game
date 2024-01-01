@@ -461,6 +461,8 @@ namespace Game
             else
             {
                 Powerup.THIS.PunchFrame(0.2f);
+                HapticManager.Vibrate(HapticPatterns.PresetType.Selection);
+                // Audio.No_Place.PlayOneShot();
             }
         }
 

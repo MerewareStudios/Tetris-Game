@@ -150,7 +150,7 @@ namespace Game
             _currentRotation++;
 
             _motionTween?.Kill();
-            _motionTween = rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.1f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
+            _motionTween = rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
             _motionTween.onUpdate = ResetSegmentRotations;
             _motionTween.onComplete += () =>
             {

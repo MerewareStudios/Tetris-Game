@@ -200,6 +200,7 @@ public class Onboarding : SSingleton<Onboarding>
 
             ONBOARDING.PASSIVE_META.SetComplete();
             LevelManager.THIS.levelText.enabled = true;
+            Warzone.THIS.enemyProgressbar.Visible = true;
             StatDisplayArranger.THIS.Show(StatDisplay.Type.Health, Warzone.THIS.Player._CurrentHealth);
             Warzone.THIS.Begin();
         }

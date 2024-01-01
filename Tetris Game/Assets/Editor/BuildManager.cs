@@ -9,7 +9,6 @@ public class BuildManager : IPreprocessBuildWithReport, IPostprocessBuildWithRep
     private void SetAndroidKeystore()
     {
         PlayerSettings.Android.useCustomKeystore = true;
-        // PlayerSettings.Android.keystoreName = "C:/Users/orkun/Desktop/Repos/Tetris-Game/Tetris Game/1317+oSRZunity.keystore";
         PlayerSettings.Android.keystoreName = Application.dataPath + "/1317+oSRZunity.keystore";
         Debug.Log(PlayerSettings.Android.keystoreName);
         PlayerSettings.Android.keystorePass = "1317+oSRZunity";
@@ -22,17 +21,10 @@ public class BuildManager : IPreprocessBuildWithReport, IPostprocessBuildWithRep
     public void OnPreprocessBuild(BuildReport report)
     {
         SetAndroidKeystore();
-        // Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
-        // @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
         Debug.LogWarning("Build Started");
     }
     public void OnPostprocessBuild(BuildReport report)
     {
-        // Const @const = (Const)AssetDatabase.LoadAssetAtPath("Assets/Resources/Game Constants.asset", typeof(ScriptableObject));
-        // @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
-        
-        
-        
         string oldPath = report.summary.outputPath;
         string directory = Path.GetDirectoryName(oldPath);
         string extension = Path.GetExtension(oldPath);
@@ -46,6 +38,5 @@ public class BuildManager : IPreprocessBuildWithReport, IPostprocessBuildWithRep
         
         
         PlayerSettings.Android.bundleVersionCode++;
-        // @const.bundleVersionCode = PlayerSettings.Android.bundleVersionCode;
     }
 }

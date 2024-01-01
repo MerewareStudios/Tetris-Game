@@ -159,7 +159,7 @@ public class Spawner : Singleton<Spawner>
     public void OnLevelLoad()
     {
         _spawnIndex = 0;
-        // _nextBlock = GetNexRandomBlock();
+        _nextBlock = GetNexRandomBlock();
     }
     private void StopAllRunningTasksOnBlock()
     {
@@ -450,9 +450,9 @@ public class Spawner : Singleton<Spawner>
         {
             _smoothFactorLerp = 10.0f;
             
-            _nextBlock = GetNexRandomBlock();
             pool = _nextBlock;
             
+            _nextBlock = GetNexRandomBlock();
             if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block)) && Helper.IsPossible(0.5f))
             {
                 _nextBlock = GetNexRandomBlock();
