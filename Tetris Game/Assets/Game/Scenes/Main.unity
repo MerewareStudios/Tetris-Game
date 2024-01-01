@@ -2477,7 +2477,7 @@ MonoBehaviour:
     m_Bits: 64
   modelPivot: {fileID: 1847584227}
   spawnedBlockLocation: {fileID: 860089792}
-  distanceFromDraggingFinger: {x: 0, y: 1, z: 1.0999999}
+  distanceFromDraggingFinger: {x: 0, y: 0.7, z: 2}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.45}
   tutorialLift: {x: 0.5, y: 1, z: 0.5}
   nextBlockPawns:
@@ -4234,7 +4234,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0

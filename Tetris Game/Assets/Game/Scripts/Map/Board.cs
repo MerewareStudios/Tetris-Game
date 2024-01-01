@@ -179,7 +179,7 @@ namespace Game
                 Warzone.THIS.Player.Position = playerPos;
 
                     
-                Spawner.THIS.UpdateFingerDelta(bottomPin.position);
+                // Spawner.THIS.UpdateFingerDelta(bottomPin.position);
 
 
                 Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(enemySpawnPin.position, CameraManager.THIS.gameCamera.transform.forward));

@@ -77,14 +77,14 @@ public class Spawner : Singleton<Spawner>
         transform.position += Vector3.forward * Const.THIS.creativeSettings.bottomOffset;
 #endif
     }
-    public void UpdateFingerDelta(Vector3 pivot)
-    {
-#if CREATIVE
-        distanceFromDraggingFinger.z = (pivot.z - transform.position.z) * 0.5f;
-        return;
-#endif
-        distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
-    }
+//     public void UpdateFingerDelta(Vector3 pivot)
+//     {
+// #if CREATIVE
+//         distanceFromDraggingFinger.z = (pivot.z - transform.position.z) * 0.5f;
+//         return;
+// #endif
+//         distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
+//     }
 
     public void Shake()
     {
@@ -237,7 +237,7 @@ public class Spawner : Singleton<Spawner>
                 float smoothFactor = 0.0f;
                 while (true)
                 {
-                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 34.0f * smoothFactor);
+                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 38.0f * smoothFactor);
                     smoothFactor = Mathf.Lerp(smoothFactor, 1.25f, Time.deltaTime * _smoothFactorLerp);
                     Board.THIS.HighlightPlaces();
                     yield return null;
@@ -319,16 +319,17 @@ public class Spawner : Singleton<Spawner>
     {
         Vector3 worldPosition = CameraManager.THIS.gameCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 hitPoint = HitPoint(new Ray(worldPosition, CameraManager.THIS.gameCamera.transform.forward));
-// #if CREATIVE
-        // Vector3 targetPosition = hitPoint;
-// #else
-        Vector3 targetPosition = hitPoint + distanceFromDraggingFinger;
-// #endif
 
-        _finalPosition = targetPosition - _dragOffset;
+        
+        Vector3 addedPos = -_dragOffset;
+        addedPos.y = distanceFromDraggingFinger.y;
+        addedPos.z = distanceFromDraggingFinger.z;
+        _finalPosition = hitPoint + addedPos;
+        // _finalPosition = hitPoint - _dragOffset + distanceFromDraggingFinger;
+        // _finalPosition = hitPoint + distanceFromDraggingFinger + MountPosition;
 
         Vector3 drag = _dragOffset + MountPosition - hitPoint;
-        _finalPosition -= drag * 0.25f;
+        _finalPosition -= drag * 0.15f;
     }
     public void Input_OnUp()
     {
@@ -442,7 +443,7 @@ public class Spawner : Singleton<Spawner>
         Pool pool;
         if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
         {
-            _smoothFactorLerp = 5.0f;
+            _smoothFactorLerp = 2.0f;
             suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
         }

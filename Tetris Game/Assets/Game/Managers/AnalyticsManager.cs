@@ -21,13 +21,9 @@ public static class AnalyticsManager
 #region Facebook
     public static void FacebookInit()
     {
-        Debug.LogWarning("Initializing Facebook");
-        
         if (FB.IsInitialized) 
         {
             FB.ActivateApp();
-            
-            // FB.LogAppEvent("start");
             return;
         }
         FB.Init(InitCallback, OnHideUnity);
@@ -39,8 +35,6 @@ public static class AnalyticsManager
         {
             Debug.Log("Facebook SDK Initialized");
             FB.ActivateApp();
-            
-            // FB.LogAppEvent("start");
             return;
         }
         
