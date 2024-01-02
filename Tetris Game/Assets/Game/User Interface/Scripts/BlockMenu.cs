@@ -193,19 +193,21 @@ namespace Game.UI
 
         private void SetPrice(Const.Currency currency, bool canPurchase, bool availableByLevel, bool purchasedBlock)
         {
-            purchaseButton.gameObject.SetActive(availableByLevel && !purchasedBlock);
-            currencyDisplay.gameObject.SetActive(availableByLevel && !purchasedBlock);
+            purchaseButton.gameObject.SetActive(!purchasedBlock);
+            currencyDisplay.gameObject.SetActive(!purchasedBlock);
+            
+            currencyDisplay.Display(currency);
+            purchaseButton.Available = canPurchase;
+            
             if (!availableByLevel || purchasedBlock)
             {
                 return;
             }
-            purchaseButton.Available = canPurchase;
 
             if (canPurchase)
             {   
                 PunchButton(0.2f);
             }
-            currencyDisplay.Display(currency);
             PunchMoney(0.2f);
             PunchPurchasedText(0.2f);
         }
