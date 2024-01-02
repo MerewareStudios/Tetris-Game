@@ -25,7 +25,7 @@ namespace Game
         [System.NonSerialized] private bool _shouldGetUp = false;
         [System.NonSerialized] private Coroutine _searchRoutine = null;
         [System.NonSerialized] private Enemy _currentEnemy = null;
-        
+        [System.NonSerialized] private float _prevShoot = 0.0f;
         [System.NonSerialized] public float AutoEnemySortInterval = 1.0f;
         // [System.NonSerialized] private bool _playBubbleSound = true;
         // [System.NonSerialized] private int _shootBubbleCount = 0;
@@ -70,10 +70,7 @@ namespace Game
 
         void Start()
         {
-            WeaponMenu.THIS.GunDataChanged += (newGunData) =>
-            {
-                UpdateGunData(newGunData);
-            };
+            WeaponMenu.THIS.GunDataChanged += UpdateGunData;
             crossHairMR.sharedMaterial.SetColor(GameManager.BaseColor, Color.white);
         }
 
@@ -81,7 +78,6 @@ namespace Game
 
         private void UpdateGunData(Gun.Data newGunData)
         {
-            newGunData.PrevShoot = _GunData.PrevShoot;
             _GunData = newGunData;
         }
                 
@@ -149,6 +145,7 @@ namespace Game
 
         public void Shoot(int bulletCount)
         {
+            Debug.Log("shoot");
             int shootCount = Mathf.Min(bulletCount, Warzone.THIS.EnemyCount);
 #if CREATIVE
             if (!Const.THIS.creativeSettings.playerBubble && shootCount == 0)
@@ -223,7 +220,6 @@ namespace Game
             StopSearching();
             _searchRoutine = StartCoroutine(SearchEnemyRoutine());
 
-            
             IEnumerator SearchEnemyRoutine()
             {
                 _currentAngle = transform.eulerAngles.y;
@@ -231,7 +227,7 @@ namespace Game
                 crossHair.gameObject.SetActive(true);
 
                 _Data.Time = 0.0f;
-                Gun._Data.PrevShoot = 0.0f;
+                _prevShoot = 0.0f;
 
                 while (true)
                 {
@@ -253,7 +249,7 @@ namespace Game
 
                         float angleDif = Mathf.DeltaAngle(_currentAngle, targetAngle);
                         
-                        if ((_Data.Time - Gun._Data.PrevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
+                        if ((_Data.Time - _prevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
 #if CREATIVE
@@ -264,7 +260,7 @@ namespace Game
 #else
                             Shoot(givenBulletCount);
 #endif
-                            Gun._Data.PrevShoot = _Data.Time;
+                            _prevShoot = _Data.Time;
                         }
 
                         _Data.Time += Time.deltaTime;
