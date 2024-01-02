@@ -186,14 +186,22 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
 
     public void Pause()
     {
-        _shakeTween?.Pause();
+        if (_shakeTween == null)
+        {
+            return;
+        }
+        _shakeTween.Pause();
         Audio.Piggy_Shake.Pause();
 
     }
     
     public void Restart()
     {
-        _shakeTween?.Restart();
+        if (_shakeTween == null)
+        {
+            return;
+        }
+        _shakeTween.Restart();
         Audio.Piggy_Shake.Play();
     }
 
