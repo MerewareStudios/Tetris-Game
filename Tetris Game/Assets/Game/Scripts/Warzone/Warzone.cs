@@ -210,7 +210,7 @@ namespace  Game
             enemyProgressbar.Fill = _totalEnemyCount / _maxEnemyCount;
         }
 
-        public void OnLevelLoad(float sortInterval)
+        public void OnLateLoad(float sortInterval)
         {
             Player.Replenish(sortInterval);
         }

@@ -41,7 +41,7 @@ namespace Game
             {
                 _data.LastTimeEnemySorted = Time.time;
                 this._currentEnemy = value;
-                crossHair.gameObject.SetActive(value);
+                // crossHair.gameObject.SetActive(value);
             }
             get => this._currentEnemy;
         }
@@ -302,8 +302,8 @@ namespace Game
             this.AutoEnemySortInterval = sortInterval;
             
             crossHair.gameObject.SetActive(false);
-            crossHair.position = Position + new Vector3(0.0f, 0.0f, -4.0f);
-
+            crossHair.position = Position;
+            
             Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;
 

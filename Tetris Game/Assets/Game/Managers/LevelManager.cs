@@ -45,7 +45,10 @@ public class LevelManager : Singleton<LevelManager>
 #else
         Board.THIS.Construct(BoardSize());
 #endif
+    }
 
+    public void OnLateLoad()
+    {
         GameManager.PLAYING = true;
         Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
@@ -60,7 +63,7 @@ public class LevelManager : Singleton<LevelManager>
         
         DeltaMult = GetDeltaMult();
 
-        Warzone.THIS.OnLevelLoad(LevelSo.sortInterval);
+        Warzone.THIS.OnLateLoad(LevelSo.sortInterval);
 
         UIManager.UpdateNotifications();
        

@@ -301,7 +301,6 @@ namespace IWI
             }
             if (!IsMediationInitialized())
             {
-                // _maxSDKInitComplete += ShowBannerFrame;
                 return;
             }
             if (FakeAdBanner.THIS.CurrentLoadState.Equals(LoadState.None))

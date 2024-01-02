@@ -3745,7 +3745,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 0
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4137,7 +4137,7 @@ MonoBehaviour:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 95b7432626a174f4a97a62b124e797da,
       type: 3}
     muted: 0
-    pitchRange: {x: 1, y: 1}
+    pitchRange: {x: 0.85, y: 1.25}
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 043f30e8012598d4ab2fe7de34b0a997,
       type: 3}
     muted: 0
@@ -16032,7 +16032,77 @@ PrefabInstance:
     - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
       propertyPath: waitForNormalChars
-      value: 0.025
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 715436858}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 715436858}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCharacterStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCharacterShown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onTypewriterStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626027312637437121, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: onCharacterVisible.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4854667067426975871, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}

@@ -196,6 +196,8 @@ namespace Game
                 Warzone.THIS.airplane.UpdatePositions();
                 
                 this.enabled = false;
+                
+                LevelManager.THIS.OnLateLoad();
             }
 
             #endregion

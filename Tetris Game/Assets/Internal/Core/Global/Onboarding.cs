@@ -215,6 +215,7 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(0.75f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needMoreAmmoText);
             Spawner.THIS.Spawn();
+            Audio.Hint_1.Play();
 
             yield return new WaitForSeconds(2.0f);
             UIManager.THIS.speechBubble.Hide();

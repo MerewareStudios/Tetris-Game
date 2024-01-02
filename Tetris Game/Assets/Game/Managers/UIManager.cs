@@ -224,8 +224,14 @@ public class UIManager : Singleton<UIManager>
 
       // UIManager.THIS.speechBubble.audioStart = () => Audio.Speak_1.Play();
       // UIManager.THIS.speechBubble.textAnimatorPlayer.onTextShowed.AddListener(() => Audio.Speak_1.Pause());
-      UIManager.THIS.speechBubble.textAnimatorPlayer.onTypewriterStart.AddListener(() => Audio.Speak_1.Play());
+      // UIManager.THIS.speechBubble.textAnimatorPlayer.onTypewriterStart.AddListener(() => Audio.Speak_1.Play());
 
+   }
+
+   
+   public void OnCharacterShown()
+   {
+      Audio.Speak_1.PlayOneShot();
    }
 
    public bool SettingsEnabled
