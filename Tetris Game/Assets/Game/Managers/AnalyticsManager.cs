@@ -252,6 +252,16 @@ public static class AnalyticsManager
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void ShowNextBlock(int level)
+    {
+        string eventName = "SHOW_NEXT_BLOCK";
+        GameAnalytics.NewDesignEvent(eventName, level);
+#if UNITY_EDITOR
+        Log(eventName, level, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void Concede(int level, int total)
     {
         string eventName = "CONCEDE:LEVEL_" + level;

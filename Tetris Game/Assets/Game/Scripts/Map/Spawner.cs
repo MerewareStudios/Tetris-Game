@@ -3,6 +3,7 @@ using Game;
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using IWI;
 using IWI.Tutorial;
 using Lofelt.NiceVibrations;
 using UnityEngine;
@@ -18,15 +19,8 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
     [SerializeField] public Vector3 tutorialLift;
-    [SerializeField] private GameObject[] nextBlockPawns;
-    [SerializeField] private GameObject nextBlockVisual;
-    [SerializeField] private RectTransform seeLeftover;
-    [SerializeField] private int leftOverCount = 0;
-    private const int MaxLeftOverCount = 25;
+    [SerializeField] public NextBlockDisplay nextBlockDisplay;
     [SerializeField] private float spawnDelay = 0.45f;
-    [SerializeField] private float liftPitch = 1.0f;
-    [SerializeField] private float mountPitch = 1.0f;
-    [SerializeField] private float placePitch = 1.0f;
    
     [System.NonSerialized] public Block CurrentBlock;
     [System.NonSerialized] private Pool _nextBlock;
@@ -40,25 +34,26 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private int _spawnIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
     [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
-    
 
-    public void SetNextBlockVisibility(bool visible)
+
+    public void OnClick_ShowNextBlock()
     {
-        if(visible)
-        {
-            leftOverCount = MaxLeftOverCount;
-            DisplayNextBlock();
-        }
-        nextBlockVisual.SetActive(true);
-        nextBlockVisual.transform.DOKill();
-        nextBlockVisual.transform.DOScale(visible ? Vector3.one : Vector3.zero, 0.25f).SetEase(visible ? Ease.OutBack : Ease.InBack).onComplete =
-            () =>
-            {
-                nextBlockVisual.SetActive(visible);
-            };
-    }
+        HapticManager.OnClickVibrate();
 
-    public bool NextBlockVisible => nextBlockVisual.activeSelf;
+        if (!Wallet.Consume(Const.Currency.OneAd))
+        {
+            
+            AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
+            {
+                Wallet.Transaction(Const.Currency.OneAd);
+                OnClick_ShowNextBlock();
+            });
+            return;
+        }
+        nextBlockDisplay.Available = true;
+        AnalyticsManager.ShowNextBlock(LevelManager.CurrentLevel);
+    }
+    
     
     private void Awake()
     {
@@ -77,14 +72,6 @@ public class Spawner : Singleton<Spawner>
         transform.position += Vector3.forward * Const.THIS.creativeSettings.bottomOffset;
 #endif
     }
-//     public void UpdateFingerDelta(Vector3 pivot)
-//     {
-// #if CREATIVE
-//         distanceFromDraggingFinger.z = (pivot.z - transform.position.z) * 0.5f;
-//         return;
-// #endif
-//         distanceFromDraggingFinger.z = (pivot.z - transform.position.z);
-//     }
 
     public void Shake()
     {
@@ -233,7 +220,7 @@ public class Spawner : Singleton<Spawner>
                     }
                 }
 
-                Audio.Spawner_User_Interaction.PlayOneShotPitch(0.5f, liftPitch);
+                Audio.Spawner_User_Interaction.PlayOneShotPitch(0.5f, 1.0f);
 
                 
                 float smoothFactor = 0.0f;
@@ -362,7 +349,7 @@ public class Spawner : Singleton<Spawner>
         {
             HapticManager.Vibrate(HapticPatterns.PresetType.LightImpact);
             Board.THIS.Place(CurrentBlock);
-            Audio.Spawner_User_Interaction.PlayOneShotPitch(0.6f, placePitch);
+            Audio.Spawner_User_Interaction.PlayOneShotPitch(0.6f, 2.5f);
 
             CurrentBlock = null;
             
@@ -416,7 +403,7 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
-        Audio.Spawner_User_Interaction.PlayOneShotPitch(1.0f, mountPitch);
+        Audio.Spawner_User_Interaction.PlayOneShotPitch(1.0f, 1.5f);
 
         CurrentBlock.Move(MountPosition, 25.0f, Ease.OutQuad, true);
     }
@@ -461,10 +448,7 @@ public class Spawner : Singleton<Spawner>
                 _nextBlock = GetNexRandomBlock();
             }
 
-            if (NextBlockVisible)
-            {
-                DisplayNextBlock();
-            }
+            nextBlockDisplay.Display(_nextBlock);
         }
         return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
     } 
@@ -515,22 +499,4 @@ public class Spawner : Singleton<Spawner>
         return pawn;
     }
     #endregion
-
-
-    private void DisplayNextBlock()
-    {
-        leftOverCount--;
-        if (leftOverCount == 0)
-        {
-            SetNextBlockVisibility(false);
-            return;
-        }
-        
-        List<Transform> segmentTransforms = _nextBlock.Prefab<Block>().segmentTransforms;
-        for (int i = 0; i < segmentTransforms.Count; i++)
-        {
-            nextBlockPawns[i].SetActive(segmentTransforms[i]);
-        }
-        seeLeftover.DOSizeDelta(new Vector2(100.0f * (leftOverCount / (float)MaxLeftOverCount), 7.24f), 0.2f);
-    }
 }

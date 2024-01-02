@@ -60,6 +60,8 @@ public class SaveManager : SaveManagerBase<SaveManager>
         LevelManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
         Warzone.THIS.enemyProgressbar.Visible = ONBOARDING.PASSIVE_META.IsComplete();
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.WEAPON_TAB.IsComplete();
+        Spawner.THIS.nextBlockDisplay.Visible = saveData.userData.level >= 5;
+        Spawner.THIS.nextBlockDisplay.Available = false;
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
         UIManager.THIS.SettingsEnabled = ONBOARDING.WEAPON_TAB.IsComplete();

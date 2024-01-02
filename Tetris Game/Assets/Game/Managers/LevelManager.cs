@@ -71,6 +71,10 @@ public class LevelManager : Singleton<LevelManager>
             BeginLevel();
         }
 
+        if (CurrentLevel >= 5)
+        {
+            Spawner.THIS.nextBlockDisplay.Visible = true;
+        }
         
         AdManager.THIS.ShowBannerFrame();
     }

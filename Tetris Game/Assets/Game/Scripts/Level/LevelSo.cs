@@ -91,11 +91,11 @@ namespace Game
                 data.carryData = new Airplane.CarryData(Cargo.Type.Chest, Random.Range(0, 5));
                 return;
             }
-            if (Helper.IsPossible(0.1f))
-            {
-                data.carryData = new Airplane.CarryData(Cargo.Type.Intel, Random.Range(0, 5));
-                return;
-            }
+            // if (Helper.IsPossible(0.1f))
+            // {
+            //     data.carryData = new Airplane.CarryData(Cargo.Type.Intel, Random.Range(0, 5));
+            //     return;
+            // }
             
             data.carryData = new Airplane.CarryData(Cargo.Type.MaxStack, -1);
         }

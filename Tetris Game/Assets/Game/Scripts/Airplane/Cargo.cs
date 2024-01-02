@@ -64,9 +64,9 @@ public class Cargo : MonoBehaviour
                     // UIManagerExtensions.EmitChestCoinBurst(thisTransform.position, 15, 50);
                     UIManagerExtensions.EmitChestGemBurst(thisTransform.position, 10, 10);
                     break;
-                case Type.Intel:
-                    Spawner.THIS.SetNextBlockVisibility(true);
-                    break;
+                // case Type.Intel:
+                    // Spawner.THIS.SetNextBlockVisibility(true);
+                    // break;
             }
             
             Particle.Confetti.Play(thisTransform.position, Quaternion.Euler(-90.0f, 0.0f, 0.0f), new Vector3(2.5f, 2.5f, 2.5f));
@@ -82,6 +82,6 @@ public class Cargo : MonoBehaviour
         MaxStack,
         Health,
         Chest,
-        Intel,
+        // Intel,
     }
 }
