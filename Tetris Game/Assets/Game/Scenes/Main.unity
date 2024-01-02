@@ -3829,7 +3829,7 @@ MonoBehaviour:
     readOnly: 0
     preload: 1
     capacity: 1
-  - gameObject: {fileID: 1307469753505419829, guid: 4412e0f33e587443c9fa09b86ee761ac,
+  - gameObject: {fileID: 6107772689257460929, guid: e5f23c95191d141c5928f77fc7750141,
       type: 3}
     readOnly: 0
     preload: 1
@@ -3844,7 +3844,7 @@ MonoBehaviour:
     readOnly: 0
     preload: 1
     capacity: 1
-  - gameObject: {fileID: 6107772689257460929, guid: e5f23c95191d141c5928f77fc7750141,
+  - gameObject: {fileID: 1307469753505419829, guid: 4412e0f33e587443c9fa09b86ee761ac,
       type: 3}
     readOnly: 0
     preload: 1
@@ -4233,8 +4233,8 @@ MonoBehaviour:
       rewardWatchCount: 0
     purchaseData:
       offers: 
-  DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  DELETE_AT_START: 0
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
