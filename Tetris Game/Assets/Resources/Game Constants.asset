@@ -84,7 +84,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 1
+      level: 10
       playerData:
         currentHealth: 1
       pupData:
@@ -561,7 +561,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   mergerMaxColor: {r: 1, g: 0.654902, b: 0.07450981, a: 1}
   mergerColor: {r: 0.21176471, g: 0.8156863, b: 0.4392157, a: 1}
-  ghostNormal: {r: 0.42352942, g: 0.6392157, b: 1, a: 0.2509804}
+  ghostNormal: {r: 0.4235294, g: 0.5086175, b: 1, a: 0.49803922}
   ghostFade: {r: 0.42352942, g: 0.72156864, b: 1, a: 0}
   placeColorsDouble:
   - {r: 0.1764706, g: 0.827451, b: 0.3764706, a: 1}

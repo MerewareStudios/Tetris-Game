@@ -34,8 +34,8 @@ MonoBehaviour:
     offset: 0
     delay: 0
   victoryReward:
-    type: 0
-    amount: 7
+    type: 2
+    amount: 1
   failReward:
     type: 0
     amount: 5
