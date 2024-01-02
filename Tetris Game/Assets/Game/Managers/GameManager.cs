@@ -133,6 +133,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (Wallet.COIN.Amount >= 10)
             {
+                Spawner.THIS.MountBack();
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;
@@ -141,6 +142,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (Wallet.COIN.Amount >= 25)
             {
+                Spawner.THIS.MountBack();
                 UIManager.THIS.shop.AnimatedShow();
             }
             return;

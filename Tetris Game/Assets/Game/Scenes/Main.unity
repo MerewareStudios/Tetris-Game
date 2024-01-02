@@ -3745,7 +3745,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16781,7 +16781,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.99976
+      value: -511.99982
       objectReference: {fileID: 0}
     - target: {fileID: 2559703356478064583, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}

@@ -140,7 +140,7 @@ namespace Game
         private void DoColor(Color color)
         {
             _colorTween?.Kill();
-            _colorTween = gridTile.material.DOColor(color, Fast ? 0.1f : 0.2f).SetEase(Ease.OutQuad);
+            _colorTween = gridTile.material.DOColor(color, Fast ? 0.1f : 0.2f).SetUpdate(true).SetEase(Ease.OutQuad);
         }
 
         private void DoGhostPawn(bool add)

@@ -202,7 +202,7 @@ namespace Game
 
             #endregion
         #region Highlight - Pawn
-            private void DehighlightImmediate()
+            public void DehighlightImmediate()
             {
                 foreach (var place in _places)
                 {
@@ -214,6 +214,7 @@ namespace Game
             {
                 Block block = Spawner.THIS.CurrentBlock;
                 bool grabbed = Spawner.THIS.GrabbedBlock;
+                
                 foreach (var place in _places)
                 {
                     if (block && grabbed && !block.Free2Place)
@@ -313,14 +314,14 @@ namespace Game
                 ghostPawn.thisTransform.position = position;
                 
                 ghostPawn.meshRenderer.material.DOKill();
-                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f);
+                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f).SetUpdate(true);
                 
                 return ghostPawn;
             }
             public void RemoveGhostPawn(GhostPawn ghostPawn)
             {
                 ghostPawn.meshRenderer.material.DOKill();
-                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostFade, 0.15f).onComplete = () =>
+                ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostFade, 0.15f).SetUpdate(true).onComplete = () =>
                 {
                     ghostPawn.Despawn(Pool.Ghost_Pawn);
                 };

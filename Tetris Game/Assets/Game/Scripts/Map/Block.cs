@@ -173,7 +173,7 @@ namespace Game
             rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
             ResetSegmentRotations();
 
-            _motionTween = transform.DOMove(position, duration).SetEase(ease).SetSpeedBased(speedBased);
+            _motionTween = transform.DOMove(position, duration).SetEase(ease).SetSpeedBased(speedBased).SetUpdate(true);
             _motionTween.onComplete += () =>
             {
                 ResetSegmentRotations();

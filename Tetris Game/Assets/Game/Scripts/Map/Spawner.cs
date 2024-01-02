@@ -136,6 +136,11 @@ public class Spawner : Singleton<Spawner>
     }
     public void OnLevelEnd()
     {
+        MountBack();
+    }
+
+    public void MountBack()
+    {
         StopDelayedSpawn();
         _assertionTween?.Kill();
         StopMovement();
@@ -404,7 +409,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         Audio.Spawner_User_Interaction.PlayOneShotPitch(1.0f, 1.5f);
-
+        GrabbedBlock = false;
         CurrentBlock.Move(MountPosition, 25.0f, Ease.OutQuad, true);
     }
 
