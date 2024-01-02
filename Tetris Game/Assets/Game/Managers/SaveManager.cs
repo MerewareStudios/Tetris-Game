@@ -53,7 +53,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         Warzone.THIS.Player._Data = saveData.userData.playerData;
         Warzone.THIS.airplane.SavedData = saveData.userData.airplaneData;
-        Board.THIS._Data = saveData.userData.boardData;
+        Board.THIS.SavedData = saveData.userData.boardData;
 
         MenuNavigator.THIS.SavedData = saveData.userData.menuNavData;
         

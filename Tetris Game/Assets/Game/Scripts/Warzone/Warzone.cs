@@ -145,9 +145,12 @@ namespace  Game
                 if (LevelManager.CurrentLevel > airplane.SavedData.arrival)
                 {
                     Airplane.CarryData carryData = LevelManager.LevelSo.carryData;
-                    if (carryData.delay >= 0)
+                    if (!(carryData.type.Equals(Cargo.Type.MaxStack) && Board.THIS.SavedData.unlimitedStack))
                     {
-                        airplane.CarryCargo(carryData);
+                        if (carryData.delay >= 0)
+                        {
+                            airplane.CarryCargo(carryData);
+                        }
                     }
                 }
 

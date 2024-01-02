@@ -58,6 +58,7 @@ public class UIManager : Singleton<UIManager>
    [SerializeField] private Button plusPiggyCoinButton;
    [SerializeField] private Button plusTicketButton;
    [SerializeField] private Button plusHealthButton;
+   [SerializeField] private Button plusStackButton;
    [Header("Effects")]
    [SerializeField] public Image powerEffect;
 
@@ -200,8 +201,12 @@ public class UIManager : Singleton<UIManager>
                      emitter = UIManager.THIS.heartEmitter;
                      forceUpdateMenu = false;
                      break;
+                 case OfferScreen.RewardType.Stack:
+                    Board.THIS.RemoveStackLimit();
+                    forceUpdateMenu = false;
+                    break;
              }
-             float duration = UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
+             float duration = emitter == null ? 0.5f : UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
              closeDelay = Mathf.Max(closeDelay, duration);
              
              Audio.Offer_Unpacked.Play();
@@ -329,10 +334,14 @@ public class UIManager : Singleton<UIManager>
    public void ShowOffer_HeartPlus()
    {
       HapticManager.OnClickVibrate();
-
       OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, CurrentAdPlacement);
    }
-
+   public void ShowOffer_StackPlus()
+   {
+      HapticManager.OnClickVibrate();
+      OfferScreen.THIS.Open(OfferScreen.OfferType.UNLIMITEDSTACK, CurrentAdPlacement);
+   }
+   
 #endregion
 #if UNITY_EDITOR
    private float added = 0.0f;
@@ -482,6 +491,7 @@ public class UIManager : Singleton<UIManager>
          UIManager.THIS.plusPiggyCoinButton.gameObject.SetActive(value);
          UIManager.THIS.plusTicketButton.gameObject.SetActive(value);
          UIManager.THIS.plusHealthButton.gameObject.SetActive(value);
+         UIManager.THIS.plusStackButton.gameObject.SetActive(value);
       }
    }
 

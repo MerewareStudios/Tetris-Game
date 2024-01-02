@@ -45,12 +45,19 @@ namespace Game
 
         public int StackLimit
         {
-            get => _Data.maxStack;
+            get => SavedData.unlimitedStack ? int.MaxValue : SavedData.maxStack;
             set
             {
                 _data.maxStack = value;
                 UpdateStackStat();
             }
+        }
+
+        public void RemoveStackLimit()
+        {
+            SavedData.unlimitedStack = true;
+            UpdateStackStat();
+            
         }
 
         void Awake()
@@ -60,7 +67,7 @@ namespace Game
             this._suggestionHighlightMain = this.suggestionHighlight.main;
         }
 
-        public Data _Data
+        public Data SavedData
         {
             set
             {
@@ -72,14 +79,12 @@ namespace Game
 
         private void UpdateStackStat()
         {
-            if (StackLimit > 6)
-            {
-                StatDisplayArranger.THIS.Show(StatDisplay.Type.MaxStack, StackLimit, punch:true);
-            }
-            else
+            if (SavedData.unlimitedStack || StackLimit < 6)
             {
                 StatDisplayArranger.THIS.Hide(StatDisplay.Type.MaxStack);
+                return;
             }
+            StatDisplayArranger.THIS.Show(StatDisplay.Type.MaxStack, StackLimit, punch:true);
         }
 
         #region Construct - Deconstruct
@@ -1379,6 +1384,7 @@ namespace Game
         {
             [SerializeField] public int defaultStack = 6;
             [SerializeField] public int maxStack = 6;
+            [SerializeField] public bool unlimitedStack = false;
             
             public Data()
             {
@@ -1388,6 +1394,7 @@ namespace Game
             {
                 this.defaultStack = data.defaultStack;
                 this.maxStack = data.maxStack;
+                this.unlimitedStack = data.unlimitedStack;
             }
 
             public object Clone()

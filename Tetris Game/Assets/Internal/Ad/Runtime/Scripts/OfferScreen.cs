@@ -388,6 +388,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         OFFERPACK3,
         OFFERPACK4,
         OFFERPACK5,
+        UNLIMITEDSTACK,
     }
     [System.Serializable]
     public enum RewardType
@@ -397,6 +398,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         Gem,
         Ticket,
         Heart,
+        Stack,
     }
     [System.Serializable]
     public enum Mode
