@@ -2479,7 +2479,7 @@ MonoBehaviour:
   spawnedBlockLocation: {fileID: 860089792}
   distanceFromDraggingFinger: {x: 0, y: 0.7, z: 2}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.45}
-  tutorialLift: {x: 0.5, y: 1, z: 0.5}
+  tutorialLift: {x: 0.1, y: 0.2, z: 0.1}
   nextBlockPawns:
   - {fileID: 1213022914}
   - {fileID: 1162964345}
@@ -4234,7 +4234,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 0
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8056,7 +8056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 321, y: -23}
+  m_AnchoredPosition: {x: 321, y: -78}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1374626321 stripped

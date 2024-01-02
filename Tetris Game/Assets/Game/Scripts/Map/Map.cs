@@ -80,6 +80,8 @@ namespace Game
                         
 
                         
+                        Board.THIS.OnMerge?.Invoke();
+                        // yield return new WaitForSeconds(0.25f);
                         Board.THIS.MergeLines(tetrisLines);
                     
                         Board.THIS.MarkMoverByTetris(tetrisLines);

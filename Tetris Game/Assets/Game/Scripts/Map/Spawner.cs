@@ -220,6 +220,8 @@ public class Spawner : Singleton<Spawner>
                 if (CurrentBlock)
                 {
                     CurrentBlock.CancelLift();
+                    
+                    // CurrentBlock.transform.position = MountPosition;
             
                     if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
                     {
@@ -237,8 +239,8 @@ public class Spawner : Singleton<Spawner>
                 float smoothFactor = 0.0f;
                 while (true)
                 {
-                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 38.0f * smoothFactor);
-                    smoothFactor = Mathf.Lerp(smoothFactor, 1.25f, Time.deltaTime * _smoothFactorLerp);
+                    CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 44.0f * smoothFactor);
+                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * _smoothFactorLerp);
                     Board.THIS.HighlightPlaces();
                     yield return null;
                 }
@@ -443,13 +445,13 @@ public class Spawner : Singleton<Spawner>
         Pool pool;
         if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
         {
-            _smoothFactorLerp = 2.0f;
+            _smoothFactorLerp = 4.5f;
             suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
         }
         else
         {
-            _smoothFactorLerp = 10.0f;
+            _smoothFactorLerp = 6.0f;
             
             pool = _nextBlock;
             

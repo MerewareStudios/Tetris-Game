@@ -650,8 +650,6 @@ namespace Game
                 CreatePawnAtHorizontal(horIndex, lineIndex, lines.Count, mergeIndex);
             }
             
-            OnMerge?.Invoke();
-
             for (int i = 0; i < lines.Count; i++)
             {
                 MergeLine(lines[i], i);
