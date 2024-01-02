@@ -155,14 +155,9 @@ namespace Game
 #endif
             if (shootCount == 0)
             {
-                // if (_shootBubbleCount > 0)
-                {
-                    Audio.Bubble.PlayOneShot();
-                    Gun.Bubble(4);
-                    animator.SetTrigger(SHOOT_HASH);
-                    // _shootBubbleCount--;
-                }
-               
+                Audio.Bubble.PlayOneShot();
+                Gun.Bubble(4);
+                animator.SetTrigger(SHOOT_HASH);
 
 
                 if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
@@ -174,11 +169,6 @@ namespace Game
                 return;
             }
 
-            // _shootBubbleCount = 1;
-            // _volume = 1.0f;
-            // _playBubbleSound = true;
-            // _canShootBubble = 4;
-            
             animator.SetTrigger(SHOOT_HASH);
             for (int i = 0; i < shootCount; i++)
             {
@@ -293,13 +283,13 @@ namespace Game
         {
             ReplenishHealth();
 
-            // _shootBubbleCount = 1;
 
             this.AutoEnemySortInterval = sortInterval;
             
             crossHair.gameObject.SetActive(false);
-            crossHair.position = Position;
-            
+            crossHair.position = Position + new Vector3(0.0f, 0.0f, -1.5f);
+            crossHair.localScale = Vector3.one;
+
             Emission = 0.0f;
             UIManager.THIS.powerEffect.enabled = false;
 
