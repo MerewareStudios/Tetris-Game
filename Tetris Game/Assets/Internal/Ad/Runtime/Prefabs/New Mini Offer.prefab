@@ -515,7 +515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'NEXT OFFER
+  m_text: 'NEXT BUNDLE
 
 '
   m_isRightToLeft: 0
@@ -526,8 +526,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289134361
-  m_fontColor: {r: 0.096226394, g: 1, b: 0.65206826, a: 1}
+    rgba: 4281263787
+  m_fontColor: {r: 0.67058825, g: 0.90196085, b: 0.18039216, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 1, b: 0.6509804, a: 1}
+  m_Color: {r: 0.67058825, g: 0.9019608, b: 0.18039216, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -799,8 +799,8 @@ MonoBehaviour:
   increment: 8
   availableLevel: 7
   prefix: <pend a=0.1 f=2><sprite name=Lock>
-  offerListWithAds: 050000000600000007000000
-  offerListWithoutAds: 0800000009000000
+  offerListWithAds: 06000000070000000c000000
+  offerListWithoutAds: 050000000800000009000000
   adPlacement: 11
 --- !u!1 &8643625905348914034
 GameObject:

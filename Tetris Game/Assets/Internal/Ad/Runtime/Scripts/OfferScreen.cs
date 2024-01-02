@@ -48,6 +48,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public delegate void UNPACK(Reward[] rewards, System.Action onFinish);
     public delegate bool CONDITIONAL();
     public delegate void ANALYTICS(OfferType offerType, OfferScreen.AdPlacement adPlacement, Mode mode);
+    public delegate void FEEDBACK(OfferScreen.OfferType offerType);
     public static STR2STR OnGetPriceSymbol;
     public static STR2DECIMAL OnGetPrice;
     public static System.Action<string> OnPurchaseOffer;
@@ -58,6 +59,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public static System.Action OnFeedbackUnpack;
     public static System.Action OnFeedbackExit;
     public static System.Action OnUnpackShow;
+    public static FEEDBACK OnSuccessfullPurchaseFeedback;
 
     
     public Data _Data
@@ -272,6 +274,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             return;
         }
         OfferData offerDat = ID2OfferData(iapID);
+        OnSuccessfullPurchaseFeedback?.Invoke(offerDat.offerType);
         if (offerDat == null)
         {
             Debug.LogError("Could not find purchase iapID.");

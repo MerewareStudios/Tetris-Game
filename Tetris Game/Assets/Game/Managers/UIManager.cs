@@ -114,6 +114,7 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
       OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
       OfferScreen.OnFeedbackBuy = () => HapticManager.OnClickVibrate();
+      OfferScreen.OnSuccessfullPurchaseFeedback = MenuNavigator.THIS.lockedMiniOffer.ForceEndOfferVia;
       OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {

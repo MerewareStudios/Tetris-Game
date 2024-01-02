@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game;
 using IWI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -92,15 +93,20 @@ public class Airplane : MonoBehaviour
         
         HapticManager.OnClickVibrate();
 
-        if (!Wallet.Consume(Const.Currency.OneAd))
+
+        bool alreadyHave = SavedData.Current.type.Equals(Cargo.Type.MaxStack) && Board.THIS.SavedData.unlimitedStack;
+
+        if (!alreadyHave)
         {
-            
-            AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
+            if (!Wallet.Consume(Const.Currency.OneAd))
             {
-                Wallet.Transaction(Const.Currency.OneAd);
-                OnClick_Get();
-            });
-            return;
+                AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
+                {
+                    Wallet.Transaction(Const.Currency.OneAd);
+                    OnClick_Get();
+                });
+                return;
+            }
         }
 
         SavedData.UnpackCargo(SavedData.Count - 1);
@@ -266,6 +272,8 @@ public class Airplane : MonoBehaviour
             
             total++;
         }
+
+        public Cargo Current => Cargoes[Count - 1];
 
         public int Count => cargoTypes.Count;
         public bool Full => Count >= 5;

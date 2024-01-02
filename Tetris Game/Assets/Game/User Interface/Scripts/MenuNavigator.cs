@@ -14,7 +14,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [SerializeField] private GameNotification gameNotificationShop;
     [SerializeField] private GameNotification[] gameNotifications;
     [Header("Offer")]
-    [SerializeField] private LockedMiniOffer lockedMiniOffer;
+    [SerializeField] public LockedMiniOffer lockedMiniOffer;
 
     public Data SavedData
     {

@@ -70,8 +70,9 @@ public class LockedMiniOffer : MonoBehaviour
     private void ShowOffer()
     {
         visualParent.SetActive(false);
-        
-        miniOffer.ShowOffer(GetNextOffer(), adPlacement);
+
+        SavedData.currentOfferType = GetNextOffer();
+        miniOffer.ShowOffer(SavedData.currentOfferType, adPlacement);
         
         endStamp.gameObject.SetActive(true);
         
@@ -93,6 +94,14 @@ public class LockedMiniOffer : MonoBehaviour
                 yield return new WaitForSecondsRealtime(1);
             }
         }
+    }
+
+    public void ForceEndOfferVia(OfferScreen.OfferType offerType)
+    {
+        if (SavedData.currentOfferType.Equals(offerType))
+        {
+            SavedData.offerEnds = TimeSpan.FromSeconds(durationSec).Ticks;
+        }   
     }
 
     private OfferScreen.OfferType GetNextOffer()
@@ -139,6 +148,7 @@ public class LockedMiniOffer : MonoBehaviour
         [SerializeField] public int offerIndex;
         [SerializeField] public bool timerRunning = false;
         [SerializeField] public long offerEnds;
+        [SerializeField] public OfferScreen.OfferType currentOfferType;
             
         public TimeSpan CurrentStamp => TimeSpan.FromTicks(offerEnds - DateTime.Now.Ticks);
         public bool OfferEnded => CurrentStamp.Ticks < 0;
@@ -156,6 +166,7 @@ public class LockedMiniOffer : MonoBehaviour
             this.offerIndex = data.offerIndex;
             this.timerRunning = data.timerRunning;
             this.offerEnds = data.offerEnds;
+            this.currentOfferType = data.currentOfferType;
         }
 
         public object Clone()
