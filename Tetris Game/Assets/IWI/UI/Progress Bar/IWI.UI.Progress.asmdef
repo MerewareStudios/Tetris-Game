@@ -1,3 +1,16 @@
 {
-	"name": "IWI.UI.Progress"
+    "name": "IWI.UI.Progress",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1fff1656b3a82904d97c89a77a7b3140"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Progressbar : MonoBehaviour
 {
     [SerializeField] private RectTransform fillImage;
+    [SerializeField] private Vector2 maxSize;
 
     public float Fill
     {
-        set => fillImage.DOScale(new Vector3(value, 1.0f, 1.0f), 0.15f).SetEase(Ease.OutBack);
+        set => fillImage.DOSizeDelta(new Vector2(maxSize.x * value, maxSize.y), 0.25f).SetDelay(0.15f).SetEase(Ease.InOutBack);
     }
 
     public bool Visible
