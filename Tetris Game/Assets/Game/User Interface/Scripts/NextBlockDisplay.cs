@@ -14,6 +14,7 @@ public class NextBlockDisplay : MonoBehaviour
     [SerializeField] private GameObject priceTag;
     [SerializeField] private GameObject questionMark;
     [SerializeField] private GameObject blockPanel;
+    [SerializeField] private GameObject plusButton;
     private const int MaxLeftOverCount = 25;
     
     public bool Visible
@@ -21,6 +22,13 @@ public class NextBlockDisplay : MonoBehaviour
         get => this.gameObject.activeSelf;
         set => this.gameObject.SetActive(value);
     }
+    
+    public void RemoveNextBlockLimit()
+    {
+        Board.THIS.SavedData.unlimitedPeek = true;
+        Available = true;
+    }
+
 
     public bool Available
     {
@@ -28,33 +36,33 @@ public class NextBlockDisplay : MonoBehaviour
         {
             leftOverCount = MaxLeftOverCount;
 
-            showButton.gameObject.SetActive(!value);
-            priceTag.gameObject.SetActive(!value);
-            questionMark.gameObject.SetActive(!value);
-            blockPanel.gameObject.SetActive(value);
+            bool unlimited = Board.THIS.SavedData.unlimitedPeek;
+
+            blockPanel.gameObject.SetActive(value || unlimited);
+            
+            showButton.gameObject.SetActive(!value && !unlimited);
+            priceTag.gameObject.SetActive(!value && !unlimited);
+            questionMark.gameObject.SetActive(!value && !unlimited);
+            progress.gameObject.SetActive(value && !unlimited);
+            plusButton.gameObject.SetActive(true && !unlimited);
         }
         get => true;
     }
     
 
-    // public void SetNextBlockVisibility(bool visible)
-    // {
-    //     if(visible)
-    //     {
-    //         leftOverCount = MaxLeftOverCount;
-    //         DisplayNextBlock();
-    //     }
-    //     nextBlockVisual.SetActive(true);
-    //     nextBlockVisual.transform.DOKill();
-    //     nextBlockVisual.transform.DOScale(visible ? Vector3.one : Vector3.zero, 0.25f).SetEase(visible ? Ease.OutBack : Ease.InBack).onComplete =
-    //         () =>
-    //         {
-    //             nextBlockVisual.SetActive(visible);
-    //         };
-    // }
-
     public void Display(Pool blockType)
     {
+        List<Transform> segmentTransforms = blockType.Prefab<Block>().segmentTransforms;
+        for (int i = 0; i < segmentTransforms.Count; i++)
+        {
+            nextBlockPawns[i].SetActive(segmentTransforms[i]);
+        }
+
+        if (Board.THIS.SavedData.unlimitedPeek)
+        {
+            return;
+        }
+        
         leftOverCount--;
         if (leftOverCount == 0)
         {
@@ -63,11 +71,6 @@ public class NextBlockDisplay : MonoBehaviour
             return;
         }
         
-        List<Transform> segmentTransforms = blockType.Prefab<Block>().segmentTransforms;
-        for (int i = 0; i < segmentTransforms.Count; i++)
-        {
-            nextBlockPawns[i].SetActive(segmentTransforms[i]);
-        }
         progress.DOSizeDelta(new Vector2(100.0f * (leftOverCount / (float)MaxLeftOverCount), 7.24f), 0.2f);
     }
     

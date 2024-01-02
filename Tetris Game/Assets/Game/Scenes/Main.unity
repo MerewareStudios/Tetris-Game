@@ -3689,6 +3689,7 @@ MonoBehaviour:
         defaultStack: 6
         maxStack: 6
         unlimitedStack: 0
+        unlimitedPeek: 0
       coinTransactionData:
         value: 0
       gemTransactionData:

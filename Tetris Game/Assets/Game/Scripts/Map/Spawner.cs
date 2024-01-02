@@ -53,7 +53,8 @@ public class Spawner : Singleton<Spawner>
         nextBlockDisplay.Available = true;
         AnalyticsManager.ShowNextBlock(LevelManager.CurrentLevel);
     }
-    
+
+   
     
     private void Awake()
     {

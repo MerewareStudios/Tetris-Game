@@ -1385,6 +1385,7 @@ namespace Game
             [SerializeField] public int defaultStack = 6;
             [SerializeField] public int maxStack = 6;
             [SerializeField] public bool unlimitedStack = false;
+            [SerializeField] public bool unlimitedPeek = false;
             
             public Data()
             {

@@ -205,6 +205,10 @@ public class UIManager : Singleton<UIManager>
                     Board.THIS.RemoveStackLimit();
                     forceUpdateMenu = false;
                     break;
+                 case OfferScreen.RewardType.NextBlock:
+                    Spawner.THIS.nextBlockDisplay.RemoveNextBlockLimit();
+                    forceUpdateMenu = false;
+                    break;
              }
              float duration = emitter == null ? 0.5f : UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
              closeDelay = Mathf.Max(closeDelay, duration);
@@ -340,6 +344,11 @@ public class UIManager : Singleton<UIManager>
    {
       HapticManager.OnClickVibrate();
       OfferScreen.THIS.Open(OfferScreen.OfferType.UNLIMITEDSTACK, CurrentAdPlacement);
+   }
+   public void ShowOffer_NextBlock()
+   {
+      HapticManager.OnClickVibrate();
+      OfferScreen.THIS.Open(OfferScreen.OfferType.NEXTBLOCK, CurrentAdPlacement);
    }
    
 #endregion

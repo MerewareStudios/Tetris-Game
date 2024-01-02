@@ -2277,7 +2277,7 @@ MonoBehaviour:
   - offerType: 10
     productType: 1
     iapID: iwi.combatris.product.unlimitedstack
-    title: <bounce a=0.05 f=1>NO LIMITS
+    title: <bounce a=0.05 f=1>NO LIMIT
     detailedInfoStr: <size=150%>Removes stack limit!
     rewards:
     - rewardType: 5
@@ -2290,6 +2290,54 @@ MonoBehaviour:
     oldPriceMult: 1
     promotionalText: 
     miniText: 
+  - offerType: 11
+    productType: 1
+    iapID: iwi.combatris.product.nextblock
+    title: <bounce a=0.05 f=1>NO LIMIT
+    detailedInfoStr: <size=150%>Always see the upcoming block!
+    rewards:
+    - rewardType: 6
+      amount: 1
+    previewDatas:
+    - sprite: {fileID: 21300000, guid: def30a10393645147ae3554ff6539fc3, type: 3}
+      free: 0
+      title: NEW
+      mult: Next Peek
+    oldPriceMult: 1
+    promotionalText: 
+    miniText: 
+  - offerType: 12
+    productType: 1
+    iapID: iwi.combatris.product.nolimitspack
+    title: <bounce a=0.05 f=1>NO LIMITS PACK
+    detailedInfoStr: <size=150%>Take advantage of no limits free of ads!
+    rewards:
+    - rewardType: 6
+      amount: 1
+    - rewardType: 5
+      amount: 1
+    - rewardType: 0
+      amount: 1
+    previewDatas:
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      free: 1
+      title: 
+      mult: No Ads
+    - sprite: {fileID: 21300000, guid: def30a10393645147ae3554ff6539fc3, type: 3}
+      free: 0
+      title: NEW
+      mult: Next Peek
+    - sprite: {fileID: 21300000, guid: 7eef94ac387d46f448e5911214d7ebc9, type: 3}
+      free: 0
+      title: NEW
+      mult: Infinite Stack
+    oldPriceMult: 1
+    promotionalText: 'FREE
+
+      ONE'
+    miniText: 'NO
+
+      LIMITS'
   offerPreviews:
   - {fileID: 7877509209794637565}
   - {fileID: 503347347655952631}

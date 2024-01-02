@@ -84,7 +84,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 5
+      level: 15
       playerData:
         currentHealth: 1
       pupData:
@@ -96,6 +96,7 @@ MonoBehaviour:
         defaultStack: 6
         maxStack: 7
         unlimitedStack: 0
+        unlimitedPeek: 0
       coinTransactionData:
         value: 0
       gemTransactionData:

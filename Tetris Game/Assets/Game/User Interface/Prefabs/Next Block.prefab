@@ -698,6 +698,7 @@ MonoBehaviour:
   priceTag: {fileID: 1080024005439652493}
   questionMark: {fileID: 8277126643038199315}
   blockPanel: {fileID: 1498592352924379095}
+  plusButton: {fileID: 5131791473759281572}
 --- !u!1 &7485560617564600711
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +860,7 @@ PrefabInstance:
     - target: {fileID: 1779313352674444770, guid: 0eb54898797fb0a44950924a9f420907,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowOffer_StackPlus
+      value: ShowOffer_NextBlock
       objectReference: {fileID: 0}
     - target: {fileID: 2619468415036996237, guid: 0eb54898797fb0a44950924a9f420907,
         type: 3}
@@ -1024,6 +1025,12 @@ PrefabInstance:
 --- !u!224 &2762443818453946372 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619468415036996237, guid: 0eb54898797fb0a44950924a9f420907,
+    type: 3}
+  m_PrefabInstance: {fileID: 147515570932771465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5131791473759281572 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4988824582967626541, guid: 0eb54898797fb0a44950924a9f420907,
     type: 3}
   m_PrefabInstance: {fileID: 147515570932771465}
   m_PrefabAsset: {fileID: 0}
