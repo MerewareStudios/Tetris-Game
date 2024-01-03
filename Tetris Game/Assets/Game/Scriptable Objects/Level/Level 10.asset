@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 3, y: 5}
+  boardSize: {x: 4, y: 5}
   countdown: 3
   totalCoin: 50
   enemySpawnData:
@@ -32,5 +32,5 @@ MonoBehaviour:
   suggestedBlocks: []
   pawnPlacements: []
   carryData:
-    type: 3
+    type: 0
     delay: 0

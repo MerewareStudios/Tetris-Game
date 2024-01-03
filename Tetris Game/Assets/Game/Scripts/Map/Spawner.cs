@@ -51,6 +51,7 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         nextBlockDisplay.Available = true;
+        nextBlockDisplay.Display(_nextBlock);
         AnalyticsManager.ShowNextBlock(LevelManager.CurrentLevel);
     }
 

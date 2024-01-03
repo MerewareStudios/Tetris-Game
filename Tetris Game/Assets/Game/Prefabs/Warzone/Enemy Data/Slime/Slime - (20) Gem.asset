@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Slime - Level 3 (20) Gem
+  m_Name: Slime - (20) Gem
   m_EditorClassIdentifier: 
   type: 19
   scale: {x: 1.2, y: 1.2, z: 1.2}
@@ -126,3 +126,4 @@ MonoBehaviour:
   spawnerDuration: 0
   spawnerExtra: 0
   extraData: {fileID: 0}
+  implosionAudio: 0

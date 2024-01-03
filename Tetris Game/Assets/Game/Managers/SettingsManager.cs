@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SettingsManager : Singleton<SettingsManager>
 {
     [System.NonSerialized] public float TimeScale = 1.0f;
+    [SerializeField] private GameObject background;
     [SerializeField] private GameObject buttonsParent;
     [SerializeField] private Image vibrateIcon;
     [SerializeField] private Image soundIcon;
@@ -18,6 +19,7 @@ public class SettingsManager : Singleton<SettingsManager>
         set
         {
             buttonsParent.SetActive(value);
+            background.SetActive(value);
             TimeScale = value ? 0.0f : 1.0f;
             GameManager.UpdateTimeScale();
         }

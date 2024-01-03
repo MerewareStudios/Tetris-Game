@@ -80,5 +80,5 @@ MonoBehaviour:
     index: {x: 2, y: 0}
     extra: 20
   carryData:
-    type: 3
+    type: 1
     delay: 2

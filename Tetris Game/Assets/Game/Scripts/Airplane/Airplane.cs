@@ -149,7 +149,7 @@ public class Airplane : MonoBehaviour
         Travel(targetPosition, 5.0f, Ease.OutSine).SetDelay(carryData.delay)
         .onComplete = () => 
         {
-            Audio.Airplane.PlayOneShot();
+            Audio.Airplane.Play();
 
             Travel(endPosition, 12.0f, SavedData.Full ? Ease.InBack : Ease.InSine).onComplete = () =>
             {
@@ -167,13 +167,13 @@ public class Airplane : MonoBehaviour
             switch (carryData.type)
             {
                 case Cargo.Type.MaxStack:
-                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.maxStackDropCheer, 0.25f, 1.5f);
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.maxStackDropCheer, 0.75f, 1.5f);
                     break;
                 case Cargo.Type.Health:
-                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.healthDropCheer, 0.25f, 1.5f);
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.healthDropCheer, 0.75f, 1.5f);
                     break;
                 case Cargo.Type.Chest:
-                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.chestDropCheer, 0.25f, 1.5f);
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.chestDropCheer, 0.75f, 1.5f);
                     break;
                 // case Cargo.Type.Intel:
                     // UIManager.THIS.speechBubble.Speak(Onboarding.THIS.intelDropCheer, 0.25f, 1.5f);
