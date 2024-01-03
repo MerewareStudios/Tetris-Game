@@ -199,7 +199,7 @@ namespace  Game
 
                     if (Time.time < waitTill)
                     {
-                        yield return new WaitForSeconds((waitTill - Time.time) * 0.15f);
+                        yield return new WaitForSeconds((waitTill - Time.time) * 0.075f);
                     }
                 }
 

@@ -28,11 +28,10 @@ MonoBehaviour:
     Coming</>'
   ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
   freePlacementText: Place it anywhere!
-  maxStackDropCheer: EXTRA<color=#FFD919><bounce a=1 f=2 w=0.5> STACK</bounce></color>
+  maxStackDropCheer: +1<color=#FFD919><bounce a=1 f=2 w=0.5> STACK LIMIT</bounce></color>
     !
   healthDropCheer: +50<color=#FFFFFF><size=90%><sprite name=Heart></size>
   chestDropCheer: EXTRA<sprite name=Gem>  <bounce a=1 f=2 w=0.5>!
-  intelDropCheer: <color=#FFFFFF><bounce a=1 f=2 w=0.5>INTEL</bounce></color> !
   airDropFull: Oh no! <color=#FF3E3E>FULL!
   waveText: <wiggle a=1 f=3>Level</> {0}
   fullText: <size=50%>MAX

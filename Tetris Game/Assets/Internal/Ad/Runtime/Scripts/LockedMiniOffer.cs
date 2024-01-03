@@ -19,7 +19,6 @@ public class LockedMiniOffer : MonoBehaviour
     [System.NonSerialized] private Coroutine _timeCoroutine = null;
     [SerializeField] public OfferScreen.OfferType[] offerListWithAds;
     [SerializeField] public OfferScreen.OfferType[] offerListWithoutAds;
-    [SerializeField] public OfferScreen.AdPlacement adPlacement;
 
     public delegate int GetCurrentFunc();
     public delegate bool GetAdStateFunc();
@@ -72,7 +71,7 @@ public class LockedMiniOffer : MonoBehaviour
         visualParent.SetActive(false);
 
         SavedData.currentOfferType = GetNextOffer();
-        miniOffer.ShowOffer(SavedData.currentOfferType, adPlacement);
+        miniOffer.ShowOffer(SavedData.currentOfferType, OfferScreen.AdPlacement.MENUMINI);
         
         endStamp.gameObject.SetActive(true);
         

@@ -167,7 +167,7 @@ public class Airplane : MonoBehaviour
             switch (carryData.type)
             {
                 case Cargo.Type.MaxStack:
-                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.maxStackDropCheer, 0.75f, 1.5f);
+                    UIManager.THIS.speechBubble.Speak(Onboarding.THIS.maxStackDropCheer, 0.75f, 1.85f);
                     break;
                 case Cargo.Type.Health:
                     UIManager.THIS.speechBubble.Speak(Onboarding.THIS.healthDropCheer, 0.75f, 1.5f);

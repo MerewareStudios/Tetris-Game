@@ -348,11 +348,11 @@ RectTransform:
   - {fileID: 1422914995924943743}
   m_Father: {fileID: 8869511095599705150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.000030517578, y: -73}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -84, y: 25.1}
   m_SizeDelta: {x: 0, y: 100}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3593799414717994799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -796,8 +796,8 @@ MonoBehaviour:
   fill: {fileID: 7495345042447379862}
   miniOffer: {fileID: 0}
   durationSec: 200
-  increment: 8
-  availableLevel: 7
+  increment: 3
+  availableLevel: 6
   prefix: <pend a=0.1 f=2><sprite name=Lock>
   offerListWithAds: 06000000070000000c000000
   offerListWithoutAds: 050000000800000009000000
