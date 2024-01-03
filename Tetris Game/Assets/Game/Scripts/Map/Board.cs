@@ -79,7 +79,7 @@ namespace Game
 
         private void UpdateStackStat()
         {
-            if (SavedData.unlimitedStack || StackLimit < 6)
+            if (SavedData.unlimitedStack || StackLimit <= SavedData.defaultStack)
             {
                 StatDisplayArranger.THIS.Hide(StatDisplay.Type.MaxStack);
                 return;

@@ -3731,6 +3731,7 @@ MonoBehaviour:
           offerIndex: 0
           timerRunning: 0
           offerEnds: 0
+          currentOfferType: 0
       piggyData:
         currentMoney:
           type: 0
@@ -3754,7 +3755,7 @@ MonoBehaviour:
     purchaseData:
       offers: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0

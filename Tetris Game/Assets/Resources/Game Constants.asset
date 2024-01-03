@@ -84,7 +84,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 15
+      level: 1
       playerData:
         currentHealth: 1
       pupData:
@@ -94,7 +94,7 @@ MonoBehaviour:
         use: 1
       boardData:
         defaultStack: 6
-        maxStack: 7
+        maxStack: 6
         unlimitedStack: 0
         unlimitedPeek: 0
       coinTransactionData:
@@ -138,6 +138,7 @@ MonoBehaviour:
           offerIndex: 0
           timerRunning: 0
           offerEnds: 0
+          currentOfferType: 0
       piggyData:
         currentMoney:
           type: 0
