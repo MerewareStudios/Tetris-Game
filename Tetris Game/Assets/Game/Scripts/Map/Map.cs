@@ -59,6 +59,10 @@ namespace Game
                     
                     if (tetrisLines.Count > 0)
                     {
+                        if (Board.THIS.OnMerge != null && Board.THIS.OnMerge.Invoke())
+                        {
+                            yield return new WaitForSeconds(0.15f);
+                        }
                         HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
 
                         Audio.Board_Merge_Cock.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.2f);
@@ -80,7 +84,6 @@ namespace Game
                         
 
                         
-                        Board.THIS.OnMerge?.Invoke();
                         // yield return new WaitForSeconds(0.25f);
                         Board.THIS.MergeLines(tetrisLines);
                     

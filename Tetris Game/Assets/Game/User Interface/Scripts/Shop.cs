@@ -112,6 +112,9 @@ public class Shop : MonoBehaviour
             trailRenderer.transform.localPosition = Vector3.zero;
 
 
+            Audio.Board_Merge_Rising.Play();
+
+            
             bigIconTransform.DOKill();
             bigIconTransform.position = leftPivot.position;
             bigIconTransform.localScale = Vector3.one;
@@ -136,6 +139,8 @@ public class Shop : MonoBehaviour
                 bigIconTransform.gameObject.SetActive(false);
 
                 VisibleImmediate = true;
+                
+                Audio.Offer_Unpacked.Play();
                 
                 buttonTransform.DOKill();
                 buttonTransform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);

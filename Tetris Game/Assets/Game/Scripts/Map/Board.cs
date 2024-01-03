@@ -29,7 +29,8 @@ namespace Game
         [Header("Rect")]
         [SerializeField] public RectTransform projectionRect;
 
-        [System.NonSerialized] public System.Action OnMerge;
+        public delegate bool OnMergeInfo();
+        [System.NonSerialized] public OnMergeInfo OnMerge;
         [System.NonSerialized] public const float MagnetRadius = 2.5f;
         [System.NonSerialized] public const float BombRadius = 1.5f;
         

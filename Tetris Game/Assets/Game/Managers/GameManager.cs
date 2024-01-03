@@ -120,33 +120,36 @@ public class GameManager : Singleton<GameManager>
         Board.THIS.OnMerge -= CheckMergeOnboarding;
     }
 
-    private void CheckMergeOnboarding()
+    private bool CheckMergeOnboarding()
     {
         if (ONBOARDING.SPEECH_CHEER.IsNotComplete())
         {
             Onboarding.CheerForMerge();
             ONBOARDING.SPEECH_CHEER.SetComplete();
-            return;
+            return false;
         }
 
         if (ONBOARDING.BLOCK_TAB.IsNotComplete())
         {
-            if (Wallet.COIN.Amount >= 10)
+            if (Wallet.COIN.Amount >= 10 && LevelManager.THIS.CurrentLevel() > 1)
             {
                 Spawner.THIS.MountBack();
                 UIManager.THIS.shop.AnimatedShow();
+                return true;
             }
-            return;
+            return false;
         }
-        if (ONBOARDING.WEAPON_TAB.IsNotComplete())
+        if (ONBOARDING.WEAPON_TAB.IsNotComplete() && LevelManager.THIS.CurrentLevel() > 1)
         {
             if (Wallet.COIN.Amount >= 25)
             {
                 Spawner.THIS.MountBack();
                 UIManager.THIS.shop.AnimatedShow();
+                return true;
             }
-            return;
+            return false;
         }
+        return false;
     }
     
     public void ShareTheGame(System.Action onStart, System.Action<bool> onFinish)
