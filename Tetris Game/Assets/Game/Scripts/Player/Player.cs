@@ -226,7 +226,7 @@ namespace Game
 
                         crossHair.position = Vector3.Lerp(crossHair.position, targetPosition, Time.deltaTime * _Data.TurnRate * smoothFactor);
                         float enemyRotFactor = CurrentEnemy.so.speed * 20.0f;
-                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * _Data.TurnRate * smoothFactor * enemyRotFactor);
+                        crossHair.localScale = Vector3.Lerp(crossHair.localScale, CurrentEnemy.CrossSize, Time.deltaTime * 8.0f);
                         
                         Vector2 direction = targetPosition.XZ() - _selfPosition;
                         float targetAngle = -Vector2.SignedAngle(Vector2.up, direction);
