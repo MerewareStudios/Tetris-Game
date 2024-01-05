@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Turtle (40)
   m_EditorClassIdentifier: 
   type: 37
-  scale: {x: 0.9, y: 0.9, z: 0.9}
+  scale: {x: 0.95, y: 0.95, z: 0.95}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -123,3 +123,4 @@ MonoBehaviour:
   spawnerDuration: 0
   spawnerExtra: 0
   extraData: {fileID: 0}
+  implosionAudio: 0

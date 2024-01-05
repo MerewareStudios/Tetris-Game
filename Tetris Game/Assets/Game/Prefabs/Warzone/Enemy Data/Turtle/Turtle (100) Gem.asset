@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Turtle (100) Gem
   m_EditorClassIdentifier: 
   type: 37
-  scale: {x: 1, y: 1, z: 1}
+  scale: {x: 1.1, y: 1.1, z: 1.1}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -117,7 +117,7 @@ MonoBehaviour:
     probability: 0
   maxHealth: 200
   speed: 0.045
-  forwardRange: {x: 1, y: 1}
+  forwardRange: {x: 0.95, y: 0.95}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35

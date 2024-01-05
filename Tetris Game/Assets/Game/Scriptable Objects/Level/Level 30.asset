@@ -14,21 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 8, y: 6}
+  boardSize: {x: 2, y: 5}
   countdown: 3
   totalCoin: 100
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: c0ec0606e24342d49a244245a4158c7c, type: 2}
-    count: 1
-    distance: 1
-    offset: 0
-    delay: 24
-  - enemyData: {fileID: 11400000, guid: 5e4c67a992f93d84f899d43ab5a2f182, type: 2}
-    count: 2
-    distance: 0.6
-    offset: 0
-    delay: 24
-  - enemyData: {fileID: 11400000, guid: 72b83ee3f3b75d14cbdd3052fd789a9a, type: 2}
+  - enemyData: {fileID: 11400000, guid: f38fdd9b41e40ca4c9a2f40507da6643, type: 2}
     count: 1
     distance: 1
     offset: 0

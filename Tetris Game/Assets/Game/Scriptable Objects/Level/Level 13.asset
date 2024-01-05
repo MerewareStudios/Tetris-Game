@@ -75,10 +75,7 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
-  pawnPlacements:
-  - usage: 9
-    index: {x: 2, y: 0}
-    extra: 20
+  pawnPlacements: []
   carryData:
     type: 1
     delay: 2

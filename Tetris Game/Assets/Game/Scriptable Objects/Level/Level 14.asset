@@ -40,7 +40,13 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
-  pawnPlacements: []
+  pawnPlacements:
+  - usage: 10
+    index: {x: 0, y: 0}
+    extra: 0
+  - usage: 10
+    index: {x: 4, y: 0}
+    extra: 0
   carryData:
     type: 2
     delay: 0

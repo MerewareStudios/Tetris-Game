@@ -14,28 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 7, y: 6}
+  boardSize: {x: 6, y: 5}
   countdown: 3
   totalCoin: 50
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+  - enemyData: {fileID: 11400000, guid: 5e4c67a992f93d84f899d43ab5a2f182, type: 2}
     count: 1
-    distance: 0.6
+    distance: 0
+    offset: 0
+    delay: 0
+  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+    count: 2
+    distance: 1
+    offset: 0
+    delay: 12
+  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
+    count: 2
+    distance: 1
     offset: 0
     delay: 12
   - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
     count: 3
-    distance: 0.6
-    offset: 0
-    delay: 9
-  - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
-    count: 3
-    distance: 0.6
+    distance: 0.8
     offset: 0
     delay: 9
   - enemyData: {fileID: 11400000, guid: c39368fd0f716e546b99e9c86c1e196f, type: 2}
     count: 2
-    distance: 0.6
+    distance: 0.8
     offset: 0
     delay: 9
   - enemyData: {fileID: 11400000, guid: 5e4c67a992f93d84f899d43ab5a2f182, type: 2}
@@ -51,30 +56,30 @@ MonoBehaviour:
     amount: 5
   suggestedBlocks: []
   pawnPlacements:
-  - usage: 13
+  - usage: 5
     index: {x: 0, y: 0}
     extra: 0
-  - usage: 13
-    index: {x: 6, y: 0}
+  - usage: 5
+    index: {x: 1, y: 0}
     extra: 0
-  - usage: 13
+  - usage: 5
+    index: {x: 1, y: 1}
+    extra: 0
+  - usage: 5
     index: {x: 0, y: 1}
     extra: 0
-  - usage: 13
-    index: {x: 6, y: 1}
-    extra: 0
-  - usage: 13
-    index: {x: 6, y: 2}
-    extra: 0
-  - usage: 13
+  - usage: 5
     index: {x: 0, y: 2}
     extra: 0
-  - usage: 9
+  - usage: 5
+    index: {x: 1, y: 2}
+    extra: 0
+  - usage: 5
     index: {x: 0, y: 3}
-    extra: 25
-  - usage: 9
-    index: {x: 6, y: 3}
-    extra: 25
+    extra: 0
+  - usage: 5
+    index: {x: 1, y: 3}
+    extra: 0
   carryData:
     type: 0
     delay: -1

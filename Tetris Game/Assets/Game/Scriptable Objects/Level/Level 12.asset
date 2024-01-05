@@ -45,9 +45,9 @@ MonoBehaviour:
     delay: 6
   - enemyData: {fileID: 11400000, guid: b4f2054285085e94598171b8e7f0d719, type: 2}
     count: 1
-    distance: 0
-    offset: -0.92
-    delay: 111
+    distance: 0.2
+    offset: 0
+    delay: 0
   victoryReward:
     type: 0
     amount: 20
@@ -55,7 +55,13 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks: []
-  pawnPlacements: []
+  pawnPlacements:
+  - usage: 7
+    index: {x: 0, y: 0}
+    extra: 20
+  - usage: 7
+    index: {x: 5, y: 0}
+    extra: 20
   carryData:
     type: 0
     delay: -1

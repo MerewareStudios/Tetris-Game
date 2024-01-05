@@ -18,23 +18,18 @@ MonoBehaviour:
   countdown: 3
   totalCoin: 100
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
-    count: 1
+  - enemyData: {fileID: 11400000, guid: d7c278baa15e6dd4b8b9c944897100f9, type: 2}
+    count: 4
     distance: 0.6
     offset: 0
-    delay: 16
-  - enemyData: {fileID: 11400000, guid: 54d83e2243c9b8e499c65dec04d2b9c8, type: 2}
-    count: 1
-    distance: 0
-    offset: 0
-    delay: 22
-  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
-    count: 3
+    delay: 0.25
+  - enemyData: {fileID: 11400000, guid: 2cff7d621c81b2c4499c780b4c7e8dd3, type: 2}
+    count: 4
     distance: 0.6
     offset: 0
-    delay: 22
-  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
-    count: 3
+    delay: 0.25
+  - enemyData: {fileID: 11400000, guid: 5b985fa9cd21ec44a8ca1ce537651518, type: 2}
+    count: 4
     distance: 0.6
     offset: 0
     delay: 0
@@ -46,29 +41,17 @@ MonoBehaviour:
     amount: 5
   suggestedBlocks: []
   pawnPlacements:
-  - usage: 13
-    index: {x: 0, y: 0}
-    extra: 0
-  - usage: 13
+  - usage: 12
     index: {x: 1, y: 0}
     extra: 0
-  - usage: 13
+  - usage: 12
+    index: {x: 2, y: 0}
+    extra: 0
+  - usage: 12
+    index: {x: 3, y: 0}
+    extra: 0
+  - usage: 12
     index: {x: 4, y: 0}
-    extra: 0
-  - usage: 13
-    index: {x: 5, y: 0}
-    extra: 0
-  - usage: 13
-    index: {x: 0, y: 1}
-    extra: 0
-  - usage: 12
-    index: {x: 5, y: 1}
-    extra: 0
-  - usage: 12
-    index: {x: 0, y: 2}
-    extra: 0
-  - usage: 13
-    index: {x: 5, y: 2}
     extra: 0
   carryData:
     type: 0

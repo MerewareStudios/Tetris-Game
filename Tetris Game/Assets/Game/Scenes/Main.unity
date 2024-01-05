@@ -363,7 +363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 17}
+  m_AnchoredPosition: {x: 0, y: 14}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &45008353
@@ -414,8 +414,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.32
-  m_fontSizeBase: 45.32
+  m_fontSize: 47.69
+  m_fontSizeBase: 47.69
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3788,7 +3788,7 @@ MonoBehaviour:
   levelTextRect: {fileID: 45008352}
   gameScale: {x: 1, y: 1, z: 1}
   menuScale: {x: 1.1, y: 1.1, z: 1.1}
-  gameAnchor: {x: 0, y: 17, z: 0}
+  gameAnchor: {x: 0, y: 14, z: 0}
   menuAnchor: {x: 0, y: -238, z: 0}
 --- !u!114 &715436862
 MonoBehaviour:
@@ -3888,8 +3888,8 @@ MonoBehaviour:
       rewardWatchCount: 0
     purchaseData:
       offers: 
-  DELETE_AT_START: 0
-  SKIP_ONBOARDING: 0
+  DELETE_AT_START: 1
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0

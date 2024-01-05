@@ -62,7 +62,37 @@ MonoBehaviour:
     index: {x: 0, y: 1}
     extra: 0
   - usage: 13
+    index: {x: 1, y: 1}
+    extra: 0
+  - usage: 13
+    index: {x: 4, y: 1}
+    extra: 0
+  - usage: 13
     index: {x: 5, y: 1}
+    extra: 0
+  - usage: 13
+    index: {x: 0, y: 2}
+    extra: 0
+  - usage: 13
+    index: {x: 1, y: 2}
+    extra: 0
+  - usage: 13
+    index: {x: 4, y: 2}
+    extra: 0
+  - usage: 13
+    index: {x: 5, y: 2}
+    extra: 0
+  - usage: 13
+    index: {x: 0, y: 3}
+    extra: 0
+  - usage: 13
+    index: {x: 1, y: 3}
+    extra: 0
+  - usage: 13
+    index: {x: 4, y: 3}
+    extra: 0
+  - usage: 13
+    index: {x: 5, y: 3}
     extra: 0
   carryData:
     type: 0

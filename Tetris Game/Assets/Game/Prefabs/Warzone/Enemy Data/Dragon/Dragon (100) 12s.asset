@@ -111,7 +111,7 @@ MonoBehaviour:
   enemyRewards: []
   maxHealth: 100
   speed: 0.075
-  forwardRange: {x: 1, y: 1}
+  forwardRange: {x: 0.95, y: 0.95}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
@@ -123,3 +123,4 @@ MonoBehaviour:
   spawnerDuration: 12
   spawnerExtra: 0
   extraData: {fileID: 0}
+  implosionAudio: 0

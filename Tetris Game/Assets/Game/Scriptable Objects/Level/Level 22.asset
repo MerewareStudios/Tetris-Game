@@ -22,15 +22,15 @@ MonoBehaviour:
     count: 2
     distance: 0.96
     offset: 0
-    delay: 36
-  - enemyData: {fileID: 11400000, guid: ab16338246d07e641a075d1aa0d2c0e1, type: 2}
-    count: 2
-    distance: 0.96
+    delay: 30
+  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
+    count: 4
+    distance: 0.5
     offset: 0
-    delay: 32
-  - enemyData: {fileID: 11400000, guid: ab16338246d07e641a075d1aa0d2c0e1, type: 2}
-    count: 2
-    distance: 0.96
+    delay: 16
+  - enemyData: {fileID: 11400000, guid: 58d58ebeb7bc48e45bd127fa2cc9d8c4, type: 2}
+    count: 4
+    distance: 0.5
     offset: 0
     delay: 0
   victoryReward:
@@ -41,10 +41,10 @@ MonoBehaviour:
     amount: 5
   suggestedBlocks: []
   pawnPlacements:
-  - usage: 12
+  - usage: 7
     index: {x: 2, y: 0}
     extra: 0
-  - usage: 12
+  - usage: 7
     index: {x: 4, y: 0}
     extra: 0
   carryData:

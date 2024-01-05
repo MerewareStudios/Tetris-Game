@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mushroom (3)
   m_EditorClassIdentifier: 
   type: 36
-  scale: {x: 0.8, y: 0.8, z: 0.8}
+  scale: {x: 0.9, y: 0.9, z: 0.9}
   colorGrad:
     m_Mode: 4
     m_GradientMin:

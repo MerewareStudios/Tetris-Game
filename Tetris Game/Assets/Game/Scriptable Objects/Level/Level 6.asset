@@ -27,7 +27,7 @@ MonoBehaviour:
     count: 3
     distance: 0.61
     offset: 0
-    delay: 13
+    delay: 15
   - enemyData: {fileID: 11400000, guid: 00b53808edc755d439e397a35b863e77, type: 2}
     count: 1
     distance: 0
