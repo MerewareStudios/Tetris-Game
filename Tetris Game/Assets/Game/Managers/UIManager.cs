@@ -365,7 +365,7 @@ public class UIManager : Singleton<UIManager>
       }
       if (Input.GetKeyDown(KeyCode.N))
       {
-         Audio.Board_Pre_Merge.PlayOneShot();
+         Warzone.THIS.Player.Gun.PlaySound();
       }
       if (Input.GetKeyDown(KeyCode.P))
       {

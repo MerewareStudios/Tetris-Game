@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Gun 9
   m_EditorClassIdentifier: 
   holsterTransformData:
-    localPosition: {x: -0.0585, y: 0.0625, z: 0.0329}
-    localEulerAngles: {x: 341.84204, y: 167.5495, z: 264.42935}
-    localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
+    localPosition: {x: -0.034, y: 0.064, z: 0.041}
+    localEulerAngles: {x: 341.90182, y: 164.87762, z: 280.17297}
+    localScale: {x: 0.56763035, y: 0.56763035, z: 0.56763035}
   jumpPower: 0.25
   travelDuration: 35
   ease: 1
-  audioClip: {fileID: 8300000, guid: c6d45d69015ca934fbd95932874c5b59, type: 3}
+  audioClip: {fileID: 8300000, guid: b9f90e1e1d77b1e4db041601a9c5e202, type: 3}
+  audioVolume: 0.85

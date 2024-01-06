@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holsterTransformData:
     localPosition: {x: -0.0582, y: 0.0918, z: 0.0222}
-    localEulerAngles: {x: 345.33426, y: 167.60696, z: 254.66006}
+    localEulerAngles: {x: 342.55148, y: 168.40726, z: 254.43863}
     localScale: {x: 0.41664, y: 0.41664, z: 0.41664}
   jumpPower: 4
   travelDuration: 8
   ease: 1
-  audioClip: {fileID: 8300000, guid: 7bf7e0f6ad06b7b42a80b71c18613e44, type: 3}
+  audioClip: {fileID: 8300000, guid: 9a480a4c26d09524ca1755b34c5975c8, type: 3}
+  audioVolume: 0.85
