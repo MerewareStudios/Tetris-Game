@@ -29,17 +29,10 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
 
     public static void PlayOneShot(AudioClip audioClip, float volume, float pitch)
     {
-// #if UNITY_EDITOR
-//         if (AudioManager.THIS.onlyPlayDebugSound && !AudioManager.THIS.debugSounds.Contains((Audio)key))
-//         {
-//             return;
-//         }
-// #endif
         AudioSource audioSource = AudioManager.THIS._emptySource;
-        audioSource.volume     = volume;
+        audioSource.volume = volume;
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(audioClip, volume);
-        // Debug.Log(audioClip.name);
     }
         
     public static void PlayOneShot(int key, float volumeScale = 1.0f)
@@ -62,9 +55,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = audioSourceData.RandomPitch;
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
-        // Debug.LogWarning("Play One Shot Random Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
-        // Debug.Log(audioSource.clip.name + " " + volumeScale);
     }
     public static void PlayOneShotPitch(int key, float volumeScale = 1.0f, float pitch = 1.0f)
     {
@@ -86,9 +77,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(audioSource.clip, volumeScale);
-        // Debug.LogWarning("Play One Shot Set Pitch" + audioSourceData.audioSourcePrefab.name);
         audioSourceData.LastTimePlayed = Time.realtimeSinceStartup;
-        // Debug.Log(audioSource.clip.name);
     }
     
     public static void Play(int key)
@@ -107,7 +96,6 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = audioSourceData.RandomPitch;
         audioSource.Play();
-        // Debug.Log(audioSource.clip.name);
     }
     
     public static void Play(int key, float pitch)
@@ -126,7 +114,6 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         AudioSource audioSource = audioSourceData.Instance;
         audioSource.pitch = pitch;
         audioSource.Play();
-        // Debug.Log(audioSource.clip.name);
     }
     
     public static void Stop(int key)

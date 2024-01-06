@@ -6,14 +6,24 @@ public class HapticManager : Singleton<HapticManager>
 {
     private const string HapticsEnabled = "HAPTICS_ENABLED";
 
-    [System.NonSerialized] public HapticManager.Data SavedData;
+    [System.NonSerialized] private HapticManager.Data _savedData;
 
+    public HapticManager.Data SavedData
+    {
+        set
+        {
+            _savedData = value;
+            CanPlayAudio = CanPlayAudio;
+        }
+        get => _savedData;
+    }
+    
     public bool CanPlayAudio
     {
         set
         {
             SavedData.canPlayAudio = value;
-            AudioListener.volume = value ? 1 : 0;
+            // AudioListener.volume = value ? 0.1f : 0;
             AudioListener.pause = !value;
         }
         get => SavedData.canPlayAudio;

@@ -905,7 +905,7 @@ namespace Game
                 return;
             }
             // Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 1);
-            Audio.Board_Pre_Merge.PlayOneShotPitch(1.0f, 1);
+            Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f);
 
             // Audio.Board_Merge_Cock.PlayOneShot();
 

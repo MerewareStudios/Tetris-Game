@@ -80,7 +80,7 @@ namespace Game
                         
                         _mergeAudioIndex += tetrisLines.Count;
                         Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.65f + _mergeAudioIndex * 0.05f);
-                        Audio.Board_Pre_Merge.PlayOneShotPitch(1.0f, 0.9f + _mergeAudioIndex * 0.1f);
+                        Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f, 0.9f + _mergeAudioIndex * 0.1f);
                         
 
                         

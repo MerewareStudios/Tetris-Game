@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 7, y: 6}
+  boardSize: {x: 8, y: 7}
   countdown: 3
   totalCoin: 100
   enemySpawnData:

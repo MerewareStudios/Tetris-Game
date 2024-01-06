@@ -84,7 +84,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 31
+      level: 1
       playerData:
         currentHealth: 1
       pupData:
@@ -228,14 +228,14 @@ MonoBehaviour:
     - type: 1
       amount: 5
     fireRatePrice:
-    - type: 0
-      amount: 5
     - type: 1
       amount: 5
     - type: 1
       amount: 5
-    - type: 0
+    - type: 1
       amount: 5
+    - type: 2
+      amount: 1
     splitShotPrice:
     - type: 1
       amount: 5
@@ -247,7 +247,7 @@ MonoBehaviour:
       amount: 400
     gunType: 28
     sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
-    defaultValues: 020000000100000001000000
+    defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1
       amount: 8

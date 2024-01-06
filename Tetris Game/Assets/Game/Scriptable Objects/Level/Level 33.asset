@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 6, y: 6}
+  boardSize: {x: 8, y: 7}
   countdown: 3
   totalCoin: 100
   enemySpawnData:
+  - enemyData: {fileID: 11400000, guid: 5b985fa9cd21ec44a8ca1ce537651518, type: 2}
+    count: 6
+    distance: 0.5
+    offset: 0
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 6e37ad44726afc545893f6588b54815e, type: 2}
     count: 1
     distance: 0
@@ -37,7 +42,7 @@ MonoBehaviour:
     count: 3
     distance: 0.5
     offset: 0
-    delay: 17
+    delay: 0
   victoryReward:
     type: 0
     amount: 50

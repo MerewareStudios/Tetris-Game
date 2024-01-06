@@ -1,30 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!244 &-6802922361793125245
+--- !u!244 &-3733122410106705133
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_EffectID: 539cc7218f2ec5d4bbe0bec85dce998f
-  m_EffectName: Duck Volume
-  m_MixLevel: 2e5641d09eff63240bf14c77eaf0ed92
+  m_EffectID: 45dcef6a101cefc43a4c3ea863919929
+  m_EffectName: Highpass Simple
+  m_MixLevel: 2b6d11748c14069419b9d73a61e83e5d
   m_Parameters:
-  - m_ParameterName: Threshold
-    m_GUID: 1f67493511382354b977b69fabd04801
-  - m_ParameterName: Ratio
-    m_GUID: 65581ed36396d7244aaa2a4f7a4404f0
-  - m_ParameterName: Attack Time
-    m_GUID: 61154d536121ed54f8ec288c3a5a1761
-  - m_ParameterName: Release Time
-    m_GUID: 286a36694632ff145943ddf1eba3725b
-  - m_ParameterName: Make-up Gain
-    m_GUID: 360db2fc1c57a8b4f937701442e2f008
-  - m_ParameterName: Knee
-    m_GUID: c99034e767cda464fb646d5fc71abd1c
-  - m_ParameterName: Sidechain Mix
-    m_GUID: b51e378720ad09e4eb92b35a89d63c9b
+  - m_ParameterName: Cutoff freq
+    m_GUID: b23fecf7af233254e98964887d84800f
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
@@ -65,7 +53,9 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
-  - {fileID: -6802922361793125245}
+  - {fileID: -3733122410106705133}
+  - {fileID: 9190783947022149980}
+  - {fileID: 2062062276206570574}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -95,20 +85,64 @@ AudioMixerSnapshotController:
   m_SnapshotID: b93eb5534a124e64bb5fc5a2e72c9725
   m_FloatValues:
     200deea2b31bead4289bae8288a9fdea: 39
+    97b68ef235723724382a86de8d9e6789: 10
     61154d536121ed54f8ec288c3a5a1761: 0.344
     f14e7b9300615fd489ad2b13d2be7e98: 665
-    65581ed36396d7244aaa2a4f7a4404f0: 5
-    1f67493511382354b977b69fabd04801: -34.2
+    65581ed36396d7244aaa2a4f7a4404f0: 9.12
+    c0bd6b15748fcef48950101e8a5f900b: 1
+    1f67493511382354b977b69fabd04801: -39.88001
     7766ce26e2dbbcd4085eb5291763b9a2: 0
+    f2996986735e7fd43846e8587ecba4fe: 0.796
     6f12a507d02c88543a9f1128042093ec: 3003
     b51e378720ad09e4eb92b35a89d63c9b: 0
-    c99034e767cda464fb646d5fc71abd1c: 10.9
+    c99034e767cda464fb646d5fc71abd1c: 11.300001
     9edfebe73712f9d4a9c4420533c34b30: 0.123
+    b23fecf7af233254e98964887d84800f: 20
     e3a82708657e07d43883ffc62a0c32a1: 1
+    e9e9e028829b846458ecfd7d212e7e25: -17.6
+    d625e048e38949d4fa0fdf1d02931270: -11.8
     286a36694632ff145943ddf1eba3725b: 0.736
+    753738f9041531c499766d44158e9195: 20000
     5a0bae2bd7fc8bc469f01b4cf51b75e5: 362
     ee604c6be4ccfd74fb0d86f0f60d7f55: 0.22
+    6618c74c1f55bb5439c9c4c246d69db4: 1.42
     360db2fc1c57a8b4f937701442e2f008: 0
     55b0491daedc9d84ba7b346518a38c66: 112
     55c6093e42c0ba648a20935700cef2ca: 756
   m_TransitionOverrides: {}
+--- !u!244 &2062062276206570574
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d4e7d8520d7d0ce419f16084cb8170f8
+  m_EffectName: Normalize
+  m_MixLevel: cabf236cb95124241994a84557902209
+  m_Parameters:
+  - m_ParameterName: Fade in time
+    m_GUID: 97b68ef235723724382a86de8d9e6789
+  - m_ParameterName: Lowest volume
+    m_GUID: f2996986735e7fd43846e8587ecba4fe
+  - m_ParameterName: Maximum amp
+    m_GUID: c0bd6b15748fcef48950101e8a5f900b
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &9190783947022149980
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 2d9860909aac65d478e1a670a54ba458
+  m_EffectName: Lowpass Simple
+  m_MixLevel: 82161048bfe42b94e8b3f94ae9f413f8
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 753738f9041531c499766d44158e9195
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0

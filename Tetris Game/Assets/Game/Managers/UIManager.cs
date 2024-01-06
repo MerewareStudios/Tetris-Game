@@ -241,7 +241,7 @@ public class UIManager : Singleton<UIManager>
    
    public void OnCharacterShown()
    {
-      Audio.Speak_1.PlayOneShot();
+      Audio.Speak_1.PlayOneShot(0.25f);
    }
 
    public bool SettingsEnabled
@@ -362,6 +362,10 @@ public class UIManager : Singleton<UIManager>
          Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.7f + added);
          added += 0.05f;
          // UIManager.THIS.comboText.Show(2);
+      }
+      if (Input.GetKeyDown(KeyCode.N))
+      {
+         Audio.Board_Pre_Merge.PlayOneShot();
       }
       if (Input.GetKeyDown(KeyCode.P))
       {
