@@ -63,18 +63,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dcd399affde9f9246b22137e457bc278, type: 2}
   - {fileID: 11400000, guid: e28f396e92ca9fa4e9ac8feb548d4933, type: 2}
   - {fileID: 11400000, guid: 0adaa5c43f9934d4d832bbeeb6613699, type: 2}
-  AutoLevels:
-  - {fileID: 11400000, guid: 70fb393db9d248c44b13d9ff42d6f85a, type: 2}
-  - {fileID: 11400000, guid: e6663ac6c5dd27b4abe9ae5371b75423, type: 2}
-  - {fileID: 11400000, guid: 26c6de0eebafcfa4b9f17cfeac8c1b94, type: 2}
-  - {fileID: 11400000, guid: 63b2c3529bac4b646840c5e31720f4f5, type: 2}
-  - {fileID: 11400000, guid: 180bdaca35d0ecd40ae822d6cfd0db48, type: 2}
-  - {fileID: 11400000, guid: ca5532c635bf89540ba5a5e6a716d0ca, type: 2}
-  - {fileID: 11400000, guid: 0321f8686d0f15a4bb81b617f94a0a93, type: 2}
-  - {fileID: 11400000, guid: a1284769a1557a04fbe7fa44e3c0852f, type: 2}
-  - {fileID: 11400000, guid: 4716fc925db41c2439a60b14dba31b25, type: 2}
-  - {fileID: 11400000, guid: 2ccf6e546d57c29488f19a9722702d1d, type: 2}
-  - {fileID: 11400000, guid: b177cf382f2e0b9459b52fbd306891e5, type: 2}
+  spareLevelSo: {fileID: 11400000, guid: 174acd26c340d1f42ac2578711f0bea3, type: 2}
   DefaultSaveData:
     onboardingList: 
     accountData:
@@ -84,7 +73,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 1
+      level: 51
       playerData:
         currentHealth: 1
       pupData:

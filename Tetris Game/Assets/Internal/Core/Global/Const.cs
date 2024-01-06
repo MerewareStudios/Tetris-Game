@@ -65,7 +65,8 @@ public class Const : SSingleton<Const>
     
     [Header("Look Up")]
     public LevelSo[] Levels;
-    public LevelSo[] AutoLevels;
+    public LevelSo spareLevelSo;
+    // public LevelSo[] AutoLevels;
     public SaveData DefaultSaveData;
     [Header("Default Lookup")]
     public Gun.UpgradeData[] GunUpgradeData;
@@ -152,14 +153,21 @@ public class Const : SSingleton<Const>
         Local,
     }
 
-    public LevelSo GetAutoLevel(int index)
+    // public LevelSo GetAutoLevel(int index)
+    // {
+        // return AutoLevels[index];
+    // }
+    // public LevelSo GetRandomAutoLevel()
+    // {
+    //     return AutoLevels.Random();
+    // }
+    public LevelSo GetModLevel(int level)
     {
-        return AutoLevels[index];
+        int modded = (level - 1) % Levels.Length;
+        return modded == 0 ? spareLevelSo : Levels[modded];
     }
-    public LevelSo GetRandomAutoLevel()
-    {
-        return AutoLevels.Random();
-    }
+
+    public int MaxLevel => Levels.Length;
     public void SetCurrencyColor(TextMeshProUGUI text, CurrencyType overridenCurrencyType)
     {
         int enumInt = (int)overridenCurrencyType;

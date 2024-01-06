@@ -31,21 +31,21 @@ namespace Game
             [SerializeField] public float delay = 0;
         } 
         
-        public static LevelSo AutoGenerate(int level)
+        public static LevelSo AutoGenerate(int levelIndex)
         {
-            Random.InitState(level);
+            Random.InitState(levelIndex);
 
-            LevelSo so = ScriptableObject.CreateInstance<LevelSo>();
+            // LevelSo so = ScriptableObject.CreateInstance<LevelSo>();
+            LevelSo so = Const.THIS.GetModLevel(levelIndex);
 
-            SetSpawnData(so, Const.THIS.GetRandomAutoLevel());
-            SetSizeAndPlacementData(so, Const.THIS.GetRandomAutoLevel());
-            SetTotalCoin(so, Const.THIS.GetRandomAutoLevel());
-            SetTotalCoin(so, Const.THIS.GetRandomAutoLevel());
-            SetRewards(so, Const.THIS.GetRandomAutoLevel());
-            SetCarryData(so, level);
+            // SetSpawnData(so, Const.THIS.GetRandomAutoLevel());
+            // SetSizeAndPlacementData(so, Const.THIS.GetRandomAutoLevel());
+            // SetTotalCoin(so, Const.THIS.GetRandomAutoLevel());
+            // SetTotalCoin(so, Const.THIS.GetRandomAutoLevel());
+            // SetRewards(so, Const.THIS.GetRandomAutoLevel());
+            // SetCarryData(so, level);
 
-            LevelManager.HealthMult = 1.0f + (level - 50) * 0.05f;
-            
+            LevelManager.HealthMult = 1.0f + Mathf.FloorToInt(levelIndex / (float)Const.THIS.MaxLevel) * 0.5f;
             Random.InitState((int)DateTime.Now.Ticks);
 
             return so;
