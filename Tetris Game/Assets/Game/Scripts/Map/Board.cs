@@ -623,46 +623,47 @@ namespace Game
         {
             Pawn pawn = Spawner.THIS.SpawnPawn(null, place.Position, amount, usage);
             pawn.Mover = mover;
+            pawn.Tick = this._tick;
             place.Accept(pawn);
             return pawn;
         }
 
         public void MergeLines(List<int> lines)
         {
-            void MergeLine(int lineIndex, int mergeIndex)
-            {
-                int highestTick = int.MinValue;
-                int horIndex = 0;
-
-                for (int i = 0; i < _size.x; i++)
-                {
-                    int index = i;
-                    Place place = _places[index, lineIndex];
-
-                    if (!place.Current)
-                    {
-                        continue;
-                    }
-                    if (place.Current.Tick > highestTick)
-                    {
-                        highestTick = place.Current.Tick;
-                        horIndex = index;
-                    }
-                    else if(place.Current.Tick == highestTick)
-                    {
-                        if(Helper.IsPossible(0.5f))
-                        {
-                            horIndex = index;
-                        }
-                    }
-                }
-                CreatePawnAtHorizontal(horIndex, lineIndex, lines.Count, mergeIndex);
-            }
-            
             for (int i = 0; i < lines.Count; i++)
             {
-                MergeLine(lines[i], i);
+                MergeLine(lines[i], i, lines.Count);
             }
+        }
+        
+        private void MergeLine(int lineIndex, int mergeIndex, int mult)
+        {
+            int highestTick = int.MinValue;
+            int horIndex = 0;
+
+            for (int i = 0; i < _size.x; i++)
+            {
+                int index = i;
+                Place place = _places[index, lineIndex];
+
+                if (!place.Current)
+                {
+                    continue;
+                }
+                if (place.Current.Tick > highestTick)
+                {
+                    highestTick = place.Current.Tick;
+                    horIndex = index;
+                }
+                else if(place.Current.Tick == highestTick)
+                {
+                    if(Helper.IsPossible(0.5f))
+                    {
+                        horIndex = index;
+                    }
+                }
+            }
+            CreatePawnAtHorizontal(horIndex, lineIndex, mult, mergeIndex);
         }
 
         public void SpawnTrapBomb(int extra)

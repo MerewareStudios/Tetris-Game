@@ -23,6 +23,11 @@ MonoBehaviour:
     distance: 0
     offset: 0
     delay: 0
+  - enemyData: {fileID: 11400000, guid: 7216da32336042d45af7641f3046ce60, type: 2}
+    count: 9
+    distance: 0.25
+    offset: 0
+    delay: 0
   victoryReward:
     type: 0
     amount: 90

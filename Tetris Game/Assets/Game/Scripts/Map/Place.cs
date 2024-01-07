@@ -44,7 +44,7 @@ namespace Game
 #if UNITY_EDITOR
                 if (value && this._current)
                 {
-                    Debug.LogError("Current is not null");
+                    Debug.LogError("Current is not null", this._current.gameObject);
                 }
 #endif
                 this._current = value;

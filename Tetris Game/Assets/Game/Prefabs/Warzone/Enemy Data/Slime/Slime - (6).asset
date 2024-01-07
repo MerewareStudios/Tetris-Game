@@ -123,3 +123,4 @@ MonoBehaviour:
   spawnerDuration: 0
   spawnerExtra: 0
   extraData: {fileID: 0}
+  implosionAudio: 0

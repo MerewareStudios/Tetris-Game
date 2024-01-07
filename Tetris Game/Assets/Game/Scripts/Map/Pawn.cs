@@ -17,13 +17,34 @@ namespace Game
         [System.NonSerialized] public SubModel SubModel = null;
         [System.NonSerialized] public Block ParentBlock;
         [System.NonSerialized] public VisualData VData = null;
-        [System.NonSerialized] public int Tick;
+        [SerializeField] private int _tick;
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
         
         
         public bool Connected => ParentBlock;
         [System.NonSerialized] public Pawn.Usage UsageType = Usage.Empty;
+
+        public int Tick
+        {
+            set
+            {
+                // if (!SubModel)
+                // {
+                //     return;
+                // }
+                // if (VData == null)
+                // {
+                //     return;
+                // }
+                // if (VData.usage.Equals(Usage.Screw) || VData.usage.Equals(Usage.Lock))
+                // {
+                //     return;
+                // }
+                this._tick = value;
+            }
+            get => this._tick;
+        }
         
         public bool Available
         {
@@ -399,7 +420,7 @@ namespace Game
             {
                 return false;
             }
-            
+
             Tick = tick;
             
             checkerPlace.Current = null;

@@ -18,15 +18,20 @@ MonoBehaviour:
   countdown: 3
   totalCoin: 100
   enemySpawnData:
-  - enemyData: {fileID: 11400000, guid: d8117a3cb38ee284b93b399514250063, type: 2}
+  - enemyData: {fileID: 11400000, guid: ea8f37ad51b1a2f47aa0665644bbd1bd, type: 2}
     count: 1
     distance: 0
     offset: 0
-    delay: 0
-  - enemyData: {fileID: 11400000, guid: efba3fb6480ad6c41b30794d64be42bf, type: 2}
-    count: 5
-    distance: 0.75
-    offset: 0
+    delay: 1
+  - enemyData: {fileID: 11400000, guid: ea8f37ad51b1a2f47aa0665644bbd1bd, type: 2}
+    count: 1
+    distance: 0
+    offset: 0.7
+    delay: 1
+  - enemyData: {fileID: 11400000, guid: ea8f37ad51b1a2f47aa0665644bbd1bd, type: 2}
+    count: 1
+    distance: 0
+    offset: -0.7
     delay: 0
   victoryReward:
     type: 0
