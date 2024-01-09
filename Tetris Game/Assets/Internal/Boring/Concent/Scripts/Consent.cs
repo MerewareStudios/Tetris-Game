@@ -8,7 +8,7 @@ public class Consent : Lazyingleton<Consent>
     [TextArea] [SerializeField] private string privacyLink;
     [System.NonSerialized] private System.Action _onDone;
     [SerializeField] private ToggleButton toggleButtonPrivacy;
-    [SerializeField] private ToggleButton toggleButtonAge;
+    // [SerializeField] private ToggleButton toggleButtonAge;
     [SerializeField] private GameObject loadingBar;
     [SerializeField] private GameObject subFrame;
     [SerializeField] private Button doneButton;
@@ -41,7 +41,7 @@ public class Consent : Lazyingleton<Consent>
     public Consent SetInitialStates(bool privacyState, bool ageState)
     {
         toggleButtonPrivacy.SetIsOnWithoutNotify(privacyState);
-        toggleButtonAge.SetIsOnWithoutNotify(ageState);
+        // toggleButtonAge.SetIsOnWithoutNotify(ageState);
         return this;
     }
 
@@ -87,7 +87,8 @@ public class Consent : Lazyingleton<Consent>
 
         AdManager.SetMediationConsentTaken(true);
         AdManager.SetMediationPrivacyConsent(toggleButtonPrivacy.isOn);
-        AdManager.SetMediationAgeRestricted(!toggleButtonAge.isOn);
+        AdManager.SetMediationGDPR(toggleButtonPrivacy.isOn);
+        // AdManager.SetMediationGDPR(!toggleButtonAge.isOn);
         _onDone?.Invoke();
     }
     
