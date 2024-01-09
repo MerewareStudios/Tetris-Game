@@ -88,6 +88,7 @@ namespace IWI
         {
 #if ADMOB_MEDIATION
             // TODO
+            Debug.Log("privacy.consent" + state);
             UnityAds.SetConsentMetaData("privacy.consent", state);
             AdManager.THIS._Data.hasPrivacyConsent = state;
 #else
@@ -95,10 +96,11 @@ namespace IWI
 #endif
         }
         
-        public static void SetMediationAgeRestricted(bool state)
+        public static void SetMediationGDPR(bool state)
         {
 #if ADMOB_MEDIATION
             // TODO
+            Debug.Log("gdpr.consent" + state);
             UnityAds.SetConsentMetaData("gdpr.consent", state);
             AdManager.THIS._Data.isAgeRestrictedUser = state;
 #else

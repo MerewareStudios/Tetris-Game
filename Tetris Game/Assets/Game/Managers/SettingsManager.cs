@@ -13,11 +13,16 @@ public class SettingsManager : Singleton<SettingsManager>
     [SerializeField] private GameObject concedeButton;
     [SerializeField] private Color enabledColor;
     [SerializeField] private Color disabledColor;
+    [SerializeField] private GameObject concedeBlockLabel;
 
     private bool Visible
     {
         set
         {
+            if (value)
+            {
+                concedeBlockLabel.SetActive(LevelManager.CurrentLevel <= 1);
+            }
             buttonsParent.SetActive(value);
             background.SetActive(value);
             TimeScale = value ? 0.0f : 1.0f;
@@ -70,8 +75,12 @@ public class SettingsManager : Singleton<SettingsManager>
     }
     public void OnClick_Concede()
     {
+        HapticManager.OnClickVibrate();
+        if (LevelManager.CurrentLevel <= 1)
+        {
+            return;
+        }
         UIManager.THIS.AdLayerClick_Concede();
         OnClick_Settings();
-        HapticManager.OnClickVibrate();
     }
 }
