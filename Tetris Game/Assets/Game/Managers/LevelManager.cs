@@ -31,7 +31,6 @@ public class LevelManager : Singleton<LevelManager>
         #if UNITY_EDITOR
             // SaveManager.CreateSavePoint("Level " + CurrentLevel + " Save Data");
         #endif
-        AnalyticsManager.LevelStart(CurrentLevel);
 
 #if CREATIVE
         if (Const.THIS.creativeSettings.customSize)
@@ -66,10 +65,8 @@ public class LevelManager : Singleton<LevelManager>
         Warzone.THIS.OnLateLoad(LevelSo.sortInterval);
 
         UIManager.UpdateNotifications();
-       
-#if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
-        if (AdManager.HasTakenAnyConsent())
-#endif
+
+        if (AdManager.IsMediationInitialized())
         {
             BeginLevel();
         }
@@ -91,6 +88,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void BeginLevel()
     {
+        // Debug.LogError("begin level");
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
             Warzone.THIS.Begin();
@@ -100,6 +98,8 @@ public class LevelManager : Singleton<LevelManager>
         {
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
+        
+        AnalyticsManager.LevelStart(CurrentLevel);
     }
 
     public void CheckEndLevel()

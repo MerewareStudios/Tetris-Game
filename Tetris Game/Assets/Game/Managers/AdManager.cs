@@ -1,9 +1,7 @@
 // #define LOG
 #if ADMOB_MEDIATION
-using System.Collections;
 using GoogleMobileAds.Api;
-    using System.Collections.Generic;
-using DG.Tweening;
+using System.Collections.Generic;
 using GoogleMobileAds.Mediation.UnityAds.Api;
 #else
 
@@ -44,81 +42,25 @@ namespace IWI
 
         #region Per Mediator
 
-        public static bool HasTakenAnyConsent()
+        public static void PassPrivacyInfo(bool privacyAccepted, int age)
         {
-#if ADMOB_MEDIATION
-            // TODO
-            return AdManager.THIS._Data.hasConsentTaken;
-#else
-            return MaxSdk.IsUserConsentSet();
-#endif
+            SetPrivacy(privacyAccepted);
+            SetAge(age);
+            UnityAds.SetConsentMetaData("privacy.consent", privacyAccepted);
         }
+
+        public static bool IsPrivacySet() => AdManager.THIS._Data.hasConsentTaken;
+        public static void SetPrivacy(bool state) => AdManager.THIS._Data.hasConsentTaken = state;
+        public static void SetAge(int age) => AdManager.THIS._Data.age = age;
+        public static int Age() => AdManager.THIS._Data.age;
+        public static bool IsUnderAgeForGDPR() => AdManager.THIS._Data.age < 16;
+
         
-        public static bool SetMediationConsentTaken(bool state)
-        {
-#if ADMOB_MEDIATION
-            // TODO
-            return AdManager.THIS._Data.hasConsentTaken = state;
-#else
-            return MaxSdk.IsUserConsentSet();
-#endif
-        }
-        
-        public static bool HasMediationPrivacyConsent()
-        {
-#if ADMOB_MEDIATION
-            // TODO
-            return AdManager.THIS._Data.hasPrivacyConsent;
-#else
-            return MaxSdk.HasUserConsent();
-#endif
-        }
-        
-        public static bool IsMediationAgeRestricted()
-        {
-#if ADMOB_MEDIATION
-            // TODO
-            return AdManager.THIS._Data.isAgeRestrictedUser;
-#else
-            return MaxSdk.IsAgeRestrictedUser();
-#endif
-        }
-        
-        public static void SetMediationPrivacyConsent(bool state)
-        {
-#if ADMOB_MEDIATION
-            // TODO
-            Debug.Log("privacy.consent" + state);
-            UnityAds.SetConsentMetaData("privacy.consent", state);
-            AdManager.THIS._Data.hasPrivacyConsent = state;
-#else
-            MaxSdk.SetHasUserConsent(state);
-#endif
-        }
-        
-        public static void SetMediationGDPR(bool state)
-        {
-#if ADMOB_MEDIATION
-            // TODO
-            Debug.Log("gdpr.consent" + state);
-            UnityAds.SetConsentMetaData("gdpr.consent", state);
-            AdManager.THIS._Data.isAgeRestrictedUser = state;
-#else
-            MaxSdk.SetIsAgeRestrictedUser(state);
-#endif
-        }
-        
-        private void InitializeMediation(System.Action onComplete)
+        private void InitializeMediation()
         {
 #if ADMOB_MEDIATION
             // TODO
 
-            Tween delayedSkip = DOVirtual.DelayedCall(5.0f, () =>
-            {
-                onComplete?.Invoke();
-                onComplete = null;
-            });
-            
             _data.MediationInitialized = false;
 
             MobileAds.Initialize(initStatus =>
@@ -143,12 +85,7 @@ namespace IWI
                 
                 _data.MediationInitialized = true;
                 
-                WorkerThread.Current.AddJob(() =>
-                {
-                    delayedSkip?.Kill();
-                    OnMediationInitialized();
-                    onComplete?.Invoke();
-                });
+                WorkerThread.Current.AddJob(OnMediationInitialized);
             });
 #else
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
@@ -161,7 +98,7 @@ namespace IWI
 #endif
         }
         
-        private static bool IsMediationInitialized()
+        public static bool IsMediationInitialized()
         {
 #if ADMOB_MEDIATION
              // TODO
@@ -199,11 +136,11 @@ namespace IWI
         }
 #endif
         
-        public void InitAdSDK(System.Action onComplete = null)
+        public void InitAdSDK()
         {
             _Data.LastTimeAdShown = (int)Time.time;
 
-            InitializeMediation(onComplete);
+            InitializeMediation();
         }
 
 
@@ -479,8 +416,7 @@ namespace IWI
         {
             [System.NonSerialized] public bool MediationInitialized = false;
             [SerializeField] public bool hasConsentTaken = false;
-            [SerializeField] public bool hasPrivacyConsent = false;
-            [SerializeField] public bool isAgeRestrictedUser = false;
+            [SerializeField] public int age = 100;
             [SerializeField] public bool removeAds = false;
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
@@ -495,8 +431,7 @@ namespace IWI
             public Data(Data data)
             {
                 hasConsentTaken = data.hasConsentTaken;
-                hasPrivacyConsent = data.hasPrivacyConsent;
-                isAgeRestrictedUser = data.isAgeRestrictedUser;
+                age = data.age;
                 removeAds = data.removeAds;
                 interSkipCount = data.interSkipCount;
                 interWatchCount = data.interWatchCount;

@@ -3,9 +3,7 @@
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
-using System;
 using Internal.Core;
-using UnityEngine;
 
 public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
 {

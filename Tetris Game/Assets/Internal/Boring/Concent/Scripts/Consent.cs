@@ -1,32 +1,136 @@
+#define GDPR_DEBUG
+
+#if GDPR_DEBUG
+    using System.Collections.Generic;
+#endif
+
+using GoogleMobileAds.Api.Mediation.UnityAds;
+using GoogleMobileAds.Ump.Api;
 using Internal.Core;
 using IWI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Consent : Lazyingleton<Consent>
 {
-    [TextArea] [SerializeField] private string privacyLink;
-    [System.NonSerialized] private System.Action _onDone;
-    [SerializeField] private ToggleButton toggleButtonPrivacy;
-    // [SerializeField] private ToggleButton toggleButtonAge;
-    [SerializeField] private GameObject loadingBar;
-    [SerializeField] private GameObject subFrame;
-    [SerializeField] private Button doneButton;
-    [System.NonSerialized] public int TimeScale = 1;
+    [TextArea] [SerializeField] private string ageTextFill;
+    [SerializeField] private TextMeshProUGUI ageText;
+    [SerializeField] private Slider ageSlider;
 
-    public delegate bool GetActiveState();
+    private int Age => (int)ageSlider.value;
+    public void UpdateAgeText()
+    {
+        ageText.text = string.Format(ageTextFill, Age);
+    }
+    
+    
+    [TextArea] [SerializeField] private string privacyLink;
+    [System.NonSerialized] public int TimeScale = 1;
+    [System.NonSerialized] public System.Action OnAccept;
+    [SerializeField] private GameObject acceptFrame;
+    [SerializeField] private GameObject inGameFrame;
+
+
+    #region AdMob UMP
+
+    public void UpdateGDPR()
+    {
+        #if GDPR_DEBUG
+        ResetConsent();
+          var debugSettings = new ConsentDebugSettings
+            {
+                DebugGeography = DebugGeography.EEA,
+
+                TestDeviceHashedIds =
+                new List<string>
+                {
+                    "8CC2D3236465097BFA36ED41F80E9F96"
+                }
+            };
+        #endif
+        
+        
+        ConsentRequestParameters request = 
+            new ConsentRequestParameters
+            {
+                TagForUnderAgeOfConsent = AdManager.IsUnderAgeForGDPR(),
+#if GDPR_DEBUG
+                ConsentDebugSettings = debugSettings,
+#endif
+            };
+
+        ConsentInformation.Update(request, OnAdMobConsentInfoUpdated);
+    }
+    
+#if GDPR_DEBUG
+    public void ResetConsent()
+    {
+        ConsentInformation.Reset();
+    }
+#endif
+    
+    private void OnAdMobConsentInfoUpdated(FormError consentError)
+    {
+        if (consentError != null)
+        {
+            // Handle the error.
+            // Debug.LogError(consentError);
+            return;
+        }
+    
+
+        // If the error is null, the consent information state was updated.
+        // You are now ready to check if a form is available.
+        ConsentForm.LoadAndShowConsentFormIfRequired((FormError formError) =>
+        {
+            if (formError != null)
+            {
+                // Consent gathering failed.
+                // Debug.LogError(consentError);
+                return;
+            }
+
+            // Consent has been gathered.
+            
+            if (ConsentInformation.CanRequestAds())
+            {
+                UnityAds.SetConsentMetaData("gdpr.consent", true);
+
+                // MobileAds.Initialize((InitializationStatus initstatus) =>
+                // {
+                //     // TODO: Request an ad.
+                // });
+            }
+            
+        });
+    }
+
+    public void OnAdMobUpdatePrivacy()
+    {
+        ConsentForm.ShowPrivacyOptionsForm((FormError showError) =>
+        {
+            if (showError != null)
+            {
+                // Debug.LogError("Error showing privacy options form with error: " + showError.Message);
+            }
+            // _privacyButton.interactable = ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
+        });
+    }
 
     
-    public bool Loading
+    #endregion
+    
+    
+    public bool AcceptState
     {
         set
         {
-            loadingBar.SetActive(value);
-            subFrame.SetActive(!value);
-            doneButton.gameObject.SetActive(!value);
+            acceptFrame.SetActive(value);
+            inGameFrame.SetActive(!value);
         }
     }
-    
+
     public bool Visible
     {
         set
@@ -38,70 +142,40 @@ public class Consent : Lazyingleton<Consent>
         get => gameObject.activeSelf;
     }
 
-    public Consent SetInitialStates(bool privacyState, bool ageState)
-    {
-        toggleButtonPrivacy.SetIsOnWithoutNotify(privacyState);
-        // toggleButtonAge.SetIsOnWithoutNotify(ageState);
-        return this;
-    }
 
-    public Consent Open(System.Action onDone)
+    public Consent Open()
     {
-        this._onDone = onDone;
         Visible = true;
-
-        Loading = false;
-        
-        bool privacyState;
-        bool ageState;
-        
-        if (AdManager.HasTakenAnyConsent())
-        {
-            privacyState = AdManager.HasMediationPrivacyConsent();
-            ageState = !AdManager.IsMediationAgeRestricted();
-        }
-        else
-        {
-            privacyState = true;
-            ageState = true;
-        }
-        
-        SetInitialStates(privacyState, ageState);
+        AcceptState = true;
+        UpdateAgeText();
         return this;
     }
     
-    public void OpenOnClick()
+    public void OpenFromSettings()
     {
         HapticManager.OnClickVibrate();
-        this.Open(Close);
+        Visible = true;
+        AcceptState = false;
     }
 
     public void Close()
     {
+        HapticManager.OnClickVibrate();
         Visible = false;
     }
     
-    public void Done()
+    public void OnClick_Accept()
     {
         HapticManager.OnClickVibrate();
-
-        AdManager.SetMediationConsentTaken(true);
-        AdManager.SetMediationPrivacyConsent(toggleButtonPrivacy.isOn);
-        AdManager.SetMediationGDPR(toggleButtonPrivacy.isOn);
-        // AdManager.SetMediationGDPR(!toggleButtonAge.isOn);
-        _onDone?.Invoke();
+        AdManager.PassPrivacyInfo(true, Age);
+        OnAccept?.Invoke();
+        OnAccept = null;
+        Close();
     }
     
-    public void AcceptPrivacy(bool state)
-    {
-    }
-    
-    public void AcceptAge(bool state)
-    {
-    }
-
     public void OnClickPrivacyLink()
     {
+        HapticManager.OnClickVibrate();
         Application.OpenURL(privacyLink);
     }
 }

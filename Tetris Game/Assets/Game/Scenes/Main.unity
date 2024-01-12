@@ -3881,8 +3881,7 @@ MonoBehaviour:
         total: 0
     adData:
       hasConsentTaken: 0
-      hasPrivacyConsent: 0
-      isAgeRestrictedUser: 0
+      age: 100
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0

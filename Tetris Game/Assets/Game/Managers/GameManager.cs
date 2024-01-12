@@ -59,11 +59,6 @@ public class GameManager : Singleton<GameManager>
         Onboarding.THIS = this.Onboarding;
     }
 
-    void Awake()
-    {
-        AnalyticsManager.FacebookInit();    
-    }
-
     void Start()
     {
         Distortion.Complete = (go, state) =>
@@ -77,7 +72,6 @@ public class GameManager : Singleton<GameManager>
 
         DOTween.SetTweensCapacity(200, 50);
         
-        AnalyticsManager.Init();
         LevelManager.THIS.LoadLevel();
         
         #if CREATIVE
@@ -92,26 +86,32 @@ public class GameManager : Singleton<GameManager>
             Board.THIS.OnMerge += CheckMergeOnboarding;
         }
         
-    #if !UNITY_EDITOR || FORCE_EDITOR_CONCENT
-        if (!AdManager.HasTakenAnyConsent())
+        UIManagerExtensions.DistortWarmUp();
+        
+        if (!AdManager.IsPrivacySet())
         {
-            Consent.THIS.Open(() =>
+            Consent.THIS.Open()
+                .OnAccept = () => 
             {
-                Consent.THIS.Loading = true;
-                AdManager.THIS.InitAdSDK(() =>
-                {
-                    Consent.THIS.Close();
-                    LevelManager.THIS.BeginLevel();
-                });
-            });
+                InitDataSenders();
+                AnalyticsManager.SendAgeData(AdManager.Age());
+                LevelManager.THIS.BeginLevel();
+            };
             return;
         }
-    #endif
 
-        AdManager.THIS.InitAdSDK();
+        InitDataSenders();
+        // LevelManager.THIS.BeginLevel();
         OfferScreen.THIS.CheckForUnpack(2.5f);
+    }
+
+    private void InitDataSenders()
+    {
+        Consent.THIS.UpdateGDPR();
         
-        UIManagerExtensions.DistortWarmUp();
+        AnalyticsManager.Init();
+        AdManager.THIS.InitAdSDK();
+        AnalyticsManager.FacebookInit(); 
     }
 
     public void MarkTabStepsComplete()

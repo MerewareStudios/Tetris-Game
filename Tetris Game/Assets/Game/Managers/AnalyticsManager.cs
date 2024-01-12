@@ -270,6 +270,16 @@ public static class AnalyticsManager
         Log(eventName, total, EventType.Design);
 #endif
     }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void SendAgeData(int age)
+    {
+        string eventName = "Age";
+        GameAnalytics.NewDesignEvent(eventName, age);
+#if UNITY_EDITOR
+        Log(eventName, age, EventType.Design);
+#endif
+    }
 
 #if UNITY_EDITOR
     private static bool Validate(string str, EventType eventType)
