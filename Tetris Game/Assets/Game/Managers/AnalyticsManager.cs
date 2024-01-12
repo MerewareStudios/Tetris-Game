@@ -54,11 +54,12 @@ public static class AnalyticsManager
 #endregion
     
     
-    public static void Init()
+    public static void GAInit()
     {
         _shopOpenedCount = 0;
         GameAnalytics.SetCustomId(Account.Current.guid);
         GameAnalytics.Initialize();
+        // GameAnalytics.SetEnabledEventSubmission(false);
 #if ADMOB_MEDIATION
         // TODO
         // GameAnalyticsILRD.SubscribeAdMobImpressions();
@@ -66,7 +67,16 @@ public static class AnalyticsManager
         GameAnalyticsILRD.SubscribeMaxImpressions();
 #endif
     }
-    
+
+    public static bool CanSendEvents
+    {
+        set
+        {
+            Debug.LogWarning("GameAnalytics Event State Changed : " + value);
+            GameAnalytics.SetEnabledEventSubmission(value);
+        }
+    }
+
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void LevelStart(int level)
     {

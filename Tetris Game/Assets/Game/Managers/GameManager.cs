@@ -88,12 +88,16 @@ public class GameManager : Singleton<GameManager>
         
         UIManagerExtensions.DistortWarmUp();
         
+        AnalyticsManager.GAInit();
+        
         if (!AdManager.IsPrivacySet())
         {
+            AnalyticsManager.CanSendEvents = false;
             Consent.THIS.Open()
                 .OnAccept = () => 
             {
                 InitDataSenders();
+                AnalyticsManager.CanSendEvents = true;
                 AnalyticsManager.SendAgeData(AdManager.Age());
                 LevelManager.THIS.BeginLevel();
             };
@@ -109,7 +113,6 @@ public class GameManager : Singleton<GameManager>
     {
         Consent.THIS.UpdateGDPR();
         
-        AnalyticsManager.Init();
         AdManager.THIS.InitAdSDK();
         AnalyticsManager.FacebookInit(); 
     }
