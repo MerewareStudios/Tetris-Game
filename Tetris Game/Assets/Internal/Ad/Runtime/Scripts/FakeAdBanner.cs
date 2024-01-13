@@ -3,12 +3,13 @@
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
-using DG.Tweening;
+    using AdCore;
+    using DG.Tweening;
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FakeAdBanner : AdBase<FakeAdBanner>
+public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
 {
 #region Mediation Variables
 
@@ -33,9 +34,12 @@ public class FakeAdBanner : AdBase<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         // TODO
+
+        base.ADType = AdType.BANNER;
         DestroyMediation();
         
         _bannerView = new BannerView(_adUnitId, AdSize.Banner, ToMediationBannerPosition(_currentPosition));
+        CallAnalytics(_adUnitId, _bannerView);
         
         _bannerView.OnBannerAdLoaded += OnBannerAdLoaded;
         _bannerView.OnBannerAdLoadFailed += OnBannerAdLoadFailed;

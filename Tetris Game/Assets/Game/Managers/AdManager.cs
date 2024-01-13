@@ -46,7 +46,12 @@ namespace IWI
         {
             SetPrivacy(privacyAccepted);
             SetAge(age);
-            UnityAds.SetConsentMetaData("privacy.consent", privacyAccepted);
+            
+            Debug.Log("UnityAds privacy.consent CanTake: " + !IsUnderAgeForCOPPA());
+            Debug.Log("UnityAds consent.consent CanTake: " + !IsUnderAgeForGDPR());
+
+            UnityAds.SetConsentMetaData("privacy.consent", !IsUnderAgeForCOPPA());
+            UnityAds.SetConsentMetaData("gdpr.consent", !IsUnderAgeForGDPR());
         }
 
         public static bool IsPrivacySet() => AdManager.THIS._Data.hasConsentTaken;
@@ -54,6 +59,7 @@ namespace IWI
         public static void SetAge(int age) => AdManager.THIS._Data.age = age;
         public static int Age() => AdManager.THIS._Data.age;
         public static bool IsUnderAgeForGDPR() => AdManager.THIS._Data.age < 16;
+        public static bool IsUnderAgeForCOPPA() => AdManager.THIS._Data.age < 13;
 
         
         private void InitializeMediation()
@@ -87,6 +93,8 @@ namespace IWI
                 
                 WorkerThread.Current.AddJob(OnMediationInitialized);
             });
+            
+            MarkAdConsentByAge();
 #else
             MaxSdk.SetSdkKey("C9c4THkvTlfbzgV69g5ptFxgev2mrPMc1DWEMK60kzLN4ZDVulA3FPrwT5FlVputtGkSUtSKsTnv6aJnQAPJbT");
             MaxSdk.SetUserId(Account.Current.guid);
@@ -96,6 +104,17 @@ namespace IWI
                 OnMediationInitialized();
             };
 #endif
+        }
+
+        private void MarkAdConsentByAge()
+        {
+            TagForUnderAgeOfConsent tagForUnderAgeOfConsent = IsUnderAgeForCOPPA() ? TagForUnderAgeOfConsent.True : TagForUnderAgeOfConsent.False;
+            Debug.Log("TagForUnderAgeOfConsent : " + tagForUnderAgeOfConsent);
+            RequestConfiguration requestConfiguration = new RequestConfiguration
+            {
+                TagForUnderAgeOfConsent = tagForUnderAgeOfConsent,
+            };
+            MobileAds.SetRequestConfiguration(requestConfiguration);
         }
         
         public static bool IsMediationInitialized()

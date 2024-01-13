@@ -1,4 +1,4 @@
-#define GDPR_DEBUG
+// #define GDPR_DEBUG
 
 #if GDPR_DEBUG
     using System.Collections.Generic;
@@ -74,29 +74,19 @@ public class Consent : Lazyingleton<Consent>
     {
         if (consentError != null)
         {
-            // Handle the error.
-            // Debug.LogError(consentError);
             return;
         }
     
 
-        // If the error is null, the consent information state was updated.
-        // You are now ready to check if a form is available.
         ConsentForm.LoadAndShowConsentFormIfRequired((FormError formError) =>
         {
             if (formError != null)
             {
-                // Consent gathering failed.
-                // Debug.LogError(consentError);
                 return;
             }
 
-            // Consent has been gathered.
-            
             if (ConsentInformation.CanRequestAds())
             {
-                UnityAds.SetConsentMetaData("gdpr.consent", true);
-
                 // MobileAds.Initialize((InitializationStatus initstatus) =>
                 // {
                 //     // TODO: Request an ad.

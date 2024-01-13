@@ -1,6 +1,5 @@
 // #define FORCE_EDITOR_CONCENT
 
-using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
@@ -89,6 +88,9 @@ public class GameManager : Singleton<GameManager>
         UIManagerExtensions.DistortWarmUp();
         
         AnalyticsManager.GAInit();
+        AdCore.AdBase<FakeAdBanner>.SubscribeToAnalytics = AnalyticsManager.SubscribeBannerAdImpressions;
+        AdCore.AdBase<FakeAdInterstitial>.SubscribeToAnalytics = AnalyticsManager.SubscribeInterAdImpressions;
+        AdCore.AdBase<FakeAdRewarded>.SubscribeToAnalytics = AnalyticsManager.SubscribeRewardedAdImpressions;
         
         if (!AdManager.IsPrivacySet())
         {
@@ -114,7 +116,10 @@ public class GameManager : Singleton<GameManager>
         Consent.THIS.UpdateGDPR();
         
         AdManager.THIS.InitAdSDK();
+        
+    #if FACEBOOK
         AnalyticsManager.FacebookInit(); 
+    #endif
     }
 
     public void MarkTabStepsComplete()

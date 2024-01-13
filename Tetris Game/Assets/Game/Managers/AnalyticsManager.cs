@@ -3,11 +3,14 @@
 #define LOG_ERROR
 using System.Text.RegularExpressions;
 #endif
+#if FACEBOOK
+    using Facebook.Unity;
+#endif
 using System;
 using System.Linq;
 using GameAnalyticsSDK;
 using UnityEngine;
-using Facebook.Unity;
+using GoogleMobileAds.Api;
 
 public static class AnalyticsManager
 {
@@ -18,7 +21,7 @@ public static class AnalyticsManager
     
     private static int _shopOpenedCount = 0;
 
-#region Facebook
+#if FACEBOOK
     public static void FacebookInit()
     {
         if (FB.IsInitialized) 
@@ -33,25 +36,16 @@ public static class AnalyticsManager
     {
         if (FB.IsInitialized)
         {
-            Debug.Log("Facebook SDK Initialized");
             FB.ActivateApp();
             return;
         }
-        
-        Debug.LogError("Failed to Initialize the Facebook SDK");
     }
 
     private static void OnHideUnity (bool isGameShown)
     {
-        if (!isGameShown) {
-            // Pause the game - we will need to hide
-            Time.timeScale = 0;
-        } else {
-            // Resume the game - we're getting focus again
-            Time.timeScale = 1;
-        }
+        Time.timeScale = isGameShown ? 1 : 0;
     }
-#endregion
+#endif
     
     
     public static void GAInit()
@@ -59,13 +53,19 @@ public static class AnalyticsManager
         _shopOpenedCount = 0;
         GameAnalytics.SetCustomId(Account.Current.guid);
         GameAnalytics.Initialize();
-        // GameAnalytics.SetEnabledEventSubmission(false);
-#if ADMOB_MEDIATION
-        // TODO
-        // GameAnalyticsILRD.SubscribeAdMobImpressions();
-#else
-        GameAnalyticsILRD.SubscribeMaxImpressions();
-#endif
+    }
+
+    public static void SubscribeBannerAdImpressions(string adID, object ad)
+    {
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as BannerView);
+    }
+    public static void SubscribeInterAdImpressions(string adID, object ad)
+    {
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as InterstitialAd);
+    }
+    public static void SubscribeRewardedAdImpressions(string adID, object ad)
+    {
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as RewardedAd);
     }
 
     public static bool CanSendEvents

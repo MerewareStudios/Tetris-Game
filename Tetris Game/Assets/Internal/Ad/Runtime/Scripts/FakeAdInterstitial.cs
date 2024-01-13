@@ -5,7 +5,7 @@
 #endif
 using Internal.Core;
 
-public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
+public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
 {
     
 #region Mediation Variables
@@ -112,6 +112,8 @@ public class FakeAdInterstitial : AdBase<FakeAdInterstitial>
         Log("OnInterstitialAdLoaded");
         
         _interstitialAd = ad;
+        CallAnalytics(_adUnitId, _interstitialAd);
+
         
         ad.OnAdPaid += OnAdPaid;
         ad.OnAdImpressionRecorded += OnAdImpressionRecorded;

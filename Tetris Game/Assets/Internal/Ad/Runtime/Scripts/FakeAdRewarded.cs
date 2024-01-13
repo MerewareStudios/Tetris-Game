@@ -7,7 +7,7 @@ using System;
 using Internal.Core;
 using UnityEngine;
 
-public class FakeAdRewarded : AdBase<FakeAdRewarded>
+public class FakeAdRewarded : AdCore.AdBase<FakeAdRewarded>
 {
     
 #region Mediation Variables
@@ -109,6 +109,9 @@ public class FakeAdRewarded : AdBase<FakeAdRewarded>
 
         Log("OnRewardedAdLoaded");
         _rewardedAd = ad;
+        
+        CallAnalytics(_adUnitId, _rewardedAd);
+
         
         ad.OnAdPaid += OnRewardedAdRevenuePaidEvent;
         ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
