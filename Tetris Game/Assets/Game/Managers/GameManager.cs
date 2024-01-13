@@ -114,8 +114,9 @@ public class GameManager : Singleton<GameManager>
     private void InitDataSenders()
     {
         Consent.THIS.UpdateGDPR();
-        
         AdManager.THIS.InitAdSDK();
+        
+        Tools.AdjustSDK.Init();
         
     #if FACEBOOK
         AnalyticsManager.FacebookInit(); 

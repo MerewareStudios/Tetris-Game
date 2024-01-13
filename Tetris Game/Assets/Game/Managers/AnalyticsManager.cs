@@ -46,6 +46,8 @@ public static class AnalyticsManager
         Time.timeScale = isGameShown ? 1 : 0;
     }
 #endif
+
+
     
     
     public static void GAInit()
