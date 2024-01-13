@@ -13,7 +13,7 @@ public static class Tools
         private const AdjustEnvironment Environment = AdjustEnvironment.Sandbox;
         public static void Init()
         {
-            return;
+            // return;
             Log("Init");
             // AdjustConfig config = new AdjustConfig(AppToken, Environment);
             AdjustConfig config = new AdjustConfig(AppToken, Environment,true); // override log level true
