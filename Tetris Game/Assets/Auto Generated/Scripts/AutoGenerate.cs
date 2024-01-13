@@ -165,12 +165,12 @@ namespace Internal.Core
         {
             UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal("Assets/Game/Managers/TickManager.cs", 1);
         }
-        [MenuItem("SAVE/Clear Player Prefs")]
+        [MenuItem("CLEAR/PREFS")]
         private static void ClearPlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
         }
-        [MenuItem("SAVE/Clear Save")]
+        [MenuItem("CLEAR/SAVE")]
         private static void ClearSave()
         {
             SaveManager.Delete();
