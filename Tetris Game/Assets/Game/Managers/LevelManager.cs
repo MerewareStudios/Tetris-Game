@@ -66,10 +66,7 @@ public class LevelManager : Singleton<LevelManager>
 
         UIManager.UpdateNotifications();
 
-        if (AdManager.IsMediationInitialized())
-        {
-            BeginLevel();
-        }
+        BeginLevel();
 
         if (CurrentLevel >= 5)
         {
@@ -88,7 +85,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void BeginLevel()
     {
-        // Debug.LogError("begin level");
         if (ONBOARDING.ALL_BLOCK_STEPS.IsComplete())
         {
             Warzone.THIS.Begin();
@@ -98,8 +94,6 @@ public class LevelManager : Singleton<LevelManager>
         {
             Onboarding.SpawnFirstBlockAndTeachPlacement();
         }
-        
-        AnalyticsManager.LevelStart(CurrentLevel);
     }
 
     public void CheckEndLevel()

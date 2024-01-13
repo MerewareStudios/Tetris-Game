@@ -75,6 +75,8 @@ public class Onboarding : SSingleton<Onboarding>
 
         IEnumerator Routine()
         {
+            yield return new WaitForSeconds(0.2f);
+            
             Warzone.THIS.Player.RotateToPlayer(0.5f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needAmmoText, 0.35f);
             Warzone.THIS.Player.animator.SetTrigger(Player.WAVE_HASH);

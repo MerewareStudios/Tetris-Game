@@ -101,13 +101,11 @@ public class GameManager : Singleton<GameManager>
                 InitDataSenders();
                 AnalyticsManager.CanSendEvents = true;
                 AnalyticsManager.SendAgeData(AdManager.Age());
-                LevelManager.THIS.BeginLevel();
             };
             return;
         }
 
         InitDataSenders();
-        // LevelManager.THIS.BeginLevel();
         OfferScreen.THIS.CheckForUnpack(2.5f);
     }
 

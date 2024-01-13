@@ -93,6 +93,7 @@ namespace  Game
             StopSpawning();
             _spawnRoutine = StartCoroutine(SpawnRoutine());
             
+            AnalyticsManager.LevelStart(LevelManager.CurrentLevel);
             
             this.enabled = true;
             return;
