@@ -5,5 +5,7 @@
             <repository>https://repo.maven.apache.org/maven2</repository>
         </repositories>
         <androidPackage spec="androidx.fragment:fragment:1.1.0" />
+<!--        <androidPackage spec="com.google.android.gms:play-services-ads-identifier:18.0.1" />-->
+<!--        <androidPackage spec="com.android.installreferrer:installreferrer:2.2" />-->
     </androidPackages>
 </dependencies>

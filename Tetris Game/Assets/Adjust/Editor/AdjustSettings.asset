@@ -19,7 +19,7 @@ MonoBehaviour:
   _androidPermissionInternet: 1
   _androidPermissionInstallReferrerService: 1
   _androidPermissionAdId: 1
-  _androidPermissionAccessNetworkState: 0
+  _androidPermissionAccessNetworkState: 1
   _iOSUserTrackingUsageDescription: 
   _iOSUrlIdentifier: 
   _iOSUrlSchemes: []

@@ -13,11 +13,11 @@ public static class Tools
         private const AdjustEnvironment Environment = AdjustEnvironment.Sandbox;
         public static void Init()
         {
+            return;
             Log("Init");
-            AdjustConfig config = new AdjustConfig(AppToken, Environment);
-            
-            // AdjustConfig config = new AdjustConfig(AppToken, Environment,true); // override log level true
-            // config.setLogLevel(AdjustLogLevel.Suppress); // log type supress
+            // AdjustConfig config = new AdjustConfig(AppToken, Environment);
+            AdjustConfig config = new AdjustConfig(AppToken, Environment,true); // override log level true
+            config.setLogLevel(AdjustLogLevel.Verbose); // log type supress
             // config.setLogDelegate(msg => Debug.Log(msg)); // change logging delegate for Windows based
             
             Adjust.start(config);
