@@ -11,7 +11,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
     
     private static string SavePath => Path.Combine(Application.persistentDataPath, "Data.json");
 
-    public virtual void Awake()
+    public virtual void Init()
     {
         if (DELETE_AT_START)
         {

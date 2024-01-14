@@ -1,5 +1,3 @@
-// #define LOG
-
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
@@ -107,16 +105,15 @@ public class FakeAdRewarded : AdCore.AdBase<FakeAdRewarded>
             return;
         }
 
-        Log("OnRewardedAdLoaded");
         _rewardedAd = ad;
         
-        CallAnalytics(_adUnitId, _rewardedAd);
+        JoinAnalytics(_adUnitId, _rewardedAd);
 
         
-        ad.OnAdPaid += OnRewardedAdRevenuePaidEvent;
-        ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
-        ad.OnAdClicked += OnRewardedAdClickedEvent;
-        ad.OnAdFullScreenContentOpened += OnRewardedAdFullScreenContentOpened;
+        // ad.OnAdPaid += OnRewardedAdRevenuePaidEvent;
+        // ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
+        // // ad.OnAdClicked += OnRewardedAdClickedEvent;
+        // ad.OnAdFullScreenContentOpened += OnRewardedAdFullScreenContentOpened;
         ad.OnAdFullScreenContentClosed += OnRewardedAdFullScreenContentClosed;
         ad.OnAdFullScreenContentFailed += OnRewardedAdFullScreenContentFailed;
         
@@ -129,40 +126,36 @@ public class FakeAdRewarded : AdCore.AdBase<FakeAdRewarded>
 
     private void OnRewardedAdLoadFailedEvent(LoadAdError error)
     {
-        LogError("Rewarded ad failed to load an ad with error : " + error);
-
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
 
         InvokeForLoad();
     }
 
-    private void OnRewardedAdFullScreenContentOpened()
-    {
-// #if UNITY_EDITOR
-//         Time.timeScale = 0.0f;
-// #endif
-    }
+//     private void OnRewardedAdFullScreenContentOpened()
+//     {
+// // #if UNITY_EDITOR
+// //         Time.timeScale = 0.0f;
+// // #endif
+//     }
 
     private void OnRewardedAdFullScreenContentFailed(AdError error)
     {
         WorkerThread.Current.AddJob(() =>
         {
-            LogError("OnRewardedAdFullScreenContentFailed " + error.ToString());
             this.OnFailedDisplay?.Invoke();
             LoadAd();
         });
     }
 
-    private void OnRewardedAdClickedEvent()
-    {
-    }
+    // private void OnRewardedAdClickedEvent()
+    // {
+    // }
 
     private void OnRewardedAdFullScreenContentClosed()
     {
         WorkerThread.Current.AddJob(() =>
         {
-            Log("OnRewardedAdFullScreenContentClosed");
             this.OnHidden?.Invoke();
             LoadAd();
         });
@@ -172,18 +165,17 @@ public class FakeAdRewarded : AdCore.AdBase<FakeAdRewarded>
     {
         WorkerThread.Current.AddJob(() =>
         {
-            Log("OnRewardedAdReceivedRewardEvent");
             OnReward?.Invoke();
         });
     }
 
-    private void OnRewardedAdRevenuePaidEvent(AdValue adValue)
-    {
-    }
-    
-    private void OnAdImpressionRecorded()
-    {
-    }
+    // private void OnRewardedAdRevenuePaidEvent(AdValue adValue)
+    // {
+    // }
+    //
+    // private void OnAdImpressionRecorded()
+    // {
+    // }
     
 #else
     private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -271,8 +263,9 @@ public class FakeAdRewarded : AdCore.AdBase<FakeAdRewarded>
         }
     }
     
-    public void Initialize()
+    public override void Initialize(AnalyticsSubscription subscribeToAnalytics)
     {
+        base.Initialize(subscribeToAnalytics);
         InitializeMediation();
         LoadState = LoadState.None;
     }

@@ -1,5 +1,3 @@
-// #define LOG
-
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
@@ -46,10 +44,7 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     private void LoadMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         DestoryMediation();
-        
-        Log("OnInterstitialAd Load Request");
         
         InterstitialAd.Load(_adUnitId, new AdRequest(), (ad, error) =>
         {
@@ -66,7 +61,6 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     private bool IsMediationReady()
     {
 #if ADMOB_MEDIATION
-        // TODO
         return _interstitialAd != null && _interstitialAd.CanShowAd();
 #else
         return MaxSdk.IsInterstitialReady(MaxAdUnitId);
@@ -76,7 +70,6 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     private void ShowMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         _interstitialAd.Show();
 #else
         MaxSdk.ShowInterstitial(MaxAdUnitId);
@@ -86,7 +79,6 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     private void DestoryMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         if (_interstitialAd == null)
         {
             return;
@@ -99,8 +91,6 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     }
     
 #if ADMOB_MEDIATION
-    // TODO
-    
     private void OnInterstitialAdLoadCallback(InterstitialAd ad, LoadAdError error)
     {
         if (error != null || ad == null)
@@ -109,15 +99,13 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
             return;
         }
 
-        Log("OnInterstitialAdLoaded");
-        
         _interstitialAd = ad;
-        CallAnalytics(_adUnitId, _interstitialAd);
+        JoinAnalytics(_adUnitId, _interstitialAd);
 
         
-        ad.OnAdPaid += OnAdPaid;
-        ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
-        ad.OnAdClicked += OnAdClicked;
+        // ad.OnAdPaid += OnAdPaid;
+        // ad.OnAdImpressionRecorded += OnAdImpressionRecorded;
+        // ad.OnAdClicked += OnAdClicked;
         ad.OnAdFullScreenContentOpened += OnInterstitialAdFullScreenContentOpened;
         ad.OnAdFullScreenContentClosed += OnInterstitialAdFullScreenContentClosed;
         ad.OnAdFullScreenContentFailed += OnInterstitialAdFullScreenContentFailed;
@@ -131,8 +119,6 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     
     private void OnInterstitialAdLoadFailedEvent(LoadAdError error)
     {
-        LogError("Rewarded ad failed to load an ad with error : " + error);
-
         LoadState = LoadState.Fail;
         OnLoadedStateChanged?.Invoke(LoadState);
         
@@ -148,7 +134,6 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     {
         WorkerThread.Current.AddJob(() =>
         {
-            LogError(error.ToString());
             this.OnFailedDisplay?.Invoke();
             LoadAd();
         });
@@ -157,20 +142,19 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     {
         WorkerThread.Current.AddJob(() =>
         {
-            Log("OnInterstitialAdFullScreenContentClosed");
             this.OnHidden?.Invoke();
             LoadAd();
         });
     }
-    private void OnAdClicked()
-    {
-    }
-    private void OnAdPaid(AdValue adValue)
-    {
-    }
-    private void OnAdImpressionRecorded()
-    {
-    }
+    // private void OnAdClicked()
+    // {
+    // }
+    // private void OnAdPaid(AdValue adValue)
+    // {
+    // }
+    // private void OnAdImpressionRecorded()
+    // {
+    // }
 #else
     private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
@@ -245,8 +229,9 @@ public class FakeAdInterstitial : AdCore.AdBase<FakeAdInterstitial>
     }
 
     
-    public void Initialize()
+    public override void Initialize(AnalyticsSubscription subscribeToAnalytics)
     {
+        base.Initialize(subscribeToAnalytics);
         InitializeMediation();
         LoadState = LoadState.None;
     }

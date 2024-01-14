@@ -61,11 +61,24 @@ namespace Game
             
         }
 
+        public void RemoveMergeOnboardingCallback()
+        {
+            Board.THIS.OnMerge -= GameManager.THIS.CheckMergeOnboarding;
+        }
+
         void Awake()
         {
             this._thisTransform = this.transform;
             this._suggestionHighlightTransform = this.suggestionHighlight.transform;
             this._suggestionHighlightMain = this.suggestionHighlight.main;
+        }
+
+        void Start()
+        {
+            if (ONBOARDING.WEAPON_TAB.IsNotComplete())
+            {
+                Board.THIS.OnMerge += GameManager.THIS.CheckMergeOnboarding;
+            }
         }
 
         public Data SavedData

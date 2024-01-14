@@ -47,19 +47,14 @@ namespace IWI
             SetPrivacy(privacyAccepted);
             SetAge(age);
             
-            Debug.Log("UnityAds privacy.consent CanTake: " + !IsUnderAgeForCOPPA());
-            Debug.Log("UnityAds consent.consent CanTake: " + !IsUnderAgeForGDPR());
-
-            UnityAds.SetConsentMetaData("privacy.consent", !IsUnderAgeForCOPPA());
-            UnityAds.SetConsentMetaData("gdpr.consent", !IsUnderAgeForGDPR());
+            UnityAds.SetConsentMetaData("privacy.consent", !Account.Current.IsUnderAgeForCOPPA());
+            UnityAds.SetConsentMetaData("gdpr.consent", !Account.Current.IsUnderAgeForGDPR());
         }
 
         public static bool IsPrivacySet() => AdManager.THIS._Data.hasConsentTaken;
         public static void SetPrivacy(bool state) => AdManager.THIS._Data.hasConsentTaken = state;
-        public static void SetAge(int age) => AdManager.THIS._Data.age = age;
-        public static int Age() => AdManager.THIS._Data.age;
-        public static bool IsUnderAgeForGDPR() => AdManager.THIS._Data.age < 16;
-        public static bool IsUnderAgeForCOPPA() => AdManager.THIS._Data.age < 13;
+        public static void SetAge(int age) => Account.Current.age = age;
+        
 
         
         private void InitializeMediation()
@@ -108,7 +103,7 @@ namespace IWI
 
         private void MarkAdConsentByAge()
         {
-            TagForUnderAgeOfConsent tagForUnderAgeOfConsent = IsUnderAgeForCOPPA() ? TagForUnderAgeOfConsent.True : TagForUnderAgeOfConsent.False;
+            TagForUnderAgeOfConsent tagForUnderAgeOfConsent = Account.Current.IsUnderAgeForCOPPA() ? TagForUnderAgeOfConsent.True : TagForUnderAgeOfConsent.False;
             Debug.Log("TagForUnderAgeOfConsent : " + tagForUnderAgeOfConsent);
             RequestConfiguration requestConfiguration = new RequestConfiguration
             {
@@ -165,7 +160,7 @@ namespace IWI
 
         private void OnMediationInitialized()
         {
-            FakeAdRewarded.THIS.Initialize();
+            FakeAdRewarded.THIS.Initialize(AnalyticsManager.SubscribeRewardedAdImpressions);
             FakeAdRewarded.THIS.OnLoadedStateChanged = (state) =>
             {
                 if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.REWARDED))
@@ -180,9 +175,10 @@ namespace IWI
                 return;
             }
                     
-            InitBanner();
+            FakeAdBanner.THIS.Initialize(AnalyticsManager.SubscribeBannerAdImpressions);
+            ShowBannerFrame();
                     
-            FakeAdInterstitial.THIS.Initialize();
+            FakeAdInterstitial.THIS.Initialize(AnalyticsManager.SubscribeInterstitialAdImpressions);
             FakeAdInterstitial.THIS.OnLoadedStateChanged = (state) =>
             {
                 if (!AdBreakScreen.THIS.CurrentAdState.Equals(AdBreakScreen.AdType.INTERSTITIAL))
@@ -270,11 +266,6 @@ namespace IWI
         }
 
 
-        private void InitBanner()
-        {
-            FakeAdBanner.THIS.Initialize();
-            ShowBannerFrame();
-        }
         private void DestroyBanner()
         {
             FakeAdBanner.THIS.DestroyBanner();
@@ -435,7 +426,6 @@ namespace IWI
         {
             [System.NonSerialized] public bool MediationInitialized = false;
             [SerializeField] public bool hasConsentTaken = false;
-            [SerializeField] public int age = 100;
             [SerializeField] public bool removeAds = false;
             [SerializeField] public int interSkipCount;
             [SerializeField] public int interWatchCount;
@@ -450,7 +440,6 @@ namespace IWI
             public Data(Data data)
             {
                 hasConsentTaken = data.hasConsentTaken;
-                age = data.age;
                 removeAds = data.removeAds;
                 interSkipCount = data.interSkipCount;
                 interWatchCount = data.interWatchCount;

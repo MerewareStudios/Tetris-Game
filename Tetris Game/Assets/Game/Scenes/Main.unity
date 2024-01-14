@@ -3808,6 +3808,7 @@ MonoBehaviour:
     accountData:
       commented: 0
       guid: 
+      age: 0
     hapticData:
       canVibrate: 1
       canPlayAudio: 1
@@ -3881,14 +3882,13 @@ MonoBehaviour:
         total: 0
     adData:
       hasConsentTaken: 0
-      age: 100
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0
       rewardWatchCount: 0
     purchaseData:
       offers: 
-  DELETE_AT_START: 1
+  DELETE_AT_START: 0
   SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:

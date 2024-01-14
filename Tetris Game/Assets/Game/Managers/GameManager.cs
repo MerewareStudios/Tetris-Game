@@ -1,5 +1,6 @@
 // #define FORCE_EDITOR_CONCENT
 
+using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
@@ -48,6 +49,13 @@ public class GameManager : Singleton<GameManager>
         UpdateTimeScale();
     }
 
+    public void Awake()
+    {
+        Init();
+        SaveManager.THIS.Init();
+        PreInitDataSenders();
+    }
+
     public void Init()
     {
         Map.THIS = map;
@@ -60,6 +68,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
+        
         Distortion.Complete = (go, state) =>
         {
             go.Despawn(Pool.Distortion);
@@ -68,9 +77,10 @@ public class GameManager : Singleton<GameManager>
                 ApplicationManager.THIS.GrabFeatureEnabled = false;
             }
         };
+        UIManagerExtensions.DistortWarmUp();
 
         DOTween.SetTweensCapacity(200, 50);
-        
+
         LevelManager.THIS.LoadLevel();
         
         #if CREATIVE
@@ -80,54 +90,39 @@ public class GameManager : Singleton<GameManager>
         #endif
         
         
-        if (ONBOARDING.WEAPON_TAB.IsNotComplete())
-        {
-            Board.THIS.OnMerge += CheckMergeOnboarding;
-        }
-        
-        UIManagerExtensions.DistortWarmUp();
-        
-        AnalyticsManager.GAInit();
-        AdCore.AdBase<FakeAdBanner>.SubscribeToAnalytics = AnalyticsManager.SubscribeBannerAdImpressions;
-        AdCore.AdBase<FakeAdInterstitial>.SubscribeToAnalytics = AnalyticsManager.SubscribeInterAdImpressions;
-        AdCore.AdBase<FakeAdRewarded>.SubscribeToAnalytics = AnalyticsManager.SubscribeRewardedAdImpressions;
-        
         if (!AdManager.IsPrivacySet())
         {
             AnalyticsManager.CanSendEvents = false;
             Consent.THIS.Open()
                 .OnAccept = () => 
             {
-                InitDataSenders();
+                PostDataSenders();
                 AnalyticsManager.CanSendEvents = true;
-                AnalyticsManager.SendAgeData(AdManager.Age());
+                AnalyticsManager.SendAgeData(Account.Current.age);
             };
             return;
         }
 
-        InitDataSenders();
+        PostDataSenders();
         OfferScreen.THIS.CheckForUnpack(2.5f);
     }
 
-    private void InitDataSenders()
+    private void PreInitDataSenders()
+    {
+        AnalyticsManager.GAInit();
+    }
+    private void PostDataSenders()
     {
         Consent.THIS.UpdateGDPR();
         AdManager.THIS.InitAdSDK();
-        
-        Tools.AdjustSDK.Init();
-        
+        Tools.AdjustSDK.Init(Account.Current.guid, Account.Current.IsUnderAgeForCOPPA());
+
     #if FACEBOOK
         AnalyticsManager.FacebookInit(); 
     #endif
     }
 
-    public void MarkTabStepsComplete()
-    {
-        ONBOARDING.BLOCK_TAB.SetComplete();
-        Board.THIS.OnMerge -= CheckMergeOnboarding;
-    }
-
-    private bool CheckMergeOnboarding()
+    public bool CheckMergeOnboarding()
     {
         if (ONBOARDING.SPEECH_CHEER.IsNotComplete())
         {
@@ -246,11 +241,6 @@ public class GameManager : Singleton<GameManager>
             onFinish?.Invoke(true);
         }
     }
-
-    public void PlayCoinAudio()
-    {
-        // Audio.Coin.PlayOneShot();
-    }
     
     public static void AddCoin(int value)
     {
@@ -267,14 +257,7 @@ public class GameManager : Singleton<GameManager>
         Audio.Meta_Ticket.PlayOneShot();
         Wallet.TICKET.Add(value);
     }
-    // public static void AddTicketEnd()
-    // {
-    //     Audio.Meta_Ticket_End.PlayOneShot();
-    // }
-    // public static void AddGemEnd()
-    // {
-    //     Audio.Meta_Gem_End.PlayOneShot();
-    // }
+  
     public static void AddHeart(int value)
     {
         Audio.Heart.PlayOneShot();

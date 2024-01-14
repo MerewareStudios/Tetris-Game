@@ -47,9 +47,6 @@ public static class AnalyticsManager
     }
 #endif
 
-
-    
-    
     public static void GAInit()
     {
         _shopOpenedCount = 0;
@@ -61,7 +58,7 @@ public static class AnalyticsManager
     {
         GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as BannerView);
     }
-    public static void SubscribeInterAdImpressions(string adID, object ad)
+    public static void SubscribeInterstitialAdImpressions(string adID, object ad)
     {
         GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as InterstitialAd);
     }
@@ -74,7 +71,7 @@ public static class AnalyticsManager
     {
         set
         {
-            Debug.LogWarning("GameAnalytics Event State Changed : " + value);
+            Debug.Log("<color=#AA1100>Game Analytics : " + (value ? "Enabled" : "Disabled") + "</color>");
             GameAnalytics.SetEnabledEventSubmission(value);
         }
     }

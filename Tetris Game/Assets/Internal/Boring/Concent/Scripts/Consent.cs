@@ -54,7 +54,7 @@ public class Consent : Lazyingleton<Consent>
         ConsentRequestParameters request = 
             new ConsentRequestParameters
             {
-                TagForUnderAgeOfConsent = AdManager.IsUnderAgeForGDPR(),
+                TagForUnderAgeOfConsent = Account.Current.IsUnderAgeForGDPR(),
 #if GDPR_DEBUG
                 ConsentDebugSettings = debugSettings,
 #endif

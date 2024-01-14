@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game;
 using Game.UI;
 using Internal.Core;
 using IWI.Tutorial;
@@ -38,6 +39,7 @@ public class Shop : MonoBehaviour
         else if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             ONBOARDING.WEAPON_TAB.SetComplete();
+            Board.THIS.RemoveMergeOnboardingCallback();
             
             if (ONBOARDING.USE_POWERUP.IsNotComplete())
             {

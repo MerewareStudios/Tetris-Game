@@ -14,9 +14,12 @@ namespace AdCore
         [System.NonSerialized] private int _retryAttempt;
 
         public delegate void AnalyticsSubscription(string id, object ad);
-        public static AnalyticsSubscription SubscribeToAnalytics;
-        
-        
+        public AnalyticsSubscription SubscribeToAnalytics;
+
+        public virtual void Initialize(AnalyticsSubscription subscribeToAnalytics)
+        {
+            this.SubscribeToAnalytics = subscribeToAnalytics;
+        }
 
         public virtual bool LoadAd()
         {
@@ -51,7 +54,7 @@ namespace AdCore
             _retryAttempt = 0;
         }
 
-        protected static void CallAnalytics(string id, object adUnitObject)
+        protected void JoinAnalytics(string id, object adUnitObject)
         {
             SubscribeToAnalytics(id, adUnitObject);
         }

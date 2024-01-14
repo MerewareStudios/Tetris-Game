@@ -1,5 +1,3 @@
-// #define LOG
-
 #if ADMOB_MEDIATION
     using GoogleMobileAds.Api;
 #endif
@@ -33,21 +31,19 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void InitializeMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
-
         base.ADType = AdType.BANNER;
         DestroyMediation();
         
         _bannerView = new BannerView(_adUnitId, AdSize.Banner, ToMediationBannerPosition(_currentPosition));
-        CallAnalytics(_adUnitId, _bannerView);
+        JoinAnalytics(_adUnitId, _bannerView);
         
         _bannerView.OnBannerAdLoaded += OnBannerAdLoaded;
         _bannerView.OnBannerAdLoadFailed += OnBannerAdLoadFailed;
-        _bannerView.OnAdPaid += OnAdPaid;
-        _bannerView.OnAdImpressionRecorded += OnAdImpressionRecorded;
-        _bannerView.OnAdClicked += OnAdClicked;
-        _bannerView.OnAdFullScreenContentOpened += OnAdFullScreenContentOpened;
-        _bannerView.OnAdFullScreenContentClosed += OnAdFullScreenContentClosed;
+        // _bannerView.OnAdPaid += OnAdPaid;
+        // _bannerView.OnAdImpressionRecorded += OnAdImpressionRecorded;
+        // _bannerView.OnAdClicked += OnAdClicked;
+        // _bannerView.OnAdFullScreenContentOpened += OnAdFullScreenContentOpened;
+        // _bannerView.OnAdFullScreenContentClosed += OnAdFullScreenContentClosed;
 #else
         MaxSdk.SetBannerExtraParameter(MaxAdUnitId, "adaptive_banner", "true");
         MaxSdk.SetBannerBackgroundColor(MaxAdUnitId, backgroundColor);
@@ -64,7 +60,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void LoadMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         _bannerView.LoadAd(new AdRequest());
 #else
         MaxSdk.CreateBanner(MaxAdUnitId, ToMediationBannerPosition(_currentPosition));
@@ -74,7 +69,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void DestroyMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         if (_bannerView == null)
         {
             return;
@@ -89,7 +83,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void SetMediationPosition(BannerPosition bannerPosition)
     {
 #if ADMOB_MEDIATION
-        // TODO
         _bannerView?.SetPosition(ToMediationBannerPosition(bannerPosition));
 #else
         MaxSdk.UpdateBannerPosition(MaxAdUnitId, ToMediationBannerPosition(bannerPosition));
@@ -99,7 +92,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void ShowMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         _bannerView.Show();
 #else
         MaxSdk.ShowBanner(MaxAdUnitId);
@@ -109,7 +101,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void HideMediation()
     {
 #if ADMOB_MEDIATION
-        // TODO
         _bannerView.Hide();
 #else
         MaxSdk.HideBanner(MaxAdUnitId);
@@ -118,7 +109,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     
     
 #if ADMOB_MEDIATION
-    // TODO
     private static AdPosition ToMediationBannerPosition(BannerPosition bannerPosition)
     {
         switch (bannerPosition)
@@ -147,12 +137,10 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     
     
 #if ADMOB_MEDIATION
-    // TODO
     private void OnBannerAdLoaded()
     {
         WorkerThread.Current.AddJob(() =>
         {
-            Log("OnBannerAdLoaded");
             CurrentLoadState = LoadState.Success;
             ResetAttempts();
         });
@@ -161,26 +149,25 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     {
         WorkerThread.Current.AddJob(() =>
         {
-            LogError("OnBannerAdLoadFailed " + error.ToString());
             CurrentLoadState = LoadState.Fail;
             InvokeForLoad();
         });
     }
-    private void OnAdPaid(AdValue adValue)
-    {
-    }
-    private void OnAdImpressionRecorded()
-    {
-    }
-    private void OnAdClicked()
-    {
-    }
-    private void OnAdFullScreenContentOpened()
-    {
-    }
-    private void OnAdFullScreenContentClosed()
-    {
-    }
+    // private void OnAdPaid(AdValue adValue)
+    // {
+    // }
+    // private void OnAdImpressionRecorded()
+    // {
+    // }
+    // private void OnAdClicked()
+    // {
+    // }
+    // private void OnAdFullScreenContentOpened()
+    // {
+    // }
+    // private void OnAdFullScreenContentClosed()
+    // {
+    // }
 #else
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
@@ -332,8 +319,9 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
         ShowAd();
     }
     
-    public void Initialize()
+    public override void Initialize(AnalyticsSubscription subscribeToAnalytics)
     {
+        base.Initialize(subscribeToAnalytics);
         InitializeMediation();
         CurrentLoadState = LoadState.None;
     }

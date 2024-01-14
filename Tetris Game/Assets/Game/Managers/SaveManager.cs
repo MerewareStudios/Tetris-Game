@@ -10,9 +10,9 @@ public class SaveManager : SaveManagerBase<SaveManager>
     [SerializeField] public bool SKIP_ONBOARDING = true;
     
 
-    public override void Awake()
+    public override void Init()
     {
-        base.Awake();
+        base.Init();
 
         GameManager.THIS.Init();
 
@@ -143,10 +143,13 @@ public static class Account
     {
         [SerializeField] public bool commented = false;
         [SerializeField] public string guid;
+        [SerializeField] public int age = 100;
+
         public Data(Data data)
         {
             commented = data.commented;
             guid = data.guid;
+            age = data.age;
         }
         public void NewGuid()
         {
@@ -156,6 +159,9 @@ public static class Account
         {
             return new Account.Data(this);
         }
+        
+        public bool IsUnderAgeForGDPR() => Account.Current.age < 16;
+        public bool IsUnderAgeForCOPPA() => Account.Current.age < 13;
     }
 }
 
