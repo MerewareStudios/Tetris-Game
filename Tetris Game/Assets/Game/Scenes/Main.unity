@@ -3888,8 +3888,8 @@ MonoBehaviour:
       rewardWatchCount: 0
     purchaseData:
       offers: 
-  DELETE_AT_START: 0
-  SKIP_ONBOARDING: 0
+  DELETE_AT_START: 1
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17341,7 +17341,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.99988
+      value: -511.99994
       objectReference: {fileID: 0}
     - target: {fileID: 2559703356478064583, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
@@ -18647,6 +18647,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.0038395408
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

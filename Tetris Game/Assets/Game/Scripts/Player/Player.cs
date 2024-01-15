@@ -147,10 +147,10 @@ namespace Game
         {
             int shootCount = Mathf.Min(bulletCount, Warzone.THIS.EnemyCount);
 #if CREATIVE
-            if (!Const.THIS.creativeSettings.playerBubble && shootCount == 0)
-            {
-                return;
-            }
+            // if (!Const.THIS.creativeSettings.playerBubble && shootCount == 0)
+            // {
+            //     return;
+            // }
 #endif
             if (shootCount == 0)
             {
@@ -241,14 +241,14 @@ namespace Game
                         if ((_Data.Time - _prevShoot >= Gun._Data.FireInterval) && angleDif <= 2.0f)
                         {
                             int givenBulletCount = Board.THIS.TakeBullet(_GunData.SplitAmount);
-#if CREATIVE
-                            if (Input.GetKey(KeyCode.Space))
-                            {
-                                Shoot(givenBulletCount);
-                            }
-#else
+// #if CREATIVE
+//                             if (Input.GetKey(KeyCode.Space))
+//                             {
+//                                 Shoot(givenBulletCount);
+//                             }
+// #else
                             Shoot(givenBulletCount);
-#endif
+// #endif
                             _prevShoot = _Data.Time;
                         }
 

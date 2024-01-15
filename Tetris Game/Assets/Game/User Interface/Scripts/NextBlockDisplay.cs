@@ -19,9 +19,16 @@ public class NextBlockDisplay : MonoBehaviour
     public bool Visible
     {
         get => this.gameObject.activeSelf;
-        set => this.gameObject.SetActive(value);
+        set
+        {
+        #if CREATIVE
+            this.gameObject.SetActive(Const.THIS.creativeSettings.nextBlockEnabled && value);
+            return;
+        #endif
+            this.gameObject.SetActive(value);
+        }
     }
-    
+
     public void RemoveNextBlockLimit()
     {
         Board.THIS.SavedData.unlimitedPeek = true;

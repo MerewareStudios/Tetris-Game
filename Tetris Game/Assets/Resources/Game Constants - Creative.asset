@@ -12,13 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants - Creative
   m_EditorClassIdentifier: 
+  creativeSettings:
+    fingerEnabled: 0
+    customSize: 0
+    boardSize: {x: 5, y: 5}
+    airplane: 0
+    nextBlockEnabled: 0
+    assignFurthest: 0
+    shopEnabled: 1
+    powerUpEnabled: 1
+    coinEnabled: 1
+    gemEnabled: 1
+    ticketEnabled: 1
+    settingsEnabled: 0
+    statsEnabled: 1
+    levelTextEnabled: 0
+    showTip: 0
+    adsEnabled: 0
+    clearOnStart: 1
+    ammoMult: 2
+    distanceFromDraggingFinger: {x: 0, y: 0.7, z: 1}
+    bottomOffset: 0
+    addedFov: 0
+    addedCamAngle: {x: 0, y: 0, z: 0}
+    seed: 0
+    giftIndex: 3
+    poses: []
+    randomBlock: 0
+    playerBubble: 0
+    blocks: 3400000034000000
+    helpText: Help!
+    canSpeak: 0
+    speechDelay: 1
+    firstBlockSpawnDelay: 1
+    genericBlockSpawnDelay: 0.1
   Levels:
-  - {fileID: 11400000, guid: f96af85ec9181104c939eb70a10ef572, type: 2}
-  - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
-  - {fileID: 11400000, guid: 1901f6afde201f744922577336465ff3, type: 2}
-  - {fileID: 11400000, guid: 9f886e85a01374c4683978ed17c3c115, type: 2}
+  - {fileID: 11400000, guid: fa5e25d916db00e4394b9df0e5a436cc, type: 2}
+  - {fileID: 11400000, guid: 174acd26c340d1f42ac2578711f0bea3, type: 2}
+  - {fileID: 11400000, guid: 426b83e7115dca14b8df8768e69b0e50, type: 2}
+  - {fileID: 11400000, guid: fa5e25d916db00e4394b9df0e5a436cc, type: 2}
   - {fileID: 11400000, guid: 56b41a19d057a41409b19e2ec6a2c3a2, type: 2}
-  - {fileID: 11400000, guid: d6ec8d56563cdb44886e652ff6c7e57b, type: 2}
+  - {fileID: 11400000, guid: fa5e25d916db00e4394b9df0e5a436cc, type: 2}
   - {fileID: 11400000, guid: 518928411149439459451e9232aa32d9, type: 2}
   - {fileID: 11400000, guid: 0a5b431d47c83024ba09a40d01d403da, type: 2}
   - {fileID: 11400000, guid: a0d9d6201d61cf949b25b7046767e5c9, type: 2}
@@ -53,7 +87,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43c8dcbdd176cf2478206fed3017471e, type: 2}
   - {fileID: 11400000, guid: b00ee58d304cc46469eac01ec746ab63, type: 2}
   - {fileID: 11400000, guid: 7ee7dd691e1405b4bb4aab65603372a6, type: 2}
-  - {fileID: 11400000, guid: 310e3e8ad04618f438a8e1a4bfe64749, type: 2}
+  - {fileID: 11400000, guid: 7a5492f205832d948a76508e9279b354, type: 2}
   - {fileID: 11400000, guid: 85e68f07d4f511443a54b779da97e786, type: 2}
   - {fileID: 11400000, guid: f7e063330604b8a45abeedb629f5e201, type: 2}
   - {fileID: 11400000, guid: 7a09cf2c182cafb4db26e94567c5d3b7, type: 2}
@@ -63,35 +97,30 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dcd399affde9f9246b22137e457bc278, type: 2}
   - {fileID: 11400000, guid: e28f396e92ca9fa4e9ac8feb548d4933, type: 2}
   - {fileID: 11400000, guid: 0adaa5c43f9934d4d832bbeeb6613699, type: 2}
-  AutoLevels:
-  - {fileID: 11400000, guid: 70fb393db9d248c44b13d9ff42d6f85a, type: 2}
-  - {fileID: 11400000, guid: e6663ac6c5dd27b4abe9ae5371b75423, type: 2}
-  - {fileID: 11400000, guid: 26c6de0eebafcfa4b9f17cfeac8c1b94, type: 2}
-  - {fileID: 11400000, guid: 63b2c3529bac4b646840c5e31720f4f5, type: 2}
-  - {fileID: 11400000, guid: 180bdaca35d0ecd40ae822d6cfd0db48, type: 2}
-  - {fileID: 11400000, guid: ca5532c635bf89540ba5a5e6a716d0ca, type: 2}
-  - {fileID: 11400000, guid: 0321f8686d0f15a4bb81b617f94a0a93, type: 2}
-  - {fileID: 11400000, guid: a1284769a1557a04fbe7fa44e3c0852f, type: 2}
-  - {fileID: 11400000, guid: 4716fc925db41c2439a60b14dba31b25, type: 2}
-  - {fileID: 11400000, guid: 2ccf6e546d57c29488f19a9722702d1d, type: 2}
-  - {fileID: 11400000, guid: b177cf382f2e0b9459b52fbd306891e5, type: 2}
+  spareLevelSo: {fileID: 0}
   DefaultSaveData:
     onboardingList: 
     accountData:
       commented: 0
       guid: 
+      age: 0
+    hapticData:
+      canVibrate: 1
+      canPlayAudio: 1
     userData:
-      level: 1
+      level: 21
       playerData:
-        currentHealth: 1
+        currentHealth: 3
       pupData:
         available: 1
         currentUsage: 4
         purchaseCount: 0
         use: 1
       boardData:
-        defaultStack: 6
-        maxStack: 6
+        defaultStack: 12
+        maxStack: 12
+        unlimitedStack: 0
+        unlimitedPeek: 0
       coinTransactionData:
         value: 0
       gemTransactionData:
@@ -99,40 +128,41 @@ MonoBehaviour:
       adTransactionData:
         value: 0
       blockShopData:
-        unlockedBlocks: 030000000400000005000000060000000d0000000a0000000c000000
+        unlockedBlocks: 030000000400000005000000060000000d0000000a000000
         lastIndex: 0
       weaponShopData:
         inspectIndex: 0
         equipIndex: 0
         gunShopDatas:
         - purchased: 1
-          upgradeIndexes: 000000000400000000000000
-        - purchased: 0
+          upgradeIndexes: 000000000200000000000000
+        - purchased: 1
+          upgradeIndexes: 010000000200000001000000
+        - purchased: 1
           upgradeIndexes: 000000000000000000000000
-        - purchased: 0
+        - purchased: 1
           upgradeIndexes: 000000000000000000000000
-        - purchased: 0
+        - purchased: 1
+          upgradeIndexes: 010000000d00000000000000
+        - purchased: 1
+          upgradeIndexes: 010000000000000005000000
+        - purchased: 1
           upgradeIndexes: 000000000000000000000000
-        - purchased: 0
+        - purchased: 1
           upgradeIndexes: 000000000000000000000000
-        - purchased: 0
+        - purchased: 1
           upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000900000006000000
+        - purchased: 1
+          upgradeIndexes: 060000000500000004000000
       menuNavData:
-        lastMenuType: 0
+        lastMenuType: 1
         lockedMiniOffer:
           startAt: 1
           unlockedAt: 10
           offerIndex: 0
           timerRunning: 0
           offerEnds: 0
+          currentOfferType: 0
       piggyData:
         currentMoney:
           type: 0
@@ -146,6 +176,7 @@ MonoBehaviour:
         arrival: -1
         total: 0
     adData:
+      hasConsentTaken: 0
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0
@@ -173,7 +204,7 @@ MonoBehaviour:
       type: 1
       amount: 8
     gunType: 25
-    sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
+    sprite: {fileID: 21300000, guid: b0c71ae055b38b04b82bf8cdbc8b4a8f, type: 3}
     defaultValues: 010000000100000001000000
     damagePrice:
     - type: 2
@@ -211,7 +242,7 @@ MonoBehaviour:
       type: 0
       amount: 325
     gunType: 27
-    sprite: {fileID: 21300000, guid: 766cfd5cf91c19c4791d88b97e6c532d, type: 3}
+    sprite: {fileID: 21300000, guid: 53b4750ed534c5542ac2b0f4399edf86, type: 3}
     defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1
@@ -237,27 +268,11 @@ MonoBehaviour:
       type: 0
       amount: 400
     gunType: 28
-    sprite: {fileID: 21300000, guid: b0c71ae055b38b04b82bf8cdbc8b4a8f, type: 3}
+    sprite: {fileID: 21300000, guid: 87a10c44a27601b47ac453608ae368da, type: 3}
     defaultValues: 020000000100000001000000
-    damagePrice:
-    - type: 1
-      amount: 8
-    - type: 1
-      amount: 8
-    - type: 1
-      amount: 8
-    - type: 2
-      amount: 1
-    fireRatePrice:
-    - type: 0
-      amount: 25
-    - type: 0
-      amount: 50
-    - type: 0
-      amount: 75
-    splitShotPrice:
-    - type: 2
-      amount: 1
+    damagePrice: []
+    fireRatePrice: []
+    splitShotPrice: []
     unlockedAt: 30
   - currency:
       type: 2
@@ -367,7 +382,7 @@ MonoBehaviour:
       type: 2
       amount: 1
     gunType: 32
-    sprite: {fileID: 21300000, guid: 53b4750ed534c5542ac2b0f4399edf86, type: 3}
+    sprite: {fileID: 21300000, guid: 766cfd5cf91c19c4791d88b97e6c532d, type: 3}
     defaultValues: 010000000100000001000000
     damagePrice:
     - type: 1

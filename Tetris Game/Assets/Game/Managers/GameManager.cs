@@ -7,6 +7,7 @@ using Game;
 using Google.Play.Review;
 using Internal.Core;
 using IWI;
+using UnityEditor;
 using UnityEngine;
 using Visual.Effects;
 
@@ -62,6 +63,10 @@ public class GameManager : Singleton<GameManager>
         Board.THIS = board;
         Warzone.THIS = warzone;
         Const.THIS = this.Const;
+#if CREATIVE
+        Const.THIS = AssetDatabase.LoadAssetAtPath<Const>("Assets/Resources/Game Constants - Creative.asset");
+        Debug.LogWarning("Using Creative Constants SO");
+#endif
         AnimConst.THIS = this.AnimConst;
         Onboarding.THIS = this.Onboarding;
     }
@@ -84,7 +89,10 @@ public class GameManager : Singleton<GameManager>
         LevelManager.THIS.LoadLevel();
         
         #if CREATIVE
-        Const.THIS.creativeSettings.Speak();
+        if (Const.THIS.creativeSettings.canSpeak)
+        {
+            Const.THIS.creativeSettings.Speak();
+        }
         Const.THIS.creativeSettings.giftIndex = 0;
             return;
         #endif

@@ -23,6 +23,8 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool customSize = false;
         [ShowIf("customSize", true)]
         [SerializeField] public Vector2Int boardSize = new Vector2Int(5, 5);
+        [SerializeField] public bool airplane = false;
+        [SerializeField] public bool nextBlockEnabled = false;
         [SerializeField] public bool assignFurthest = true;
         [SerializeField] public bool shopEnabled = true;
         [SerializeField] public bool powerUpEnabled = true;
@@ -35,6 +37,8 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool showTip = false;
         [SerializeField] public bool adsEnabled = false;
         [SerializeField] public bool clearOnStart = true;
+        [SerializeField] public int ammoMult = 4;
+        [SerializeField] public Vector3 distanceFromDraggingFinger;
         [SerializeField] public float bottomOffset;
         [SerializeField] public float addedFov;
         [SerializeField] public Vector3 addedCamAngle;
@@ -45,6 +49,7 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool playerBubble = true;
         [SerializeField] public Pool[] blocks;
         [TextArea] [SerializeField] public string helpText;
+        [SerializeField] public bool canSpeak = false    ;
         [SerializeField] public float speechDelay = 1.0f;
         [SerializeField] public float firstBlockSpawnDelay = 5.0f;
         [SerializeField] public float genericBlockSpawnDelay = 5.0f;

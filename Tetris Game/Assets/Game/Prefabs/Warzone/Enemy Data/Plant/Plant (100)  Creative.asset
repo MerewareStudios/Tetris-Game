@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a083a07c4e4264dab5b7a485c37099, type: 3}
-  m_Name: Mage (100) Creative
+  m_Name: Plant (100)  Creative
   m_EditorClassIdentifier: 
-  type: 66
+  type: 70
   scale: {x: 1, y: 1, z: 1}
   colorGrad:
     m_Mode: 4
@@ -48,8 +48,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_GradientMax:
       serializedVersion: 2
-      key0: {r: 0.3803922, g: 0.32941177, b: 0.7176471, a: 1}
-      key1: {r: 0.6509804, g: 0.36862746, b: 0.9568628, a: 1}
+      key0: {r: 0.57254905, g: 0.7568628, b: 0.43137258, a: 1}
+      key1: {r: 0.76470596, g: 0.58431375, b: 0.42352945, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -109,18 +109,18 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 20
-  speed: 0.1
-  forwardRange: {x: 0.5, y: 0.5}
+  maxHealth: 100
+  speed: 0
+  forwardRange: {x: 0.8, y: 0.8}
   radius: 0.6
   emitCount: 10
   deathEmitCount: 35
-  wipeDelay: 1.1
+  wipeDelay: 1.5
   crossSize: 2
   castType: 3
   deathAction: 0
-  spawnerCount: 20
-  spawnerDuration: 5
-  spawnerExtra: 25
-  extraData: {fileID: 11400000, guid: 15a0c87e8e66d7049a7a15eda5a51e10, type: 2}
+  spawnerCount: 2
+  spawnerDuration: 4
+  spawnerExtra: 0
+  extraData: {fileID: 11400000, guid: 71115e67541609047bbe23ed43057ce0, type: 2}
   implosionAudio: 0

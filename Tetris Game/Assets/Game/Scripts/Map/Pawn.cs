@@ -191,7 +191,7 @@ namespace Game
                     SubModel.OnAnimate(() =>
                     {
 #if CREATIVE
-                        Pawn.Usage usg = Const.THIS.gifts[Const.THIS.creativeSettings.giftIndex++];
+                        Pawn.Usage usg = Pawn.Usage.Medic;
 #else
                         Pawn.Usage usg = Const.THIS.gifts.Random();
 #endif

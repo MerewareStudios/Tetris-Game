@@ -1,4 +1,7 @@
-using System;
+#if CREATIVE
+using UnityEditor;
+#endif
+
 using Internal.Core;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -26,6 +29,7 @@ public class ApplicationManager : Singleton<ApplicationManager>
     public virtual void Awake()
     {
         GrabFeatureEnabled = false;
+        Input.multiTouchEnabled = multiTouchEnabled;
 #if CREATIVE
         GameManager.THIS.Init();
         if (Const.THIS.creativeSettings.fingerEnabled)
@@ -37,7 +41,6 @@ public class ApplicationManager : Singleton<ApplicationManager>
         Application.targetFrameRate = 60;
         return;
 #endif
-        Input.multiTouchEnabled = multiTouchEnabled;
         
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
      Debug.unityLogger.logEnabled = false; 

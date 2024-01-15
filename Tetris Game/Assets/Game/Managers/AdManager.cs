@@ -1,4 +1,4 @@
-// #define LOG
+#define LOG_ADMANAGER
 #if ADMOB_MEDIATION
 using GoogleMobileAds.Api;
 using System.Collections.Generic;
@@ -14,12 +14,12 @@ namespace IWI
 {
     public class AdManager : Singleton<AdManager>
     {
-        [System.Diagnostics.Conditional("LOG")]
+        [System.Diagnostics.Conditional("LOG_ADMANAGER")]
         private void Log(object o)
         {
             Debug.Log(o.ToString());
         }
-        [System.Diagnostics.Conditional("LOG")]
+        [System.Diagnostics.Conditional("LOG_ADMANAGER")]
         private void LogError(object o)
         {
             Debug.LogError(o.ToString());
@@ -210,7 +210,7 @@ namespace IWI
 #if CREATIVE
             if (!Const.THIS.creativeSettings.adsEnabled)
             {
-                LogInterstitial("Try Interstitial Failed : Creatives Disabled Ads");
+                Log("Try Interstitial Failed : Creatives Disabled Ads");
                 return;
             }
 #endif

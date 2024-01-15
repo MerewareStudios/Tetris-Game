@@ -51,7 +51,6 @@ MonoBehaviour:
   holster: {fileID: 6218805647396707961}
   crossHair: {fileID: 0}
   crossHairScalePivot: {fileID: 0}
-  lerpTarget: {fileID: 6462825857669607293}
   crossHairMR: {fileID: 0}
   emissionGradient:
     serializedVersion: 2
@@ -231,16 +230,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7545471612403668643, guid: 5da21afdae418154b902a34a9b33e70b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99628174
-      objectReference: {fileID: 0}
-    - target: {fileID: 7545471612403668643, guid: 5da21afdae418154b902a34a9b33e70b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.08615588
       objectReference: {fileID: 0}
     - target: {fileID: 7545471612403668643, guid: 5da21afdae418154b902a34a9b33e70b,
         type: 3}

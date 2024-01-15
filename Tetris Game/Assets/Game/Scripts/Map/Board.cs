@@ -801,6 +801,9 @@ namespace Game
             }
 
             totalAmmo = Mathf.Min(totalAmmo * multiplier,StackLimit);
+        #if CREATIVE
+            totalAmmo = Mathf.Min(totalAmmo * Const.THIS.creativeSettings.ammoMult,StackLimit);
+        #endif
             if (totalAmmo == 0)
             {
                 return;

@@ -142,8 +142,12 @@ namespace  Game
                     yield return Announcer.THIS.Show(startingText, 0.4f);
                 }
 #endif
-
+                
+#if CREATIVE
+                if (LevelManager.CurrentLevel > airplane.SavedData.arrival && Const.THIS.creativeSettings.airplane)
+#else
                 if (LevelManager.CurrentLevel > airplane.SavedData.arrival)
+#endif
                 {
                     Airplane.CarryData carryData = LevelManager.LevelSo.carryData;
                     if (!(carryData.type.Equals(Cargo.Type.MaxStack) && Board.THIS.SavedData.unlimitedStack))
