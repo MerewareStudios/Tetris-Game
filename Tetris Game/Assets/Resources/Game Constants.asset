@@ -12,40 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e3c86a62025b24a93a8a114762a2b1, type: 3}
   m_Name: Game Constants
   m_EditorClassIdentifier: 
-  creativeSettings:
-    fingerEnabled: 1
-    customSize: 0
-    boardSize: {x: 5, y: 5}
-    airplane: 0
-    nextBlockEnabled: 0
-    assignFurthest: 1
-    shopEnabled: 1
-    powerUpEnabled: 1
-    coinEnabled: 1
-    gemEnabled: 1
-    ticketEnabled: 1
-    settingsEnabled: 0
-    statsEnabled: 0
-    levelTextEnabled: 0
-    showTip: 0
-    adsEnabled: 0
-    clearOnStart: 1
-    ammoMult: 4
-    distanceFromDraggingFinger: {x: 0, y: 0, z: 0}
-    bottomOffset: 0
-    addedFov: 0
-    addedCamAngle: {x: 0, y: 0, z: 0}
-    seed: 0
-    giftIndex: 0
-    poses: []
-    randomBlock: 1
-    playerBubble: 1
-    blocks: 
-    helpText: 
-    canSpeak: 0
-    speechDelay: 1
-    firstBlockSpawnDelay: 5
-    genericBlockSpawnDelay: 5
   Levels:
   - {fileID: 11400000, guid: f483151048d6e4445a6dfa2aae86194e, type: 2}
   - {fileID: 11400000, guid: 4fa6e31906b57734d950a91f6874c9e3, type: 2}
@@ -105,8 +71,8 @@ MonoBehaviour:
       guid: 
       age: 0
     hapticData:
-      canVibrate: 1
-      canPlayAudio: 1
+      canVibrate: 0
+      canPlayAudio: 0
     userData:
       level: 1
       playerData:
@@ -126,7 +92,7 @@ MonoBehaviour:
       gemTransactionData:
         value: 0
       adTransactionData:
-        value: 0
+        value: 2
       blockShopData:
         unlockedBlocks: 030000000400000005000000060000000d000000
         lastIndex: 0
