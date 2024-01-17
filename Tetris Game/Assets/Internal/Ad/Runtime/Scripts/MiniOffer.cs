@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
@@ -10,32 +9,19 @@ public class MiniOffer : MonoBehaviour
     [Header("Offer")]
     [SerializeField] private Transform thisTransform;
     [SerializeField] private Image offerImage;
-    [SerializeField] private TextMeshProUGUI miniPromoText;
-    [SerializeField] private TextMeshProUGUI oldPriceText;
-    [SerializeField] private TextMeshProUGUI priceText;
-    // [SerializeField] public ParticleSystem ps;
-    [System.NonSerialized] private OfferScreen.OfferData _offerData;
-    [System.NonSerialized] private OfferScreen.AdPlacement _adPlacement;
+    [SerializeField] private TextMeshProUGUI promoText;
+    [SerializeField] private TextMeshProUGUI buttonText;
+    [System.NonSerialized] private OfferScreen.OfferType _offerType;
 
-    // private void OnEnable()
-    // {
-    //     ps.Play();
-    // }
-    // private void OnDisable()
-    // {
-    //     ps.Stop();
-    // }
-    public void ShowOffer(OfferScreen.OfferType offerType, OfferScreen.AdPlacement adPlacement)
+    public void Set(OfferScreen.OfferType offerType)
     {
-        this._offerData = OfferScreen.THIS.offerData[(int)offerType];
-        this._adPlacement = adPlacement;
-     
-        (string oldPrice, string newPrice) = OfferScreen.THIS.GetPriceData(_offerData);
-        priceText.text = newPrice;
-        oldPriceText.text = oldPrice;
+        this._offerType = offerType;
         
-        miniPromoText.text = _offerData.miniText;
-        offerImage.sprite = _offerData.previewDatas.Last().sprite;
+        OfferScreen.MiniData miniData = OfferScreen.THIS.offerData[(int)offerType].miniData;
+     
+        offerImage.sprite = miniData.icon;
+        promoText.text = miniData.promoText;
+        buttonText.text = miniData.buttonText;
         
         this.gameObject.SetActive(true);
         thisTransform.DOKill();
@@ -45,7 +31,7 @@ public class MiniOffer : MonoBehaviour
 
     public void OnClick_ShowOffer()
     {
-        OfferScreen.THIS.Open(this._offerData.offerType, _adPlacement);
+        OfferScreen.THIS.Open(_offerType, OfferScreen.ShowSource.MINI_OFFER);
     }
 
     public void Halt()

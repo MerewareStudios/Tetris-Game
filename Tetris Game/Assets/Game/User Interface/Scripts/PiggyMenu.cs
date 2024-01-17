@@ -218,7 +218,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
             return;
         }
         
-        AdManager.ShowTicketAd(AdBreakScreen.AdReason.PIGGY,() =>
+        AdManager.ShowTicketAd(AdBreakScreen.AdReason.PIGGY, AdManager.GetTicketOfferForPiggy(),() =>
         {
             Wallet.Transaction(Const.Currency.OneAd);
             OnClick_RequestMultiply();

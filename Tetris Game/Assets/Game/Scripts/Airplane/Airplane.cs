@@ -100,7 +100,7 @@ public class Airplane : MonoBehaviour
         {
             if (!Wallet.Consume(Const.Currency.OneAd))
             {
-                AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
+                AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForCargo(), () =>
                 {
                     Wallet.Transaction(Const.Currency.OneAd);
                     OnClick_Get();

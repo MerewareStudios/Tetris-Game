@@ -47,7 +47,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public delegate decimal STR2DECIMAL(string iapID);
     public delegate void UNPACK(Reward[] rewards, System.Action onFinish);
     public delegate bool CONDITIONAL();
-    public delegate void ANALYTICS(OfferType offerType, OfferScreen.AdPlacement adPlacement, Mode mode);
+    public delegate void ANALYTICS(OfferType offerType, ShowSource showSource, Mode mode);
     public delegate void FEEDBACK(OfferScreen.OfferType offerType);
     public static STR2STR OnGetPriceSymbol;
     public static STR2DECIMAL OnGetPrice;
@@ -59,7 +59,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     public static System.Action OnFeedbackUnpack;
     public static System.Action OnFeedbackExit;
     public static System.Action OnUnpackShow;
-    public static FEEDBACK OnSuccessfullPurchaseFeedback;
+    // public static FEEDBACK OnSuccessfullPurchaseFeedback;
 
     
     public Data _Data
@@ -121,7 +121,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     }
     
     
-    public void Open(OfferType offerType, AdPlacement adPlacement, Mode mode = Mode.OFFER)
+    public void Open(OfferType offerType, OfferScreen.ShowSource showSource, Mode mode = Mode.OFFER)
     {
         if (SkipCondition != null && SkipCondition.Invoke())
         {
@@ -129,7 +129,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             return;
         }
         
-        AnalyticsCall?.Invoke(offerType, adPlacement, mode);
+        AnalyticsCall?.Invoke(offerType, showSource, mode);
         
         this._currentOfferData = offerData[(int)offerType];
         SetupVisuals(_currentOfferData, mode);
@@ -236,7 +236,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         
         return (oldPrice, newPrice);
     }
-
+    
     public OfferData GetOfferData(OfferScreen.OfferType offerType)
     {
         return offerData[(int)offerType];
@@ -274,7 +274,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             return;
         }
         OfferData offerDat = ID2OfferData(iapID);
-        OnSuccessfullPurchaseFeedback?.Invoke(offerDat.offerType);
+        // OnSuccessfullPurchaseFeedback?.Invoke(offerDat.offerType);
         if (offerDat == null)
         {
             Debug.LogError("Could not find purchase iapID.");
@@ -314,7 +314,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             Close();
             return;
         }
-        Open(_Data.offers.Last(), AdPlacement.UNPACK, Mode.UNPACK);
+        Open(_Data.offers.Last(), ShowSource.AUTO, Mode.UNPACK);
     }
 
     public void CheckForUnpack(float delay)
@@ -331,7 +331,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             {
                 return;
             }
-            Open(_Data.offers.Last(), AdPlacement.UNPACK, Mode.UNPACK);
+            Open(_Data.offers.Last(), ShowSource.AUTO, Mode.UNPACK);
         });
     }
 #endregion
@@ -353,22 +353,25 @@ public class OfferScreen : Lazyingleton<OfferScreen>
     }
 #endregion
 #region Data
-    public enum AdPlacement
+    public enum ShowSource
     {
-        UNPACK,
-        INGAME,
-        PIGGYMENU,
-        BLOCKMENU,
-        WEAPONMENU,
-        // UPGRADEMENU,
-        BANNER,
-        ADBREAK,
-        ADBREAKBYPASS,
-        // PIGGYSHOW,
-        AFTERAD,
-        ADBREAKMINI,
-        TICKEDADMINI,
-        MENUMINI,
+        AUTO,
+        DIRECT,
+        MINI_OFFER,
+        // UNPACK,
+        // INGAME,
+        // PIGGYMENU,
+        // BLOCKMENU,
+        // WEAPONMENU,
+        // // UPGRADEMENU,
+        // BANNER,
+        // ADBREAK,
+        // ADBREAKBYPASS,
+        // // PIGGYSHOW,
+        // AFTERAD,
+        // ADBREAKMINI,
+        // TICKEDADMINI,
+        // MENUMINI,
     }
     [System.Serializable]
     public enum ProcessState
@@ -419,6 +422,13 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         public int amount;
     }
     [System.Serializable]
+    public class MiniData
+    {
+        [TextArea] [SerializeField] public string buttonText;
+        [TextArea] [SerializeField] public string promoText;
+        [SerializeField] public Sprite icon;
+    }
+    [System.Serializable]
     public class OfferData
     {
         [SerializeField] public OfferScreen.OfferType offerType;
@@ -430,7 +440,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
         [SerializeField] public OfferPreview.PreviewData[] previewDatas;
         [SerializeField] public float oldPriceMult = 1;
         [TextArea] [SerializeField] public string promotionalText;
-        [TextArea] [SerializeField] public string miniText;
+        [SerializeField] public MiniData miniData;
 
         // public string RewardInfo()
         // {

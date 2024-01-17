@@ -13,17 +13,15 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     [Header("Game Notifications")]
     [SerializeField] private GameNotification gameNotificationShop;
     [SerializeField] private GameNotification[] gameNotifications;
-    [Header("Offer")]
-    [SerializeField] public LockedMiniOffer lockedMiniOffer;
 
     public Data SavedData
     {
         set
         {
             _savedData = value;
-            lockedMiniOffer.SavedData = _savedData.lockedMiniOffer;
-            lockedMiniOffer.GetCurrent = () => LevelManager.CurrentLevel;
-            lockedMiniOffer.GetAdState = () => AdManager.THIS._Data.removeAds;
+            // lockedMiniOffer.SavedData = _savedData.lockedMiniOffer;
+            // lockedMiniOffer.GetCurrent = () => LevelManager.CurrentLevel;
+            // lockedMiniOffer.GetAdState = () => AdManager.THIS._Data.removeAds;
         }
         get => _savedData;
     }
@@ -50,7 +48,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         Activate();
         OpenLastMenu();
         
-        lockedMiniOffer.Set();
+        // lockedMiniOffer.Set();
     }
 
     public void UpdateNotifyMenus(bool visible)
@@ -104,7 +102,7 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         _menus[lastMenuIndex].Close(0.2f);
 
         
-        lockedMiniOffer.Pause();
+        // lockedMiniOffer.Pause();
         
         return false;
     }

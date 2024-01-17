@@ -71,7 +71,7 @@ public class LockedMiniOffer : MonoBehaviour
         visualParent.SetActive(false);
 
         SavedData.currentOfferType = GetNextOffer();
-        miniOffer.ShowOffer(SavedData.currentOfferType, OfferScreen.AdPlacement.MENUMINI);
+        miniOffer.Set(SavedData.currentOfferType);
         
         endStamp.gameObject.SetActive(true);
         

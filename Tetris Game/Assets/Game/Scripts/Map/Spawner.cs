@@ -43,7 +43,7 @@ public class Spawner : Singleton<Spawner>
         if (!Wallet.Consume(Const.Currency.OneAd))
         {
             
-            AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, () =>
+            AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForNextBlock(), () =>
             {
                 Wallet.Transaction(Const.Currency.OneAd);
                 OnClick_ShowNextBlock();

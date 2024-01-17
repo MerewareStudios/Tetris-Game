@@ -111,10 +111,10 @@ public class UIManager : Singleton<UIManager>
       OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
       OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
-      OfferScreen.AnalyticsCall = (type, placement, mode) =>  AnalyticsManager.OfferShown(type, placement, mode);
+      OfferScreen.AnalyticsCall = (type, showSource, mode) =>  AnalyticsManager.OfferShown(type, showSource, mode);
       OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
       OfferScreen.OnFeedbackBuy = () => HapticManager.OnClickVibrate();
-      OfferScreen.OnSuccessfullPurchaseFeedback = MenuNavigator.THIS.lockedMiniOffer.ForceEndOfferVia;
+      // OfferScreen.OnSuccessfullPurchaseFeedback = MenuNavigator.THIS.lockedMiniOffer.ForceEndOfferVia;
       OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
       OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
       {
@@ -298,58 +298,58 @@ public class UIManager : Singleton<UIManager>
 #region Offer
    public void ShowOffer_RemoveAds_AfterInterAd()
    {
-      OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2, OfferScreen.AdPlacement.AFTERAD);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2, OfferScreen.ShowSource.AUTO);
    }
    public void ShowOffer_RemoveAds_Banner()
    {
       HapticManager.OnClickVibrate();
 
-      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.AdPlacement.BANNER);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_RemoveAds_AdBreakByPass()
    {
       HapticManager.OnClickVibrate();
 
-      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.AdPlacement.ADBREAKBYPASS);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_TicketPlus_AdBreakByPass()
    {
       HapticManager.OnClickVibrate();
 
-      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.AdPlacement.ADBREAKBYPASS);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_CoinPlus()
    {
       HapticManager.OnClickVibrate();
 
-      OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK, CurrentAdPlacement);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_PiggyCoinPlus()
    {
       HapticManager.OnClickVibrate();
 
-      OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK, CurrentAdPlacement);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_TicketPlus()
    {
       HapticManager.OnClickVibrate();
 
-      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, CurrentAdPlacement);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_HeartPlus()
    {
       HapticManager.OnClickVibrate();
-      OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, CurrentAdPlacement);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_StackPlus()
    {
       HapticManager.OnClickVibrate();
-      OfferScreen.THIS.Open(OfferScreen.OfferType.UNLIMITEDSTACK, CurrentAdPlacement);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.UNLIMITEDSTACK, OfferScreen.ShowSource.DIRECT);
    }
    public void ShowOffer_NextBlock()
    {
       HapticManager.OnClickVibrate();
-      OfferScreen.THIS.Open(OfferScreen.OfferType.NEXTBLOCK, CurrentAdPlacement);
+      OfferScreen.THIS.Open(OfferScreen.OfferType.NEXTBLOCK, OfferScreen.ShowSource.DIRECT);
    }
    
 #endregion
@@ -509,29 +509,29 @@ public class UIManager : Singleton<UIManager>
       }
    }
 
-   public OfferScreen.AdPlacement CurrentAdPlacement
-   {
-      get
-      {
-         if (PiggyMenu.THIS.Visible)
-         {
-            return OfferScreen.AdPlacement.PIGGYMENU;
-         }
-         if (BlockMenu.THIS.Visible)
-         {
-            return OfferScreen.AdPlacement.BLOCKMENU;
-         }
-         if (WeaponMenu.THIS.Visible)
-         {
-            return OfferScreen.AdPlacement.WEAPONMENU;
-         }
-         if (AdBreakScreen.THIS.Visible)
-         {
-            return OfferScreen.AdPlacement.ADBREAK;
-         }
-         return OfferScreen.AdPlacement.INGAME;
-      }
-   }
+   // public OfferScreen.AdPlacement CurrentAdPlacement
+   // {
+   //    get
+   //    {
+   //       if (PiggyMenu.THIS.Visible)
+   //       {
+   //          return OfferScreen.AdPlacement.PIGGYMENU;
+   //       }
+   //       if (BlockMenu.THIS.Visible)
+   //       {
+   //          return OfferScreen.AdPlacement.BLOCKMENU;
+   //       }
+   //       if (WeaponMenu.THIS.Visible)
+   //       {
+   //          return OfferScreen.AdPlacement.WEAPONMENU;
+   //       }
+   //       if (AdBreakScreen.THIS.Visible)
+   //       {
+   //          return OfferScreen.AdPlacement.ADBREAK;
+   //       }
+   //       return OfferScreen.AdPlacement.INGAME;
+   //    }
+   // }
    
 }
 

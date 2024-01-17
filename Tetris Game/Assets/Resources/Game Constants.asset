@@ -74,7 +74,7 @@ MonoBehaviour:
       canVibrate: 0
       canPlayAudio: 0
     userData:
-      level: 9
+      level: 13
       playerData:
         currentHealth: 1
       pupData:
@@ -474,8 +474,8 @@ MonoBehaviour:
     unlockedAt: 70
   - blockType: 18
     currency:
-      type: 0
-      amount: 2000
+      type: 2
+      amount: 1
     unlockedAt: 80
   - blockType: 72
     currency:

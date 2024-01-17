@@ -231,7 +231,7 @@ namespace IWI
                 return;
             }
             
-            ShowAdBreak(adReason);
+            ShowAdBreak(adReason, AdManager.GetAdBreakOffer());
         }
 
         public void PrependInterstitial()
@@ -280,14 +280,14 @@ namespace IWI
             SetBannerPositionByMenuState();
         }
 
-        private static void ShowAdBreak(AdBreakScreen.AdReason adReason)
+        private static void ShowAdBreak(AdBreakScreen.AdReason adReason, OfferScreen.OfferType? offerType)
         {
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.INTERSTITIAL)
             .SetLoadState(FakeAdInterstitial.THIS.LoadState)
             .SetInfo(Onboarding.THIS.useTicketText, Onboarding.THIS.skipButtonText)
             .SetVisualData(Onboarding.THIS.adBreakVisualData)
             .RemoveAdBreakButtonState(true)
-            .PlusTicketState(false)
+            .SetOffer(offerType)
             .SetBackgroundImage(Const.THIS.skipAdBackgroundImage)
             .OnByPass(null)
             .OnClick(
@@ -324,11 +324,11 @@ namespace IWI
                     AdManager.THIS._Data.InterAdInstance++;
                     GameManager.UpdateTimeScale();
                 }, null);
-            }, 3.5f)
+            }, 2.75f)
             .Open(0.6f);
         }
 
-        public static void ShowTicketAd(AdBreakScreen.AdReason adReason, System.Action onReward, System.Action onClick = null)
+        public static void ShowTicketAd(AdBreakScreen.AdReason adReason, OfferScreen.OfferType? offerType, System.Action onReward, System.Action onClick = null)
         {
 #if CREATIVE
             if (!Const.THIS.creativeSettings.adsEnabled)
@@ -359,7 +359,7 @@ namespace IWI
             .SetInfo(Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText)
             .SetVisualData(Onboarding.THIS.rewardedAdVisualData)
             .RemoveAdBreakButtonState(false)
-            .PlusTicketState(true)
+            .SetOffer(offerType)
             .SetBackgroundImage(Const.THIS.earnTicketBackgroundImage)
             .OnByPass(onReward)
             .OnClick(
@@ -385,7 +385,7 @@ namespace IWI
                     GameManager.UpdateTimeScale, 
                     onReward,
                 null);
-            }, 3.5f)
+            }, 2.75f)
             .Open(0.1f);
         }
 
@@ -419,7 +419,52 @@ namespace IWI
                 AdManager.THIS.DestroyBanner();
             }
         }
-        
+
+        public static OfferScreen.OfferType? GetAdBreakOffer()
+        {
+            if (LevelManager.CurrentLevel < 9)
+            {
+                return null;
+            }
+            return OfferScreen.OfferType.OFFERPACK3;
+        }
+        public static OfferScreen.OfferType? GetTicketOfferForBlock()
+        {
+            return OfferScreen.OfferType.OFFERPACK4;
+        }
+        public static OfferScreen.OfferType? GetTicketOfferForWeapon()
+        {
+            return OfferScreen.OfferType.OFFERPACK5;
+        }
+        public static OfferScreen.OfferType? GetTicketOfferForPowerUp()
+        {
+            if (LevelManager.CurrentLevel < 9)
+            {
+                return null;
+            }
+            
+            List<OfferScreen.OfferType> offers = new List<OfferScreen.OfferType>()
+            {
+                OfferScreen.OfferType.OFFERPACK1,
+                OfferScreen.OfferType.OFFERPACK2,
+                OfferScreen.OfferType.OFFERPACK4,
+                OfferScreen.OfferType.OFFERPACK5,
+            };
+
+            return offers[LevelManager.CurrentLevel % offers.Count];
+        }
+        public static OfferScreen.OfferType? GetTicketOfferForNextBlock()
+        {
+            return OfferScreen.OfferType.NOLIMITSPACK;
+        }
+        public static OfferScreen.OfferType? GetTicketOfferForCargo()
+        {
+            return GetTicketOfferForPowerUp();
+        }
+        public static OfferScreen.OfferType? GetTicketOfferForPiggy()
+        {
+            return OfferScreen.OfferType.OFFERPACK1;
+        }
 
         [System.Serializable]
         public class Data : ICloneable

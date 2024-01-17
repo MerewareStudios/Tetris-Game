@@ -17,9 +17,9 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private Button removeAdBreakButton;
-    [SerializeField] private Button plusTicketButton;
     [SerializeField] private GameObject adIcon;
     [SerializeField] private GameObject loadingIcon;
+    [SerializeField] private MiniOffer miniOffer;
     
     [System.NonSerialized] public AdType CurrentAdState = AdType.NONE;
     [System.NonSerialized] private LoadState _currentLoadState;
@@ -150,11 +150,21 @@ public class AdBreakScreen : Lazyingleton<AdBreakScreen>
         this.removeAdBreakButton.gameObject.SetActive(state);
         return this;
     }
-    public AdBreakScreen PlusTicketState(bool state)
+    public AdBreakScreen SetOffer(OfferScreen.OfferType? offerType)
     {
-        this.plusTicketButton.gameObject.SetActive(state);
+        miniOffer.gameObject.SetActive(offerType.HasValue);
+        if (!offerType.HasValue)
+        {
+            return this;
+        }
+        miniOffer.Set(offerType.Value);
         return this;
     }
+    // public AdBreakScreen PlusTicketState(bool state)
+    // {
+    //     this.plusTicketButton.gameObject.SetActive(state);
+    //     return this;
+    // }
     private void StartTimer()
     {
         if (!_currentLoadState.Equals(LoadState.Success) || !_canInteract)

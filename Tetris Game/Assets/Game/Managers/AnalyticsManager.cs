@@ -251,10 +251,12 @@ public static class AnalyticsManager
 #endif
     }
     
+   
+    
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void OfferShown(OfferScreen.OfferType offerType, OfferScreen.AdPlacement adPlacement, OfferScreen.Mode mode)
+    public static void OfferShown(OfferScreen.OfferType offerType, OfferScreen.ShowSource showSource, OfferScreen.Mode mode)
     {
-        string eventName = "OFFER:" + offerType.ToString() + ":" + adPlacement.ToString() + ":" + mode.ToString();
+        string eventName = "OFFER:" + offerType.ToString() + ":" + showSource.ToString() + ":" + mode.ToString();
         int time = (int)Time.realtimeSinceStartup;
         GameAnalytics.NewDesignEvent(eventName, time);
 #if UNITY_EDITOR
