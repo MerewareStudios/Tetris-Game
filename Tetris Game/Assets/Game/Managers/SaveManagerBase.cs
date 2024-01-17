@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 {
-    [SerializeField] public SaveData saveData;
+    [System.NonSerialized] public SaveData SaveData;
     [SerializeField] public bool DELETE_AT_START;
     
     private static string SavePath => Path.Combine(Application.persistentDataPath, "Data.json");
@@ -29,7 +29,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 
     public void Save()
     {
-        Save(saveData);
+        Save(SaveData);
     }
 
     public static void Save(SaveData data)
@@ -48,7 +48,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
     public static void CreateSavePoint(string prefix)
     {
         SaveSO saveSo = ScriptableObject.CreateInstance<SaveSO>();
-        saveSo.saveData = SaveManager.THIS.saveData.Clone() as SaveData;
+        saveSo.saveData = SaveManager.THIS.SaveData.Clone() as SaveData;
 
         string path = Path.Combine("Assets", "Game", "Managers", "Save SO");
         string subPath = Path.Combine(path, saveSo.saveData.accountData.guid);
@@ -66,7 +66,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
 
     private void Load()
     {
-        saveData = null;
+        SaveData = null;
         if (!File.Exists(SavePath))
         {
             return;
@@ -77,7 +77,7 @@ public class SaveManagerBase<T> : Singleton<T> where T : MonoBehaviour
         {
             return;
         }
-        saveData = JsonUtility.FromJson<SaveData>(inputString);
+        SaveData = JsonUtility.FromJson<SaveData>(inputString);
     }
 
     public static void Delete()

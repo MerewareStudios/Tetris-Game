@@ -74,7 +74,7 @@ MonoBehaviour:
       canVibrate: 0
       canPlayAudio: 0
     userData:
-      level: 1
+      level: 9
       playerData:
         currentHealth: 1
       pupData:
@@ -140,7 +140,6 @@ MonoBehaviour:
       airplaneData:
         cargoTypes: 
         arrival: -1
-        total: 0
     adData:
       hasConsentTaken: 0
       removeAds: 0

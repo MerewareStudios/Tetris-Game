@@ -1,13 +1,11 @@
 // #define FORCE_EDITOR_CONCENT
 
-using System;
 using System.Collections;
 using DG.Tweening;
 using Game;
 using Google.Play.Review;
 using Internal.Core;
 using IWI;
-using UnityEditor;
 using UnityEngine;
 using Visual.Effects;
 
@@ -291,6 +289,7 @@ public class GameManager : Singleton<GameManager>
         Warzone.THIS.OnFail();
         OnLevelEnd();
     }
+    
 
     private void OnLevelEnd()
     {

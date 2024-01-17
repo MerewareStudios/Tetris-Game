@@ -2123,7 +2123,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.57
+  m_Radius: 1.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &527971358
 MonoBehaviour:
@@ -2142,7 +2142,7 @@ MonoBehaviour:
     m_Bits: 64
   modelPivot: {fileID: 1847584227}
   spawnedBlockLocation: {fileID: 860089792}
-  distanceFromDraggingFinger: {x: 0, y: 0.7, z: 2}
+  distanceFromDraggingFinger: {x: 0, y: 0, z: 1.4}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.45}
   tutorialLift: {x: 0.1, y: 0.2, z: 0.1}
   nextBlockDisplay: {fileID: 1180491136}
@@ -3803,93 +3803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe0098ec719cd0439a6e26236b7822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveData:
-    onboardingList: 
-    accountData:
-      commented: 0
-      guid: 
-      age: 0
-    hapticData:
-      canVibrate: 1
-      canPlayAudio: 1
-    userData:
-      level: 1
-      playerData:
-        currentHealth: 1
-      pupData:
-        available: 1
-        currentUsage: 4
-        purchaseCount: 0
-        use: 1
-      boardData:
-        defaultStack: 6
-        maxStack: 6
-        unlimitedStack: 0
-        unlimitedPeek: 0
-      coinTransactionData:
-        value: 0
-      gemTransactionData:
-        value: 0
-      adTransactionData:
-        value: 0
-      blockShopData:
-        unlockedBlocks: 030000000400000005000000060000000d000000
-        lastIndex: 0
-      weaponShopData:
-        inspectIndex: 0
-        equipIndex: 0
-        gunShopDatas:
-        - purchased: 1
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-        - purchased: 0
-          upgradeIndexes: 000000000000000000000000
-      menuNavData:
-        lastMenuType: 0
-        lockedMiniOffer:
-          startAt: 1
-          unlockedAt: 10
-          offerIndex: 0
-          timerRunning: 0
-          offerEnds: 0
-          currentOfferType: 0
-      piggyData:
-        currentMoney:
-          type: 0
-          amount: 0
-        moneyCapacity: 50
-        breakInstance: 0
-        doubleInstance: 0
-        skipInstance: 0
-      airplaneData:
-        cargoTypes: 
-        arrival: -1
-        total: 0
-    adData:
-      hasConsentTaken: 0
-      removeAds: 0
-      interSkipCount: 0
-      interWatchCount: 0
-      rewardWatchCount: 0
-    purchaseData:
-      offers: 
-  DELETE_AT_START: 0
-  SKIP_ONBOARDING: 0
+  DELETE_AT_START: 1
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17341,7 +17256,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.99994
+      value: -511.99988
       objectReference: {fileID: 0}
     - target: {fileID: 2559703356478064583, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
@@ -18650,8 +18565,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99627715
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.08620812
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750815909526555867, guid: 96adb778d6bd53244a0357edb2a926d1,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -9.891
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

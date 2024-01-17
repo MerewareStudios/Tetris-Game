@@ -251,7 +251,7 @@ namespace Game.UI
 
                 maskFrame.Glimmer(AnimConst.THIS.glimmerSpeedBlock);
                 
-                AnalyticsManager.PurchasedBlockCount(SavedData.UnlockedCount - 5);
+                AnalyticsManager.PurchasedBlockCount(_selectedBlockData.blockType);
             }
             else
             {

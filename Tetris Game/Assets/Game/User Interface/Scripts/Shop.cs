@@ -64,7 +64,7 @@ public class Shop : MonoBehaviour
             buttonTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).SetUpdate(true);
         }
         
-        AnalyticsManager.ShopOpened();
+        // AnalyticsManager.ShopOpened();
     }
 
     public bool VisibleImmediate

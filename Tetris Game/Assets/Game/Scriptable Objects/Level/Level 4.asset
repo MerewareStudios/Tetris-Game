@@ -42,7 +42,16 @@ MonoBehaviour:
   suggestedBlocks: []
   pawnPlacements:
   - usage: 7
-    index: {x: 2, y: 0}
+    index: {x: 0, y: 0}
+    extra: 0
+  - usage: 7
+    index: {x: 5, y: 0}
+    extra: 0
+  - usage: 7
+    index: {x: 0, y: 2}
+    extra: 0
+  - usage: 7
+    index: {x: 5, y: 2}
     extra: 0
   carryData:
     type: 0

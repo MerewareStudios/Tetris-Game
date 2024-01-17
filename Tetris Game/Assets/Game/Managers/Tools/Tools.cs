@@ -10,7 +10,6 @@ public static class Tools
     public static class AdjustSDK
     {
         private const string AppToken = "p9oztjpzips0";
-        private const AdjustEnvironment Environment = AdjustEnvironment.Sandbox;
         public static void Init(string externalDeviceID, bool isUnderAgeForCoppa)
         {
             Log("Init");

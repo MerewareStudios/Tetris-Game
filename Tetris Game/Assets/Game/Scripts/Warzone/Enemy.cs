@@ -238,7 +238,7 @@ namespace  Game
                 _dragTrail.transform.localEulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
             }
             
-            float finalDrag = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z, distance);
+            float finalDrag = Mathf.Min(Warzone.THIS.StartLine - thisTransform.position.z - 0.5f, distance);
             
             thisTransform.DOKill();
             thisTransform.DOMoveZ(finalDrag, 0.5f).SetRelative(true).SetEase(Ease.OutSine).onComplete = () =>

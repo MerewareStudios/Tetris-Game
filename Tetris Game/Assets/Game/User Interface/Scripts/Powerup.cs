@@ -170,7 +170,8 @@ public class Powerup : Lazyingleton<Powerup>
             
             _data.available = false;
             Spawner.THIS.InterchangeBlock(Pool.Single_Block, this._Data.currentUsage);
-            
+            AnalyticsManager.PowerUse(_data.currentUsage, LevelManager.CurrentLevel);
+
             if (ONBOARDING.USE_POWERUP.IsNotComplete())
             {
                 ONBOARDING.USE_POWERUP.SetComplete();

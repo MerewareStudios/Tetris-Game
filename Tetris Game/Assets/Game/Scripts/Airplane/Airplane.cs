@@ -112,9 +112,6 @@ public class Airplane : MonoBehaviour
         SavedData.UnpackCargo(SavedData.Count - 1);
         
         
-        AnalyticsManager.CargoUnpack(SavedData.total);
-
-        
         if (_currentCargo)
         {
             _currentCargo.Redrop();
@@ -244,7 +241,6 @@ public class Airplane : MonoBehaviour
     {
         [SerializeField] public List<Cargo.Type> cargoTypes;
         [SerializeField] public int arrival = 0;
-        [SerializeField] public int total = 0;
         [System.NonSerialized] public List<Cargo> Cargoes = new();
             
         public Data()
@@ -255,7 +251,6 @@ public class Airplane : MonoBehaviour
         {
             this.cargoTypes = new List<Cargo.Type>(data.cargoTypes);
             this.arrival = data.arrival;
-            this.total = data.total;
         }
 
         public void AddCargo(Cargo cargo)
@@ -269,8 +264,6 @@ public class Airplane : MonoBehaviour
             Cargoes[index].Unpack();
             Cargoes.RemoveAt(index);
             cargoTypes.RemoveAt(index);
-            
-            total++;
         }
 
         public Cargo Current => Cargoes[Count - 1];

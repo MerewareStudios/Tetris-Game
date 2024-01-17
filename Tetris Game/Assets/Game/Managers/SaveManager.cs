@@ -16,13 +16,13 @@ public class SaveManager : SaveManagerBase<SaveManager>
 
         GameManager.THIS.Init();
 
-        if (saveData == null)
+        if (SaveData == null)
         {
-            saveData = Const.THIS.DefaultSaveData.Clone() as SaveData;
-            saveData.accountData.NewGuid();
+            SaveData = Const.THIS.DefaultSaveData.Clone() as SaveData;
+            SaveData.accountData.NewGuid();
             
             int onboardingCount = System.Enum.GetValues(typeof(ONBOARDING)).Length;
-            saveData.onboardingList = new bool[onboardingCount].Fill(true);
+            SaveData.onboardingList = new bool[onboardingCount].Fill(true);
         }
 
         if (ONBOARDING.ALL_BLOCK_STEPS.IsNotComplete())
@@ -36,37 +36,37 @@ public class SaveManager : SaveManagerBase<SaveManager>
         }
         
         
-        Wallet.COIN.Set(ref saveData.userData.coinTransactionData);
+        Wallet.COIN.Set(ref SaveData.userData.coinTransactionData);
         Wallet.COIN.Active = ONBOARDING.PASSIVE_META.IsComplete();
-        Wallet.PIGGY.Set(ref saveData.userData.gemTransactionData);
+        Wallet.PIGGY.Set(ref SaveData.userData.gemTransactionData);
         Wallet.PIGGY.Active = ONBOARDING.PASSIVE_META.IsComplete();
-        Wallet.TICKET.Set(ref saveData.userData.adTransactionData);
+        Wallet.TICKET.Set(ref SaveData.userData.adTransactionData);
         Wallet.TICKET.Active = ONBOARDING.PASSIVE_META.IsComplete();
 
-        AdManager.THIS._Data = saveData.adData;
+        AdManager.THIS._Data = SaveData.adData;
         
-        Powerup.THIS._Data = saveData.userData.pupData;
-        BlockMenu.THIS.SavedData = saveData.userData.blockShopData;
-        WeaponMenu.THIS.SavedData = saveData.userData.weaponShopData;
-        PiggyMenu.THIS.SavedData = saveData.userData.piggyData;
-        OfferScreen.THIS._Data = saveData.purchaseData;
+        Powerup.THIS._Data = SaveData.userData.pupData;
+        BlockMenu.THIS.SavedData = SaveData.userData.blockShopData;
+        WeaponMenu.THIS.SavedData = SaveData.userData.weaponShopData;
+        PiggyMenu.THIS.SavedData = SaveData.userData.piggyData;
+        OfferScreen.THIS._Data = SaveData.purchaseData;
 
-        Warzone.THIS.Player._Data = saveData.userData.playerData;
-        Warzone.THIS.airplane.SavedData = saveData.userData.airplaneData;
-        Board.THIS.SavedData = saveData.userData.boardData;
+        Warzone.THIS.Player._Data = SaveData.userData.playerData;
+        Warzone.THIS.airplane.SavedData = SaveData.userData.airplaneData;
+        Board.THIS.SavedData = SaveData.userData.boardData;
 
-        MenuNavigator.THIS.SavedData = saveData.userData.menuNavData;
+        MenuNavigator.THIS.SavedData = SaveData.userData.menuNavData;
         
         LevelManager.THIS.levelText.enabled = ONBOARDING.PASSIVE_META.IsComplete();
         Warzone.THIS.enemyProgressbar.Visible = ONBOARDING.PASSIVE_META.IsComplete();
         UIManager.THIS.shop.VisibleImmediate = ONBOARDING.WEAPON_TAB.IsComplete();
-        Spawner.THIS.nextBlockDisplay.Visible = saveData.userData.level >= 5;
+        Spawner.THIS.nextBlockDisplay.Visible = SaveData.userData.level >= 5;
         Spawner.THIS.nextBlockDisplay.Available = false;
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
         // UIManager.THIS.SettingsEnabled = ONBOARDING.WEAPON_TAB.IsComplete();
 
-        HapticManager.THIS.SavedData = saveData.hapticData;
+        HapticManager.THIS.SavedData = SaveData.hapticData;
         SettingsManager.THIS.Set();
     }
 }
@@ -77,35 +77,35 @@ public static class SaveManagerExtensions
 #if CREATIVE
         return false;
 #endif
-        return !SaveManager.THIS.SKIP_ONBOARDING && SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
+        return !SaveManager.THIS.SKIP_ONBOARDING && SaveManager.THIS.SaveData.onboardingList[((int)onboardingStep)];
     }
     public static bool IsComplete(this ONBOARDING onboardingStep)
     {
 #if CREATIVE
         return true;
 #endif
-        return SaveManager.THIS.SKIP_ONBOARDING || !SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)];
+        return SaveManager.THIS.SKIP_ONBOARDING || !SaveManager.THIS.SaveData.onboardingList[((int)onboardingStep)];
     }
     public static void SetComplete(this ONBOARDING onboardingStep)
     {
-        SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = false;
+        SaveManager.THIS.SaveData.onboardingList[((int)onboardingStep)] = false;
         AnalyticsManager.OnboardingStepComplete(onboardingStep.ToString());
     }
     public static void ClearStep(this ONBOARDING onboardingStep)
     {
-        SaveManager.THIS.saveData.onboardingList[((int)onboardingStep)] = true;
+        SaveManager.THIS.SaveData.onboardingList[((int)onboardingStep)] = true;
     }
     public static Pool RandomBlock(this Spawner spawner)
     {
-        return SaveManager.THIS.saveData.userData.blockShopData.GetRandomBlock();
+        return SaveManager.THIS.SaveData.userData.blockShopData.GetRandomBlock();
     }
     public static int CurrentLevel(this LevelManager levelManager)
     {
-        return SaveManager.THIS.saveData.userData.level;
+        return SaveManager.THIS.SaveData.userData.level;
     }
     public static int NextLevel(this LevelManager levelManager)
     {
-        return ++SaveManager.THIS.saveData.userData.level;
+        return ++SaveManager.THIS.SaveData.userData.level;
     }
 }
 public partial class SaveData : ICloneable
@@ -136,7 +136,7 @@ public partial class SaveData : ICloneable
 
 public static class Account
 {
-    public static Data Current => SaveManager.THIS.saveData.accountData;
+    public static Data Current => SaveManager.THIS.SaveData.accountData;
 
     [System.Serializable]
     public class Data : ICloneable

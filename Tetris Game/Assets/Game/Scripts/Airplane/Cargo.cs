@@ -48,6 +48,8 @@ public class Cargo : MonoBehaviour
 
     public void Unpack()
     {
+        AnalyticsManager.CargoUnpack(type, LevelManager.CurrentLevel);
+
         thisTransform.parent = null;
         thisTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).onComplete = () =>
         {

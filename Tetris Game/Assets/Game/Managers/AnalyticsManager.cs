@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 #endif
 using System;
 using System.Linq;
+using Game;
 using GameAnalyticsSDK;
 using UnityEngine;
 using GoogleMobileAds.Api;
@@ -116,73 +117,73 @@ public static class AnalyticsManager
 #endif
     }
     
+//     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+//     public static void OnBannerEnabled()
+//     {
+//         string eventName = "BANNER_ENABLED";
+//         int realTime = (int)Time.realtimeSinceStartup;
+//         
+//         GameAnalytics.NewDesignEvent(eventName, realTime);
+// #if UNITY_EDITOR
+//         Log(eventName, realTime, EventType.Design);
+// #endif
+//     }
+    
+//     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+//     public static void ShopOpened()
+//     {
+//         string eventName = "SHOP_OPEN";
+//         _shopOpenedCount++;
+//         
+//         GameAnalytics.NewDesignEvent(eventName, _shopOpenedCount);
+// #if UNITY_EDITOR
+//         Log(eventName, _shopOpenedCount, EventType.Design);
+// #endif
+//     }
+    
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void OnBannerEnabled()
+    public static void PurchasedBlockCount(Pool pool)
     {
-        string eventName = "BANNER_ENABLED";
-        int realTime = (int)Time.realtimeSinceStartup;
+        string eventName = "PURCHASED_BLOCK:" + pool.ToString().ToUpper();
         
-        GameAnalytics.NewDesignEvent(eventName, realTime);
+        GameAnalytics.NewDesignEvent(eventName, 1);
 #if UNITY_EDITOR
-        Log(eventName, realTime, EventType.Design);
+        Log(eventName, 1, EventType.Design);
 #endif
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void ShopOpened()
+    public static void PurchasedWeaponCount(int weaponIndex)
     {
-        string eventName = "SHOP_OPEN";
-        _shopOpenedCount++;
+        string eventName = "PURCHASED_WEAPON:WEAPON_" + weaponIndex;
         
-        GameAnalytics.NewDesignEvent(eventName, _shopOpenedCount);
+        GameAnalytics.NewDesignEvent(eventName, 1);
 #if UNITY_EDITOR
-        Log(eventName, _shopOpenedCount, EventType.Design);
-#endif
-    }
-    
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void PurchasedBlockCount(int count)
-    {
-        string eventName = "UNLOCKED_BLOCK";
-        
-        GameAnalytics.NewDesignEvent(eventName, count);
-#if UNITY_EDITOR
-        Log(eventName, count, EventType.Design);
-#endif
-    }
-    
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void PurchasedWeaponCount(int count)
-    {
-        string eventName = "UNLOCKED_WEAPON";
-        
-        GameAnalytics.NewDesignEvent(eventName, count);
-#if UNITY_EDITOR
-        Log(eventName, count, EventType.Design);
+        Log(eventName, 1, EventType.Design);
 #endif
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void WeaponMaxed(int weaponIndex)
     {
-        string eventName = "WEAPON_MAXED";
+        string eventName = "WEAPON_MAXED:WEAPON_" + weaponIndex;
         
-        GameAnalytics.NewDesignEvent(eventName, weaponIndex);
+        GameAnalytics.NewDesignEvent(eventName, 1);
 #if UNITY_EDITOR
-        Log(eventName, weaponIndex, EventType.Design);
+        Log(eventName, 1, EventType.Design);
 #endif
     }
     
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void PurchasedUpgrade(string upgradeName, int upgradeInstance)
-    {
-        string eventName = "UPGRADE:" + upgradeName;
-        
-        GameAnalytics.NewDesignEvent(eventName, upgradeInstance);
-#if UNITY_EDITOR
-        Log(eventName, upgradeInstance, EventType.Design);
-#endif
-    }
+//     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+//     public static void PurchasedUpgrade(string upgradeName, int upgradeInstance)
+//     {
+//         string eventName = "UPGRADE:" + upgradeName;
+//         
+//         GameAnalytics.NewDesignEvent(eventName, upgradeInstance);
+// #if UNITY_EDITOR
+//         Log(eventName, upgradeInstance, EventType.Design);
+// #endif
+//     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void PiggyBreak(int instance, int level)
@@ -206,16 +207,16 @@ public static class AnalyticsManager
 #endif
     }
     
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void PiggyBreakSkipped(int instance)
-    {
-        string eventName = "PIGGY_BREAK_SKIP";
-        
-        GameAnalytics.NewDesignEvent(eventName, instance);
-#if UNITY_EDITOR
-        Log(eventName, instance, EventType.Design);
-#endif
-    }
+//     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+//     public static void PiggyBreakSkipped(int instance)
+//     {
+//         string eventName = "PIGGY_BREAK_SKIP";
+//         
+//         GameAnalytics.NewDesignEvent(eventName, instance);
+// #if UNITY_EDITOR
+//         Log(eventName, instance, EventType.Design);
+// #endif
+//     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void PurchasedPower(int instance)
@@ -225,6 +226,17 @@ public static class AnalyticsManager
         GameAnalytics.NewDesignEvent(eventName, instance);
 #if UNITY_EDITOR
         Log(eventName, instance, EventType.Design);
+#endif
+    }
+    
+    [System.Diagnostics.Conditional(AnalyticsEnabled)]
+    public static void PowerUse(Pawn.Usage usage, int level)
+    {
+        string eventName = "POWER_USE:LEVEL_" + level + ":" + usage.ToString().ToUpper();
+        
+        GameAnalytics.NewDesignEvent(eventName, 1);
+#if UNITY_EDITOR
+        Log(eventName, level, EventType.Design);
 #endif
     }
     
@@ -251,22 +263,22 @@ public static class AnalyticsManager
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void CargoUnpack(int total)
+    public static void CargoUnpack(Cargo.Type cargoType, int level)
     {
-        string eventName = "CARGO:UNPACK";
-        GameAnalytics.NewDesignEvent(eventName, total);
+        string eventName = "CARGO_UNPACK:LEVEL_" + level + ":" + cargoType.ToString().ToUpper();
+        GameAnalytics.NewDesignEvent(eventName, 1);
 #if UNITY_EDITOR
-        Log(eventName, total, EventType.Design);
+        Log(eventName, 1, EventType.Design);
 #endif
     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void ShowNextBlock(int level)
     {
-        string eventName = "SHOW_NEXT_BLOCK";
-        GameAnalytics.NewDesignEvent(eventName, level);
+        string eventName = "SHOW_NEXT_BLOCK:LEVEL_" + level;
+        GameAnalytics.NewDesignEvent(eventName, 1);
 #if UNITY_EDITOR
-        Log(eventName, level, EventType.Design);
+        Log(eventName, 1, EventType.Design);
 #endif
     }
     
@@ -283,7 +295,7 @@ public static class AnalyticsManager
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void SendAgeData(int age)
     {
-        string eventName = "Age";
+        string eventName = "AGE";
         GameAnalytics.NewDesignEvent(eventName, age);
 #if UNITY_EDITOR
         Log(eventName, age, EventType.Design);

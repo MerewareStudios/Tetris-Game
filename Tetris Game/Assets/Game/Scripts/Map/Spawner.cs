@@ -320,15 +320,14 @@ public class Spawner : Singleton<Spawner>
         distanceFromDraggingFinger = Const.THIS.creativeSettings.distanceFromDraggingFinger;
     #endif
         
-        Vector3 addedPos = -_dragOffset;
-        addedPos.y = distanceFromDraggingFinger.y;
-        addedPos.z = distanceFromDraggingFinger.z;
-        _finalPosition = hitPoint + addedPos;
+        // Vector3 addedPos = -_dragOffset;
+        // addedPos.y = distanceFromDraggingFinger.y;
+        // addedPos.z = distanceFromDraggingFinger.z;
+        // _finalPosition = hitPoint + addedPos;
         // _finalPosition = hitPoint - _dragOffset + distanceFromDraggingFinger;
         // _finalPosition = hitPoint + distanceFromDraggingFinger + MountPosition;
 
-        Vector3 drag = _dragOffset + MountPosition - hitPoint;
-        _finalPosition -= drag * 0.15f;
+        _finalPosition = hitPoint - _dragOffset + CameraManager.THIS.gameCamera.transform.forward * -1.25f + distanceFromDraggingFinger;
     }
     public void Input_OnUp()
     {
