@@ -164,7 +164,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
     public class Data : System.ICloneable
     {
         [SerializeField] public Game.UI.MenuType lastMenuType;
-        [SerializeField] public LockedMiniOffer.Data lockedMiniOffer;
 
         public Data()
         {
@@ -173,7 +172,6 @@ public class MenuNavigator : Menu<MenuNavigator>, IMenu
         public Data(Data data)
         {
             lastMenuType = data.lastMenuType;
-            lockedMiniOffer = data.lockedMiniOffer.Clone() as LockedMiniOffer.Data;
         }   
         public object Clone()
         {

@@ -39,6 +39,7 @@ public class Shop : MonoBehaviour
         else if (ONBOARDING.WEAPON_TAB.IsNotComplete())
         {
             ONBOARDING.WEAPON_TAB.SetComplete();
+            Tools.AdjustSDK.Event_OnboardingComplete();
             Board.THIS.RemoveMergeOnboardingCallback();
             
             if (ONBOARDING.USE_POWERUP.IsNotComplete())

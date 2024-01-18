@@ -3803,8 +3803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe0098ec719cd0439a6e26236b7822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  DELETE_AT_START: 0
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3838,7 +3838,7 @@ MonoBehaviour:
   fakeAdBanner: {fileID: 5730477434771902866}
   fakeAdInterstitial: {fileID: 2017990422}
   fakeAdRewarded: {fileID: 2017990423}
-  adTimeInterval: 0
+  adTimeInterval: 150
 --- !u!114 &715436865
 MonoBehaviour:
   m_ObjectHideFlags: 0

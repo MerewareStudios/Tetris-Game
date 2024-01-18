@@ -45,7 +45,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
    
     public const int PiggyCapIncrease = 25;
     public const int PiggyCapDiv = 10;
-    public const int TicketRewardEveryBreak = 8;
+    public const int TicketRewardEveryBreak = 4;
 
     private int _multiplier = 1;
     private Tween _shakeTween;

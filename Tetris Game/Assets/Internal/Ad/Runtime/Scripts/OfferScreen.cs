@@ -273,6 +273,7 @@ public class OfferScreen : Lazyingleton<OfferScreen>
             CurrentProcessState = ProcessState.FAIL;
             return;
         }
+        
         OfferData offerDat = ID2OfferData(iapID);
         // OnSuccessfullPurchaseFeedback?.Invoke(offerDat.offerType);
         if (offerDat == null)

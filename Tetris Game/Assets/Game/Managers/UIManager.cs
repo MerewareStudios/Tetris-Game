@@ -102,7 +102,11 @@ public class UIManager : Singleton<UIManager>
          Wallet.ScaleTransactors(visible ? 1.1f : 1.0f, visible);
       };
       
-      IAPManager.OnPurchaseFinish = OfferScreen.THIS.OnPurchaseComplete;
+      IAPManager.OnPurchaseFinish = (id, successful) =>
+      {
+         Tools.AdjustSDK.Event_FirstPurchase();
+         OfferScreen.THIS.OnPurchaseComplete(id, successful);
+      };
       IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
 
       

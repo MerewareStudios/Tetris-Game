@@ -131,7 +131,8 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     if (success)
                     {
                         tipText.text = Onboarding.THIS.thanksText;
-                        Account.Current.commented = true;
+                        
+                        Tools.AdjustSDK.Event_StoreComment();
 
                         UIManagerExtensions.SocialRewardTicket(loadingBar.transform.position, 1, 1, null);
                     }
@@ -194,7 +195,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             tipString = Onboarding.THIS.tips[index];
         }
 
-        if (levelIndex == 1 || (state.Equals(State.Victory) && levelIndex % 6 == 0))
+        if (levelIndex == 1 || (state.Equals(State.Victory) && levelIndex % 5 == 0))
         {
             if (levelIndex == 1)
             {
@@ -208,7 +209,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 }
                 else
                 {
-                    if (levelIndex % 12 == 0)
+                    if (levelIndex % 10 == 0)
                     {
                         ShowShare();
                     }

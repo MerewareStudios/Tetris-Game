@@ -317,6 +317,8 @@ namespace IWI
                 FakeAdInterstitial.THIS.Show(
                 () =>
                 {
+                    Tools.AdjustSDK.Event_FirstAdWatched();
+                    
                     if (!AdManager.THIS._Data.removeAds && AdManager.THIS._Data.InterAdInstance % ADBlockSuggestionMod == 0)
                     {
                         UIManager.THIS.ShowOffer_RemoveAds_AfterInterAd();
@@ -382,7 +384,11 @@ namespace IWI
                 AdBreakScreen.THIS.CloseImmediate();
                 
                 FakeAdRewarded.THIS.Show(
-                    GameManager.UpdateTimeScale, 
+                    () =>
+                    {
+                        Tools.AdjustSDK.Event_FirstAdWatched();
+                        GameManager.UpdateTimeScale();
+                    }, 
                     onReward,
                 null);
             }, 2.75f)

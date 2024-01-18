@@ -144,12 +144,16 @@ public static class Account
         [SerializeField] public bool commented = false;
         [SerializeField] public string guid;
         [SerializeField] public int age = 100;
+        [SerializeField] public bool firstPurchase = false;
+        [SerializeField] public bool firstAd = false;
 
         public Data(Data data)
         {
             commented = data.commented;
             guid = data.guid;
             age = data.age;
+            firstPurchase = data.firstPurchase;
+            firstAd = data.firstAd;
         }
         public void NewGuid()
         {

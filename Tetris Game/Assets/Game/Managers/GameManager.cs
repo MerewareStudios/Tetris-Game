@@ -168,6 +168,9 @@ public class GameManager : Singleton<GameManager>
         }
         onStart?.Invoke();
         _flowRoutine = StartCoroutine(Flow());
+        
+        Tools.AdjustSDK.Event_SocialShare();
+        
         return;
 
         IEnumerator Flow()
