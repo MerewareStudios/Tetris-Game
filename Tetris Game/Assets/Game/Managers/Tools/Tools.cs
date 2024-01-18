@@ -1,4 +1,4 @@
-#define TOOLS_SANDBOX
+// #define TOOLS_SANDBOX
 #if ADJUST
     using com.adjust.sdk;
 #endif
