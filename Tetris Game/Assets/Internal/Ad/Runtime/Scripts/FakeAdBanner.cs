@@ -13,6 +13,7 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
 
 #if ADMOB_MEDIATION
     BannerView _bannerView;
+    private bool visible = false;
 
 #if UNITY_ANDROID
     private string _adUnitId = "ca-app-pub-9794688140048159/4924832074";
@@ -83,6 +84,10 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     private void SetMediationPosition(BannerPosition bannerPosition)
     {
 #if ADMOB_MEDIATION
+        if (!visible)
+        {
+            return;
+        }
         _bannerView?.SetPosition(ToMediationBannerPosition(bannerPosition));
 #else
         MaxSdk.UpdateBannerPosition(MaxAdUnitId, ToMediationBannerPosition(bannerPosition));
@@ -93,6 +98,7 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         _bannerView.Show();
+        visible = true;
 #else
         MaxSdk.ShowBanner(MaxAdUnitId);
 #endif
@@ -102,6 +108,7 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     {
 #if ADMOB_MEDIATION
         _bannerView.Hide();
+        visible = false;
 #else
         MaxSdk.HideBanner(MaxAdUnitId);
 #endif
@@ -341,5 +348,6 @@ public class FakeAdBanner : AdCore.AdBase<FakeAdBanner>
     {
         DestroyMediation();
         CurrentLoadState = LoadState.Destroyed;
+        visible = false;
     }
 }

@@ -663,6 +663,10 @@ namespace Game
                 {
                     continue;
                 }
+                if (place.Current.SkipMerge)
+                {
+                    continue;
+                }
                 if (place.Current.Tick > highestTick)
                 {
                     highestTick = place.Current.Tick;

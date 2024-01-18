@@ -181,6 +181,10 @@ public class SubModel : MonoBehaviour
     {
         
     }
+    // public virtual bool SkipAction()
+    // {
+    //     return false;
+    // }
     public virtual void OnExtraValueChanged(int value)
     {
         this.ExternalValue = value;

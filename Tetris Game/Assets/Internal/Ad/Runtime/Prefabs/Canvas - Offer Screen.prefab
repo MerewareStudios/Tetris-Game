@@ -2297,7 +2297,7 @@ MonoBehaviour:
       free: 0
       title: NEW
       mult: <sprite name=Ticket>+20
-    oldPriceMult: 1.5
+    oldPriceMult: 2
     promotionalText: '50%
 
       OFF'

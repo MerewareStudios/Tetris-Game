@@ -41,6 +41,11 @@ namespace Game
             get => this._current;
             set
             {
+                if (value && this._current)
+                {
+                    Debug.LogError("Error B45 " + LevelManager.CurrentLevel);
+                    this.Current.Deconstruct();
+                }
 #if UNITY_EDITOR
                 if (value && this._current)
                 {

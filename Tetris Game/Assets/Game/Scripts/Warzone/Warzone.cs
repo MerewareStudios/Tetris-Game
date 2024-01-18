@@ -297,6 +297,8 @@ namespace  Game
         {
             return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, Mathf.Lerp(EndLine, StartLine, forwardPercent));
         }
+
+        public bool EnemyExits() => _enemies.Count > 0;
         
         public Enemy GetRandomTarget()
         {

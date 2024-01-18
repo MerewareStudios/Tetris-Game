@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Rocket : SubModel
 {
+    // public override bool SkipAction()
+    // {
+    //     return base.SkipAction();
+    // }
+
     public override void OnProjectile(Enemy enemy)
     {
         base.OnProjectile(enemy);

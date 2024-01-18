@@ -25,6 +25,21 @@ namespace Game
         public bool Connected => ParentBlock;
         [System.NonSerialized] public Pawn.Usage UsageType = Usage.Empty;
 
+        public bool SkipMerge
+        {
+            get
+            {
+                if (VData.usage.Equals(Usage.Rocket) || VData.usage.Equals(Usage.Bomb) || VData.usage.Equals(Usage.Punch))
+                {
+                    if (!Warzone.THIS.EnemyExits())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }    
+        }
+        
         public int Tick
         {
             set
