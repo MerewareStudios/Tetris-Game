@@ -238,7 +238,7 @@ namespace Game
                 {
                     if (block && grabbed && !block.Free2Place)
                     {
-                        place.SetTargetColorType((place.Index.y >= _size.y - block.blockData.FitHeight) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
+                        place.SetTargetColorType((place.Index.y >= _size.y - _size.y) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
                     }
                     else
                     {
@@ -283,6 +283,8 @@ namespace Game
                     {
                         canProjectFuture = canPlaceAll;
                     }
+
+                    canProjectFuture = false;
 
                     if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
                     {
@@ -463,7 +465,7 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(10.0f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(5.0f, () =>
                 {
                     Highlight(randomPlaces, Const.THIS.suggestionColor);
                     _delayedHighlightTween?.Kill();
@@ -1194,7 +1196,8 @@ namespace Game
                 return (place, true);
             }
             
-            if (_size.y - pawn.ParentBlock.blockData.FitHeight > indexValue.y)
+            // if (_size.y - pawn.ParentBlock.blockData.FitHeight > indexValue.y)
+            if (_size.y - _size.y > indexValue.y)
             {
                 return (place, false);
             }
@@ -1315,28 +1318,32 @@ namespace Game
                         zeroShift = new Vector3(1.0f, 0.0f, 1.5f);
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = _size.x - block.blockData.NormalWidth + 1;
-                        totalVertShiftStart = block.blockData.NormalHeight - 1 + (_size.y - block.blockData.FitHeight);
+                        // totalVertShiftStart = block.blockData.NormalHeight - 1 + (_size.y - block.blockData.FitHeight);
+                        totalVertShiftStart = block.blockData.NormalHeight - 1 + (_size.y - _size.y);
                         totalVertShiftEnd = _size.y;
                         break;
                     case 90:
                         zeroShift = new Vector3(1.5f, 0.0f, -1.0f);
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = _size.x - block.blockData.NormalHeight + 1;
-                        totalVertShiftStart = _size.y - block.blockData.FitHeight;
+                        // totalVertShiftStart = _size.y - block.blockData.FitHeight;
+                        totalVertShiftStart = _size.y - _size.y;
                         totalVertShiftEnd = _size.y - block.blockData.NormalWidth + 1;
                         break;
                     case 180:
                         zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);
                         totalHorShiftStart = block.blockData.NormalWidth - 1;
                         totalHorShiftEnd = _size.x;
-                        totalVertShiftStart = _size.y - block.blockData.FitHeight;
+                        // totalVertShiftStart = _size.y - block.blockData.FitHeight;
+                        totalVertShiftStart = _size.y - _size.y;
                         totalVertShiftEnd = _size.y - block.blockData.NormalHeight + 1;
                         break;
                     case 270:
                         zeroShift = new Vector3(-1.5f, 0.0f, 1.0f);
                         totalHorShiftStart = block.blockData.NormalHeight - 1;
                         totalHorShiftEnd = _size.x;
-                        totalVertShiftStart = block.blockData.NormalWidth - 1 + _size.y - block.blockData.FitHeight;
+                        // totalVertShiftStart = block.blockData.NormalWidth - 1 + _size.y - block.blockData.FitHeight;
+                        totalVertShiftStart = block.blockData.NormalWidth - 1 + _size.y - _size.y;
                         totalVertShiftEnd = _size.y;
                         break;
                 }

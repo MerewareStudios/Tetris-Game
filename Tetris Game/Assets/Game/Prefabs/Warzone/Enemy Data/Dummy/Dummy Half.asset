@@ -108,10 +108,16 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards: []
-  maxHealth: 3
+  enemyRewards:
+  - type: 3
+    amount: 1
+    probability: 1
+  - type: 2
+    amount: 2
+    probability: 1
+  maxHealth: 2
   speed: 0
-  forwardRange: {x: 0.5, y: 0.8}
+  forwardRange: {x: 0.35, y: 0.75}
   radius: 0.5
   emitCount: 15
   deathEmitCount: 40

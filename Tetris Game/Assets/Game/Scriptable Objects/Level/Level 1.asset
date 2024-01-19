@@ -19,15 +19,10 @@ MonoBehaviour:
   totalCoin: 15
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
-    count: 1
-    distance: 0
-    offset: -0.5
-    delay: 7
-  - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
-    count: 1
-    distance: 0
-    offset: 0.4
-    delay: 7
+    count: 3
+    distance: 0.45
+    offset: 0
+    delay: 9
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
     count: 1
     distance: 0

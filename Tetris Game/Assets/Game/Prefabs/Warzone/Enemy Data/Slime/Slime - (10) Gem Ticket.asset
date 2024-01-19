@@ -112,7 +112,10 @@ MonoBehaviour:
   - type: 2
     amount: 1
     probability: 1
-  maxHealth: 10
+  - type: 3
+    amount: 1
+    probability: 1
+  maxHealth: 6
   speed: 0.045
   forwardRange: {x: 1, y: 1}
   radius: 0.5
