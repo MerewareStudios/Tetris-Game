@@ -195,7 +195,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
             tipString = Onboarding.THIS.tips[index];
         }
 
-        if (levelIndex == 1 || (state.Equals(State.Victory) && levelIndex % 5 == 0))
+        if (levelIndex == 1 || (state.Equals(State.Victory) && levelIndex % 6 == 0))
         {
             if (levelIndex == 1)
             {
@@ -209,7 +209,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 }
                 else
                 {
-                    if (levelIndex % 10 == 0)
+                    if (levelIndex % 12 == 0)
                     {
                         ShowShare();
                     }

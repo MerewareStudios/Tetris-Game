@@ -45,7 +45,7 @@ namespace Game
             // SetRewards(so, Const.THIS.GetRandomAutoLevel());
             // SetCarryData(so, level);
 
-            LevelManager.HealthMult = 1.0f + Mathf.FloorToInt(levelIndex / (float)Const.THIS.MaxLevel) * 0.5f;
+            LevelManager.HealthMult = 1.0f + Mathf.FloorToInt(levelIndex / (float)Const.THIS.MaxLevel) * 0.25f;
             Random.InitState((int)DateTime.Now.Ticks);
 
             return so;
