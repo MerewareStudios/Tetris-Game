@@ -55,7 +55,6 @@ public class Spawner : Singleton<Spawner>
         AnalyticsManager.ShowNextBlock(LevelManager.CurrentLevel);
     }
 
-   
     
     private void Awake()
     {
@@ -143,7 +142,7 @@ public class Spawner : Singleton<Spawner>
 
     public void MountBack()
     {
-        StopDelayedSpawn();
+        // StopDelayedSpawn();
         _assertionTween?.Kill();
         StopMovement();
         Mount();
@@ -396,7 +395,6 @@ public class Spawner : Singleton<Spawner>
         {
             Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift, timeIndependent:false);
         }
-        
         else if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
             Onboarding.ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Shake, infoEnabled:true, timeIndependent:false);
@@ -473,7 +471,6 @@ public class Spawner : Singleton<Spawner>
         _spawnedBlocks.Add(block);
         
         
-
         _spawnIndex++;
         return block;
     }

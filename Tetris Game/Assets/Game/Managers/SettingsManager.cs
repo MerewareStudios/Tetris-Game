@@ -15,13 +15,15 @@ public class SettingsManager : Singleton<SettingsManager>
     [SerializeField] private Color disabledColor;
     [SerializeField] private GameObject concedeBlockLabel;
 
+    private bool ConcedeBlocked() => !ONBOARDING.WEAPON_TAB.IsComplete(); 
+    
     private bool Visible
     {
         set
         {
             if (value)
             {
-                concedeBlockLabel.SetActive(LevelManager.CurrentLevel <= 1);
+                concedeBlockLabel.SetActive(ConcedeBlocked());
             }
             buttonsParent.SetActive(value);
             background.SetActive(value);
@@ -76,7 +78,7 @@ public class SettingsManager : Singleton<SettingsManager>
     public void OnClick_Concede()
     {
         HapticManager.OnClickVibrate();
-        if (LevelManager.CurrentLevel <= 1)
+        if (ConcedeBlocked())
         {
             return;
         }

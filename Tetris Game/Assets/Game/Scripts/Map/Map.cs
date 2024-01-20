@@ -61,7 +61,7 @@ namespace Game
                     {
                         if (Board.THIS.OnMerge != null && Board.THIS.OnMerge.Invoke())
                         {
-                            yield return new WaitForSeconds(0.15f);
+                            yield return new WaitForSeconds(0.25f);
                         }
                         HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
 

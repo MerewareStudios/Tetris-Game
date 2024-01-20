@@ -3803,7 +3803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe0098ec719cd0439a6e26236b7822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DELETE_AT_START: 0
+  DELETE_AT_START: 1
   SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
