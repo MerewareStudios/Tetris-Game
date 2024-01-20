@@ -37,6 +37,7 @@ namespace Game
         }
 
         public List<Vector3> LocalPawnPositions => (from segmentTransform in segmentTransforms where segmentTransform select segmentTransform.localPosition).ToList();
+        public Color Color => blockData.Color;
 
         public Board.BlockRot Rotation
         {

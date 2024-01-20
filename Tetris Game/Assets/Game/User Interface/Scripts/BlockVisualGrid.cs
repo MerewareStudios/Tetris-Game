@@ -11,33 +11,35 @@ using UnityEngine.UI;
 
 public class BlockVisualGrid : MonoBehaviour
 {
-    [SerializeField] private GameObject[] blocks;
-    [SerializeField] private Image[] bullets;
-    [SerializeField] private string ammoText;
+    // [SerializeField] private GameObject[] blocks;
+    [SerializeField] private Image[] blockImages;
+    // [SerializeField] private Image[] bullets;
+    // [SerializeField] private string ammoText;
 
-    public void Display(List<Transform> segments)
+    public void Display(List<Transform> segments, Color color)
     {
         for (int i = 0; i < segments.Count; i++)
         {
-            blocks[i].SetActive(segments[i]);
-            if (blocks[i].activeSelf)
+            blockImages[i].gameObject.SetActive(segments[i]);
+            blockImages[i].color = color;
+            if (blockImages[i].gameObject.activeSelf)
             {
-                blocks[i].transform.DOKill();
-                blocks[i].transform.localScale = Vector3.one;
-                blocks[i].transform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
+                blockImages[i].gameObject.transform.DOKill();
+                blockImages[i].gameObject.transform.localScale = Vector3.one;
+                blockImages[i].gameObject.transform.DOPunchScale(Vector3.one * 0.2f, 0.25f, 1).SetUpdate(true);
             }
         }
     }
 
-    private string GetAmmoImage(int count)
-    {
-        StringBuilder stringBuilder = new();
-        for (int i = 0; i < count; i++)
-        {
-            stringBuilder.Append(ammoText);
-        }
-
-        return stringBuilder.ToString();
-    }
+    // private string GetAmmoImage(int count)
+    // {
+    //     StringBuilder stringBuilder = new();
+    //     for (int i = 0; i < count; i++)
+    //     {
+    //         stringBuilder.Append(ammoText);
+    //     }
+    //
+    //     return stringBuilder.ToString();
+    // }
     
 }

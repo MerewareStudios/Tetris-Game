@@ -105,7 +105,9 @@ namespace Game.UI
 
 
             SetPrice(cost, canPurchase, availableByLevel, purchasedBlock);
-            SetLookUp(_selectedBlockData.blockType.Prefab<Block>().segmentTransforms);
+
+            Block block = _selectedBlockData.blockType.Prefab<Block>();
+            SetLookUp(block.segmentTransforms, block.Color);
             
             
             frame.color = availableByLevel ? (purchasedBlock ? upgradeColor : purchaseColor) : lockedColor;
@@ -211,9 +213,9 @@ namespace Game.UI
             PunchMoney(0.2f);
             PunchPurchasedText(0.2f);
         }
-        private void SetLookUp(List<Transform> segments)
+        private void SetLookUp(List<Transform> segments, Color color)
         {
-            blockVisualGrid.Display(segments);
+            blockVisualGrid.Display(segments, color);
         }
 
         public void OnClick_Purchase()
