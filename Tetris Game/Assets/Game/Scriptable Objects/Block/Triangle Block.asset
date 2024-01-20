@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3342aae3d6fc975498ae7f94801cb459, type: 3}
   m_Name: Triangle Block
   m_EditorClassIdentifier: 
+  Color: {r: 0.14117648, g: 0.47058824, b: 0.92156863, a: 1}
   FitHeight: 3
   NormalHeight: 3
   NormalWidth: 3

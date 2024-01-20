@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3342aae3d6fc975498ae7f94801cb459, type: 3}
   m_Name: T Long Block
   m_EditorClassIdentifier: 
+  less: 1
+  Color: {r: 0.6, g: 0.3764706, b: 0.2627451, a: 1}
   FitHeight: 3
   NormalHeight: 3
   NormalWidth: 3

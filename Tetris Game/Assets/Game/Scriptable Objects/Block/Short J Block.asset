@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3342aae3d6fc975498ae7f94801cb459, type: 3}
   m_Name: Short J Block
   m_EditorClassIdentifier: 
+  less: 0
+  Color: {r: 0.2509804, g: 0.3529412, b: 0.79607844, a: 1}
   FitHeight: 3
   NormalHeight: 2
   NormalWidth: 2

@@ -450,7 +450,7 @@ public class Spawner : Singleton<Spawner>
             pool = _nextBlock;
             
             _nextBlock = GetNexRandomBlock();
-            if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block) || _nextBlock.Equals(Pool.Tree_I_Block)) && Helper.IsPossible(0.5f))
+            if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block) || _nextBlock.Equals(Pool.T_Long_Block) || _nextBlock.Equals(Pool.U_Block) || _nextBlock.Equals(Pool.Tree_I_Block)) && Helper.IsPossible(0.5f))
             {
                 _nextBlock = GetNexRandomBlock();
             }

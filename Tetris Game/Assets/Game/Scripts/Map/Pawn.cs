@@ -15,7 +15,7 @@ namespace Game
         
         [System.NonSerialized] private Tween _moveTween = null;
         [System.NonSerialized] public SubModel SubModel = null;
-        [System.NonSerialized] public Block ParentBlock;
+        [System.NonSerialized] private Block _parentBlock;
         [System.NonSerialized] public VisualData VData = null;
         [SerializeField] private int _tick;
         [System.NonSerialized] public bool Mover = false;
@@ -25,6 +25,23 @@ namespace Game
         public bool Connected => ParentBlock;
         [System.NonSerialized] public Pawn.Usage UsageType = Usage.Empty;
 
+        public Block ParentBlock
+        {
+            get => _parentBlock;
+            set
+            {
+                _parentBlock = value;
+                if (!value)
+                {
+                    return;
+                }
+                if (SubModel && VData.useParentColor)
+                {
+                    SubModel.BaseColor = ParentBlock.blockData.Color;
+                }
+            }
+        }
+        
         public bool SkipMerge
         {
             get
@@ -44,18 +61,6 @@ namespace Game
         {
             set
             {
-                // if (!SubModel)
-                // {
-                //     return;
-                // }
-                // if (VData == null)
-                // {
-                //     return;
-                // }
-                // if (VData.usage.Equals(Usage.Screw) || VData.usage.Equals(Usage.Lock))
-                // {
-                //     return;
-                // }
                 this._tick = value;
             }
             get => this._tick;
@@ -85,7 +90,10 @@ namespace Game
             SubModel.gameObject.SetActive(true);
 
             this.UsageType = value;
+            
             SubModel.BaseColor = VData.startColor;
+
+            // SubModel.BaseColor = (VData.useParentColor && !ParentBlock) ? ParentBlock.blockData.Color : VData.startColor;
             SubModel.OnConstruct(VData.model, modelPivot, extra);
         }
 
@@ -519,6 +527,7 @@ namespace Game
             [SerializeField] public int externValue = 0;
             [SerializeField] public Pool model;
             [SerializeField] public bool free2Place = false;
+            [SerializeField] public bool useParentColor = false;
             [SerializeField] public Color startColor;
             [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool neverMoves = false;
