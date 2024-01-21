@@ -20,6 +20,7 @@ namespace Game
         [SerializeField] private int _tick;
         [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
+        // [System.NonSerialized] public BlockData RecentBlockData;
         
         
         public bool Connected => ParentBlock;
@@ -31,15 +32,26 @@ namespace Game
             set
             {
                 _parentBlock = value;
+                // RecentBlockData = _parentBlock.blockData;
                 if (!value)
                 {
                     return;
                 }
+
                 if (SubModel && VData.useParentColor)
                 {
                     SubModel.BaseColor = ParentBlock.blockData.Color;
                 }
             }
+        }
+
+        public void EmitExplodeEffect()
+        {
+            if (!SubModel)
+            {
+                return;
+            }
+            SubModel.EmitExplodeEffect();
         }
         
         public bool SkipMerge
@@ -91,7 +103,7 @@ namespace Game
 
             this.UsageType = value;
             
-            SubModel.BaseColor = VData.startColor;
+            // SubModel.BaseColor = VData.startColor;
 
             // SubModel.BaseColor = (VData.useParentColor && !ParentBlock) ? ParentBlock.blockData.Color : VData.startColor;
             SubModel.OnConstruct(VData.model, modelPivot, extra);
@@ -245,6 +257,8 @@ namespace Game
             {
                 return;
             }
+            SubModel.OnExplode();
+
             switch (UsageType)
             {
                 case Usage.Empty:
@@ -266,7 +280,6 @@ namespace Game
                 case Usage.Landmine:
                     break;
                 case Usage.Bomb:
-                    SubModel.OnExplode();
                     SubModel = null;
                     Board.THIS.ExplodePawnsCircular(center, Board.BombRadius);
                     break;
@@ -394,13 +407,13 @@ namespace Game
         
 
         #region Colors
-        public void MarkSteadyColor()
-        {
-            if (this.UsageType.Equals(Usage.UnpackedAmmo))
-            {
-                SubModel.BaseColor = Const.THIS.steadyColor;
-            }
-        }
+        // public void MarkSteadyColor()
+        // {
+        //     if (this.UsageType.Equals(Usage.UnpackedAmmo))
+        //     {
+        //         SubModel.BaseColor = Const.THIS.steadyColor;
+        //     }
+        // }
         #endregion
         
         
@@ -528,7 +541,8 @@ namespace Game
             [SerializeField] public Pool model;
             [SerializeField] public bool free2Place = false;
             [SerializeField] public bool useParentColor = false;
-            [SerializeField] public Color startColor;
+            // [SerializeField] public Color startColor;
+            // [SerializeField] public Gradient explodeGradient;
             [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool neverMoves = false;
             [SerializeField] public bool moverOnPlacement = true;

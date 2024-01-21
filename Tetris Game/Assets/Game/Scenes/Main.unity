@@ -3804,7 +3804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 0
+  SKIP_ONBOARDING: 1
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4386,7 +4386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 0.1254902}
+  m_Color: {r: 1, g: 1, b: 0.16470589, a: 0.02745098}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -5143,7 +5143,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -9156204249511905205, guid: 3173b7aa7c9cdff4498592a31af26694,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c1689b4c7a117754aa401c9fa35c775b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ffa901e6e2881934eba87109f12321ed, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -6498,6 +6498,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3011737810899272560, guid: 646813b1e6417914c913d962189500ca,
         type: 3}
+      propertyPath: ShapeModule.m_Position.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3011737810899272560, guid: 646813b1e6417914c913d962189500ca,
+        type: 3}
       propertyPath: CollisionModule.m_Bounce.scalar
       value: 0.5
       objectReference: {fileID: 0}
@@ -6565,6 +6570,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7577651755388993422, guid: 646813b1e6417914c913d962189500ca,
+        type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7577651755388993422, guid: 646813b1e6417914c913d962189500ca,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7577651755388993422, guid: 646813b1e6417914c913d962189500ca,
+        type: 3}
+      propertyPath: m_VertexStreams.Array.data[4]
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

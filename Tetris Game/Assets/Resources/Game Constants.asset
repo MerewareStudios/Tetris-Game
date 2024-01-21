@@ -76,7 +76,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 1
+      level: 21
       playerData:
         currentHealth: 1
       pupData:
@@ -497,7 +497,7 @@ MonoBehaviour:
   mergeGradient:
     serializedVersion: 2
     key0: {r: 0.64705884, g: 0.64705884, b: 0.64705884, a: 1}
-    key1: {r: 0.23018861, g: 0.23018861, b: 0.23018861, a: 1}
+    key1: {r: 0, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -553,8 +553,8 @@ MonoBehaviour:
   ghostPawnStateDouble: 00000000000000000101
   powerEffectGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.67058825, b: 0, a: 0.02745098}
-    key1: {r: 1, g: 0.67058825, b: 0, a: 0.4509804}
+    key0: {r: 1, g: 1, b: 0.16470589, a: 0.02745098}
+    key1: {r: 1, g: 1, b: 0.16470589, a: 0.4509804}
     key2: {r: 0, g: 0, b: 0, a: 0.02745098}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -656,7 +656,6 @@ MonoBehaviour:
     model: 0
     free2Place: 0
     useParentColor: 0
-    startColor: {r: 0, g: 0, b: 0, a: 0}
     powerUpIcon: {fileID: 21300000, guid: 67676fff84adcb643aef1c226c9f331d, type: 3}
     neverMoves: 0
     moverOnPlacement: 1
@@ -665,7 +664,6 @@ MonoBehaviour:
     model: 42
     free2Place: 0
     useParentColor: 0
-    startColor: {r: 0, g: 0, b: 0, a: 0}
     powerUpIcon: {fileID: 0}
     neverMoves: 0
     moverOnPlacement: 1
@@ -674,7 +672,6 @@ MonoBehaviour:
     model: 43
     free2Place: 0
     useParentColor: 1
-    startColor: {r: 0.14117648, g: 0.47058824, b: 0.92156863, a: 1}
     powerUpIcon: {fileID: 0}
     neverMoves: 0
     moverOnPlacement: 1
@@ -683,7 +680,6 @@ MonoBehaviour:
     model: 57
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
     powerUpIcon: {fileID: 21300000, guid: 93069031419041a4590faeced971b337, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -692,7 +688,6 @@ MonoBehaviour:
     model: 46
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 1, g: 1, b: 1, a: 1}
     powerUpIcon: {fileID: 21300000, guid: 50d307825a65e4e4fb232944a5a7f4b4, type: 3}
     neverMoves: 1
     moverOnPlacement: 0
@@ -701,7 +696,6 @@ MonoBehaviour:
     model: 44
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 1, g: 0.52156866, b: 0, a: 1}
     powerUpIcon: {fileID: 21300000, guid: fc8cbe98a1ef0cd40ac51e48b802a7ca, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -710,7 +704,6 @@ MonoBehaviour:
     model: 58
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
     powerUpIcon: {fileID: 21300000, guid: bbcdfe316f6b1874189ee189850ae0af, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -719,7 +712,6 @@ MonoBehaviour:
     model: 45
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
     powerUpIcon: {fileID: 21300000, guid: de4338232355f6f4aac17dca0e883fdf, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -728,7 +720,6 @@ MonoBehaviour:
     model: 59
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
     powerUpIcon: {fileID: 21300000, guid: 4792921ad77edf14ea2662118937dc2a, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -737,7 +728,6 @@ MonoBehaviour:
     model: 60
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.90588236, g: 0.90588236, b: 0.90588236, a: 1}
     powerUpIcon: {fileID: 21300000, guid: b187d1103858fd345a01fbbcd16f8406, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -746,7 +736,6 @@ MonoBehaviour:
     model: 61
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
     powerUpIcon: {fileID: 0}
     neverMoves: 1
     moverOnPlacement: 0
@@ -755,7 +744,6 @@ MonoBehaviour:
     model: 62
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
     powerUpIcon: {fileID: 21300000, guid: dee0678b89f4f0d46b3bc05db8d2eab2, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -764,7 +752,6 @@ MonoBehaviour:
     model: 63
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
     powerUpIcon: {fileID: 21300000, guid: 3938a49a056e64946ae7c722979e0e44, type: 3}
     neverMoves: 0
     moverOnPlacement: 0
@@ -773,7 +760,6 @@ MonoBehaviour:
     model: 65
     free2Place: 1
     useParentColor: 0
-    startColor: {r: 1, g: 1, b: 1, a: 1}
     powerUpIcon: {fileID: 21300000, guid: 92c94c337e1fc304090afc786ecca154, type: 3}
     neverMoves: 1
     moverOnPlacement: 0

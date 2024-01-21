@@ -12,6 +12,7 @@ public class SubModel : MonoBehaviour
     [System.NonSerialized] protected Sequence Sequence = null;
     [System.NonSerialized] protected int ExternalValue = 0;
     [System.NonSerialized] private Tween _delayedTween = null;
+    [System.NonSerialized] protected Color _color;
 
     public Vector3 Position => ThisTransform.position; 
     
@@ -26,11 +27,16 @@ public class SubModel : MonoBehaviour
         {
             if (meshRenderer)
             {
+                _color = value;
                 meshRenderer.material.SetColor(GameManager.BaseColor, value);
+                meshRenderer.material.SetColor(GameManager.EmissionKey, Color.black);
             }
         }
     }
-
+    public virtual void EmitExplodeEffect()
+    {
+        Particle.Debris.Emit(15, Position, Color.black);
+    }
     public virtual bool IsAvailable()
     {
         return true;
@@ -179,7 +185,7 @@ public class SubModel : MonoBehaviour
     }
     public virtual void OnExplode()
     {
-        
+        EmitExplodeEffect();
     }
     // public virtual bool SkipAction()
     // {

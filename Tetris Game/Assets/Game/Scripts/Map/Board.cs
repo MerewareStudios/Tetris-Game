@@ -409,6 +409,12 @@ namespace Game
 
             return list;
         }
+
+        private void HighlightRequired()
+        {
+            // Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Const.THIS.suggestionColorTut);
+            Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Spawner.THIS.CurrentBlock.blockData.Color);
+        }
         
         public void CheckDeadLock()
         {
@@ -439,11 +445,8 @@ namespace Game
             }
             if (Spawner.THIS.CurrentBlock.RequiredPlaces != null && Spawner.THIS.CurrentBlock.RequiredPlaces.Count > 0)
             {
-                Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Const.THIS.suggestionColorTut);
-                _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, () =>
-                {
-                    Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Const.THIS.suggestionColorTut);
-                }, false).SetLoops(-1);
+                HighlightRequired();
+                _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, HighlightRequired, false).SetLoops(-1);
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
@@ -786,7 +789,16 @@ namespace Game
                     .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
                     .SetDelay(AnimConst.THIS.mergeTravelDelay);
                 
-                tween.onComplete = pawn.Deconstruct;
+                tween.onComplete = () =>
+                {
+                    pawn.EmitExplodeEffect();
+                    pawn.Deconstruct();
+
+                    // if (pawn.RecentBlockData)
+                    // {
+                    //     Particle.Debris.Emit(5, spawnPlace.Position, pawn.RecentBlockData.Color);
+                    // }
+                };
                 
                 lastTween = tween;
                 
@@ -803,7 +815,6 @@ namespace Game
 
                     HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                     CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
-                    Particle.Debris.Emit(30, spawnPlace.Position);
                     Particle.Star.Emit(15, spawnPlace.Position);
                     
                     // ReSharper disable once AccessToModifiedClosure
@@ -899,7 +910,17 @@ namespace Game
                         .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
                         .SetDelay(AnimConst.THIS.mergeTravelDelay);
                     
-                    tween.onComplete = pawn.Deconstruct;
+                    tween.onComplete = () =>
+                    {
+                        pawn.EmitExplodeEffect();
+                        pawn.Deconstruct();
+                        // if (pawn.RecentBlockData)
+                        // {
+                        //     Particle.Debris.Emit(5, spawnPlace.Position, pawn.RecentBlockData.Color);
+                        // }
+                        
+
+                    };
 
                     lastTween = tween;
 
@@ -921,7 +942,7 @@ namespace Game
                         HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
                         CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f), 0.5f);
                         
-                        Particle.Debris.Emit(30, spawnPlace.Position);
+                        // Particle.Debris.Emit(30, spawnPlace.Position);
                         Particle.Star.Emit(15, spawnPlace.Position);
                     }
                 };
@@ -987,10 +1008,16 @@ namespace Game
                         continue;
                     }
 
+                    // pawn.EmitExplodeEffect();
                     pawn.Explode(place.Index);
-                    RemovePawn(place);
+                    
+                    // if (pawn.RecentBlockData)
+                    // {
+                    //     Particle.Debris.Emit(5, place.Position, pawn.RecentBlockData.Color);
+                    // }
 
-                    Particle.Debris.Emit(30, place.Position);
+                    RemovePawn(place);
+                    // Particle.Debris.Emit(30, place.Position);
                 }
             }
         }

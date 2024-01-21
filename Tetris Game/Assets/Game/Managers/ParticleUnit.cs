@@ -6,6 +6,7 @@ public class ParticleUnit : MonoBehaviour
     [System.NonSerialized] private Transform _thisTransform;
     [SerializeField] public Particle key;
     [SerializeField] public ParticleSystem ps;
+    [System.NonSerialized] public ParticleSystem.MainModule MainModule;
 
     #if UNITY_EDITOR
     private void Reset()
@@ -19,6 +20,7 @@ public class ParticleUnit : MonoBehaviour
     void Awake()
     {
         _thisTransform = this.transform;
+        MainModule = ps.main;
     }
 
     public void SetForward(Vector3 forward)
@@ -41,7 +43,12 @@ public class ParticleUnit : MonoBehaviour
         _thisTransform.position = position;
         ps.Emit(count);
     }
-    
+    public void EmitAtPosition(Vector3 position, int count, Color color)
+    {
+        _thisTransform.position = position;
+        MainModule.startColor = color;
+        ps.Emit(count);
+    }
     void OnParticleSystemStopped()
     {
         // Debug.Log("despawn " + Time.realtimeSinceStartup + " " + this.gameObject.activeInHierarchy, this.gameObject);

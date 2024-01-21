@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Single Block
   m_EditorClassIdentifier: 
   less: 1
-  Color: {r: 0.2, g: 0.7764706, b: 0.4862745, a: 1}
+  Color: {r: 0.9098039, g: 0.75686276, b: 0.101960786, a: 1}
   FitHeight: 3
   NormalHeight: 1
   NormalWidth: 1

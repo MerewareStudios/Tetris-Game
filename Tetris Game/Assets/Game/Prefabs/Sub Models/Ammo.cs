@@ -13,6 +13,11 @@ public class Ammo : SubModel
         base.OnConstruct(poolType, customParent, extra);
         MarkAvailable(false);
     }
+    
+    public override void EmitExplodeEffect()
+    {
+        Particle.Debris.Emit(5, Position, base._color);
+    }
 
     public override bool IsAvailable()
     {
