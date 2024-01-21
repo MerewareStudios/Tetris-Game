@@ -29,7 +29,7 @@ public class SaveManager : SaveManagerBase<SaveManager>
         {
             ONBOARDING.DRAG_AND_DROP.ClearStep();
             ONBOARDING.BLOCK_ROTATION.ClearStep();
-            ONBOARDING.SPEECH_MERGE.ClearStep();
+            // ONBOARDING.SPEECH_MERGE.ClearStep();
             ONBOARDING.SPEECH_CHEER.ClearStep();
             ONBOARDING.PASSIVE_META.ClearStep();
             ONBOARDING.ALL_BLOCK_STEPS.ClearStep();
@@ -234,7 +234,7 @@ public enum ONBOARDING
 {
     BLOCK_ROTATION,
     DRAG_AND_DROP,
-    SPEECH_MERGE,
+    // SPEECH_MERGE,
     SPEECH_CHEER,
     PASSIVE_META,
     ALL_BLOCK_STEPS,

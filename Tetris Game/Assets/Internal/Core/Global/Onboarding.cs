@@ -75,7 +75,9 @@ public class Onboarding : SSingleton<Onboarding>
 
         IEnumerator Routine()
         {
-            yield return new WaitForSeconds(0.2f);
+            Spawner.THIS.Enabled(false);
+            // yield return new WaitForSeconds(0.2f);
+            Audio.Hint_2.Play();
 
             
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.greatCheerText, 0.15f);
@@ -84,12 +86,14 @@ public class Onboarding : SSingleton<Onboarding>
             yield return new WaitForSeconds(1.15f);
             
             UIManager.THIS.speechBubble.Hide();
+            Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
+            
+            Spawner.THIS.Enabled(true);
             DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, null, timeIndependent:false);
 
             
-            yield return new WaitForSeconds(0.55f);
+            // yield return new WaitForSeconds(0.55f);
             
-            Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
             
             
             // Spawner.THIS.Spawn();
@@ -152,21 +156,21 @@ public class Onboarding : SSingleton<Onboarding>
     }
     
     
-    public static void TalkAboutMerge()
-    {
-        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
-
-        IEnumerator Routine()
-        {
-            UIManager.THIS.speechBubble.Hide();
-            
-            yield return new WaitForSeconds(0.1f);
-            
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, 0.2f);
-
-            Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
-        }
-    }
+    // public static void TalkAboutMerge()
+    // {
+    //     Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
+    //
+    //     IEnumerator Routine()
+    //     {
+    //         UIManager.THIS.speechBubble.Hide();
+    //         
+    //         yield return new WaitForSeconds(0.1f);
+    //         
+    //         UIManager.THIS.speechBubble.Speak(Onboarding.THIS.stackText, 0.2f);
+    //
+    //         Warzone.THIS.Player.animator.SetTrigger(Player.SHOW_HASH);
+    //     }
+    // }
     public static void TalkAboutFreePlacement()
     {
         Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());

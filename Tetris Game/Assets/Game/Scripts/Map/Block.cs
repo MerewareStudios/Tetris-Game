@@ -56,7 +56,7 @@ namespace Game
             set
             {
                 _busy = value;
-                Debug.LogError("busy set " + value);
+                // Debug.LogError("busy set " + value);
             }
             get => _busy;
         }

@@ -2137,6 +2137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fe19ade5af07b4e89c0ecd01c49cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 527971357}
   spawnerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2144,7 +2145,6 @@ MonoBehaviour:
   spawnedBlockLocation: {fileID: 860089792}
   distanceFromDraggingFinger: {x: 0, y: 0, z: 1.4}
   distanceOfBlockCast: {x: 0, y: 0, z: 0.45}
-  tutorialLift: {x: 0.1, y: 0.2, z: 0.1}
   nextBlockDisplay: {fileID: 1180491136}
   spawnDelay: 0.1
 --- !u!4 &531239258 stripped
@@ -3804,7 +3804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5689,7 +5689,17 @@ PrefabInstance:
     - target: {fileID: 4055557985116283418, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 206
+      value: 245
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752507001255931180, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.88235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752507001255931180, guid: 30730262a1683ea41825cb988b76190c,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.34117648
       objectReference: {fileID: 0}
     - target: {fileID: 7827162823437580552, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
@@ -16399,6 +16409,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1803195824}
     m_Modifications:
+    - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
+        type: 3}
+      propertyPath: m_characterSpacing
+      value: -8.42
+      objectReference: {fileID: 0}
     - target: {fileID: 81798825238307815, guid: 2e75aec2c9d918c4d9639f15e78c37c4,
         type: 3}
       propertyPath: m_fontColor32.rgba

@@ -20,7 +20,7 @@ MonoBehaviour:
   enemySpawnData:
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
     count: 3
-    distance: 0.45
+    distance: 0.65
     offset: 0
     delay: 9
   - enemyData: {fileID: 11400000, guid: b79c195b276f43d468a8b3a9b06eec99, type: 2}
@@ -36,11 +36,19 @@ MonoBehaviour:
     amount: 5
   suggestedBlocks:
   - type: 10
-    requiredPlaces: 0b0000000e0000000f00000013000000
+    requiredPlaces: 0a0000000d0000000e00000012000000
     blockRot: 1
     canRotate: 1
+  - type: 9
+    requiredPlaces: 0d000000
+    blockRot: 0
+    canRotate: 1
   - type: 4
-    requiredPlaces: 040000000a0000001000000005000000
+    requiredPlaces: 13000000170000001a0000001b000000
+    blockRot: 0
+    canRotate: 1
+  - type: 3
+    requiredPlaces: 02000000030000000b00000007000000
     blockRot: 0
     canRotate: 1
   pawnPlacements: []

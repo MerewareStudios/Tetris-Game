@@ -11,6 +11,7 @@ using UnityEngine;
 public class Spawner : Singleton<Spawner>
 {
     [Header("Layers")]
+    [SerializeField] private Collider col;
     [SerializeField] private LayerMask spawnerLayer;
     [Header("Locations")]
     [SerializeField] private Transform modelPivot;
@@ -18,7 +19,7 @@ public class Spawner : Singleton<Spawner>
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
-    [SerializeField] public Vector3 tutorialLift;
+    // [SerializeField] public Vector3 tutorialLift;
     [SerializeField] public NextBlockDisplay nextBlockDisplay;
     [SerializeField] private float spawnDelay = 0.45f;
    
@@ -33,9 +34,10 @@ public class Spawner : Singleton<Spawner>
     [System.NonSerialized] private Tween _assertionTween;
     [System.NonSerialized] private int _spawnIndex = 0;
     [System.NonSerialized] private readonly List<Block> _spawnedBlocks = new();
-    [System.NonSerialized] private float _smoothFactorLerp = 10.0f;
+    [System.NonSerialized] private const float SmoothFactorLerp = 10.0f;
 
-
+    public bool Enabled(bool value) => col.enabled = value;
+    
     public void OnClick_ShowNextBlock()
     {
         HapticManager.OnClickVibrate();
@@ -189,28 +191,28 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDown()
     {
-        Debug.LogWarning("Input Down");
+        // Debug.LogWarning("Input Down");
 
         if (!GameManager.PLAYING)
         {
-            Debug.LogError("pass 1");
+            // Debug.LogError("pass 1");
             return;
         }
         if (Input.touchCount > 1)
         {
-            Debug.LogError("pass 2");
+            // Debug.LogError("pass 2");
             return;
         }
         if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock)
         {
-            Debug.LogError("pass 3");
+            // Debug.LogError("pass 3");
             return;
         }
 
         _assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
         _assertionTween.onComplete = () =>
         {
-            Debug.LogError("grabbed");
+            // Debug.LogError("grabbed");
             GrabbedBlock = true;
 
 
@@ -243,7 +245,7 @@ public class Spawner : Singleton<Spawner>
                 while (true)
                 {
                     CurrentBlock.transform.position = Vector3.Lerp(CurrentBlock.transform.position, _finalPosition, Time.deltaTime * 44.0f * smoothFactor);
-                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * _smoothFactorLerp);
+                    smoothFactor = Mathf.Lerp(smoothFactor, 1.0f, Time.deltaTime * SmoothFactorLerp);
                     Board.THIS.HighlightPlaces();
                     yield return null;
                 }
@@ -252,28 +254,28 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnClick()
     {
-        Debug.LogWarning("Input OnClick");
+        // Debug.LogWarning("Input OnClick");
 
         if (!GameManager.PLAYING)
         {
-            Debug.LogError("0");
+            // Debug.LogError("0");
             return;
         }
         if (Input.touchCount > 1)
         {
-            Debug.LogError("1");
+            // Debug.LogError("1");
             return;
         }
         if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock || GrabbedBlock)
         {
-            Debug.LogError("2");
+            // Debug.LogError("2");
 
             return;
         }
 
         if (CurrentBlock.Busy)
         {
-            Debug.LogError("3");
+            // Debug.LogError("3");
             return;
         }
         
@@ -284,7 +286,7 @@ public class Spawner : Singleton<Spawner>
         if (CurrentBlock.CanRotate)
         {
             Audio.Rotate_Click.PlayOneShot();
-            Debug.LogError("click");
+            // Debug.LogError("click");
 
             CurrentBlock.Rotate();
         }
@@ -305,7 +307,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDrag()
     {
-        Debug.LogWarning("Input Dragged");
+        // Debug.LogWarning("Input Dragged");
 
         if (Input.touchCount > 1)
         {
@@ -358,7 +360,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnUp()
     {
-        Debug.LogWarning("Input Up");
+        // Debug.LogWarning("Input Up");
         InputUpWrap();
         Board.THIS.HighlightPlaces();
     }
@@ -375,7 +377,7 @@ public class Spawner : Singleton<Spawner>
         }
         _assertionTween?.Kill();
         StopMovement();
-        Debug.LogError("Grabbed " + GrabbedBlock);
+        // Debug.LogError("Grabbed " + GrabbedBlock);
         if (!GrabbedBlock || CurrentBlock == null)
         {
             return;
@@ -410,27 +412,27 @@ public class Spawner : Singleton<Spawner>
             //     return;
             // }
             
-            if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
-            {
-                Onboarding.TalkAboutMerge();
-                ONBOARDING.SPEECH_MERGE.SetComplete();
-
-                return;
-            }
+            // if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
+            // {
+            //     Onboarding.TalkAboutMerge();
+            //     ONBOARDING.SPEECH_MERGE.SetComplete();
+            //
+            //     return;
+            // }
             
             return;
         }
         
-        // if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
-        // {
-        //     Onboarding.DragOn(transform.position, Finger.Cam.Game, RotateSelf, timeIndependent:false);
-        // }
-        // else
+        
         if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
             Onboarding.ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, RotateSelf, infoEnabled:true, timeIndependent:false);
         }
-
+        else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+        {
+            Onboarding.DragOn(transform.position, Finger.Cam.Game, null, timeIndependent:false);
+        }
+        
         Mount();
     }
     #endregion
@@ -471,20 +473,19 @@ public class Spawner : Singleton<Spawner>
 
     private Block SpawnSuggestedBlock()
     {
-        bool learnedRotation = ONBOARDING.BLOCK_ROTATION.IsComplete();
-        Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.GetSuggestedBlocks();
-        Board.SuggestedBlock suggestedBlockData = null;
+        // bool learnedRotation = ONBOARDING.BLOCK_ROTATION.IsComplete();
+        // Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.GetSuggestedBlocks();
+        Board.SuggestedBlock[] suggestedBlocks = LevelManager.GetSuggestedBlocks();
+        Board.SuggestedBlock suggestedBlockData = (suggestedBlocks == null || _spawnIndex >= suggestedBlocks.Length) ? null : suggestedBlocks[_spawnIndex];
         Pool pool;
-        if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
+        // if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
+        if (suggestedBlockData != null)
         {
-            _smoothFactorLerp = 4.5f;
-            suggestedBlockData = suggestedBlocks[_spawnIndex];
+            // suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
         }
         else
         {
-            _smoothFactorLerp = 6.0f;
-            
             pool = _nextBlock;
             
             _nextBlock = GetNexRandomBlock();
