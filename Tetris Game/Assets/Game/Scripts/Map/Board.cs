@@ -243,7 +243,8 @@ namespace Game
                 {
                     if (block && grabbed && !block.Free2Place)
                     {
-                        place.SetTargetColorType((place.Index.y >= _size.y - _size.y) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
+                        // place.SetTargetColorType((place.Index.y >= _size.y - _size.y) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
+                        place.SetTargetColorType(place.LimitDarkLightDown);
                     }
                     else
                     {
@@ -255,7 +256,7 @@ namespace Game
                 if (block && grabbed)
                 {
                     List<(Place, bool)> projectedPlaces = new();
-                    bool canProjectFuture = !block.Free2Place;
+                    // bool canProjectFuture = !block.Free2Place;
 
                     bool canPlaceAll = false;
                     
@@ -284,47 +285,89 @@ namespace Game
                         }
                     }
 
-                    if (canProjectFuture)
+                    if (canPlaceAll)
                     {
-                        canProjectFuture = canPlaceAll;
-                    }
-
-                    canProjectFuture = false;
-
-                    if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
-                    {
-                        int minShift = _size.y;
-                        
-                        for (int i = 0; i < projectedPlaces.Count; i++)
+                        List<int> lines = new();
+                        foreach (var place in projectedPlaces)
                         {
-                            Vector2Int currentIndex = projectedPlaces[i].Item1.Index;
-                            int currentShift = 0;
-                            for (int v = currentIndex.y; v >= 0; v--)
+                            int index = place.Item1.Index.y;
+                            if (!lines.Contains(index))
                             {
-                                if (_places[currentIndex.x, v].Current)
+                                lines.Add(index);
+                            }
+                        }
+
+                        foreach (var verticalLine in lines)
+                        {
+                            bool allLineFilled = true;
+                            for(int horizontal = 0; horizontal < _size.x; horizontal++)
+                            {
+                                Place place = _places[horizontal, verticalLine];
+
+                                if (place.Occupied || place.TargetColorType.Equals(Game.Place.PlaceColorType.GREEN))
                                 {
-                                    break;
+                                    continue;
                                 }
-                                
-                                currentShift++;
+                                allLineFilled = false;
+                                break;
                             }
 
-                            currentShift--;
-                            minShift = Mathf.Min(minShift, currentShift);
-                        }
 
-                        if (minShift > 0)
-                        {
-                            for (int i = 0; i < projectedPlaces.Count; i++)
+                            if (!allLineFilled)
                             {
-                                Vector2Int shiftedIndex = projectedPlaces[i].Item1.Index - new Vector2Int(0, minShift);
-                                Game.Place.PlaceColorType type = _places[shiftedIndex.x, shiftedIndex.y].TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)
-                                        ? Game.Place.PlaceColorType.GREEN
-                                        : _places[shiftedIndex.x, shiftedIndex.y].RayDarkLight;
-                                _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(type);
+                                continue;
+                            }
+                            
+                            for(int horizontal = 0; horizontal < _size.x; horizontal++)
+                            {
+                                Place place = _places[horizontal, verticalLine];
+
+                                place.SetTargetColorType(Game.Place.PlaceColorType.RAY_LIGHT);
                             }
                         }
                     }
+
+                    // if (canProjectFuture)
+                    // {
+                    //     canProjectFuture = canPlaceAll;
+                    // }
+
+                    // canProjectFuture = false;
+
+                    // if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
+                    // {
+                    //     int minShift = _size.y;
+                    //     
+                    //     for (int i = 0; i < projectedPlaces.Count; i++)
+                    //     {
+                    //         Vector2Int currentIndex = projectedPlaces[i].Item1.Index;
+                    //         int currentShift = 0;
+                    //         for (int v = currentIndex.y; v >= 0; v--)
+                    //         {
+                    //             if (_places[currentIndex.x, v].Current)
+                    //             {
+                    //                 break;
+                    //             }
+                    //             
+                    //             currentShift++;
+                    //         }
+                    //
+                    //         currentShift--;
+                    //         minShift = Mathf.Min(minShift, currentShift);
+                    //     }
+                    //
+                    //     if (minShift > 0)
+                    //     {
+                    //         for (int i = 0; i < projectedPlaces.Count; i++)
+                    //         {
+                    //             Vector2Int shiftedIndex = projectedPlaces[i].Item1.Index - new Vector2Int(0, minShift);
+                    //             Game.Place.PlaceColorType type = _places[shiftedIndex.x, shiftedIndex.y].TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)
+                    //                     ? Game.Place.PlaceColorType.GREEN
+                    //                     : _places[shiftedIndex.x, shiftedIndex.y].RayDarkLight;
+                    //             _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(type);
+                    //         }
+                    //     }
+                    // }
                 }
                 
                 foreach (var place in _places)
@@ -332,6 +375,7 @@ namespace Game
                     place.FinalizeState();
                 }
             }
+            
             
             public GhostPawn AddGhostPawn(Vector3 position)
             {
@@ -473,7 +517,7 @@ namespace Game
             if (allPlaces.Count > 0)
             {
                 List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(5.0f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(10.0f, () =>
                 {
                     Highlight(randomPlaces, Const.THIS.suggestionColor);
                     _delayedHighlightTween?.Kill();
@@ -1142,7 +1186,8 @@ namespace Game
                 Pawn currentPawn = pawn;
                 Place place = GetPlace(currentPawn);
                 
-                currentPawn.Mover = currentPawn.VData.moverOnPlacement;
+                // currentPawn.Mover = currentPawn.VData.moverOnPlacement;
+                currentPawn.Mover = false;
                 currentPawn.Busy = true;
                 currentPawn.Tick = _tick;
                 

@@ -86,8 +86,8 @@ public class Const : SSingleton<Const>
     public Color ghostNormal;
     public Color ghostFade;
     public Color[] placeColorsDouble;
-    public Vector3[] placePosDouble;
-    public bool[] ghostPawnStateDouble;
+    // public Vector3[] placePosDouble;
+    // public bool[] ghostPawnStateDouble;
     public Gradient powerEffectGradient;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;

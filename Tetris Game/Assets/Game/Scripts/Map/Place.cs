@@ -7,7 +7,7 @@ namespace Game
     {
         [SerializeField] private Renderer gridTile;
         [SerializeField] private Transform segmentParent;
-        [SerializeField] public Transform tileTransform;
+        // [SerializeField] public Transform tileTransform;
         
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private PlaceColorType _colorType = PlaceColorType.GREEN;
@@ -22,9 +22,9 @@ namespace Game
         public Vector3 Position => _thisTransform.position;
         
         public PlaceColorType NormalDarkLight => Even ? PlaceColorType.NORMAL_DARK : PlaceColorType.NORMAL_LIGHT;
-        public PlaceColorType LimitDarkLightUp => Even ? PlaceColorType.LIMIT_DARK_UP : PlaceColorType.LIMIT_LIGHT_UP;
+        // public PlaceColorType LimitDarkLightUp => Even ? PlaceColorType.LIMIT_DARK_UP : PlaceColorType.LIMIT_LIGHT_UP;
         public PlaceColorType LimitDarkLightDown => Even ? PlaceColorType.LIMIT_DARK_DOWN : PlaceColorType.LIMIT_LIGHT_DOWN;
-        public PlaceColorType RayDarkLight => Even ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
+        // public PlaceColorType RayDarkLight => Even ? PlaceColorType.RAY_DARK : PlaceColorType.RAY_LIGHT;
         
         public bool Occupied => Current;
         public bool Fast => _colorType.Equals(PlaceColorType.RED) || _colorType.Equals(PlaceColorType.GREEN);
@@ -119,14 +119,14 @@ namespace Game
             
             int enumIndex = (int)_colorType;
 
-            bool targetState = Const.THIS.ghostPawnStateDouble[enumIndex];
-            DoGhostPawn(targetState);
+            // bool targetState = Const.THIS.ghostPawnStateDouble[enumIndex];
+            // DoGhostPawn(targetState);
             
             Color targetColor = Const.THIS.placeColorsDouble[enumIndex];
             DoColor(targetColor);
                 
-            Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
-            tileTransform.localPosition = targetPos;
+            // Vector3 targetPos = Const.THIS.placePosDouble[enumIndex];
+            // tileTransform.localPosition = targetPos;
         }
         public void FinalizeImmediate()
         {
@@ -138,8 +138,8 @@ namespace Game
             Color targetColor = Const.THIS.placeColorsDouble[(int)_colorType];
             gridTile.material.SetColor(GameManager.BaseColor, targetColor);
             
-            Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
-            tileTransform.localPosition = targetPos;
+            // Vector3 targetPos = Const.THIS.placePosDouble[(int)_colorType];
+            // tileTransform.localPosition = targetPos;
         }
 
         private void DoColor(Color color)
@@ -148,26 +148,26 @@ namespace Game
             _colorTween = gridTile.material.DOColor(color, Fast ? 0.1f : 0.2f).SetUpdate(true).SetEase(Ease.OutQuad);
         }
 
-        private void DoGhostPawn(bool add)
-        {
-            if (add)
-            {
-                if (_ghostPawn)
-                {
-                    return;
-                }
-                _ghostPawn = Board.THIS.AddGhostPawn(PawnTargetPosition);
-            }
-            else
-            {
-                if (!_ghostPawn)
-                {
-                    return;
-                }
-                Board.THIS.RemoveGhostPawn(this._ghostPawn);
-                _ghostPawn = null;
-            }
-        }
+        // private void DoGhostPawn(bool add)
+        // {
+        //     if (add)
+        //     {
+        //         if (_ghostPawn)
+        //         {
+        //             return;
+        //         }
+        //         _ghostPawn = Board.THIS.AddGhostPawn(PawnTargetPosition);
+        //     }
+        //     else
+        //     {
+        //         if (!_ghostPawn)
+        //         {
+        //             return;
+        //         }
+        //         Board.THIS.RemoveGhostPawn(this._ghostPawn);
+        //         _ghostPawn = null;
+        //     }
+        // }
 
         public void Accept(Pawn pawn, float? duration = null, System.Action onComplete = null)
         {
