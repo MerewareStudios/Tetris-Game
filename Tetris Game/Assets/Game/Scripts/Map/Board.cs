@@ -61,6 +61,11 @@ namespace Game
             
         }
 
+        public Vector3 Index2Position(Vector2Int index)
+        {
+            return _thisPosition + new Vector3(1.0f + index.x, 0.0f, 0.5f + index.y);
+        }
+
         public void RemoveMergeOnboardingCallback()
         {
             Board.THIS.OnMerge -= GameManager.THIS.CheckMergeOnboarding;

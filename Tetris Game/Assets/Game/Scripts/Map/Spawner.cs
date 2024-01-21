@@ -74,19 +74,24 @@ public class Spawner : Singleton<Spawner>
 #endif
     }
 
-    public void Shake()
+    // public void Shake()
+    // {
+    //     if (CurrentBlock)
+    //     {
+    //         CurrentBlock.ShakeRotation();
+    //     }
+    // }
+    public void RotateSelf()
     {
-        if (CurrentBlock)
+        if (!CurrentBlock)
         {
-            CurrentBlock.ShakeRotation();
+            return;
         }
-    }
-    public void Lift()
-    {
-        if (CurrentBlock)
+        if (CurrentBlock.Busy)
         {
-            CurrentBlock.Lift(tutorialLift);
+            return;
         }
+        CurrentBlock.PunchRotate();
     }
 
     public void Spawn()
@@ -184,22 +189,28 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDown()
     {
+        Debug.LogWarning("Input Down");
+
         if (!GameManager.PLAYING)
         {
+            Debug.LogError("pass 1");
             return;
         }
         if (Input.touchCount > 1)
         {
+            Debug.LogError("pass 2");
             return;
         }
         if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock)
         {
+            Debug.LogError("pass 3");
             return;
         }
 
-        _assertionTween = DOVirtual.DelayedCall(0.2f, null, true);
+        _assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
         _assertionTween.onComplete = () =>
         {
+            Debug.LogError("grabbed");
             GrabbedBlock = true;
 
 
@@ -215,12 +226,11 @@ public class Spawner : Singleton<Spawner>
                     CurrentBlock.CancelLift();
                     
                     // CurrentBlock.transform.position = MountPosition;
-            
-                    if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+                    if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
                     {
                         Onboarding.HideFinger();
                     }
-                    else if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+                    else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
                     {
                         Onboarding.HideFinger();
                     }
@@ -242,21 +252,28 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnClick()
     {
+        Debug.LogWarning("Input OnClick");
+
         if (!GameManager.PLAYING)
         {
+            Debug.LogError("0");
             return;
         }
         if (Input.touchCount > 1)
         {
+            Debug.LogError("1");
             return;
         }
         if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock || GrabbedBlock)
         {
+            Debug.LogError("2");
+
             return;
         }
 
         if (CurrentBlock.Busy)
         {
+            Debug.LogError("3");
             return;
         }
         
@@ -267,18 +284,29 @@ public class Spawner : Singleton<Spawner>
         if (CurrentBlock.CanRotate)
         {
             Audio.Rotate_Click.PlayOneShot();
+            Debug.LogError("click");
+
             CurrentBlock.Rotate();
         }
         
             
-        if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+        // if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+        if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
-            ONBOARDING.BLOCK_ROTATION.SetComplete();
-            Onboarding.HideFinger();
+            if (CurrentBlock.Rotation.Equals(Board.BlockRot.UP))
+            {
+                ONBOARDING.BLOCK_ROTATION.SetComplete();
+                Onboarding.HideFinger();
+
+                CurrentBlock.CanRotate = false;
+                Onboarding.SpawnBlockAndTeachPlacement();
+            }
         }
     }
     public void Input_OnDrag()
     {
+        Debug.LogWarning("Input Dragged");
+
         if (Input.touchCount > 1)
         {
             return;
@@ -330,6 +358,7 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnUp()
     {
+        Debug.LogWarning("Input Up");
         InputUpWrap();
         Board.THIS.HighlightPlaces();
     }
@@ -346,6 +375,7 @@ public class Spawner : Singleton<Spawner>
         }
         _assertionTween?.Kill();
         StopMovement();
+        Debug.LogError("Grabbed " + GrabbedBlock);
         if (!GrabbedBlock || CurrentBlock == null)
         {
             return;
@@ -371,14 +401,14 @@ public class Spawner : Singleton<Spawner>
                 return;
             }
             
-            if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
-            {
-                ONBOARDING.DRAG_AND_DROP.SetComplete();
-                Onboarding.SpawnSecondBlockAndTeachRotation();
-                Audio.Hint_2.Play();
-
-                return;
-            }
+            // if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+            // {
+            //     ONBOARDING.DRAG_AND_DROP.SetComplete();
+            //     Onboarding.SpawnSecondBlockAndTeachRotation();
+            //     Audio.Hint_2.Play();
+            //
+            //     return;
+            // }
             
             if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
             {
@@ -391,13 +421,14 @@ public class Spawner : Singleton<Spawner>
             return;
         }
         
-        if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+        // if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+        // {
+        //     Onboarding.DragOn(transform.position, Finger.Cam.Game, RotateSelf, timeIndependent:false);
+        // }
+        // else
+        if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
-            Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift, timeIndependent:false);
-        }
-        else if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
-        {
-            Onboarding.ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Shake, infoEnabled:true, timeIndependent:false);
+            Onboarding.ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, RotateSelf, infoEnabled:true, timeIndependent:false);
         }
 
         Mount();
@@ -431,6 +462,13 @@ public class Spawner : Singleton<Spawner>
 
     #region Spawn
 
+    public void PlaceBlock(Pool blockType, Vector2Int index)
+    {
+        Block block = SpawnBlock(blockType, Pawn.Usage.UnpackedAmmo, null);
+        block.transform.position = Board.THIS.Index2Position(index);
+        Board.THIS.Place(block);
+    }
+
     private Block SpawnSuggestedBlock()
     {
         bool learnedRotation = ONBOARDING.BLOCK_ROTATION.IsComplete();
@@ -457,6 +495,8 @@ public class Spawner : Singleton<Spawner>
 
             nextBlockDisplay.Display(_nextBlock);
         }
+        
+        _spawnIndex++;
         return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)
@@ -470,8 +510,6 @@ public class Spawner : Singleton<Spawner>
         block.Rotation = suggestedBlockData?.blockRot ?? Board.BlockRot.UP;
         _spawnedBlocks.Add(block);
         
-        
-        _spawnIndex++;
         return block;
     }
 

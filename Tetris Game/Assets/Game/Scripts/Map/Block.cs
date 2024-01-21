@@ -20,7 +20,7 @@ namespace Game
         [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         
-        [System.NonSerialized] public bool Busy = false;
+        [System.NonSerialized] private bool _busy = false;
         [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public bool CanRotate;
         
@@ -47,6 +47,18 @@ namespace Game
                 rotatePivot.localRotation = Quaternion.Euler(0.0f, 90.0f * _currentRotation, 0.0f);
                 ResetSegmentRotations();
             }
+            get => (Board.BlockRot)(_currentRotation % 4);
+        }
+        
+        
+        public bool Busy
+        {
+            set
+            {
+                _busy = value;
+                Debug.LogError("busy set " + value);
+            }
+            get => _busy;
         }
 
         public void Construct(Pool pool, Pawn.Usage usage)
@@ -122,19 +134,19 @@ namespace Game
             }
         }
 
-        public void ShakeRotation()
-        {
-            shakePivot.DOKill();
-            shakePivot.localPosition = Vector3.zero;
-            shakePivot.localEulerAngles = Vector3.zero;
-            shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
-        }
+        // public void ShakeRotation()
+        // {
+        //     shakePivot.DOKill();
+        //     shakePivot.localPosition = Vector3.zero;
+        //     shakePivot.localEulerAngles = Vector3.zero;
+        //     shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
+        // }
         
-        public void Lift(Vector3 tutorialLift)
-        {
-            _motionTween?.Kill();
-            _motionTween = transform.DOPunchPosition(tutorialLift, 1.75f, 1);
-        }
+        // public void Lift(Vector3 tutorialLift)
+        // {
+        //     _motionTween?.Kill();
+        //     _motionTween = transform.DOPunchPosition(tutorialLift, 1.75f, 1);
+        // }
 
         public void CancelLift()
         {
@@ -150,13 +162,34 @@ namespace Game
             rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
             _currentRotation++;
 
+            rotatePivot.DOKill();
             _motionTween?.Kill();
+            
             _motionTween = rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
             _motionTween.onUpdate = ResetSegmentRotations;
+            
             _motionTween.onComplete += () =>
             {
                 Busy = false;
             };
+        }
+        
+        public void PunchRotate()
+        {
+            if (Busy)
+            {
+                return;
+            }
+            shakePivot.DOKill();
+            shakePivot.localEulerAngles = Vector3.zero;
+
+            rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
+
+            rotatePivot.DOKill();
+            _motionTween?.Kill();
+
+            _motionTween = rotatePivot.DOPunchRotation(new Vector3(0.0f, 30.0f, 0.0f), 0.25f, 1);
+            _motionTween.onUpdate = ResetSegmentRotations;
         }
 
         public void ResetSegmentRotations()

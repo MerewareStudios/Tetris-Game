@@ -232,8 +232,8 @@ namespace User
 
 public enum ONBOARDING
 {
-    DRAG_AND_DROP,
     BLOCK_ROTATION,
+    DRAG_AND_DROP,
     SPEECH_MERGE,
     SPEECH_CHEER,
     PASSIVE_META,

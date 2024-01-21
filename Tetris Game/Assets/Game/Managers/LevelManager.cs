@@ -90,9 +90,9 @@ public class LevelManager : Singleton<LevelManager>
             Warzone.THIS.Begin();
             Spawner.THIS.DelayedSpawn(0.45f);
         }
-        else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+        else if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
-            Onboarding.SpawnFirstBlockAndTeachPlacement();
+            Onboarding.SpawnBlockAndTeachRotation();
         }
     }
 

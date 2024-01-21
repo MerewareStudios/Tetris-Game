@@ -69,7 +69,41 @@ public class Onboarding : SSingleton<Onboarding>
         }
     }
     
-    public static void SpawnFirstBlockAndTeachPlacement()
+    public static void SpawnBlockAndTeachPlacement()
+    {
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.greatCheerText, 0.15f);
+            Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
+            
+            yield return new WaitForSeconds(1.15f);
+            
+            UIManager.THIS.speechBubble.Hide();
+            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, null, timeIndependent:false);
+
+            
+            yield return new WaitForSeconds(0.55f);
+            
+            Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
+            
+            
+            // Spawner.THIS.Spawn();
+            // Audio.Hint_1.Play();
+            
+
+            
+
+
+            
+
+        }
+    }
+    public static void SpawnBlockAndTeachRotation()
     {
         Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
 
@@ -81,41 +115,24 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.needAmmoText, 0.35f);
             Warzone.THIS.Player.animator.SetTrigger(Player.WAVE_HASH);
             
+            Spawner.THIS.PlaceBlock(Pool.S_Block, new Vector2Int(0, 0));
+            Spawner.THIS.PlaceBlock(Pool.Z_Block, new Vector2Int(4, 0));
             yield return new WaitForSeconds(1.5f);
             
             UIManager.THIS.speechBubble.Hide();
+            
+            yield return new WaitForSeconds(0.1f);
 
             Spawner.THIS.Spawn();
             Audio.Hint_1.Play();
 
             yield return new WaitForSeconds(0.1f);
-
-            Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
-
-            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift, timeIndependent:false);
-        }
-    }
-    public static void SpawnSecondBlockAndTeachRotation()
-    {
-        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
-
-        IEnumerator Routine()
-        {
-            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.greatCheerText, 0.15f);
-            Warzone.THIS.Player.animator.SetTrigger(Player.VICTORY_INF_HASH);
-
-            yield return new WaitForSeconds(1.15f);
-            
-            UIManager.THIS.speechBubble.Hide();
-
-            yield return new WaitForSeconds(0.55f);
             
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
-
-            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Shake, infoEnabled:true, timeIndependent:false);
-
-            Spawner.THIS.Spawn();
-            Audio.Hint_1.Play();
+            
+            ClickOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.RotateSelf, infoEnabled:true, timeIndependent:false);
+            
+            
         }
     }
 

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d99e4016d76fe4692c3a2308544fb7, type: 3}
   m_Name: Onboarding
   m_EditorClassIdentifier: 
-  needAmmoText: <size=125%>Hey! I need <size=120%><bounce a=1 f=2 w=0.5><color=#6DDFFF>ammo</color>
-    </bounce></size>!
+  needAmmoText: <size=125%><bounce a=1 f=2 w=0.5>Welcome!</bounce></size>
   stackText: <size=125%>Wait for <color=#FFD919><bounce a=1 f=2 w=0.5>MERGE</bounce></color>
     !
   greatCheerText: <wiggle a=0.8 f=3><size=120%>Good job!</size>

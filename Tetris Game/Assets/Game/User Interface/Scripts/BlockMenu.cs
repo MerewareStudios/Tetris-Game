@@ -4,7 +4,6 @@ using DG.Tweening;
 using Internal.Core;
 using IWI;
 using IWI.Tutorial;
-using Lofelt.NiceVibrations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

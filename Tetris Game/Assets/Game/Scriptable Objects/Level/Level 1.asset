@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortInterval: 6
   deltaMult: 1
-  boardSize: {x: 6, y: 6}
+  boardSize: {x: 7, y: 4}
   countdown: 0
   totalCoin: 15
   enemySpawnData:
@@ -35,10 +35,10 @@ MonoBehaviour:
     type: 0
     amount: 5
   suggestedBlocks:
-  - type: 3
-    requiredPlaces: 160000001c0000002200000023000000
-    blockRot: 3
-    canRotate: 0
+  - type: 10
+    requiredPlaces: 0b0000000e0000000f00000013000000
+    blockRot: 1
+    canRotate: 1
   - type: 4
     requiredPlaces: 040000000a0000001000000005000000
     blockRot: 0
