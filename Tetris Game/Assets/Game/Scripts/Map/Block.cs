@@ -148,10 +148,19 @@ namespace Game
         //     _motionTween = transform.DOPunchPosition(tutorialLift, 1.75f, 1);
         // }
 
-        public void CancelLift()
+        private void ResetSelf()
         {
             _motionTween?.Kill();
+            rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
+            ResetSegmentRotations();
         }
+        
+        public void ResetRotations()
+        {
+            ResetSelf();
+            ResetSegmentRotations();
+        } 
+
         public void Rotate()
         {
             Busy = true;
@@ -159,11 +168,11 @@ namespace Game
             shakePivot.DOKill();
             shakePivot.localEulerAngles = Vector3.zero;
 
-            rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
+            ResetSelf();
+            
+            
             _currentRotation++;
 
-            rotatePivot.DOKill();
-            _motionTween?.Kill();
             
             _motionTween = rotatePivot.DORotate(new Vector3(0.0f, 90.0f, 0.0f), 0.125f, RotateMode.FastBeyond360).SetRelative(true).SetEase(Const.THIS.rotationEase);
             _motionTween.onUpdate = ResetSegmentRotations;
@@ -183,10 +192,7 @@ namespace Game
             shakePivot.DOKill();
             shakePivot.localEulerAngles = Vector3.zero;
 
-            rotatePivot.localEulerAngles = new Vector3(0.0f, _currentRotation * 90.0f, 0.0f);
-
-            rotatePivot.DOKill();
-            _motionTween?.Kill();
+            ResetSelf();
 
             _motionTween = rotatePivot.DOPunchRotation(new Vector3(0.0f, 30.0f, 0.0f), 0.25f, 1);
             _motionTween.onUpdate = ResetSegmentRotations;

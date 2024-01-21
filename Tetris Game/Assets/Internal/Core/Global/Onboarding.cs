@@ -89,7 +89,7 @@ public class Onboarding : SSingleton<Onboarding>
             Warzone.THIS.Player.animator.SetTrigger(Player.POINT_HASH);
             
             Spawner.THIS.Enabled(true);
-            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, null, timeIndependent:false);
+            DragOn(Spawner.THIS.transform.position, Finger.Cam.Game, Spawner.THIS.Lift, timeIndependent:false);
 
             
             // yield return new WaitForSeconds(0.55f);

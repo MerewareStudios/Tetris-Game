@@ -93,7 +93,13 @@ public class Spawner : Singleton<Spawner>
         {
             return;
         }
+        Audio.Spawner_User_Interaction.PlayOneShotPitch(0.5f, 1.0f);
         CurrentBlock.PunchRotate();
+    }
+
+    public void Lift()
+    {
+        Audio.Spawner_User_Interaction.PlayOneShotPitch(0.5f, 1.0f);
     }
 
     public void Spawn()
@@ -208,6 +214,15 @@ public class Spawner : Singleton<Spawner>
             // Debug.LogError("pass 3");
             return;
         }
+        if (GrabbedBlock)
+        {
+            // Debug.LogError("pass 4");
+            return;
+        }
+        if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
+        {
+            return;
+        }
 
         _assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
         _assertionTween.onComplete = () =>
@@ -225,7 +240,7 @@ public class Spawner : Singleton<Spawner>
             {
                 if (CurrentBlock)
                 {
-                    CurrentBlock.CancelLift();
+                    CurrentBlock.ResetRotations();
                     
                     // CurrentBlock.transform.position = MountPosition;
                     if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
@@ -403,14 +418,14 @@ public class Spawner : Singleton<Spawner>
                 return;
             }
             
-            // if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
-            // {
-            //     ONBOARDING.DRAG_AND_DROP.SetComplete();
-            //     Onboarding.SpawnSecondBlockAndTeachRotation();
-            //     Audio.Hint_2.Play();
-            //
-            //     return;
-            // }
+            if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
+            {
+                ONBOARDING.DRAG_AND_DROP.SetComplete();
+                // Onboarding.SpawnSecondBlockAndTeachRotation();
+                // Audio.Hint_2.Play();
+            
+                return;
+            }
             
             // if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
             // {
@@ -430,7 +445,7 @@ public class Spawner : Singleton<Spawner>
         }
         else if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
         {
-            Onboarding.DragOn(transform.position, Finger.Cam.Game, null, timeIndependent:false);
+            Onboarding.DragOn(transform.position, Finger.Cam.Game, Lift, timeIndependent:false);
         }
         
         Mount();
