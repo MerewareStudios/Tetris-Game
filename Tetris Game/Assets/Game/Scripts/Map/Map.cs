@@ -12,6 +12,7 @@ namespace Game
         [System.NonSerialized] private Coroutine _mainRoutine = null;
         [System.NonSerialized] public bool MapWaitForCycle = false;
         [System.NonSerialized] public static int MergeAudioIndex = 0;
+        [System.NonSerialized] public static float TimeScale = 1.0f;
         
         public void StartMainLoop()
         {
@@ -58,13 +59,15 @@ namespace Game
         {
             if (tetrisCount > 1)
             {
-                Time.timeScale = 0.0f;
+                TimeScale = 0.0f;
+                GameManager.UpdateTimeScale();
                 Audio.Board_Merge_Riff.PlayOneShotPitch(1.0f, 0.95f + MergeAudioIndex * 0.05f);
                 float duration = UIManager.THIS.comboText.Show(tetrisCount);
 
 
-                yield return new WaitForSecondsRealtime(duration);
-                Time.timeScale = 1.0f;
+                yield return new WaitForSecondsRealtime(duration * 0.64f);
+                TimeScale = 1.0f;
+                GameManager.UpdateTimeScale();
             }
                         
             MergeAudioIndex += tetrisCount;

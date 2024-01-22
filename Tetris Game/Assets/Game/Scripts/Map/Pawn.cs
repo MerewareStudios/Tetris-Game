@@ -103,7 +103,7 @@ namespace Game
 
             this.UsageType = value;
             
-            // SubModel.BaseColor = VData.startColor;
+            SubModel.ResetEmission();
 
             // SubModel.BaseColor = (VData.useParentColor && !ParentBlock) ? ParentBlock.blockData.Color : VData.startColor;
             SubModel.OnConstruct(VData.model, modelPivot, extra);

@@ -29,9 +29,17 @@ public class SubModel : MonoBehaviour
             {
                 _color = value;
                 meshRenderer.material.SetColor(GameManager.BaseColor, value);
-                meshRenderer.material.SetColor(GameManager.EmissionKey, Color.black);
             }
         }
+    }
+
+    public void ResetEmission()
+    {
+        meshRenderer.material.SetColor(GameManager.EmissionKey, Color.black);
+    }
+    public void OnMerge()
+    {
+        meshRenderer.material.DOGradientColor(Const.THIS.mergeGradient, "_EmissionColor", 0.25f).SetEase(Ease.Linear);
     }
     public virtual void EmitExplodeEffect()
     {
@@ -152,10 +160,6 @@ public class SubModel : MonoBehaviour
         
     }
     public virtual void OnUse()
-    {
-        
-    }
-    public virtual void OnMerge()
     {
         
     }

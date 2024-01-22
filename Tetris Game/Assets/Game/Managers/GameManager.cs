@@ -39,7 +39,8 @@ public class GameManager : Singleton<GameManager>
                          MenuNavigator.THIS.TimeScale *
                          PiggyMenu.THIS.TimeScale *
                          SettingsManager.THIS.TimeScale *
-                         OfferScreen.THIS.TimeScale;
+                         OfferScreen.THIS.TimeScale *
+                         Map.TimeScale;
     }
     
     public static void GameTimeScale(int value)

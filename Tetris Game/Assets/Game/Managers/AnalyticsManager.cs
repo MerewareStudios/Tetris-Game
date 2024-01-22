@@ -20,7 +20,7 @@ public static class AnalyticsManager
     private static int _currentTrackedLevel;
     private static int _currentTrackedStartTime;
     
-    private static int _shopOpenedCount = 0;
+    // private static int _shopOpenedCount = 0;
 
 #if FACEBOOK
     public static void FacebookInit()
@@ -50,7 +50,7 @@ public static class AnalyticsManager
 
     public static void GAInit()
     {
-        _shopOpenedCount = 0;
+        // _shopOpenedCount = 0;
         GameAnalytics.SetCustomId(Account.Current.guid);
         GameAnalytics.Initialize();
     }

@@ -1,7 +1,5 @@
-using System;
 using Internal.Core;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 using Lofelt.NiceVibrations;
@@ -38,7 +36,6 @@ namespace Game
         [System.NonSerialized] private Vector2Int _size;
         [System.NonSerialized] private Vector3 _thisPosition;
         [System.NonSerialized] private Place[,] _places;
-        // [System.NonSerialized] private int _tick = 0;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
         [SerializeField] public int[] DropPositions;
@@ -243,7 +240,6 @@ namespace Game
                 {
                     if (block && grabbed && !block.Free2Place)
                     {
-                        // place.SetTargetColorType((place.Index.y >= _size.y - _size.y) ? place.LimitDarkLightDown : place.LimitDarkLightUp);
                         place.SetTargetColorType(place.LimitDarkLightDown);
                     }
                     else
@@ -255,119 +251,67 @@ namespace Game
                 
                 if (block && grabbed)
                 {
-                    List<(Place, bool)> projectedPlaces = new();
-                    // bool canProjectFuture = !block.Free2Place;
+                    List<(Place, bool)> resultPairs = new();
 
-                    bool canPlaceAll = false;
-                    
+                    bool canPlaceAll = true;
                     foreach (var pawn in block.Pawns)
                     {
-                        (Place place, bool canPlace) = Project(pawn, block.RequiredPlaces);
-                        if (!place)
+                        (Place, bool) result = Project(pawn, block.RequiredPlaces);
+                        if (!result.Item1)
                         {
-                            projectedPlaces.Clear();
+                            canPlaceAll = false;
                             break;
                         }
-                        projectedPlaces.Add((place, canPlace));
+                        if (canPlaceAll)
+                        {
+                            canPlaceAll = result.Item2;
+                        }
+                        resultPairs.Add(result);
                     }
+
+                    if (resultPairs.Count == block.Pawns.Count)
+                    {
+                        List<Place> projectedPlaces = new();
+                        
+                        foreach (var projectedPlaceUnsafe in resultPairs)
+                        {
+                            Place place = projectedPlaceUnsafe.Item1;
+                            place.SetTargetColorType(projectedPlaceUnsafe.Item2 ? (canPlaceAll ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RAY_LIGHT) : Game.Place.PlaceColorType.RED);
+
+                            projectedPlaces.Add(place);
+                        }
                     
-                    if (projectedPlaces.Count == block.Pawns.Count)
-                    {
-                        canPlaceAll = true;
-                        foreach (var projectedPlace in projectedPlaces)
+                        if (canPlaceAll)
                         {
-                            projectedPlace.Item1.SetTargetColorType(projectedPlace.Item2 ? Game.Place.PlaceColorType.GREEN : Game.Place.PlaceColorType.RED);
+                            List<int> mergeableRows = GetMergeableRows(ExtractUniqueRows(projectedPlaces));
+                            List<int> mergeableColumns = GetMergeableColumns(ExtractUniqueColumns(projectedPlaces));
 
-                            if (canPlaceAll)
+                            if (mergeableRows.Count > 0 || mergeableColumns.Count > 0)
                             {
-                                canPlaceAll = projectedPlace.Item2;
-                            }
-                        }
-                    }
-
-                    if (canPlaceAll)
-                    {
-                        List<int> lines = new();
-                        foreach (var place in projectedPlaces)
-                        {
-                            int index = place.Item1.Index.y;
-                            if (!lines.Contains(index))
-                            {
-                                lines.Add(index);
-                            }
-                        }
-
-                        foreach (var verticalLine in lines)
-                        {
-                            bool allLineFilled = true;
-                            for(int horizontal = 0; horizontal < _size.x; horizontal++)
-                            {
-                                Place place = _places[horizontal, verticalLine];
-
-                                if (place.Occupied || place.TargetColorType.Equals(Game.Place.PlaceColorType.GREEN))
+                                foreach (var place in projectedPlaces)
                                 {
-                                    continue;
+                                    place.SetTargetColorType(Game.Place.PlaceColorType.RAY_LIGHT);
                                 }
-                                allLineFilled = false;
-                                break;
                             }
 
-
-                            if (!allLineFilled)
+                            foreach (var mergeableRow in mergeableRows)
                             {
-                                continue;
+                                for(int x = 0; x < _size.x; x++)
+                                {
+                                    Place place = _places[x, mergeableRow];
+                                    place.SetTargetColorType(Game.Place.PlaceColorType.GREEN);
+                                }
                             }
-                            
-                            for(int horizontal = 0; horizontal < _size.x; horizontal++)
+                            foreach (var mergeableColumn in mergeableColumns)
                             {
-                                Place place = _places[horizontal, verticalLine];
-
-                                place.SetTargetColorType(Game.Place.PlaceColorType.RAY_LIGHT);
+                                for(int y = 0; y < _size.x; y++)
+                                {
+                                    Place place = _places[mergeableColumn, y];
+                                    place.SetTargetColorType(Game.Place.PlaceColorType.GREEN);
+                                }
                             }
                         }
                     }
-
-                    // if (canProjectFuture)
-                    // {
-                    //     canProjectFuture = canPlaceAll;
-                    // }
-
-                    // canProjectFuture = false;
-
-                    // if (canProjectFuture && projectedPlaces.Count == block.Pawns.Count)
-                    // {
-                    //     int minShift = _size.y;
-                    //     
-                    //     for (int i = 0; i < projectedPlaces.Count; i++)
-                    //     {
-                    //         Vector2Int currentIndex = projectedPlaces[i].Item1.Index;
-                    //         int currentShift = 0;
-                    //         for (int v = currentIndex.y; v >= 0; v--)
-                    //         {
-                    //             if (_places[currentIndex.x, v].Current)
-                    //             {
-                    //                 break;
-                    //             }
-                    //             
-                    //             currentShift++;
-                    //         }
-                    //
-                    //         currentShift--;
-                    //         minShift = Mathf.Min(minShift, currentShift);
-                    //     }
-                    //
-                    //     if (minShift > 0)
-                    //     {
-                    //         for (int i = 0; i < projectedPlaces.Count; i++)
-                    //         {
-                    //             Vector2Int shiftedIndex = projectedPlaces[i].Item1.Index - new Vector2Int(0, minShift);
-                    //             Game.Place.PlaceColorType type = _places[shiftedIndex.x, shiftedIndex.y].TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)
-                    //                     ? Game.Place.PlaceColorType.GREEN
-                    //                     : _places[shiftedIndex.x, shiftedIndex.y].RayDarkLight;
-                    //             _places[shiftedIndex.x, shiftedIndex.y].SetTargetColorType(type);
-                    //         }
-                    //     }
-                    // }
                 }
                 
                 foreach (var place in _places)
@@ -375,28 +319,7 @@ namespace Game
                     place.FinalizeState();
                 }
             }
-
             
-            
-            // public GhostPawn AddGhostPawn(Vector3 position)
-            // {
-            //     GhostPawn ghostPawn = Pool.Ghost_Pawn.Spawn<GhostPawn>();
-            //     
-            //     ghostPawn.thisTransform.position = position;
-            //     
-            //     ghostPawn.meshRenderer.material.DOKill();
-            //     ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostNormal, 0.15f).SetUpdate(true);
-            //     
-            //     return ghostPawn;
-            // }
-            // public void RemoveGhostPawn(GhostPawn ghostPawn)
-            // {
-            //     ghostPawn.meshRenderer.material.DOKill();
-            //     ghostPawn.meshRenderer.material.DOColor(Const.THIS.ghostFade, 0.15f).SetUpdate(true).onComplete = () =>
-            //     {
-            //         ghostPawn.Despawn(Pool.Ghost_Pawn);
-            //     };
-            // }
         #endregion
         
         public void OnLevelEnd()
@@ -407,42 +330,6 @@ namespace Game
                 place.OnLevelEnd();
             }
         }
-        // public void MoveAll(float moveDuration)
-        // {
-        //     return;
-        //     _tick++;
-        //
-        //     bool moved = false;
-        //     foreach (var place in _places)
-        //     {
-        //         if (!place.Current)
-        //         {
-        //             continue;
-        //         }
-        //         // place.Current.MoveForward(place, _tick, moveDuration);
-        //         bool movedThis = place.Current.MoveForward(place, _tick, moveDuration);
-        //         if (!moved && movedThis)
-        //         {
-        //             moved = true;
-        //         }
-        //     }
-        //
-        //     if (!moved)
-        //     {
-        //         // Audio.Block_Drag.PlayOneShot();
-        //         Map.ResetMergeAudioIndex();
-        //     }
-        // }
-        // public void CheckAll()
-        // {
-        //     foreach (var place in _places)
-        //     {
-        //         if (place.Current)
-        //         {
-        //             place.Current.Check(place);
-        //         }
-        //     }
-        // }
 
         public List<Place> Index2Place(List<int> indexes)
         {
@@ -506,11 +393,6 @@ namespace Game
                     {
                         continue;
                     }
-                    // if (place.Current.Mover)
-                    // {
-                    //     // Pawns are still moving, skip
-                    //     return;
-                    // }
                 }
             }
 
@@ -540,7 +422,6 @@ namespace Game
             {
                 Powerup.THIS.PunchFrame(0.2f);
                 HapticManager.Vibrate(HapticPatterns.PresetType.Selection);
-                // Audio.No_Place.PlayOneShot();
             }
         }
 
@@ -630,29 +511,7 @@ namespace Game
 
                 return false;
             }
-            // public void MarkDropPointsMover()
-            // {
-            //     
-            //     for (int i = 0; i < DropPositions.Length; i++)
-            //     {
-            //         int y = DropPositions[i];
-            //         if (y >= _size.y)
-            //         {
-            //             continue;
-            //         }
-            //
-            //         for (int j = y + 1; j < _size.y; j++)
-            //         {
-            //             Place place = _places[i, j];
-            //             if (place.Current && !place.Current.Connected)
-            //             {
-            //                 place.Current.Mover = true;
-            //             }
-            //         }
-            //     }
-            //
-            //     ClearDropPositions();
-            // }
+            
         #endregion
         
         public int CheckTetris(List<Place> projectedPlaces)
@@ -932,32 +791,35 @@ namespace Game
         }
         
 
-        private bool CanMergeVerticallyAtColumn(int column)
-        {
-            for (int y = 0; y < _size.y; y++)
-            {
-                if (!_places[column, y].Occupied)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        
-        
-        private bool CanMergeHorizontallyAtRow(int row)
-        {
-            for (int x = 0; x < _size.x; x++)
-            {
-                if (!_places[x, row].Occupied)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        // private bool CanMergeVerticallyAtColumn(int column)
+        // {
+        //     for (int y = 0; y < _size.y; y++)
+        //     {
+        //         if (!_places[column, y].Occupied)
+        //         {
+        //             return false;
+        //         }
+        //     }
+        //
+        //     return true;
+        // }
+        //
+        //
+        //
+        //
+        //
+        // private bool CanMergeHorizontallyAtRow(int row)
+        // {
+        //     for (int x = 0; x < _size.x; x++)
+        //     {
+        //         if (!_places[x, row].Occupied)
+        //         {
+        //             return false;
+        //         }
+        //     }
+        //
+        //     return true;
+        // }
         
         
         private List<int> GetMergeableRows(List<int> rows)
@@ -990,6 +852,35 @@ namespace Game
             return indexes;
         }
         
+        
+        private bool CanMergeHorizontallyAtRow(int row)
+        {
+            for (int x = 0; x < _size.x; x++)
+            {
+                Place place = _places[x, row];
+                if (!(place.Occupied || place.TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
+        private bool CanMergeVerticallyAtColumn(int column)
+        {
+            for (int y = 0; y < _size.y; y++)
+            {
+                Place place = _places[column, y];
+                if (!(place.Occupied || place.TargetColorType.Equals(Game.Place.PlaceColorType.GREEN)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
 #endregion
         
 
@@ -997,13 +888,13 @@ namespace Game
         {
             Pawn pawn = fromPlace.Current;
             
+            pawn.OnMerge();
             if (!pawn.Unpack())
             {
                 return;
             }
             
             pawn.Available = false;
-            pawn.OnMerge();
 
             toPlace.Value += pawn.Amount;
             
@@ -1046,100 +937,6 @@ namespace Game
             }
         }
         
-        // private void CreatePawnAtHorizontal(int horizontal, int lineIndex, int multiplier, int mergeIndex)
-        // {
-            // Place spawnPlace = _places[horizontal, lineIndex];
-            // int totalAmmo = 0;
-            // Tween lastTween = null;
-            
-            // for (int i = 0; i < _size.x; i++)
-            // {
-                // Place place = _places[i, lineIndex];
-                // Pawn pawn = place.Current;
-                // if (!pawn)
-                // {
-                    // continue;
-                // }
-
-                
-                // bool canMerge = pawn.Unpack();
-
-                // if (!canMerge)
-                // {
-                    // continue;
-                // }
-                
-                // totalAmmo += pawn.Amount;
-
-                // pawn.Available = false;
-                // pawn.OnMerge();
-                
-                
-                // pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                // pawn.thisTransform.parent = null;
-                // pawn.thisTransform.DOKill();
-                
-                // Tween tween = pawn.thisTransform.DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur)
-                //     .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
-                //     .SetDelay(AnimConst.THIS.mergeTravelDelay);
-                
-                // tween.onComplete = () =>
-                // {
-                //     pawn.EmitExplodeEffect();
-                //     pawn.Deconstruct();
-                //
-                //     // if (pawn.RecentBlockData)
-                //     // {
-                //     //     Particle.Debris.Emit(5, spawnPlace.Position, pawn.RecentBlockData.Color);
-                //     // }
-                // };
-                
-                // lastTween = tween;
-                
-                // place.Current = null;
-            // }
-
-            // Audio spawnAudio = Audio.Board_Spawn_Ammo;
-            //
-            // if (lastTween != null)
-            // {
-            //     lastTween.onComplete += () =>
-            //     {
-            //         HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
-            //         CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f) + (0.2f * (multiplier - 1)), 0.5f);
-            //         spawnAudio.PlayOneShot();
-            //     };
-            // }
-
-            // totalAmmo = Mathf.Min(totalAmmo * multiplier,StackLimit);
-            // if (totalAmmo == 0)
-            // {
-            //     return;
-            // }
-
-            // Pawn.Usage type = Pawn.Usage.Ammo;
-            // int ammo = totalAmmo;
-
-            // switch (mergeIndex)
-            // {
-            //     case 0:
-            //         type = Pawn.Usage.Ammo;
-            //         ammo = totalAmmo;
-            //         spawnAudio = Audio.Board_Spawn_Ammo;
-            //         break;
-            //     case 1:
-            //         type = Pawn.Usage.Energy;
-            //         ammo = 0;
-            //         break;
-            //     default:
-            //         type = Pawn.Usage.Gift;
-            //         ammo = 0;
-            //         break;
-            // }
-            
-            // SpawnPawn(spawnPlace, type, ammo, true).MakeAvailable();
-        // }
-
         private void EmitCommonSpawnEffects(float multiplier)
         {
             HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
@@ -1147,60 +944,12 @@ namespace Game
             Audio.Board_Spawn_Ammo.PlayOneShot();
         }
 
-        // private void SpawnPawn(Place place, int totalAmmo, int multiplier)
-        // {
-        //     
-        // }
-        
-
         private Pawn SpawnPawn(Place place, Pawn.Usage usage, int amount)
         {
             Pawn pawn = Spawner.THIS.SpawnPawn(null, place.Position, amount, usage);
             place.Accept(pawn); // TODO
             return pawn;
         }
-
-        // public void MergeLines(List<int> lines)
-        // {
-        //     for (int i = 0; i < lines.Count; i++)
-        //     {
-        //         MergeLine(lines[i], i, lines.Count);
-        //     }
-        // }
-        
-        // private void MergeLine(int lineIndex, int mergeIndex, int mult)
-        // {
-        //     int highestTick = int.MinValue;
-        //     int horIndex = 0;
-        //
-        //     for (int i = 0; i < _size.x; i++)
-        //     {
-        //         int index = i;
-        //         Place place = _places[index, lineIndex];
-        //
-        //         if (!place.Current)
-        //         {
-        //             continue;
-        //         }
-        //         if (place.Current.SkipMerge)
-        //         {
-        //             continue;
-        //         }
-        //         if (place.Current.Tick > highestTick)
-        //         {
-        //             highestTick = place.Current.Tick;
-        //             horIndex = index;
-        //         }
-        //         else if(place.Current.Tick == highestTick)
-        //         {
-        //             if(Helper.IsPossible(0.5f))
-        //             {
-        //                 horIndex = index;
-        //             }
-        //         }
-        //     }
-        //     CreatePawnAtHorizontal(horIndex, lineIndex, mult, mergeIndex);
-        // }
 
         public void SpawnTrapBomb(int extra)
         {
@@ -1256,7 +1005,6 @@ namespace Game
                 Audio.Bomb_Explode.PlayOneShot();
 
                 ExplodePawnsCircular(pos, Board.BombRadius);
-                // MarkDropPointsMover();
                 CameraManager.THIS.Shake(Random.Range(0.4f, 0.45f), 0.5f);
             };
         }
@@ -1323,12 +1071,6 @@ namespace Game
                     {
                         pawn.EmitExplodeEffect();
                         pawn.Deconstruct();
-                        // if (pawn.RecentBlockData)
-                        // {
-                        //     Particle.Debris.Emit(5, spawnPlace.Position, pawn.RecentBlockData.Color);
-                        // }
-                        
-
                     };
 
                     lastTween = tween;
@@ -1362,11 +1104,7 @@ namespace Game
             {
                 return;
             }
-            // Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 1);
             Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f);
-
-            // Audio.Board_Merge_Cock.PlayOneShot();
-
             SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo).MakeAvailable();
         }
 
@@ -1417,16 +1155,9 @@ namespace Game
                         continue;
                     }
 
-                    // pawn.EmitExplodeEffect();
                     pawn.Explode(place.Index);
-                    
-                    // if (pawn.RecentBlockData)
-                    // {
-                    //     Particle.Debris.Emit(5, place.Position, pawn.RecentBlockData.Color);
-                    // }
 
                     RemovePawn(place);
-                    // Particle.Debris.Emit(30, place.Position);
                 }
             }
         }
@@ -1446,50 +1177,6 @@ namespace Game
             place.Current.Deconstruct();
             place.Current = null;
         }
-
-        
-        // public void MarkMoverByTetris(List<int> tetrisLines)
-        // {
-        //     // int min = tetrisLines.Min();
-        //     
-        //     // Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
-        //     // {
-        //     //     if (place.Current && !place.Current.Connected && verticalIndex > min)
-        //     //     {
-        //     //         place.Current.Mover = true;
-        //     //     }
-        //     // });
-        //     
-        //     for (int y = 0; y < tetrisLines.Count; y++)
-        //     {
-        //         int plusLineIndex = tetrisLines[y] + 1;
-        //         if (tetrisLines.Contains(plusLineIndex) || plusLineIndex >= _size.y)
-        //         {
-        //             continue;
-        //         }
-        //         
-        //         for (int x = 0; x < _size.x; x++)
-        //         {
-        //             Place place = _places[x, plusLineIndex];
-        //             if (place.Occupied && !place.Current.Connected)
-        //             {
-        //                 place.Current.JumpUp(0.2f, 0.3f, 0.25f);
-        //             }
-        //         }
-        //     }
-        // }
-       
-        
-        // public void MarkMovers(int x, int y)
-        // {
-        //     Call<Place>(_places, (place, horizontalIndex, verticalIndex) =>
-        //     {
-        //         if (place.Current && !place.Current.Connected && horizontalIndex == x && verticalIndex >= y)
-        //         {
-        //             place.Current.Mover = true;
-        //         }
-        //     });
-        // }
 
         public int TakeBullet(int splitCount)
         {
@@ -1529,25 +1216,11 @@ namespace Game
             return ammoGiven;
         }
 
-        // private bool ExpectedMoverComing(Vector2Int index)
-        // {
-        //     if (index.y + 1 >= _size.y)
-        //     {
-        //         return false;
-        //     }
-        //     Place place = _places[index.x, index.y + 1];
-        //     
-        //     return place.Current && place.Current.Mover;
-        // }
-        
         public void Place(Block block)
         {
             Map.THIS.MapWaitForCycle = true;
             
-            // List<Pawn> temporary = new List<Pawn>(block.Pawns);
             List<Place> projectedPlaces = new();
-
-            // block.PlacedOnGrid = true;
 
             for (int i = 0; i < block.Pawns.Count; i++)
             {
@@ -1754,7 +1427,6 @@ namespace Game
                         zeroShift = new Vector3(1.0f, 0.0f, 1.5f);
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = _size.x - block.blockData.NormalWidth + 1;
-                        // totalVertShiftStart = block.blockData.NormalHeight - 1 + (_size.y - block.blockData.FitHeight);
                         totalVertShiftStart = block.blockData.NormalHeight - 1 + (_size.y - _size.y);
                         totalVertShiftEnd = _size.y;
                         break;
@@ -1762,7 +1434,6 @@ namespace Game
                         zeroShift = new Vector3(1.5f, 0.0f, -1.0f);
                         totalHorShiftStart = 0;
                         totalHorShiftEnd = _size.x - block.blockData.NormalHeight + 1;
-                        // totalVertShiftStart = _size.y - block.blockData.FitHeight;
                         totalVertShiftStart = _size.y - _size.y;
                         totalVertShiftEnd = _size.y - block.blockData.NormalWidth + 1;
                         break;
@@ -1770,7 +1441,6 @@ namespace Game
                         zeroShift = new Vector3(-1.0f, 0.0f, -1.5f);
                         totalHorShiftStart = block.blockData.NormalWidth - 1;
                         totalHorShiftEnd = _size.x;
-                        // totalVertShiftStart = _size.y - block.blockData.FitHeight;
                         totalVertShiftStart = _size.y - _size.y;
                         totalVertShiftEnd = _size.y - block.blockData.NormalHeight + 1;
                         break;
@@ -1778,7 +1448,6 @@ namespace Game
                         zeroShift = new Vector3(-1.5f, 0.0f, 1.0f);
                         totalHorShiftStart = block.blockData.NormalHeight - 1;
                         totalHorShiftEnd = _size.x;
-                        // totalVertShiftStart = block.blockData.NormalWidth - 1 + _size.y - block.blockData.FitHeight;
                         totalVertShiftStart = block.blockData.NormalWidth - 1 + _size.y - _size.y;
                         totalVertShiftEnd = _size.y;
                         break;
