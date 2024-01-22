@@ -3904,7 +3904,7 @@ MonoBehaviour:
     emitOnly: 0
     asInstance: 0
     preload: 0
-    capacity: 50
+    capacity: 5
   - particleUnit: {fileID: -3387101932959172268, guid: 5e4679ebd41173943bcd3a4f7eeb1dcc,
       type: 3}
     emitOnly: 1
@@ -17381,7 +17381,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.99994
+      value: -511.99988
       objectReference: {fileID: 0}
     - target: {fileID: 2559703356478064583, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}

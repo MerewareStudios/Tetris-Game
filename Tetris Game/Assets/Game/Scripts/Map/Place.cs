@@ -195,7 +195,7 @@ namespace Game
         {
             Current = pawn;
 
-            pawn.Jump(PawnTargetPosition, 1.0f, 0.5f, Ease.OutBounce, () =>
+            pawn.Jump(PawnTargetPosition, 0.75f, 0.35f, Ease.OutQuad, () =>
             {
                 pawn.Busy = false;
                 Current.OnPlace(this);

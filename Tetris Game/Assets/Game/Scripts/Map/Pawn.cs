@@ -154,7 +154,7 @@ namespace Game
         }
 
 
-        public bool Unpack()
+        public bool Unpack(Place place)
         {
             if (ParentBlock)
             {
@@ -232,8 +232,11 @@ namespace Game
                     SubModel.Lose();
                     SubModel.OnAnimate((position) =>
                     {
-                        Pawn.Usage usg = Const.THIS.gifts.Random();
-                        Board.THIS.SpawnPawnAndJumpRandom(position, usg, usg.ExtraValue());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Pawn.Usage usg = Const.THIS.gifts.Random();
+                            Board.THIS.SpawnPawnAndJumpRandom(place, position, usg, usg.ExtraValue());
+                        }
                     });
                     SubModel = null;
                     return true;

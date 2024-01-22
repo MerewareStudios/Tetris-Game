@@ -118,7 +118,7 @@ public class ParticleManager : Singleton<ParticleManager>
             _pool.Strategy = LeanGameObjectPool.StrategyType.DeactivateViaHierarchy;
             _pool.Preload = preload;
             _pool.Capacity = capacity;
-            _pool.Recycle = false;
+            _pool.Recycle = true;
             _pool.Persist = false;
 
             var main = particleUnit.ps.main;

@@ -520,7 +520,10 @@ namespace Game
 
         private void AutoTetrisCheck()
         {
-            CheckTetris(_autoTetrisPlaces);
+            DOVirtual.DelayedCall(0.2f, () =>
+            {
+                CheckTetris(_autoTetrisPlaces);
+            }, false);
         }
         
         
@@ -914,7 +917,7 @@ namespace Game
             Pawn pawn = fromPlace.Current;
             
             pawn.OnMerge();
-            if (!pawn.Unpack())
+            if (!pawn.Unpack(fromPlace))
             {
                 return;
             }
@@ -1012,9 +1015,9 @@ namespace Game
             return pawn;
         }
         
-        public void SpawnPawnAndJumpRandom(Vector3 startPosition, Pawn.Usage usage, int amount)
+        public void SpawnPawnAndJumpRandom(Place place, Vector3 startPosition, Pawn.Usage usage, int amount)
         {
-            Place randomEmptyPlace = GetRandomEmptyPlace();
+            Place randomEmptyPlace = GetNearbyRandomEmptyPlace(place, 1);
 
             if (randomEmptyPlace == null)
             {
@@ -1022,6 +1025,11 @@ namespace Game
             }
 
             expectedAutoTetris++;
+
+            if (usage.Equals(Pawn.Usage.Gift) && expectedAutoTetris > _size.x * _size.y / 2)
+            {
+                usage = Pawn.Usage.Rocket;
+            }
             
             Pawn pawn = Spawner.THIS.SpawnPawn(null, startPosition, amount, usage);
             randomEmptyPlace.JumpAccept(pawn, () =>
@@ -1057,7 +1065,39 @@ namespace Game
             }
             return emptyPlaces.Random();
         }
+        private Place GetNearbyRandomEmptyPlace(Place centerPlace, int distance)
+        {
+            List<Place> emptyPlaces = new();
+            
+            Vector2Int centerPosition = centerPlace.Index;
+            
+            for (int x = -distance; x <= distance; x++)
+            {
+                for (int y = -distance; y <= distance; y++)
+                {
+                    Vector2Int check = centerPosition + new Vector2Int(x, y);
+                    
+                    if(check.x < 0 || check.x >= _size.x || check.y < 0 || check.y >= _size.y)
+                    {
+                        continue;
+                    }
 
+                    Place place = _places[check.x, check.y];
+                    if (place.Occupied)
+                    {
+                        continue;
+                    }
+                    emptyPlaces.Add(place);
+                }
+            }
+            
+            if (emptyPlaces.Count == 0)
+            {
+                return null;
+            }
+            return emptyPlaces.Random();
+        }
+        
         public void SpawnTrapBomb(int extra)
         {
             int startHeight = Mathf.Min(3, _size.y);
