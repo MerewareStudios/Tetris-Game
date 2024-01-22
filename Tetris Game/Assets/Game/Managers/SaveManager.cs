@@ -97,7 +97,7 @@ public static class SaveManagerExtensions
     }
     public static Pool RandomBlock(this Spawner spawner)
     {
-        return Pool.O_Block;
+        // return Pool.O_Block;
         return SaveManager.THIS.SaveData.userData.blockShopData.GetRandomBlock();
     }
     public static int CurrentLevel(this LevelManager levelManager)
