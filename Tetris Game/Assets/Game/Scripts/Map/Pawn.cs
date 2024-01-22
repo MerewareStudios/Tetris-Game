@@ -18,7 +18,7 @@ namespace Game
         [System.NonSerialized] private Block _parentBlock;
         [System.NonSerialized] public VisualData VData = null;
         [SerializeField] private int _tick;
-        [System.NonSerialized] public bool Mover = false;
+        // [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
         // [System.NonSerialized] public BlockData RecentBlockData;
         
@@ -378,7 +378,7 @@ namespace Game
             DeSpawnModel();
             
             Busy = false;
-            Mover = false;
+            // Mover = false;
 
             this.Despawn(Pool.Pawn);
         }
@@ -452,10 +452,10 @@ namespace Game
             {
                 return false;
             }
-            if (!Mover)
-            {
-                return false;
-            }
+            // if (!Mover)
+            // {
+            //     return false;
+            // }
 
             Tick = tick;
             
@@ -472,48 +472,48 @@ namespace Game
             return true;
         }
 
-        public void Check(Place checkerPlace)
-        {
-            if (Busy)
-            {
-                return;
-            }
-            CheckSteady(checkerPlace);
-            CheckDetach();
-        }
-        private void CheckSteady(Place checkerPlace)
-        {
-            Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
+        // public void Check(Place checkerPlace)
+        // {
+        //     if (Busy)
+        //     {
+        //         return;
+        //     }
+        //     // CheckSteady(checkerPlace);
+        //     CheckDetach();
+        // }
+        // private void CheckSteady(Place checkerPlace)
+        // {
+        //     Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
+        //
+        //     if (!forwardPlace)
+        //     {
+        //         Mover = false;
+        //         return;
+        //     }
+        //
+        //     if (forwardPlace.Occupied && !forwardPlace.Current.Mover)
+        //     {
+        //         Mover = false;
+        //         return;
+        //     }
+        //     
+        //     if (VData.neverMoves)
+        //     {
+        //         Mover = false;
+        //     }
+        // }
 
-            if (!forwardPlace)
-            {
-                Mover = false;
-                return;
-            }
-
-            if (forwardPlace.Occupied && !forwardPlace.Current.Mover)
-            {
-                Mover = false;
-                return;
-            }
-            
-            if (VData.neverMoves)
-            {
-                Mover = false;
-            }
-        }
-
-        private void CheckDetach()
-        {
-            if (Mover)
-            {
-                return;
-            }
-            if (Connected)
-            {
-                ParentBlock.Detach();
-            }
-        }
+        // private void CheckDetach()
+        // {
+        //     // if (Mover)
+        //     // {
+        //     //     return;
+        //     // }
+        //     if (Connected)
+        //     {
+        //         ParentBlock.Detach();
+        //     }
+        // }
         
         public enum Usage
         {

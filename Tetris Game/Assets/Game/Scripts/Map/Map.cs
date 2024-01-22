@@ -1,6 +1,7 @@
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 
@@ -10,9 +11,8 @@ namespace Game
     {
         [System.NonSerialized] private Coroutine _mainRoutine = null;
         [System.NonSerialized] public bool MapWaitForCycle = false;
-        [System.NonSerialized] private int _mergeAudioIndex = 0;
-// impact metal, quick shing, horror positive level up, rising 1, open plain, 
-//explosion bubble, 
+        [System.NonSerialized] public static int MergeAudioIndex = 0;
+        
         public void StartMainLoop()
         {
             StopLoop();
@@ -24,20 +24,6 @@ namespace Game
 
                 while (true)
                 {
-                    Board.THIS.CheckAll();
-
-                    Board.THIS.MoveAll(0.2f);
-                    Board.THIS.HighlightPlaces();
-
-                    yield return new WaitForSeconds(0.2f);
-                    yield return new WaitForEndOfFrame();
-                    
-                    
-                    Board.THIS.CheckAll();
-                    Board.THIS.HighlightPlaces();
-                    
-
-
                     while (true)
                     {
                         float waitOverride = Board.THIS.UsePowerups();
@@ -45,73 +31,65 @@ namespace Game
                         {
                             break;
                         }
-
-                        Board.THIS.MarkDropPointsMover();
-                        Board.THIS.CheckAll();
-                        Board.THIS.HighlightPlaces();
-
                         waitOverride = waitOverride >= 0.0f ? waitOverride : AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
                         yield return new WaitForSeconds(waitOverride);
                     }
-
                     
-                    List<int> tetrisLines = Board.THIS.CheckTetris();
-                    
-                    if (tetrisLines.Count > 0)
-                    {
-                        if (Board.THIS.OnMerge != null && Board.THIS.OnMerge.Invoke())
-                        {
-                            yield return new WaitForSeconds(0.25f);
-                        }
-                        HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
-
-                        Audio.Board_Merge_Cock.PlayOneShotPitch(1.0f, 0.8f + _mergeAudioIndex * 0.2f);
-
-                        
-
-                        if (tetrisLines.Count > 1)
-                        {
-                            Audio.Board_Merge_Riff.PlayOneShotPitch(1.0f, 0.75f + tetrisLines.Count * 0.1f);
-
-                            float totalDuration = UIManager.THIS.comboText.Show(tetrisLines.Count);
-                            yield return new WaitForSeconds(totalDuration * 0.65f);
-
-                        }
-                        
-                        _mergeAudioIndex += tetrisLines.Count;
-                        Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.65f + _mergeAudioIndex * 0.05f);
-                        Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f, 0.9f + _mergeAudioIndex * 0.1f);
-                        
-
-                        
-                        // yield return new WaitForSeconds(0.25f);
-                        Board.THIS.MergeLines(tetrisLines);
-                    
-                        Board.THIS.MarkMoverByTetris(tetrisLines);
-                        Board.THIS.CheckAll();
-                        Board.THIS.HighlightPlaces();
-
-                        yield return new WaitForSeconds(AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur);
-                    }
                     yield return new WaitForSeconds(0.2f);
                     Board.THIS.CheckDeadLock();
                     MapWaitForCycle = false;
                 }
             }
         }
+        
+        public void CheckTetris(List<Place> places)
+        {
+            int tetrisCount = Board.THIS.CheckTetris(places);
+
+            if (tetrisCount == 0)
+            {
+                return;
+            }
+            
+            StartCoroutine(Calls(tetrisCount));
+        }
+        
+        IEnumerator Calls(int tetrisCount)
+        {
+            if (tetrisCount > 1)
+            {
+                Time.timeScale = 0.0f;
+                Audio.Board_Merge_Riff.PlayOneShotPitch(1.0f, 0.95f + MergeAudioIndex * 0.05f);
+                float duration = UIManager.THIS.comboText.Show(tetrisCount);
+
+
+                yield return new WaitForSecondsRealtime(duration);
+                Time.timeScale = 1.0f;
+            }
+                        
+            MergeAudioIndex += tetrisCount;
+                
+            Audio.Board_Merge_Cock.PlayOneShotPitch(1.0f, 1.0f);
+            Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.65f + MergeAudioIndex * 0.05f);
+            Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f, 1.0f);
+                
+            HapticManager.Vibrate(HapticPatterns.PresetType.MediumImpact);
+        }
+
 
         public static void ResetMergeAudioIndex()
         {
-            Map.THIS._mergeAudioIndex = 0;
+            MergeAudioIndex = 0;
         }
 
         private void StopLoop()
         {
-            if (_mainRoutine != null)
+            if (_mainRoutine == null)
             {
-                StopCoroutine(_mainRoutine);
-                _mainRoutine = null;
+                return;
             }
+            StopCoroutine(_mainRoutine);
+            _mainRoutine = null;
         }
 
         public void Deconstruct()

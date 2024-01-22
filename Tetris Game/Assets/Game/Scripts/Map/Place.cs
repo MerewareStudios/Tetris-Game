@@ -17,6 +17,7 @@ namespace Game
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] public PlaceColorType TargetColorType = PlaceColorType.GREEN;
         [System.NonSerialized] private Pawn _current;
+        [System.NonSerialized] public int Value = 0;
         
         public Vector3 PlacePosition => gridTile.transform.position;
         public Vector3 Position => _thisTransform.position;

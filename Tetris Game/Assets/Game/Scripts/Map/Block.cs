@@ -21,7 +21,7 @@ namespace Game
         [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         
         [System.NonSerialized] private bool _busy = false;
-        [System.NonSerialized] public bool PlacedOnGrid = false;
+        // [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public bool CanRotate;
         
         [System.NonSerialized] public bool Free2Place = false;
@@ -95,17 +95,17 @@ namespace Game
 
         public void Deconstruct()
         {
-            if (!PlacedOnGrid)
-            {
+            // if (!PlacedOnGrid)
+            // {
                 foreach (var pawn in Pawns)
                 {
                     pawn.Deconstruct();
                 }
-            }
+            // }
             _motionTween?.Kill();
             Busy = false;
             Pawns.Clear();
-            PlacedOnGrid = false;
+            // PlacedOnGrid = false;
             RequiredPlaces = null;
             this.Despawn(Pool.Block);
         }
@@ -114,10 +114,11 @@ namespace Game
             foreach (var pawn in Pawns)
             {
                 pawn.ParentBlock = null;
-                pawn.Mover = false;
+                // pawn.Mover = false;
                 // pawn.MarkSteadyColor();
-                pawn.PunchUp(-0.175f, 0.25f);
+                // pawn.PunchUp(-0.175f, 0.25f);
             }
+            Pawns.Clear();
             Spawner.THIS.RemoveBlock(this);
 
             Deconstruct();

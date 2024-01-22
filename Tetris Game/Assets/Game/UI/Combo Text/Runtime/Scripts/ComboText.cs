@@ -61,6 +61,7 @@ namespace  Game.UI
             _comboSequence.Join(multScaleUpTween);
             _comboSequence.Join(countScaleUpTween);
 
+            _comboSequence.SetUpdate(true);
             _comboSequence.onComplete = ps1.Stop;
 
             return _comboSequence.Duration();

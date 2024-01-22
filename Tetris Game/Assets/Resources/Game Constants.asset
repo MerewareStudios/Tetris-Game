@@ -76,7 +76,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 33
+      level: 12
       playerData:
         currentHealth: 1
       pupData:
@@ -136,7 +136,7 @@ MonoBehaviour:
         cargoTypes: 
         arrival: -1
     adData:
-      hasConsentTaken: 0
+      hasConsentTaken: 1
       removeAds: 0
       interSkipCount: 0
       interWatchCount: 0
@@ -538,7 +538,7 @@ MonoBehaviour:
   - {r: 0.244, g: 0.244, b: 0.244, a: 1}
   - {r: 0.24313726, g: 0.24313726, b: 0.24313726, a: 1}
   - {r: 0.35273266, g: 0.28518814, b: 0.379, a: 1}
-  - {r: 0.08680094, g: 0.407, b: 0.18517531, a: 1}
+  - {r: 0.1764706, g: 0.827451, b: 0.3764706, a: 1}
   powerEffectGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 0.16470589, a: 0.02745098}
