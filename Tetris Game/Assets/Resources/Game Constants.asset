@@ -76,7 +76,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 12
+      level: 99
       playerData:
         currentHealth: 1
       pupData:
@@ -94,7 +94,7 @@ MonoBehaviour:
       gemTransactionData:
         value: 0
       adTransactionData:
-        value: 0
+        value: 11
       blockShopData:
         unlockedBlocks: 030000000400000005000000060000000d000000
         lastIndex: 0
@@ -493,6 +493,9 @@ MonoBehaviour:
       amount: 1000
     unlockedAt: 120
   gifts: 030000000400000005000000060000000700000008000000090000000c000000
+  singleLineUsages: 0100000007000000050000000c000000060000000800000009000000030000000b000000
+  aaUsages: 03000000070000000c0000000b000000
+  nonEqualUsages: 010000000b000000
   steadyColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   mergeGradient:
     serializedVersion: 2

@@ -41,6 +41,10 @@ public class SubModel : MonoBehaviour
     {
         meshRenderer.material.DOGradientColor(Const.THIS.mergeGradient, "_EmissionColor", 0.25f).SetEase(Ease.Linear);
     }
+    public virtual void OnPlace(Place place)
+    {
+        
+    }
     public virtual void EmitExplodeEffect()
     {
         Particle.Debris.Emit(15, Position, Color.black);
@@ -179,7 +183,7 @@ public class SubModel : MonoBehaviour
     {
         
     }
-    public virtual void OnAnimate(System.Action onComplete)
+    public virtual void OnAnimate(System.Action<Vector3> onComplete)
     {
         
     }

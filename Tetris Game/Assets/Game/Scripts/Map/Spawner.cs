@@ -19,7 +19,6 @@ public class Spawner : Singleton<Spawner>
     [Header("Input")]
     [SerializeField] private Vector3 distanceFromDraggingFinger;
     [SerializeField] public Vector3 distanceOfBlockCast;
-    // [SerializeField] public Vector3 tutorialLift;
     [SerializeField] public NextBlockDisplay nextBlockDisplay;
     [SerializeField] private float spawnDelay = 0.45f;
    
@@ -76,13 +75,6 @@ public class Spawner : Singleton<Spawner>
 #endif
     }
 
-    // public void Shake()
-    // {
-    //     if (CurrentBlock)
-    //     {
-    //         CurrentBlock.ShakeRotation();
-    //     }
-    // }
     public void RotateSelf()
     {
         if (!CurrentBlock)
@@ -155,7 +147,6 @@ public class Spawner : Singleton<Spawner>
 
     public void MountBack()
     {
-        // StopDelayedSpawn();
         _assertionTween?.Kill();
         StopMovement();
         Mount();
@@ -197,26 +188,20 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDown()
     {
-        // Debug.LogWarning("Input Down");
-
         if (!GameManager.PLAYING)
         {
-            // Debug.LogError("pass 1");
             return;
         }
         if (Input.touchCount > 1)
         {
-            // Debug.LogError("pass 2");
             return;
         }
         if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock)
         {
-            // Debug.LogError("pass 3");
             return;
         }
         if (GrabbedBlock)
         {
-            // Debug.LogError("pass 4");
             return;
         }
         if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
@@ -227,7 +212,6 @@ public class Spawner : Singleton<Spawner>
         _assertionTween = DOVirtual.DelayedCall(0.2f, null, false);
         _assertionTween.onComplete = () =>
         {
-            // Debug.LogError("grabbed");
             GrabbedBlock = true;
 
 
@@ -242,7 +226,6 @@ public class Spawner : Singleton<Spawner>
                 {
                     CurrentBlock.ResetRotations();
                     
-                    // CurrentBlock.transform.position = MountPosition;
                     if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
                     {
                         Onboarding.HideFinger();
@@ -269,28 +252,21 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnClick()
     {
-        // Debug.LogWarning("Input OnClick");
-
         if (!GameManager.PLAYING)
         {
-            // Debug.LogError("0");
             return;
         }
         if (Input.touchCount > 1)
         {
-            // Debug.LogError("1");
             return;
         }
         if (!IsTouchingSpawner(Input.mousePosition) || !CurrentBlock || GrabbedBlock)
         {
-            // Debug.LogError("2");
-
             return;
         }
 
         if (CurrentBlock.Busy)
         {
-            // Debug.LogError("3");
             return;
         }
         
@@ -301,13 +277,11 @@ public class Spawner : Singleton<Spawner>
         if (CurrentBlock.CanRotate)
         {
             Audio.Rotate_Click.PlayOneShot();
-            // Debug.LogError("click");
 
             CurrentBlock.Rotate();
         }
         
             
-        // if (ONBOARDING.DRAG_AND_DROP.IsComplete() && ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         if (ONBOARDING.BLOCK_ROTATION.IsNotComplete())
         {
             if (CurrentBlock.Rotation.Equals(Board.BlockRot.UP))
@@ -322,8 +296,6 @@ public class Spawner : Singleton<Spawner>
     }
     public void Input_OnDrag()
     {
-        // Debug.LogWarning("Input Dragged");
-
         if (Input.touchCount > 1)
         {
             return;
@@ -364,18 +336,10 @@ public class Spawner : Singleton<Spawner>
         distanceFromDraggingFinger = Const.THIS.creativeSettings.distanceFromDraggingFinger;
     #endif
         
-        // Vector3 addedPos = -_dragOffset;
-        // addedPos.y = distanceFromDraggingFinger.y;
-        // addedPos.z = distanceFromDraggingFinger.z;
-        // _finalPosition = hitPoint + addedPos;
-        // _finalPosition = hitPoint - _dragOffset + distanceFromDraggingFinger;
-        // _finalPosition = hitPoint + distanceFromDraggingFinger + MountPosition;
-
         _finalPosition = hitPoint - _dragOffset + CameraManager.THIS.gameCamera.transform.forward * -1.25f + distanceFromDraggingFinger;
     }
     public void Input_OnUp()
     {
-        // Debug.LogWarning("Input Up");
         InputUpWrap();
         Board.THIS.HighlightPlaces();
     }
@@ -392,7 +356,6 @@ public class Spawner : Singleton<Spawner>
         }
         _assertionTween?.Kill();
         StopMovement();
-        // Debug.LogError("Grabbed " + GrabbedBlock);
         if (!GrabbedBlock || CurrentBlock == null)
         {
             return;
@@ -421,19 +384,8 @@ public class Spawner : Singleton<Spawner>
             if (ONBOARDING.DRAG_AND_DROP.IsNotComplete())
             {
                 ONBOARDING.DRAG_AND_DROP.SetComplete();
-                // Onboarding.SpawnSecondBlockAndTeachRotation();
-                // Audio.Hint_2.Play();
-            
                 return;
             }
-            
-            // if (ONBOARDING.SPEECH_MERGE.IsNotComplete())
-            // {
-            //     Onboarding.TalkAboutMerge();
-            //     ONBOARDING.SPEECH_MERGE.SetComplete();
-            //
-            //     return;
-            // }
             
             return;
         }
@@ -488,15 +440,11 @@ public class Spawner : Singleton<Spawner>
 
     private Block SpawnSuggestedBlock()
     {
-        // bool learnedRotation = ONBOARDING.BLOCK_ROTATION.IsComplete();
-        // Board.SuggestedBlock[] suggestedBlocks = learnedRotation ? null : LevelManager.GetSuggestedBlocks();
         Board.SuggestedBlock[] suggestedBlocks = LevelManager.GetSuggestedBlocks();
         Board.SuggestedBlock suggestedBlockData = (suggestedBlocks == null || _spawnIndex >= suggestedBlocks.Length) ? null : suggestedBlocks[_spawnIndex];
         Pool pool;
-        // if (suggestedBlocks != null && suggestedBlocks.Length > _spawnIndex)
         if (suggestedBlockData != null)
         {
-            // suggestedBlockData = suggestedBlocks[_spawnIndex];
             pool = suggestedBlockData.type;
         }
         else

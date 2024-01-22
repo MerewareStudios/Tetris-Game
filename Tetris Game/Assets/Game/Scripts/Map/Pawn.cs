@@ -145,6 +145,13 @@ namespace Game
                 SubModel.OnMerge();
             }
         }
+        public void OnPlace(Place place)
+        {
+            if (SubModel)
+            {
+                SubModel.OnPlace(place);
+            }
+        }
 
 
         public bool Unpack()
@@ -223,17 +230,13 @@ namespace Game
                     return false;
                 case Usage.Gift:
                     SubModel.Lose();
-                    SubModel.OnAnimate(() =>
+                    SubModel.OnAnimate((position) =>
                     {
-#if CREATIVE
-                        Pawn.Usage usg = Pawn.Usage.Medic;
-#else
                         Pawn.Usage usg = Const.THIS.gifts.Random();
-#endif
-                        SetUsageType(usg, usg.ExtraValue());
+                        Board.THIS.SpawnPawnAndJumpRandom(position, usg, usg.ExtraValue());
                     });
                     SubModel = null;
-                    return false;
+                    return true;
                 case Usage.Punch:
                     Enemy punchEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
                     if (!punchEnemy)
@@ -404,7 +407,15 @@ namespace Game
                     complete?.Invoke();
                 };
         }
-        
+        public void Jump(Vector3 position, float power, float duration, Ease ease, System.Action complete = null)
+        {
+            _moveTween?.Kill();
+            _moveTween = thisTransform.DOJump(position, power, 1, duration).SetEase(ease);
+            _moveTween.onComplete = () =>
+            {
+                complete?.Invoke();
+            };
+        }
 
         #region Colors
         // public void MarkSteadyColor()
@@ -446,31 +457,31 @@ namespace Game
         
 
 
-        public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
-        {
-            if (Busy)
-            {
-                return false;
-            }
-            // if (!Mover)
-            // {
-            //     return false;
-            // }
-
-            Tick = tick;
-            
-            checkerPlace.Current = null;
-            
-            Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-            if (!forwardPlace)
-            {
-                return false;
-            }
-            
-            forwardPlace.Accept(this, moveDuration);
-
-            return true;
-        }
+        // public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
+        // {
+        //     if (Busy)
+        //     {
+        //         return false;
+        //     }
+        //     // if (!Mover)
+        //     // {
+        //     //     return false;
+        //     // }
+        //
+        //     Tick = tick;
+        //     
+        //     checkerPlace.Current = null;
+        //     
+        //     Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
+        //     if (!forwardPlace)
+        //     {
+        //         return false;
+        //     }
+        //     
+        //     forwardPlace.Accept(this, moveDuration);
+        //
+        //     return true;
+        // }
 
         // public void Check(Place checkerPlace)
         // {

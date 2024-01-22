@@ -1,9 +1,16 @@
-
 using DG.Tweening;
+using Game;
 using UnityEngine;
 
 public class Magnet : SubModel
 {
+    public override void OnPlace(Place place)
+    {
+        base.OnPlace(place);
+        
+        Board.THIS.AddMagneticPlace(place);
+    }
+
     public override void OnUnpack()
     {
         base.OnUnpack();

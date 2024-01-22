@@ -361,72 +361,72 @@ public class UIManager : Singleton<UIManager>
    private float added = 0.0f;
    private void Update()
    {
-      if (Input.GetKeyDown(KeyCode.Q))
-      {
-         Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.7f + added);
-         added += 0.05f;
-         // UIManager.THIS.comboText.Show(2);
-      }
-      if (Input.GetKeyDown(KeyCode.N))
-      {
-         Warzone.THIS.Player.Gun.PlaySound();
-      }
-      if (Input.GetKeyDown(KeyCode.P))
-      {
-         PiggyMenu.THIS.Open();
-      }
-      if (Input.GetKeyDown(KeyCode.R))
-      {
-         MenuNavigator.THIS.Open();
-      }
-      if (Input.GetKeyDown(KeyCode.M))
-      {
-         Warzone.THIS.Player._CurrentHealth += 1;
-      }
-      if (Input.GetKeyDown(KeyCode.G))
-      {
-         LevelManager.THIS.OnVictory();
-      }
-      if (Input.GetKeyDown(KeyCode.F))
-      {
-         LevelManager.THIS.OnFail();
-      }
-      if (Input.GetKeyDown(KeyCode.S))
-      {
-         shop.AnimatedShow();
-      }
-      if (Input.GetKeyDown(KeyCode.X))
-      {
-         if (ONBOARDING.USE_POWERUP.IsNotComplete())
-         {
-            Powerup.THIS.Enabled = true;
-            Onboarding.TalkAboutPowerUp();
-         }
-      }
-      if (Input.GetKeyDown(KeyCode.C))
-      {
-         if (Wallet.Consume(Const.Currency.OneAd))
-         {
-            UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
-               (value) =>
-               {
-                  
-               },
-               () =>
-               {
-                  Powerup.THIS.OpenAnimated(true);
-               });
-         }
-      }
-      if (Input.GetKeyDown(KeyCode.H))
-      {
-         UIManagerExtensions.HeartToPlayer(Vector3.zero,  1, 1);
-      }
-      if (Input.GetKeyDown(KeyCode.I))
-      {
-         Warzone.THIS.Player.Gun.Boost();
-
-      }
+      // if (Input.GetKeyDown(KeyCode.Q))
+      // {
+      //    Audio.Board_Merge_Rising.PlayOneShotPitch(1.0f, 0.7f + added);
+      //    added += 0.05f;
+      //    // UIManager.THIS.comboText.Show(2);
+      // }
+      // if (Input.GetKeyDown(KeyCode.N))
+      // {
+      //    Warzone.THIS.Player.Gun.PlaySound();
+      // }
+      // if (Input.GetKeyDown(KeyCode.P))
+      // {
+      //    PiggyMenu.THIS.Open();
+      // }
+      // if (Input.GetKeyDown(KeyCode.R))
+      // {
+      //    MenuNavigator.THIS.Open();
+      // }
+      // if (Input.GetKeyDown(KeyCode.M))
+      // {
+      //    Warzone.THIS.Player._CurrentHealth += 1;
+      // }
+      // if (Input.GetKeyDown(KeyCode.G))
+      // {
+      //    LevelManager.THIS.OnVictory();
+      // }
+      // if (Input.GetKeyDown(KeyCode.F))
+      // {
+      //    LevelManager.THIS.OnFail();
+      // }
+      // if (Input.GetKeyDown(KeyCode.S))
+      // {
+      //    shop.AnimatedShow();
+      // }
+      // if (Input.GetKeyDown(KeyCode.X))
+      // {
+      //    if (ONBOARDING.USE_POWERUP.IsNotComplete())
+      //    {
+      //       Powerup.THIS.Enabled = true;
+      //       Onboarding.TalkAboutPowerUp();
+      //    }
+      // }
+      // if (Input.GetKeyDown(KeyCode.C))
+      // {
+      //    if (Wallet.Consume(Const.Currency.OneAd))
+      //    {
+      //       UIManagerExtensions.RequestTicketFromWallet(Powerup.THIS.currencyTarget.position, 1, 1,
+      //          (value) =>
+      //          {
+      //             
+      //          },
+      //          () =>
+      //          {
+      //             Powerup.THIS.OpenAnimated(true);
+      //          });
+      //    }
+      // }
+      // if (Input.GetKeyDown(KeyCode.H))
+      // {
+      //    UIManagerExtensions.HeartToPlayer(Vector3.zero,  1, 1);
+      // }
+      // if (Input.GetKeyDown(KeyCode.I))
+      // {
+      //    Warzone.THIS.Player.Gun.Boost();
+      //
+      // }
    }
 #endif
    

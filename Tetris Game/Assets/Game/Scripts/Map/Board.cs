@@ -29,7 +29,7 @@ namespace Game
 
         public delegate bool OnMergeInfo();
         [System.NonSerialized] public OnMergeInfo OnMerge;
-        [System.NonSerialized] public const float MagnetRadius = 2.5f;
+        // [System.NonSerialized] public const float MagnetRadius = 2.5f;
         [System.NonSerialized] public const float BombRadius = 1.5f;
         
         [System.NonSerialized] private Transform _thisTransform;
@@ -108,7 +108,7 @@ namespace Game
             {
                 this._size = size;
                 DropPositions = new int[size.x];
-                ClearDropPositions();
+                // ClearDropPositions();
                 
                 CameraManager.THIS.OrthoSize = Mathf.Max(7.8f, _size.x + 2.0f);
 
@@ -200,9 +200,6 @@ namespace Game
                 Warzone.THIS.Player.Position = playerPos;
 
                     
-                // Spawner.THIS.UpdateFingerDelta(bottomPin.position);
-
-
                 Vector3 topProjection = Spawner.THIS.HitPoint(new Ray(enemySpawnPin.position, CameraManager.THIS.gameCamera.transform.forward));
                 Warzone.THIS.StartLine = topProjection.z - 1.5f;
                 Warzone.THIS.EndLine = deadline.position.z;
@@ -304,7 +301,7 @@ namespace Game
                             }
                             foreach (var mergeableColumn in mergeableColumns)
                             {
-                                for(int y = 0; y < _size.x; y++)
+                                for(int y = 0; y < _size.y; y++)
                                 {
                                     Place place = _places[mergeableColumn, y];
                                     place.SetTargetColorType(Game.Place.PlaceColorType.GREEN);
@@ -444,75 +441,88 @@ namespace Game
         private Place GetPlace(Vector2Int index) => _places[index.x, index.y];
 
         
-        public float UsePowerups()
-        {
-            for (int j = 0; j < _size.y; j++)
-            {
-                for (int i = 0; i < _size.x; i++)
-                {
-                    if (!_places[i, j].Occupied)
-                    {
-                        continue;
-                    }
+        // public float UsePowerups()
+        // {
+        //     return 1.0f;
+        //     for (int j = 0; j < _size.y; j++)
+        //     {
+        //         for (int i = 0; i < _size.x; i++)
+        //         {
+        //             if (!_places[i, j].Occupied)
+        //             {
+        //                 continue;
+        //             }
+        //
+        //             Place place = _places[i, j];
+        //             
+        //             if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Magnet))
+        //             {
+        //                 // CreatePawnAtCircular(i, j);
+        //                 return -1.0f;
+        //             }
+        //             if (place.Current.UsageType.Equals(Pawn.Usage.Bomb))
+        //             {
+        //                 float rest = _places[i, j].Current.SubModel.OnTick();
+        //
+        //                 if (rest <= 0.0f)
+        //                 {
+        //                      _places[i, j].Current.Explode(new Vector2Int(i, j));
+        //                      return 0.35f;
+        //                 }
+        //             }
+        //             if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Gift))
+        //             {
+        //                 place.Current.Unpack();
+        //                 return 0.35f;
+        //             }
+        //         }
+        //     }
+        //
+        //     return -1.0f;
+        // }
 
-                    Place place = _places[i, j];
-                    
-                    if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Magnet))
-                    {
-                        CreatePawnAtCircular(i, j);
-                        return -1.0f;
-                    }
-                    if (place.Current.UsageType.Equals(Pawn.Usage.Bomb))
-                    {
-                        float rest = _places[i, j].Current.SubModel.OnTick();
-
-                        if (rest <= 0.0f)
-                        {
-                             _places[i, j].Current.Explode(new Vector2Int(i, j));
-                             return 0.35f;
-                        }
-                    }
-                    if (!place.Current.Busy && place.Current.UsageType.Equals(Pawn.Usage.Gift))
-                    {
-                        place.Current.Unpack();
-                        return 0.35f;
-                    }
-                }
-            }
-
-            return -1.0f;
-        }
-
-        #region Drop
-            private void ClearDropPositions()
-            {
-                for (int i = 0; i < DropPositions.Length; i++)
-                {
-                    DropPositions[i] = _size.y;
-                }
-            }
-            private void AddDropPosition(Vector2Int point)
-            {
-                int current = DropPositions[point.x];
-                if (point.y < current)
-                {
-                    DropPositions[point.x] = point.y;
-                }
-            }
-            public bool HasDrop()
-            {
-                for (int i = 0; i < DropPositions.Length; i++)
-                {
-                    if (DropPositions[i] < _size.y)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
+        // #region Drop
+            // private void ClearDropPositions()
+            // {
+            //     for (int i = 0; i < DropPositions.Length; i++)
+            //     {
+            //         DropPositions[i] = _size.y;
+            //     }
+            // }
+            // private void AddDropPosition(Vector2Int point)
+            // {
+            //     int current = DropPositions[point.x];
+            //     if (point.y < current)
+            //     {
+            //         DropPositions[point.x] = point.y;
+            //     }
+            // }
+            // public bool HasDrop()
+            // {
+            //     for (int i = 0; i < DropPositions.Length; i++)
+            //     {
+            //         if (DropPositions[i] < _size.y)
+            //         {
+            //             return true;
+            //         }
+            //     }
+            //
+            //     return false;
+            // }
             
-        #endregion
+        // #endregion
+
+        private List<Place> _magneticPlaces = new();
+        public void AddMagneticPlace(Place place) => _magneticPlaces.Add(place);
+        
+        private int expectedAutoTetris = 0;
+        private List<Place> _autoTetrisPlaces = new();
+
+        private void AutoTetrisCheck()
+        {
+            CheckTetris(_autoTetrisPlaces);
+        }
+        
         
         public int CheckTetris(List<Place> projectedPlaces)
         {
@@ -576,7 +586,10 @@ namespace Game
             {
                 Map.ResetMergeAudioIndex();
 
-                return 0;
+                if (_magneticPlaces.Count == 0)
+                {
+                    return 0;
+                }
             }
             
             // Extract crossing indexes so we can treat them specifically
@@ -600,7 +613,13 @@ namespace Game
                 TravelPawnsHorizontallyToClosestIndex(mergeableRow, mergeableColumns, projectedPlaces, ref travelledPlaces, ref lastTween);
             }
 
-            FinalizeTravel(travelledPlaces, multiplier);
+            foreach (var magneticPlace in _magneticPlaces)
+            {
+                TravelPawnsCircularToPosition(magneticPlace, 3, ref travelledPlaces, ref lastTween);
+            }
+            _magneticPlaces.Clear();
+
+            FinalizeTravel(travelledPlaces, mergeableRows.Count, mergeableColumns.Count);
 
             if (lastTween != null)
             {
@@ -667,6 +686,43 @@ namespace Game
                         travelledPlaces.Add(targetPlace);
                     }
                     Travel(place, targetPlace, ref lastTween);
+                }
+            }
+        }
+        
+        private void TravelPawnsCircularToPosition(Place centerPlace, int distance, ref List<Place> travelledPlaces, ref Tween lastTween)
+        {
+            Vector2Int centerPosition = centerPlace.Index;
+
+            for (int x = -distance; x <= distance; x++)
+            {
+                for (int y = -distance; y <= distance; y++)
+                {
+                    Vector2Int check = centerPosition + new Vector2Int(x, y);
+                    
+                    if(check.x < 0 || check.x >= _size.x || check.y < 0 || check.y >= _size.y)
+                    {
+                        continue;
+                    }
+
+                    if (Vector2Int.Distance(check, centerPosition) >= distance)
+                    {
+                        continue;
+                    }
+                    
+                    Place movingPlace = _places[check.x, check.y];
+
+                    if (!movingPlace.Current)
+                    {
+                        continue;
+                    }
+
+                    if (!travelledPlaces.Contains(centerPlace))
+                    {
+                        centerPlace.Value = 0;
+                        travelledPlaces.Add(centerPlace);
+                    }
+                    Travel(movingPlace, centerPlace, ref lastTween);
                 }
             }
         }
@@ -791,37 +847,6 @@ namespace Game
         }
         
 
-        // private bool CanMergeVerticallyAtColumn(int column)
-        // {
-        //     for (int y = 0; y < _size.y; y++)
-        //     {
-        //         if (!_places[column, y].Occupied)
-        //         {
-        //             return false;
-        //         }
-        //     }
-        //
-        //     return true;
-        // }
-        //
-        //
-        //
-        //
-        //
-        // private bool CanMergeHorizontallyAtRow(int row)
-        // {
-        //     for (int x = 0; x < _size.x; x++)
-        //     {
-        //         if (!_places[x, row].Occupied)
-        //         {
-        //             return false;
-        //         }
-        //     }
-        //
-        //     return true;
-        // }
-        
-        
         private List<int> GetMergeableRows(List<int> rows)
         {
             List<int> indexes = new();
@@ -920,18 +945,54 @@ namespace Game
         }
 
 
-        private void FinalizeTravel(List<Place> finalPlaces, int multiplier)
+        private void FinalizeTravel(List<Place> finalPlaces, int horizontalMergeCount, int verticalMergeCount)
         {
-            foreach (var finalPlace in finalPlaces)
+            int total = Mathf.Max(horizontalMergeCount + verticalMergeCount, 1);
+            for (int i = 0; i < finalPlaces.Count; i++)
             {
-                finalPlace.Value = Mathf.Min(finalPlace.Value * multiplier,StackLimit);
+                Place finalPlace = finalPlaces[i];
+                finalPlace.Value = Mathf.Min(finalPlace.Value * total,StackLimit);
 
                 if (finalPlace.Value == 0)
                 {
                     continue;
                 }
+                
+                
+                
+                Pawn.Usage usage;
+                if (total == 1)
+                {
+                    usage = Pawn.Usage.Ammo;
+                }
+                else if (horizontalMergeCount == verticalMergeCount)
+                {
+                    usage = Const.THIS.aaUsages.At(horizontalMergeCount - 1);
+                }
+                else if (horizontalMergeCount == 0 || verticalMergeCount == 0)
+                {
+                    usage = Const.THIS.singleLineUsages.At(i);
+                }
+                else if (horizontalMergeCount != verticalMergeCount)
+                {
+                    usage = Const.THIS.nonEqualUsages.At(i);
+                }
+                else
+                {
+                    Debug.LogWarning("Unpredicted Combo " + horizontalMergeCount + " " + verticalMergeCount);
+                    usage = Pawn.Usage.Gift;
+                }
+                
+                
+                
+                
+
+                if (!usage.Equals(Pawn.Usage.Ammo))
+                {
+                    finalPlace.Value = 0;
+                }
             
-                SpawnPawn(finalPlace, Pawn.Usage.Ammo, finalPlace.Value).MakeAvailable();
+                SpawnPawn(finalPlace, usage, finalPlace.Value).MakeAvailable();
 
                 finalPlace.Value = 0;
             }
@@ -947,8 +1008,54 @@ namespace Game
         private Pawn SpawnPawn(Place place, Pawn.Usage usage, int amount)
         {
             Pawn pawn = Spawner.THIS.SpawnPawn(null, place.Position, amount, usage);
-            place.Accept(pawn); // TODO
+            place.Accept(pawn); // TODO simplfy
             return pawn;
+        }
+        
+        public void SpawnPawnAndJumpRandom(Vector3 startPosition, Pawn.Usage usage, int amount)
+        {
+            Place randomEmptyPlace = GetRandomEmptyPlace();
+
+            if (randomEmptyPlace == null)
+            {
+                return;
+            }
+
+            expectedAutoTetris++;
+            
+            Pawn pawn = Spawner.THIS.SpawnPawn(null, startPosition, amount, usage);
+            randomEmptyPlace.JumpAccept(pawn, () =>
+            {
+                _autoTetrisPlaces.Add(randomEmptyPlace);
+                expectedAutoTetris--;
+                if (expectedAutoTetris == 0)
+                {
+                    AutoTetrisCheck();
+                }
+            });
+        }
+
+        private Place GetRandomEmptyPlace()
+        {
+            List<Place> emptyPlaces = new();
+            for (int x = 0; x < _size.x; x++)
+            {
+                for (int y = 0; y < _size.y; y++)
+                {
+                    // if (_places[x, y].Occupied || _places[x, y].TargetColorType.Equals(Game.Place.PlaceColorType.GREEN))
+                    if (_places[x, y].Occupied)
+                    {
+                        continue;
+                    }
+                    emptyPlaces.Add(_places[x, y]);
+                }
+            }
+
+            if (emptyPlaces.Count == 0)
+            {
+                return null;
+            }
+            return emptyPlaces.Random();
         }
 
         public void SpawnTrapBomb(int extra)
@@ -1011,126 +1118,124 @@ namespace Game
 
         
         
-        private void CreatePawnAtCircular(int horizontal, int vertical)
-        {
-            Vector2Int center = new Vector2Int(horizontal, vertical);
-            
-            Place spawnPlace = _places[horizontal, vertical];
-            int totalAmmo = 0;
-            Tween lastTween = null;
-            
-            
-            for (int i = 0; i < _size.x; i++)
-            {
-                for (int j = 0; j < _size.y; j++)
-                {
-                    Place place = _places[i, j];
-                    Pawn pawn = place.Current;
-                    
-                    Vector2Int current = new Vector2Int(i, j);
-                    
-                    if (Vector2Int.Distance(center, current) > MagnetRadius)
-                    {
-                        continue;
-                    }
-                    
-                    AddDropPosition(current);
-                    
-                    if (!pawn)
-                    {
-                        continue;
-                    }
-                    
+        // private void CreatePawnAtCircular(int horizontal, int vertical)
+        // {
+        //     Vector2Int center = new Vector2Int(horizontal, vertical);
+        //     
+        //     Place spawnPlace = _places[horizontal, vertical];
+        //     int totalAmmo = 0;
+        //     Tween lastTween = null;
+        //     
+        //     
+        //     for (int i = 0; i < _size.x; i++)
+        //     {
+        //         for (int j = 0; j < _size.y; j++)
+        //         {
+        //             Place place = _places[i, j];
+        //             Pawn pawn = place.Current;
+        //             
+        //             Vector2Int current = new Vector2Int(i, j);
+        //             
+        //             if (Vector2Int.Distance(center, current) > MagnetRadius)
+        //             {
+        //                 continue;
+        //             }
+        //             
+        //             // AddDropPosition(current);
+        //             
+        //             if (!pawn)
+        //             {
+        //                 continue;
+        //             }
+        //             
+        //
+        //             if (pawn.UsageType.Equals(Pawn.Usage.Magnet) && current != new Vector2Int(horizontal, vertical))
+        //             {
+        //                 continue;
+        //             }
+        //             
+        //             totalAmmo += pawn.Amount;
+        //             
+        //             bool canMerge = pawn.Unpack();
+        //
+        //             if (!canMerge)
+        //             {
+        //                 continue;
+        //             }
+        //             
+        //             pawn.Available = false;
+        //             
+        //             pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
+        //             pawn.thisTransform.parent = null;
+        //             pawn.thisTransform.DOKill();
+        //             
+        //             Tween tween = pawn.thisTransform
+        //                 .DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur)
+        //                 .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
+        //                 .SetDelay(AnimConst.THIS.mergeTravelDelay);
+        //             
+        //             tween.onComplete = () =>
+        //             {
+        //                 pawn.EmitExplodeEffect();
+        //                 pawn.Deconstruct();
+        //             };
+        //
+        //             lastTween = tween;
+        //
+        //             place.Current = null;
+        //         }
+        //     }
+        //
+        //     if (lastTween != null)
+        //     {
+        //         lastTween.onComplete += () =>
+        //         {
+        //             CameraManager.THIS.Shake(Random.Range(0.3f, 0.4f), 0.5f);
+        //
+        //             if (totalAmmo > 0)
+        //             {
+        //                 Audio.Board_Spawn_Ammo.PlayOneShot();
+        //                 
+        //                 HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
+        //                 CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f), 0.5f);
+        //                 
+        //                 Particle.Star.Emit(15, spawnPlace.Position);
+        //             }
+        //         };
+        //     }
+        //
+        //     totalAmmo = Mathf.Min(totalAmmo,StackLimit);
+        //     if (totalAmmo == 0)
+        //     {
+        //         return;
+        //     }
+        //     Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f);
+        //     SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo).MakeAvailable();
+        // }
 
-                    if (pawn.UsageType.Equals(Pawn.Usage.Magnet) && current != new Vector2Int(horizontal, vertical))
-                    {
-                        continue;
-                    }
-                    
-                    totalAmmo += pawn.Amount;
-                    
-                    bool canMerge = pawn.Unpack();
-
-                    if (!canMerge)
-                    {
-                        continue;
-                    }
-                    
-                    pawn.Available = false;
-                    
-                    pawn.PunchScaleModelPivot(AnimConst.THIS.mergedPunchScale, AnimConst.THIS.mergedPunchDuration);
-                    pawn.thisTransform.parent = null;
-                    pawn.thisTransform.DOKill();
-                    
-                    Tween tween = pawn.thisTransform
-                        .DOMove(spawnPlace.PawnTargetPosition, AnimConst.THIS.mergeTravelDur)
-                        .SetEase(AnimConst.THIS.mergeTravelEase, AnimConst.THIS.mergeTravelShoot)
-                        .SetDelay(AnimConst.THIS.mergeTravelDelay);
-                    
-                    tween.onComplete = () =>
-                    {
-                        pawn.EmitExplodeEffect();
-                        pawn.Deconstruct();
-                    };
-
-                    lastTween = tween;
-
-                    place.Current = null;
-                }
-            }
-
-            if (lastTween != null)
-            {
-                lastTween.onComplete += () =>
-                {
-                    CameraManager.THIS.Shake(Random.Range(0.3f, 0.4f), 0.5f);
-
-                    if (totalAmmo > 0)
-                    {
-                        Audio.Board_Spawn_Ammo.PlayOneShot();
-                        // Audio.Board_Post_Merge.PlayOneShot();
-                        
-                        HapticManager.Vibrate(HapticPatterns.PresetType.HeavyImpact);
-                        CameraManager.THIS.Shake(Random.Range(0.2f, 0.225f), 0.5f);
-                        
-                        // Particle.Debris.Emit(30, spawnPlace.Position);
-                        Particle.Star.Emit(15, spawnPlace.Position);
-                    }
-                };
-            }
-
-            totalAmmo = Mathf.Min(totalAmmo,StackLimit);
-            if (totalAmmo == 0)
-            {
-                return;
-            }
-            Audio.Board_Pre_Merge.PlayOneShotPitch(0.75f);
-            SpawnPawn(spawnPlace, Pawn.Usage.Ammo, totalAmmo).MakeAvailable();
-        }
-
-        private Place GetSidePlace(int x, int y)
-        {
-            Place GetRightPlace()
-            {
-                return _places[x + 1, y];
-            }
-            Place GetLeftPlace()
-            {
-                return _places[x - 1, y];
-            }
-            
-            if (x == 0)
-            {
-                return GetRightPlace();
-            }
-
-            if (x == _size.x - 1)
-            {
-                return GetLeftPlace();
-            }
-
-            return Random.Range(0.0f, 1.0f) < 0.5f ? GetLeftPlace() : GetRightPlace();
-        }
+        // private Place GetSidePlace(int x, int y)
+        // {
+        //     Place GetRightPlace()
+        //     {
+        //         return _places[x + 1, y];
+        //     }
+        //     Place GetLeftPlace()
+        //     {
+        //         return _places[x - 1, y];
+        //     }
+        //     
+        //     if (x == 0)
+        //     {
+        //         return GetRightPlace();
+        //     }
+        //
+        //     if (x == _size.x - 1)
+        //     {
+        //         return GetLeftPlace();
+        //     }
+        //
+        //     return Random.Range(0.0f, 1.0f) < 0.5f ? GetLeftPlace() : GetRightPlace();
+        // }
         
 
         public void ExplodePawnsCircular(Vector2Int center, float radius)
@@ -1148,7 +1253,7 @@ namespace Game
                         continue;
                     }
                     
-                    AddDropPosition(current);
+                    // AddDropPosition(current);
                     
                     if (!pawn)
                     {
@@ -1203,10 +1308,8 @@ namespace Game
                         {
                             place.Current.DetachSubModelAndDeconstruct();
                             place.Current = null;
-                            // MarkMovers(place.Index.x, place.Index.y);
                         }
                         
-                
                         ammoGiven += splitCount;
                         return ammoGiven;
                     }
@@ -1296,16 +1399,11 @@ namespace Game
             {
                 return (place, false);
             }
-            // if (ExpectedMoverComing(indexValue))
-            // {
-            //     return (place, false);
-            // }
             if (pawn.VData.free2Place)
             {
                 return (place, true);
             }
             
-            // if (_size.y - pawn.ParentBlock.blockData.FitHeight > indexValue.y)
             if (_size.y - _size.y > indexValue.y)
             {
                 return (place, false);

@@ -164,7 +164,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         {
             _audioSourceInstance = Instantiate(audioSourcePrefab, THIS.transform);
 #if UNITY_EDITOR
-            _audioSourceInstance.hideFlags = THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
+            _audioSourceInstance.gameObject.hideFlags = THIS.debug ? HideFlags.None : HideFlags.HideInHierarchy;
 #endif
         }
     }

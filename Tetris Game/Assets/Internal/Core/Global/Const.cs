@@ -78,6 +78,9 @@ public class Const : SSingleton<Const>
     public BlockMenu.BlockData[] DefaultBlockData;
 
     public Pawn.Usage[] gifts;
+    public Pawn.Usage[] singleLineUsages;
+    public Pawn.Usage[] aaUsages;
+    public Pawn.Usage[] nonEqualUsages;
     [Header("Colors")] 
     public Color steadyColor;
     public Gradient mergeGradient;

@@ -179,6 +179,7 @@ namespace Game
             {
                 pawn.thisTransform.position = segmentParent.position;
                 pawn.Busy = false;
+                Current.OnPlace(this);
                 onComplete?.Invoke();
                 return;
             }
@@ -186,6 +187,18 @@ namespace Game
             pawn.Move(PawnTargetPosition, duration.Value, AnimConst.THIS.moveEase, () =>
             {
                 pawn.Busy = false;
+                Current.OnPlace(this);
+                onComplete?.Invoke();
+            });
+        }
+        public void JumpAccept(Pawn pawn, System.Action onComplete = null)
+        {
+            Current = pawn;
+
+            pawn.Jump(PawnTargetPosition, 1.0f, 0.5f, Ease.OutBounce, () =>
+            {
+                pawn.Busy = false;
+                Current.OnPlace(this);
                 onComplete?.Invoke();
             });
         }

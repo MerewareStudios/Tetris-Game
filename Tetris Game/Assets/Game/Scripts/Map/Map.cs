@@ -1,7 +1,6 @@
 using Internal.Core;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 
@@ -25,18 +24,18 @@ namespace Game
 
                 while (true)
                 {
-                    while (true)
-                    {
-                        float waitOverride = Board.THIS.UsePowerups();
-                        if (!Board.THIS.HasDrop())
-                        {
-                            break;
-                        }
-                        waitOverride = waitOverride >= 0.0f ? waitOverride : AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
-                        yield return new WaitForSeconds(waitOverride);
-                    }
+                    // while (true)
+                    // {
+                        // float waitOverride = Board.THIS.UsePowerups();
+                        // if (!Board.THIS.HasDrop())
+                        // {
+                        //     break;
+                        // }
+                        // waitOverride = waitOverride >= 0.0f ? waitOverride : AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
+                        // yield return new WaitForSeconds(waitOverride);
+                    // }
                     
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForSeconds(1.5f);
                     Board.THIS.CheckDeadLock();
                     MapWaitForCycle = false;
                 }
