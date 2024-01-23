@@ -5,20 +5,26 @@ using UnityEngine;
 public class Bomb : SubModel
 {
     [SerializeField] private CircularProgress progress;
-    [System.NonSerialized] private float _current;
-    [System.NonSerialized] private float _tickInterval;
+    [System.NonSerialized] private int _duration;
+    [System.NonSerialized] private Tween _timerTween;
 
     public override void OnConstruct(Pool poolType, Transform customParent, int extra)
     {
         base.OnConstruct(poolType, customParent, extra);
-        _tickInterval = extra * 0.001f;
-        StartTimer();
+        _duration = extra;
+        progress.gameObject.SetActive(false);
     }
 
     public override void OnDeconstruct()
     {
         base.OnDeconstruct();
         StopTimer();
+    }
+
+    public override void OnPlace(Place place)
+    {
+        base.OnPlace(place);
+        StartTimer(_duration, place);
     }
 
     public override void OnProjectile(Enemy enemy)
@@ -58,35 +64,37 @@ public class Bomb : SubModel
         };
     }
 
-    public override float OnTick()
+    public override void OnExplode(Vector2Int index)
     {
-        base.OnTick();
-        _current -= _tickInterval;
-        progress.FillAnimated = _current;
-        return _current;
-    }
-
-    public override void OnExplode()
-    {
-        base.OnExplode();
+        base.OnExplode(index);
         
         Particle.Missile_Explosion.Play(base.Position);
         Audio.Bomb_Explode.PlayOneShot();
 
         UIManagerExtensions.Distort(Position, 9.0f, 0.05f, 1.1f, Ease.OutSine);
 
-        OnDeconstruct();
+        
+        Board.THIS.ExplodePawnsCircular(index);
+
+        // OnDeconstruct();
     }
 
-    private void StartTimer()
+    private void StartTimer(int time, Place place)
     {
         progress.gameObject.SetActive(true);
-        _current = 1.0f;
-        progress.Fill = _current;
+        
+        float timeStep = 1.0f;
+        _timerTween = DOTween.To(x => timeStep = x, 1.0f, 0.0f, time).SetEase(Ease.Linear).SetUpdate(false);
+        _timerTween.onUpdate = () =>
+        {
+            progress.Fill = timeStep;
+        };
+        _timerTween.onComplete = () => Board.THIS.ExplodePawnsCircular(place.Index);
     }
     private void StopTimer()
     {
         progress.Kill();
+        _timerTween?.Kill();
         progress.gameObject.SetActive(false);
     }
 

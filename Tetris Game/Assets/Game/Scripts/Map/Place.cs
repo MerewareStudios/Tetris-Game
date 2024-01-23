@@ -12,7 +12,7 @@ namespace Game
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private PlaceColorType _colorType = PlaceColorType.GREEN;
         [System.NonSerialized] private Tween _colorTween;
-        [System.NonSerialized] private GhostPawn _ghostPawn = null;
+        // [System.NonSerialized] private GhostPawn _ghostPawn = null;
         
         [System.NonSerialized] public Vector2Int Index;
         [System.NonSerialized] public PlaceColorType TargetColorType = PlaceColorType.GREEN;
@@ -91,11 +91,11 @@ namespace Game
                 Current = null;
             }
 
-            if (_ghostPawn)
-            {
-                _ghostPawn.Despawn(Pool.Ghost_Pawn);
-                _ghostPawn = null;
-            }
+            // if (_ghostPawn)
+            // {
+            //     _ghostPawn.Despawn(Pool.Ghost_Pawn);
+            //     _ghostPawn = null;
+            // }
         }
         
         public void OnLevelEnd()

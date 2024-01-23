@@ -45,10 +45,7 @@ public class SubModel : MonoBehaviour
     {
         
     }
-    public virtual void EmitExplodeEffect()
-    {
-        Particle.Debris.Emit(15, Position, Color.black);
-    }
+   
     public virtual bool IsAvailable()
     {
         return true;
@@ -187,18 +184,14 @@ public class SubModel : MonoBehaviour
     {
         
     }
-    public virtual float OnTick()
+    public virtual void EmitExplodeEffect()
     {
-        return 1.0f;
+        Particle.Debris.Emit(15, Position, Color.black);
     }
-    public virtual void OnExplode()
+    public virtual void OnExplode(Vector2Int index)
     {
         EmitExplodeEffect();
     }
-    // public virtual bool SkipAction()
-    // {
-    //     return false;
-    // }
     public virtual void OnExtraValueChanged(int value)
     {
         this.ExternalValue = value;

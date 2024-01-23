@@ -76,7 +76,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 20
+      level: 70
       playerData:
         currentHealth: 1
       pupData:
@@ -715,7 +715,7 @@ MonoBehaviour:
     neverMoves: 0
     moverOnPlacement: 0
   - usage: 9
-    externValue: 25
+    externValue: 2
     model: 60
     free2Place: 1
     useParentColor: 0

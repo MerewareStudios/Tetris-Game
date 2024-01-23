@@ -135,7 +135,7 @@ namespace  Game
                     for (int i = 0; i < so.spawnerCount; i++)
                     {
                         castPs.Play();
-                        Board.THIS.DestroyWithProjectile(castPs, castParent.position);
+                        Board.THIS.DestroyWithProjectileRandomly(castPs, castParent.position);
                     }
                     Audio.Dragon_End.PlayOneShot();
                     break;

@@ -1132,7 +1132,7 @@ namespace Game
 #if CREATIVE
         private int posIndex = 0;
 #endif  
-        public void DestroyWithProjectile(ParticleSystem ps, Vector3 startPosition)
+        public void DestroyWithProjectileRandomly(ParticleSystem ps, Vector3 startPosition)
         {
             ps.Clear();
             Vector2Int pos = new Vector2Int(Random.Range(0, _size.x), Random.Range(0, _size.y));
@@ -1151,7 +1151,7 @@ namespace Game
                 Particle.Missile_Explosion.Play(targetPosition);
                 Audio.Bomb_Explode.PlayOneShot();
 
-                ExplodePawnsCircular(pos, Board.BombRadius);
+                ExplodePawnsCircular(pos);
                 CameraManager.THIS.Shake(Random.Range(0.4f, 0.45f), 0.5f);
             };
         }
@@ -1276,32 +1276,39 @@ namespace Game
         //
         //     return Random.Range(0.0f, 1.0f) < 0.5f ? GetLeftPlace() : GetRightPlace();
         // }
-        
 
-        public void ExplodePawnsCircular(Vector2Int center, float radius)
+        private bool IsOutsideBounds(Vector2Int pos)
         {
-            for (int i = 0; i < _size.x; i++)
+            return pos.x < 0 || pos.x >= _size.x || pos.y < 0 || pos.y >= _size.y;
+        }
+
+        public void ExplodePawnsCircular(Vector2Int center)
+        {
+            for (int i = -2; i <= _size.x + 2; i++)
             {
-                for (int j = 0; j < _size.y; j++)
+                for (int j = -2; j < _size.y + 2; j++)
                 {
-                    Place place = _places[i, j];
-                    Pawn pawn = place.Current;
-                    
-                    Vector2Int current = new Vector2Int(i, j);
-                    if (Vector2Int.Distance(center, current) > radius)
+                    Vector2Int newIndex = new Vector2Int(i, j);
+                    if(IsOutsideBounds(newIndex))
                     {
                         continue;
                     }
                     
-                    // AddDropPosition(current);
+                    Place place = _places[i, j];
+                    Pawn pawn = place.Current;
+                    
+                    if (Vector2Int.Distance(center, newIndex) > Board.BombRadius)
+                    {
+                        continue;
+                    }
                     
                     if (!pawn)
                     {
                         continue;
                     }
 
+                    Debug.LogError("explode check" + center);
                     pawn.Explode(place.Index);
-
                     RemovePawn(place);
                 }
             }
@@ -1319,8 +1326,7 @@ namespace Game
                 place.Current.ParentBlock.DetachPawn(place.Current);
             }
             
-            place.Current.Deconstruct();
-            place.Current = null;
+            place.Deconstruct();
         }
 
         public int TakeBullet(int splitCount)

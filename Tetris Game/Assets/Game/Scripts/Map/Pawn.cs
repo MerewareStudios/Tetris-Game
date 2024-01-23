@@ -251,45 +251,44 @@ namespace Game
             {
                 return;
             }
-            SubModel.OnExplode();
+            SubModel.OnExplode(center);
 
-            switch (UsageType)
-            {
-                case Usage.Empty:
-                    break;
-                case Usage.Ammo:
-                    break;
-                case Usage.UnpackedAmmo:
-                    break;
-                case Usage.Energy:
-                    break;
-                case Usage.Magnet:
-                    break;
-                case Usage.Nugget:
-                    break;
-                case Usage.Medic:
-                    break;
-                case Usage.Rocket:
-                    break;
-                case Usage.Landmine:
-                    break;
-                case Usage.Bomb:
-                    SubModel = null;
-                    Board.THIS.ExplodePawnsCircular(center, Board.BombRadius);
-                    break;
-                case Usage.Screw:
-                    
-                    break;
-                case Usage.Gift:
-                    
-                    break;
-                case Usage.Punch:
-                    
-                    break;
-                case Usage.Lock:
-                    
-                    break;
-            }
+            // switch (UsageType)
+            // {
+            //     case Usage.Empty:
+            //         break;
+            //     case Usage.Ammo:
+            //         break;
+            //     case Usage.UnpackedAmmo:
+            //         break;
+            //     case Usage.Energy:
+            //         break;
+            //     case Usage.Magnet:
+            //         break;
+            //     case Usage.Nugget:
+            //         break;
+            //     case Usage.Medic:
+            //         break;
+            //     case Usage.Rocket:
+            //         break;
+            //     case Usage.Landmine:
+            //         break;
+            //     case Usage.Bomb:
+            //         // SubModel = null;
+            //         break;
+            //     case Usage.Screw:
+            //         
+            //         break;
+            //     case Usage.Gift:
+            //         
+            //         break;
+            //     case Usage.Punch:
+            //         
+            //         break;
+            //     case Usage.Lock:
+            //         
+            //         break;
+            // }
         }
         
         public void RewardForSubModel()

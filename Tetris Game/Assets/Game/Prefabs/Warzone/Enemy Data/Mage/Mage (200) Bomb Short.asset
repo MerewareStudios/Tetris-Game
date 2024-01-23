@@ -121,6 +121,6 @@ MonoBehaviour:
   deathAction: 0
   spawnerCount: 1
   spawnerDuration: 10
-  spawnerExtra: 80
+  spawnerExtra: 4
   extraData: {fileID: 0}
   implosionAudio: 0
