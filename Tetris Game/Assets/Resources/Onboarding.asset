@@ -17,7 +17,7 @@ MonoBehaviour:
     !
   greatCheerText: <wiggle a=0.8 f=3><size=120%>Good job!</size>
   niceOneText: <wiggle a=1.3 f=3><size=150%>Nice one!</size>
-  needMoreAmmoText: <size=120%>Need more <bounce a=1 f=2 w=0.5><color=#6DDFFF>bullets</color>
+  needMoreAmmoText: <size=120%>Need more <bounce a=1 f=2 w=0.5><color=#34FF78>bullets</color>
     </bounce></size>!
   targetPracticeText: '<wiggle a=1 f=3>Target
 
@@ -26,7 +26,8 @@ MonoBehaviour:
 
     Coming !</>'
   ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
-  freePlacementText: Place it anywhere!
+  freePlacementText: <wiggle a=1.3 f=3><size=120%>MAGNETS !</size>
+  newBlockText: <wiggle a=1.3 f=3><size=120%><color=#7BE1FF>NEW BLOCK !</color></size>
   maxStackDropCheer: +1<color=#FFD919><bounce a=1 f=2 w=0.5> STACK LIMIT</bounce></color>
     !
   healthDropCheer: +50<color=#FFFFFF><size=90%><sprite name=Heart></size>

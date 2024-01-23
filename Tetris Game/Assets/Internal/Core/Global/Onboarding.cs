@@ -15,6 +15,7 @@ public class Onboarding : SSingleton<Onboarding>
     [TextArea] [SerializeField] public string enemiesComingText;
     [TextArea] [SerializeField] public string ticketMergeText;
     [TextArea] [SerializeField] public string freePlacementText;
+    [TextArea] [SerializeField] public string newBlockText;
     [Header("Air Drop")]
     [TextArea] [SerializeField] public string maxStackDropCheer;
     [TextArea] [SerializeField] public string healthDropCheer;
@@ -180,6 +181,19 @@ public class Onboarding : SSingleton<Onboarding>
             UIManager.THIS.speechBubble.Hide();
             yield return new WaitForSeconds(0.1f);
             UIManager.THIS.speechBubble.Speak(Onboarding.THIS.freePlacementText, 0.2f);
+            yield return new WaitForSeconds(2.5f);
+            UIManager.THIS.speechBubble.Hide();
+        }
+    }
+    public static void TalkAboutNewBlock()
+    {
+        Onboarding.THIS.Coroutine = GameManager.THIS.StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            UIManager.THIS.speechBubble.Hide();
+            yield return new WaitForSeconds(0.1f);
+            UIManager.THIS.speechBubble.Speak(Onboarding.THIS.newBlockText, 0.2f);
             yield return new WaitForSeconds(2.5f);
             UIManager.THIS.speechBubble.Hide();
         }

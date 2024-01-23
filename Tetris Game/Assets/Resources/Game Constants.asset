@@ -76,7 +76,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 4
+      level: 1
       playerData:
         currentHealth: 1
       pupData:
@@ -94,7 +94,7 @@ MonoBehaviour:
       gemTransactionData:
         value: 0
       adTransactionData:
-        value: 11
+        value: 0
       blockShopData:
         unlockedBlocks: 030000000400000005000000060000000d000000
         lastIndex: 0

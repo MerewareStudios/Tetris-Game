@@ -373,16 +373,7 @@ namespace Game
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
-            // if (Spawner.THIS.CurrentBlock.Free2Place)
-            // {
-            //     if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
-            //     {
-            //         ONBOARDING.PLACE_POWERUP.SetComplete();
-            //         Onboarding.TalkAboutFreePlacement();
-            //     }
-            //     // There is no block to suggest place or check deadlock, skip
-            //     return;
-            // }
+            
             if (Spawner.THIS.CurrentBlock.RequiredPlaces != null && Spawner.THIS.CurrentBlock.RequiredPlaces.Count > 0)
             {
                 HighlightRequired();
@@ -426,7 +417,7 @@ namespace Game
                 
                 // List<Place> highlightPlaces = allPlaces.Count > 4 ? allPlaces.Random() : allPlaces[_randomIndex++ % allPlaces.Count];
                 List<Place> highlightPlaces = _allPlaces[randomValue];
-                _delayedHighlightTween = DOVirtual.DelayedCall(2.0f, () =>
+                _delayedHighlightTween = DOVirtual.DelayedCall(3.0f, () =>
                 {
                     Highlight(highlightPlaces, Spawner.THIS.CurrentBlock.Color);
                     StopDelayedHighlight();
@@ -670,6 +661,8 @@ namespace Game
                 {
                     EmitCommonSpawnEffects(multiplier);
                     CheckDeadLock(true);
+
+                    OnMerge?.Invoke();
                 };
             }
                 

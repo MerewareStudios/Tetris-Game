@@ -36,20 +36,12 @@ MonoBehaviour:
     amount: 5
   suggestedBlocks:
   - type: 10
-    requiredPlaces: 0a0000000d0000000e00000012000000
+    requiredPlaces: 090000000c0000000d00000011000000
     blockRot: 1
     canRotate: 1
-  - type: 9
-    requiredPlaces: 0d000000
-    blockRot: 0
-    canRotate: 1
-  - type: 4
-    requiredPlaces: 13000000170000001a0000001b000000
-    blockRot: 0
-    canRotate: 1
-  - type: 3
-    requiredPlaces: 02000000030000000b00000007000000
-    blockRot: 0
+  - type: 11
+    requiredPlaces: 0d0000000e0000000f000000
+    blockRot: 1
     canRotate: 1
   pawnPlacements: []
   carryData:

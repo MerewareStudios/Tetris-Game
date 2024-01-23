@@ -3804,7 +3804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5839,7 +5839,7 @@ PrefabInstance:
     - target: {fileID: 8091562085991707680, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}
       propertyPath: shortDragOffset.y
-      value: 350
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 9098571809227225480, guid: 30730262a1683ea41825cb988b76190c,
         type: 3}

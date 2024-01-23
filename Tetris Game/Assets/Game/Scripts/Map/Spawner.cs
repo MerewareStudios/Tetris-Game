@@ -493,6 +493,16 @@ public class Spawner : Singleton<Spawner>
 
     public void InterchangeBlock(Pool pool, Pawn.Usage usage)
     {
+        if (ONBOARDING.NEW_T_BLOCK.IsNotComplete() && usage.Equals(Pawn.Usage.UnpackedAmmo))
+        {
+            ONBOARDING.NEW_T_BLOCK.SetComplete();
+            Onboarding.TalkAboutNewBlock();
+        }
+        else if (ONBOARDING.MAGNET_SUGGESTION.IsNotComplete() && usage.Equals(Pawn.Usage.Magnet))
+        {
+            ONBOARDING.MAGNET_SUGGESTION.SetComplete();
+            Onboarding.TalkAboutFreePlacement();
+        }
         DespawnCurrentBlock();
         StopAllRunningTasksOnBlock();  
         Board.THIS.HideSuggestedPlaces();
