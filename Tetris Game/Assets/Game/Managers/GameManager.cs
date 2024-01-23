@@ -299,7 +299,6 @@ public class GameManager : Singleton<GameManager>
     {
         Onboarding.Deconstruct();
         Board.THIS.OnLevelEnd();
-        Map.THIS.OnLevelEnd();
         Spawner.THIS.OnLevelEnd();
         PowerSelectionScreen.THIS.Close();
     }

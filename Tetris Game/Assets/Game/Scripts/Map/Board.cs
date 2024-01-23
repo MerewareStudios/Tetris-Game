@@ -447,7 +447,7 @@ namespace Game
                 HapticManager.Vibrate(HapticPatterns.PresetType.Selection);
             }
             
-            _delayedHighlightTween = DOVirtual.DelayedCall(2.0f, () =>
+            _delayedHighlightTween = DOVirtual.DelayedCall(1.0f, () =>
             {
                 CheckDeadLock(true);
             }, false);
@@ -618,7 +618,7 @@ namespace Game
 
             if (multiplier == 0)
             {
-                Map.ResetMergeAudioIndex();
+                Map.THIS.ResetMergeAudioIndex();
 
                 if (_magneticPlaces.Count == 0)
                 {

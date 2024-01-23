@@ -8,39 +8,9 @@ namespace Game
 {
     public class Map : Lazyingleton<Map>
     {
-        // [System.NonSerialized] private Coroutine _mainRoutine = null;
-        // [System.NonSerialized] public bool MapWaitForCycle = false;
-        [System.NonSerialized] public static int MergeAudioIndex = 0;
+        [System.NonSerialized] public int MergeAudioIndex = 0;
         [System.NonSerialized] public static float TimeScale = 1.0f;
         
-        // public void StartMainLoop()
-        // {
-        //     StopLoop();
-        //     _mainRoutine = StartCoroutine(MainLoop());
-        //
-        //     IEnumerator MainLoop()
-        //     {
-        //         yield return new WaitForSeconds(0.25f);
-        //
-        //         while (true)
-        //         {
-        //             // while (true)
-        //             // {
-        //                 // float waitOverride = Board.THIS.UsePowerups();
-        //                 // if (!Board.THIS.HasDrop())
-        //                 // {
-        //                 //     break;
-        //                 // }
-        //                 // waitOverride = waitOverride >= 0.0f ? waitOverride : AnimConst.THIS.mergeTravelDelay + AnimConst.THIS.mergeTravelDur;
-        //                 // yield return new WaitForSeconds(waitOverride);
-        //             // }
-        //             
-        //             yield return new WaitForSeconds(1.5f);
-        //             Board.THIS.CheckDeadLock();
-        //             MapWaitForCycle = false;
-        //         }
-        //     }
-        // }
         
         public void CheckTetris(List<Place> places)
         {
@@ -60,7 +30,7 @@ namespace Game
             {
                 TimeScale = 0.0f;
                 GameManager.UpdateTimeScale();
-                Audio.Board_Merge_Riff.PlayOneShotPitch(1.0f, 0.95f + MergeAudioIndex * 0.05f);
+                Audio.Board_Merge_Riff.Play();
                 float duration = UIManager.THIS.comboText.Show(tetrisCount);
 
 
@@ -79,31 +49,14 @@ namespace Game
         }
 
 
-        public static void ResetMergeAudioIndex()
+        public void ResetMergeAudioIndex()
         {
             MergeAudioIndex = 0;
         }
 
-        // private void StopLoop()
-        // {
-        //     if (_mainRoutine == null)
-        //     {
-        //         return;
-        //     }
-        //     StopCoroutine(_mainRoutine);
-        //     _mainRoutine = null;
-        // }
-
         public void Deconstruct()
         {
             ResetMergeAudioIndex();
-            // StopLoop();
-            // Map.THIS.MapWaitForCycle = false;
-        }
-        
-        public void OnLevelEnd()
-        {
-            // StopLoop();
         }
     }
 }
