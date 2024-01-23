@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Random = UnityEngine.Random;
 
 public class AudioManager : Internal.Core.Singleton<AudioManager>
@@ -14,10 +18,16 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [SerializeField] public List<Audio> debugSounds;
     [SerializeField] public List<String> debugNames;
 #endif
+    [System.NonSerialized] private AudioSource _backgroundAudioSource;
+    [SerializeField] private List<AssetReference> backgroundTracksAssetReferences;
+    [System.NonSerialized] private AssetReference _currentBackgroundTrackAssetReference = null;
+    [SerializeField] public AudioMixerGroup audioMixerMusic;
+    
     [System.NonSerialized] private AudioSource _emptySource = null;
-    [SerializeField] public float overlapProtectionTime = 0.1f;
     [SerializeField] public List<AudioSourceData> audioSourceDatas;
     [SerializeField] public AudioMixerGroup audioMixerSfx;
+    [SerializeField] public float overlapProtectionTime = 0.1f;
+    
 
     void Awake()
     {
@@ -25,7 +35,49 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         _emptySource.loop = false;
         _emptySource.outputAudioMixerGroup = audioMixerSfx;
         _emptySource.hideFlags = HideFlags.HideInInspector;
+        
+        _backgroundAudioSource = this.gameObject.AddComponent<AudioSource>();
+        _backgroundAudioSource.loop = true;
+        _backgroundAudioSource.outputAudioMixerGroup = audioMixerMusic;
+        _backgroundAudioSource.hideFlags = HideFlags.HideInInspector;
     }
+
+    public void PlayBackgroundTrackByLevel(int level)
+    {        
+        int trackIndex = ((level - 1) / 5) % backgroundTracksAssetReferences.Count;
+        if (_currentBackgroundTrackAssetReference == backgroundTracksAssetReferences[trackIndex])
+        {
+            return;
+        }
+        LoadBackgroundTrack(trackIndex);
+    }
+
+    private void LoadBackgroundTrack(int trackIndex)
+    {
+        UnloadBackgroundTrack();
+        _currentBackgroundTrackAssetReference = backgroundTracksAssetReferences[trackIndex];
+        Addressables.LoadAssetAsync<AudioClip>(_currentBackgroundTrackAssetReference).Completed += operationHandle =>
+        {
+            if (operationHandle.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError("Failed to load");
+                return;
+            }
+            _backgroundAudioSource.clip = operationHandle.Result as AudioClip;
+            _backgroundAudioSource.Play();
+            
+        };
+    }
+
+    private void UnloadBackgroundTrack()
+    {
+        _currentBackgroundTrackAssetReference?.ReleaseAsset();
+        _currentBackgroundTrackAssetReference = null;
+    }
+    
+    
+    
+    
 
     public static void PlayOneShot(AudioClip audioClip, float volume, float pitch)
     {

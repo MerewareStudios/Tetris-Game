@@ -44,6 +44,8 @@ public class LevelManager : Singleton<LevelManager>
 #else
         Board.THIS.Construct(BoardSize());
 #endif
+
+        AudioManager.THIS.PlayBackgroundTrackByLevel(CurrentLevel);
     }
 
     public void OnLateLoad()

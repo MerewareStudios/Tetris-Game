@@ -3973,7 +3973,33 @@ MonoBehaviour:
   onlyPlayDebugSound: 0
   debugSounds: 
   debugNames: []
-  overlapProtectionTime: 0.05
+  backgroundTracksAssetReferences:
+  - m_AssetGUID: 2dcb45c4731554b4a99b0e432b6333bc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: d165c462d1d15c24c815572ca5087e63
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 0ae5a325c3ac717429724ae2657da474
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: bb5beb7b11c0c77439c192c4b3fd4dce
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: eb10dd34d53b33d4b8aca700d1ea9b3c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  - m_AssetGUID: 85c805c53ea4eb64d92d1761c2d6ff17
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  audioMixerMusic: {fileID: -9156204249511905205, guid: 3173b7aa7c9cdff4498592a31af26694,
+    type: 2}
   audioSourceDatas:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 94c9d0eaff6fa444982435772b8046d8,
       type: 3}
@@ -4212,6 +4238,7 @@ MonoBehaviour:
     muted: 0
     pitchRange: {x: 0.9, y: 1.1}
   audioMixerSfx: {fileID: 24300002, guid: 3173b7aa7c9cdff4498592a31af26694, type: 2}
+  overlapProtectionTime: 0.05
 --- !u!1 &715818425
 GameObject:
   m_ObjectHideFlags: 0
@@ -7926,12 +7953,12 @@ PrefabInstance:
     - target: {fileID: 5589712506038250000, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_fontSize
-      value: 64.66
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 5589712506038250000, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 64.66
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 7188884772289204339, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
@@ -7941,7 +7968,7 @@ PrefabInstance:
     - target: {fileID: 7188884772289204339, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7188884772289204339, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
@@ -7966,12 +7993,12 @@ PrefabInstance:
     - target: {fileID: 7188884772289204339, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7188884772289204339, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 27
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 7188884772289204339, guid: a476a1a218143a44b8297e949b95c01f,
         type: 3}
@@ -17391,7 +17418,7 @@ PrefabInstance:
     - target: {fileID: 2546913695575768982, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -511.99988
+      value: -512
       objectReference: {fileID: 0}
     - target: {fileID: 2559703356478064583, guid: 6ae65a911ea74b447a06cf6bbdeac58f,
         type: 3}
