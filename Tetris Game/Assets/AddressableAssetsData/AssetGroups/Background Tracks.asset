@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d165c462d1d15c24c815572ca5087e63
-    m_Address: Assets/Sounds/Track/Track 2.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0ae5a325c3ac717429724ae2657da474
     m_Address: Assets/Sounds/Track/Track 9.mp3
     m_ReadOnly: 0
@@ -44,6 +39,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 85c805c53ea4eb64d92d1761c2d6ff17
     m_Address: Assets/Sounds/Track/Track 42.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40ff50a09a2f8a3408f235fa9d598a39
+    m_Address: Assets/Sounds/Track/Track 8 - Low.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
