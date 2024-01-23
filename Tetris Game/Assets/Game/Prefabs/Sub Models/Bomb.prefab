@@ -19410,6 +19410,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Circular Progress
       objectReference: {fileID: 0}
+    - target: {fileID: 7482432434027642628, guid: 1dc46d320d324244f9b64900b74e756f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.8509804
+      objectReference: {fileID: 0}
     - target: {fileID: 9198115006541939470, guid: 1dc46d320d324244f9b64900b74e756f,
         type: 3}
       propertyPath: m_Pivot.x
