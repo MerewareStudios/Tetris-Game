@@ -363,6 +363,16 @@ namespace  Game
                 }
             }
         }
+        
+        public Vector3 RandomInvalidPosition()
+        {
+            return new Vector3(Random.Range(-SpawnRange, SpawnRange), 0.0f, Random.Range(EndLine, StartLine));
+        }
+        
+        public Vector3 RandomInvalidForwardPosition()
+        {
+            return new Vector3(Random.Range(-SpawnRange, SpawnRange), 1.0f, StartLine + 0.5f);
+        }
 
         public void AddLandMine(SubModel subModel)
         {

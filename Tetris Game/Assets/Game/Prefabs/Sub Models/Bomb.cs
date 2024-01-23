@@ -29,12 +29,12 @@ public class Bomb : SubModel
         RefreshSequence();
         
         
-        if (!enemy)
-        {
-            return;
-        }
+        // if (!enemy)
+        // {
+        //     return;
+        // }
 
-        Vector3 hitTarget = enemy.hitTarget.position;
+        Vector3 hitTarget = enemy ? enemy.hitTarget.position : Warzone.THIS.RandomInvalidPosition();
 
 
         Tween jumpTween = ThisTransform.DOJump(hitTarget, 4.0f, 1, 0.75f).SetEase(Ease.InSine);

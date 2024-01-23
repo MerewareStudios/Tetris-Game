@@ -10,5 +10,6 @@ public enum Particle
     Kamikaze = 7,
     Debris = 8,
     Star = 9,
+    Miss = 10,
 
 }

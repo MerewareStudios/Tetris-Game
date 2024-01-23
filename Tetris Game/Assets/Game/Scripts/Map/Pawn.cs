@@ -196,10 +196,6 @@ namespace Game
                     break;
                 case Usage.Rocket:
                     Enemy rocketEnemy = Warzone.THIS.GetRandomTarget();
-                    if (!rocketEnemy)
-                    {
-                        return false;
-                    }
                     SubModel.Lose();
                     SubModel.OnProjectile(rocketEnemy);
                     SubModel = null;
@@ -211,10 +207,6 @@ namespace Game
                     break;
                 case Usage.Bomb:
                     Enemy bombEnemy = Warzone.THIS.GetAoeTarget();
-                    if (!bombEnemy)
-                    {
-                        return false;
-                    }
                     SubModel.Lose();
                     SubModel.OnProjectile(bombEnemy);
                     SubModel = null;
@@ -242,10 +234,6 @@ namespace Game
                     return true;
                 case Usage.Punch:
                     Enemy punchEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
-                    if (!punchEnemy)
-                    {
-                        return false;
-                    }
                     SubModel.Lose();
                     SubModel.OnProjectile(punchEnemy);
                     SubModel = null;

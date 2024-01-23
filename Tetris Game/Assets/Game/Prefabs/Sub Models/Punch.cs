@@ -10,27 +10,37 @@ public class Punch : SubModel
 
         RefreshSequence();
         
-        if (!enemy)
+        // if (!enemy)
+        // {
+        //     return;
+        // }
+
+        bool validEnemy = enemy;
+        Vector3 hitTarget;
+        int enemyID = -1;
+
+        if (validEnemy)
         {
-            return;
+            enemyID = enemy.ID;
+            hitTarget = enemy.hitTarget.position;
+            enemy.DragTarget = true;
         }
-        
+        else
+        {
+            hitTarget = Warzone.THIS.RandomInvalidForwardPosition();
+        }
 
-        float duration = 0.65f;
-        
-        int enemyID = enemy.ID;
+        const float duration = 0.65f;
 
-
-        Vector3 hitTarget = enemy.hitTarget.position;
         Vector3 frontPosition = hitTarget;
         frontPosition.z = Warzone.THIS.EndLine - 0.5f;
 
-        float distanceTime = (hitTarget.z - frontPosition.z) / 6.0f;
+        float distanceTime = (hitTarget.z - frontPosition.z) / 9.0f;
         
         
         Tween frontTween = ThisTransform.DOJump(frontPosition, 2.0f, 1, duration).SetEase(Ease.InOutSine);
         Tween rotateTween = ThisTransform.DORotate(new Vector3(-120f, 180.0f, 0.0f), duration, RotateMode.Fast).SetEase(Ease.InOutSine);
-        Tween moveTween = ThisTransform.DOMove(hitTarget, distanceTime).SetEase(Ease.InBack);
+        Tween moveTween = ThisTransform.DOMove(hitTarget, distanceTime).SetEase(Ease.InBack, 2.0f);
         Tween rotTween = ThisTransform.DORotate(new Vector3(0f, 0.0f, 180.0f), distanceTime * 0.75f, RotateMode.WorldAxisAdd).SetRelative(true).SetEase(Ease.Linear);
 
         Sequence.Append(frontTween);
@@ -41,22 +51,28 @@ public class Punch : SubModel
         hitTarget.y += 2.0f;
         hitTarget.z -= 1.25f;
 
-        enemy.DragTarget = true;
         
         Audio.Powerup_Throw.PlayOneShot();
         
         Sequence.onComplete = () =>
         {
-            if (enemyID == enemy.ID)
+            if (validEnemy)
             {
-                enemy.TakeDamage(10, 1.0f);
-                enemy.Drag(2.0f, Warzone.THIS.AssignClosestEnemy);
+                if (enemyID == enemy.ID)
+                {
+                    enemy.TakeDamage(10, 1.0f);
+                    enemy.Drag(2.0f, Warzone.THIS.AssignClosestEnemy);
+                }
+                
+                CameraManager.THIS.Shake(0.75f, 0.75f);
+                Particle.Pow.Play(hitTarget);
+                Audio.Punch.PlayOneShot();
             }
-            
-            CameraManager.THIS.Shake(0.75f, 0.75f);
-            Particle.Pow.Play(hitTarget);
-            Audio.Punch.PlayOneShot();
-            
+            else
+            {
+                Particle.Miss.Play(hitTarget);
+                Audio.Miss.PlayOneShot();
+            }
             OnDeconstruct();
         };
     }

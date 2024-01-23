@@ -15,20 +15,29 @@ public class Rocket : SubModel
         
         RefreshSequence();
         
-        if (!enemy)
+        // if (!enemy)
+        // {
+        //     return;
+        // }
+        
+        bool validEnemy = enemy;
+        Vector3 hitTarget;
+        int enemyID = -1;
+
+        if (validEnemy)
         {
-            return;
+            enemyID = enemy.ID;
+            hitTarget = enemy.hitTarget.position;
+            enemy.DragTarget = true;
         }
-
-
-        int enemyID = enemy.ID;
-
-        Vector3 hitTarget = enemy.hitTarget.position;
+        else
+        {
+            hitTarget = Warzone.THIS.RandomInvalidPosition();
+        }
 
         Tween jumpTween = ThisTransform.DOJump(hitTarget, AnimConst.THIS.missileJumpPower, 1, AnimConst.THIS.missileDuration).SetEase(AnimConst.THIS.missileEase, AnimConst.THIS.missileOvershoot);
         
         Sequence.Append(jumpTween);
-
         
         Vector3 lastPos = ThisTransform.position;
         jumpTween.onUpdate = () =>
@@ -46,9 +55,12 @@ public class Rocket : SubModel
         
         Sequence.onComplete = () =>
         {
-            if (enemyID == enemy.ID)
+            if (validEnemy)
             {
-                enemy.TakeDamage(15, 2.0f);
+                if (enemyID == enemy.ID)
+                {
+                    enemy.TakeDamage(15, 2.0f);
+                }
             }
 
             Particle.Missile_Explosion.Play(hitTarget);
