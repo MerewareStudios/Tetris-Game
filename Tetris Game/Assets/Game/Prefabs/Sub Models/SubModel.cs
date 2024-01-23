@@ -188,9 +188,13 @@ public class SubModel : MonoBehaviour
     {
         Particle.Debris.Emit(15, Position, Color.black);
     }
-    public virtual void OnExplode(Vector2Int index)
+    public virtual void OnExplode(Place place)
     {
         EmitExplodeEffect();
+    }
+    public virtual void OnPostExplode(Place place)
+    {
+        
     }
     public virtual void OnExtraValueChanged(int value)
     {

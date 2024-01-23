@@ -703,7 +703,7 @@ namespace Game
                 {
                     Vector2Int check = centerPosition + new Vector2Int(x, y);
                     
-                    if(check.x < 0 || check.x >= _size.x || check.y < 0 || check.y >= _size.y)
+                    if(IsOutsideBounds(check))
                     {
                         continue;
                     }
@@ -1077,7 +1077,7 @@ namespace Game
                 {
                     Vector2Int check = centerPosition + new Vector2Int(x, y);
                     
-                    if(check.x < 0 || check.x >= _size.x || check.y < 0 || check.y >= _size.y)
+                    if(IsOutsideBounds(check))
                     {
                         continue;
                     }
@@ -1307,26 +1307,13 @@ namespace Game
                         continue;
                     }
 
-                    Debug.LogError("explode check" + center);
-                    pawn.Explode(place.Index);
-                    RemovePawn(place);
+                    SubModel subModel = pawn.OnExplode(place);
+                    
+                    place.Deconstruct();
+                    
+                    subModel.OnPostExplode(place);
                 }
             }
-        }
-
-        private void RemovePawn(Place place)
-        {
-            if (!place.Occupied)
-            {
-                return;
-            }
-
-            if (place.Current.ParentBlock)
-            {
-                place.Current.ParentBlock.DetachPawn(place.Current);
-            }
-            
-            place.Deconstruct();
         }
 
         public int TakeBullet(int splitCount)

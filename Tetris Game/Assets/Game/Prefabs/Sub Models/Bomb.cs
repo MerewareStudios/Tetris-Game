@@ -7,6 +7,7 @@ public class Bomb : SubModel
     [SerializeField] private CircularProgress progress;
     [System.NonSerialized] private int _duration;
     [System.NonSerialized] private Tween _timerTween;
+    // [System.NonSerialized] private Tween _delayedExplode;
 
     public override void OnConstruct(Pool poolType, Transform customParent, int extra)
     {
@@ -64,19 +65,28 @@ public class Bomb : SubModel
         };
     }
 
-    public override void OnExplode(Vector2Int index)
+    public override void OnExplode(Place place)
     {
-        base.OnExplode(index);
+        base.OnExplode(place);
         
         Particle.Missile_Explosion.Play(base.Position);
         Audio.Bomb_Explode.PlayOneShot();
 
         UIManagerExtensions.Distort(Position, 9.0f, 0.05f, 1.1f, Ease.OutSine);
 
-        
-        Board.THIS.ExplodePawnsCircular(index);
+
+        // _delayedExplode = DOVirtual.DelayedCall(0.2f, () =>
+        // {
+            // _timerTween?.Kill();
+        // }, false);
 
         // OnDeconstruct();
+    }
+    
+    public override void OnPostExplode(Place place)
+    {
+        base.OnPostExplode(place);
+        Board.THIS.ExplodePawnsCircular(place.Index);
     }
 
     private void StartTimer(int time, Place place)
@@ -89,12 +99,17 @@ public class Bomb : SubModel
         {
             progress.Fill = timeStep;
         };
-        _timerTween.onComplete = () => Board.THIS.ExplodePawnsCircular(place.Index);
+        _timerTween.onComplete = () =>
+        {
+            // _delayedExplode?.Kill();
+            Board.THIS.ExplodePawnsCircular(place.Index);
+        };
     }
     private void StopTimer()
     {
         progress.Kill();
         _timerTween?.Kill();
+        // _delayedExplode?.Kill();
         progress.gameObject.SetActive(false);
     }
 
