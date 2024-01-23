@@ -49,7 +49,7 @@ public class LevelManager : Singleton<LevelManager>
     public void OnLateLoad()
     {
         GameManager.PLAYING = true;
-        Map.THIS.StartMainLoop();
+        // Map.THIS.StartMainLoop();
         Spawner.THIS.OnLevelLoad();
 
         levelText.text = "Level " + CurrentLevel;

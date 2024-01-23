@@ -24,7 +24,7 @@ namespace Game
         // [System.NonSerialized] public bool PlacedOnGrid = false;
         [System.NonSerialized] public bool CanRotate;
         
-        [System.NonSerialized] public bool Free2Place = false;
+        // [System.NonSerialized] public bool Free2Place = false;
 
         private Pawn PivotPawn => Pawns[0];
         [System.NonSerialized] public Vector2Int UnsafePivotIndex;
@@ -74,7 +74,7 @@ namespace Game
             this.rotatePivot.localPosition = mimicBlock.rotatePivot.localPosition;
             this.rotatePivot.localEulerAngles = Vector3.zero;
 
-            Free2Place = false;
+            // Free2Place = false;
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
@@ -83,10 +83,10 @@ namespace Game
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, thisTransform.position + target.localPosition, usage.ExtraValue(), usage);
                 pawn.ParentBlock = this;
 
-                if (!Free2Place)
-                {
-                    Free2Place = pawn.VData.free2Place;
-                }
+                // if (!Free2Place)
+                // {
+                //     Free2Place = pawn.VData.free2Place;
+                // }
 
                 pawn.Show();
                 Pawns.Add(pawn);

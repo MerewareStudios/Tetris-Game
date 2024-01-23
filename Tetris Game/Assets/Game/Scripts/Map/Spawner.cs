@@ -22,7 +22,21 @@ public class Spawner : Singleton<Spawner>
     [SerializeField] public NextBlockDisplay nextBlockDisplay;
     [SerializeField] private float spawnDelay = 0.45f;
    
-    [System.NonSerialized] public Block CurrentBlock;
+    [System.NonSerialized] private Block _currentBlock;
+    public Block CurrentBlock
+    {
+        set
+        {
+            _currentBlock = value;
+            if (value)
+            {
+                Board.THIS.CheckDeadLock(true);
+            }
+        }
+        get => _currentBlock;
+    }
+    
+    
     [System.NonSerialized] private Pool _nextBlock;
     [System.NonSerialized] private Plane _plane;
     [System.NonSerialized] public bool GrabbedBlock = false;

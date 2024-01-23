@@ -504,7 +504,7 @@ namespace Game
             [SerializeField] public Pawn.Usage usage;
             [SerializeField] public int externValue = 0;
             [SerializeField] public Pool model;
-            [SerializeField] public bool free2Place = false;
+            // [SerializeField] public bool free2Place = false;
             [SerializeField] public bool useParentColor = false;
             // [SerializeField] public Color startColor;
             // [SerializeField] public Gradient explodeGradient;

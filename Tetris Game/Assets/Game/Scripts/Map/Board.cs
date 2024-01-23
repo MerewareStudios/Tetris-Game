@@ -40,6 +40,9 @@ namespace Game
         [System.NonSerialized] private Data _data;
         [SerializeField] public int[] DropPositions;
         [System.NonSerialized] public List<SubModel> LoseSubModels = new();
+        [System.NonSerialized] private int _randomIndex = 0;
+        [System.NonSerialized] private List<int> _highlightIndexes = new();
+        [System.NonSerialized] private List<List<Place>> _allPlaces = new();
 
         public int StackLimit
         {
@@ -235,7 +238,7 @@ namespace Game
                 
                 foreach (var place in _places)
                 {
-                    if (block && grabbed && !block.Free2Place)
+                    if (block && grabbed)
                     {
                         place.SetTargetColorType(place.LimitDarkLightDown);
                     }
@@ -346,67 +349,99 @@ namespace Game
             Highlight(Spawner.THIS.CurrentBlock.RequiredPlaces, Spawner.THIS.CurrentBlock.blockData.Color);
         }
         
-        public void CheckDeadLock()
+        public void CheckDeadLock(bool cancelDelayedHighlight)
         {
+            if (cancelDelayedHighlight)
+            {
+                StopDelayedHighlight();
+                _highlightIndexes.Clear();
+            }
             if (_delayedHighlightTween != null)
             {
+                // Debug.LogError("Deadlock check rejected : Already running highlight");
                 // Already running a suggestion loop, skip
                 return;   
             }
-            if (Map.THIS.MapWaitForCycle)
-            {
-                // Still waiting for a map cycle after placement, wait to end & skip
-                return;
-            }
+            // if (Map.THIS.MapWaitForCycle)
+            // {
+            //     // Still waiting for a map cycle after placement, wait to end & skip
+            //     return;
+            // }
             if (!Spawner.THIS.CurrentBlock)
             {
+                // Debug.LogError("Deadlock check rejected : No current block");
                 // There is no block to suggest place or check deadlock, skip
                 return;
             }
-            if (Spawner.THIS.CurrentBlock.Free2Place)
-            {
-                if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
-                {
-                    ONBOARDING.PLACE_POWERUP.SetComplete();
-                    Onboarding.TalkAboutFreePlacement();
-                }
-                // There is no block to suggest place or check deadlock, skip
-                return;
-            }
+            // if (Spawner.THIS.CurrentBlock.Free2Place)
+            // {
+            //     if (ONBOARDING.PLACE_POWERUP.IsNotComplete())
+            //     {
+            //         ONBOARDING.PLACE_POWERUP.SetComplete();
+            //         Onboarding.TalkAboutFreePlacement();
+            //     }
+            //     // There is no block to suggest place or check deadlock, skip
+            //     return;
+            // }
             if (Spawner.THIS.CurrentBlock.RequiredPlaces != null && Spawner.THIS.CurrentBlock.RequiredPlaces.Count > 0)
             {
                 HighlightRequired();
                 _delayedHighlightTween = DOVirtual.DelayedCall(1.5f, HighlightRequired, false).SetLoops(-1);
+                
+                // Debug.LogError("Deadlock check rejected : Highlighting required places");
+
                 // Running a suggestion loop via suggested location by level design, skip
                 return;
             }
            
-            for (int i = 0; i < _size.x; i++)
+            // for (int i = 0; i < _size.x; i++)
+            // {
+            //     for (int j = 0; j < _size.y; j++)
+            //     {
+            //         Place place = _places[i, j];
+            //         if (!place.Current)
+            //         {
+            //             continue;
+            //         }
+            //     }
+            // }
+            
+            
+            if (_highlightIndexes.Count == 0)
             {
-                for (int j = 0; j < _size.y; j++)
+                _allPlaces = DetectFit(Spawner.THIS.CurrentBlock);
+
+                for (int i = 0; i < _allPlaces.Count; i++)
                 {
-                    Place place = _places[i, j];
-                    if (!place.Current)
-                    {
-                        continue;
-                    }
+                    _highlightIndexes.Add(i);
                 }
             }
 
-            List<List<Place>> allPlaces = DetectFit(Spawner.THIS.CurrentBlock);
 
-            if (allPlaces.Count > 0)
+            if (_allPlaces != null && _allPlaces.Count > 0)
             {
-                List<Place> randomPlaces = allPlaces.Random();
-                _delayedHighlightTween = DOVirtual.DelayedCall(10.0f, () =>
+                int randomIndex = Random.Range(0, _highlightIndexes.Count);
+                int randomValue = _highlightIndexes[randomIndex];
+                _highlightIndexes.RemoveAt(randomIndex);
+                
+                // List<Place> highlightPlaces = allPlaces.Count > 4 ? allPlaces.Random() : allPlaces[_randomIndex++ % allPlaces.Count];
+                List<Place> highlightPlaces = _allPlaces[randomValue];
+                _delayedHighlightTween = DOVirtual.DelayedCall(2.0f, () =>
                 {
-                    Highlight(randomPlaces, Const.THIS.suggestionColor);
-                    _delayedHighlightTween?.Kill();
-                    _delayedHighlightTween = null;
+                    Highlight(highlightPlaces, Spawner.THIS.CurrentBlock.Color);
+                    StopDelayedHighlight();
+                    
+                    CheckDeadLock(false);
                 }, false);
+                
+                // Debug.LogError("Found a fit : Suggest");
+
                 // Found a fit, suggest/highlight it, skip
                 return;
             }
+            
+            // Debug.LogError("No place to put");
+
             if (ONBOARDING.USE_POWERUP.IsNotComplete())
             {
                 if (!UIManager.THIS.finger.Visible)
@@ -420,6 +455,11 @@ namespace Game
                 Powerup.THIS.PunchFrame(0.2f);
                 HapticManager.Vibrate(HapticPatterns.PresetType.Selection);
             }
+            
+            _delayedHighlightTween = DOVirtual.DelayedCall(2.0f, () =>
+            {
+                CheckDeadLock(true);
+            }, false);
         }
 
         public Place LinearIndex2Place(int index)
@@ -626,7 +666,11 @@ namespace Game
 
             if (lastTween != null)
             {
-                lastTween.onComplete += () => EmitCommonSpawnEffects(multiplier);
+                lastTween.onComplete += () =>
+                {
+                    EmitCommonSpawnEffects(multiplier);
+                    CheckDeadLock(true);
+                };
             }
                 
             return multiplier;
@@ -1354,7 +1398,7 @@ namespace Game
 
         public void Place(Block block)
         {
-            Map.THIS.MapWaitForCycle = true;
+            // Map.THIS.MapWaitForCycle = true;
             
             List<Place> projectedPlaces = new();
 
@@ -1432,10 +1476,10 @@ namespace Game
             {
                 return (place, false);
             }
-            if (pawn.VData.free2Place)
-            {
-                return (place, true);
-            }
+            // if (pawn.VData.free2Place)
+            // {
+            //     return (place, true);
+            // }
             
             if (_size.y - _size.y > indexValue.y)
             {
@@ -1531,6 +1575,11 @@ namespace Game
         {
             suggestionHighlight.Stop();
             suggestionHighlight.Clear();
+            StopDelayedHighlight();
+        }
+
+        private void StopDelayedHighlight()
+        {
             _delayedHighlightTween?.Kill();
             _delayedHighlightTween = null;
         }

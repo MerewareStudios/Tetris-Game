@@ -24,7 +24,7 @@ MonoBehaviour:
     Practice</>'
   enemiesComingText: '<wiggle a=1 f=3>Enemies
 
-    Coming</>'
+    Coming !</>'
   ticketMergeText: '<size=80%>USE<sprite name=Arrow><sprite name=Magnet> '
   freePlacementText: Place it anywhere!
   maxStackDropCheer: +1<color=#FFD919><bounce a=1 f=2 w=0.5> STACK LIMIT</bounce></color>
