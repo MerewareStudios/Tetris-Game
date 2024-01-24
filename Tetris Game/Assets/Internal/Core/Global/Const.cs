@@ -74,6 +74,7 @@ public class Const : SSingleton<Const>
     // public LevelSo[] AutoLevels;
     public SaveData DefaultSaveData;
     [Header("Default Lookup")]
+    public int rewardedTicketCount = 5;
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
 
@@ -137,6 +138,7 @@ public class Const : SSingleton<Const>
         }
 
         public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);
+        public static Currency RewardedEarn = new Currency(CurrencyType.Ticket, Const.THIS.rewardedTicketCount);
     }
     
     [Serializable]

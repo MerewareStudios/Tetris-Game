@@ -262,7 +262,7 @@ namespace Game.UI
                 {
                     AdManager.ShowTicketAd(AdBreakScreen.AdReason.BLOCK_BUY, AdManager.GetTicketOfferForBlock(),() =>
                     {
-                        Wallet.Transaction(Const.Currency.OneAd);
+                        Wallet.Transaction(Const.Currency.RewardedEarn);
                         OnClick_Purchase();
                     });
                 }

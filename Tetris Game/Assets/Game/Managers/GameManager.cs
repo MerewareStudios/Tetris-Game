@@ -212,6 +212,14 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    // private string err = "LABEL";
+    // void OnGUI()
+    // {
+    //     GUIStyle headStyle = new GUIStyle();
+    //     headStyle.fontSize = 80; 
+    //     GUI.Label(new Rect(50, 450, 150, 50), err, headStyle);
+    // }
+
     public void LeaveComment(System.Action onStart, System.Action<bool> onFinish)
     {
         if (_flowRoutine != null)
@@ -232,6 +240,7 @@ public class GameManager : Singleton<GameManager>
             
             if (requestFlowOperation.Error != ReviewErrorCode.NoError)
             {
+                // err = requestFlowOperation.Error.ToString();
                 Debug.LogError(requestFlowOperation.Error);
                 onFinish?.Invoke(false);
                 yield return new WaitForSeconds(0.25f);
@@ -245,6 +254,7 @@ public class GameManager : Singleton<GameManager>
             
             if (launchFlowOperation.Error != ReviewErrorCode.NoError)
             {
+                // err = launchFlowOperation.Error.ToString();
                 Debug.LogError(launchFlowOperation.Error);
                 onFinish?.Invoke(false);
                 yield return new WaitForSeconds(0.25f);
@@ -254,6 +264,7 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitForSecondsRealtime(0.25f);
             _flowRoutine = null;
             onFinish?.Invoke(true);
+            // err = "Commented";
         }
     }
     

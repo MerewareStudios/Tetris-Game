@@ -358,7 +358,7 @@ namespace IWI
             
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.REWARDED)
             .SetLoadState(FakeAdRewarded.THIS.LoadState)
-            .SetInfo(Onboarding.THIS.earnTicketText, Onboarding.THIS.cancelButtonText)
+            .SetInfo(Onboarding.THIS.earnTicketText + Const.THIS.rewardedTicketCount, Onboarding.THIS.cancelButtonText)
             .SetVisualData(Onboarding.THIS.rewardedAdVisualData)
             .RemoveAdBreakButtonState(false)
             .SetOffer(offerType)

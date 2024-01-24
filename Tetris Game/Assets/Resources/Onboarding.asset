@@ -43,7 +43,7 @@ MonoBehaviour:
   hasText: <pend a=0.1 f=2>PURCHASED
   unlockedAtText: <pend a=0.1 f=2><sprite name=Lock>
   useTicketText: AD BREAK
-  earnTicketText: EARN <sprite name=Ticket>
+  earnTicketText: EARN <sprite name=Ticket> x
   skipButtonText: SKIP<sprite name=Ticket>
   cancelButtonText: NOT NOW
   adBreakVisualData:
