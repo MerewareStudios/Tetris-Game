@@ -75,11 +75,11 @@ namespace IWI
                     {
                         case AdapterState.NotReady:
                             // The adapter initialization did not complete.
-                            Debug.Log("Adapter Status: " + className + " not ready.");
+                            // Debug.Log("Adapter Status: " + className + " not ready.");
                             break;
                         case AdapterState.Ready:
                             // The adapter was successfully initialized.
-                            Debug.Log("Adapter Status: " + className + " is initialized.");
+                            // Debug.Log("Adapter Status: " + className + " is initialized.");
                             break;
                     }
                 }

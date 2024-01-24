@@ -385,19 +385,6 @@ namespace Game
                 return;
             }
            
-            // for (int i = 0; i < _size.x; i++)
-            // {
-            //     for (int j = 0; j < _size.y; j++)
-            //     {
-            //         Place place = _places[i, j];
-            //         if (!place.Current)
-            //         {
-            //             continue;
-            //         }
-            //     }
-            // }
-            
-            
             if (_highlightIndexes.Count == 0)
             {
                 _allPlaces = DetectFit(Spawner.THIS.CurrentBlock);
@@ -415,7 +402,6 @@ namespace Game
                 int randomValue = _highlightIndexes[randomIndex];
                 _highlightIndexes.RemoveAt(randomIndex);
                 
-                // List<Place> highlightPlaces = allPlaces.Count > 4 ? allPlaces.Random() : allPlaces[_randomIndex++ % allPlaces.Count];
                 List<Place> highlightPlaces = _allPlaces[randomValue];
                 _delayedHighlightTween = DOVirtual.DelayedCall(3.0f, () =>
                 {
@@ -426,7 +412,6 @@ namespace Game
                 }, false);
                 
                 // Debug.LogError("Found a fit : Suggest");
-
                 // Found a fit, suggest/highlight it, skip
                 return;
             }

@@ -3803,8 +3803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe0098ec719cd0439a6e26236b7822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  DELETE_AT_START: 0
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4005,12 +4005,6 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     volume: 2
   - assetReference:
-      m_AssetGUID: d320b01c4758fe64e9962aef9cf0939e
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    volume: -6
-  - assetReference:
       m_AssetGUID: 59c4353906c51a44c8a1cabaa5c5b2b1
       m_SubObjectName: 
       m_SubObjectType: 
@@ -4094,6 +4088,12 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     volume: 3
+  - assetReference:
+      m_AssetGUID: d320b01c4758fe64e9962aef9cf0939e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    volume: -6
   - assetReference:
       m_AssetGUID: 86da3d6c9bb23b64fa42600102df307d
       m_SubObjectName: 

@@ -2,8 +2,6 @@ using System;
 using DG.Tweening;
 using Game;
 using Game.UI;
-using Internal.Core;
-using RootMotion;
 using TMPro;
 using UnityEngine;
 
@@ -71,27 +69,22 @@ public class Const : SSingleton<Const>
     [Header("Look Up")]
     public LevelSo[] Levels;
     public LevelSo spareLevelSo;
-    // public LevelSo[] AutoLevels;
     public SaveData DefaultSaveData;
     [Header("Default Lookup")]
     public int rewardedTicketCount = 5;
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
+    public Pool[] highPossibilityBlocks;
 
     public Pawn.Usage[] gifts;
     public Pawn.Usage[] singleLineUsages;
     public Pawn.Usage[] aaUsages;
     public Pawn.Usage[] nonEqualUsages;
     [Header("Colors")] 
-    public Color steadyColor;
     public Gradient mergeGradient;
     public Color mergerMaxColor;
     public Color mergerColor;
-    public Color ghostNormal;
-    public Color ghostFade;
     public Color[] placeColorsDouble;
-    // public Vector3[] placePosDouble;
-    // public bool[] ghostPawnStateDouble;
     public Gradient powerEffectGradient;
     [Header("Meta Settings")] 
     public Material[] metaTextMaterials;
@@ -108,9 +101,6 @@ public class Const : SSingleton<Const>
     public Ease rotationEase;
     [Header("Pawn")] 
     public Pawn.VisualData[] pawnVisualData;
-    [Header("Tutorıal")] 
-    public Color suggestionColorTut;
-    public Color suggestionColor;
     [Header("Ad Break Icons")] 
     public Sprite earnTicketBackgroundImage;
     public Sprite skipAdBackgroundImage;
@@ -141,18 +131,6 @@ public class Const : SSingleton<Const>
         public static Currency RewardedEarn = new Currency(CurrencyType.Ticket, Const.THIS.rewardedTicketCount);
     }
     
-    [Serializable]
-    public class PawnPlacement
-    {
-        [SerializeField] public Vector2Int boardSize;
-        [SerializeField] public PawnPlacementData[] data;
-    }
-    
-    [Serializable]
-    public class PawnPlacementData
-    {
-        [SerializeField] public Board.PawnPlacement[] PawnPlacements;
-    }
     
     [Serializable]
     public enum CurrencyType
@@ -163,14 +141,6 @@ public class Const : SSingleton<Const>
         Local,
     }
 
-    // public LevelSo GetAutoLevel(int index)
-    // {
-        // return AutoLevels[index];
-    // }
-    // public LevelSo GetRandomAutoLevel()
-    // {
-    //     return AutoLevels.Random();
-    // }
     public LevelSo GetModLevel(int level)
     {
         int modded = (level - 1) % Levels.Length;
@@ -189,10 +159,6 @@ public class Const : SSingleton<Const>
 
 public static class ConstExtensions
 {
-    public static Pool Model(this Pawn.Usage usage)
-    {
-        return Const.THIS.pawnVisualData[(int)usage].model; 
-    }
     public static Sprite PowerUpIcon(this Pawn.Usage usage)
     {
         return Const.THIS.pawnVisualData[(int)usage].powerUpIcon; 
@@ -204,9 +170,5 @@ public static class ConstExtensions
     public static Sprite Icon(this Pawn.Usage usage)
     {
         return Const.THIS.pawnVisualData[(int)usage].powerUpIcon; 
-    }
-    public static bool IsLocal(this Const.CurrencyType currencyType)
-    {
-        return currencyType.Equals(Const.CurrencyType.Local); 
     }
 }

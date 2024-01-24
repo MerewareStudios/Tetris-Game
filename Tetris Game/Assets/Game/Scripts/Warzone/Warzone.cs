@@ -52,7 +52,7 @@ namespace  Game
         {
             for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                _enemies[i].Walk();
+                _enemies[i].Move();
             }
         }
 
@@ -193,7 +193,7 @@ namespace  Game
                         enemy.CoinAmount += totalCoinLeft;
                     }
 
-                    float waitTill = Time.time + enemySpawnDatum.delay;
+                    float waitTill = Time.time + enemySpawnDatum.delay * 2.0f;
 
                     if (spawnIndex >= LevelManager.LevelSo.enemySpawnData.Length)
                     {
@@ -204,7 +204,7 @@ namespace  Game
 
                     if (Time.time < waitTill)
                     {
-                        yield return new WaitForSeconds((waitTill - Time.time) * 0.09f);
+                        yield return new WaitForSeconds((waitTill - Time.time) * 0.04f);
                     }
                 }
 
@@ -328,11 +328,6 @@ namespace  Game
             }
 
             List<Enemy> sortedEnemies = _enemies.OrderBy(enemy => enemy.PositionZ).ToList();
-
-            foreach (var a in sortedEnemies)
-            {
-                Debug.LogWarning("a ", a.gameObject);
-            }
 
             foreach (var enemy in sortedEnemies)
             {

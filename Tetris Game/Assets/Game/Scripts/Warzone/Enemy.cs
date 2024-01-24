@@ -56,9 +56,10 @@ namespace  Game
         }
 
         #region  Mono
-        public void Walk()
+        public void Move()
         {
-            thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * LevelManager.DeltaMult));
+            // thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * LevelManager.DeltaMult * 0.5f));
+            thisTransform.Translate(new Vector3(0.0f, 0.0f, Time.deltaTime * so.speed * 0.5f));
             
             Warzone.THIS.CheckLandmine(this);
             

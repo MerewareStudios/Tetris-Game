@@ -1,8 +1,6 @@
-using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
-using Internal.Core;
 using UnityEngine;
 
 namespace Game
@@ -20,11 +18,8 @@ namespace Game
         [System.NonSerialized] public List<Place> RequiredPlaces;
         [System.NonSerialized] public readonly List<Pawn> Pawns = new();
         
-        [System.NonSerialized] private bool _busy = false;
-        // [System.NonSerialized] public bool PlacedOnGrid = false;
+        [System.NonSerialized] public bool Busy = false;
         [System.NonSerialized] public bool CanRotate;
-        
-        // [System.NonSerialized] public bool Free2Place = false;
 
         private Pawn PivotPawn => Pawns[0];
         [System.NonSerialized] public Vector2Int UnsafePivotIndex;
@@ -51,16 +46,6 @@ namespace Game
         }
         
         
-        public bool Busy
-        {
-            set
-            {
-                _busy = value;
-                // Debug.LogError("busy set " + value);
-            }
-            get => _busy;
-        }
-
         public void Construct(Pool pool, Pawn.Usage usage)
         {
             Block mimicBlock = pool.Prefab<Block>();
@@ -74,7 +59,6 @@ namespace Game
             this.rotatePivot.localPosition = mimicBlock.rotatePivot.localPosition;
             this.rotatePivot.localEulerAngles = Vector3.zero;
 
-            // Free2Place = false;
             for (int i = 0; i < segmentTransforms.Count; i++)
             {
                 Transform target = segmentTransforms[i];
@@ -83,11 +67,6 @@ namespace Game
                 Pawn pawn = Spawner.THIS.SpawnPawn(this.shakePivot, thisTransform.position + target.localPosition, usage.ExtraValue(), usage);
                 pawn.ParentBlock = this;
 
-                // if (!Free2Place)
-                // {
-                //     Free2Place = pawn.VData.free2Place;
-                // }
-
                 pawn.Show();
                 Pawns.Add(pawn);
             }
@@ -95,17 +74,13 @@ namespace Game
 
         public void Deconstruct()
         {
-            // if (!PlacedOnGrid)
-            // {
-                foreach (var pawn in Pawns)
-                {
-                    pawn.Deconstruct();
-                }
-            // }
+            foreach (var pawn in Pawns)
+            {
+                pawn.Deconstruct();
+            }
             _motionTween?.Kill();
             Busy = false;
             Pawns.Clear();
-            // PlacedOnGrid = false;
             RequiredPlaces = null;
             this.Despawn(Pool.Block);
         }
@@ -114,9 +89,6 @@ namespace Game
             foreach (var pawn in Pawns)
             {
                 pawn.ParentBlock = null;
-                // pawn.Mover = false;
-                // pawn.MarkSteadyColor();
-                // pawn.PunchUp(-0.175f, 0.25f);
             }
             Pawns.Clear();
             Spawner.THIS.RemoveBlock(this);
@@ -134,20 +106,6 @@ namespace Game
                 Deconstruct();
             }
         }
-
-        // public void ShakeRotation()
-        // {
-        //     shakePivot.DOKill();
-        //     shakePivot.localPosition = Vector3.zero;
-        //     shakePivot.localEulerAngles = Vector3.zero;
-        //     shakePivot.DOPunchRotation(new Vector3(0.0f, 20.0f, 0.0f), 0.4f, 1);
-        // }
-        
-        // public void Lift(Vector3 tutorialLift)
-        // {
-        //     _motionTween?.Kill();
-        //     _motionTween = transform.DOPunchPosition(tutorialLift, 1.75f, 1);
-        // }
 
         private void ResetSelf()
         {

@@ -230,7 +230,6 @@ namespace Game
                     return true;
                 case Usage.Punch:
                     Enemy punchEnemy = Warzone.THIS.GetProjectileTarget();
-                    Debug.Log("enemy ", punchEnemy.gameObject);
                     SubModel.Lose();
                     SubModel.OnProjectile(punchEnemy);
                     SubModel = null;

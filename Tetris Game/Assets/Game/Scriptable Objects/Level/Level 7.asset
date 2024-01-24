@@ -57,6 +57,18 @@ MonoBehaviour:
   - usage: 5
     index: {x: 4, y: 0}
     extra: 0
+  - usage: 5
+    index: {x: 0, y: 5}
+    extra: 0
+  - usage: 5
+    index: {x: 4, y: 5}
+    extra: 0
+  - usage: 5
+    index: {x: 2, y: 2}
+    extra: 0
+  - usage: 5
+    index: {x: 2, y: 3}
+    extra: 0
   carryData:
     type: 1
     delay: 0
