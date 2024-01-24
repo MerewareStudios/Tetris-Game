@@ -22,21 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0ae5a325c3ac717429724ae2657da474
-    m_Address: Assets/Sounds/Track/Track 9.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb5beb7b11c0c77439c192c4b3fd4dce
-    m_Address: Assets/Sounds/Track/Track 30.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eb10dd34d53b33d4b8aca700d1ea9b3c
-    m_Address: Assets/Sounds/Track/Track 41.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 85c805c53ea4eb64d92d1761c2d6ff17
     m_Address: Assets/Sounds/Track/Track 42.wav
     m_ReadOnly: 0
@@ -77,19 +62,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: da9e855402c00fa409bbb70bbb651a94
-    m_Address: Assets/Sounds/Music/Purple Planet Music - Easy Going (1_40) 110bpm
-      (L).mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1c8d03b333aaf949a08827b9d016579
     m_Address: Assets/Sounds/Music/Purple Planet Music - Furry Friends (1_19) 130bpm.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec64117c5b3d8824eb8dee2ea0c0deb3
-    m_Address: Assets/Sounds/Music/Purple Planet Music - Golden Pathway (1_07) 90bpm.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -135,11 +109,6 @@ MonoBehaviour:
   - m_GUID: 68defa2385225814fbe1941c5d68d620
     m_Address: Assets/Sounds/Music/Purple Planet Music - Riding the Pink Bus (1_44)
       135bpm.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8d3dad92e2468ef40871bfb081024bdc
-    m_Address: Assets/Sounds/Music/Purple Planet Music - Silver Sparkles (1_29) 90bpm.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

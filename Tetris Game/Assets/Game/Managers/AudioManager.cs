@@ -18,12 +18,12 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [SerializeField] public List<String> debugNames;
 #endif
     [System.NonSerialized] private AudioSource _musicSource;
-    [SerializeField] private List<AssetReference> backgroundTracksAssetReferences;
+    [SerializeField] private List<MusicPair> musicData;
     [System.NonSerialized] private AsyncOperationHandle<AudioClip> _currentMusicHandle;
     [System.NonSerialized] private int _currentTrackIndex = -1;
     [SerializeField] public AudioMixerGroup audioMixerMusic;
-    [SerializeField] public float maxVolume;
-    [SerializeField] public float duckVolume;
+    // [SerializeField] public float maxVolume;
+    // [SerializeField] public float duckVolume;
     [SerializeField] public float minVolume;
     
     [System.NonSerialized] private AudioSource _emptySource = null;
@@ -33,7 +33,13 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     
     [System.NonSerialized] private Tween _volumeTween;
     [System.NonSerialized] private const string MusicVolumeKey = "musicVolume";
-    
+
+    [System.Serializable]
+    public class MusicPair
+    {
+        [SerializeField] public AssetReference assetReference;
+        [SerializeField] public float volume = 1.0f;
+    }
 
     void Awake()
     {
@@ -51,7 +57,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
 
     public void PlayBackgroundTrackByLevel(int level)
     {        
-        int trackIndex = ((level - 1) / 3) % backgroundTracksAssetReferences.Count;
+        int trackIndex = ((level - 1) / 3) % musicData.Count;
         if (_currentTrackIndex == trackIndex)
         {
             Duck(false);
@@ -68,7 +74,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     {
         UnloadBackgroundTrack();
         _currentTrackIndex = trackIndex;
-        _currentMusicHandle = Addressables.LoadAssetAsync<AudioClip>(backgroundTracksAssetReferences[trackIndex]);
+        _currentMusicHandle = Addressables.LoadAssetAsync<AudioClip>(musicData[trackIndex].assetReference);
         _currentMusicHandle.Completed += operationHandle =>
         {
             if (operationHandle.Status == AsyncOperationStatus.Failed)
@@ -76,6 +82,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
                 return;
             }
             _musicSource.clip = operationHandle.Result as AudioClip;
+            // _musicSource.volume = musicData[trackIndex].volume;
             _musicSource.Play();
             Duck(false);
         };
@@ -117,7 +124,8 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
 
     public void Duck(bool duck)
     {
-        SetMusicVolume(duck ? duckVolume : maxVolume, 0.25f);
+        float maxVolume = musicData[Mathf.Max(0, _currentTrackIndex)].volume;
+        SetMusicVolume(duck ? (maxVolume - 4.0f) : maxVolume, 0.25f);
     }
     
     

@@ -76,7 +76,7 @@ MonoBehaviour:
       canVibrate: 1
       canPlayAudio: 1
     userData:
-      level: 1
+      level: 4
       playerData:
         currentHealth: 1
       pupData:
