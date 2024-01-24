@@ -18,9 +18,7 @@ namespace Game
         [System.NonSerialized] private Block _parentBlock;
         [System.NonSerialized] public VisualData VData = null;
         [SerializeField] private int _tick;
-        // [System.NonSerialized] public bool Mover = false;
         [System.NonSerialized] public bool Busy = false;
-        // [System.NonSerialized] public BlockData RecentBlockData;
         
         
         public bool Connected => ParentBlock;
@@ -32,7 +30,6 @@ namespace Game
             set
             {
                 _parentBlock = value;
-                // RecentBlockData = _parentBlock.blockData;
                 if (!value)
                 {
                     return;
@@ -105,7 +102,6 @@ namespace Game
             
             SubModel.ResetEmission();
 
-            // SubModel.BaseColor = (VData.useParentColor && !ParentBlock) ? ParentBlock.blockData.Color : VData.startColor;
             SubModel.OnConstruct(VData.model, modelPivot, extra);
         }
 
@@ -233,7 +229,8 @@ namespace Game
                     SubModel = null;
                     return true;
                 case Usage.Punch:
-                    Enemy punchEnemy = Warzone.THIS.GetProjectileTarget(SubModel.Position);
+                    Enemy punchEnemy = Warzone.THIS.GetProjectileTarget();
+                    Debug.Log("enemy ", punchEnemy.gameObject);
                     SubModel.Lose();
                     SubModel.OnProjectile(punchEnemy);
                     SubModel = null;
@@ -371,16 +368,6 @@ namespace Game
             };
         }
 
-        #region Colors
-        // public void MarkSteadyColor()
-        // {
-        //     if (this.UsageType.Equals(Usage.UnpackedAmmo))
-        //     {
-        //         SubModel.BaseColor = Const.THIS.steadyColor;
-        //     }
-        // }
-        #endregion
-        
         
         public void PunchScaleModelPivot(float magnitude, float duration = 0.3f)
         {
@@ -409,77 +396,6 @@ namespace Game
             pivot.DOPunchPosition(Vector3.back * magnitude, duration, 1).SetDelay(delay);
         }
         
-
-
-        // public bool MoveForward(Place checkerPlace, int tick, float moveDuration)
-        // {
-        //     if (Busy)
-        //     {
-        //         return false;
-        //     }
-        //     // if (!Mover)
-        //     // {
-        //     //     return false;
-        //     // }
-        //
-        //     Tick = tick;
-        //     
-        //     checkerPlace.Current = null;
-        //     
-        //     Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-        //     if (!forwardPlace)
-        //     {
-        //         return false;
-        //     }
-        //     
-        //     forwardPlace.Accept(this, moveDuration);
-        //
-        //     return true;
-        // }
-
-        // public void Check(Place checkerPlace)
-        // {
-        //     if (Busy)
-        //     {
-        //         return;
-        //     }
-        //     // CheckSteady(checkerPlace);
-        //     CheckDetach();
-        // }
-        // private void CheckSteady(Place checkerPlace)
-        // {
-        //     Place forwardPlace = Board.THIS.GetForwardPlace(checkerPlace);
-        //
-        //     if (!forwardPlace)
-        //     {
-        //         Mover = false;
-        //         return;
-        //     }
-        //
-        //     if (forwardPlace.Occupied && !forwardPlace.Current.Mover)
-        //     {
-        //         Mover = false;
-        //         return;
-        //     }
-        //     
-        //     if (VData.neverMoves)
-        //     {
-        //         Mover = false;
-        //     }
-        // }
-
-        // private void CheckDetach()
-        // {
-        //     // if (Mover)
-        //     // {
-        //     //     return;
-        //     // }
-        //     if (Connected)
-        //     {
-        //         ParentBlock.Detach();
-        //     }
-        // }
-        
         public enum Usage
         {
             Empty,
@@ -504,10 +420,7 @@ namespace Game
             [SerializeField] public Pawn.Usage usage;
             [SerializeField] public int externValue = 0;
             [SerializeField] public Pool model;
-            // [SerializeField] public bool free2Place = false;
             [SerializeField] public bool useParentColor = false;
-            // [SerializeField] public Color startColor;
-            // [SerializeField] public Gradient explodeGradient;
             [SerializeField] public Sprite powerUpIcon;
             [SerializeField] public bool neverMoves = false;
             [SerializeField] public bool moverOnPlacement = true;

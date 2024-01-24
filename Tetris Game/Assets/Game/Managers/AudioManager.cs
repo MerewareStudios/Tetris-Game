@@ -124,7 +124,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
 
     public void Duck(bool duck)
     {
-        float maxVolume = musicData[Mathf.Max(0, _currentTrackIndex)].volume;
+        float maxVolume = musicData[Mathf.Max(0, _currentTrackIndex)].volume - 4.5f;
         SetMusicVolume(duck ? (maxVolume - 4.0f) : maxVolume, 0.25f);
     }
     

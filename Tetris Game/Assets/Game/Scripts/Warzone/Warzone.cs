@@ -320,31 +320,29 @@ namespace  Game
             return _enemies[0];
         } 
         
-        public Enemy GetProjectileTarget(Vector3 requestPosition)
+        public Enemy GetProjectileTarget()
         {
             if (_enemies.Count == 0)
             {
                 return null;
             }
 
-            List<Enemy> availableEnemies = new List<Enemy>();
-            
-            for (int i = 0; i < _enemies.Count; i++)
+            List<Enemy> sortedEnemies = _enemies.OrderBy(enemy => enemy.PositionZ).ToList();
+
+            foreach (var a in sortedEnemies)
             {
-                if (_enemies[i].DragTarget)
+                Debug.LogWarning("a ", a.gameObject);
+            }
+
+            foreach (var enemy in sortedEnemies)
+            {
+                if (!enemy.DragTarget)
                 {
-                    continue;
+                    return enemy;
                 }
-
-                availableEnemies.Add(_enemies[i]);
-            }
-
-            if (availableEnemies.Count == 0)
-            {
-                return _enemies[0];
             }
             
-            return availableEnemies.OrderBy(enemy => (enemy.PositionXZ - requestPosition.XZ()).sqrMagnitude).FirstOrDefault();
+            return null;
         } 
         
         public Vector3 GetLandMineTarget()
