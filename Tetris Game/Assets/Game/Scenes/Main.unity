@@ -3803,8 +3803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe0098ec719cd0439a6e26236b7822d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DELETE_AT_START: 1
-  SKIP_ONBOARDING: 1
+  DELETE_AT_START: 0
+  SKIP_ONBOARDING: 0
 --- !u!114 &715436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3978,10 +3978,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 40ff50a09a2f8a3408f235fa9d598a39
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 0ae5a325c3ac717429724ae2657da474
     m_SubObjectName: 
     m_SubObjectType: 
@@ -3993,15 +3989,103 @@ MonoBehaviour:
   - m_AssetGUID: eb10dd34d53b33d4b8aca700d1ea9b3c
     m_SubObjectName: 
     m_SubObjectType: 
-    m_EditorAssetChanged: 1
+    m_EditorAssetChanged: 0
   - m_AssetGUID: 85c805c53ea4eb64d92d1761c2d6ff17
     m_SubObjectName: 
     m_SubObjectType: 
-    m_EditorAssetChanged: 1
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 40ff50a09a2f8a3408f235fa9d598a39
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: d320b01c4758fe64e9962aef9cf0939e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: daeb743f8ddcff24a89dd27ad937a4be
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 381bd1b0a954e5346984d61a4ec55c69
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: ffa901e6e2881934eba87109f12321ed
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 8b30897ac1af36043a40def5d89591c3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 62e7af8682d1fdc4e9890de2f25927a7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: da9e855402c00fa409bbb70bbb651a94
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: b1c8d03b333aaf949a08827b9d016579
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: ec64117c5b3d8824eb8dee2ea0c0deb3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 8d080e311aba99045868d5885cfc6f18
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 59c4353906c51a44c8a1cabaa5c5b2b1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: e125fd1f8b272bf4698281f956f42272
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 9bf7924f4c51fd245972d8637efd372b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: e796cbc443c300247bad8de9308497cb
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 249459dfe81fb654b9e620ea749f0578
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 893b7bc13aaf3e945963f0fc9447cf18
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 68defa2385225814fbe1941c5d68d620
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 8d3dad92e2468ef40871bfb081024bdc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 4d5ba0f632df54849bf05d209275edcf
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 9bab4a22fdee6414f83a02f77996f0c0
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 86da3d6c9bb23b64fa42600102df307d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   audioMixerMusic: {fileID: -9156204249511905205, guid: 3173b7aa7c9cdff4498592a31af26694,
     type: 2}
-  maxVolume: -5
-  duckVolume: -14
+  maxVolume: -4
+  duckVolume: -8
   minVolume: -80
   audioSourceDatas:
   - audioSourcePrefab: {fileID: 74253015700367299, guid: 94c9d0eaff6fa444982435772b8046d8,
@@ -24436,6 +24520,7 @@ GameObject:
   - component: {fileID: 3392748430816975819}
   - component: {fileID: 9088445916474000030}
   - component: {fileID: 8855345980383757585}
+  - component: {fileID: 9088445916474000031}
   m_Layer: 0
   m_Name: Button Get Cargo
   m_TagString: Untagged
@@ -26183,6 +26268,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 6.32
+--- !u!95 &9088445916474000031
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7533636813147660082}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bbacf6e1fe022ca4c96514c68ecdc1c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &9186680055652302901 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5173280651207708399, guid: 482e1e50f0398f74195eceedc9c511ed,

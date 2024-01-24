@@ -2114,12 +2114,12 @@ MonoBehaviour:
     detailedInfoStr: You can skip ads, buy power-ups or purchase new items with these.
     rewards:
     - rewardType: 3
-      amount: 10
+      amount: 50
     previewDatas:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+10
+      mult: <sprite name=Ticket>+50
     oldPriceMult: 1
     promotionalText: 
     miniData:
@@ -2151,36 +2151,39 @@ MonoBehaviour:
     title: <bounce a=0.05 f=1>DOUBLE PACK
     detailedInfoStr: '<size=125%>Get one pack,
 
-      and other one for free!'
+      and 25 tickets for free!
+
+      You
+      get total of 75 tickets!'
     rewards:
     - rewardType: 3
-      amount: 10
+      amount: 50
     - rewardType: 3
-      amount: 10
+      amount: 25
     previewDatas:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+10
+      mult: <sprite name=Ticket>+50
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 1
       title: 
-      mult: <sprite name=Ticket>+10
-    oldPriceMult: 2
-    promotionalText: '%50
+      mult: <sprite name=Ticket>+25
+    oldPriceMult: 1.5
+    promotionalText: '%25
 
       OFF'
     miniData:
-      buttonText: +10 FREE
-      promoText: 'NEW
+      buttonText: SHOW
+      promoText: '+25
 
-        PACK'
+        FREE'
       icon: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
   - offerType: 6
     productType: 0
     iapID: iwi.combatris.product.offerpack2
     title: <bounce a=0.05 f=1>2 in 1
-    detailedInfoStr: <size=125%>Get 5 Ticket Packs and enjoy extra life!
+    detailedInfoStr: <size=125%>Get 50 tickets and enjoy extra health!
     rewards:
     - rewardType: 3
       amount: 50
@@ -2200,33 +2203,32 @@ MonoBehaviour:
 
       DEAL'
     miniData:
-      buttonText: +50 TICKET
+      buttonText: +50 TICKETS
       promoText: FREE
       icon: {fileID: 21300000, guid: 5b80265b922dd48439edcb5137e671ca, type: 3}
   - offerType: 7
     productType: 0
     iapID: iwi.combatris.product.offerpack3
     title: <bounce a=0.05 f=1>SUPER DUO
-    detailedInfoStr: <size=125%>Get a Mega Ticket Pack and keep enjoying the game
-      without ads for free!
+    detailedInfoStr: <size=125%>Remove ads and enjoy 25 tickets for free!
     rewards:
-    - rewardType: 3
-      amount: 50
     - rewardType: 0
       amount: 1
+    - rewardType: 3
+      amount: 25
     previewDatas:
-    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
+    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+50
-    - sprite: {fileID: 21300000, guid: efcafadf053c78443ae681925723619e, type: 3}
+      mult: No Ads
+    - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 1
       title: 
-      mult: No Ads
-    oldPriceMult: 1.25
-    promotionalText: '25%
+      mult: <sprite name=Ticket>+25
+    oldPriceMult: 1.125
+    promotionalText: 'SUPER
 
-      OFF'
+      DUO'
     miniData:
       buttonText: SUPER DUO
       promoText: FREE
@@ -2239,14 +2241,14 @@ MonoBehaviour:
 
       +
 
-      Free Ticket Pack'
+      Free 50 Tickets'
     rewards:
     - rewardType: 1
       amount: 500
     - rewardType: 2
       amount: 100
     - rewardType: 3
-      amount: 10
+      amount: 50
     previewDatas:
     - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
       free: 0
@@ -2259,7 +2261,7 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 1
       title: 
-      mult: <sprite name=Ticket>+10
+      mult: <sprite name=Ticket>+50
     oldPriceMult: 1.5
     promotionalText: '3 FOR 2
 
@@ -2283,7 +2285,7 @@ MonoBehaviour:
     - rewardType: 2
       amount: 200
     - rewardType: 3
-      amount: 20
+      amount: 100
     previewDatas:
     - sprite: {fileID: 21300000, guid: 24abe09180d82a84bb3920f65f08872c, type: 3}
       free: 0
@@ -2296,7 +2298,7 @@ MonoBehaviour:
     - sprite: {fileID: 21300000, guid: 02e071b9cab100e4cab652eaff7107e5, type: 3}
       free: 0
       title: NEW
-      mult: <sprite name=Ticket>+20
+      mult: <sprite name=Ticket>+100
     oldPriceMult: 2
     promotionalText: '50%
 

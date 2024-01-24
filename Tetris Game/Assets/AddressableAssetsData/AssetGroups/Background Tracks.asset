@@ -47,6 +47,118 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d320b01c4758fe64e9962aef9cf0939e
+    m_Address: Assets/Sounds/Track/Track 3 - Low.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: daeb743f8ddcff24a89dd27ad937a4be
+    m_Address: Assets/Sounds/Track/Track 6 - Low 2.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 381bd1b0a954e5346984d61a4ec55c69
+    m_Address: Assets/Sounds/Track/Track 13 - Low.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ffa901e6e2881934eba87109f12321ed
+    m_Address: Assets/Sounds/Track/Track 17.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b30897ac1af36043a40def5d89591c3
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Candy Club (1_24) 142bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62e7af8682d1fdc4e9890de2f25927a7
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Crafty Critters (1_32) 120bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da9e855402c00fa409bbb70bbb651a94
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Easy Going (1_40) 110bpm
+      (L).mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1c8d03b333aaf949a08827b9d016579
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Furry Friends (1_19) 130bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec64117c5b3d8824eb8dee2ea0c0deb3
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Golden Pathway (1_07) 90bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d080e311aba99045868d5885cfc6f18
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Great Ideas (1_23) 135bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59c4353906c51a44c8a1cabaa5c5b2b1
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Happy Caper (1_16) 130bpm
+      (L).mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e125fd1f8b272bf4698281f956f42272
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Just Snooping Around (1_52)
+      125bpm (L).mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bf7924f4c51fd245972d8637efd372b
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Magical Storytime (1_41)
+      120bpm (L).mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e796cbc443c300247bad8de9308497cb
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Naughty Kitty (1_27) 140bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 249459dfe81fb654b9e620ea749f0578
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Nice Surprise (0_58) 110bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 893b7bc13aaf3e945963f0fc9447cf18
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Our Greatest Adventure (2_34)
+      130bpm (L).mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68defa2385225814fbe1941c5d68d620
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Riding the Pink Bus (1_44)
+      135bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d3dad92e2468ef40871bfb081024bdc
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Silver Sparkles (1_29) 90bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d5ba0f632df54849bf05d209275edcf
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Sneaky Feet (1_50) 128bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86da3d6c9bb23b64fa42600102df307d
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Sweet Treats (1_21) 132bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bab4a22fdee6414f83a02f77996f0c0
+    m_Address: Assets/Sounds/Music/Purple Planet Music - Two Silly Monkeys (1_06)
+      90bpm.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5c70c60b2134ab448a9ff82cb23b7293, type: 2}
   m_SchemaSet:

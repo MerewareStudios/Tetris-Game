@@ -139,7 +139,7 @@ public class Gun : MonoBehaviour
             set
             {
                 this.rate = value;
-                FireInterval = (0.95f - (value - 1) * 0.1f) / _mult;
+                FireInterval = (1.0f - (value - 1) * 0.1f) / _mult;
             }
             get => this.rate;
         }

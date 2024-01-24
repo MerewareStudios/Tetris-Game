@@ -51,7 +51,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
 
     public void PlayBackgroundTrackByLevel(int level)
     {        
-        int trackIndex = ((level - 1) / 5) % backgroundTracksAssetReferences.Count;
+        int trackIndex = ((level - 1) / 3) % backgroundTracksAssetReferences.Count;
         if (_currentTrackIndex == trackIndex)
         {
             Duck(false);
@@ -67,6 +67,7 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     private void LoadBackgroundTrack(int trackIndex)
     {
         UnloadBackgroundTrack();
+        _currentTrackIndex = trackIndex;
         _currentMusicHandle = Addressables.LoadAssetAsync<AudioClip>(backgroundTracksAssetReferences[trackIndex]);
         _currentMusicHandle.Completed += operationHandle =>
         {
