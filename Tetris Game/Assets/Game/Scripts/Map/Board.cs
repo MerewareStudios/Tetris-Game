@@ -547,11 +547,13 @@ namespace Game
         public void AddMagneticPlace(Place place) => _magneticPlaces.Add(place);
         
         private int expectedAutoTetris = 0;
+        private Tween _autoCheckDelay = null;
         private List<Place> _autoTetrisPlaces = new();
 
         private void AutoTetrisCheck()
         {
-            DOVirtual.DelayedCall(0.2f, () =>
+            _autoCheckDelay?.Kill();
+            _autoCheckDelay = DOVirtual.DelayedCall(0.2f, () =>
             {
                 CheckTetris(_autoTetrisPlaces);
             }, false);
@@ -830,28 +832,28 @@ namespace Game
         }
         
 
-        private List<Vector2Int> GetCrossingPositions(List<int> mergeableRows, List<int> mergeableColumns)
-        {
-            List<Vector2Int> crossingIndexes = new();
-            
-            bool canMergeHorizontally = mergeableRows.Count > 0;
-            bool canMergeVertically = mergeableColumns.Count > 0;
-
-            if (canMergeHorizontally && canMergeVertically)
-            {
-                foreach (var column in mergeableColumns)
-                {
-                    foreach (var row in mergeableRows)
-                    {
-                        crossingIndexes.Add(new Vector2Int(column, row));
-                    }
-                }
-
-                return crossingIndexes;
-            }
-            
-            return crossingIndexes;
-        }
+        // private List<Vector2Int> GetCrossingPositions(List<int> mergeableRows, List<int> mergeableColumns)
+        // {
+        //     List<Vector2Int> crossingIndexes = new();
+        //     
+        //     bool canMergeHorizontally = mergeableRows.Count > 0;
+        //     bool canMergeVertically = mergeableColumns.Count > 0;
+        //
+        //     if (canMergeHorizontally && canMergeVertically)
+        //     {
+        //         foreach (var column in mergeableColumns)
+        //         {
+        //             foreach (var row in mergeableRows)
+        //             {
+        //                 crossingIndexes.Add(new Vector2Int(column, row));
+        //             }
+        //         }
+        //
+        //         return crossingIndexes;
+        //     }
+        //     
+        //     return crossingIndexes;
+        // }
         
         
         private List<int> ExtractUniqueRows(List<Place> places)
@@ -1076,6 +1078,7 @@ namespace Game
                 if (expectedAutoTetris == 0)
                 {
                     AutoTetrisCheck();
+                    CheckDeadLock(true);
                 }
             });
         }
@@ -1137,24 +1140,17 @@ namespace Game
         
         public void SpawnTrapBomb(int extra)
         {
-            int startHeight = Mathf.Min(3, _size.y);
-
             List<Place> randomPlaces = new List<Place>();
 
-            for (int y = startHeight; y >= 0; y--)
+
+            foreach (var place in _places)
             {
-                for (int x = 0; x < _size.x; x++)
+                if (place.Occupied)
                 {
-                    Vector2Int index = new Vector2Int(x, y);
-                    Place place = _places[index.x, index.y];
-                    
-                    if (place.Occupied)
-                    {
-                        continue;
-                    }
-                    
-                    randomPlaces.Add(place);
+                    continue;
                 }
+                
+                randomPlaces.Add(place);
             }
 
             if (randomPlaces.Count == 0)
@@ -1165,6 +1161,8 @@ namespace Game
             Place randomPlace = randomPlaces.Random();
             Particle.Lightning.Play(randomPlace.PlacePosition - CameraManager.THIS.gameCamera.transform.forward);
             SpawnPawn(randomPlace, Pawn.Usage.Bomb, extra);
+            
+            CheckDeadLock(true);
         }
 #if CREATIVE
         private int posIndex = 0;
