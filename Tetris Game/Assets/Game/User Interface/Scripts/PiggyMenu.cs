@@ -88,7 +88,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         }
         
         TimeScale = 1;
-        GameManager.UpdateTimeScale();
+        GameManager.UpdateTimeScale(false);
         
         SwitchToGame();
         return false;
@@ -320,7 +320,7 @@ public class PiggyMenu : Menu<PiggyMenu>, IMenu
         {
             rewardedPiggy.gameObject.SetActive(false);
             TimeScale = 1;
-            GameManager.UpdateTimeScale();
+            GameManager.UpdateTimeScale(false);
 
             GiveRewards();
             SavedData.breakInstance++;

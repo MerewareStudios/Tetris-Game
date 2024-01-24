@@ -29,14 +29,14 @@ namespace Game
             if (tetrisCount > 1)
             {
                 TimeScale = 0.0f;
-                GameManager.UpdateTimeScale();
+                GameManager.UpdateTimeScale(false);
                 Audio.Board_Merge_Riff.Play();
                 float duration = UIManager.THIS.comboText.Show(tetrisCount);
 
 
                 yield return new WaitForSecondsRealtime(duration * 0.64f);
                 TimeScale = 1.0f;
-                GameManager.UpdateTimeScale();
+                GameManager.UpdateTimeScale(false);
             }
                         
             MergeAudioIndex += tetrisCount;

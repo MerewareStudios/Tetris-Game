@@ -110,7 +110,7 @@ public class UIManager : Singleton<UIManager>
       IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
 
       
-      AdBreakScreen.THIS.OnVisibilityChanged = GameManager.UpdateTimeScale;
+      AdBreakScreen.THIS.OnVisibilityChanged = () => GameManager.UpdateTimeScale(true);
 
       OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
       OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;

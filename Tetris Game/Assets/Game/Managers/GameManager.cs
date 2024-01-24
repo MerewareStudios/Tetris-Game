@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
 
     private Coroutine _flowRoutine = null;
     
-    public static void UpdateTimeScale()
+    public static void UpdateTimeScale(bool adjustDuckVolume = true)
     {
         Time.timeScale = GameManager.THIS._timeScale * 
                          AdBreakScreen.THIS.TimeScale * 
@@ -41,6 +41,11 @@ public class GameManager : Singleton<GameManager>
                          SettingsManager.THIS.TimeScale *
                          OfferScreen.THIS.TimeScale *
                          Map.TimeScale;
+
+        if (adjustDuckVolume)
+        {
+            AudioManager.THIS.Duck(Time.timeScale <= 0.1f);
+        }
     }
     
     public static void GameTimeScale(int value)

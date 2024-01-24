@@ -61,7 +61,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         }
         
         TimeScale = 0;
-        GameManager.UpdateTimeScale();
+        GameManager.UpdateTimeScale(false);
         return true;
     }
 
@@ -75,7 +75,7 @@ public class PowerSelectionScreen : Lazyingleton<PowerSelectionScreen>
         this.gameObject.SetActive(false);
         
         TimeScale = 1;
-        GameManager.UpdateTimeScale();
+        GameManager.UpdateTimeScale(false);
         return false;
     }
     public void OnClick_Close()

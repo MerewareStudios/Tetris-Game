@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
@@ -16,15 +17,22 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
     [SerializeField] public List<Audio> debugSounds;
     [SerializeField] public List<String> debugNames;
 #endif
-    [System.NonSerialized] private AudioSource _backgroundAudioSource;
+    [System.NonSerialized] private AudioSource _musicSource;
     [SerializeField] private List<AssetReference> backgroundTracksAssetReferences;
-    [System.NonSerialized] private AssetReference _currentBackgroundTrackAssetReference = null;
+    [System.NonSerialized] private AsyncOperationHandle<AudioClip> _currentMusicHandle;
+    [System.NonSerialized] private int _currentTrackIndex = -1;
     [SerializeField] public AudioMixerGroup audioMixerMusic;
+    [SerializeField] public float maxVolume;
+    [SerializeField] public float duckVolume;
+    [SerializeField] public float minVolume;
     
     [System.NonSerialized] private AudioSource _emptySource = null;
     [SerializeField] public List<AudioSourceData> audioSourceDatas;
     [SerializeField] public AudioMixerGroup audioMixerSfx;
     [SerializeField] public float overlapProtectionTime = 0.1f;
+    
+    [System.NonSerialized] private Tween _volumeTween;
+    [System.NonSerialized] private const string MusicVolumeKey = "musicVolume";
     
 
     void Awake()
@@ -34,45 +42,82 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
         _emptySource.outputAudioMixerGroup = audioMixerSfx;
         _emptySource.hideFlags = HideFlags.HideInInspector;
         
-        _backgroundAudioSource = this.gameObject.AddComponent<AudioSource>();
-        _backgroundAudioSource.loop = true;
-        _backgroundAudioSource.outputAudioMixerGroup = audioMixerMusic;
-        _backgroundAudioSource.hideFlags = HideFlags.HideInInspector;
+        _musicSource = this.gameObject.AddComponent<AudioSource>();
+        _musicSource.loop = true;
+        _musicSource.playOnAwake = false;
+        _musicSource.outputAudioMixerGroup = audioMixerMusic;
+        _musicSource.hideFlags = HideFlags.HideInInspector;
     }
 
     public void PlayBackgroundTrackByLevel(int level)
     {        
         int trackIndex = ((level - 1) / 5) % backgroundTracksAssetReferences.Count;
-        if (_currentBackgroundTrackAssetReference == backgroundTracksAssetReferences[trackIndex])
+        if (_currentTrackIndex == trackIndex)
         {
+            Duck(false);
             return;
         }
-        LoadBackgroundTrack(trackIndex);
+
+        SetMusicVolume(minVolume, _musicSource.isPlaying ? 1.0f : 0.0f, () =>
+        {
+            LoadBackgroundTrack(trackIndex);
+        });
     }
 
     private void LoadBackgroundTrack(int trackIndex)
     {
         UnloadBackgroundTrack();
-        _currentBackgroundTrackAssetReference = backgroundTracksAssetReferences[trackIndex];
-        Addressables.LoadAssetAsync<AudioClip>(_currentBackgroundTrackAssetReference).Completed += operationHandle =>
+        _currentMusicHandle = Addressables.LoadAssetAsync<AudioClip>(backgroundTracksAssetReferences[trackIndex]);
+        _currentMusicHandle.Completed += operationHandle =>
         {
             if (operationHandle.Status == AsyncOperationStatus.Failed)
             {
-                Debug.LogError("Failed to load");
                 return;
             }
-            _backgroundAudioSource.clip = operationHandle.Result as AudioClip;
-            _backgroundAudioSource.Play();
-            
+            _musicSource.clip = operationHandle.Result as AudioClip;
+            _musicSource.Play();
+            Duck(false);
         };
     }
 
     private void UnloadBackgroundTrack()
     {
-        _currentBackgroundTrackAssetReference?.ReleaseAsset();
-        _currentBackgroundTrackAssetReference = null;
+        if (!_musicSource.clip)
+        {
+            return;
+        }
+        _musicSource.clip = null;
+        Addressables.Release(_currentMusicHandle);
     }
-    
+
+    private void SetMusicVolume(float target, float duration, System.Action onComplete = null)
+    {
+        _volumeTween?.Kill();
+
+        if (duration == 0.0f)
+        {
+            audioMixerMusic.audioMixer.SetFloat(MusicVolumeKey, target);
+            onComplete?.Invoke();
+            return;
+        }
+        
+        audioMixerMusic.audioMixer.GetFloat(MusicVolumeKey, out float start);
+        float value = 0.0f;
+        _volumeTween = DOTween.To(x => value = x, start, target, duration).SetEase(Ease.InSine).SetUpdate(true);
+        _volumeTween.onUpdate = () =>
+        {
+            audioMixerMusic.audioMixer.SetFloat(MusicVolumeKey, value);
+        };
+        if (onComplete != null)
+        {
+            _volumeTween.onComplete = onComplete.Invoke;
+        }
+    }
+
+    public void Duck(bool duck)
+    {
+        SetMusicVolume(duck ? duckVolume : maxVolume, 0.25f);
+    }
     
     
     
