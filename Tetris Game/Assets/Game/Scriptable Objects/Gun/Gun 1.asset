@@ -20,4 +20,4 @@ MonoBehaviour:
   travelDuration: 4
   ease: 1
   audioClip: {fileID: 8300000, guid: c6d45d69015ca934fbd95932874c5b59, type: 3}
-  audioVolume: 0.4
+  audioVolume: 0.45
