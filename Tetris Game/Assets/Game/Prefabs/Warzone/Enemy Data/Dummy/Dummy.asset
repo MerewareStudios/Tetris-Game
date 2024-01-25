@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dummy
   m_EditorClassIdentifier: 
   type: 41
-  scale: {x: 1, y: 1, z: 1}
+  scale: {x: 1.2, y: 1.2, z: 1.2}
   colorGrad:
     m_Mode: 4
     m_GradientMin:
@@ -109,9 +109,9 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 6
+  maxHealth: 20
   speed: 0
-  forwardRange: {x: 0.4, y: 0.6}
+  forwardRange: {x: 0.6, y: 0.6}
   radius: 0.5
   emitCount: 15
   deathEmitCount: 75

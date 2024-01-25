@@ -1,4 +1,8 @@
 using System;
+#if CREATIVE
+using RootMotion;
+#endif
+
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -35,6 +39,8 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool showTip = false;
         [SerializeField] public bool adsEnabled = false;
         [SerializeField] public bool clearOnStart = true;
+        [SerializeField] public bool doNotMerge = true;
+        [SerializeField] public bool mute = true;
         [SerializeField] public int ammoMult = 4;
         [SerializeField] public Vector3 distanceFromDraggingFinger;
         [SerializeField] public float bottomOffset;
@@ -46,6 +52,8 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool randomBlock = true;
         [SerializeField] public bool playerBubble = true;
         [SerializeField] public Pool[] blocks;
+        [SerializeField] public Board.PawnPlacement[] pawnPlacements;
+        [SerializeField] public LevelSo.EnemySpawnDatum[] enemySpawnData;
         [TextArea] [SerializeField] public string helpText;
         [SerializeField] public bool canSpeak = false    ;
         [SerializeField] public float speechDelay = 1.0f;

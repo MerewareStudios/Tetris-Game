@@ -102,13 +102,14 @@ namespace  Game
             IEnumerator SpawnRoutine()
             {
                 Spawning = true;
+                LevelSo.EnemySpawnDatum[] enemySpawnData = Const.THIS.creativeSettings.enemySpawnData;
 
                 _totalEnemyCount = 0;
 
                 int spawnIndex = 0;
 
                 int totalHealth = 0;
-                foreach (var data in LevelManager.LevelSo.enemySpawnData)
+                foreach (var data in enemySpawnData)
                 {
                     totalHealth += data.enemyData.maxHealth * data.count;
                     _totalEnemyCount += data.count;
@@ -162,7 +163,7 @@ namespace  Game
 
                 while (true)
                 {
-                    LevelSo.EnemySpawnDatum enemySpawnDatum = LevelManager.LevelSo.enemySpawnData[spawnIndex];
+                    LevelSo.EnemySpawnDatum enemySpawnDatum = enemySpawnData[spawnIndex];
 
                     Enemy enemy = null;
 
@@ -188,14 +189,14 @@ namespace  Game
 
                     spawnIndex++;
 
-                    if (spawnIndex == LevelManager.LevelSo.enemySpawnData.Length && enemy && totalCoinLeft > 0)
+                    if (spawnIndex == enemySpawnData.Length && enemy && totalCoinLeft > 0)
                     {
                         enemy.CoinAmount += totalCoinLeft;
                     }
 
                     float waitTill = Time.time + enemySpawnDatum.delay * 2.0f;
 
-                    if (spawnIndex >= LevelManager.LevelSo.enemySpawnData.Length)
+                    if (spawnIndex >= enemySpawnData.Length)
                     {
                         break;
                     }

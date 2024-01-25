@@ -547,6 +547,13 @@ namespace Game
         
         public int CheckTetris(List<Place> projectedPlaces)
         {
+            #if CREATIVE
+            if (Const.THIS.creativeSettings.doNotMerge)
+            {
+                return 0;
+            }
+            
+            #endif
             // Get places where the block is placed
             // foreach (var place in places)
             // {

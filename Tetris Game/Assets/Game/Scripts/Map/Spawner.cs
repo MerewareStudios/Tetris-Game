@@ -172,6 +172,7 @@ public class Spawner : Singleton<Spawner>
     {
         _spawnIndex = 0;
         _nextBlock = GetNexRandomBlock();
+        _spawnIndex++;
     }
     private void StopAllRunningTasksOnBlock()
     {

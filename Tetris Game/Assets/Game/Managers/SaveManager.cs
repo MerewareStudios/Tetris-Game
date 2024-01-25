@@ -64,7 +64,10 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Spawner.THIS.nextBlockDisplay.Available = false;
         
         UIManager.THIS.PlusButtonsState = ONBOARDING.WEAPON_TAB.IsComplete();
-        // UIManager.THIS.SettingsEnabled = ONBOARDING.WEAPON_TAB.IsComplete();
+
+        #if CREATIVE
+            UIManager.THIS.SettingsEnabled = Const.THIS.creativeSettings.settingsEnabled;
+        #endif
 
         HapticManager.THIS.SavedData = SaveData.hapticData;
         SettingsManager.THIS.Set();

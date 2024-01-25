@@ -83,6 +83,13 @@ public class AudioManager : Internal.Core.Singleton<AudioManager>
             }
             _musicSource.clip = operationHandle.Result as AudioClip;
             // _musicSource.volume = musicData[trackIndex].volume;
+            
+            #if CREATIVE
+            if (Const.THIS.creativeSettings.mute)
+            {
+                return;
+            }
+            #endif
             _musicSource.Play();
             Duck(false);
         };

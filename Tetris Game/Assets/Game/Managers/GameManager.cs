@@ -1,5 +1,9 @@
 // #define FORCE_EDITOR_CONCENT
 
+#if CREATIVE
+using UnityEditor;
+#endif
+
 using System.Collections;
 using DG.Tweening;
 using Game;

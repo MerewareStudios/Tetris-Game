@@ -159,6 +159,9 @@ public class LevelManager : Singleton<LevelManager>
     }
     public static LevelSo.EnemySpawnDatum[] GetEnemySpawnData()
     {
+#if CREATIVE
+        return Const.THIS.creativeSettings.enemySpawnData;
+#endif
         return LevelSo.enemySpawnData;
     }
     public static Const.Currency GetVictoryReward()
@@ -183,6 +186,9 @@ public class LevelManager : Singleton<LevelManager>
     }
     public static Board.PawnPlacement[] PawnPlacements()
     {
+        #if CREATIVE
+            return Const.THIS.creativeSettings.pawnPlacements;
+        #endif
         return LevelSo.pawnPlacements;
     }
 }
