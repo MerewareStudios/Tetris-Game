@@ -121,7 +121,7 @@ public class GameManager : Singleton<GameManager>
 
     private void PreInitDataSenders()
     {
-        AnalyticsManager.GAInit();
+        AnalyticsManager.GaInit();
     }
     private void PostDataSenders()
     {

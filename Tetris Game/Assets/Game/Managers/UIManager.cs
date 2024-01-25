@@ -371,10 +371,10 @@ public class UIManager : Singleton<UIManager>
       // {
       //    Warzone.THIS.Player.Gun.PlaySound();
       // }
-      // if (Input.GetKeyDown(KeyCode.P))
-      // {
-      //    PiggyMenu.THIS.Open();
-      // }
+      if (Input.GetKeyDown(KeyCode.P))
+      {
+         PiggyMenu.THIS.Open();
+      }
       // if (Input.GetKeyDown(KeyCode.R))
       // {
       //    MenuNavigator.THIS.Open();

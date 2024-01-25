@@ -71,7 +71,7 @@ public class Const : SSingleton<Const>
     public LevelSo spareLevelSo;
     public SaveData DefaultSaveData;
     [Header("Default Lookup")]
-    public int rewardedTicketCount = 5;
+    public const int RewardedTicketCount = 5;
     public Gun.UpgradeData[] GunUpgradeData;
     public BlockMenu.BlockData[] DefaultBlockData;
     public Pool[] highPossibilityBlocks;
@@ -128,7 +128,8 @@ public class Const : SSingleton<Const>
         }
 
         public static Currency OneAd = new Currency(CurrencyType.Ticket, 1);
-        public static Currency RewardedEarn = new Currency(CurrencyType.Ticket, Const.THIS.rewardedTicketCount);
+        // public static Currency RewardedEarn = new Currency(CurrencyType.Ticket, 5);
+        public static Currency RewardedEarn = new Currency(CurrencyType.Ticket, Const.RewardedTicketCount);
     }
     
     

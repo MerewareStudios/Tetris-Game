@@ -229,7 +229,7 @@ namespace Game
                     SubModel = null;
                     return true;
                 case Usage.Punch:
-                    Enemy punchEnemy = Warzone.THIS.GetProjectileTarget();
+                    Enemy punchEnemy = Warzone.THIS.GetClosestTarget();
                     SubModel.Lose();
                     SubModel.OnProjectile(punchEnemy);
                     SubModel = null;

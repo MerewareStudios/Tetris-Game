@@ -120,7 +120,7 @@ MonoBehaviour:
   castType: 1
   deathAction: 0
   spawnerCount: 1
-  spawnerDuration: 10
-  spawnerExtra: 4
+  spawnerDuration: 4
+  spawnerExtra: 1
   extraData: {fileID: 0}
   implosionAudio: 0

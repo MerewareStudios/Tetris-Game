@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
-#define LOG_WARNING
-#define LOG_ERROR
+#define LOG_DATA_STATUS
+// #define LOG_WARNING
+// #define LOG_ERROR
 using System.Text.RegularExpressions;
 #endif
 #if FACEBOOK
@@ -48,7 +49,7 @@ public static class AnalyticsManager
     }
 #endif
 
-    public static void GAInit()
+    public static void GaInit()
     {
         // _shopOpenedCount = 0;
         GameAnalytics.SetCustomId(Account.Current.guid);
@@ -86,7 +87,7 @@ public static class AnalyticsManager
 
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, progressionA, _currentTrackedStartTime);
 #if UNITY_EDITOR
-        string trace = GAProgressionStatus.Start.ToString().ToUpper() + " " + progressionA;
+        string trace = GAProgressionStatus.Start.ToString().ToUpper() + "_" + progressionA;
         Log(trace, _currentTrackedStartTime, EventType.Progression);
 #endif
     }
@@ -100,7 +101,7 @@ public static class AnalyticsManager
         GameAnalytics.NewProgressionEvent(status, progressionA, levelDuration);
 
 #if UNITY_EDITOR
-        string trace = status.ToString().ToUpper() + " " + progressionA;
+        string trace = status.ToString().ToUpper() + "_" + progressionA;
         Log(trace, levelDuration, EventType.Progression);
 #endif
     }
@@ -307,25 +308,20 @@ public static class AnalyticsManager
 #if UNITY_EDITOR
     private static bool Validate(string str, EventType eventType)
     {
-        bool valid = true;
-        switch (eventType)
-        {
-            case EventType.Progression:
-                valid = true;
-                break;
-            case EventType.Design:
+        // switch (eventType)
+        // {
+        //     case EventType.Progression:
+        //         return true;
+            // case EventType.Design:
                 bool correctCharSet = Regex.IsMatch(str, @"^[a-zA-Z0-9-_.,:()!?]+$");
                 int separationCount = str.Split(':').Length;
                 bool doubleSeparation = str.Contains("::");
                 bool startOrEndWithSeparation = str.ElementAt(0).Equals(':') || str.ElementAt(str.Length-1).Equals(':');
                 bool fitLength = str.Length <= 64;
-                valid = correctCharSet && (separationCount is >= 1 and <= 5) && !doubleSeparation && !startOrEndWithSeparation && fitLength;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(eventType), eventType, null);
-        }
-
-        return valid;
+                return correctCharSet && (separationCount is >= 1 and <= 5) && !doubleSeparation && !startOrEndWithSeparation && fitLength;
+        //     default:
+        //         return false;
+        // }
     }
     
     private static void Log(string trace, float extra, EventType eventType)
@@ -334,15 +330,13 @@ public static class AnalyticsManager
         string tag = isValid ? "<color=#10FF10>VALID" : "<color=red>INVALID";
         string eventTypeTag = "<color=#6060DD>" + eventType.ToString().ToUpper() + " EVENT</color>\n";
         string message = tag + "</color>\n" + eventTypeTag + "<color=yellow>" + trace + "</color>" + "\n" + extra;
+#if LOG_DATA_STATUS
         if (isValid)
         {
-#if LOG_WARNING
             Debug.LogWarning(message);
-#endif
         }
         else
         {
-#if LOG_ERROR
             Debug.LogError(message);
         }
 #endif

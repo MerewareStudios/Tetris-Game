@@ -358,7 +358,7 @@ namespace IWI
             
             AdBreakScreen.THIS.SetAdState(AdBreakScreen.AdType.REWARDED)
             .SetLoadState(FakeAdRewarded.THIS.LoadState)
-            .SetInfo(Onboarding.THIS.earnTicketText + Const.THIS.rewardedTicketCount, Onboarding.THIS.cancelButtonText)
+            .SetInfo(Onboarding.THIS.earnTicketText + Const.RewardedTicketCount, Onboarding.THIS.cancelButtonText)
             .SetVisualData(Onboarding.THIS.rewardedAdVisualData)
             .RemoveAdBreakButtonState(false)
             .SetOffer(offerType)
@@ -382,14 +382,18 @@ namespace IWI
                 AnalyticsManager.AdData(AdBreakScreen.AdType.REWARDED, AdBreakScreen.AdInteraction.WATCH, adReason, AdManager.THIS._Data.rewardWatchCount);
 
                 AdBreakScreen.THIS.CloseImmediate();
-                
+
                 FakeAdRewarded.THIS.Show(
                     () =>
                     {
                         Tools.AdjustSDK.Event_FirstAdWatched();
                         GameManager.UpdateTimeScale();
-                    }, 
-                    onReward,
+                    },
+                    () =>
+                    {
+                        Wallet.Transaction(Const.Currency.RewardedEarn);
+                        onReward?.Invoke();
+                    },
                 null);
             }, 2.75f)
             .Open(0.1f);

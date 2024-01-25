@@ -391,7 +391,7 @@ namespace Game.UI
                 {
                     AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_UPG, AdManager.GetTicketOfferForWeapon(),() =>
                     {
-                        Wallet.Transaction(Const.Currency.RewardedEarn);
+                        // Wallet.Transaction(Const.Currency.RewardedEarn);
                         OnClick_PurchaseUpgrade(statType);
                     });
                 }
@@ -438,7 +438,7 @@ namespace Game.UI
                 {
                     AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_BUY, AdManager.GetTicketOfferForWeapon(),() =>
                     {
-                        Wallet.Transaction(Const.Currency.RewardedEarn);
+                        // Wallet.Transaction(Const.Currency.RewardedEarn);
                         OnClick_PurchaseWeapon();
                     });
                 }

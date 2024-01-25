@@ -61,7 +61,7 @@ public class Spawner : Singleton<Spawner>
             
             AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForNextBlock(), () =>
             {
-                Wallet.Transaction(Const.Currency.RewardedEarn);
+                // Wallet.Transaction(Const.Currency.RewardedEarn);
                 OnClick_ShowNextBlock();
             });
             return;

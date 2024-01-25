@@ -320,7 +320,7 @@ namespace  Game
             return _enemies[0];
         } 
         
-        public Enemy GetProjectileTarget()
+        public Enemy GetClosestTarget()
         {
             if (_enemies.Count == 0)
             {
@@ -337,7 +337,7 @@ namespace  Game
                 }
             }
             
-            return null;
+            return _enemies[0];
         } 
         
         public Vector3 GetLandMineTarget()

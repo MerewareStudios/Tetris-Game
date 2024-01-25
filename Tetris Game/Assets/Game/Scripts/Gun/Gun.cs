@@ -94,7 +94,7 @@ public class Gun : MonoBehaviour
 
     public void PlaySound()
     {
-        GunSo.audioClip.PlayOneShot(GunSo.audioVolume, Random.Range(0.95f, 1.2f));
+        GunSo.audioClip.PlayOneShot(GunSo.audioVolume * 0.5f, Random.Range(0.95f, 1.2f));
     }
 
     public void ResetSelf()

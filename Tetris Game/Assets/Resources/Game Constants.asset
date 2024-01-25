@@ -143,7 +143,6 @@ MonoBehaviour:
       rewardWatchCount: 0
     purchaseData:
       offers: 
-  rewardedTicketCount: 5
   GunUpgradeData:
   - currency:
       type: 0
@@ -250,7 +249,7 @@ MonoBehaviour:
     splitShotPrice:
     - type: 2
       amount: 1
-    unlockedAt: 30
+    unlockedAt: 25
   - currency:
       type: 2
       amount: 1
