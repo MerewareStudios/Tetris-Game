@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using Game.UI;
@@ -371,6 +372,22 @@ public class UIManager : Singleton<UIManager>
       // {
       //    Warzone.THIS.Player.Gun.PlaySound();
       // }
+      if (Input.GetKeyDown(KeyCode.B))
+      {
+         List<Place> placesV = new List<Place>();
+         foreach (var index in Const.THIS.creativeSettings.places2Check)
+         {
+            placesV.Add(Board.THIS._places[index.x, index.y]);
+         }
+         Board.THIS.CheckTetris(placesV);
+      }
+      
+      if (Input.GetKeyDown(KeyCode.M))
+      {
+         Spawner.THIS.InterchangeBlock(Pool.Single_Block, Pawn.Usage.Magnet);
+      }
+      
+
       if (Input.GetKeyDown(KeyCode.P))
       {
          PiggyMenu.THIS.Open();
@@ -700,8 +717,9 @@ public static class UIManagerExtensions
    public static void BoardHeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {
       TargetSettings targetSettingsStart = new TargetSettings(UIEmitter.Cam.Game, null, worldPosition);
+      TargetSettings targetSettingsEnd = new TargetSettings(UIEmitter.Cam.Game, null, Warzone.THIS.Player.Position);
       ValueSettings valueSettings = new ValueSettings(ValueType.TotalValue, totalValue);
-      UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, null, UIManager.THIS.motionData_BoardBurst);
+      UIManager.THIS.heartEmitter.Emit(count, valueSettings, targetSettingsStart, targetSettingsEnd, UIManager.THIS.motionData_BoardBurst);
    }
    public static void HeartToPlayer(Vector3 worldPosition, int count, int totalValue)
    {

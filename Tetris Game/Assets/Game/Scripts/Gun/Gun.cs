@@ -94,7 +94,7 @@ public class Gun : MonoBehaviour
 
     public void PlaySound()
     {
-        GunSo.audioClip.PlayOneShot(GunSo.audioVolume * 0.5f, Random.Range(0.95f, 1.2f));
+        GunSo.audioClip.PlayOneShot(GunSo.audioVolume * 1.0f, Random.Range(0.95f, 1.2f));
     }
 
     public void ResetSelf()
@@ -139,7 +139,9 @@ public class Gun : MonoBehaviour
             set
             {
                 this.rate = value;
-                FireInterval = (1.0f - (value - 1) * 0.1f) / _mult;
+                FireInterval = Const.THIS.creativeSettings.fireRate;
+
+                // FireInterval = (1.0f - (value - 1) * 0.1f) / _mult;
             }
             get => this.rate;
         }

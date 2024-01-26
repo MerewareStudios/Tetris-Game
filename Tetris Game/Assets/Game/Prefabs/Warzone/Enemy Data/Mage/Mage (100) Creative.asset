@@ -109,7 +109,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 20
+  maxHealth: 500
   speed: 0.1
   forwardRange: {x: 0.5, y: 0.5}
   radius: 0.6

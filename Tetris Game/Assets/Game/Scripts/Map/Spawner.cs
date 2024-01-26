@@ -172,7 +172,7 @@ public class Spawner : Singleton<Spawner>
     {
         _spawnIndex = 0;
         _nextBlock = GetNexRandomBlock();
-        _spawnIndex++;
+        // _spawnIndex++;
     }
     private void StopAllRunningTasksOnBlock()
     {
@@ -188,7 +188,7 @@ public class Spawner : Singleton<Spawner>
 #if CREATIVE
         if (!Const.THIS.creativeSettings.randomBlock)
         {
-            return Const.THIS.creativeSettings.blocks[_spawnIndex];
+            return Const.THIS.creativeSettings.blocks[_spawnIndex++];
         }
 #endif
         return this.RandomBlock();
@@ -468,17 +468,17 @@ public class Spawner : Singleton<Spawner>
             pool = _nextBlock;
             
             _nextBlock = GetNexRandomBlock();
-            if (!Const.THIS.highPossibilityBlocks.Contains(_nextBlock) && Helper.IsPossible(0.5f))
-            // if ( || _nextBlock.Equals(Pool.U_Block) || _nextBlock.Equals(Pool.Tree_I_Block)) && Helper.IsPossible(0.5f))
-            // if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block) || _nextBlock.Equals(Pool.T_Long_Block) || _nextBlock.Equals(Pool.U_Block) || _nextBlock.Equals(Pool.Tree_I_Block)) && Helper.IsPossible(0.5f))
-            {
-                _nextBlock = GetNexRandomBlock();
-            }
+            // if (!Const.THIS.highPossibilityBlocks.Contains(_nextBlock) && Helper.IsPossible(0.5f))
+            // // if ( || _nextBlock.Equals(Pool.U_Block) || _nextBlock.Equals(Pool.Tree_I_Block)) && Helper.IsPossible(0.5f))
+            // // if ((_nextBlock.Equals(Pool.Single_Block) || _nextBlock.Equals(Pool.Two_I_Block) || _nextBlock.Equals(Pool.T_Long_Block) || _nextBlock.Equals(Pool.U_Block) || _nextBlock.Equals(Pool.Tree_I_Block)) && Helper.IsPossible(0.5f))
+            // {
+            //     _nextBlock = GetNexRandomBlock();
+            // }
 
             nextBlockDisplay.Display(_nextBlock);
         }
         
-        _spawnIndex++;
+        // _spawnIndex++;
         return SpawnBlock(pool, Pawn.Usage.UnpackedAmmo, suggestedBlockData);
     } 
     private Block SpawnBlock(Pool pool, Pawn.Usage usage, Board.SuggestedBlock suggestedBlockData)

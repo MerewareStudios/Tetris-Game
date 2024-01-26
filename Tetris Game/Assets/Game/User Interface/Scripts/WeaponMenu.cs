@@ -214,8 +214,8 @@ namespace Game.UI
                 }
             }
             
-            previousButton.SetActive(SavedData.inspectIndex != 0 || SavedData.gunShopDatas.Last().purchased);
-            nextButton.SetActive(purchasedWeapon);
+            // previousButton.SetActive(SavedData.inspectIndex != 0 || SavedData.gunShopDatas.Last().purchased);
+            // nextButton.SetActive(purchasedWeapon);
             
             if (!purchasedWeapon)
             {

@@ -109,9 +109,9 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 60
+  maxHealth: 10
   speed: 0.03
-  forwardRange: {x: 0.65, y: 0.65}
+  forwardRange: {x: 0.7, y: 0.7}
   radius: 0.5
   emitCount: 10
   deathEmitCount: 35

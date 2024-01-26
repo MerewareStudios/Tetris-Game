@@ -1,5 +1,6 @@
 using System;
 #if CREATIVE
+using System.Collections.Generic;
 using RootMotion;
 #endif
 
@@ -41,7 +42,9 @@ public class Const : SSingleton<Const>
         [SerializeField] public bool clearOnStart = true;
         [SerializeField] public bool doNotMerge = true;
         [SerializeField] public bool mute = true;
+        [SerializeField] public bool doNotHighlight = true;
         [SerializeField] public int ammoMult = 4;
+        [SerializeField] public float fireRate = 0.1f;
         [SerializeField] public Vector3 distanceFromDraggingFinger;
         [SerializeField] public float bottomOffset;
         [SerializeField] public float addedFov;
@@ -51,6 +54,7 @@ public class Const : SSingleton<Const>
         [SerializeField] public Vector2Int[] poses;
         [SerializeField] public bool randomBlock = true;
         [SerializeField] public bool playerBubble = true;
+        [SerializeField] public List<Vector2Int> places2Check;
         [SerializeField] public Pool[] blocks;
         [SerializeField] public Board.PawnPlacement[] pawnPlacements;
         [SerializeField] public LevelSo.EnemySpawnDatum[] enemySpawnData;
@@ -84,6 +88,7 @@ public class Const : SSingleton<Const>
     public BlockMenu.BlockData[] DefaultBlockData;
     public Pool[] highPossibilityBlocks;
 
+    public Pawn.Usage[] ss;
     public Pawn.Usage[] gifts;
     public Pawn.Usage[] singleLineUsages;
     public Pawn.Usage[] aaUsages;

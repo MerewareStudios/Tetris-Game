@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Short J Block
   m_EditorClassIdentifier: 
   less: 0
-  Color: {r: 0.2509804, g: 0.3529412, b: 0.79607844, a: 1}
+  Color: {r: 0.107433155, g: 0.7207546, b: 0.60717654, a: 1}
   FitHeight: 3
   NormalHeight: 2
   NormalWidth: 2

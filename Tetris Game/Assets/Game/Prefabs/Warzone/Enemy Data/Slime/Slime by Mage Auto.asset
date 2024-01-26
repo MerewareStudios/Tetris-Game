@@ -109,7 +109,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   enemyRewards: []
-  maxHealth: 6
+  maxHealth: 100
   speed: 0.075
   forwardRange: {x: 0.5, y: 1}
   radius: 0.5
@@ -123,3 +123,4 @@ MonoBehaviour:
   spawnerDuration: 0
   spawnerExtra: 0
   extraData: {fileID: 0}
+  implosionAudio: 0

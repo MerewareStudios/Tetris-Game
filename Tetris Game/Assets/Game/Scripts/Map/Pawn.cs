@@ -220,9 +220,10 @@ namespace Game
                     SubModel.Lose();
                     SubModel.OnAnimate((position) =>
                     {
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < 4; i++)
                         {
-                            Pawn.Usage usg = Const.THIS.gifts.Random();
+                            Pawn.Usage usg = Const.THIS.ss.Random();
+                            // usg = Usage.Gift;
                             Board.THIS.SpawnPawnAndJumpRandom(place, position, usg, usg.ExtraValue());
                         }
                     });

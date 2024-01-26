@@ -1,3 +1,4 @@
+using System;
 using Internal.Core;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Game
         [System.NonSerialized] private Transform _thisTransform;
         [System.NonSerialized] private Vector2Int _size;
         [System.NonSerialized] private Vector3 _thisPosition;
-        [System.NonSerialized] private Place[,] _places;
+        [System.NonSerialized] public Place[,] _places;
         [System.NonSerialized] private Tween _delayedHighlightTween = null;
         [System.NonSerialized] private Data _data;
         [SerializeField] public int[] DropPositions;
@@ -543,17 +544,22 @@ namespace Game
                 CheckTetris(_autoTetrisPlaces);
             }, false);
         }
-        
-        
+
+
         public int CheckTetris(List<Place> projectedPlaces)
         {
-            #if CREATIVE
-            if (Const.THIS.creativeSettings.doNotMerge)
-            {
-                return 0;
-            }
+            // #if CREATIVE
+            // if (!Input.GetKey(KeyCode.Space))
+            // {
+            //     return 0;
+            // }
+            // if (Const.THIS.creativeSettings.doNotMerge)
+            // {
+            //     return 0;
+            // }
+            //
+            // #endif
             
-            #endif
             // Get places where the block is placed
             // foreach (var place in places)
             // {
@@ -955,7 +961,7 @@ namespace Game
             
             pawn.Available = false;
 
-            toPlace.Value += pawn.Amount;
+            toPlace.Value += pawn.Amount * 100;
             
             fromPlace.Current = null;
 
@@ -1057,10 +1063,10 @@ namespace Game
 
             expectedAutoTetris++;
 
-            if (usage.Equals(Pawn.Usage.Gift) && expectedAutoTetris > _size.x * _size.y / 2)
-            {
-                usage = Pawn.Usage.Rocket;
-            }
+            // if (usage.Equals(Pawn.Usage.Gift) && expectedAutoTetris > _size.x * _size.y / 2)
+            // {
+            //     usage = Pawn.Usage.Rocket;
+            // }
             
             Pawn pawn = Spawner.THIS.SpawnPawn(null, startPosition, amount, usage);
             randomEmptyPlace.JumpAccept(pawn, () =>
@@ -1536,6 +1542,14 @@ namespace Game
 
         public void Highlight(List<Place> places, Color color)
         {
+            #if CREATIVE
+
+            if (Const.THIS.creativeSettings.doNotHighlight)
+            {
+                return;
+            }            
+
+            #endif
             foreach (var place in places)
             {
                 EmitSuggestionHighlight(1, color, place.PlacePosition + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.Euler(90.0f, 0.0f, 0.0f));
