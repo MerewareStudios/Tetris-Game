@@ -108,7 +108,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards: []
+  enemyRewards:
+  - type: 3
+    amount: 10
   maxHealth: 100
   speed: 0.03
   forwardRange: {x: 1, y: 1}

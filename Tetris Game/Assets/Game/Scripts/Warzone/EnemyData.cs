@@ -36,7 +36,7 @@ public class EnemyData : ScriptableObject
     {
         public Enemy.EnemyReward type;
         public int amount;
-        [Range(0.0f, 1.0f)] public float probability;
+        // [Range(0.0f, 1.0f)] public float probability;
     }
     
     [Serializable]

@@ -336,11 +336,13 @@ namespace  Game
             UIManagerExtensions.EmitEnemyCoinBurst(hitTarget.position, Mathf.Clamp(CoinAmount, 0, 15), CoinAmount);
             Audio.Enemy_Implosion_Coin.PlayOneShot();
             Audio.Enemy_Implosion_Splash.PlayOneShot();
+            
+            UIManagerExtensions.EmitEnemyGemBurst(hitTarget.position,  1, 1);
 
             foreach (var reward in so.enemyRewards)
             {
-                if(Helper.IsPossible(reward.probability))
-                {
+                // if(Helper.IsPossible(reward.probability))
+                // {
                     switch (reward.type)
                     {
                         case EnemyReward.Coin:
@@ -356,7 +358,7 @@ namespace  Game
                             UIManagerExtensions.EmitEnemyTicketBurst(hitTarget.position,  Mathf.Clamp(reward.amount, 0, 15), reward.amount);
                             break;
                     }
-                }
+                // }
             }
         }
     #endregion

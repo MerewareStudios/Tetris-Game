@@ -145,7 +145,7 @@ public class GameManager : Singleton<GameManager>
 
         if (ONBOARDING.BLOCK_TAB.IsNotComplete())
         {
-            if (Wallet.COIN.Amount >= 10 && LevelManager.THIS.CurrentLevel() > 1)
+            if (Wallet.COIN.Amount >= 10 && LevelManager.THIS.CurrentLevel() > 2)
             {
                 Spawner.THIS.MountBack();
                 UIManager.THIS.shop.AnimatedShow();
@@ -153,7 +153,7 @@ public class GameManager : Singleton<GameManager>
             }
             return false;
         }
-        if (ONBOARDING.WEAPON_TAB.IsNotComplete() && LevelManager.THIS.CurrentLevel() > 1)
+        if (ONBOARDING.WEAPON_TAB.IsNotComplete() && LevelManager.THIS.CurrentLevel() > 3)
         {
             if (Wallet.COIN.Amount >= 25)
             {

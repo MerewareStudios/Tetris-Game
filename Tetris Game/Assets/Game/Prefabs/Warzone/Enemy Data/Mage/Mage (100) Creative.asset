@@ -108,7 +108,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  enemyRewards: []
+  enemyRewards:
+  - type: 3
+    amount: 10
   maxHealth: 20
   speed: 0.1
   forwardRange: {x: 0.5, y: 0.5}
@@ -120,7 +122,7 @@ MonoBehaviour:
   castType: 3
   deathAction: 0
   spawnerCount: 20
-  spawnerDuration: 5
+  spawnerDuration: 10
   spawnerExtra: 5
   extraData: {fileID: 11400000, guid: 15a0c87e8e66d7049a7a15eda5a51e10, type: 2}
   implosionAudio: 0

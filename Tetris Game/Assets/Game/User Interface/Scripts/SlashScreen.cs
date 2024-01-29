@@ -287,6 +287,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                 HapticManager.Vibrate(HapticPatterns.PresetType.RigidImpact);
 
                 Audio.Slash_Screen_Open.Play(pitch:1.25f);
+                // UIManagerExtensions.EmitLevelReward(new Const.Currency(Const.CurrencyType.Ticket, 10), currencyDisplay.iconPivot.position, null);
                 UIManagerExtensions.EmitLevelReward(currency, currencyDisplay.iconPivot.position, () =>
                 {
                     Close();

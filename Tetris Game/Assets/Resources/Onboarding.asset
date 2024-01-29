@@ -46,25 +46,13 @@ MonoBehaviour:
   earnTicketText: EARN <sprite name=Ticket> x
   skipButtonText: SKIP<sprite name=Ticket>
   cancelButtonText: NOT NOW
-  adBreakVisualData:
-    frameColor: {r: 0.79607844, g: 0.39215687, b: 1, a: 1}
-    bannerColor: {r: 1, g: 1, b: 1, a: 0.2509804}
-    centerColor: {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 1}
-    fillColor: {r: 0.79607844, g: 0.39215687, b: 1, a: 0.5019608}
-    buttonSprite: {fileID: 21300000, guid: 0979fbff703399748a066599a7bae69a, type: 3}
-  rewardedAdVisualData:
-    frameColor: {r: 0.7176471, g: 0.9607844, b: 0.26666668, a: 1}
-    bannerColor: {r: 1, g: 1, b: 1, a: 0.2509804}
-    centerColor: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
-    fillColor: {r: 0.7176471, g: 0.9607843, b: 0.26666668, a: 0.5019608}
-    buttonSprite: {fileID: 21300000, guid: 0979fbff703399748a066599a7bae69a, type: 3}
   weaponStatUnchange: <color=#FFFFFF>
   weaponStatChange: <color=#8EFF00>
   tips:
   - <sprite name=Warning>Pick the right weapon for each battle!
   - <sprite name=Warning>Upgrade your weapons at the shop!
   - <sprite name=Warning>Remember to buy fresh blocks from the shop!
-  - <sprite name=Warning>Use<sprite name=Ticket> to skip ads.
+  - <sprite name=Warning>Use<sprite name=Ticket> to buy powerups!
   - <sprite name=Warning>There is 25% chance Piggy Bank drops<sprite name=Ticket>
   - <sprite name=Warning>Merged ammo <sprite name=Box> is limited by your Max Stack!
   - <sprite name=Warning>If you get stuck, remember to use power-ups<sprite name=Magnet>
@@ -73,7 +61,7 @@ MonoBehaviour:
     to the new levels!
   - <sprite name=Magnet> Power-ups will carry over to the new levels!
   - <sprite name=Warning>Breaking open the Piggy Bank rewards you with <sprite name=Gem>
-  - <sprite name=Warning>Don't forget to take breaks from the gameplay.
+  - <sprite name=Warning>You can switch weapons anytime!
   - <sprite name=Warning>Think ahead and strategize your moves.
   - <sprite name=Warning>Multiple merges will reward you with power-ups <sprite name=Energy><sprite
     name=Gift>
