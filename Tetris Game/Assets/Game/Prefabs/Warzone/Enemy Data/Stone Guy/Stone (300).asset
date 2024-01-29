@@ -111,7 +111,8 @@ MonoBehaviour:
   enemyRewards:
   - type: 1
     amount: 10
-    probability: 1
+  - type: 3
+    amount: 10
   maxHealth: 300
   speed: 0.05
   forwardRange: {x: 1, y: 1}
@@ -126,3 +127,4 @@ MonoBehaviour:
   spawnerDuration: 0
   spawnerExtra: 0
   extraData: {fileID: 0}
+  implosionAudio: 0

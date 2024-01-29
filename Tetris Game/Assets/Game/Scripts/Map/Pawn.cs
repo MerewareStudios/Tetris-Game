@@ -218,6 +218,7 @@ namespace Game
                     return false;
                 case Usage.Gift:
                     SubModel.Lose();
+                    UIManagerExtensions.EmitEnemyTicketBurst(SubModel.Position,  1, 1);
                     SubModel.OnAnimate((position) =>
                     {
                         for (int i = 0; i < 2; i++)
@@ -306,6 +307,7 @@ namespace Game
             {
                 SubModel.gameObject.SetActive(false);
                 UIManagerExtensions.BoardCoinToPlayer(SubModel.Position,  Math.Min(rewardAmount, 5), rewardAmount);
+                UIManagerExtensions.EmitEnemyTicketBurst(SubModel.Position,  1, 1);
             }
         }
         
