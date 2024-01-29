@@ -100,11 +100,11 @@ public class Airplane : MonoBehaviour
         {
             if (!Wallet.Consume(Const.Currency.OneAd))
             {
-                AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForCargo(), () =>
-                {
-                    // Wallet.Transaction(Const.Currency.RewardedEarn);
-                    OnClick_Get();
-                });
+                // AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForCargo(), () =>
+                // {
+                //     // Wallet.Transaction(Const.Currency.RewardedEarn);
+                //     OnClick_Get();
+                // });
                 return;
             }
         }

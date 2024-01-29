@@ -1,0 +1,23 @@
+// -----------------------
+// script auto-generated
+// any changes to this file will be lost on next code generation
+// HOMA Belly
+// -----------------------
+using System;
+#if HOMA_BELLY
+using HomaGames.Geryon;
+#endif
+
+public static class DVR
+{
+#if HOMA_BELLY
+#if UNITY_IOS
+    #IOS_FIELDS#
+#elif UNITY_ANDROID
+    #ANDROID_FIELDS#
+#endif
+
+#else
+    #NO_SDK_FIELDS#
+#endif
+}

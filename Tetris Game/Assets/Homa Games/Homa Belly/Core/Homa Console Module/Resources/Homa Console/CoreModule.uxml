@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:ScrollView name="ContentRoot">
+        <ui:Foldout text="Manifest" name="Manifest" value="false" class="collapse" />
+        <ui:VisualElement name="DataPrivacySection" class="object-inspector" style="flex-direction: row; align-items: center;">
+            <ui:Foldout text="Data Privacy" name="DataPrivacyFoldout" value="false" class="collapse" style="flex-grow: 1;">
+                <HomaGames.HomaConsole.UI.ObjectInspector inspected-type="HomaGames.HomaBelly.DataPrivacy.DataPrivacyFlowNotifier, HomaGames.HomaBelly.Core" name="DataPrivacyFlowNotifier" foldout-text="DataPrivacyFlowNotifier" />
+            </ui:Foldout>
+            <ui:Button display-tooltip-when-elided="true" name="PrivacyRefresh" class="refresh-button icon-btn" />
+        </ui:VisualElement>
+        <HomaGames.HomaConsole.UI.ObjectInspector inspected-type="HomaGames.HomaBelly.Identifiers, HomaGames.HomaBelly.Core" name="Identifiers" foldout-text="Identifiers" />
+        <HomaGames.HomaConsole.UI.ObjectInspector inspected-type="HomaGames.HomaBelly.Utilities.HomaBellyConstants, HomaGames.HomaBelly.Core" name="Constants" foldout-text="Constants" />
+        <HomaGames.HomaConsole.UI.ObjectInspector inspected-type="HomaGames.HomaBelly.RemoteConfiguration, HomaGames.HomaBelly.Core" name="RemoteConfiguration" foldout-text="RemoteConfiguration" />
+    </ui:ScrollView>
+</ui:UXML>

@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Homa%20Games/Homa%20Belly/Core/Analytics/Homa%20Console%20Module/Resources/Homa%20Console/AnalyticsModule.style.uss?fileID=7433441132597879392&amp;guid=f7fa24415d098473aac61c88e3ca9db2&amp;type=3#AnalyticsModule.style" />
+    <ui:VisualElement style="flex-direction: row;">
+        <ui:VisualElement name="SearchField" style="width: 50%; flex-direction: row;">
+            <ui:VisualElement style="background-image: url(&apos;project://database/Packages/com.homagames.debug-console/Modules/Logging/Runtime/Sprites/SearchIcon.psd?fileID=2800000&amp;guid=5d75f10bd984f764eab4dc68ca1e1fb8&amp;type=3#SearchIcon&apos;); width: 32px; height: 32px; margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; -unity-background-image-tint-color: rgb(0, 0, 0);" />
+            <ui:TextField picking-mode="Ignore" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:DropdownField index="-1" style="width: 50%; margin-left: 0; margin-right: 0;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Header" style="flex-direction: row; border-bottom-width: 1px; border-bottom-color: rgb(144, 144, 144); border-top-color: rgb(144, 144, 144); border-top-width: 1px; justify-content: space-between;">
+        <ui:Label text="TimeStamp" display-tooltip-when-elided="true" name="TimeStamp" class="column-1" />
+        <ui:Label text="Name" display-tooltip-when-elided="true" name="Name" class="column" style="flex-grow: 1;" />
+        <ui:Label text="Category" display-tooltip-when-elided="true" name="Category" class="column" />
+    </ui:VisualElement>
+    <ui:ScrollView />
+</ui:UXML>

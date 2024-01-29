@@ -1,0 +1,11 @@
+{
+  "name": "com.homagames.homa-lab-dependencies",
+  "displayName": "Homa Lab Dependencies",
+  "author": "Homa Games",
+  "description": "Packages configured in Homa Lab",
+  "version": "1.0.0",
+  "dependencies": {
+    "com.homagames.sdk-installer": "1.0.8",
+    "com.homagames.debug-console": "3.0.2"
+  }
+}

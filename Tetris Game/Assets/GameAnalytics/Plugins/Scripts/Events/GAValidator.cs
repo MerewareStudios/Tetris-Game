@@ -7,7 +7,7 @@ using GameAnalyticsSDK.State;
 
 namespace GameAnalyticsSDK.Validators
 {
-	internal static class GAValidator
+	public static class GAValidator
 	{
 		#region Public methods
 

@@ -33,13 +33,13 @@ public class GameManager : Singleton<GameManager>
     public static void UpdateTimeScale(bool adjustDuckVolume = true)
     {
         Time.timeScale = GameManager.THIS._timeScale * 
-                         AdBreakScreen.THIS.TimeScale * 
+                         // AdBreakScreen.THIS.TimeScale * 
                          PowerSelectionScreen.THIS.TimeScale * 
-                         Consent.THIS.TimeScale *
+                         // Consent.THIS.TimeScale *
                          MenuNavigator.THIS.TimeScale *
-                         PiggyMenu.THIS.TimeScale *
+                         // PiggyMenu.THIS.TimeScale *
                          SettingsManager.THIS.TimeScale *
-                         OfferScreen.THIS.TimeScale *
+                         // OfferScreen.THIS.TimeScale *
                          Map.TimeScale;
 
         if (adjustDuckVolume)
@@ -102,21 +102,21 @@ public class GameManager : Singleton<GameManager>
         #endif
         
         
-        if (!AdManager.IsPrivacySet())
-        {
-            AnalyticsManager.CanSendEvents = false;
-            Consent.THIS.Open()
-                .OnAccept = () => 
-            {
-                PostDataSenders();
-                AnalyticsManager.CanSendEvents = true;
-                AnalyticsManager.SendAgeData(Account.Current.age);
-            };
-            return;
-        }
+        // if (!AdManager.IsPrivacySet())
+        // {
+        //     AnalyticsManager.CanSendEvents = false;
+        //     Consent.THIS.Open()
+        //         .OnAccept = () => 
+        //     {
+        //         PostDataSenders();
+        //         AnalyticsManager.CanSendEvents = true;
+        //         AnalyticsManager.SendAgeData(Account.Current.age);
+        //     };
+        //     return;
+        // }
 
         PostDataSenders();
-        OfferScreen.THIS.CheckForUnpack(2.5f);
+        // OfferScreen.THIS.CheckForUnpack(2.5f);
     }
 
     private void PreInitDataSenders()
@@ -125,9 +125,9 @@ public class GameManager : Singleton<GameManager>
     }
     private void PostDataSenders()
     {
-        Consent.THIS.UpdateGDPR();
-        AdManager.THIS.InitAdSDK();
-        Tools.AdjustSDK.Init(Account.Current.guid, Account.Current.IsUnderAgeForCOPPA());
+        // Consent.THIS.UpdateGDPR();
+        // AdManager.THIS.InitAdSDK();
+        // Tools.AdjustSDK.Init(Account.Current.guid, Account.Current.IsUnderAgeForCOPPA());
 
     #if FACEBOOK
         AnalyticsManager.FacebookInit(); 
@@ -175,7 +175,7 @@ public class GameManager : Singleton<GameManager>
         onStart?.Invoke();
         _flowRoutine = StartCoroutine(Flow());
         
-        Tools.AdjustSDK.Event_SocialShare();
+        // Tools.AdjustSDK.Event_SocialShare();
         
         return;
 

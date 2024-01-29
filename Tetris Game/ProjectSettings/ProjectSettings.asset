@@ -162,7 +162,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.iwi.combatris
     Standalone: com.UnityTechnologies.com.unity.template.urp-blank
-    iPhone: com.Unity-Technologies.com.unity.template.urp-blank
+    iPhone: com.iwi.combatris
   buildNumber:
     Bratwurst: 0
     Standalone: 0
@@ -273,7 +273,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 1
+  androidUseCustomKeystore: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -815,9 +815,9 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: ANALYTICS_ENABLED;HAPTICS_ENABLED;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;ADMOB_MEDIATION;gameanalytics_admob_enabled;FACEBOOK_DISABLED;ADJUST;CREATIVE_DISABLED
+    Android: ANALYTICS_ENABLED;HAPTICS_ENABLED;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;ADMOB_MEDIATION;FACEBOOK_DISABLED;ADJUST;CREATIVE_DISABLED;HOMA_BELLY;HOMA_DEVELOPMENT;HOMA_BELLY_DEBUG_CLASS_OVERRIDE_ENABLED
     Standalone: MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;ADMOB_MEDIATION;FPS
-    iPhone: gameanalytics_admob_enabled
+    iPhone: HOMA_BELLY;HOMA_DEVELOPMENT;HOMA_BELLY_DEBUG_CLASS_OVERRIDE_ENABLED
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -826,7 +826,7 @@ PlayerSettings:
     Android: 2
   il2cppCodeGeneration: {}
   managedStrippingLevel:
-    Android: 3
+    Android: 1
     EmbeddedLinux: 1
     GameCoreScarlett: 1
     GameCoreXboxOne: 1
@@ -848,7 +848,9 @@ PlayerSettings:
   scriptingRuntimeVersion: 1
   gcIncremental: 1
   gcWBarrierValidation: 0
-  apiCompatibilityLevelPerPlatform: {}
+  apiCompatibilityLevelPerPlatform:
+    Android: 3
+    iPhone: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: com.unity.template-starter-kit

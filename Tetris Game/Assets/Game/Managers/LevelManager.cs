@@ -2,7 +2,9 @@
 
 using DG.Tweening;
 using Game;
-using GameAnalyticsSDK;
+#if ANALYTICS_ENABLED
+    using GameAnalyticsSDK;
+#endif
 using Internal.Core;
 using IWI;
 using TMPro;
@@ -75,7 +77,7 @@ public class LevelManager : Singleton<LevelManager>
             Spawner.THIS.nextBlockDisplay.Visible = true;
         }
         
-        AdManager.THIS.ShowBannerFrame();
+        // AdManager.THIS.ShowBannerFrame();
     }
     
     public void ScaleLevelText(bool menuMode)

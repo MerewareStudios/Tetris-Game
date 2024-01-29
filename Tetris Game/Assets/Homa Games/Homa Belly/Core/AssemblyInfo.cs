@@ -1,0 +1,16 @@
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("HomaGames.HomaBelly.Core.Editor")]
+[assembly: InternalsVisibleTo("HomaGames.Geryon.Editor")]
+[assembly: InternalsVisibleTo("HomaGames.Geryon.Editor.Tests")]
+[assembly: InternalsVisibleTo("HomaGames.Edm4uExtensions")]
+[assembly: InternalsVisibleTo("HomaGames.Edm4uExtensions.Tests")]
+[assembly: InternalsVisibleTo("HomaGames.HomaConsole.AnalyticsModule")]
+[assembly: InternalsVisibleTo("HomaGames.Edm4uExtensions")]
+[assembly: InternalsVisibleTo("HomaGames.Edm4uExtensions.Tests")]
+[assembly: InternalsVisibleTo("HomaGames.HomaConsole.AdsModule")]
+[assembly: InternalsVisibleTo("HomaGames.HomaConsole.CoreModule")]
+[assembly: InternalsVisibleTo("HomaGames.OneAsset.Editor")]
+[assembly: InternalsVisibleTo("HomaGames.OneAsset.Tests")]
+[assembly: InternalsVisibleTo("HomaGames.HomaConsole.GeryonModule")]
+[assembly: InternalsVisibleTo("HomaGames.AttributionAdViewEventManager.Tests")]

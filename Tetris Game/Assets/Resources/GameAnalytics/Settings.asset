@@ -26,21 +26,27 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - 0cdca54a76842e8d41b1a6fb9dfb0ebd
+  - 62a3fe9232446dd1a2782cae4f6aeddf
+  - 
   secretKey:
-  - 622130fc6a9bf9191482379984f67bd8306cd981
+  - eea12d8c71b83b352f4f9a43e1b8cbbdf4155382
+  - 
   Build:
-  - 0.1
+  - 1.2.0
+  - 1.2.0
   SelectedPlatformOrganization:
   - Imaginary Worlds Inc.
+  - 
   SelectedPlatformStudio:
-  - Internal
+  - IWI-Sub-Homa
+  - 
   SelectedPlatformGame:
   - Combatris
-  SelectedPlatformGameID: 240d0400
-  SelectedOrganization: 01000000
-  SelectedStudio: 01000000
-  SelectedGame: 02000000
+  - 
+  SelectedPlatformGameID: 04300400ffffffff
+  SelectedOrganization: 0100000000000000
+  SelectedStudio: 0200000000000000
+  SelectedGame: 0100000000000000
   NewVersion: 
   Changes: 
   SignUpOpen: 0
@@ -55,22 +61,75 @@ MonoBehaviour:
   VerboseLogBuild: 0
   UseManualSessionHandling: 0
   SendExampleGameDataToMyGame: 0
-  EnableSDKInitEvent: 0
-  EnableHealthEvent: 0
-  EnableHardwareTracking: 1
-  EnableMemoryTracking: 0
-  EnableFPSHistogram: 0
-  EnableMemoryHistogram: 0
-  EnableAppBootTimeTracking: 0
   InternetConnectivity: 0
-  CustomDimensions01: []
-  CustomDimensions02: []
-  CustomDimensions03: []
+  CustomDimensions01:
+  - 001
+  - 002
+  - 003
+  - 004
+  - 005
+  - 006
+  - 007
+  - 008
+  - 009
+  - 010
+  - 011
+  - 012
+  - 013
+  - 014
+  - 015
+  - 016
+  - 017
+  - 018
+  - 019
+  - 020
+  CustomDimensions02:
+  - Z
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
+  - K
+  - L
+  - M
+  - N
+  - O
+  - P
+  - Q
+  - R
+  - S
+  CustomDimensions03:
+  - V1
+  - V2
+  - V3
+  - V4
+  - V5
+  - V6
+  - V7
+  - V8
+  - V9
+  - V10
+  - V11
+  - V12
+  - V13
+  - V14
+  - V15
+  - V16
+  - V17
+  - V18
+  - V19
+  - V20
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: 0
-  Platforms: 0b000000
-  CurrentInspectorState: 3
+  Platforms: 0b00000008000000
+  CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}
@@ -88,16 +147,16 @@ MonoBehaviour:
   iosIcon: {fileID: 0}
   macIcon: {fileID: 0}
   windowsPhoneIcon: {fileID: 0}
-  UsePlayerSettingsBuildNumber: 0
+  UsePlayerSettingsBuildNumber: 1
   SubmitErrors: 1
   NativeErrorReporting: 0
   MaxErrorCount: 10
   SubmitFpsAverage: 1
-  SubmitFpsCritical: 0
+  SubmitFpsCritical: 1
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 01
+  PlatformFoldOut: 0101
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0

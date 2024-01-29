@@ -1,0 +1,21 @@
+{
+    "name": "HomaGames.Geryon.Editor",
+    "rootNamespace": "HomaGames.Geryon.Editor",
+    "references": [
+        "GUID:98930e8bb7377417cb0b902077454434",
+        "GUID:c00a0d57319ff4982963dc48f7ddf374",
+        "GUID:25832e5525e9f4517904f9506f16dfa1",
+        "GUID:25ca6c56a0e344159d8149bdfa918044"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

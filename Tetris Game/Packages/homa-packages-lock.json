@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "EDM4U": {
+      "name": "EDM4U",
+      "sourcePackageName": "com.homagames.homa-lab-bridge",
+      "projectRelativePath": "Packages/com.homagames.homa-lab-bridge/Dependencies/external-dependency-manager-1.2.177.unitypackage",
+      "files": [
+        "Assets/ExternalDependencyManager",
+        "Assets/PlayServicesResolver"
+      ],
+      "version": "1.2.177"
+    }
+  },
+  "imports": {}
+}

@@ -1,0 +1,28 @@
+{
+    "name": "HomaGames.HomaConsole.AdsModule",
+    "rootNamespace": "HomaGames.HomaConsole.AdsModule",
+    "references": [
+        "GUID:98930e8bb7377417cb0b902077454434",
+        "GUID:02b2eb810be26234680174e94978f73f",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "HOMA_DEVELOPMENT || UNITY_EDITOR",
+        "HOMA_CONSOLE",
+        "UNITY_2021_3_OR_NEWER"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.homagames.debug-console",
+            "expression": "3.0.1",
+            "define": "HOMA_CONSOLE"
+        }
+    ],
+    "noEngineReferences": false
+}

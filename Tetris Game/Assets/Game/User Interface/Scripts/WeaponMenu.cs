@@ -383,19 +383,19 @@ namespace Game.UI
                     AnalyticsManager.WeaponMaxed(SavedData.inspectIndex);
                 }
             } 
-            else
-            {
-                HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
-
-                if (cost.type.Equals(Const.CurrencyType.Ticket))
-                {
-                    AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_UPG, AdManager.GetTicketOfferForWeapon(),() =>
-                    {
-                        // Wallet.Transaction(Const.Currency.RewardedEarn);
-                        OnClick_PurchaseUpgrade(statType);
-                    });
-                }
-            }
+            // else
+            // {
+            //     HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
+            //
+            //     if (cost.type.Equals(Const.CurrencyType.Ticket))
+            //     {
+            //         AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_UPG, AdManager.GetTicketOfferForWeapon(),() =>
+            //         {
+            //             // Wallet.Transaction(Const.Currency.RewardedEarn);
+            //             OnClick_PurchaseUpgrade(statType);
+            //         });
+            //     }
+            // }
         }
         
         public void OnClick_PurchaseWeapon()
@@ -430,19 +430,19 @@ namespace Game.UI
                 
                 AnalyticsManager.PurchasedWeaponCount(SavedData.PurchasedCount() - 1);
             }
-            else
-            {
-                HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
-
-                if (cost.type.Equals(Const.CurrencyType.Ticket))
-                {
-                    AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_BUY, AdManager.GetTicketOfferForWeapon(),() =>
-                    {
-                        // Wallet.Transaction(Const.Currency.RewardedEarn);
-                        OnClick_PurchaseWeapon();
-                    });
-                }
-            }
+            // else
+            // {
+            //     HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
+            //
+            //     if (cost.type.Equals(Const.CurrencyType.Ticket))
+            //     {
+            //         AdManager.ShowTicketAd(AdBreakScreen.AdReason.WEAPON_BUY, AdManager.GetTicketOfferForWeapon(),() =>
+            //         {
+            //             // Wallet.Transaction(Const.Currency.RewardedEarn);
+            //             OnClick_PurchaseWeapon();
+            //         });
+            //     }
+            // }
         }
         
         public void OnClick_Equip()

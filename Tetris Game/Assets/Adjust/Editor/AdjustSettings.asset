@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: AdjustSettings
   m_EditorClassIdentifier: 
   _iOSFrameworkAdSupport: 1
-  _iOSFrameworkAdServices: 0
+  _iOSFrameworkAdServices: 1
   _iOSFrameworkAppTrackingTransparency: 0
   _iOSFrameworkStoreKit: 0
   _androidPermissionInternet: 1
   _androidPermissionInstallReferrerService: 1
-  _androidPermissionAdId: 1
+  _androidPermissionAdId: 0
   _androidPermissionAccessNetworkState: 0
   _iOSUserTrackingUsageDescription: 
   _iOSUrlIdentifier: 

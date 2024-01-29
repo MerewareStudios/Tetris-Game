@@ -43,13 +43,13 @@ public class SaveManager : SaveManagerBase<SaveManager>
         Wallet.TICKET.Set(ref SaveData.userData.adTransactionData);
         Wallet.TICKET.Active = ONBOARDING.PASSIVE_META.IsComplete();
 
-        AdManager.THIS._Data = SaveData.adData;
+        // AdManager.THIS._Data = SaveData.adData;
         
         Powerup.THIS._Data = SaveData.userData.pupData;
         BlockMenu.THIS.SavedData = SaveData.userData.blockShopData;
         WeaponMenu.THIS.SavedData = SaveData.userData.weaponShopData;
-        PiggyMenu.THIS.SavedData = SaveData.userData.piggyData;
-        OfferScreen.THIS._Data = SaveData.purchaseData;
+        // PiggyMenu.THIS.SavedData = SaveData.userData.piggyData;
+        // OfferScreen.THIS._Data = SaveData.purchaseData;
 
         Warzone.THIS.Player._Data = SaveData.userData.playerData;
         Warzone.THIS.airplane.SavedData = SaveData.userData.airplaneData;
@@ -124,8 +124,8 @@ public partial class SaveData : ICloneable
     [SerializeField] public Account.Data accountData;
     [SerializeField] public HapticManager.Data hapticData;
     [SerializeField] public User.Data userData;
-    [SerializeField] public AdManager.Data adData;
-    [SerializeField] public OfferScreen.Data purchaseData;
+    // [SerializeField] public AdManager.Data adData;
+    // [SerializeField] public OfferScreen.Data purchaseData;
     
     public SaveData(SaveData data)
     {
@@ -133,8 +133,8 @@ public partial class SaveData : ICloneable
         accountData = data.accountData.Clone() as Account.Data;
         hapticData = data.hapticData.Clone() as HapticManager.Data;
         userData = data.userData.Clone() as User.Data;
-        adData = data.adData.Clone() as AdManager.Data;
-        purchaseData = data.purchaseData.Clone() as OfferScreen.Data;
+        // adData = data.adData.Clone() as AdManager.Data;
+        // purchaseData = data.purchaseData.Clone() as OfferScreen.Data;
     }
     
     public object Clone()
@@ -213,7 +213,7 @@ namespace User
         [SerializeField] public BlockMenu.BlockShopData blockShopData;
         [SerializeField] public WeaponMenu.WeaponShopData weaponShopData;
         [SerializeField] public MenuNavigator.Data menuNavData;
-        [SerializeField] public PiggyMenu.Data piggyData;
+        // [SerializeField] public PiggyMenu.Data piggyData;
         [SerializeField] public Airplane.Data airplaneData;
 
         public Data(Data data)
@@ -228,7 +228,7 @@ namespace User
             blockShopData = data.blockShopData.Clone() as BlockMenu.BlockShopData;
             weaponShopData = data.weaponShopData.Clone() as WeaponMenu.WeaponShopData;
             menuNavData = data.menuNavData.Clone() as MenuNavigator.Data;
-            piggyData = data.piggyData.Clone() as PiggyMenu.Data;
+            // piggyData = data.piggyData.Clone() as PiggyMenu.Data;
             airplaneData = data.airplaneData.Clone() as Airplane.Data;
         }
 

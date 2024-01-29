@@ -15,17 +15,17 @@ public class UIManager : Singleton<UIManager>
    
    [SerializeField] public ParticleSystem piggyPS;
    [Header("Canvases")]
-   [SerializeField] private Consent consent;
+   // [SerializeField] private Consent consent;
    [SerializeField] private BlockMenu blockMenu;
    [SerializeField] public WeaponMenu weaponMenu;
    [SerializeField] private SlashScreen slashScreen;
    [SerializeField] private MenuNavigator menuNavigator;
-   [SerializeField] private PiggyMenu piggyMenu;
+   // [SerializeField] private PiggyMenu piggyMenu;
    [SerializeField] private Powerup powerup;
-   [SerializeField] private AdBreakScreen adBreakScreen;
+   // [SerializeField] private AdBreakScreen adBreakScreen;
    [SerializeField] private PowerSelectionScreen powerSelectionScreen;
    [SerializeField] private StatDisplayArranger statDisplayArranger;
-   [SerializeField] private OfferScreen offerScreen;
+   // [SerializeField] private OfferScreen offerScreen;
    [SerializeField] public Canvas settingsCanvas;
    [Header("Bars")]
    [SerializeField] public Shop shop;
@@ -66,17 +66,17 @@ public class UIManager : Singleton<UIManager>
    {
       MenuVisible = false;
       
-      Consent.THIS = consent;
+      // Consent.THIS = consent;
       BlockMenu.THIS = blockMenu;
       WeaponMenu.THIS = weaponMenu;
       SlashScreen.THIS = slashScreen;
       MenuNavigator.THIS = menuNavigator.Setup();
-      PiggyMenu.THIS = piggyMenu;
+      // PiggyMenu.THIS = piggyMenu;
       Powerup.THIS = powerup;
-      AdBreakScreen.THIS = adBreakScreen;
+      // AdBreakScreen.THIS = adBreakScreen;
       StatDisplayArranger.THIS = statDisplayArranger;
       PowerSelectionScreen.THIS = powerSelectionScreen;
-      OfferScreen.THIS = offerScreen;
+      // OfferScreen.THIS = offerScreen;
 
 
       UIEmitter.SpawnFunction = SpawnImageIcon;
@@ -88,149 +88,149 @@ public class UIManager : Singleton<UIManager>
 
       Glimmer.OnComplete = glimmer => glimmer.Despawn(Pool.Glimmer);
 
-      AdBreakScreen.onVisibilityChanged = (visible) =>
-      {
-         // if (PiggyMenu.THIS.Visible)
-         // {
-         //    PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
-         // }
-         
-         if (MenuVisible)
-         {
-            return;
-         }
-         Wallet.ScaleTransactors(visible ? 1.1f : 1.0f, visible);
-      };
-      
-      IAPManager.OnPurchaseFinish = (id, successful) =>
-      {
-         Tools.AdjustSDK.Event_FirstPurchase();
-         OfferScreen.THIS.OnPurchaseComplete(id, successful);
-      };
-      IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
+      // AdBreakScreen.onVisibilityChanged = (visible) =>
+      // {
+      //    // if (PiggyMenu.THIS.Visible)
+      //    // {
+      //    //    PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
+      //    // }
+      //    
+      //    if (MenuVisible)
+      //    {
+      //       return;
+      //    }
+      //    Wallet.ScaleTransactors(visible ? 1.1f : 1.0f, visible);
+      // };
+      //
+      // IAPManager.OnPurchaseFinish = (id, successful) =>
+      // {
+      //    Tools.AdjustSDK.Event_FirstPurchase();
+      //    OfferScreen.THIS.OnPurchaseComplete(id, successful);
+      // };
+      // IAPManager.OnGetOffers = () => OfferScreen.THIS.offerData;
 
       
-      AdBreakScreen.THIS.OnVisibilityChanged = () => GameManager.UpdateTimeScale(true);
-
-      OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
-      OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
-      OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
-      OfferScreen.AnalyticsCall = (type, showSource, mode) =>  AnalyticsManager.OfferShown(type, showSource, mode);
-      OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
-      OfferScreen.OnFeedbackBuy = () => HapticManager.OnClickVibrate();
+      // AdBreakScreen.THIS.OnVisibilityChanged = () => GameManager.UpdateTimeScale(true);
+      //
+      // OfferScreen.OnGetPrice = IAPManager.THIS.GetPriceDecimal;
+      // OfferScreen.OnGetPriceSymbol = IAPManager.THIS.GetPriceSymbol;
+      // OfferScreen.OnPurchaseOffer = IAPManager.THIS.Purchase;
+      // OfferScreen.AnalyticsCall = (type, showSource, mode) =>  AnalyticsManager.OfferShown(type, showSource, mode);
+      // OfferScreen.OnFeedbackExit = () => HapticManager.OnClickVibrate(Audio.Button_Click_Exit);
+      // OfferScreen.OnFeedbackBuy = () => HapticManager.OnClickVibrate();
       // OfferScreen.OnSuccessfullPurchaseFeedback = MenuNavigator.THIS.lockedMiniOffer.ForceEndOfferVia;
-      OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
-      OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
-      {
-         if (!AdManager.THIS._Data.removeAds)
-         {
-            if(visible)
-            {
-               FakeAdBanner.THIS.HideAdWithFrame();
-            }
-            else
-            {
-               FakeAdBanner.THIS.ShowAdWithFrame();
-            }
-         }
-         
-         if (PiggyMenu.THIS.Visible && !AdBreakScreen.THIS.Visible)
-         {
-             if (visible)
-             {
-                 PiggyMenu.THIS.Pause();
-             }
-             else
-             {
-                 PiggyMenu.THIS.Restart();
-             }
-         }
-         
-         if (AdBreakScreen.THIS.Visible)
-         {
-             if (visible)
-             {
-                 AdBreakScreen.THIS.ByPassInProgress();
-             }
-             else
-             {
-                 if (processState.Equals(OfferScreen.ProcessState.SUCCESS))
-                 {
-                     AdBreakScreen.THIS.InvokeByPass();
-                     return;
-                 }
-                 
-                 AdBreakScreen.THIS.RevokeByPass();
-             }
-         }
-
-
-         // if (PiggyMenu.THIS.Visible)
-         // {
-         //    PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
-         // }
-         GameManager.UpdateTimeScale();
-      };
-      OfferScreen.OnUnpackShow = () =>
-      {
-         Audio.Offer_Unpack_Show.Play();
-      };
-      OfferScreen.OnReward = (rewards, onFinish) =>
-      {
-         onFinish += SaveManager.THIS.Save;
-
-         float closeDelay = 0.5f;
-         bool forceUpdateMenu = true;
-         for (int i = 0; i < rewards.Length; i++)
-         {
-             OfferScreen.Reward reward = rewards[i];
-             UIEmitter emitter = null;
-             switch (reward.rewardType)
-             {
-                 case OfferScreen.RewardType.NoAds:
-                     AdManager.Bypass.Ads();
-                     continue;
-                 case OfferScreen.RewardType.Coin:
-                     emitter = UIManager.THIS.coinEmitter;
-                     forceUpdateMenu = false;
-                     break;
-                 case OfferScreen.RewardType.Gem:
-                     emitter = UIManager.THIS.piggyCoinEmitter;
-                     forceUpdateMenu = false;
-                     break;
-                 case OfferScreen.RewardType.Ticket:
-                     emitter = UIManager.THIS.ticketEmitter;
-                     forceUpdateMenu = false;
-                     break;
-                 case OfferScreen.RewardType.Heart:
-                     emitter = UIManager.THIS.heartEmitter;
-                     forceUpdateMenu = false;
-                     break;
-                 case OfferScreen.RewardType.Stack:
-                    Board.THIS.RemoveStackLimit();
-                    forceUpdateMenu = false;
-                    break;
-                 case OfferScreen.RewardType.NextBlock:
-                    Spawner.THIS.nextBlockDisplay.RemoveNextBlockLimit();
-                    forceUpdateMenu = false;
-                    break;
-             }
-             float duration = emitter == null ? 0.5f : UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
-             closeDelay = Mathf.Max(closeDelay, duration);
-             
-             Audio.Offer_Unpacked.Play();
-         }
-
-         if (forceUpdateMenu)
-         {
-             onFinish += UIManager.ForceUpdateAvailableMenu;
-         }
-         DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
-      };
-
-      OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible
-                                            || UIManager.THIS.HoveringMeta
-                                            || UIManager.THIS.HoveringStat;
+      // OfferScreen.OnFeedbackUnpack = () => HapticManager.OnClickVibrate();
+      // OfferScreen.THIS.OnVisibilityChanged = (visible, processState) =>
+      // {
+      //    if (!AdManager.THIS._Data.removeAds)
+      //    {
+      //       if(visible)
+      //       {
+      //          FakeAdBanner.THIS.HideAdWithFrame();
+      //       }
+      //       else
+      //       {
+      //          FakeAdBanner.THIS.ShowAdWithFrame();
+      //       }
+      //    }
+      //    
+      //    if (PiggyMenu.THIS.Visible && !AdBreakScreen.THIS.Visible)
+      //    {
+      //        if (visible)
+      //        {
+      //            PiggyMenu.THIS.Pause();
+      //        }
+      //        else
+      //        {
+      //            PiggyMenu.THIS.Restart();
+      //        }
+      //    }
+      //    
+      //    if (AdBreakScreen.THIS.Visible)
+      //    {
+      //        if (visible)
+      //        {
+      //            AdBreakScreen.THIS.ByPassInProgress();
+      //        }
+      //        else
+      //        {
+      //            if (processState.Equals(OfferScreen.ProcessState.SUCCESS))
+      //            {
+      //                AdBreakScreen.THIS.InvokeByPass();
+      //                return;
+      //            }
+      //            
+      //            AdBreakScreen.THIS.RevokeByPass();
+      //        }
+      //    }
+      //
+      //
+      //    // if (PiggyMenu.THIS.Visible)
+      //    // {
+      //    //    PiggyMenu.THIS.SetMiddleSortingLayer((PiggyMenu.THIS.Visible || AdBreakScreen.THIS.Visible) ? -1 : 9);                
+      //    // }
+      //    GameManager.UpdateTimeScale();
+      // };
+      // OfferScreen.OnUnpackShow = () =>
+      // {
+      //    Audio.Offer_Unpack_Show.Play();
+      // };
+      // OfferScreen.OnReward = (rewards, onFinish) =>
+      // {
+      //    onFinish += SaveManager.THIS.Save;
+      //
+      //    float closeDelay = 0.5f;
+      //    bool forceUpdateMenu = true;
+      //    for (int i = 0; i < rewards.Length; i++)
+      //    {
+      //        OfferScreen.Reward reward = rewards[i];
+      //        UIEmitter emitter = null;
+      //        switch (reward.rewardType)
+      //        {
+      //            case OfferScreen.RewardType.NoAds:
+      //                AdManager.Bypass.Ads();
+      //                continue;
+      //            case OfferScreen.RewardType.Coin:
+      //                emitter = UIManager.THIS.coinEmitter;
+      //                forceUpdateMenu = false;
+      //                break;
+      //            case OfferScreen.RewardType.Gem:
+      //                emitter = UIManager.THIS.piggyCoinEmitter;
+      //                forceUpdateMenu = false;
+      //                break;
+      //            case OfferScreen.RewardType.Ticket:
+      //                emitter = UIManager.THIS.ticketEmitter;
+      //                forceUpdateMenu = false;
+      //                break;
+      //            case OfferScreen.RewardType.Heart:
+      //                emitter = UIManager.THIS.heartEmitter;
+      //                forceUpdateMenu = false;
+      //                break;
+      //            case OfferScreen.RewardType.Stack:
+      //               Board.THIS.RemoveStackLimit();
+      //               forceUpdateMenu = false;
+      //               break;
+      //            case OfferScreen.RewardType.NextBlock:
+      //               Spawner.THIS.nextBlockDisplay.RemoveNextBlockLimit();
+      //               forceUpdateMenu = false;
+      //               break;
+      //        }
+      //        float duration = emitter == null ? 0.5f : UIManagerExtensions.EmitOfferReward(emitter, OfferScreen.THIS.PreviewScreenPosition(i),  Mathf.Min(reward.amount, 15), reward.amount, null);
+      //        closeDelay = Mathf.Max(closeDelay, duration);
+      //        
+      //        Audio.Offer_Unpacked.Play();
+      //    }
+      //
+      //    if (forceUpdateMenu)
+      //    {
+      //        onFinish += UIManager.ForceUpdateAvailableMenu;
+      //    }
+      //    DOVirtual.DelayedCall(closeDelay, onFinish.Invoke);
+      // };
+      //
+      // OfferScreen.THIS.SkipCondition = () => Consent.THIS.Visible
+      //                                       || UIManager.THIS.HoveringMeta
+      //                                       || UIManager.THIS.HoveringStat;
 
         
 
@@ -278,14 +278,14 @@ public class UIManager : Singleton<UIManager>
    {
       HapticManager.OnClickVibrate();
       shop.OnClick_Open();
-      AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
+      // AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
    public void AdLayer_OpenPiggyBank()
    {
       // HapticManager.OnClickVibrate();
 
-      PiggyMenu.THIS.Open(0.225f);
-      AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
+      // PiggyMenu.THIS.Open(0.225f);
+      // AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.TIME);
    }
    public void AdLayerClick_Concede()
    {
@@ -295,66 +295,66 @@ public class UIManager : Singleton<UIManager>
          return;
       }
       LevelManager.THIS.OnClick_Restart();
-      AdManager.THIS.PrependInterstitial();
-      AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.CONCEDE);
+      // AdManager.THIS.PrependInterstitial();
+      // AdManager.THIS.TryInterstitial(AdBreakScreen.AdReason.CONCEDE);
    }
 #endregion
 #region Offer
-   public void ShowOffer_RemoveAds_AfterInterAd()
-   {
-      OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2, OfferScreen.ShowSource.AUTO);
-   }
-   public void ShowOffer_RemoveAds_Banner()
-   {
-      HapticManager.OnClickVibrate();
-
-      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_RemoveAds_AdBreakByPass()
-   {
-      HapticManager.OnClickVibrate();
-
-      OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_TicketPlus_AdBreakByPass()
-   {
-      HapticManager.OnClickVibrate();
-
-      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_CoinPlus()
-   {
-      HapticManager.OnClickVibrate();
-
-      OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_PiggyCoinPlus()
-   {
-      HapticManager.OnClickVibrate();
-
-      OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_TicketPlus()
-   {
-      HapticManager.OnClickVibrate();
-
-      OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_HeartPlus()
-   {
-      HapticManager.OnClickVibrate();
-      OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_StackPlus()
-   {
-      HapticManager.OnClickVibrate();
-      OfferScreen.THIS.Open(OfferScreen.OfferType.UNLIMITEDSTACK, OfferScreen.ShowSource.DIRECT);
-   }
-   public void ShowOffer_NextBlock()
-   {
-      HapticManager.OnClickVibrate();
-      OfferScreen.THIS.Open(OfferScreen.OfferType.NEXTBLOCK, OfferScreen.ShowSource.DIRECT);
-   }
+   // public void ShowOffer_RemoveAds_AfterInterAd()
+   // {
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.OFFERPACK2, OfferScreen.ShowSource.AUTO);
+   // }
+   // public void ShowOffer_RemoveAds_Banner()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_RemoveAds_AdBreakByPass()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.REMOVEADS, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_TicketPlus_AdBreakByPass()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_CoinPlus()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.COINPACK, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_PiggyCoinPlus()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.GEMPACK, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_TicketPlus()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.TICKETPACK, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_HeartPlus()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.HEALTHPACK, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_StackPlus()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.UNLIMITEDSTACK, OfferScreen.ShowSource.DIRECT);
+   // }
+   // public void ShowOffer_NextBlock()
+   // {
+   //    HapticManager.OnClickVibrate();
+   //    OfferScreen.THIS.Open(OfferScreen.OfferType.NEXTBLOCK, OfferScreen.ShowSource.DIRECT);
+   // }
    
 #endregion
 #if UNITY_EDITOR
@@ -371,10 +371,10 @@ public class UIManager : Singleton<UIManager>
       // {
       //    Warzone.THIS.Player.Gun.PlaySound();
       // }
-      if (Input.GetKeyDown(KeyCode.P))
-      {
-         PiggyMenu.THIS.Open();
-      }
+      // if (Input.GetKeyDown(KeyCode.P))
+      // {
+         // PiggyMenu.THIS.Open();
+      // }
       // if (Input.GetKeyDown(KeyCode.R))
       // {
       //    MenuNavigator.THIS.Open();
@@ -498,7 +498,7 @@ public class UIManager : Singleton<UIManager>
       
       LevelManager.THIS.ScaleLevelText(value);
       
-      AdManager.THIS.AdjustBannerPosition();
+      // AdManager.THIS.AdjustBannerPosition();
    }
 
    public bool PlusButtonsState

@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Homa%20Games/Homa%20Belly/Core/Analytics/Homa%20Console%20Module/Resources/Homa%20Console/AnalyticsModule.style.uss?fileID=7433441132597879392&amp;guid=f7fa24415d098473aac61c88e3ca9db2&amp;type=3#AnalyticsModule.style" />
+    <ui:VisualElement focusable="true" name="Collapse" class="collapse" style="margin-left: 3px; margin-right: 3px; margin-top: 3px; margin-bottom: 3px;">
+        <ui:VisualElement name="Title" class="collapse-title" style="flex-wrap: wrap;">
+            <ui:VisualElement class="column-1" style="max-width: 120px;">
+                <ui:Label text="TimeStamp" display-tooltip-when-elided="true" name="TimeStamp" />
+            </ui:VisualElement>
+            <ui:VisualElement class="column" style="flex-direction: row; justify-content: flex-start; align-items: center; flex-grow: 1; flex-shrink: 0;">
+                <ui:Label text="Event Name" display-tooltip-when-elided="true" name="Name" />
+            </ui:VisualElement>
+            <ui:VisualElement class="column" style="flex-direction: row; justify-content: space-between; align-items: center;">
+                <ui:Label text="Category" display-tooltip-when-elided="true" name="Category" class="chip" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Content" class="collapse-content" />
+    </ui:VisualElement>
+</ui:UXML>

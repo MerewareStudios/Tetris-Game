@@ -254,19 +254,19 @@ namespace Game.UI
                 
                 AnalyticsManager.PurchasedBlockCount(_selectedBlockData.blockType);
             }
-            else
-            {
-                HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
-
-                if (cost.type.Equals(Const.CurrencyType.Ticket))
-                {
-                    AdManager.ShowTicketAd(AdBreakScreen.AdReason.BLOCK_BUY, AdManager.GetTicketOfferForBlock(),() =>
-                    {
-                        // Wallet.Transaction(Const.Currency.RewardedEarn);
-                        OnClick_Purchase();
-                    });
-                }
-            }
+            // else
+            // {
+            //     HapticManager.OnClickVibrate(Audio.Button_Click_Forbidden);
+            //
+            //     if (cost.type.Equals(Const.CurrencyType.Ticket))
+            //     {
+            //         AdManager.ShowTicketAd(AdBreakScreen.AdReason.BLOCK_BUY, AdManager.GetTicketOfferForBlock(),() =>
+            //         {
+            //             // Wallet.Transaction(Const.Currency.RewardedEarn);
+            //             OnClick_Purchase();
+            //         });
+            //     }
+            // }
         }
 
         [System.Serializable]

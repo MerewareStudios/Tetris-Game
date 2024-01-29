@@ -1,0 +1,23 @@
+{
+    "name": "HomaGames.Edm4uExtensions",
+    "rootNamespace": "HomaGames.Edm4uExtensions",
+    "references": [
+        "GUID:98930e8bb7377417cb0b902077454434",
+        "GUID:c00a0d57319ff4982963dc48f7ddf374",
+        "GUID:25832e5525e9f4517904f9506f16dfa1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Google.JarResolver.dll",
+        "Google.VersionHandlerImpl.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

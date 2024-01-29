@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 53
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2289f605e5404c8a1af89f0220a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IntStore:
+    Keys: []
+    Values: 
+  StringStore:
+    Keys:
+    - com.homagames.homabelly.latest_installed_version
+    - homa_last_PackageReporter_date
+    - homa_last_UsageReporter_date
+    - homa_last_PerformanceReporter_date
+    Values:
+    - 1.11.4
+    - 1706498787
+    - 1706499381
+    - 1706499381
+  BoolStore:
+    Keys: []
+    Values: 
+  FloatStore:
+    Keys: []
+    Values: []
+  ToggleList:
+  - homagames.homabelly.bundle_best_practice_alert_shown
+  - homagames.development_mode_enabled_on_first_install
+  - homagames.debug_override_enabled_on_first_install

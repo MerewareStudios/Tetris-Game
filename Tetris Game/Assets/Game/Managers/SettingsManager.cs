@@ -72,7 +72,7 @@ public class SettingsManager : Singleton<SettingsManager>
     public void OnClick_Privacy()
     {
         HapticManager.OnClickVibrate();
-        Consent.THIS.OpenFromSettings();
+        // Consent.THIS.OpenFromSettings();
         OnClick_Settings();
     }
     public void OnClick_Concede()

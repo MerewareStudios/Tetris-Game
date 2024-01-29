@@ -10,9 +10,44 @@ using System.Text.RegularExpressions;
 using System;
 using System.Linq;
 using Game;
-using GameAnalyticsSDK;
+#if ANALYTICS_ENABLED
+    using GameAnalyticsSDK;
+#endif
 using UnityEngine;
-using GoogleMobileAds.Api;
+// using GoogleMobileAds.Api;
+
+// #if ANALYTICS_DISABLED
+// public enum GAProgressionStatus
+// {
+//     Start,
+//     Complete,
+//     Fail,
+// }
+// public static class GameAnalytics
+// {
+//     
+//     public static void SetCustomId(string id)
+//     {
+//         Debug.LogError("Use real GA");    
+//     }
+//     public static void Initialize()
+//     {
+//         Debug.LogError("Use real GA");    
+//     }
+//     public static void SetEnabledEventSubmission(bool value)
+//     {
+//         Debug.LogError("Use real GA");    
+//     }
+//     public static void NewProgressionEvent(GAProgressionStatus gaProgressionStatus, string a, int b)
+//     {
+//         Debug.LogError("Use real GA");    
+//     }
+//     public static void NewDesignEvent(string a, int b)
+//     {
+//         Debug.LogError("Use real GA");    
+//     }
+// }
+// #endif
 
 public static class AnalyticsManager
 {
@@ -56,27 +91,27 @@ public static class AnalyticsManager
         GameAnalytics.Initialize();
     }
 
-    public static void SubscribeBannerAdImpressions(string adID, object ad)
-    {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as BannerView);
-    }
-    public static void SubscribeInterstitialAdImpressions(string adID, object ad)
-    {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as InterstitialAd);
-    }
-    public static void SubscribeRewardedAdImpressions(string adID, object ad)
-    {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as RewardedAd);
-    }
+    // public static void SubscribeBannerAdImpressions(string adID, object ad)
+    // {
+    //     GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as BannerView);
+    // }
+    // public static void SubscribeInterstitialAdImpressions(string adID, object ad)
+    // {
+    //     GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as InterstitialAd);
+    // }
+    // public static void SubscribeRewardedAdImpressions(string adID, object ad)
+    // {
+    //     GameAnalyticsILRD.SubscribeAdMobImpressions(adID, ad as RewardedAd);
+    // }
 
-    public static bool CanSendEvents
-    {
-        set
-        {
-            Debug.Log("<color=#AA1100>Game Analytics : " + (value ? "Enabled" : "Disabled") + "</color>");
-            GameAnalytics.SetEnabledEventSubmission(value);
-        }
-    }
+    // public static bool CanSendEvents
+    // {
+    //     set
+    //     {
+    //         Debug.Log("<color=#AA1100>Game Analytics : " + (value ? "Enabled" : "Disabled") + "</color>");
+    //         GameAnalytics.SetEnabledEventSubmission(value);
+    //     }
+    // }
 
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void LevelStart(int level)
@@ -241,29 +276,29 @@ public static class AnalyticsManager
 #endif
     }
     
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void AdData(AdBreakScreen.AdType adState, AdBreakScreen.AdInteraction adInteraction, AdBreakScreen.AdReason adReason, int instance)
-    {
-        string eventName = "AD:" + adState.ToString() + ":" + adInteraction.ToString() + ":" + adReason.ToString();
-        
-        GameAnalytics.NewDesignEvent(eventName, instance);
-#if UNITY_EDITOR
-        Log(eventName, instance, EventType.Design);
-#endif
-    }
+//     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+//     public static void AdData(AdBreakScreen.AdType adState, AdBreakScreen.AdInteraction adInteraction, AdBreakScreen.AdReason adReason, int instance)
+//     {
+//         string eventName = "AD:" + adState.ToString() + ":" + adInteraction.ToString() + ":" + adReason.ToString();
+//         
+//         GameAnalytics.NewDesignEvent(eventName, instance);
+// #if UNITY_EDITOR
+//         Log(eventName, instance, EventType.Design);
+// #endif
+//     }
     
    
     
-    [System.Diagnostics.Conditional(AnalyticsEnabled)]
-    public static void OfferShown(OfferScreen.OfferType offerType, OfferScreen.ShowSource showSource, OfferScreen.Mode mode)
-    {
-        string eventName = "OFFER:" + offerType.ToString() + ":" + showSource.ToString() + ":" + mode.ToString();
-        int time = (int)Time.realtimeSinceStartup;
-        GameAnalytics.NewDesignEvent(eventName, time);
-#if UNITY_EDITOR
-        Log(eventName, time, EventType.Design);
-#endif
-    }
+//     [System.Diagnostics.Conditional(AnalyticsEnabled)]
+//     public static void OfferShown(OfferScreen.OfferType offerType, OfferScreen.ShowSource showSource, OfferScreen.Mode mode)
+//     {
+//         string eventName = "OFFER:" + offerType.ToString() + ":" + showSource.ToString() + ":" + mode.ToString();
+//         int time = (int)Time.realtimeSinceStartup;
+//         GameAnalytics.NewDesignEvent(eventName, time);
+// #if UNITY_EDITOR
+//         Log(eventName, time, EventType.Design);
+// #endif
+//     }
     
     [System.Diagnostics.Conditional(AnalyticsEnabled)]
     public static void CargoUnpack(Cargo.Type cargoType, int level)

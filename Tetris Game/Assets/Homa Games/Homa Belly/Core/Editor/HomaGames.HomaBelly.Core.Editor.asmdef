@@ -1,0 +1,20 @@
+{
+    "name": "HomaGames.HomaBelly.Core.Editor",
+    "rootNamespace": "HomaGames.HomaBelly",
+    "references": [
+        "GUID:98930e8bb7377417cb0b902077454434",
+        "GUID:25832e5525e9f4517904f9506f16dfa1",
+        "GUID:5abe538082c024cb2adaf5460fa4dfb2"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

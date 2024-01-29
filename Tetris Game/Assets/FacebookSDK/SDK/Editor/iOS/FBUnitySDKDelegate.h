@@ -19,7 +19,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <FBSDKShareKit/FBSDKShareKit-Swift.h>
 #import <FBSDKGamingServicesKit/FBSDKGamingServicesKit-Swift.h>
-#import <UnityFramework/UnityFramework-Swift.h>
 
 extern NSString *const FBUnityMessageName_OnAppRequestsComplete;
 extern NSString *const FBUnityMessageName_OnFriendFinderComplete;
@@ -51,8 +50,7 @@ extern NSString *const FBUnityMessageName_OnTournamentDialogError;
 @interface FBUnitySDKDelegate : NSObject<
   FBSDKGameRequestDialogDelegate,
   FBSDKSharingDelegate,
-  FBSDKContextDialogDelegate,
-  FBSDKShareTournamentDialogDelegate>
+  FBSDKContextDialogDelegate>
 
 /*
  @abstract returns a self retaining instance that is released once it receives a

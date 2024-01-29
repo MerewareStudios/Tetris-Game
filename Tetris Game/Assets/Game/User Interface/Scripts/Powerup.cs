@@ -194,11 +194,11 @@ public class Powerup : Lazyingleton<Powerup>
             
             PunchCost();
 
-            AdManager.ShowTicketAd(AdBreakScreen.AdReason.POWERUP, AdManager.GetTicketOfferForPowerUp(),() =>
-            {
-                // Wallet.Transaction(Const.Currency.RewardedEarn);
-                Try2Use();
-            });
+            // AdManager.ShowTicketAd(AdBreakScreen.AdReason.POWERUP, AdManager.GetTicketOfferForPowerUp(),() =>
+            // {
+            //     // Wallet.Transaction(Const.Currency.RewardedEarn);
+            //     Try2Use();
+            // });
         }
     }
 

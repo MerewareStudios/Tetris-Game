@@ -132,7 +132,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     {
                         tipText.text = Onboarding.THIS.thanksText;
                         
-                        Tools.AdjustSDK.Event_StoreComment();
+                        // Tools.AdjustSDK.Event_StoreComment();
 
                         UIManagerExtensions.SocialRewardTicket(loadingBar.transform.position, 1, 1, null);
                     }
@@ -292,6 +292,7 @@ public class SlashScreen : Lazyingleton<SlashScreen>
                     Close();
                     GameManager.THIS.Deconstruct();
                     UIManager.THIS.AdLayer_OpenPiggyBank();
+                    LevelManager.THIS.LoadLevel();
                 });
             });
         };

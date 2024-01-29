@@ -10,7 +10,6 @@
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.memoryprofiler": "1.1.0",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
-    "com.unity.purchasing": "4.10.0",
     "com.unity.recorder": "4.0.2",
     "com.unity.render-pipelines.universal": "14.0.9",
     "com.unity.test-framework": "1.1.33",
@@ -40,6 +39,16 @@
     "com.unity.modules.unitywebrequesttexture": "1.0.0",
     "com.unity.modules.unitywebrequestwww": "1.0.0",
     "com.unity.modules.vehicles": "1.0.0",
-    "com.unity.modules.video": "1.0.0"
-  }
+    "com.unity.modules.video": "1.0.0",
+    "com.homagames.sdk-installer-bundle": "1.0.8"
+  },
+  "scopedRegistries": [
+    {
+      "name": "Homa Games SDK",
+      "url": "https://homagames.jfrog.io/artifactory/api/npm/unity-public-sdk",
+      "scopes": [
+        "com.homagames"
+      ]
+    }
+  ]
 }

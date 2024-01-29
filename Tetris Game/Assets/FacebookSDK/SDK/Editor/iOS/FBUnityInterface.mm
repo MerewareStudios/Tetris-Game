@@ -767,48 +767,14 @@ extern "C" {
 
   void IOSFBGetTournaments(int requestID)
   {
-    FBSDKTournamentFetcher *fetcher = [[FBSDKTournamentFetcher alloc] init];
-    [fetcher fetchTournamentsWithCompletionHandler:^(NSArray<FBSDKTournament *> * tournaments, NSError * error) {
-      if (error) {
-        [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGetTournamentsComplete error:error requestId:requestID];
-      }
-
-      NSMutableDictionary *userData = [NSMutableDictionary new];
-      for (FBSDKTournament *tournament in tournaments) {
-        userData[tournament.identifier] = [tournament toDictionary];
-      }
-
-      [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnGetTournamentsComplete
-                                userData:userData
-                               requestId:requestID];
-    }];
   }
 
   void IOSFBUpdateTournament(const char *tournamentID, int score, int requestID)
   {
-    FBSDKTournamentUpdater *updater = [[FBSDKTournamentUpdater alloc] init];
-    [updater updateWithTournamentID:[NSString stringWithUTF8String:tournamentID]
-                              score:score
-                  completionHandler:^(BOOL success, NSError * _Nullable error) {
-      if (!success || error) {
-        [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnUpdateTournamentComplete error:error requestId:requestID];
-      } else {
-        [FBUnityUtility sendMessageToUnity:FBUnityMessageName_OnUpdateTournamentComplete
-                                  userData:NULL
-                                 requestId:requestID];
-      }
-    }];
   }
 
   void IOSFBUpdateAndShareTournament(const char *tournamentID, int score, int requestID)
   {
-    NSError *error;
-    FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
-    FBSDKShareTournamentDialog *dialog = [[FBSDKShareTournamentDialog alloc] initWithDelegate: delegate];
-    [dialog showWithScore:score tournamentID:[NSString stringWithUTF8String:tournamentID] error:&error];
-      if (error) {
-        [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGetTournamentsComplete error:error requestId:requestID];
-      }
   }
 
   void IOSFBCreateAndShareTournament(
@@ -820,23 +786,6 @@ extern "C" {
     const char *payload,
     int requestID)
   {
-    NSError *error;
-    FBUnitySDKDelegate *delegate = [FBUnitySDKDelegate instanceWithRequestID:requestID];
-    FBSDKShareTournamentDialog *dialog = [[FBSDKShareTournamentDialog alloc] initWithDelegate: delegate];
-    NSString *payloadString;
-    if (payload) {
-      payloadString = [NSString stringWithUTF8String:payload];
-    }
-    [dialog showWithInitialScore:initialScore
-                         title:[NSString stringWithUTF8String:title]
-                       endTime:[NSDate dateWithTimeIntervalSince1970: endTime]
-                     scoreType:scoreFormat
-                     sortOrder:sortOrder
-                       payload:payloadString
-                           error: &error];
-      if (error) {
-        [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnGetTournamentsComplete error:error requestId:requestID];
-      }
   }
 
   void IOSFBUploadImageToMediaLibrary(

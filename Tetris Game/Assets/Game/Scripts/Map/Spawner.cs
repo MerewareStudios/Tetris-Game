@@ -59,11 +59,11 @@ public class Spawner : Singleton<Spawner>
         if (!Wallet.Consume(Const.Currency.OneAd))
         {
             
-            AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForNextBlock(), () =>
-            {
+            // AdManager.ShowTicketAd(AdBreakScreen.AdReason.CARGO, AdManager.GetTicketOfferForNextBlock(), () =>
+            // {
                 // Wallet.Transaction(Const.Currency.RewardedEarn);
-                OnClick_ShowNextBlock();
-            });
+                // OnClick_ShowNextBlock();
+            // });
             return;
         }
         nextBlockDisplay.Available = true;

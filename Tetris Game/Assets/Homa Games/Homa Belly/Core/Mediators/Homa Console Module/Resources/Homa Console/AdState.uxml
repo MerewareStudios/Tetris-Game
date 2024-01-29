@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement class="card">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="Title" class="card-title" />
+        <ui:VisualElement name="Content" class="card-body">
+            <HomaGames.HomaConsole.UI.ObjectInspector inspected-type="HomaGames.HomaBelly.MediatorBase+AdState, HomaGames.HomaBelly.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="State" foldout-text="State" />
+            <ui:Foldout text="Events" name="Events" class="collapse">
+                <ui:ScrollView name="EventsScrollView" style="max-height: 300px;" />
+            </ui:Foldout>
+        </ui:VisualElement>
+        <ui:VisualElement name="Actions" class="card__actions card-actions" style="flex-direction: row;">
+            <ui:Button text="Load" display-tooltip-when-elided="true" name="Load" class="btn" />
+            <ui:Button text="Show" display-tooltip-when-elided="true" name="Show" class="btn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

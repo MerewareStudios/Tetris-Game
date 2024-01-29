@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:GroupBox name="Name" text="Mediator Name" class="mediator">
+        <ui:Button text="Open Debugger" display-tooltip-when-elided="true" name="ValidateIntegrationButton" class="btn" />
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:TextField picking-mode="Ignore" label="Load Extra Interstitial" name="ExtraInterstitialField" is-delayed="true" mask-character="hgfhf" class="text-input" style="flex-grow: 1;" />
+            <ui:Button text="Load" display-tooltip-when-elided="true" name="ExtraInterstitialButton" class="btn" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:TextField picking-mode="Ignore" label="Load Extra Rewarded" name="ExtraRewardedField" is-delayed="true" class="text-input" style="flex-grow: 1;" />
+            <ui:Button text="Load" display-tooltip-when-elided="true" name="ExtraRewardedButton" class="btn" />
+        </ui:VisualElement>
+        <ui:ScrollView name="AdStates" />
+    </ui:GroupBox>
+</ui:UXML>

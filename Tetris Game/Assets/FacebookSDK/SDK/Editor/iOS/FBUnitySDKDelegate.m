@@ -155,18 +155,4 @@ static NSMutableArray *g_instances;
   [self complete];
 }
 
-#pragma mark - FBSDKShareTournamentDialogDelegate
-
-- (void)didCancelWithDialog:(FBSDKShareTournamentDialog * _Nonnull)dialog {
-    [FBUnityUtility sendCancelToUnity:FBUnityMessageName_OnTournamentDialogCancel requestId:_requestID];
-}
-
-- (void)didCompleteWithDialog:(FBSDKShareTournamentDialog * _Nonnull)dialog tournament:(FBSDKTournament * _Nonnull)tournament {
-    [FBUnityUtility sendMessageToUnity: FBUnityMessageName_OnTournamentDialogSuccess userData: [tournament toDictionary] requestId:_requestID];
-}
-
-- (void)didFailWithError:(NSError * _Nonnull)error dialog:(FBSDKShareTournamentDialog * _Nonnull)dialog {
-    [FBUnityUtility sendErrorToUnity:FBUnityMessageName_OnTournamentDialogError error:error requestId:_requestID];
-}
-
 @end

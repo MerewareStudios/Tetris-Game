@@ -8,7 +8,7 @@ namespace com.adjust.sdk
 #if UNITY_ANDROID
     public class AdjustAndroid
     {
-        private const string sdkPrefix = "unity4.36.0";
+        private const string sdkPrefix = "unity4.35.2";
         private static bool launchDeferredDeeplink = true;
         private static AndroidJavaClass ajcAdjust = new AndroidJavaClass("com.adjust.sdk.Adjust");
         private static AndroidJavaObject ajoCurrentActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
@@ -93,12 +93,6 @@ namespace com.adjust.sdk
                 ajoAdjustConfig.Call("setFinalAttributionEnabled", adjustConfig.finalAndroidAttributionEnabled.Value);
             }
 
-            // Check read Android IDs only once.
-            if (adjustConfig.readDeviceInfoOnceEnabled != null)
-            {
-                ajoAdjustConfig.Call("setReadDeviceInfoOnceEnabled", adjustConfig.readDeviceInfoOnceEnabled.Value);
-            }
-
             // Check Play Store Kids Apps setting.
             if (adjustConfig.playStoreKidsAppEnabled != null)
             {
@@ -127,12 +121,6 @@ namespace com.adjust.sdk
             if (adjustConfig.preinstallFilePath != null)
             {
                 ajoAdjustConfig.Call("setPreinstallFilePath", adjustConfig.preinstallFilePath);
-            }
-
-            // Check if FB app ID has been set.
-            if (adjustConfig.fbAppId != null)
-            {
-                ajoAdjustConfig.Call("setFbAppId", adjustConfig.fbAppId);
             }
 
             // Check if user has set user agent value.
@@ -176,11 +164,6 @@ namespace com.adjust.sdk
                 {
                     AndroidJavaObject ajoUrlStrategyCn = new AndroidJavaClass("com.adjust.sdk.AdjustConfig").GetStatic<AndroidJavaObject>("URL_STRATEGY_CN");
                     ajoAdjustConfig.Call("setUrlStrategy", ajoUrlStrategyCn);
-                }
-                else if (adjustConfig.urlStrategy == AdjustConfig.AdjustUrlStrategyCnOnly)
-                {
-                    AndroidJavaObject ajoUrlStrategyCnOnly = new AndroidJavaClass("com.adjust.sdk.AdjustConfig").GetStatic<AndroidJavaObject>("URL_STRATEGY_CN_ONLY");
-                    ajoAdjustConfig.Call("setUrlStrategy", ajoUrlStrategyCnOnly);
                 }
                 else if (adjustConfig.urlStrategy == AdjustConfig.AdjustDataResidencyEU)
                 {

@@ -1,0 +1,18 @@
+{
+    "name": "HomaGames.OneAsset.Editor",
+    "rootNamespace": "HomaGames.OneAsset.Editor",
+    "references": [
+        "GUID:98930e8bb7377417cb0b902077454434"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

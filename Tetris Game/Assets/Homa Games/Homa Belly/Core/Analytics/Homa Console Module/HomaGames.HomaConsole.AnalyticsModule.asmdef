@@ -1,0 +1,27 @@
+{
+    "name": "HomaGames.HomaConsole.AnalyticsModule",
+    "rootNamespace": "HomaGames.HomaConsole.AnalyticsModule",
+    "references": [
+        "GUID:98930e8bb7377417cb0b902077454434",
+        "GUID:02b2eb810be26234680174e94978f73f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "HOMA_DEVELOPMENT || UNITY_EDITOR",
+        "HOMA_CONSOLE",
+        "UNITY_2021_3_OR_NEWER"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.homagames.debug-console",
+            "expression": "3.0.0",
+            "define": "HOMA_CONSOLE"
+        }
+    ],
+    "noEngineReferences": false
+}

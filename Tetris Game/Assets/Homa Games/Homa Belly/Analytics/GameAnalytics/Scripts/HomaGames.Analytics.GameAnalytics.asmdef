@@ -1,0 +1,17 @@
+{
+    "name": "HomaGames.Analytics.GameAnalytics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f8c64bb88d959406689053ae3f31183d",
+        "GUID:98930e8bb7377417cb0b902077454434"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

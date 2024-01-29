@@ -1,0 +1,16 @@
+{
+    "name": "HomaGames.HomaBelly.Core",
+    "rootNamespace": "HomaGames.HomaBelly",
+    "references": [
+        "GUID:5abe538082c024cb2adaf5460fa4dfb2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
