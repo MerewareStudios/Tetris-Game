@@ -6,6 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Homa Games/Homa Belly/Core/DataPrivacy/Runtime/Scenes/Homa Games
+      DataPrivacy Scene.unity
+    guid: ddc3b9c10a4004a75b7bbcd333a8ca31
+  - enabled: 1
     path: Assets/Game/Scenes/Main.unity
     guid: 02b202f314492d944a33752df2e5ee52
   m_configObjects:
